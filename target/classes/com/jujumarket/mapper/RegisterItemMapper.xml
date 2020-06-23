@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.mapper.RegisterItemMapper">
+
+	<select id="getList" resultType="com.jujumarket.domain.RegisterItemVO">
+		<![CDATA[
+			select * from t_item where itemcode>0
+		]]>
+	</select>
+
+	<insert id="insert">
+		insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, IDno) 
+		values (seq_item.nextval, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat},
+		 #{itemChr}, #{itemImg}, 'classCode', 'IDNo')
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="itemCode" order="BEFORE" resultType="String">
+			select seq_item.nextval from dual
+		</selectKey>
+		
+		insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, IDno)
+		values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat},
+		 #{itemChr}, #{itemImg}, 'classCode', 'IDNo')
+	</insert>
+	
+	<select id="read" resultType="com.jujumarket.domain.RegisterItemVO">
+		select * from t_item where itemCode = #{itemCode}
+	</select>
+	
+	<delete id="delete">
+		delete from t_item where itemCode = #{itemCode}
+	</delete>
+	
+	<update id="update">
+		update t_item
+		set itemName = #{itemName}, itemContent = #{itemContent}, price = #{price}, 
+		normPrice = #{normPrice}, stock = #{stock}, dispStat = #{dispStat}, saleStat = #{saleStat}, 
+		itemChr = #{itemChr}, itemImg = #{itemImg}, updateDate = current_timestamp
+		where itemCode = #{itemCode}
+	</update>
+	
+</mapper>
