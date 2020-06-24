@@ -15,7 +15,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Service
 @AllArgsConstructor
-public class RegisterServiceImpl implements RegisterItemService {
+public class RegisterItemServiceImpl implements RegisterItemService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private RegisterItemMapper mapper;

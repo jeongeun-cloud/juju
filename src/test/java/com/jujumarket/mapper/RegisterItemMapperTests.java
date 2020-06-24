@@ -72,7 +72,7 @@ public class RegisterItemMapperTests {
 		log.info("DELETE COUNT : " + mapper.delete("2"));
 	}
 	
-	@Test
+//	@Test
 	public void testUpdate() {
 		RegisterItemVO register = new RegisterItemVO();
 		
