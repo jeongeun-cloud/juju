@@ -11,7 +11,7 @@
 	<insert id="insert">
 		insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, IDno) 
 		values (seq_item.nextval, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat},
-		 #{itemChr}, #{itemImg}, 'classCode', 'IDNo')
+		 #{itemChr}, 'imgName', 'classCode', 'IDNo')
 	</insert>
 	
 	<insert id="insertSelectKey">
@@ -21,7 +21,7 @@
 		
 		insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, IDno)
 		values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat},
-		 #{itemChr}, #{itemImg}, 'classCode', 'IDNo')
+		 #{itemChr}, 'imgName', 'classCode', 'IDNo')
 	</insert>
 	
 	<select id="read" resultType="com.jujumarket.domain.RegisterItemVO">
@@ -36,7 +36,7 @@
 		update t_item
 		set itemName = #{itemName}, itemContent = #{itemContent}, price = #{price}, 
 		normPrice = #{normPrice}, stock = #{stock}, dispStat = #{dispStat}, saleStat = #{saleStat}, 
-		itemChr = #{itemChr}, itemImg = #{itemImg}, updateDate = current_timestamp
+		itemChr = #{itemChr}, itemImg = 'imgName', updateDate = current_timestamp
 		where itemCode = #{itemCode}
 	</update>
 	

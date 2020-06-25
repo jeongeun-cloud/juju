@@ -11,11 +11,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.jujumarket.domain.RegisterItemVO;
 import com.jujumarket.service.RegisterItemService;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-@RequestMapping("/register/*")
+@RequestMapping("/shop/*")
+@AllArgsConstructor
 public class RegisterItemContoller {
 
 
@@ -34,13 +36,14 @@ public class RegisterItemContoller {
 		service.register(register);
 		rttr.addFlashAttribute("result", register.getItemCode());
 		
-		return "redirect:/board/list";
+		return "redirect:/shop/list";
 	}
 	
 	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("register") String itemCode, Model model) {
+	public void get(@RequestParam("itemCode") String itemCode, Model model) {
 		log.info("/get or modify");
-		model.addAttribute("board", service.get(itemCode));
+		
+		model.addAttribute("register", service.get(itemCode));
 	}
 	
 	@PostMapping("/modify")
@@ -51,7 +54,7 @@ public class RegisterItemContoller {
 			rttr.addFlashAttribute("result", "success");
 		}
 		
-		return "redirect:/board/list";
+		return "redirect:/shop/list";
 	}
 	
 	@PostMapping("/remove")
@@ -61,7 +64,7 @@ public class RegisterItemContoller {
 			rttr.addFlashAttribute("result", "success");
 		}
 		
-		return "redirect:/board/list";
+		return "redirect:/shop/list";
 	}
 	
 	@GetMapping("/register")

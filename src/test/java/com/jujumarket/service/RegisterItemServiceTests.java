@@ -46,7 +46,7 @@ public class RegisterItemServiceTests {
 		log.info("생성된 아이템 번호 : " + register.getItemCode());
 	}
 	
-//	@Test
+	@Test
 	public void testGetList() {
 		service.getList().forEach(register -> log.info(register));
 	}
@@ -61,7 +61,7 @@ public class RegisterItemServiceTests {
 		log.info("REMOVE RESULT : " + service.remove("6"));
 	}
 	
-	@Test
+//	@Test
 	public void testUpdate() {
 		RegisterItemVO register = service.get("1");
 		
