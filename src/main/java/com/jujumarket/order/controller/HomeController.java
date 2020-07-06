@@ -1,4 +1,4 @@
-package com.jujumarket.controller;
+package com.jujumarket.order.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

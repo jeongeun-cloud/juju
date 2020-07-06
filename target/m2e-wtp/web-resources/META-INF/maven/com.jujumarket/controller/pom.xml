@@ -115,6 +115,14 @@
          <version>4.12</version>
          <scope>test</scope>
       </dependency>   
+
+	  <!-- jsp taglib prefix="c" -->
+	  <dependency>
+		 <groupId>taglibs</groupId>
+		 <artifactId>standard</artifactId>
+		 <version>1.1.2</version>
+		 <scope>compile</scope>
+	  </dependency>
       
       <!-- spring test, jdbc,tx 추가 -->
       <dependency>
