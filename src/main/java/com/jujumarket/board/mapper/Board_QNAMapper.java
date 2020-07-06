@@ -28,9 +28,6 @@ public interface Board_QNAMapper {
 	
 	public int update(Board_QNAVO qna);
 	
-	public void insert(Board_FAQVO faq);
-	
-	public void insertSelectKey(Board_FAQVO faq);
 
 	public int getTotalCount(Criteria cri);
 

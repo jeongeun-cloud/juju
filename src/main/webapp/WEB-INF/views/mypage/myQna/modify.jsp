@@ -29,7 +29,7 @@
 				<div class="panel-body">
 				
                 	<!-- 페이지정보 얻는폼. pagenum amount , 검색 타입. 검색어 -->
-                   <form role="form" action="/community/notice/modify" method="post">
+                   <form role="form" action="/mypage/myQna/modify" method="post">
                    <input  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
                    <input name='amount' value='<c:out value="${cri.amount}"/>'>
                    <input name='type' value='<c:out value="${cri.type}"/>'>
@@ -38,31 +38,37 @@
                    
 					<div class="from-group">
 						<label>Title</label><input class="form-control" name='title'
-							value='<c:out value="${Board_FAQ.title}"/>'>
+							value='<c:out value="${Board_QNA.title}"/>'>
 					</div>
 
 					<div class="from-group">
 						<label>내용</label>
 						<textarea class="form-control" rows="10" name='content'
-					 ><c:out value="${Board_FAQ.content}"/></textarea>
+					 ><c:out value="${Board_QNA.content}"/></textarea>
 					</div>
 
 
 					<div class="from-group">
 						<label>게시글타입</label><input class="form-control" name='boardType'
-							value='<c:out value="${Board_FAQ.boardType}"/>'readonly="readonly">
+							value='<c:out value="${Board_QNA.boardType}"/>'readonly="readonly">
 					</div>
 					
 					<div class="from-group">
 						<label>작성자</label><input class="form-control" name='idNo'
-							value='<c:out value="${Board_FAQ.idNo}"/>'readonly="readonly">
+							value='<c:out value="${Board_QNA.idNo}"/>'readonly="readonly">
+					</div>
+					
+					<div class="from-group">
+						<label>답글여부</label><input class="form-control" name='replyBool'
+							value='<c:out value="${Board_QNA.replyBool}"/>'readonly="readonly">
 					</div>
 					
 					<div class="from-group">
 						<label>글번호</label><input class="form-control" name='postingNo'
-							value='<c:out value="${Board_FAQ.postingNo}"/>'readonly="readonly">
+							value='<c:out value="${Board_QNA.postingNo}"/>'readonly="readonly">
 					</div>
-
+					
+	
 					
 					<button type="submit" data-oper='modify' class="btn btn-default">수정완료</button>
 					<button type="submit" data-oper='remove' class="btn btn-danger">삭제</button>
@@ -93,10 +99,10 @@
 
 		 if(operation === 'remove'){
 			 
-			 formObj.attr("action","/community/notice/remove");
+			 formObj.attr("action","/mypage/myQna/remove");
 		 }else if(operation ==='list'){
 			 //move to list
-				formObj.attr("action", "/community/notice/list").attr("method","get");
+				formObj.attr("action", "/mypage/myQna/list").attr("method","get");
 				var pageNumTag = $("input[name='pageNum']").clone();
 				var amountTag = $("input[name='amount']").clone();
 			 	var keywordTag = $("input[name='keyword']").clone();

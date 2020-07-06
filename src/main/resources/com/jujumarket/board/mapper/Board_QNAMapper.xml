@@ -6,7 +6,7 @@
 	<select id="getList"
 		resultType="com.jujumarket.board.domain.Board_QNAVO">
 <![CDATA[
-  select * from T_Board_QNA where postingNo >0]]>
+  select * from T_Board_QNA ]]>
 	</select>
 
 	<insert id ="insert">

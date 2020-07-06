@@ -83,7 +83,7 @@ public class Board_QNAController {
 
 	}
 
-	@PostMapping("/Board_QNA/modify")
+	@PostMapping("/myQna/modify")
 	public String modify(Board_QNAVO qna, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + qna);
 
@@ -91,10 +91,10 @@ public class Board_QNAController {
 			rttr.addFlashAttribute("result", "success");
 		}
 
-		return "redirect:/myQna/list"+ cri.getListLink();
+		return "redirect:/mypage/myQna/list"+ cri.getListLink();
 	}
 
-	@PostMapping("/Board_QNA/remove")
+	@PostMapping("/myQna/remove")
 	public String remove(@RequestParam("postingNo") String postingNo,
 			@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		
@@ -103,7 +103,7 @@ public class Board_QNAController {
 			rttr.addFlashAttribute("result", "success");
 		}
 		
-		return "redirect:/myQna/list" + cri.getListLink();
+		return "redirect:/mypage/myQna/list" + cri.getListLink();
 	}
 
 }

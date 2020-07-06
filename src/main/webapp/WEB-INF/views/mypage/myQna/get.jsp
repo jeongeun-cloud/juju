@@ -25,37 +25,37 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading"><c:out value="${Board_FAQ.content}"/></div>
+				<div class="panel-heading"><c:out value="${Board_QNA.content}"/></div>
 				<div class="panel-body">
 
                    <form id = "actionForm" role="form" method="post">
 
 					<div class="from-group">
 						<label>Title</label><input class="form-control" name='title'
-							value='<c:out value="${Board_FAQ.title}"/>'
+							value='<c:out value="${Board_QNA.title}"/>'
 						readonly="readonly">
 					</div>
 
 				<div class="from-group">
 						<label>내용</label>
 						<textarea class="form-control" rows="10" name='content'
-						readonly="readonly"><c:out value="${Board_FAQ.content}"/></textarea>
+						readonly="readonly"><c:out value="${Board_QNA.content}"/></textarea>
 				</div>
 
 
 				<div class="from-group">
 						<label>게시글타입</label><input class="form-control" name='boardType'
-							value='<c:out value="${Board_FAQ.boardType}"/>'readonly="readonly">
+							value='<c:out value="${Board_QNA.boardType}"/>'readonly="readonly">
 				</div>
 					
 				<div class="from-group">
 						<label>작성자</label><input class="form-control" name='idNo'
-							value='<c:out value="${Board_FAQ.idNo}"/>'readonly="readonly">
+							value='<c:out value="${Board_QNA.idNo}"/>'readonly="readonly">
 				</div>
 					
 				<div class="from-group">
 						<label>글번호</label><input class="form-control" name='postingNo'
-							value='<c:out value="${Board_FAQ.postingNo}"/>'readonly="readonly">
+							value='<c:out value="${Board_QNA.postingNo}"/>'readonly="readonly">
 			    </div>
 					
 					<button data-oper='modify' class="btn btn-default">수정</button>
@@ -64,8 +64,8 @@
               </form>
                     
                     
-                    <form id='operForm' action="/commuinty/notice/modify" method="get">
-	                    <input  id='postingNo' name='postingNo' value='<c:out value="${Board_FAQ.postingNo}"/>'>
+                    <form id='operForm' action="/mypage/myQna/modify" method="get">
+	                    <input  id='postingNo' name='postingNo' value='<c:out value="${Board_QNA.postingNo}"/>'>
 	                    <input type="hidden"  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
 	                    <input  type="hidden" name ='amount' value='<c:out value="${cri.amount}"/>'>  
 	                    <input type ="hidden" name= 'type' value='<c:out value="${cri.type}"/>'>
@@ -92,7 +92,7 @@
 
 	 		 if(operation === 'remove'){
 	 			 
-	 			 formObj.attr("action","/community/notice/remove");
+	 			 formObj.attr("action","/mypage/myQna/remove");
 	 		 }
  			 formObj.submit();
  		});
@@ -104,14 +104,14 @@
     	 
      	 $("button[data-oper='modify']").on("click", function(e){
         
-    		 operForm.attr("action","/community/notice/modify").submit();
+    		 operForm.attr("action","/mypage/myQna/modify").submit();
     		 
     	 });
     	 
     	 $("button[data-oper='list']").on("click",function(e){
         	
     		operForm.find("#postingNo").remove();
-    		operForm.attr("action","/community/notice/list");
+    		operForm.attr("action","/mypage/myQna/list");
     		operForm.submit();
     		 
     	 });
