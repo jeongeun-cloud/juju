@@ -19,10 +19,10 @@ order by regdate desc
 
 <select id="getListWithPaging" resultType="com.jujumarket.main.domain.Board_ItemVO">
 <![CDATA[
-	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, IDno
+	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo
 	from(
 	select
-	rownum rn ,itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, IDno
+	rownum rn ,itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo
 	from
 	t_item
 	where 
@@ -40,7 +40,7 @@ order by regdate desc
 </select>
 <!--상품sort 해서 정렬  -->
 <select id="newProduct" resultType="com.jujumarket.main.domain.Board_ItemVO">
-	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, IDno ,regDate
+	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo ,regDate
 	from t_item
 	order by regDate DESC
 
@@ -52,14 +52,14 @@ order by regdate desc
 </select>
 
  <select id="lowPrice" resultType="com.jujumarket.main.domain.Board_ItemVO">
-	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, IDno ,regDate
+	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo ,regDate
 	from t_item
 	order by price ASC
 	
 </select>
 
 <select id="highPrice" resultType="com.jujumarket.main.domain.Board_ItemVO">
-	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, IDno ,regDate
+	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo ,regDate
 	from t_item
 	order by price DESC
 
