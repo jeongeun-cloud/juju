@@ -21,9 +21,10 @@
       <beans:property name="suffix" value=".jsp" />
    </beans:bean>
     
-   <context:component-scan base-package="com.jujumarket.shop.controller" />
+    <context:component-scan base-package="com.jujumarket.shop.controller" />
 	<context:component-scan base-package="com.jujumarket.main.controller" />
 	<context:component-scan base-package="com.jujumarket.board.controller" />
+	<context:component-scan base-package="com.jujumarket.main.controller" />
    
    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>
 
