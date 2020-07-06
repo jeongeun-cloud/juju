@@ -12,8 +12,8 @@
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
-		<property name="username" value="admin"></property>
-		<property name="password" value="1234"></property>
+		<property name="username" value="book_ex"></property>
+		<property name="password" value="book_ex"></property>
 	</bean>
 	
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
@@ -24,7 +24,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<mybatis-spring:scan base-package="com.jujumarket.mapper"/>
-	<context:component-scan base-package="com.jujumarket.service"></context:component-scan>
+	<mybatis-spring:scan base-package="com.jujumarket.main.mapper"/>
+	<context:component-scan base-package="com.jujumarket.main.service"></context:component-scan>
 		
 </beans>
