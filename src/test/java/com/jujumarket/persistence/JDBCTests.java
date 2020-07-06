@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/test/java/com/jujumarket/shop/persistence/JDBCTests.java
-package com.jujumarket.shop.persistence;
-=======
-package com.jujumarket.main.persistence;
->>>>>>> 9fa1673cf618378364855308e460106062c76554:src/test/java/com/jujumarket/main/persistence/JDBCTests.java
+package com.jujumarket.persistence;
 
 import static org.junit.Assert.fail;
 
@@ -31,8 +27,8 @@ public class JDBCTests {
       try(Connection con =
       DriverManager.getConnection(
             "jdbc:oracle:thin:@localhost:1521:XE",
-            "book_ex", 
-               "book_ex")){
+            "admin", 
+               "1234")){
          log.info(con);
       }catch (Exception e) {
          fail(e.getMessage());

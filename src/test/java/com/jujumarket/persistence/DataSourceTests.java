@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/test/java/com/jujumarket/shop/persistence/DataSourceTests.java
-package com.jujumarket.shop.persistence;
-=======
-package com.jujumarket.main.persistence;
->>>>>>> 9fa1673cf618378364855308e460106062c76554:src/test/java/com/jujumarket/main/persistence/DataSourceTests.java
+package com.jujumarket.persistence;
 
 import static org.junit.Assert.fail;
 
