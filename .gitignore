@@ -2,4 +2,8 @@
 /target
 /.classpath
 /.project
+<<<<<<< HEAD
 /.springBeans
+=======
+/.springBeans
+>>>>>>> 9fa1673cf618378364855308e460106062c76554
