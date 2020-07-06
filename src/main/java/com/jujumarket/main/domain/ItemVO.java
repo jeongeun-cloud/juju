@@ -25,6 +25,6 @@ public class ItemVO {
 	private Timestamp regDate;
 	private Timestamp updateDate;
 	private String classCode;
-	private String IDno;
+	private String idNo;
 
 }

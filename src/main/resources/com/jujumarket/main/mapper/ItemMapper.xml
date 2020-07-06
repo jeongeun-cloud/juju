@@ -12,15 +12,15 @@ select * from t_item
 
 <!-- 이 부분 수정해야함 - 아이템 이미지 1,2,3,4 넣어야함 -->
 <insert id="insert">
-	insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, IDno)
-	values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat}, #{itemChr}, #{itemImg}, #{classCode}, #{IDno})
+	insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, idNo)
+	values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat}, #{itemChr}, #{itemImg}, #{classCode}, #{idNo})
 </insert>
 
 
 <!-- 이 부분 수정해야함 - 아이템 이미지 1,2,3,4 넣어야함 -->
 <insert id="insertSelectKey">
-	insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, IDno)
-	values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat}, #{itemChr}, #{itemImg}, #{classCode}, #{IDno})
+	insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, idNo)
+	values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat}, #{itemChr}, #{itemImg}, #{classCode}, #{idNo})
 </insert>
 
 
@@ -45,7 +45,7 @@ select * from t_item
 	itemChr=#{itemChr},
 	itemImg=#{itemImg},
 	classCode=#{classCode},
-	IDno=#{IDno}
+	idNo=#{idNo}
 	where itemCode=#{itemCode}
 </update>
 

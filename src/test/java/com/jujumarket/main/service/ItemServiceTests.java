@@ -46,7 +46,7 @@ public class ItemServiceTests {
 		item.setItemImg4("cakooball.jpg");
 		item.setImgDetail("cakooball.jpg");
 		item.setClassCode("AAA");
-		item.setIDno("shop30");
+		item.setIdNo("shop30");
 		
 		service.register(item);
 		

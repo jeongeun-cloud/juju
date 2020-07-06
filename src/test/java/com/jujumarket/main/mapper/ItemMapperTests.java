@@ -45,7 +45,7 @@ public class ItemMapperTests {
 		item.setItemImg4("pic.jpg");
 		
 		item.setClassCode("asdf");
-		item.setIDno("asdf");
+		item.setIdNo("asdf");
 		
 		mapper.insert(item);
 		log.info(item);
@@ -87,7 +87,7 @@ public class ItemMapperTests {
 		item.setItemImg4("pic.jpg");
 		
 		item.setClassCode("asdf");
-		item.setIDno("asdf");
+		item.setIdNo("asdf");
 		
 		int count = mapper.update(item);
 		log.info("UPDATE COUNT: " + count);
