@@ -1,3 +1,4 @@
+
 package com.jujumarket.main.domain;
 
 import java.sql.Timestamp;
@@ -23,9 +24,6 @@ public class Board_ItemVO {
 	private Timestamp regDate;
 	private Timestamp updateDate;
 	private String classCode;
-	private String IDno;
-	
-	
-	
+	private String idNo;	//idNo 
 
 }
