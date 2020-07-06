@@ -28,7 +28,7 @@ public class JDBCTests {
       DriverManager.getConnection(
             "jdbc:oracle:thin:@localhost:1521:XE",
             "admin", 
-               "1234")){
+            "1234")){
          log.info(con);
       }catch (Exception e) {
          fail(e.getMessage());
