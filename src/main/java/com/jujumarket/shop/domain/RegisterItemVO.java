@@ -1,12 +1,11 @@
 package com.jujumarket.shop.domain;
 
 import java.sql.Timestamp;
-
 import lombok.Data;
 
 @Data
 public class RegisterItemVO {
-
+	
 	private String itemCode;
 	private String itemName;
 	private String itemContent;
@@ -25,4 +24,6 @@ public class RegisterItemVO {
 	private Timestamp updateDate;
 	private String classCode;
 	private String idNo;	//idNo 
+
+	
 }
