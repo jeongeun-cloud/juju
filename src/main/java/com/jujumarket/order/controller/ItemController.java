@@ -22,7 +22,7 @@ public class ItemController {
 	
 	private ItemService service;
 	
-	@GetMapping("/list")
+	@GetMapping("/list222")
 	public void list(Model model) {
 		
 		log.info("list");
@@ -42,12 +42,12 @@ public class ItemController {
 		return "redirect:/product/list";
 	}
 	
-	@GetMapping("/item")
-	public void get(@RequestParam("itemCode") String itemCode, Model model) {
-		
-		log.info("/item");
-		model.addAttribute("product", service.get(itemCode));
-	}
+//	@GetMapping("/item")
+//	public void get(@RequestParam("itemCode") String itemCode, Model model) {
+//		
+//		log.info("/item");
+//		model.addAttribute("product", service.get(itemCode));
+//	}
 	
 	@PostMapping("/modify")
 	public String modify(ItemVO item, RedirectAttributes rttr) {

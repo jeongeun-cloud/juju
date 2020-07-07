@@ -29,8 +29,8 @@ public class DataSourceTests {
       
       try(
             Connection con = dataSource.getConnection();){
-      
-         log.info(con);
+                    
+          log.info(con);
       } catch (Exception e) {
          // TODO Auto-generated catch block
          fail(e.getMessage());

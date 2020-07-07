@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-<resultMap type="com.jujumarket.main.domain.ItemVO" id="ItemVO">
+<resultMap type="com.jujumarket.main.domain.ItemMainVO" id="ItemMainVO">
 	<result column="itemImg1" property="itemImg1"/>
 </resultMap>
 
