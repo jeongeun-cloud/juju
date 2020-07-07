@@ -6,7 +6,7 @@ import lombok.Data;
 
 
 @Data
-public class ItemVO {
+public class ItemMainVO {
 	
 	private String itemCode;
 	private String itemName;

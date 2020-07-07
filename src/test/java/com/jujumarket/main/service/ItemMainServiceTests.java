@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.jujumarket.main.domain.ItemVO;
-import com.jujumarket.main.service.ItemService;
+import com.jujumarket.main.domain.ItemMainVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -17,10 +16,10 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class ItemServiceTests {
+public class ItemMainServiceTests {
 	
 	@Setter(onMethod_ = {@Autowired})
-	private ItemService service;
+	private ItemMainService service;
 	
 //	@Test
 	public void testExist() {
@@ -30,7 +29,7 @@ public class ItemServiceTests {
 	
 //	@Test
 	public void testRegister() {
-		ItemVO item = new ItemVO();
+		ItemMainVO item = new ItemMainVO();
 		item.setItemCode("test200");
 		item.setItemName("카쿠볼");
 		item.setItemContent("달콤한 카쿠볼 우유에 말아먹자");
@@ -72,7 +71,7 @@ public class ItemServiceTests {
 	@Test
 	public void testUpdate() {
 		
-		ItemVO item = service.get("test117");
+		ItemMainVO item = service.get("test117");
 		
 		if(item == null) {
 			return;

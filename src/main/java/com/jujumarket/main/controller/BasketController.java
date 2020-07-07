@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jujumarket.main.domain.BasketVO;
 import com.jujumarket.main.service.BasketService;
-import com.jujumarket.main.service.ItemService;
+import com.jujumarket.main.service.ItemMainService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -29,7 +29,7 @@ public class BasketController {
    
    private BasketService service;
    
-   private ItemService iservice;
+   private ItemMainService iservice;
    
    
 //   모든 url 에 장바구니 db 연결 
