@@ -145,7 +145,7 @@
 						<%-- 	<td><img src="${board.itemImg1}" onerror="this.src='/resources/images/default.png'" width="200px" height="130px"/></td>  --%>
 							<td><img src="/resources/images/default.png" alt="기본" width="100px" height="100px"/></td> 
 							<td><c:out value="${board.classCode}" /></td>
-							<td><c:out value="${board.IDno}" /></td>
+							<td><c:out value="${board.idNo}" /></td>
 							
 							
 
