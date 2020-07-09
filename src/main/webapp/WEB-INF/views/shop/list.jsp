@@ -9,7 +9,10 @@
 <title>Insert title here</title>
     
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <style>
 	table {
 		border-collapse: collapse;
@@ -62,11 +65,13 @@
 		width: 85%;
 	}
 	
-	<!--글쓰기 버튼-->
+	<!--글쓰기 버튼 -->
 	.regBtn {
 		margin-top: 10px;
 		margin-left: 90%;
 	}
+	
+
 </style>
 </head>
 <body>
@@ -171,11 +176,11 @@
 			</form>
 			
 			<!-- 모달 추가 -->
-			<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">$times;</button>
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 							<h4 class="modal-title" id="myModalLabel">Modal Title</h4>
 						</div>
 						<div class="modal-body">처리가 완료되었습니다.</div>
@@ -185,14 +190,14 @@
 						</div>
 					</div>
 				</div>
-			</div> -->
+			</div>
 			<!-- 모달 끝 -->
 
 			<button type="button" value="remove" onclick="statAction(this.value);">삭제</button>
 			<button type="button" value="dis" onclick="statAction(this.value)">진열</button>
 			<button type="button" value="sale" onclick="statAction(this.value)">판매</button>
 			<button type="button" value="sold" onclick="statAction(this.value)">품절</button>
-
+			
 		</div>
 		<!-- p2-->
 		
@@ -203,7 +208,7 @@
 		$(document).ready(function(){
 
 			// 모달 관련 js
-			/* var result = '<c:out value="${result}"/>';
+			var result = '<c:out value="${result}"/>';
 			
 			checkModal(result);
 			
@@ -219,7 +224,7 @@
 				}
 				
 				$("#myModal").modal("show");
-			} */
+			} 
 			
 			
 			// 전체 선택

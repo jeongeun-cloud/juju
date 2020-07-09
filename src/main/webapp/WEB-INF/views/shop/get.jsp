@@ -11,13 +11,19 @@
 
 </head>
 <body>
-    <h2>상품 등록</h2>
-       <div class="container"> 
-           <label for="category">상품 정보 입력</label><br>
-       </div>
+	<a href='/shop/register'>상품 등록</a>
+    <a href='/shop/list'>상품 리스트</a>
+    <h2>상품 정보</h2>
        <form id="actionForm" method="POST">
            <input type="hidden" name="itemCode" value='<c:out value="${item.itemCode }"/>'>
-	       <input type="text" name="itemName" style="width: 350px;" value='<c:out value="${item.itemName }"/>' readonly="readonly">
+           <div class="container">
+	           <label for="itemName">상품 이름</label><br>
+		       <input type="text" name="itemName" style="width: 350px;" value='<c:out value="${item.itemName }"/>' readonly="readonly">
+	       </div>
+           <div class="container">
+	           <label for="category">카테고리 분류</label><br>
+		       <input type="text" name="getCategory" style="width: 350px;" value='<c:out value="${getCategory }"/>' readonly="readonly">
+	       </div>
 	       <div class="container">
 	           <label for="itemContent">상품 상세정보</label><br>
 	           <textarea name="itemContent" style="height: 200px; width:350px" readonly="readonly"><c:out value="${item.itemContent }"/></textarea>
@@ -46,37 +52,36 @@
 	           <input type="radio" name="saleStat" value="품절">품절
 	       </div>
 	       <div class="container">
-	           <label>상품 특성</label>
+	           <label>상품 특성<small style="opacity:0.75;">(특성이 선택되어 있지 않으면 기본입니다.)</small></label><br>
 	           <input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
 	           <input type="checkbox" name="itemChr" value="신상품">신상품
 	           <input type="checkbox" name="itemChr" value="best">Best
 	           <input type="checkbox" name="itemChr" value="할인">할인
 	       </div>
-	       
+
            <div class="container">
 	        	<label>메인 이미지</label>
-	            <div class="select_img1"><img src='' /></div>
+	            <div class="select_img1"><img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg1}"/>' /></div>
 	        </div>
 	        <div class="container">
 	        	<label>서브 이미지</label>
-	            <input type='file' id="itemImg2" name="uploadFile" />
-	            <div class="select_img2"><img src="" /></div>
+	            <div class="select_img2"><img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg2}"/>' /></div>
 	        </div>
 	        <div class="container">
 	        	<label>서브 이미지</label>
-	            <input type='file' id="itemImg3" name="uploadFile" />
-	            <div class="select_img3"><img src="" /></div>
+	            <div class="select_img3"><img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg3}"/>' /></div>
 	        </div>
 	        <div class="container">
 	        	<label>서브 이미지</label>
-	            <input type='file' id="itemImg4" name="uploadFile" />
-	            <div class="select_img4"><img src="" /></div>
+	            <div class="select_img4"><img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg4}"/>' /></div>
 	        </div>
 	        <div class="container">
 	        	<label>상품 상세 설명 이미지</label>
-	            <input type='file' id="itemImg5" name="uploadFile" />
-	            <div class="select_img5"><img src="" /></div>
+	            <div class="select_img5"><img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.imgDetail}"/>' /></div>
 	        </div>
+	        
+	        <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
+			<input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
 
 			<button type="submit" data-oper='remove'>Remove</button>
 			<button type="submit" data-oper='list'>List</button>
@@ -91,6 +96,7 @@
 		</form>
        
    <script type="text/javascript">
+   
 	   $(document).ready(function(){
 		   var actionForm = $("#actionForm");
 			
@@ -103,6 +109,7 @@
 				
 				if(operation === 'remove') {
 					actionForm.attr("action", "/shop/remove");
+					
 				}else if(operation === 'list') {
 					actionForm.attr("action", "/shop/list").attr("method", "get");
 					var pageNumTag = $("input[name='pageNum']").clone();
@@ -117,7 +124,7 @@
 			
 			
 		   var operForm = $("#operForm");
-		 	
+		   
 		 	$("button[data-oper='list']").on("click", function(e) {
 		 		operForm.find("#itemCode").remove();
 		 		operForm.attr("action", "/shop/list");

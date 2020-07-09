@@ -32,19 +32,19 @@ public class RegisterItemMapperTests {
 	public void testInsert() {
 		RegisterItemVO register = new RegisterItemVO();
 		
-		register.setItemName("양파");
-		register.setItemContent("손질 되있음~~");
+		register.setItemName("�뼇�뙆");
+		register.setItemContent("�넀吏� �릺�엳�쓬~~");
 		register.setPrice(2000);
 		register.setNormPrice(2100);
 		register.setStock(5);
 		register.setDispStat("y");
-		register.setSaleStat("판매중");
-		register.setItemChr("인기제품");
-		register.setItemImg1("양파.jpg");
-		register.setItemImg2("양파.jpg");
-		register.setItemImg3("양파.jpg");
-		register.setItemImg4("양파.jpg");
-		register.setImgDetail("양파.jpg");
+		register.setSaleStat("�뙋留ㅼ쨷");
+		register.setItemChr("�씤湲곗젣�뭹");
+		register.setItemImg1("�뼇�뙆.jpg");
+		register.setItemImg2("�뼇�뙆.jpg");
+		register.setItemImg3("�뼇�뙆.jpg");
+		register.setItemImg4("�뼇�뙆.jpg");
+		register.setImgDetail("�뼇�뙆.jpg");
 		
 		mapper.insert(register);
 		
@@ -55,19 +55,19 @@ public class RegisterItemMapperTests {
 	public void testInsertSelectKey() {
 		RegisterItemVO register = new RegisterItemVO();
 		
-		register.setItemName("양파222");
-		register.setItemContent("손질 되있음~~2222");
+		register.setItemName("�뼇�뙆222");
+		register.setItemContent("�넀吏� �릺�엳�쓬~~2222");
 		register.setPrice(20000);
 		register.setNormPrice(21000);
 		register.setStock(50);
 		register.setDispStat("n");
-		register.setSaleStat("판매중");
-		register.setItemChr("인기제품22");
-		register.setItemImg1("양파22.jpg");
-		register.setItemImg2("양파22.jpg");
-		register.setItemImg3("양파22.jpg");
-		register.setItemImg4("양파22.jpg");
-		register.setImgDetail("양파22.jpg");
+		register.setSaleStat("�뙋留ㅼ쨷");
+		register.setItemChr("�씤湲곗젣�뭹22");
+		register.setItemImg1("�뼇�뙆22.jpg");
+		register.setItemImg2("�뼇�뙆22.jpg");
+		register.setItemImg3("�뼇�뙆22.jpg");
+		register.setItemImg4("�뼇�뙆22.jpg");
+		register.setImgDetail("�뼇�뙆22.jpg");
 		
 		mapper.insertSelectKey(register);
 		
@@ -89,19 +89,19 @@ public class RegisterItemMapperTests {
 		RegisterItemVO register = new RegisterItemVO();
 		
 		register.setItemCode("1");
-		register.setItemName("배추 수정");
-		register.setItemContent("배추 수정 되있음~~2222");
+		register.setItemName("諛곗텛 �닔�젙");
+		register.setItemContent("諛곗텛 �닔�젙 �릺�엳�쓬~~2222");
 		register.setPrice(520000);
 		register.setNormPrice(521000);
 		register.setStock(550);
 		register.setDispStat("n");
-		register.setSaleStat("판매중");
-		register.setItemChr("인기제품55");
-		register.setItemImg1("배추55.jpg");
-		register.setItemImg2("배추55.jpg");
-		register.setItemImg3("배추55.jpg");
-		register.setItemImg4("배추55.jpg");
-		register.setImgDetail("배추55.jpg");
+		register.setSaleStat("�뙋留ㅼ쨷");
+		register.setItemChr("�씤湲곗젣�뭹55");
+		register.setItemImg1("諛곗텛55.jpg");
+		register.setItemImg2("諛곗텛55.jpg");
+		register.setItemImg3("諛곗텛55.jpg");
+		register.setItemImg4("諛곗텛55.jpg");
+		register.setImgDetail("諛곗텛55.jpg");
 		
 		int count = mapper.update(register);
 		
@@ -122,11 +122,17 @@ public class RegisterItemMapperTests {
 	@Test
 	public void testSearch() {
 		ItemCriteria cri = new ItemCriteria();
-      	cri.setKeyword("콩");
+      	cri.setKeyword("肄�");
       
       	List<RegisterItemVO> list = mapper.getListWithPaging(cri);
       
       	list.forEach(register -> log.info(register));
+	}
+	
+	@Test
+	public void testFullPath() {
+		String itemCode = "item000041";
+		log.info(mapper.getCategory(itemCode));
 	}
 
 }

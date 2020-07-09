@@ -1,18 +1,11 @@
 package com.jujumarket.shop.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,7 +24,6 @@ import com.jujumarket.shop.service.RegisterItemService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import net.coobird.thumbnailator.Thumbnailator;
 import net.sf.json.JSONArray;
 
 @Controller
@@ -56,7 +47,7 @@ public class RegisterItemContoller {
 		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 	}
 	
-	// ì´ë¯¸ì§€íŒŒì¼ì¸ì§€ í™•ì¸
+	// ÀÌ¹ÌÁöÆÄÀÏÀÎÁö È®ÀÎ
 //	private boolean checkImgType(File file) {
 //		try {
 //			String contentType = Files.probeContentType(file.toPath());
@@ -70,23 +61,17 @@ public class RegisterItemContoller {
 	@PostMapping("/register")
 	public String register(RegisterItemVO register, MultipartFile[] uploadFile, RedirectAttributes rttr) {
 		
-		String uploadFolder = "C:\\upload";
+		String uploadFolder = "C:\\jje_work\\juju\\src\\main\\webapp\\resources\\upload";
 		
-		// í´ë” ìƒì„±
-		File uploadPath = new File(uploadFolder, "idNo");	// ì„ì‹œë¡œ! ë¡œê·¸ì¸ í›„ì—” idNo ë³€ê²½í•´ì£¼ê¸°
+		// Æú´õ »ı¼º
+		File uploadPath = new File(uploadFolder, "idNo");	// ÀÓ½Ã·Î! ·Î±×ÀÎ ÈÄ¿£ idNo º¯°æÇØÁÖ±â
 		log.info("upload path : " + uploadPath);
 		
 		if(uploadPath.exists() == false) {
 			uploadPath.mkdir();
 		}
-		
-		// íŒŒì¼ ì´ë¦„ë“¤ ì €ì¥
-		register.setItemImg1(uploadFile[0].getOriginalFilename());
-		register.setItemImg2(uploadFile[1].getOriginalFilename());
-		register.setItemImg3(uploadFile[2].getOriginalFilename());
-		register.setItemImg4(uploadFile[3].getOriginalFilename());
-		register.setImgDetail(uploadFile[4].getOriginalFilename());
-		
+
+		int i = 0;
 		for(MultipartFile multi : uploadFile) {
 			
 			String uploadFilename = multi.getOriginalFilename();
@@ -96,8 +81,9 @@ public class RegisterItemContoller {
 			
 			UUID uuid = UUID.randomUUID();
 			uploadFilename = uuid.toString() + "_" + uploadFilename;
-			
+
 			try {
+				// ÀÌ¹ÌÁö ÆÄÀÏ path¿¡ ¿Ã¸®±â
 				File saveFile = new File(uploadPath, uploadFilename);
 				multi.transferTo(saveFile);
 				
@@ -105,7 +91,17 @@ public class RegisterItemContoller {
 				log.error(e.getMessage());
 			} // end catch
 			
+			if(i==0) register.setItemImg1(uploadFilename);
+			else if(i==1) register.setItemImg2(uploadFilename);
+			else if(i==2) register.setItemImg3(uploadFilename);
+			else if(i==3) register.setItemImg4(uploadFilename);
+			else if(i==4) {
+				register.setImgDetail(uploadFilename);
+				break;
+			}
+			i++;
 		} // end for
+
 		
 		service.register(register);
 		rttr.addFlashAttribute("result", register.getItemCode());
@@ -131,12 +127,55 @@ public class RegisterItemContoller {
 	public void get(@RequestParam("itemCode") String itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model) {
 		log.info("/get or modify");
 		
+		model.addAttribute("getCategory", service.getCategory(itemCode));
 		model.addAttribute("item", service.get(itemCode));
 	}
 	
 	@PostMapping("/modify")
-	public String modify(RegisterItemVO register, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
+	public String modify(RegisterItemVO register, MultipartFile[] uploadFile, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + register);
+		
+		String uploadFolder = "C:\\jje_work\\juju\\src\\main\\webapp\\resources\\upload";
+		
+		// Æú´õ »ı¼º
+		File uploadPath = new File(uploadFolder, "idNo");	// ÀÓ½Ã·Î! ·Î±×ÀÎ ÈÄ¿£ idNo º¯°æÇØÁÖ±â
+		log.info("upload path : " + uploadPath);
+		
+		if(uploadPath.exists() == false) {
+			uploadPath.mkdir();		// °¢ »óÁ¡¸¶´Ù ÀÚ½ÅÀÇ Æú´õ¸¦ °¡Áü
+		}
+
+		int i = 0;
+		for(MultipartFile multi : uploadFile) {
+			
+			String uploadFilename = multi.getOriginalFilename();
+			
+			// IE has file path
+			uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
+			
+			UUID uuid = UUID.randomUUID();
+			uploadFilename = uuid.toString() + "_" + uploadFilename;
+
+			
+			try {
+//				ÀÌ¹ÌÁö ÆÄÀÏ path¿¡ ¿Ã¸®±â
+				File saveFile = new File(uploadPath, uploadFilename);
+				multi.transferTo(saveFile);
+				
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			} // end catch
+			
+			if(i==0) register.setItemImg1(uploadFilename);
+			else if(i==1) register.setItemImg2(uploadFilename);
+			else if(i==2) register.setItemImg3(uploadFilename);
+			else if(i==3) register.setItemImg4(uploadFilename);
+			else if(i==4) {
+				register.setImgDetail(uploadFilename);
+				break;
+			}
+			i++;
+		} // end for
 		
 		if(service.modify(register)) {
 			rttr.addFlashAttribute("result", "success");
@@ -154,6 +193,30 @@ public class RegisterItemContoller {
 	public String remove(@RequestParam("itemCode") String itemCode, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
 		log.info("remove....." + itemCode);
 		
+		RegisterItemVO vo = service.get(itemCode);
+		
+		String filePath = "C:\\jje_work\\juju\\src\\main\\webapp\\resources\\upload\\idNo\\";
+
+		File file = null;
+		
+		for(int i=0; i<5; i++) {
+			if(i == 0) file = new File(filePath + vo.getItemImg1());
+			else if(i==1) file = new File(filePath + vo.getItemImg2());
+			else if(i==2) file = new File(filePath + vo.getItemImg3());
+			else if(i==3) file = new File(filePath + vo.getItemImg4());
+			else if(i==4) file = new File(filePath + vo.getImgDetail());
+			
+			if(file.exists()) {
+				if(file.delete()) {
+					System.out.println("»èÁ¦¼º°ø");
+				}else {
+					System.out.println("»èÁ¦½ÇÆĞ");
+				}
+			}else {
+				System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾ÊÀ½");
+			}
+		}
+		
 		if(service.remove(itemCode)) {
 			rttr.addFlashAttribute("result", "success");
 		}
@@ -170,7 +233,7 @@ public class RegisterItemContoller {
 	public String remove(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
 		
 		for(int i=0; i<itemCode.length; i++) {
-			//log.info(itemCode[i] + "ì•„ì´í…œ ì½”ë“œ ë„˜ì–´ì˜´");
+			//log.info(itemCode[i] + "¾ÆÀÌÅÛ ÄÚµå ³Ñ¾î¿È");
 			service.remove(itemCode[i]);
 		}
 		
@@ -181,7 +244,7 @@ public class RegisterItemContoller {
 //		String[] arrIdx = itemCode.toString().split(",");
 //		
 //	  	for (int i=0; i<arrIdx.length; i++) {
-//	  		log.info(arrIdx[i] + "ìŠ¤í”Œë¦¿ ë°°ì—´");
+//	  		log.info(arrIdx[i] + "½ºÇÃ¸´ ¹è¿­");
 //	  		service.remove(arrIdx[i]);
 //	  	}
 	  	
@@ -203,11 +266,11 @@ public class RegisterItemContoller {
 		for(int i=0; i<itemCode.length; i++) {
 			RegisterItemVO vo = service.get(itemCode[i]);
 			
-			// ì§„ì—´ìƒíƒœ ë³€ê²½
-			if(vo.getDispStat().equals("ì§„ì—´í•¨")) {
-				vo.setDispStat("ì§„ì—´ì•ˆí•¨");
+			// Áø¿­»óÅÂ º¯°æ
+			if(vo.getDispStat().equals("Áø¿­ÇÔ")) {
+				vo.setDispStat("Áø¿­¾ÈÇÔ");
 			}else {
-				vo.setDispStat("ì§„ì—´í•¨");
+				vo.setDispStat("Áø¿­ÇÔ");
 			}
 			
 			service.modify(vo);
@@ -222,12 +285,12 @@ public class RegisterItemContoller {
 		for(int i=0; i<itemCode.length; i++) {
 			RegisterItemVO vo = service.get(itemCode[i]);
 
-			// íŒë§¤ìƒíƒœ ë³€ê²½
-			if(vo.getSaleStat().equals("íŒë§¤ì¤‘")) {
-				vo.setSaleStat("íŒë§¤ì¤‘ì§€");
+			// ÆÇ¸Å»óÅÂ º¯°æ
+			if(vo.getSaleStat().equals("ÆÇ¸ÅÁß")) {
+				vo.setSaleStat("ÆÇ¸ÅÁßÁö");
 			}else {
 				log.info(vo.getItemChr() + "2");
-				vo.setSaleStat("íŒë§¤ì¤‘");
+				vo.setSaleStat("ÆÇ¸ÅÁß");
 			}
 			service.modify(vo);
 		}
@@ -241,7 +304,7 @@ public class RegisterItemContoller {
 		for(int i=0; i<itemCode.length; i++) {
 			RegisterItemVO vo = service.get(itemCode[i]);
 			
-			vo.setSaleStat("í’ˆì ˆ");		
+			vo.setSaleStat("Ç°Àı");		
 			service.modify(vo);
 		}
 		

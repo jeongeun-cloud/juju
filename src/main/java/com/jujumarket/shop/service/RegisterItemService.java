@@ -28,5 +28,7 @@ public interface RegisterItemService {
 	public int getTotal(ItemCriteria cri);
 	
 	public void getExcelDown(HttpServletResponse response);
+
+	public String getCategory(String itemCode);
 	
 }
