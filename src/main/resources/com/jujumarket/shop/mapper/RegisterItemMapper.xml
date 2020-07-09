@@ -107,4 +107,14 @@
 		select * from vw_category
 	</select>
 	
+	<select id="getCategory" resultType="String">
+		select c.fullPath 
+		from t_item i, t_category c
+		where i.classCode = c.classCode and itemCode = #{itemCode}
+	</select>
+	
+	<select id="getOldFiles" resultType="com.jujumarket.shop.domain.RegisterItemVO">
+		select idNo, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail from t_item where regDate = to_char(sysdate-1, 'yyyy/mm/dd')
+	</select>
+	
 </mapper>
