@@ -4,12 +4,14 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-		http://www.springframework.org/schema/beans              http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context            http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/tx                 http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-		<context:annotation-config></context:annotation-config>
+	<context:annotation-config></context:annotation-config>
 
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
@@ -41,6 +43,8 @@
 	<context:component-scan base-package="com.jujumarket.board.service"></context:component-scan>
 	<mybatis-spring:scan base-package="com.jujumarket.order.mapper" />
 	<context:component-scan base-package="com.jujumarket.order.service"></context:component-scan>
+
+	<task:annotation-driven/>
 
 
 </beans>

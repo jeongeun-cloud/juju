@@ -26,5 +26,9 @@ public interface RegisterItemMapper {
 	public List<CategoryVO> category();
 	
 	public int getTotalCount(ItemCriteria cri);
+
+	public String getCategory(String itemCode);
+	
+	public List<RegisterItemVO> getOldFiles();
 	
 }

@@ -4,11 +4,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">   
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+ 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+	
 
 <style>
 <!
@@ -164,6 +170,28 @@ tr:hover {
 				</c:forEach>
 			</table>
 			
+			  <!-- modal -->
+			  <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			  aria-labelledby="myModalLabel" >
+			  <div class="modal-dialog">
+		      <div class="modal-content">
+		      <div class="modal-header">
+		      <button type="button" class="close" data-dismiss="modal"
+		      aria-hidden="true">&times;</button>
+		      <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+		      </div>
+		      <div class="modal-body">처리가 완료되었습니다.</div>
+		      <div class="modal-footer">
+		      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		    
+		      </div>
+		
+		    </div><!--  modal-content -->
+			</div><!--  modal dialog -->
+			</div><!-- modal 마지막 -->
+			
+						
+			
 					<!-- Paging -->
 			<div class='pull-right'>
 			<ul class="pagination">
@@ -203,25 +231,7 @@ tr:hover {
 		
 		
 	
-	<!-- modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" area-hidden="true">
-	<div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal"
-    aria-hidden="true">&times;</button>
-    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-    </div>
-    <div class="miodal-body">처리가 완료되었습니다.</div>
-    <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    
-    </div>
 
-    </div><!--  modal-content -->
-	</div><!--  modal dialog -->
-	</div><!-- modal 마지막 -->
 	
 	
 		</div><!-- p2 마지막-->
@@ -251,6 +261,7 @@ tr:hover {
                   $(".modal-body").html("게시글" + parseInt(result)+ "번이 등록되었습니다.");
                
             }
+               
             $("#myModal").modal("show");
             
             
