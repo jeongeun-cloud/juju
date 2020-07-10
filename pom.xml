@@ -5,7 +5,7 @@
    <groupId>com.jujumarket</groupId>
    <artifactId>controller</artifactId>
    <name>juju</name>
-   <packaging>war</packaging>
+	<packaging>war</packaging>
    <version>1.0.0-BUILD-SNAPSHOT</version>
    <properties>
       <java-version>1.8</java-version>
@@ -162,6 +162,7 @@
          <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
          <version>1.16</version>
       </dependency>
+   
       
       <!-- lombok 추가 -->
       <dependency>
