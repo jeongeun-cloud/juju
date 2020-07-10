@@ -77,10 +77,9 @@
 		               <option value="">중분류 선택</option>
 		            </select>
 		 <input type="submit" id="classCode" name="classCode" >
-		 
-		
+		 				
 		 </form>
-		 
+		            
 		 </div>	
 			<!-- /.panel-heading -->
 		<div class="panel-body">

@@ -34,6 +34,7 @@
             <textarea name="itemContent" id="itemContent" style="height: 200px; width:350px"></textarea>
         </div>
         <div class="container">
+        	<small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
             <label for="price">판매가격</label>
             <input type="text" name="price" id="price"><br>
             <label for="normPrice">정상가격</label>
@@ -60,7 +61,7 @@
             <input type="checkbox" name="itemChr" value="best">Best
             <input type="checkbox" name="itemChr" value="할인">할인
             <!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
-            <input type="hidden" name="itemChr" id="itemChrText" >
+            <input type="hidden" name="itemChr" id="itemChrText"> 
         </div>
         
         <!-- 파일 업로드 시작 -->
@@ -120,18 +121,17 @@
     	    	
     	// 사진 보이기
     	for(let i=1; i<=5; i++) {
-			$("#itemImg"+i).change(function(){
+			$("#itemImg"+i).change(function(){	
 				if(this.files && this.files[0]) {
 					var reader = new FileReader;
-				    
+					
 					reader.onload = function(data) {
-				    	$(".select_img"+i+" img").attr("src", data.target.result).width(500);        
+				    	$(".select_img"+i+" img").attr("src", data.target.result).width(500);
 				    }
 				    reader.readAsDataURL(this.files[0]);
 				}
 			});
     	}
-		
     	
 		// 등록
 		$("#uploadBtn").on("click", function(e) {
@@ -152,12 +152,12 @@
 				alert('상품 상세 정보가 입력되지 않았습니다.');
 				$('#itemContent').focus();
 				return false;
-			}else if($('#price').val()=='')	{
-				alert('판매가가 입력되지 않았습니다.');
+			}else if($('#price').val()=='' || $('#price').val() < 1000 || $('#price').val() > 1000000)	{
+				alert('유효하지 않은 판매가 입니다.');
 				$('#price').focus();
 				return false;
-			}else if($('#normPrice').val()==''){
-				alert('정상가가 입력되지 않았습니다.');
+			}else if($('#normPrice').val()=='' || $('#normPrice').val() < 1000 || $('#normPrice').val() > 1000000){
+				alert('유효하지 않은 정상가 입니다.');
 				$('#normPrice').focus();
 				return false;
 			}else if($('#stock').val()==''){
@@ -178,17 +178,20 @@
 			}
 			
 			
+			
+			
 			/* 이미지 체크 */
 			var formData = new FormData();
 			var inputFile = $("input[name='uploadFile']");
-			var files = inputFile[0].files;
+			var inputFiles = inputFile[0].files;
 			
-			for(var i=0; i<files.length; i++) {
-				if(!checkExtension(files[i].name, files[i].size)) {
+			for(var i=0; i<inputFiles.length; i++) {
+				if(!checkExtension(inputFiles[i].name, inputFiles[i].size)) {
 					return false;
 				}
-				formData.append("uploadFile", files[i]);
+				formData.append("uploadFile", inputFiles[i]);
 			}
+			
 			
 			$("form").submit();
 			/* 
@@ -206,8 +209,6 @@
 			}); */ // $.ajax
 		});
     	
-		
-		
 		
 		$(document).ready(function(){
 	    	// 컨트롤러에서 데이터 받기
@@ -255,7 +256,7 @@
 				var midSelect = $("select.midCateg");
 				
 				midSelect.children().remove();
-	
+
 			 	$("option:selected", this).each(function(){
 				  
 				 	var selectVal = $(this).val();  

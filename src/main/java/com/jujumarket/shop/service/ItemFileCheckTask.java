@@ -37,15 +37,12 @@ public class ItemFileCheckTask {
 		return str.replace("-", File.separator);
 	}
 
-	@Scheduled(cron="0 0 10 * * *")
+	@Scheduled(cron="0 0 11 * * *")
 	public void checkFiles() throws Exception {
 		log.warn("File Check Task run..........");
 		log.warn(new Date());
 		
 		List<RegisterItemVO> fileList = mapper.getOldFiles();
-		
-		System.out.println(mapper.getOldFiles());
-		System.out.println("매퍼에서 파일받아오기");
 		
 		List<Path> fileListPaths = fileList.stream().map(vo-> Paths.get("C:\\jje_work\\juju\\src\\main\\webapp\\resources\\upload", vo.getIdNo(),
 				vo.getItemImg1())).collect(Collectors.toList());
@@ -59,19 +56,17 @@ public class ItemFileCheckTask {
 		fileList.stream().map(vo-> Paths.get("C:\\jje_work\\juju\\src\\main\\webapp\\resources\\upload", vo.getIdNo(),
 				vo.getImgDetail())).forEach(p -> fileListPaths.add(p));
 		
-		System.out.println(fileListPaths.toString());
-		
 		log.warn("=============================");
 		
 		fileListPaths.forEach(p-> log.warn(p));
 		
-		File targetDir = Paths.get("C:\\jje_work\\juju\\src\\main\\webapp\\resources\\upload", getFolderYesterDay()).toFile();
+		File targetDir = Paths.get("C:\\jje_work\\juju\\src\\main\\webapp\\resources\\upload\\idNo\\").toFile();
 		
 		File[] removeFiles = targetDir.listFiles(file -> fileListPaths.contains(file.toPath()) == false);
 		
 		log.warn("-----------------------------");
 		for(File file : removeFiles) {
-			log.warn(file.getAbsolutePath());
+			log.warn(file.getAbsolutePath() + "지우기");
 			file.delete();
 		}
 	}

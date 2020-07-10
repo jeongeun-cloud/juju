@@ -158,7 +158,7 @@ public class RegisterItemContoller {
 
 			
 			try {
-//				이미지 파일 path에 올리기
+				// 이미지 파일 path에 올리기
 				File saveFile = new File(uploadPath, uploadFilename);
 				multi.transferTo(saveFile);
 				
