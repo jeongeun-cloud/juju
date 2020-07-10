@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.jujumarket.main.domain.ItemMainVO;
+import com.jujumarket.main.service.ItemMainService;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;

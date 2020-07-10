@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.board.mapper.Board_FAQMapper">
+
+   <select id="getList"
+      resultType="com.jujumarket.board.domain.Board_FAQVO">
+<![CDATA[
+  select * from T_Board_FAQ where postingNo >0]]>
+   </select>
+
+   <insert id="insert">
+      insert into t_board_faq
+      (postingNo,title,content,boardType,idNo)
+      values (seq_postingNo.nextval,
+      #{title},#{content},#{boardType},#{idNo})
+   </insert>
+
+   <insert id="insertSelectKey">
+      <selectKey keyProperty="postingNo" order="BEFORE"
+         resultType="String">
+         select seq_postingNo.nextval from dual
+      </selectKey>
+      insert into t_board_faq (postingNo,title,content,boardType,idNo)
+      values (#{postingNo},#{title},#{content},#{boardType},#{idNo})
+   </insert>
+
+   <select id="read" resultType="com.jujumarket.board.domain.Board_FAQVO">
+      select * from t_board_faq where
+      postingNo = #{postingNo}
+   </select>
+
+   <delete id="delete">
+      delete from t_board_faq where postingNo =
+      #{postingNo}
+   </delete>
+
+   <update id="update">
+      update t_board_faq
+      set title = #{title},
+      content =
+      #{content},
+      boardType = #{boardType},
+      idNo = #{idNo},
+      regDate = sysDate
+
+      where postingNo = #{postingNo}
+
+
+   </update>
+
+ <!--   <select id="faq" resultType="com.jujumarket.domain.Board_FAQVO">
+      select * from t_board_faq where boardType = '1'
+   </select> -->
+   
+<!--      <select id="getTotalCount" resultType="int">
+   select count(*) from t_board_faq where boardType = '1'
+   
+   </select>  -->
+
+<!--    <select id="notice"
+      resultType="com.jujumarket.domain.Board_FAQVO">
+      select * from t_board_faq where boardType = '2'
+   </select> -->
+
+   
+   
+   
+   <sql id="criteria">
+   <trim prefix="(" suffix=")AND" prefixOverrides="OR">
+   <foreach item='type' collection="typeArr">
+   <trim prefix ="OR">
+   <choose>
+   <when test="type =='T'.toString()">
+   title like '%' ||#{keyword}||'%'
+   </when>
+   <when test="type =='C'.toString()">
+   content like '%' ||#{keyword}||'%'
+   </when>
+   <when test="type =='I'.toString()">
+   idNo like '%' ||#{keyword}||'%'
+   </when>
+   </choose>
+   </trim>
+   </foreach>
+   </trim><!--  prefix end -->
+   </sql>
+   
+
+   <select id="getListWithPaging" resultType="com.jujumarket.board.domain.Board_FAQVO">
+   <![CDATA[
+   select
+       postingNo,title,content,boardType,idNo,regDate
+       from
+       (
+       
+       select /*+INDEX_DESC(t_board_faq pk_board) */
+       rownum rn,postingNo,title,content,boardType,idNo,regDate
+       from
+       t_Board_FAQ
+       
+       where  boardType = '1' and
+       
+   ]]>
+  
+  <include refid="criteria"></include>
+   
+   <![CDATA[
+   
+    rownum <= #{pageNum}*#{amount}
+       )
+       where rn > (#{pageNum}-1) * #{amount}
+   ]]>
+   </select>
+
+    <select id="getTotalCount" resultType="int">
+   select count(*) from t_board_faq 
+   
+   where 
+   
+   <include refid="criteria"></include>
+   
+   
+   postingNo > '1'
+   
+      </select>
+  
+  
+  
+    <select id="noticegetListWithPaging" resultType="com.jujumarket.board.domain.Board_FAQVO">
+   <![CDATA[
+   select
+       postingNo,title,content,boardType,idNo,regDate
+       from
+       (
+       
+       select /*+INDEX_DESC(t_board_faq pk_board) */
+       rownum rn,postingNo,title,content,boardType,idNo,regDate
+       from
+       t_Board_FAQ
+       
+       where  boardType = '2' and
+       
+   ]]>
+  
+  <include refid="criteria"></include>
+   
+   <![CDATA[
+   
+    rownum <= #{pageNum}*#{amount}
+       )
+       where rn > (#{pageNum}-1) * #{amount}
+   ]]>
+   </select>
+
+    <select id="noticegetTotalCount" resultType="int">
+   select count(*) from t_board_faq 
+   
+   where 
+   
+   <include refid="criteria"></include>
+   
+   
+   postingNo > '1'
+   
+      </select>
+  
+
+   
+</mapper>

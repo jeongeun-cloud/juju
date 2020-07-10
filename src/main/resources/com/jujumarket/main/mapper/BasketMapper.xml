@@ -31,12 +31,12 @@ WHERE b.idno = 'cus000001'
 
 <insert id="insert">
 	insert into t_basket (baskId, itemNum, idNo, itemCode)
-	values (#{baskId}, #{itemNum}, #{idNo}, #{itemCode})
+	values ('baskId'||seq_basket.nextval, #{itemNum}, #{idNo}, #{itemCode})
 </insert>
 
 <insert id="insertSelectKey">
 	insert into t_basket (baskId, itemNum, idNo, itemCode)
-	values (#{baskId}, #{itemNum}, #{idNo}, #{itemCode})
+	values ('baskId'||seq_basket.nextval, #{itemNum}, #{idNo}, #{itemCode})
 </insert>
 
 
