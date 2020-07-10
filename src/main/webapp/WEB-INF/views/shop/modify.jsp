@@ -38,6 +38,7 @@
 			<textarea name="itemContent" id="itemContent" style="height: 200px; width: 350px"><c:out value="${item.itemContent }" /></textarea>
 		</div>
 		<div class="container">
+			<small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
 			<label for="price">판매가격</label> 
 			<input type="text" name="price" id="price" value='<c:out value="${item.price }"/>'> <br> 
 			<label for="normPrice">정상가격</label> 
@@ -157,12 +158,12 @@
 				alert('상품 상세 정보가 입력되지 않았습니다.');
 				$('#itemContent').focus();
 				return false;
-			}else if($('#price').val()=='')	{
-				alert('판매가가 입력되지 않았습니다.');
+			}else if($('#price').val()=='' || $('#price').val() < 1000 || $('#price').val() > 1000000)	{
+				alert('유효하지 않은 판매가 입니다.');
 				$('#price').focus();
 				return false;
-			}else if($('#normPrice').val()==''){
-				alert('정상가가 입력되지 않았습니다.');
+			}else if($('#normPrice').val()=='' || $('#normPrice').val() < 1000 || $('#normPrice').val() > 1000000){
+				alert('유효하지 않은 정상가 입니다.');
 				$('#normPrice').focus();
 				return false;
 			}else if($('#stock').val()==''){
@@ -185,15 +186,15 @@
 			/* 이미지 체크 */
 			var formData = new FormData();
 			var inputFile = $("input[name='uploadFile']");
-			var files = inputFile[0].files;
+			var inputFiles = inputFile[0].files;
 			
-			console.log(files);
+			console.log(inputFiles);
 			
-			for(var i=0; i<files.length; i++) {
-				if(!checkExtension(files[i].name, files[i].size)) {
+			for(var i=0; i<inputFiles.length; i++) {
+				if(!checkExtension(inputFiles[i].name, inputFiles[i].size)) {
 					return false;
 				}
-				formData.append("uploadFile", files[i]);
+				formData.append("uploadFile", inputFiles[i]);
 			}
 			
 			$("form").submit();	// ajax로 수정해야 할지?

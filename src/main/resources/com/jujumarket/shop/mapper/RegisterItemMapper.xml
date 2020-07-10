@@ -114,7 +114,7 @@
 	</select>
 	
 	<select id="getOldFiles" resultType="com.jujumarket.shop.domain.RegisterItemVO">
-		select idNo, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail from t_item where regDate = to_char(sysdate-1, 'yyyy/mm/dd')
+		select idNo, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail from t_item where to_char(updateDate, 'yy/mm/dd') = to_char(sysdate-1)
 	</select>
 	
 </mapper>
