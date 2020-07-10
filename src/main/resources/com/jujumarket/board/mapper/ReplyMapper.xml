@@ -5,7 +5,7 @@
 
 <insert id="insert">
 insert into t_reply(replyNo,idNo,postingNo,replyContent)
-values (seq_replyNo.nextval,#{idNo},#{postingNo},Board_QNAVO#{replyContent})
+values (seq_replyNo.nextval,#{idNo},#{postingNo},#{replyContent})
 </insert>
 
 <select id="read" resultType="com.jujumarket.board.domain.ReplyVO">
@@ -24,7 +24,39 @@ replyNo = #{replyNo}
 </update>
 
 
-<select id="getListWithPaging"
+<!-- <selcet id="getCountBypostingNo" resultType="String">
+<![CDATA[
+
+selcet count(replyNo) from t_reply
+where replyNo =#{replyNo}
+]]>
+
+</selcet> -->
+
+<!-- <select id="getListWithPaging"
+resultType="com.jujumarket.board.domain.ReplyVO">
+
+<![CDATA[
+select replyNo,idNo,postingNo,replyContent,regDate
+from
+(
+
+select /*+INDEX(t_reply idx_replyContent)*/
+   rownum rn, replyNo,idNo,postingNo,replyContent,regDate
+from t_reply
+
+where postingNo = #{postingNo}
+and replyNo > 0
+and rownum <= #{cri.pageNum} * #{cri.amount}
+)
+where rn >(#{cri.pageNum}-1)*#{cri.amount}
+]]>
+
+</select> -->
+
+
+
+ <select id="getListWithPaging"
 resultType="com.jujumarket.board.domain.ReplyVO">
 
 select replyNo,idNo,postingNo,replyContent,regdate
@@ -33,6 +65,8 @@ where postingNo = #{postingNo}
 order by postingNo asc
 
 </select>
+
+
 
 <!-- private String idNo;
 	private String postingNo;
