@@ -26,14 +26,27 @@ public class OrderServiceImpl implements OrderService{
 
 	@Transactional
 	@Override
-	public void register(OrderRequestVO order) {
-		log.info("register......" + order);
+	public String register(OrderRequestVO order) {
+		log.info("register1......");
 		orderMapper.insertSelectKey(order);
-		orderInfoMapper.insertSelectKey(order);
-		orderHistoryMapper.insertSelectKey(order);
-		
+//		String orderCode = orderMapper.getOrderCodeByIdNo(order.getIdNo());
+//		order.setOrderCode(orderCode);n
+		List<OrderResponseVO> itemList = orderMapper.orderResponse(order.getIdNo());
+		log.info("크기: " + itemList.size());
+		for (int i = 0; i < itemList.size(); i++) {
+			log.info("register3......");
+			OrderResponseVO item = itemList.get(i);
+			log.info("register4......");
+			order.setItemCode(item.getItemCode());
+			log.info("register5......");
+			orderInfoMapper.insertSelectKey(order);
+			log.info("register6......");
+			orderHistoryMapper.insertSelectKey(order);
+			log.info("register7......");
+		}
+		return order.getOrderCode();
 	}
-
+	
 	
 	@Override
 	public OrderVO get(String orderCode) {

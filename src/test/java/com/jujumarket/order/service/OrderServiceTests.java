@@ -19,10 +19,10 @@ import lombok.extern.log4j.Log4j;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
 public class OrderServiceTests {
-	
-	@Setter(onMethod_ = {@Autowired})
+
+	@Setter(onMethod_ = { @Autowired })
 	private OrderService service;
-	
+
 //	@Test
 	public void testExist() {
 		log.info(service);
@@ -32,10 +32,11 @@ public class OrderServiceTests {
 	@Test
 	public void testRegister() {
 		OrderRequestVO order = new OrderRequestVO();
-		order.setOrderCode("20200702-00009");
-		log.info("setOrderCode");
-		order.setItemCode("zxcv2222");
-		order.setItemNum(1L);
+//		order.setOrderCode("timestamp");
+//		log.info("setOrderCode");
+		order.setItemCode("product55555");
+		log.info("setItemCode");
+		order.setItemNum(4L);
 		log.info("수량");
 		order.setDisAmount(10000L);
 		log.info("할인금액");
@@ -45,72 +46,56 @@ public class OrderServiceTests {
 		log.info("주문총금액");
 		order.setTotalDiscount(20000L);
 		log.info("총할인금액");
-		order.setDeliCharge(5000L);
+		order.setDeliCharge(0L);
 		log.info("배송비");
 		order.setIsMember("Y");
 		log.info("회원여부");
-		order.setIdNo("CU00005");
+		order.setIdNo("c00001");
 		log.info("회원계정");
 		order.setOrderStat("발송중");
 		log.info("주문상태");
-		
+
 		service.register(order);
 		log.info("서비스 리지스터");
-		
+
 		log.info(order);
+
 		
 	}
-	
+
 //	@Test
 	public void testGetList() {
 		service.getList().forEach(order -> log.info(order));
 	}
-	
+
 //	@Test
 	public void testGet() {
 		log.info(service.get("20200630-00001"));
 	}
-	
+
 //	@Test 
 	public void testDelete() {
-	//주문번호의 존재여부를 확인하고 테스트할 것
+		// 주문번호의 존재여부를 확인하고 테스트할 것
 		log.info("REMOVE RESULT: " + service.remove("20200630-00001"));
 	}
-	
+
 //	@Test
 	public void testUpdate() {
 		OrderVO order = service.get("20200630-00003");
-		
-		if(order == null) {
+
+		if (order == null) {
 			return;
 		}
-		
+
 		order.setTotalSum(100000L);
 		log.info("MODIFY RESULT: " + service.modify(order));
 	}
-	
+
 //	OK
 //	@Test 
 	public void testClass() {
 		log.info(service);
 		log.info(service.getClass().getName());
 	}
-	
 
-	
-	 //NumberFormatException발생!! 
-
-	
-	
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-

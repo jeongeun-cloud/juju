@@ -7,7 +7,7 @@ import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
 
 public interface OrderService {
-	public void register(OrderRequestVO order);
+	public String register(OrderRequestVO order);
 	
 	public OrderVO get(String orderCode);
 	
