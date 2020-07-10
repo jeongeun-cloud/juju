@@ -56,6 +56,8 @@ public class ReplyServiceImpl implements ReplyService {
 	public List<ReplyVO> getList(Criteria cri, String postingNo) {
 	
 		log.info("get Reply List of a getList" + postingNo);
+		
+	
 	    
 	return	mapper.getListWithPaging(cri, postingNo);
 		

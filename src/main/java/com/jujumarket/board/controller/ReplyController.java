@@ -17,7 +17,6 @@ import com.jujumarket.board.domain.ReplyVO;
 import com.jujumarket.board.service.ReplyService;
 
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import java.util.List;
 
