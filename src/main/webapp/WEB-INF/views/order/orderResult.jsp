@@ -7,178 +7,155 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Document</title>
+<title>주문완료</title>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <BODY>
-	<H1>주문 완료 페이지</H1>
+
+	<p style="text-align: right;">
+		01 장바구니 > 02 주문서 작성/결제 > <strong> 03 주문완료 </strong>
+	</p>
+
+
+	<hr size="2px" color="grey"></hr>
+
+	주문이 완료되었습니다.이용해주셔서 감사합니다.
+	<br>주문 내역은 [마이페이지 > 주문내역/배송조회]에서 다시 확인할 수 있습니다.
+	<br>
+	<strong>주문번호: </strong> ${order.orderCode}
+	
+
 	<h3>
 		<c:out value="${order.orderCode}"></c:out>
 	</h3>
-	<TABLE class="list_view">
-		<TBODY align=center>
 
 
-			<h2>주문자 정보</h2>
-			<table style="width: 100%">
+	<form action="orderResult" method="post">
+		<!-- 	<form name="form_order"> -->
+		<table class="list_view">
+			<tbody align=center>
 				<tr>
-					<th>이름</th>
-					<th>연락처</th>
+				<tr align=center class="fixed">
+
+					<!-- itemImg1 from t_item -->
+					<td class="fixed">아이템Img</td>
+					<!-- itemName from t_item -->
+					<td class="fixed">주문상품명</td>
+					<!-- normPrice from t_item -->
+					<td class="fixed">상품금액</td>
+					<!-- itemNum from t_basket -->
+					<td class="fixed">수량</td>
+					<!-- disAmount from t_order_info -->
+					<td class="fixed">할인금액</td>
+					<!-- price from t_item -->
+					<td class="fixed">주문금액</td>
 				</tr>
-		<%-- 		<tr>
-					<td><c:out value="${member.memName}"></c:out></td>
-					<td><c:out value="${member.Contact}"></c:out></td>
-				</tr>
 
-			</table>
+				<!-- 리스트니까 여러 목록이어서 c:forEach로 c:out을 감싸주었음  -->
+				<!-- OrderController의 list -> jsp에서 DB 호출시 ${list} -->
+				<!-- totalPrice를 구하기 위해 c:set 사용하여 forEach로 반복문 돌려주었음  -->
 
-			<h2>배송 정보</h2>
-			<table style="width: 100%">
-				<tr>
-					<th>이름(회사)</th>
-					<th>주소</th>
-					<th>휴대폰</th>
-					<th>요청사항</th>
-				</tr>
-				<tr>
-					<td><c:out value="${delivery.receiver}"></c:out></td>
-					<td><c:out value="${delivery.recivAddr}"></c:out></td>
-					<td><c:out value="${delivery.receivContacat}"></c:out></td>
-					<td><c:out value="${delivery.reqNote}"></c:out></td>
-				</tr> --%>
+				<c:set var="totalPrice" value="${0}" />
+				<c:forEach var="order" items="${orderList}">
+					<c:set var="totalPrice"
+						value="${totalPrice + (order.price * order.itemNum)}" />
+					<tr cellpadding="40" align=center>
+						<td><c:out value="${order.itemImg1}"></c:out></td>
+						<td><c:out value="${order.itemName}"></c:out></td>
+						<td><c:out value="${order.normPrice}"></c:out></td>
+						<td><c:out value="${order.itemNum}"></c:out></td>
+						<td><c:out value="${order.normPrice - order.price}"></c:out></td>
+						<td><c:out value="${order.price * order.itemNum}"></c:out></td>
+					</tr>
+				</c:forEach>
 
-			</table>
 
-			<h2>결제 정보</h2>
+			</tbody>
+		</table>
+	</form>
+
+
+	<h2>주문자 정보</h2>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<colgroup>
+			<col width="150" />
+			<col width="400" />
+		</colgroup>
+
+		<tr>
+			<td>이름</td>
+			<td>${orderResult.memName}</td>
+		</tr>
+		<tr>
+			<td>연락처</td>
+			<td>${orderResult.contact}</td>
+		</tr>
+		
 	</table>
 
-	<TR>
-	<%-- 	<c:forEach var="item" items="${myOrderList }">
-			<td>${item.order_id }</td>
-			<TD class="goods_image"><a
-				href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
-					<IMG width="75" alt=""
-					src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
-			</a></TD>
-			<TD>
-				<h2>
-					<A
-						href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">${item.goods_title }</A>
-				</h2>
-			</TD>
-			<td>
-				<h2>${item.order_goods_qty }개<h2>
-			</td>
-			<td><h2>${item.order_goods_qty *item.goods_sales_price}원
-					(10% 할인)</h2></td>
-			<td><h2>0원</h2></td>
-			<td><h2>${1500 *item.order_goods_qty }원</h2></td>
-			<td>
-				<h2>${item.order_goods_qty *item.goods_sales_price}원</h2>
-			</td>
-	</TR>
-	</c:forEach> --%>
-	</TBODY>
-	</TABLE>
-	<DIV class="clear"></DIV>
-	<form name="form_order">
-		<br> <br>
-		<H1>2.배송지 정보</H1>
-		<DIV class="detail_table">
 
-			<TABLE>
-				<TBODY>
-					<TR class="dot_line">
-						<TD class="fixed_join">배송방법</TD>
-						<TD>${myOrderInfo.delivery_method }</TD>
-					</TR>
-					<TR class="dot_line">
-						<TD class="fixed_join">받으실 분</TD>
-						<TD>${myOrderInfo.receiver_name }</TD>
-					</TR>
-					<TR class="dot_line">
-						<TD class="fixed_join">휴대폰번호</TD>
-						<TD>
-							${myOrderInfo.receiver_hp1}-${myOrderInfo.receiver_hp2}-${myOrderInfo.receiver_hp3}</TD>
-					</TR>
-					<TR class="dot_line">
-						<TD class="fixed_join">유선전화(선택)</TD>
-						<TD>
-							${myOrderInfo.receiver_tel1}-${myOrderInfo.receiver_tel2}-${myOrderInfo.receiver_tel3}</TD>
-						</TD>
-					</TR>
+	<h2>배송 정보</h2>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<colgroup>
+			<col width="150" />
+			<col width="400" />
+		</colgroup>
+
+		<tr>
+			<td>이름</td>
+			<td>${orderResult.receiver}</td>
+		</tr>
+		<tr>
+			<td>주소</td>
+			<td>${orderResult.receivAddr}</td>
+		</tr>
+		<tr>
+			<td>연락처</td>
+			<td>${orderResult.receivContact}</td>
+		</tr>
+		<tr>
+			<td>요청사항</td>
+			<td>${orderResult.reqNote}</td>
+		</tr>
+	</table>
+
+	<h2>결제 정보</h2>
+	<table border="1" cellpadding="0" cellspacing="0">
+		<colgroup>
+			<col width="150" />
+			<col width="400" />
+		</colgroup>
+
+		<tr>
+			<td>결제 방법</td>
+			<td>payment method</td>
+		</tr>
+		<tr>
+			<td>결제금액</td>
+			<td>totalPrice + deliCharge</td>
+		</tr>
+
+	</table>
+
+	<br> <br> 
+
+  <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div>
+            <button type="submit" class="btn btn-primary">주문내역/배송조회 확인</button>
+            <button type="submit" class="btn btn-secondary">쇼핑 계속하기</button>
+            <button type="submit" class="btn btn-success">메인으로 가기</button>
+            <button type="submit" class="btn btn-danger">로그아웃</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-					<TR class="dot_line">
-						<TD class="fixed_join">주소</TD>
-						<td>${myOrderInfo.delivery_address}</td>>
-					</TR>
-					<TR class="dot_line">
-						<TD class="fixed_join">배송 메시지</TD>
-						<TD>${myOrderInfo.delivery_message}</TD>
-					</TR>
-					<TR class="dot_line">
-						<TD class="fixed_join">선물 포장</TD>
-						<td>${myOrderInfo.gift_wrapping}</td>
-					</TR>
-				</TBODY>
-			</TABLE>
 
-		</DIV>
-		<div>
-			<br> <br>
-			<h2>주문고객</h2>
-			<table>
-				<TBODY>
-					<tr class="dot_line">
-						<td><h2>이름</h2></td>
-						<td><input type="text" value="${orderer.member_name}"
-							size="15" disabled /></td>
-					</tr>
-					<tr class="dot_line">
-						<td><h2>핸드폰</h2></td>
-						<td><input type="text"
-							value="${orderer.hp1}-${orderer.hp2}-${orderer.hp3}" size="15"
-							disabled /></td>
-					</tr>
-					<tr class="dot_line">
-						<td><h2>이메일</h2></td>
-						<td><input type="text"
-							value="${orderer.email1}@${orderer.email2}" size="15" disabled />
-						</td>
-					</tr>
-				</TBODY>
-			</table>
-		</div>
-		<DIV class="clear"></DIV>
-		<br> <br> <br>
-		<H1>3.결제정보</H1>
-		<DIV class="detail_table">
-			<table>
-				<TBODY>
-					<TR class="dot_line">
-						<TD class="fixed_join">결제방법</TD>
-						<TD>${myOrderInfo.pay_method }</TD>
-					</TR>
-					<TR class="dot_line">
-						<TD class="fixed_join">결제카드</TD>
-						<TD>${myOrderInfo.card_com_name}</TD>
-					</TR>
-					<TR class="dot_line">
-						<TD class="fixed_join">할부기간</TD>
-						<TD>${myOrderInfo.card_pay_month }</TD>
-					</TR>
-				</TBODY>
-			</table>
-		</DIV>
-	</form>
-	<DIV class="clear"></DIV>
-	<br>
-	<br>
-	<br>
-	<center>
-		<br> <br> <a href="${contextPath}/main/main.do"> <IMG
-			width="75" alt=""
-			src="${contextPath}/resources/image/btn_shoping_continue.jpg">
-		</a>
-		<DIV class="clear"></DIV>
+
+
+
+</BODY>
+</html>

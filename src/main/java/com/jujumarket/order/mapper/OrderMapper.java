@@ -18,6 +18,8 @@ public interface OrderMapper {
 	public int delete(String orderCode);
 	public int update(OrderVO order);
 	public int insertorderCode(String orderCode);
+	
 	public List<OrderResponseVO> orderResponse(String idNo);
+	public String getOrderCodeByIdNo(String idNo);
 
 }

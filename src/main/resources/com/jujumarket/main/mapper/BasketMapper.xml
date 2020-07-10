@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.main.mapper.BasketMapper">
+
+
+
+<resultMap type="com.jujumarket.main.domain.ItemMainVO" id="ItemMainVO">
+	<result column="itemImg1" property="itemImg1"/>
+</resultMap>
+
+<resultMap type="com.jujumarket.main.domain.BasketVO" id="BasketVO">
+	<result column="baskId" property="baskId"/>
+	<result column="itemNum" property="itemNum"/>
+	<result column="idNo" property="idNo"/>
+	<result column="itemCode" property="itemCode"/>
+	<collection property="ItemVO" resultMap="ItemVO"/>
+</resultMap>
+
+
+<select id="getList" resultType="com.jujumarket.main.domain.BasketVO">
+<![CDATA[
+SELECT *
+FROM t_basket b
+LEFT JOIN t_item i
+ON b.itemcode = i.itemcode
+WHERE b.idNo = 'cus000001'
+]]>
+</select>
+
+<insert id="insert">
+	insert into t_basket (baskId, itemNum, idNo, itemCode)
+	values (#{baskId}, #{itemNum}, #{idNo}, #{itemCode})
+</insert>
+
+<insert id="insertSelectKey">
+	insert into t_basket (baskId, itemNum, idNo, itemCode)
+	values (#{baskId}, #{itemNum}, #{idNo}, #{itemCode})
+</insert>
+
+
+<select id="read" resultType="com.jujumarket.main.domain.BasketVO">
+	select * from t_basket where idNo = #{idNo}
+</select>
+
+
+<delete id="delete">
+	delete from t_basket where baskId = #{baskId}
+</delete>
+
+<update id="update">
+	update t_basket
+	set 
+	itemNum = #{itemNum},
+	idNo = #{idNo},
+	itemCode = #{itemCode}
+	where baskId = #{baskId}
+</update>
+
+</mapper>
