@@ -144,206 +144,7 @@
 				   
 				   
 				   
-				   <div class="panel-heading">
-				   <i class="fa fa-comments fa-fw"></i>Reply
-				   <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>글쓰기</button>
-				   </div> 
 				   
-				   <!-- /,panel-heading -->
-				   <div class="panel-body">
-				   
-				   <ul class="chat">
-				   <!--  start reply -->
-				   <li class="left clearfix" data-replyNo='89'>
-                    <div>
-                    <div class="header">
-                    <strong class="primary-font">user00</strong>
-                    <small class="pull-rigth text-muted">2018-01-01 13:13</small>
-                   </div>
-                   <p>Good jop!</p>
-				   </div>
-                   </li>
-                   <!--  end reply -->
-				   </ul>
-				   <!--  end ul -->
-				   </div>
-				   <!--  /.panel .chat-panel -->
-				   </div>
-				</div>
-		</div><!-- 댓글 div 마지막 -->
-
-   <script type="text/javascript" src="/resources/js/reply.js"></script>  <!--댓글 스크립트. 경로인듯  -->
-   
-   <script type="text/javascript">
-   
-   <!--댓글 출력처리-->
-   $(document).ready(function(){
-	   
-	   var replyNoValue = $("#postingNo").val();
-	   var replyUL = $(".chat");
-	  
-	   showList(1);
-	   
-	   function showList(page){
-
-		   replyService.getList({postingNo:replyNoValue,page: page || 1}, function(list){
-			   
-			  var str="";
-			  
-			  if(list == null || list.length == 0){
-				
-				  replyUL.html("");
-			  
-			       return;
-			  }
-
-			  for(var i = 0, len =list.length || 0; i <len; i++){
-				  str += "<li class='left clearfix' data-replyNo ='"+list[i].replyNo+"'>";
-				  str += "<div><div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
-				  
-				  str += "<small class ='pull-right text-muted'>"+replyService.displayTime(list[i].regDate)+"</small></div>";
-				  
-				  str += "<p>"+list[i].replyContent+"</p></div></li>";
-			
-			  }
-			  replyUL.html(str);
-
-			  
-					   });//end function
-			        }//end showList
-			        
-			
-
-       
-		  var modal = $(".modal");
-		  var postNo = $("#postingNo").val();
-		  var modalInputPostingNo = modal.find("input[name='postingNo']").val(postNo);
-		  console.log(modalInputPostingNo);
-		  var modalInputidNo = modal.find("input[name='idNo']");
-		  var modalInputReplyContent = modal.find("input[name='ReplyContent']");
-		  var modalInputregDate = modal.find("input[name='regDate']");
-		        
-		    
-		  var modalModBtn = $("#modalModBtn");
-		  var modalRemoveBtn = $("#RemoveBtn");
-		  var modalRegisterBtn = $("#RegisterBtn");
-		  
-		  $("#addReplyBtn").on("click",function(e){
-			 
-			  
-			  modal.find("input").val("");
-			  modalInputregDate.closest("div").hide();
-			  modal.find("button[id !='modalCloseBtn']").hide();
-			  
-			  modalRegisterBtn.show();
-			  
-			  $(".modal").modal("show");
-	         	  
-		         });	  
-		  		
-		  
-      modalRegisterBtn.on("click",function(e){
-              
-              
-              var reply = {
-                    replyContent: modalInputReplyContent.val(),
-                    idNo:modalInputidNo.val(),
-                    postingNo:replyNoValue
-                    
-              };
-              
-              replyService.add(reply, function(result){
-                
-                 
-                 alert(result);
-                 
-                 modal.find("input").val("");
-                 modal.modal("hide");
-                 
-              });
-              
-           });
-                 
-		  
-            });
-   
-   
-   
-
-
-
-   </script>
-   
-   <script type="text/javascript">//댓글 스크립트2.
-
-   
-	   console.log("=========");
-	   console.log("JS TEST");
-	  
-	   console.log(replyService);
-	   
-	   var replyNoValue = '3';
-	   
-	  // <!--댓글 입력-->
-	   replyService.add(
-			   {idNo:"JS Test", replyContent:"tester", postingNo:replyNoValue},
-			   
-			   function(result){
-				   alert("RESUTL : " + result);
-			 
-		   }); 
-		
-		//<!-- 댓글 출력-->
- 	   replyService.getList({postingNo:3, page:1}, function(list){
-		   
-			
-			console.log(list[0]);
-		
-		  for(var i =0, len = list.length||0; i<len; i++){
-			  
-			  console.log(list[i]);
-		  }   
-	  
-	   }); 
-	   
-	   
-	   //remove 안에 숫자는 replyNO
-	    replyService.remove(34 , function(count){
-		  
-		   console.log(count);
-		   
-		   if(count === "success"){
-			   alert("REMOVED");
-		   }
-	   }, function(err){
-		 alert('ERROR....')   
-		   
-	   }); 
-	   
-	   //댓글수정  preplyNo로 찾고 replyContent 수정. 추가수정하려면 xml 쿼리문 고쳐야함
-	   replyService.update({
-		 
-	
-		    replyNo  : "59",
-		    postingNo : "333",
-			replyContent : "수정된 리플d",
-		
-
-		
-	   },function(result){
-				
-				alert("수정 완료 ........")
-			
-		});
-	   
-	   replyService.get("50", function(data){
-		  
-		   console.log("데이타타타탙타ㅏ타타 " + data);
-	   });
-	   	  
-		   
-  
-   </script>
    
      <script type="text/javascript">
      $(document).ready(function(){
@@ -362,7 +163,7 @@
 
 	 		 if(operation === 'remove'){
 	 			 
-	 			 formObj.attr("action","/community/notice/remove");
+	 			 formObj.attr("action","/community/Board_FAQ/remove");
 	 		 }
  			 formObj.submit();
  		});
@@ -374,14 +175,14 @@
     	 
      	 $("button[data-oper='modify']").on("click", function(e){
         
-    		 operForm.attr("action","/community/notice/modify").submit();
+    		 operForm.attr("action","/community/Board_FAQ/modify").submit();
     		 
     	 });
     	 
     	 $("button[data-oper='list']").on("click",function(e){
         	
     		operForm.find("#postingNo").remove();
-    		operForm.attr("action","/community/notice/list");
+    		operForm.attr("action","/community/Board_FAQ/list");
     		operForm.submit();
     		 
     	 });
