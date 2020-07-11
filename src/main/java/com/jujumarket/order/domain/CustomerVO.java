@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class CustomerVO {
-	private String idno;
+	private String idNo;
 	private String contact;
 	private String pwd;
-	private String authcode;
-	private String postcode;	
-	private String addr;
+	private String authCode;
+	private String postCode;	
+	private String shopAddr;
 }

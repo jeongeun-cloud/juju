@@ -215,7 +215,7 @@ h4 {
             position: fixed;
             top: 0px;
             
-            
+            z-index: 999;
             
             /* 반응 없음 */
             /* overflow: scroll; */
@@ -292,6 +292,7 @@ h4 {
           float: left;
           
           border : 3px;
+          margin-top: 25px;
           margin-left : 10px;
        
        }
@@ -391,6 +392,10 @@ margin-left: 15%;
     
 </head>
 <body>
+
+
+<jsp:include page="../includes/header.jsp" flush="false"/>
+<jsp:include page="../includes/menuBar.jsp" flush="false"/>
 
 <jsp:include page="RecentlySeen.jsp" flush="false"/>
 
@@ -627,7 +632,7 @@ margin-left: 15%;
 
         <button type="button" onclick="basketClicked(this)" class="basket-toggle-collapse" > 
             <span class="basket-toggle-icon"> </span>
-            <img src="https://postfiles.pstatic.net/MjAyMDA2MjlfMjEg/MDAxNTkzNDM0MTcyMjA1.88gzgV5fOBxNdrVHMP30f8M0QYJrvSab6jH2NfuZ6dQg.t1i-emD2OypaNqJsiUJYOdSci8sM9Dal67XTAMfJyf0g.PNG.glgltwwofus/cart.png?type=w773"/>
+            <img src="/resources/images/cart.png"/>
         </button>   
 
         <br>장바구니
@@ -639,6 +644,7 @@ margin-left: 15%;
          
         <c:forEach items="${list}" var="basket">
         
+        
         <div id="basketImg">
         <img src="<c:out value="${basket.itemImg1}"/>" class="basketItemImg"/>
         </div>
@@ -648,7 +654,7 @@ margin-left: 15%;
         <c:out value = "${basket.itemName}"/><br>
         <c:out value = "${basket.price}"/>원<br>
         <c:out value = "${basket.itemNum}"/>개<br>
-        <c:out value = "${basket.baskId}"/><br>
+        <input type="hidden"><c:out value = "${basket.baskId}"/><br>
         </h5>
         <br>
         </div>
@@ -796,8 +802,16 @@ function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜
    console.log("결과 : " + jsonData)
    
    for(var i=0; i<jsonData.length; i++) {
-      
-      $basketList.append("<img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" />");
+	   
+	   
+	   
+   
+	   $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
+	   
+	   $basketList.append("<div id='basketContent'><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
+	   
+      /* 
+      $basketList.append("<img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" />");
       
       $basketList.append("<h5>");
       
@@ -808,14 +822,25 @@ function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜
       
       $basketList.append("</h5>");	
       $basketList.append("<br>");
+      
+       */
 
    }
    
-   
+   $("#basketList").append("<div id='endOfCart'>end of cart</div>");
+   $("#endOfCart").css("background-color","white");
+   $("#endOfCart").css("color","white");
+   $("#endOfCart").css("display","block");
+   $("#endOfCart").css("width","240px");
+   $("#endOfCart").css("height","50px");
+   $("#endOfCart").css("float","left");
+
    
    $("#basketList").css("text-align","left");
    $("#basketList").css("font-size","13px");
    $("#basketList").css("font-weight","bold");
+   
+   
    
    /* 
    $("#aaa").css("width","120px");
@@ -847,9 +872,18 @@ function moveCart() {
        var elem = document.getElementById("basketNav"),
        Style = window.getComputedStyle(elem),
        right = Style.getPropertyValue("right");
+      
+      
+        /* 장바구니 슬라이드 스크롤 맨 아래로 내리기*/
+       location.href="#endOfCart";
 
         /* 장바구니를 펼쳤다가 */
        elem.style.right = "0%";
+        
+        
+        
+        /* 장바구니 슬라이드 스크롤 맨 아래로 내리기?- 적용되는지 모르겠다 */
+       //document.getElementById("endOfCart").scrollIntoView();
 
         /* 1초 후에 장바구니를 닫아라 */
        setTimeout(function(){elem.style.right = "-20%";},1000);

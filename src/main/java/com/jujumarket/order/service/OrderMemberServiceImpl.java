@@ -9,14 +9,13 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class OrderMemberServiceImpl implements OrderMemberService {
+
+public class OrderMemberServiceImpl implements OrderMemberService{
 	
-	MemberMapper memberMapper;
+		private MemberMapper memberMapper;
 
-	@Override
-	public OrderMemberVO getOrderMemberInfo(String idNo) {
-		// TODO Auto-generated method stub
-		return memberMapper.orderMemberInfo(idNo);
-	}
-
+		@Override
+		public OrderMemberVO getOrderMemberInfo(String idNo) {
+			return memberMapper.orderMemberInfo(idNo);
+		}
 }

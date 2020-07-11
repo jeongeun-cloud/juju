@@ -11,7 +11,7 @@
  		</select>
  	
  		<insert id="insert">
- 			insert into t_order_info(orderCode, itemNum, disAmount)
+ 			insert into t_order_info(orderCode, itemCode, itemNum, disAmount)
  			values(#{orderCode}, #{itemCode}, #{itemNum}, #{disAmount})
  		</insert>
  		

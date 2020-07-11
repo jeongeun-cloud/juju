@@ -1,7 +1,5 @@
 package com.jujumarket.order.domain;
 
-import java.sql.Timestamp;
-
 import lombok.Data;
 
 
@@ -23,7 +21,19 @@ public class OrderRequestVO {
 	private Long itemNum;
 	//OrderInfoVO에만 존재하는 컬럼
 	private Long disAmount;
-
 	private String orderStat;
+	
+	//주문자 정보
+	private String memName;
+	private String contact;
+	
+	//배송지정보에 들어가는 column
+	private String receiver;
+	private String receivContact;
+	private String receivAddr;
+	private String reqNote;
+	
+	
+	
 	
 }

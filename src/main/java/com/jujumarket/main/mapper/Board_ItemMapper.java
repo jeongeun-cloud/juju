@@ -21,7 +21,7 @@ public interface Board_ItemMapper {
 	
 	public List<Board_ItemVO> highPrice(String order); 
 	
-	public List<Board_ItemVO> best(String order);	
+	public List<Board_ItemVO> bestProduct(String order);	
 	
 	public List<Board_ItemVO> newProduct(String order);	
 		

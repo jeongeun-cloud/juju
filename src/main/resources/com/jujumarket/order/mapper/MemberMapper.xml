@@ -6,67 +6,63 @@
 	
 	<select id="getList" resultType="com.jujumarket.order.domain.MemberVO">
 		<![CDATA[
-			select * from t_member where idno>0
+			select * from t_member where idNo > 0
 		]]>
 	</select>
 	
+	<!-- orderItemsForm.jsp에 뿌려주기 위한 회원정보들을 MemberVO, CustomerVO에서 각각 받아 OrderMemberVO를 만듦 -->
 	<select id="orderMemberInfo" resultType="com.jujumarket.order.domain.OrderMemberVO">
 	
-		select tm.memname, tm.memaddr, mc.contact
+		select tm.memname, tm.memaddr, mc.contact, tm.emailAccount, tm.idNo
 		from t_member tm, m_customer mc
-		where tm.IDno = #{IDno} 
+		where tm.idNo = mc.idNo
+		and tm.idNo = #{idNo} 
 	
 	</select>
 
 	<insert id="insertCustomer">
-		insert into t_member (idno, emailaccount, memname, memcode) 
-		values ('c'||lpad(seq_user.nextval,6,'0'), #{emailaccount}, #{memname}, #{memcode})
+		insert into t_member (idNo, emailaAccount, memName, memCode) 
+		values (#{idNo}, #{emailAccount}, #{memName}, #{memCode})
 	</insert>
 	<insert id="insertSeller">
-		insert into t_member (idno, emailaccount, memname, memcode) 
-		values ('s'||lpad(seq_user.nextval,6,'0'), #{emailaccount}, #{memname}, #{memcode})
+		insert into t_member (idNo, emailAccount, memName, memCode) 
+		values (#{idNo}, #{emailAccount}, #{memName}, #{memCode})
 	</insert>
 	
 	<!-- 방금가입한 정보를 확인하는용 -->
 	<select id="read" resultType="com.jujumarket.order.domain.MemberVO">
-		select * from t_member where emailaccount=#{emailaccount}
+		select * from t_member where emailAccount=#{emailAccount}
 	</select>
 	
 	<!-- 로그인 -->
-	<select id="readIdno" resultType="String">
-		select idno from t_member where emailaccount=#{emailaccount}
+	<select id="readIdNo" resultType="String">
+		select idNo from t_member where emailAccount=#{emailAccount}
 	</select>
 	<select id="getPwd" resultType="String">
-		select pwd from m_customer where idno=#{idno}
+		select pwd from m_customer where idNo=#{idNo}
 	</select>
 	
 	<!-- 아이디찾기 -->
 	<select id="getEmail1" resultType="String">
-		select idno from t_member where memname=#{memname}
+		select idNo from t_member where memName=#{memName}
 	</select>
 	
 	<select id="getEmail3" resultType="String">
-		select emailaccount from t_member where memname=#{memname}
+		select emailAccount from t_member where memName=#{memName}
 	</select>
 	
 	
 	<delete id="delete">
-		delete from t_member where idno = #{idno}
+		delete from t_member where idNo = #{idNo}
 	</delete>
-	
-	
-	
-	
-	
-	
 	
 	
 	<!-- 회원정보 수정 -->
 	
 	<update id="update">
 		update t_member
-		set emailaccount=#{emailaccount}, memname=#{memname}, memcode=#{memcode}
-		where idno = #{idno}
+		set emailAccount=#{emailAccount}, memName=#{memName}, memCode=#{memCode}
+		where idNo = #{idNo}
 	</update>
 	
 	<!-- 회원탈퇴 -->

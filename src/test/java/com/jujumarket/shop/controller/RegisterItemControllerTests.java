@@ -48,8 +48,8 @@ public class RegisterItemControllerTests {
 	public void testRegister() throws Exception {
 		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/shop/register")
 				.param("itemCode", "test11")
-				.param("itemName", "테스트 item ")
-				.param("itemContent", "테스트 ㅇ이템 맛좋아요~")
+				.param("itemName", "�뀒�뒪�듃 item ")
+				.param("itemContent", "�뀒�뒪�듃 �뀋�씠�뀥 留쏆쥕�븘�슂~")
 				.param("price", "1233")
 				.param("normPrice", "123444")
 				.param("stock", "123")
@@ -81,8 +81,8 @@ public class RegisterItemControllerTests {
 		String resultPage = mockMvc
 				.perform(MockMvcRequestBuilders.post("/shop/modify")
 						.param("itemCode", "7")
-						.param("itemName", "무우 수정 ")
-						.param("itemContent", "무우 수정되었음")
+						.param("itemName", "臾댁슦 �닔�젙 ")
+						.param("itemContent", "臾댁슦 �닔�젙�릺�뿀�쓬")
 						.param("price", "1233")
 						.param("normPrice", "1234")
 						.param("stock", "230")
@@ -115,4 +115,14 @@ public class RegisterItemControllerTests {
 				.andReturn().getModelAndView().getModelMap());
 	}
 	
+	@Test
+	public void testFullPath() throws Exception {
+		log.info(mockMvc.perform(MockMvcRequestBuilders
+				.get("/shop/get")
+				.param("itemCode", "item000041"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap()
+				);
+	}
 }
