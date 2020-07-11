@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jujumarket.order.domain.OrderMemberVO;
 import com.jujumarket.order.domain.OrderRequestVO;
 import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
@@ -44,7 +45,13 @@ public class OrderController {
 	@GetMapping("/orderResult")
 	public void orderResult(@RequestParam("orderCode") String orderCode, Model model) {
 		log.info("/orderResult");
-
+		OrderVO order = orderService.get(orderCode);
+		String idNo = order.getIdNo();
+		OrderMemberVO orderMember = orderMemberService.getOrderMemberInfo(idNo);
+		List<OrderResponseVO> itemList = orderService.getOrderResponse(idNo);
+		model.addAttribute("order", order);
+		model.addAttribute("orderMember", orderMember);
+		model.addAttribute("itemList", itemList);
 	}
 
 	//orderResult 정보를  t_delivery DB에 insert 
@@ -60,14 +67,12 @@ public class OrderController {
 	
 	//orderResult에 그냥 넘겨주는 방식
 	@PostMapping("/orderResult")
-	public void orderResult(OrderRequestVO order, Model model) {
+	public String orderResult(OrderRequestVO order) {
 		log.info("orderResult");
 		log.info(order);
 		String orderCode = orderService.register(order);
-		model.addAttribute("orderResult", order);
 
-		
-//		return "redirect:/order/orderResult" + "?orderCode=" + orderCode;
+		return "redirect:/order/orderResult" + "?orderCode=" + orderCode;
 	}
 
 	@PostMapping("/modify")

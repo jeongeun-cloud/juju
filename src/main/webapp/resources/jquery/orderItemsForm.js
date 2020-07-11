@@ -26,23 +26,23 @@ function execDaumPostcode() {
                     document.getElementById('roadAddress').value = fullRoadAddr;
                     document.getElementById('jibunAddress').value = data.jibunAddress;
 
-                    if (data.autoRoadAddress) {
-                        var expRoadAddr = data.autoRoadAddress
-                                + extraRoadAddr;
-                        document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '
-                                + expRoadAddr + ')';
-
-                    } else if (data.autoJibunAddress) {
-                        var expJibunAddr = data.autoJibunAddress;
-                        document.getElementById('guide').innerHTML = '(예상 지번 주소 : '
-                                + expJibunAddr + ')';
-
-                    } else {
-                        document.getElementById('guide').innerHTML = '';
-                    }
-                }
-            }).open();
-}
+//                    if (data.autoRoadAddress) {
+//                        var expRoadAddr = data.autoRoadAddress
+//                                + extraRoadAddr;
+//                        document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '
+//                                + expRoadAddr + ')';
+//
+//                    } else if (data.autoJibunAddress) {
+//                        var expJibunAddr = data.autoJibunAddress;
+//                        document.getElementById('guide').innerHTML = '(예상 지번 주소 : '
+//                                + expJibunAddr + ')';
+//
+//                    } else {
+//                        document.getElementById('guide').innerHTML = '';
+//                    }
+               }
+            }).open()
+};
 
 window.onload = function() {
     init();

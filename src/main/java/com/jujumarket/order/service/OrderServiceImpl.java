@@ -33,17 +33,21 @@ public class OrderServiceImpl implements OrderService{
 //		order.setOrderCode(orderCode);n
 		List<OrderResponseVO> itemList = orderMapper.orderResponse(order.getIdNo());
 		log.info("크기: " + itemList.size());
+		Long totalSum = 0L;
+		Long totalDiscount = 0L;
 		for (int i = 0; i < itemList.size(); i++) {
-			log.info("register3......");
 			OrderResponseVO item = itemList.get(i);
-			log.info("register4......");
 			order.setItemCode(item.getItemCode());
-			log.info("register5......");
+			order.setItemNum(item.getItemNum());
+			order.setDisAmount(item.getNormPrice()-item.getPrice());
 			orderInfoMapper.insertSelectKey(order);
-			log.info("register6......");
 			orderHistoryMapper.insertSelectKey(order);
-			log.info("register7......");
+			totalSum += item.getNormPrice() * item.getItemNum() ;
+			totalDiscount += (item.getNormPrice()-item.getPrice()) * item.getItemNum();
 		}
+		order.setTotalSum(totalSum);
+		order.setTotalDiscount(totalDiscount);
+		order.setTotalPay(totalSum-totalDiscount);
 		return order.getOrderCode();
 	}
 	

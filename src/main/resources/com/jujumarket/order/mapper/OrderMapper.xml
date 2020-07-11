@@ -21,27 +21,17 @@
 		#{isMember}, #{idNo})
 	</insert>
 
-
 	<insert id="insertSelectKey">
 		<selectKey keyProperty="orderCode" order="BEFORE"
-			resultType="String">
-			select
-			replace(replace(replace(substr(current_timestamp,0,17),' ',''),'/',''),':','') 
-			from dual
+			resultType="String"> select
+			replace(replace(replace(substr(current_timestamp,0,17),'
+			',''),'/',''),':','') from dual
 		</selectKey>
-
-
-		insert into t_order(orderCode, idNo)
-		values(#{orderCode}, #{idNo})
+		insert into t_order(orderCode,
+		totalPay, totalSum, totalDiscount, idNo)
+		values(#{orderCode},
+		#{totalPay}, #{totalSum}, #{totalDiscount}, #{idNo})
 	</insert>
-
-
-	<!-- <insert id="insertSelectKey"> <selectKey keyProperty="orderCode" order="BEFORE" 
-		resultType="String"> select replace(replace(replace(substr(current_timestamp,0,17),' 
-		',''),'/',''),':','') from dual </selectKey> insert into t_order(orderCode, 
-		totalPay, totalSum, totalDiscount, deliCharge, isMember, idNo) values(#{orderCode}, 
-		#{totalPay}, #{totalSum}, #{totalDiscount}, #{deliCharge}, #{isMember}, #{idNo}) 
-		</insert> -->
 
 	<select id="read"
 		resultType="com.jujumarket.order.domain.OrderVO">
@@ -70,7 +60,8 @@
 
 	<select id="getOrderCodeByIdNo" resultType="String">
 		select orderCode
-		from t_order
+		from
+		t_order
 		where idNo = #{idNo}
 	</select>
 

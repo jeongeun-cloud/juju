@@ -3,7 +3,6 @@ package com.jujumarket.order.domain;
 import lombok.Data;
 
 
-
 @Data
 public class OrderRequestVO {
 	//t_order

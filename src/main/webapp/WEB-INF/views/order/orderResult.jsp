@@ -55,20 +55,16 @@
 				<!-- OrderController의 list -> jsp에서 DB 호출시 ${list} -->
 				<!-- totalPrice를 구하기 위해 c:set 사용하여 forEach로 반복문 돌려주었음  -->
 
-				<c:set var="totalPrice" value="${0}" />
-				<c:forEach var="order" items="${orderList}">
-					<c:set var="totalPrice"
-						value="${totalPrice + (order.price * order.itemNum)}" />
+				<c:forEach var="item" items="${itemList}">
 					<tr cellpadding="40" align=center>
-						<td><c:out value="${order.itemImg1}"></c:out></td>
-						<td><c:out value="${order.itemName}"></c:out></td>
-						<td><c:out value="${order.normPrice}"></c:out></td>
-						<td><c:out value="${order.itemNum}"></c:out></td>
-						<td><c:out value="${order.normPrice - order.price}"></c:out></td>
-						<td><c:out value="${order.price * order.itemNum}"></c:out></td>
+						<td><c:out value="${item.itemImg1}"></c:out></td>
+						<td><c:out value="${item.itemName}"></c:out></td>
+						<td><c:out value="${item.normPrice}"></c:out></td>
+						<td><c:out value="${item.itemNum}"></c:out></td>
+						<td><c:out value="${item.normPrice - item.price}"></c:out></td>
+						<td><c:out value="${item.price * item.itemNum}"></c:out></td>
 					</tr>
 				</c:forEach>
-
 
 			</tbody>
 		</table>
@@ -84,11 +80,11 @@
 
 		<tr>
 			<td>이름</td>
-			<td>${orderResult.memName}</td>
+			<td>${orderMember.memName}</td>
 		</tr>
 		<tr>
 			<td>연락처</td>
-			<td>${orderResult.contact}</td>
+			<td>${orderMember.contact}</td>
 		</tr>
 		
 	</table>
@@ -132,7 +128,7 @@
 		</tr>
 		<tr>
 			<td>결제금액</td>
-			<td>totalPrice + deliCharge</td>
+			<td>${order.totalPay}</td>
 		</tr>
 
 	</table>

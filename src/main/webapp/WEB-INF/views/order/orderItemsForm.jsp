@@ -16,7 +16,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </head>
 <body>
@@ -26,9 +26,7 @@
 
 	<form action="orderResult" method="post">
 
-		<p style="text-align: right;">
-			01 장바구니 > <strong> 02 주문서 작성/결제 > </strong> 03 주문완료
-		</p>
+		<p style="text-align: right;"> 01 장바구니 > <strong> 02 주문서 작성/결제 > </strong> 03 주문완료 </p>
 
 
 		<hr size="2px" color="grey"></hr>
@@ -56,10 +54,20 @@
 				<!-- OrderController의 list -> jsp에서 DB 호출시 ${list} -->
 
 
-				<c:set var="totalPrice" value="${0}" />
+				<c:set var="totalPay" value="${0}" />
+				<c:set var="totalSum" value="${0}" />
+				<c:set var="totalDiscount" value="${0}" />
+				
 				<c:forEach var="order" items="${orderList}">
-					<c:set var="totalPrice"
-						value="${totalPrice + (order.price * order.itemNum)}" />
+				
+					<c:set var="totalPay"
+						value="${totalPay + (order.price * order.itemNum)}" />
+					<c:set var = "totalSum" 
+						value="${totalSum + (order.normPrice * order.itemNum)}"/>
+					<tr cellpadding=40 align=center>
+					<c:set var = "totalDiscount" 
+						value="${totalDiscount + ((order.normPrice - order.price) * order.itemNum)}"/>
+						
 					<tr cellpadding=40 align=center>
 						<td><c:out value="${order.itemImg1}"></c:out></td>
 						<td><c:out value="${order.itemName}"></c:out></td>
@@ -75,12 +83,6 @@
 		</table>
 
 		<input type="hidden" value="${memberInfo.idNo}" name="idNo">
-		
-		
-		
-		
-		
-		
 
 		<div class="clear"></div>
 		<br> <br>
@@ -89,13 +91,15 @@
 		<br>
 		<table width=80% class="list_view">
 			<tbody>
-
-				<!-- computed column from t_order -->
+				
 				<td class="fixed join">최종 결제금액</td>
-				<td class="fixed join">${totalPrice}</td>
+				<td class="fixed join">${totalPay}</td>
 
 			</tbody>
 		</table>
+				<input type="hidden" name="totalPay" value="${totalPay}">
+				<input type="hidden" name="totalSum" value="${totalSum}">
+				<input type="hidden" name="totalDiscount" value="${totalDiscount}">
 
 
 
@@ -114,7 +118,7 @@
 					<tr class="dot_line">
 						<td class="fixed_join">연락처</td>
 						<td>
-							<input type="text" id="contact" name="contact" value="${memberInfo.contact}"/>r
+							<input type="text" id="contact" name="contact" value="${memberInfo.contact}"/>
 					</tr>
 
 					<tr class="dot_line">
@@ -158,13 +162,13 @@
 					<tr class="dot_line">
 						<td class="fixed_join">주소</td>
 						<td><input type="text" id="zipcode" name="zipcode" size="5"
-							value="${orderer.zipcode }"> <a
-							href="javascript:execDaumPostcode()">우편번호검색</a> <br>
+							value="${orderer.zipcode }" readonly="readonly"> <a
+							href="javascript:execDaumPostcode()"> 우편번호검색</a> <br>
 							<p>
-								지번 주소: <input type="text" id="roadAddress"
-									name="roadAddress" size="50" value="${orderer.roadAddress }" /><br>
-								<br> 도로명 주소: <input type="text" id="jibunAddress"
-									name="jibunAddress" size="50" value="${orderer.jibunAddress }" /><br>
+								지번 주소: <input type="text" id="jibunAddress"
+									name="jibunAddress" size="50" value="${orderer.roadAddress }" /><br>
+								<br> 도로명 주소: <input type="text" id="roadAddress"
+									name="roadAddress" size="50" value="${orderer.jibunAddress }" /><br>
 								<br> 나머지 주소: <input type="text" id="receivAddr"
 									name="receivAddr" size="50"
 									value="" />
