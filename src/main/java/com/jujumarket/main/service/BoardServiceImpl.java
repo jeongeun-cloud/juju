@@ -57,19 +57,25 @@ public class BoardServiceImpl implements BoardService{
 	
 	//상품 sort해서 조회
 	
-	@Override public List<Board_ItemVO> listSort(String order) {
+	@Override 
+	public List<Board_ItemVO> listSort(SortVO sort) {
+	
+//	System.out.println("serviceImpl 까지 들어왔다");
+//	System.out.println("serviceImpl 에서의 cs는? " + sort.getClassCode());
+//	System.out.println("serviceImpl 에서의 sort는? " + sort.getSort());
+
 	  
-	  if(order.equals("best")) {
-		  return mapper.bestProduct(order); }
-	  
-	  else if(order.equals("highP")) { 
-		  return mapper.highPrice(order); } 
-	  
-	  else if(order.equals("lowP")) {
-		  return mapper.lowPrice(order); } 
-	  
-	  else return  mapper.newProduct(order);
-	  
+	  if(sort.getSort().equals("best")) {
+		  return mapper.bestProduct(sort.getClassCode()); 
+	  }else if(sort.getSort().equals("highPrice")) { 
+		  return mapper.highPrice(sort.getClassCode()); 
+	  }  else if(sort.getSort().equals("lowPrice")) {
+		  return mapper.lowPrice(sort.getClassCode()); 
+	  } else {
+		  return mapper.newProduct(sort.getClassCode());
+	  }
+	
+
 	  
 	  //return sqlSession.selectList("productSQL.getUserProductList",map);
 	  

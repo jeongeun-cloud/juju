@@ -5,6 +5,7 @@ package com.jujumarket.main.mapper;
 import com.jujumarket.main.domain.Board_ItemVO;
 import com.jujumarket.main.domain.CategoryVO;
 import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.main.domain.SortVO;
 
 
 public interface Board_ItemMapper {
@@ -17,13 +18,13 @@ public interface Board_ItemMapper {
 
 	public List<CategoryVO> category();
 	
-	public List<Board_ItemVO> lowPrice(String order);
+	public List<Board_ItemVO> lowPrice(String classCode);
 	
-	public List<Board_ItemVO> highPrice(String order); 
+	public List<Board_ItemVO> highPrice(String classCode); 
 	
-	public List<Board_ItemVO> bestProduct(String order);	
+	public List<Board_ItemVO> bestProduct(String classCode);	
 	
-	public List<Board_ItemVO> newProduct(String order);	
+	public List<Board_ItemVO> newProduct(String classCode);	
 		
 	}
 

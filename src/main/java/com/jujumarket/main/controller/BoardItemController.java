@@ -2,14 +2,18 @@ package com.jujumarket.main.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jujumarket.main.domain.Board_ItemVO;
 import com.jujumarket.main.domain.CategoryVO;
 import com.jujumarket.main.domain.Criteria;
 import com.jujumarket.main.domain.PageDTO;
@@ -54,6 +58,44 @@ public class BoardItemController {
 
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	@GetMapping("/test")
+	@ResponseBody
+	public ResponseEntity<?> test(String classCode, String sort, Model model) {
+		
+		System.out.println("컨트롤러 왔음");
+		
+		System.out.println(classCode);
+		
+		SortVO vo = new SortVO();
+		vo.setClassCode(classCode);
+		vo.setSort(sort);
+		
+		
+		List<Board_ItemVO> list = service.listSort(vo);
+		
+		System.out.println(list.toString());
+		
+		
+		return ResponseEntity.status(HttpStatus.OK).body(list.toString());
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@GetMapping("/list/sort")
 	@ResponseBody

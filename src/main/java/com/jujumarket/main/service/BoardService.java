@@ -16,7 +16,7 @@ public interface BoardService {
 	
 	public List<Board_ItemVO> getList(Criteria cri);
 	
-	 public List<Board_ItemVO> listSort(String order); 
+	 public List<Board_ItemVO> listSort(SortVO sort); 
 	
 
 	
