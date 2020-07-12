@@ -24,8 +24,7 @@
 	<insert id="insertSelectKey">
 		<selectKey keyProperty="orderCode" order="BEFORE"
 			resultType="String"> select
-			replace(replace(replace(substr(current_timestamp,0,17),'
-			',''),'/',''),':','') from dual
+			replace(replace(replace(substr(current_timestamp,0,17),' ',''),'/',''),':','') from dual
 		</selectKey>
 		insert into t_order(orderCode,
 		totalPay, totalSum, totalDiscount, idNo)

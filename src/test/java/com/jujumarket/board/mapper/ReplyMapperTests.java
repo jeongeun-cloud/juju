@@ -3,6 +3,7 @@ package com.jujumarket.board.mapper;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class ReplyMapperTests {
 		log.info(mapper);
 	}
 	
-//	@Test
+	//@Test
 	public void testCreate() {
 		
 	IntStream.rangeClosed(1,10).forEach(i ->{
@@ -42,8 +43,8 @@ public class ReplyMapperTests {
 		ReplyVO vo = new ReplyVO();
 	
 	     	 vo.setIdNo("Idno2");
-			 vo.setPostingNo("posting2");
-		     vo.setReplyContent("Reply 내용2");
+			 vo.setPostingNo("38");
+		     vo.setReplyContent("Reply 내용38");
 		
 			
 			mapper.insert(vo);			
@@ -86,7 +87,7 @@ public class ReplyMapperTests {
 		log.info("UPDATE COUNT: " + count);
 	}
 	
-	@Test
+	//@Test
 	public void testList() {
 		
 		Criteria cri = new Criteria();
@@ -97,4 +98,22 @@ public class ReplyMapperTests {
 		replies.forEach(reply -> log.info(reply));
 		
 	}
+	
+	/*
+	 * @Test public void testList2() {
+	 * 
+	 * 
+	 * 
+	 * public List<ReplyVO> getListWithPaging(
+	 * 
+	 * @Param("cri") Criteria cri,
+	 * 
+	 * @Param("postingNo") String postingNo);
+	 * 
+	 * public int getCountBypostingNo(String postingNo);
+	 * 
+	 * 
+	 * }
+	 */
+	
 }

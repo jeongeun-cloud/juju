@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8" isELIgnored="false"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file = "../includes/header.jsp" %>
+<%@ include file = "../includes/menuBar.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -23,12 +24,8 @@
 	<br>주문 내역은 [마이페이지 > 주문내역/배송조회]에서 다시 확인할 수 있습니다.
 	<br>
 	<strong>주문번호: </strong> ${order.orderCode}
-	
-
-	<h3>
-		<c:out value="${order.orderCode}"></c:out>
-	</h3>
-
+	<br>
+	<br>
 
 	<form action="orderResult" method="post">
 		<!-- 	<form name="form_order"> -->
@@ -99,19 +96,20 @@
 
 		<tr>
 			<td>이름</td>
-			<td>${orderResult.receiver}</td>
+			<td>${delivery.receiver}</td>
 		</tr>
 		<tr>
 			<td>주소</td>
-			<td>${orderResult.receivAddr}</td>
+			<td>${delivery.receivAddr}</td>
+			
 		</tr>
 		<tr>
 			<td>연락처</td>
-			<td>${orderResult.receivContact}</td>
+			<td>${delivery.receivContact}</td>
 		</tr>
 		<tr>
 			<td>요청사항</td>
-			<td>${orderResult.reqNote}</td>
+			<td>${delivery.reqNote}</td>
 		</tr>
 	</table>
 

@@ -7,6 +7,8 @@ import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
 
 public interface OrderService {
+	
+	
 	public String register(OrderRequestVO order);
 	
 	public OrderVO get(String orderCode);
@@ -18,7 +20,6 @@ public interface OrderService {
 	public List<OrderVO> getList();
 
 	public List<OrderResponseVO> getOrderResponse(String idNo);
-	
 	
 
 }

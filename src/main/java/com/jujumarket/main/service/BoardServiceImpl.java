@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.jujumarket.main.domain.Board_ItemVO;
 import com.jujumarket.main.domain.CategoryVO;
 import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.main.domain.SortVO;
 import com.jujumarket.main.mapper.Board_ItemMapper;
 
 import lombok.AllArgsConstructor;
@@ -32,19 +33,9 @@ public class BoardServiceImpl implements BoardService{
 
 	@Setter(onMethod_ = @Autowired)
 	private Board_ItemMapper mapper;
-//	
-//	@Override
-//	public ItemVO get(String classCode) {
-//		log.info("get.... ");
-//		return mapper.read(classCode);
-//	}
 
 
-//	@Override
-//	public List<ItemVO> getList() {
-//		log.info("getList....");
-//		return mapper.getList();
-//	}
+
 	
 	@Override
 	public List<Board_ItemVO> gets(String classCode) {
@@ -65,27 +56,23 @@ public class BoardServiceImpl implements BoardService{
 	}
 	
 	//상품 sort해서 조회
-	@Override
-	public List<Board_ItemVO> listSort(String order) {
 	
-		if(order.contentEquals("23")) {
-			return mapper.highPrice(order);
-		}
-		
-		else if(order.equals("24")) {
-			return mapper.highPrice(order);
-		}
-		else if(order.equals("25")) {
-			return mapper.lowPrice(order);
-		}
-		else
-			return mapper.newProduct(order);
-		
-		
-		//return sqlSession.selectList("productSQL.getUserProductList",map);
-		
-	}
-	
-	
-	
+	@Override public List<Board_ItemVO> listSort(String order) {
+	  
+	  if(order.equals("best")) {
+		  return mapper.bestProduct(order); }
+	  
+	  else if(order.equals("highP")) { 
+		  return mapper.highPrice(order); } 
+	  
+	  else if(order.equals("lowP")) {
+		  return mapper.lowPrice(order); } 
+	  
+	  else return  mapper.newProduct(order);
+	  
+	  
+	  //return sqlSession.selectList("productSQL.getUserProductList",map);
+	  
+	  }
+
 }
