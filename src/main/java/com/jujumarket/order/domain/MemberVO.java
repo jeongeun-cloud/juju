@@ -4,8 +4,9 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-	private String idno;
-	private String emailaccount;
-	private String memname;
-	private String memcode;
+	private String idNo;
+	private String emailAccount;
+	private String memName;
+	private String memCode;
+	private String memAddr;
 } 

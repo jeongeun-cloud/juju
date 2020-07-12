@@ -1,7 +1,10 @@
 package com.jujumarket.main.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +23,7 @@ import com.jujumarket.main.service.ItemMainService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import net.sf.json.JSONArray;
 
 @Controller
 @Log4j
@@ -50,18 +54,37 @@ public class BasketController {
       
    }
    
-   
-   @PostMapping("/item")
+   @GetMapping("/cart")
    @ResponseBody
-   public void register(@RequestBody BasketVO basket, RedirectAttributes rttr) {
+   public ResponseEntity<?> cartlist(Model model) {
 	   
-	   log.info("register: " + basket);
-	   service.register(basket);
-	   rttr.addFlashAttribute("result", basket.getBaskId());
+      log.info("listaaa");
+      List<BasketVO> basket = null;
+      basket = service.getList();
+      model.addAttribute("basket",JSONArray.fromObject(basket));
+      
+      return ResponseEntity.status(HttpStatus.OK).body(JSONArray.fromObject(basket));
+      
+//      model.addAttribute("list", service.getList());
    }
    
    
+   @PostMapping("/cart")
+   @ResponseBody
+   public ResponseEntity<?> register(@RequestBody BasketVO basket) {
+      
+      log.info("register: " + basket);
+      service.register(basket);
+      return ResponseEntity.status(HttpStatus.OK).body("DB insert ok~");
+   }
    
+   
+//   @GetMapping("/item")
+//   @ResponseBody
+//   public void get() {
+//      log.info("/item");
+//      
+//   }
    
    
    
@@ -123,28 +146,28 @@ public class BasketController {
 //   }
 //   
    
-   @PostMapping("/modify")
-   public String modify(BasketVO basket, RedirectAttributes rttr) {
-      log.info("modify: " + basket);
-      
-      if(service.modify(basket)) {
-         rttr.addFlashAttribute("result", "success");
-      }
-      
-      return "redirect:/basket/list";
-   }
+//   @PostMapping("/modify")
+//   public String modify(BasketVO basket, RedirectAttributes rttr) {
+//      log.info("modify: " + basket);
+//      
+//      if(service.modify(basket)) {
+//         rttr.addFlashAttribute("result", "success");
+//      }
+//      
+//      return "redirect:/basket/list";
+//   }
    
-   @PostMapping("/remove")
-   public String remove(@RequestParam("baskId") String baskId, RedirectAttributes rttr) {
-      
-      log.info("remove...." + baskId);
-      
-      if(service.remove(baskId)) {
-         rttr.addFlashAttribute("result", "success");
-      }
-      
-      return "redirect:/basket/list";
-   }
+//   @PostMapping("/remove")
+//   public String remove(@RequestParam("baskId") String baskId, RedirectAttributes rttr) {
+//      
+//      log.info("remove...." + baskId);
+//      
+//      if(service.remove(baskId)) {
+//         rttr.addFlashAttribute("result", "success");
+//      }
+//      
+//      return "redirect:/basket/list";
+//   }
    
    
    

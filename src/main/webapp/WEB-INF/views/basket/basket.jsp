@@ -22,10 +22,16 @@
                
                
                
-         /* 장바구니 css 시작 */      
+           /* 장바구니 css 시작 */      
         .basketContainer {
             position: fixed;
             top: 0px;
+            
+            
+            
+            /* 반응 없음 */
+            /* overflow: scroll; */
+            /* overflow: auto; */
         }
 
         #basketNav {
@@ -48,6 +54,10 @@
             align-items: center;
             transition : 0.800s ease;
             z-index: 1;
+            
+            /* 반응 없음 */
+            /* overflow: auto; */
+            
         }
 
         .basket-toggle-collapse {
@@ -76,31 +86,62 @@
            margin-left: 0px;
            margin-top: 50px;
            width:100%;
-           height: 95%;
+           height: 60%;
            background-color: white;
            color: grey;
+           text-align: left;
+           border: 3px;
+           font-size: 1em;
+           
+           /* 여기서 스크롤 생김(양 초과했을 때) */
+           overflow: auto;
        }
        
        
        .basketItemImg {
-       	
-       	width: 100px;
-       	float: left;
-       	
-       	border : 3px;
-       	margin-left : 10px;
+          
+          width: 100px;
+          float: left;
+          
+          border : 3px;
+          margin-left : 10px;
        
        }
        
-       .basketItemDescibe {
+       .basketItemDescribe {
        
-       text-align: left;
-       border: 3px;
+      /*  text-align: left;
+       border: 3px; */
        
        }
+       
+       
+       #basketImg {
+       
+       width: 120px;
+       height: 100px;
+       float: left;
+       margin: 3px;
+       
+       
+       
+       }
+       
+       #basketContent {
+       
+       width: 120px;
+       height: 100px;
+       float: left;
+       margin: 3px;
+       
+       
+       }
+       
+       
+       
        
        /* 장바구니 css 끝 */  
-      
+
 
 </style>
 </head>
@@ -119,22 +160,36 @@
 
         <br>장바구니
 
-        <div class="basketList">
+        <ul class="basketList" id="basketList">
         
+        
+        <!-- 장바구니 리스트 영역 시작 -->
+         
         <c:forEach items="${list}" var="basket">
         
+        <div id="basketImg">
         <img src="<c:out value="${basket.itemImg1}"/>" class="basketItemImg"/>
-        <h5 class="basketItemDescibe">
+        </div>
+        
+        <div id="basketContent">
+        <h5 class="basketItemDescribe">
         <c:out value = "${basket.itemName}"/><br>
         <c:out value = "${basket.price}"/>원<br>
         <c:out value = "${basket.itemNum}"/>개<br>
         <c:out value = "${basket.baskId}"/><br>
-        <c:out value = "${basket.itemCode}"/><br>
         </h5>
-        
-        </c:forEach>
-        
+        <br>
         </div>
+        
+        
+        
+        </c:forEach> 
+          
+        <!-- 장바구니 리스트 영역 끝 -->
+        
+        
+        
+        </ul>
 
 
     </nav>
@@ -144,23 +199,32 @@
 
 
 
+
 <script>
  
  
- 	/* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 시작 */
-    function basketClicked(e) {
-           e.classList.toggle("show");
-           var elem = document.getElementById("basketNav"),
-           Style = window.getComputedStyle(elem),
-           right = Style.getPropertyValue("right");
-           if(right === "0px") {
-               elem.style.right = "-20%";
 
-           }else {
-               elem.style.right = "0%";
-           }
+/* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 시작 */
+
+function basketClicked(e) {
+       e.classList.toggle("show");
+       var elem = document.getElementById("basketNav"),
+       Style = window.getComputedStyle(elem),
+       right = Style.getPropertyValue("right");
+
+       /* 장바구니가 열려있으면 */
+       if(right === "0px") {
+           /* 장바구니를 닫고 */
+           elem.style.right = "-20%";
+
+        /* 그게 아니면 */
+       }else {
+           /* 장바구니를 펼쳐라 */
+           elem.style.right = "0%";
        }
-    /* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 끝 */
+   }
+/* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 끝 */
+
  	
  	
 </script>

@@ -33,19 +33,19 @@ public class RegisterItemServiceTests {
 	public void testRegister() {
 		RegisterItemVO register = new RegisterItemVO();
 		
-		register.setItemName("무우");
-		register.setItemContent("무우 등록 되있음~~!!");
+		register.setItemName("臾댁슦");
+		register.setItemContent("臾댁슦 �벑濡� �릺�엳�쓬~~!!");
 		register.setPrice(520000);
 		register.setNormPrice(521000);
 		register.setStock(550);
 		register.setDispStat("n");
-		register.setSaleStat("판매중");
-		register.setItemChr("인기제품55");
-//		register.setItemImg("무12.jpg");
+		register.setSaleStat("�뙋留ㅼ쨷");
+		register.setItemChr("�씤湲곗젣�뭹55");
+//		register.setItemImg("臾�12.jpg");
 		
 		service.register(register);
 		
-		log.info("생성된 아이템 번호 : " + register.getItemCode());
+		log.info("�깮�꽦�맂 �븘�씠�뀥 踰덊샇 : " + register.getItemCode());
 	}
 	
 //	@Test
@@ -72,12 +72,17 @@ public class RegisterItemServiceTests {
 			return;
 		}
 		
-		register.setItemContent("아이템 내용 수정합니다.");
+		register.setItemContent("�븘�씠�뀥 �궡�슜 �닔�젙�빀�땲�떎.");
 		log.info("MODIFY RESULT : " + service.modify(register));
 	}
 	
 	@Test
 	public void testCateg() {
 		log.info(service.category());
+	}
+	
+	@Test
+	public void testFullPath() {
+		log.info(service.getCategory("item000041"));
 	}
 }

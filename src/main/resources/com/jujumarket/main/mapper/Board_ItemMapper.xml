@@ -9,12 +9,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 select * from t_item
 order by regdate desc
 ]]>
+
 </select>
  -->
 
 
 <select id="gets" resultType="com.jujumarket.main.domain.Board_ItemVO">
 	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, IDno from t_item where classCode like '%' || #{classCode}||'%'
+	order by regDate DESC
 </select>
 
 <select id="getListWithPaging" resultType="com.jujumarket.main.domain.Board_ItemVO">
@@ -42,18 +44,20 @@ order by regdate desc
 <select id="newProduct" resultType="com.jujumarket.main.domain.Board_ItemVO">
 	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo ,regDate
 	from t_item
+	where classCode =#{classCode}
 	order by regDate DESC
 
 </select>
 
 
-<select id="best" resultType="com.jujumarket.main.domain.Board_ItemVO">
+<select id="bestProduct" resultType="com.jujumarket.main.domain.Board_ItemVO">
 
 </select>
 
  <select id="lowPrice" resultType="com.jujumarket.main.domain.Board_ItemVO">
 	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo ,regDate
 	from t_item
+	where classCode =#{classCode}
 	order by price ASC
 	
 </select>
@@ -61,6 +65,7 @@ order by regdate desc
 <select id="highPrice" resultType="com.jujumarket.main.domain.Board_ItemVO">
 	select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo ,regDate
 	from t_item
+	where classCode =#{classCode}
 	order by price DESC
 
 </select>
