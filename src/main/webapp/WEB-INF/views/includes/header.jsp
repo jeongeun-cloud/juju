@@ -105,8 +105,6 @@
                             <a href="/community/notice/list">공지사항</a>
                             <a href="/community/Board_FAQ/list">자주하는 질문</a>
                             <a href="/mypage/myQna/list">1:1 문의 게시판</a>
-                            
-                  
                           </div>
                         </li>
                       </ul>
