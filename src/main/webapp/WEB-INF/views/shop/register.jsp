@@ -31,18 +31,18 @@
         <input type="text" name="itemName" id="itemName" placeholder="상품명을 입력하세요." style="width: 350px;">
         <div class="container">
             <label for="itemContent">상품 상세정보</label><br>
-            <textarea name="itemContent" id="itemContent" style="height: 200px; width:350px"></textarea>
+            <textarea name="itemContent" id="itemContent" style="height: 200px; width:350px; resize:none;"></textarea>
         </div>
         <div class="container">
         	<small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
             <label for="price">판매가격</label>
-            <input type="text" name="price" id="price"><br>
+            <input type="text" name="price" id="price" numberOnly><br>
             <label for="normPrice">정상가격</label>
-            <input type="text" name="normPrice" id="normPrice">
+            <input type="text" name="normPrice" id="normPrice" numberOnly>
         </div>
         <div class="container">
             <label for="stock">재고</label>
-            <input type="text" name="stock" id="stock"><br>
+            <input type="text" name="stock" id="stock" numberOnly><br>
         </div>
         
         <div class="container">
@@ -53,7 +53,6 @@
             <label for="">판매상태</label>
             <input type="radio" name="saleStat" value="판매중" checked="checked">판매중
             <input type="radio" name="saleStat" value="판매중지">판매중지
-            <input type="radio" name="saleStat" value="품절">품절
         </div>
         <div class="container">
             <label>상품 특성 <small style="opacity:0.75;">(특성을 선택하지 않으면 기본으로 설정 됩니다.)</small></label><br>
@@ -61,40 +60,40 @@
             <input type="checkbox" name="itemChr" value="best">Best
             <input type="checkbox" name="itemChr" value="할인">할인
             <!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
-            <input type="hidden" name="itemChr" id="itemChrText"> 
+            <input type="checkbox" name="itemChr" value="기본" style="visibility:hidden">
         </div>
         
         <!-- 파일 업로드 시작 -->
         <div class="container">
         	<label>메인 이미지</label>
-            <input type='file' id="itemImg1" name="uploadFile" />
+            <input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
             <div class="select_img1"><img src="" /></div>
         </div>
         <div class="container">
         	<label>서브 이미지</label>
-            <input type='file' id="itemImg2" name="uploadFile" />
+            <input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
             <div class="select_img2"><img src="" /></div>
         </div>
         <div class="container">
         	<label>서브 이미지</label>
-            <input type='file' id="itemImg3" name="uploadFile" />
+            <input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
             <div class="select_img3"><img src="" /></div>
         </div>
         <div class="container">
         	<label>서브 이미지</label>
-            <input type='file' id="itemImg4" name="uploadFile" />
+            <input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
             <div class="select_img4"><img src="" /></div>
         </div>
         <div class="container">
         	<label>상품 상세 설명 이미지</label>
-            <input type='file' id="itemImg5" name="uploadFile" />
+            <input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
             <div class="select_img5"><img src="" /></div>
         </div>
         
         <!-- <button type="button" onclick="submitAction();">Submit Button</button> -->
         <!-- <button type="submit">Submit Button</button> -->
         <button id="uploadBtn">Submit Button</button>
-        <button type="reset">Reset Button</button>
+        <button id="resetBtn" type="reset">Reset Button</button>
     </form>
     
  	<script
@@ -102,7 +101,7 @@
 	  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	  crossorigin="anonymous"></script>
     <script type="text/javascript">
-			
+
 		var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif)$");
     	var maxSize = 5242880;
     	
@@ -114,17 +113,32 @@
     		
     		if(!regex.test(fileType)) {
     			alert("이미지만 업로드 가능합니다!");
+    			
     			return false;
     		}
     		return true;
     	}
+    	
+		// 이미지 체크
+		for(let i=1; i<=5; i++) {
+	    	$("#itemImg"+i).change(function(){	
+	    		var imgFile = $('#itemImg'+i).val();
+	    		var fileSize = document.getElementById("itemImg"+i).files[0].size;
+				
+				if(!checkExtension(imgFile, fileSize)) {
+					$('#itemImg'+i).val("");
+					return false;
+				}
+	    	});
+		}
     	    	
     	// 사진 보이기
     	for(let i=1; i<=5; i++) {
 			$("#itemImg"+i).change(function(){	
+				
 				if(this.files && this.files[0]) {
 					var reader = new FileReader;
-					
+
 					reader.onload = function(data) {
 				    	$(".select_img"+i+" img").attr("src", data.target.result).width(500);
 				    }
@@ -136,7 +150,13 @@
 		// 등록
 		$("#uploadBtn").on("click", function(e) {
 			
-			if(!$('#mainCateg > option:selected').val()) {
+ 			function removeComma(str){
+				n = str.replace(/,/g,"");
+				
+				return n;
+			}
+			
+ 			if(!$('#mainCateg > option:selected').val()) {
 			    alert("대분류가 선택되지 않았습니다.");
 			    $('#mainCateg').focus();
 			    return false;
@@ -152,11 +172,11 @@
 				alert('상품 상세 정보가 입력되지 않았습니다.');
 				$('#itemContent').focus();
 				return false;
-			}else if($('#price').val()=='' || $('#price').val() < 1000 || $('#price').val() > 1000000)	{
+			}else if($('#price').val()=='' || removeComma($('#price').val()) < 1000 || removeComma($('#price').val()) > 1000000){
 				alert('유효하지 않은 판매가 입니다.');
 				$('#price').focus();
 				return false;
-			}else if($('#normPrice').val()=='' || $('#normPrice').val() < 1000 || $('#normPrice').val() > 1000000){
+			}else if($('#normPrice').val()=='' || removeComma($('#normPrice').val()) < 1000 || removeComma($('#normPrice').val()) > 1000000){
 				alert('유효하지 않은 정상가 입니다.');
 				$('#normPrice').focus();
 				return false;
@@ -166,32 +186,22 @@
 				return false;
 			}else if($("#itemImg1").val() == "") {
 				alert("메인 이미지가 첨부되어 있지 않습니다.");
+				$("#itemImg1").focus();
 				return false;
-			}else if($("#itemImg2").val()=="" || $("#itemImg3").val() == "" || $("#itemImg4")=="") {
+			}else if($("#itemImg2").val()=="" || $("#itemImg3").val() == "" || $("#itemImg4").val()=="") {
 				alert("서브 이미지는 모두 첨부 되어야 합니다.");
 				return false;
-			}else if($("#itemImgDetail").val() == "") {
+			}else if($("#itemImg5").val() == "") {
 				alert("상품 상세 이미지가 첨부되어 있지 않습니다.");
+				$("#itemImg5").focus();
 				return false;
 			}else if($("input[type=checkbox][name=itemChr] : checked" == false)) {
-				$("#itemChrText").val('기본');
+				$("input[type=checkbox][name=itemChr]")[3].checked = true;
 			}
 			
-			
-			
-			
-			/* 이미지 체크 */
-			var formData = new FormData();
-			var inputFile = $("input[name='uploadFile']");
-			var inputFiles = inputFile[0].files;
-			
-			for(var i=0; i<inputFiles.length; i++) {
-				if(!checkExtension(inputFiles[i].name, inputFiles[i].size)) {
-					return false;
-				}
-				formData.append("uploadFile", inputFiles[i]);
-			}
-			
+			$('#price').val(removeComma($('#price').val()));
+			$('#normPrice').val(removeComma($('#normPrice').val()));
+			$('#stock').val(removeComma($('#stock').val()));
 			
 			$("form").submit();
 			/* 
@@ -297,6 +307,43 @@
 			  	//location.href="/shop/remove?itemCode="+checkRow;
 			  	$("form").submit();
 			} */
+			
+			
+			//3자리 단위마다 콤마 생성
+			function addCommas(x) {
+			    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
+			 
+			//모든 콤마 제거
+			function removeCommas(x) {
+			    if(!x || x.length == 0) return "";
+			    else return x.split(",").join("");
+			}
+
+			// 숫자만 입력
+			$("input:text[numberOnly]").on("focus", function() {
+			    var x = $(this).val();
+			    x = removeCommas(x);
+			    $(this).val(x);
+			}).on("focusout", function() {
+			    var x = $(this).val();
+			    if(x && x.length > 0) {
+			        if(!$.isNumeric(x)) {
+			            x = x.replace(/[^0-9]/g,"");
+			        }
+			        x = addCommas(x);
+			        $(this).val(x);
+			    }
+			}).on("keyup", function() {
+			    $(this).val($(this).val().replace(/[^0-9]/g,""));
+			});
+			
+			// 리셋 버튼 누르면 보이는 이미지도 삭제 되게끔
+			$("#resetBtn").on("click", function(e) {
+				for(let i=1; i<=5; i++) {
+			    	$(".select_img"+i+" img").attr("src", "");
+		    	}
+			});
 		});
 	
 

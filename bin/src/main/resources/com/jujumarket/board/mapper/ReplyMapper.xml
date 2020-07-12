@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.board.mapper.ReplyMapper">
+
+<insert id="insert">
+insert into t_reply(replyNo,idNo,postingNo,replyContent)
+values (seq_replyNo.nextval,#{idNo},#{postingNo},#{replyContent})
+</insert>
+
+<select id="read" resultType="com.jujumarket.board.domain.ReplyVO">
+select * from t_reply where postingNo = #{postingNo}
+</select>
+
+<delete id ="delete">
+delete from t_reply where replyNo = #{replyNo}
+</delete>
+
+<update id ="update">
+
+update t_reply set replyContent = #{replyContent}, regdate = sysdate where
+replyNo = #{replyNo}
+
+</update>
+
+
+<!-- <selcet id="getCountBypostingNo" resultType="String">
+<![CDATA[
+
+selcet count(replyNo) from t_reply
+where replyNo =#{replyNo}
+]]>
+
+</selcet> -->
+
+<!-- <select id="getListWithPaging"
+resultType="com.jujumarket.board.domain.ReplyVO">
+
+<![CDATA[
+select replyNo,idNo,postingNo,replyContent,regDate
+from
+(
+
+select /*+INDEX(t_reply idx_replyContent)*/
+   rownum rn, replyNo,idNo,postingNo,replyContent,regDate
+from t_reply
+
+where postingNo = #{postingNo}
+and replyNo > 0
+and rownum <= #{cri.pageNum} * #{cri.amount}
+)
+where rn >(#{cri.pageNum}-1)*#{cri.amount}
+]]>
+
+</select> -->
+
+
+
+ <select id="getListWithPaging"
+resultType="com.jujumarket.board.domain.ReplyVO">
+
+select replyNo,idNo,postingNo,replyContent,regdate
+from t_reply
+where postingNo = #{postingNo}
+order by postingNo asc
+
+</select>
+
+
+
+<!-- private String idNo;
+	private String postingNo;
+	
+	private String replyContent;
+	private String replyNo;
+	private Date regDate; -->
+
+
+
+	
+</mapper>

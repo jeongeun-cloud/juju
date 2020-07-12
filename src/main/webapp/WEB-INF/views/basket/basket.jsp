@@ -155,7 +155,7 @@
 
         <button type="button" onclick="basketClicked(this)" class="basket-toggle-collapse" > 
             <span class="basket-toggle-icon"> </span>
-            <img src="https://postfiles.pstatic.net/MjAyMDA2MjlfMjEg/MDAxNTkzNDM0MTcyMjA1.88gzgV5fOBxNdrVHMP30f8M0QYJrvSab6jH2NfuZ6dQg.t1i-emD2OypaNqJsiUJYOdSci8sM9Dal67XTAMfJyf0g.PNG.glgltwwofus/cart.png?type=w773"/>
+            <img src="/resources/images/cart.png"/>
         </button>   
 
         <br>장바구니
