@@ -61,7 +61,6 @@ function init() {
 	var receivContact = $("#receivContact");
 	var memAddr = $("#memAddr");
 	var reqNote = $("#reqNote");
-
 	var receivAddr = $("#receivAddr");
 
 	sameAsMem.change(function() {
@@ -79,18 +78,17 @@ function init() {
 	});
 
 	var submitBtn = $("#submitBtn");
-
 	submitBtn.click(function(e) {
 		e.preventDefault();
 		
+//	null, 빈 문자열, 입력값초과에 관한 유효성 check
 		if (receiver.val().trim() == "" || receiver.val() == null) {
 			alert("수령인을 입력해주세요");
 			receiver.focus();
 		} else if (receiver.val().length > 10) {
 			alert("수령인의 이름이 너무 깁니다")
 			receiver.focus();
-		} else if (receivContact.val().trim() == ""
-				|| receivContact.val() == null) {
+		} else if (receivContact.val().trim() == ""	|| receivContact.val() == null) {
 			alert("수령인의 연락처를 입력해주세요")
 			receivContact.focus();
 		} else if (receivContact.val().length > 13) {
