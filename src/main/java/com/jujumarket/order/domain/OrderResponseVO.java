@@ -1,6 +1,5 @@
 package com.jujumarket.order.domain;
 
-
 import lombok.Data;
 
 @Data

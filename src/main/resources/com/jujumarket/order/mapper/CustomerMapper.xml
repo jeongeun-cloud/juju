@@ -12,17 +12,17 @@
 	</select>
 
 	<insert id="insert">
-		insert into m_customer (idno, pwd, contact, postcode, addr, authcode) 
+		insert into m_customer (idNo, pwd, contact, postcode, addr, authcode) 
 		values ('c'||lpad(seq_user.currval,6,'0'), #{pwd}, #{contact}, #{postcode}, #{addr}, #{authcode})
 	</insert>
 	
 	<select id="read" resultType="com.jujumarket.order.domain.CustomerVO">
-		select * from m_customer where idno=#{idno}
+		select * from m_customer where idNo=#{idNo}
 	</select>
 
 	<!-- 아이디찾기 -->
 	<select id="getEmail2" resultType="String">
-		select idno from m_customer where contact=#{contact}
+		select idNo from m_customer where contact=#{contact}
 	</select>
 	
 	
@@ -30,13 +30,13 @@
 	
 	
 	<delete id="delete">
-		delete from m_customer where idno = #{idno}
+		delete from m_customer where idNo = #{idNo}
 	</delete>
 	
 	<update id="updatePwd"><!-- pwd=#{}값은 폼에서 옵니다 -->
 		update m_customer 
 		set pwd=#{pwd}  
-		where idno = #{idno}
+		where idNo = #{idNo}
 	</update>
 	
 </mapper>

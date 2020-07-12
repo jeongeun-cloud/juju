@@ -4,8 +4,10 @@ import lombok.Data;
 
 @Data
 public class OrderMemberVO {
-	private String memname;
+	private String memName;
 	private String contact;
-	private String memaddr;
+	private String memAddr;
+	private String emailAccount;
+	private String idNo;
 
 }

@@ -1,8 +1,10 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,14 +17,11 @@
 <meta name="author" content="">
 
 <style>
-	.sort{
-	margin-left: 600px;
-	margin-bottom:30px;
-	}
+
 	.row{
 	min-width:6300px;
 	}
-	ul li{
+	.pull-right > ul li{
 	list-stlye-type:none;
 	display:inline;
 	}
@@ -33,15 +32,30 @@
 	height:6100px;
 	margin: 50px
 	}
-	 .list_sort{
+	.list_sort{
 	     position: absolute;
 	     right: 0;
 	     bottom: 0;
-	 }
+	 } 
 	 .rad_wrap{
 	     display: inline-block;
 	 }
-	     
+	   
+	 .midCateg >  ul > li {
+	 list-style:none;
+	 display:inline;
+	 margin-right: 20px;
+	 font-weight:600;
+	 font-size:15px;
+	 
+	 }
+	 .midcateg_li> a{
+	 color: black;
+	 }
+	 .midcateg_li> a:hover{
+	 color:red;
+	 text-decoration:none;
+	 }
       
      
       
@@ -50,36 +64,105 @@
 </head>
 
 <body>
+
+
 <div class="row">
 	<div class="col-lg-12" >
 		<h1 class="page-header">Header</h1>
 	</div>
 	<!-- /.col-lg-12 -->
 </div>
-<!-- /.row -->
+ <!-- /.row -->
+
+<%@include file="../includes/menuBar.jsp" %>
 
 
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-			<h1 style="color:orange">$$$$$$$$$$$$$JUJU PRODUCT_ LIST >.0$$$$$$$$$$$$$</h1>
+			<h1 style="color:orange"><c:out value="${cs}"/></h1>
 			</div>
+			
 			
 		<!--대분류 , 중분류 나눠지는 곳 -->
 		 <div class="top_title_Choice">
-		 	<form action="/product/list" method="GET"  >
+		 	<form id="categForm" role="form" action="/product/list" method="GET"  >
 		 	
-		             <select class="mainCateg" >
+		             <select class="mainCateg" id="test" >
 		               <option value="">대분류 선택</option>
 		            </select>
-		            <select class="midCateg" >
+		            <!--  <select class="midCateg" >
 		               <option value="">중분류 선택</option>
-		            </select>
-		 <input type="submit" id="classCode" name="classCode" >
-		 				
+		            </select> -->
+		          
+		            <input type="hidden"  id="classCode" name="classCode">		    
 		 </form>
-		            
+		 		<div class="midCateg">
+		 			<c:choose>
+		 			<c:when test="${cs == 'Sea' || cs =='SeaS01' || cs=='SeaS02' || cs=='SeaS03' || cs=='SeaS04'|| cs=='SeaS05' || cs=='SeaS06'}">
+		 				<ul>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=Sea">전체보기</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=SeaS01">생선류</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=SeaS02">갑각류</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=SeaS03">해조류</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=SeaS04">건어물</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=SeaS05">조개류</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=SeaS06">수산가공품</a></li>
+		 				</ul>
+		 			</c:when>
+		 			
+		 			<c:when test="${cs == 'Meat' ||cs == 'MeatM01'||cs == 'MeatM02' ||cs == 'MeatM03' ||cs == 'MeatM04' ||cs == 'MeatM05'}">
+		 				<ul>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=Meat">전체보기</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=MeatM01">소고기</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=MeatM02">돼지고기</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=MeatM03">닭고기</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=MeatM04">기타정육</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=MeatM05">가공육</a></li>
+		 				</ul>
+		 			</c:when>
+		 			<c:when test="${cs == 'Veggie' || cs=='VeggieV01'|| cs=='VeggieV03' ||cs=='VeggieV04'}">
+		 				<ul>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=Veggie">전체보기</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=VeggieV01">각종나물</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=VeggieV02">뿌리채소</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=VeggieV03">열매채소</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=VeggieV04">잎채소</a></li>
+		 				</ul>
+		 			</c:when>
+		 			<c:when test="${cs == 'Fruit' || cs=='FruitF01' || cs=='FruitF02' || cs=='FruitF03'|| cs=='FruitF04'}">
+		 				<ul>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=Fruit">전체보기</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=FruitF01">국내산 과일</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=FruitF02">수입산 과일</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=FruitF03">냉동 과일</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=FruitF04">건과일</a></li>
+		 				</ul>
+		 			</c:when>
+		 			<c:when test="${cs == 'Retort'|| cs=='RetortR01'||cs=='RetortR02'||cs=='RetortR03'||cs=='RetortR04'||cs=='RetortR05'||cs=='RetortR06'||cs=='RetortR07'}">
+		 				<ul>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=Retort">전체보기</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=RetortR01">젓갈류</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=RetortR02">양념류</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=Retort03">반찬류</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=RetortR04">간식류</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=RetortR05">건강 식품</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=RetortR06">혼밥족반찬세트</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=RetortR07">견과류</a></li>
+		 				</ul>
+		 			</c:when>
+		 			<c:when test="${cs == 'Grain' || cs=='GrainG01' || cs=='GrainG02'|| cs=='GrainG03' }">
+		 				<ul>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=Grain">전체보기</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=GrainG01">쌀</a></li>
+		 					<li class="midcateg_li"><a href="/product/list?classCode=GrainG02">잡곡류</a></li>
+		 					<li class="midcateg_li" ><a href="/product/list?classCode=GrainG03w">건식</a></li>
+		 				</ul>
+		 			</c:when>
+		 			
+		 			</c:choose>
+		 		</div>
 		 </div>	
 			<!-- /.panel-heading -->
 		<div class="panel-body">
@@ -88,26 +171,26 @@
 		<form id="listsortForm" action="/product/list" method="GET">
 			    <div class="list_Sort">
 	        <div class="rad_wrap">
-	            <input type="radio" id="sort01" name="sort" value="22" onclick="changeOrder(this.value)" 
+	            <input type="radio" id="sort01" name="sort" value="new" onclick="changeSort(this.value)" 
 	           >
 	            <label for="sort01">
 	                <span class="txt">신메뉴순</span>
 	            </label>	
 	        </div>		
 	        <div class="rad_wrap">
-	            <input type="radio" id="sort02" name="sort" value="23" onclick="changeOrder(this.value)"  >
+	            <input type="radio" id="sort02" name="sort" value="best" onclick="changeSort(this.value)"  >
 	            <label for="sort02">
 	                <span class="txt">best</span>
 	            </label>
 	        </div>
 	        <div class="rad_wrap">
-	            <input type="radio" id="sort03" name="sort" value="24" onclick="changeOrder(this.value)"   >
+	            <input type="radio" id="sort03" name="sort" value="highP" onclick="changeSort(this.value)"   >
 	            <label for="sort03">
 	                <span class="txt">높은가격순</span>
 	            </label>
 	        </div>
 	        <div class="rad_wrap">
-	            <input type="radio" id="sort04" name="sort" value="25" onclick="changeOrder(this.value)"   >
+	            <input type="radio" id="sort04" name="sort" value="lowP" onclick="changeSort(this.value)"   >
 	            <label for="sort04">
 	                <span class="txt">낮은가격순</span>
 	            </label>
@@ -129,11 +212,12 @@
 							<th>이미지</th>
 							<th>상품 분류 코드</th>
 							<th>상점 번호</th>
+							<th>cart</th>
 							
 						</tr>
 					</thead>
 					
-
+        
 					<c:forEach items="${list}" var="board">
 						<tr>
 							<td><c:out value="${board.itemCode}" /></td>
@@ -145,6 +229,7 @@
 							<td><img src="/resources/images/default.png" alt="기본" width="100px" height="100px"/></td> 
 							<td><c:out value="${board.classCode}" /></td>
 							<td><c:out value="${board.idNo}" /></td>
+							<td><button>add to cart</button></td>
 							
 							
 
@@ -185,7 +270,7 @@
 					</ul></div>
 				<!--페이징 처리 끝  -->
 				<form id='actionForm' action="/product/list" method='get'>
-			    <input type='hidden' name='classCode' value='<c:out value="${code_save}"/>'>
+			    <input type='hidden' name='classCode' value='<c:out value="${cs}"/>'>
 				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum }'>
 				<input type='hidden' name='amount' value='${pageMaker.cri.amount }'>		    
 	
@@ -206,7 +291,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-// 컨트롤러에서 데이터 받기
+//컨트롤러에서 데이터 받기
 var jsonData = JSON.parse('${category}');
 console.log(jsonData);
 
@@ -228,9 +313,18 @@ for(var i=0; i< jsonData.length; i++) {
 var mainSelect = $("select.mainCateg");
 
 for(var i=0; i < mainArr.length; i++) {
-  mainSelect.append("<option value='" + mainArr[i].mainCateg + "'>" + mainArr[i].item + "</option>");
+  mainSelect.append("<option value='" + mainArr[i].mainCateg + "' id='"+mainArr[i].mainCateg+"'>" + mainArr[i].item + "</option>");
+/*   $("#classCode").val(mainArr[i].mainCateg); */
 }
 
+$("#test").on('change', function(){
+	var test = $("option:selected").val();
+	$("#classCode").val(test)
+	/* 	alert(test); */
+	 $("#categForm").submit();
+
+});
+	
 
 $(document).on("change", "select.mainCateg", function() {
   
@@ -251,19 +345,28 @@ $(document).on("change", "select.mainCateg", function() {
 /*첫번째 select 에 의해서 두번째 콤보박스 바뀌기  */
   
   var midSelect = $("select.midCateg");
-  
-  midSelect.children().remove();
+
+
+	midSelect.children().remove();
 
    $("option:selected", this).each(function(){
     
       var selectVal = $(this).val();  
+      var midSelectTest = $(".midCategTest")
+      
      midSelect.append("<option value=''>중분류 선택</option>");
     
      for(var i = 0; i < midArr.length; i++) {
         if(selectVal == midArr[i].midCateg) {
-         midSelect.append("<option value='" + midArr[i].mainCateg + "'>" + midArr[i].item + "</option>");
+      	/*  midSelect.append("<option value='" + midArr[i].mainCateg + "'>" + midArr[i].item + "</option>");  */
+      	
+      	/* 중분류  */
+         midSelectTest.append("<li value='"+ midArr[i].mainCateg +"'><a href='#'>" +midArr[i].item+ "</a></li>");
+        
         }
      }
+     
+
     
    });
 
@@ -296,20 +399,37 @@ $(document).on("change", "select.mainCateg", function(){
 		$('#navbarDropdown').text($(this).text());
 	})
 
-/* list sort  */
-
-
-/* 	$(function(){
-		$("input[name='sort']").click(function(){
-			$(this).prop("checked",true);
-			$("form").submit();
-		})
-		alert(order);
+	
+	/* List sort radiobutton onclick  */
+	function changeSort(value){
 		
-	} */
+		var classCode = $("cs");
+		var checkSort;
+		$("input[name='sort']:checked").each(function(i){
+			checkSort.push($(this).val());
+		});
+		
+		var allData = {"classCode": classCode, "sort": checkSort};
+		
+		$.ajax({
+			url:"/product/list/sort",
+			type: "GET",
+			data:allData,
+			dataType:"JSON",
+			error:function(){console.log("통신 실패ㅜ")},
+			success: function(data){console.log("통신 성공!!")}
+		
+		});	
+			
+		
+		}
+
+
+
 	
 	
 </script>
+  
   
 
 </body>
