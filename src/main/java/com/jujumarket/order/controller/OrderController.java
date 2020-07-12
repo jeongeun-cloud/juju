@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jujumarket.order.domain.DeliveryVO;
+import com.jujumarket.order.domain.OrderMemberVO;
 import com.jujumarket.order.domain.OrderRequestVO;
 import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
+import com.jujumarket.order.service.DeliverySerivce;
 import com.jujumarket.order.service.OrderMemberService;
 import com.jujumarket.order.service.OrderService;
 
@@ -27,7 +30,8 @@ import lombok.extern.log4j.Log4j;
 public class OrderController {
 	private OrderService orderService;
 	private OrderMemberService orderMemberService;
-
+	private DeliverySerivce deliveryService;
+	
 	//상품테이블에서 idNo를 get방식으로 넘겨줌
 	//model에 orderList, memberInfo를 담아서 정보를 출력
 	@GetMapping("/orderItemsForm")
@@ -36,38 +40,35 @@ public class OrderController {
 		
 		model.addAttribute("orderList", orderService.getOrderResponse(idNo));
 		model.addAttribute("memberInfo", orderMemberService.getOrderMemberInfo(idNo));
-		//memberInfo, orderList를 jsp에서 사용
+		//memberInfo, orderList를 orderItemsForm.jsp에서 사용
 
 	}
 
 	//orderResult화면을 보여줌
+	//값을 넘겨받아 화면에 뿌려주는..read() 사용 
 	@GetMapping("/orderResult")
 	public void orderResult(@RequestParam("orderCode") String orderCode, Model model) {
 		log.info("/orderResult");
-
+		OrderVO order = orderService.get(orderCode);
+		String idNo = order.getIdNo();
+		OrderMemberVO orderMember = orderMemberService.getOrderMemberInfo(idNo);
+		List<OrderResponseVO> itemList = orderService.getOrderResponse(idNo);
+		DeliveryVO delivery = deliveryService.get(orderCode);
+		//jsp에서 사용할 요소들을 order, orderMember, itemList, delivery로 이름을 줘서 갖다쓴다 
+		model.addAttribute("order", order);
+		model.addAttribute("orderMember", orderMember);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("delivery", delivery);
 	}
 
-	//orderResult 정보를  t_delivery DB에 insert 
-//	@PostMapping("/orderResult")
-//	public String orderResult(OrderRequestVO order) {
-//		log.info("orderResult");
-//		log.info(order);
-//		String orderCode = orderService.register(order);
-//
-//		return "redirect:/order/orderResult" + "?orderCode=" + orderCode;
-//	}
-	
-	
-	//orderResult에 그냥 넘겨주는 방식
+	//orderResult 정보를  t_delivery DB에 insert. orderCode를 기준으로 insert한다
 	@PostMapping("/orderResult")
-	public void orderResult(OrderRequestVO order, Model model) {
+	public String orderResult(OrderRequestVO order) {
 		log.info("orderResult");
 		log.info(order);
 		String orderCode = orderService.register(order);
-		model.addAttribute("orderResult", order);
 
-		
-//		return "redirect:/order/orderResult" + "?orderCode=" + orderCode;
+		return "redirect:/order/orderResult" + "?orderCode=" + orderCode;
 	}
 
 	@PostMapping("/modify")

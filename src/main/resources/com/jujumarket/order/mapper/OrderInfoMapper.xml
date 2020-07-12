@@ -17,8 +17,8 @@
  		
  		
  		<insert id="insertSelectKey">
-		insert into t_order_info(orderCode, itemCode)
- 			values(#{orderCode}, #{itemCode})
+		insert into t_order_info(orderCode, itemNum, itemCode)
+ 			values(#{orderCode}, #{itemNum}, #{itemCode})
  		</insert>
  		
  		
