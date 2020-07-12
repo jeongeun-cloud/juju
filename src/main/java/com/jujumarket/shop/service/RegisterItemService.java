@@ -31,4 +31,6 @@ public interface RegisterItemService {
 
 	public String getCategory(String itemCode);
 	
+	public int getResultTotal(ItemCriteria cri);
+	
 }

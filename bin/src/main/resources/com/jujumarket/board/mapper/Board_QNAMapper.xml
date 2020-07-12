@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.board.mapper.Board_QNAMapper">
+
+	<select id="getList"
+		resultType="com.jujumarket.board.domain.Board_QNAVO">
+<![CDATA[
+  select * from T_Board_QNA ]]>
+	</select>
+
+	<insert id ="insert">
+	insert into t_board_qna (postingNo,title,content,replyBool,boardType,idNo)
+	values (seq_board_QNA.nextval, #{title},#{content},#{replyBool},#{boardType},#{idNo})
+	</insert>
+	
+	<insert id = "insertSelectKey">
+	<selectKey keyProperty="postingNo" order="BEFORE" resultType="String">
+	select seq_board_QNA.nextval from dual
+	</selectKey>
+	insert into t_board_qna (postingNo,title,content,replyBool,boardType,idNo)
+	values (#{postingNo},#{title},#{content},#{replyBool},#{boardType},#{idNo})
+	</insert>
+	
+	<select id="read" resultType ="com.jujumarket.board.domain.Board_QNAVO">
+	select * from t_board_QNA where postingNo = #{postingNo}
+	</select>
+	
+	<delete id="delete">
+	delete from t_board_QNA where postingNo = #{postingNo}
+	</delete>
+	
+		<update id="update">
+	update t_board_QNA
+	set title = #{title},
+	content = #{content},
+	replyBool = #{replyBool},
+	boardType = #{boardType},
+	idNo = #{idNo},
+	regdate = sysdate	
+	
+	where postingNo = #{postingNo}
+
+	</update>
+	
+	
+   
+   <sql id="criteria">
+   <trim prefix="(" suffix=")AND" prefixOverrides="OR">
+   <foreach item='type' collection="typeArr">
+   <trim prefix ="OR">
+   <choose>
+   <when test="type =='T'.toString()">
+   title like '%' ||#{keyword}||'%'
+   </when>
+   <when test="type =='C'.toString()">
+   content like '%' ||#{keyword}||'%'
+   </when>
+   <when test="type =='I'.toString()">
+   idNo like '%' ||#{keyword}||'%'
+   </when>
+   </choose>
+   </trim>
+   </foreach>
+   </trim><!--  prefix end -->
+   </sql>
+   
+
+   <select id="getListWithPaging" resultType="com.jujumarket.board.domain.Board_QNAVO">
+   <![CDATA[
+   select
+       postingNo,title,content,boardType,idNo,regDate,replyBool
+       from
+       (
+       
+       select /*+INDEX_DESC(t_board_qna pk_board) */
+       rownum rn,postingNo,title,content,boardType,idNo,regDate,replyBool
+       from
+       t_Board_QNA
+       
+       where  postingNo > '0' and
+       
+   ]]>
+  
+  <include refid="criteria"></include>
+   
+   <![CDATA[
+   
+    rownum <= #{pageNum}*#{amount}
+       )
+       where rn > (#{pageNum}-1) * #{amount}
+   ]]>
+   </select>
+
+    <select id="getTotalCount" resultType="int">
+   select count(*) from t_board_qna 
+   
+   where 
+   
+   <include refid="criteria"></include>
+   
+   
+   postingNo > '0'
+   
+      </select>
+  
+
+</mapper>
