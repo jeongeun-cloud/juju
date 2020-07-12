@@ -121,7 +121,7 @@
 </head>
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+  <!--   <script src="js/bootstrap.min.js"></script> -->
    
     <nav class="navbar navbar-default whole_menu" role="navigation" style=" background-color: #c9decf;">
       
@@ -214,7 +214,7 @@
     
                 <!-- 나머지 각 meunu bar -->
               
-                <li class="dropdown_each_menu" ><a href="#" data-toggle="dropdown" class="dropdown-toggle">딱 요게 제철</a>
+                <li class="dropdown_each_menu" ><a href="/seasonal" data-toggle="dropdown" class="dropdown-toggle">딱 요게 제철</a>
                 </li>
                 <li class="dropdown_each_menu"><a href="/bob" data-toggle="dropdown" class="dropdown-toggle">베스트 오브 베스트</a>
                 </li>
