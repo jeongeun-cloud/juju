@@ -168,4 +168,11 @@ public class RegisterItemServiceImpl implements RegisterItemService {
 		return mapper.getCategory(itemCode);
 	}
 
+	@Override
+	public int getResultTotal(ItemCriteria cri) {
+		log.info("get total Reault");
+		
+		return mapper.getResultTotal(cri);
+	}
+
 }

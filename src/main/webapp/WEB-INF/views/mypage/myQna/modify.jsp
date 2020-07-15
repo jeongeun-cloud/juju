@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+		<%@include file="../../includes/header.jsp" %>
+	<%@include file="../../includes/menuBar.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,8 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 
 
@@ -29,21 +31,21 @@
 				<div class="panel-body">
 				
                 	<!-- 페이지정보 얻는폼. pagenum amount , 검색 타입. 검색어 -->
-                   <form role="form" action="/mypage/myQna/modify" method="post">
-                   <input  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
-                   <input name='amount' value='<c:out value="${cri.amount}"/>'>
-                   <input name='type' value='<c:out value="${cri.type}"/>'>
-                   <input name='keyword' value='<c:out value="${cri.keyword}"/>'>
+                   <form id ='modifyForm' role="form" action="/mypage/myQna/modify" method="post">
+                   <input type='hidden'   name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
+                   <input type='hidden'  name='amount' value='<c:out value="${cri.amount}"/>'>
+                   <input type='hidden'  name='type' value='<c:out value="${cri.type}"/>'>
+                   <input type='hidden'  name='keyword' value='<c:out value="${cri.keyword}"/>'>
                    
                    
 					<div class="from-group">
-						<label>Title</label><input class="form-control" name='title'
+						<label>Title</label><input id ='title' class="form-control" name='title'
 							value='<c:out value="${Board_QNA.title}"/>'>
 					</div>
 
 					<div class="from-group">
 						<label>내용</label>
-						<textarea class="form-control" rows="10" name='content'
+						<textarea class="form-control" id ='content' rows="10" name='content'
 					 ><c:out value="${Board_QNA.content}"/></textarea>
 					</div>
 
@@ -70,9 +72,9 @@
 					
 	
 					
-					<button type="submit" data-oper='modify' class="btn btn-default">수정완료</button>
-					<button type="submit" data-oper='remove' class="btn btn-danger">삭제</button>
-					<button type="submit" data-oper='list' class="btn btn-info">리스트</button>
+					<button type="button" data-oper='modify' class="btn-default">수정완료</button>
+					<button type="button" data-oper='remove' class="btn btn-danger">삭제</button>
+					<button type="button" data-oper='list' class="btn btn-info">리스트</button>
 					</form>
 					
 					
@@ -87,7 +89,7 @@
 		
 		var formObj = $("form");
 		
-		$('button').on("click", function(e){
+		$('.btn').on("click", function(e){
 			
 			e.preventDefault();
 			
@@ -119,7 +121,31 @@
 	
 		
 	});
+		
 	});
+	
+	 var modifyForm = $("#modifyForm");
+	   
+	   $(".btn-default").on("click" , function(e){
+	  	
+		   
+		   if(!modifyForm.find("#title").val()){
+	  		 alert("제목입력 입력해주세요");
+	  		 return false;
+	  		 
+	  	 }
+	  		 
+	  		 if(!modifyForm.find("#content").val()){
+	  	  		 alert("내용을 입력해주세요");
+	  	  		 return false;
+	  		 
+	  	 }
+		  
+	  	 
+	  	 searchForm.submit();
+	  	 
+	  	 
+	       });
 	
 	</script>
 

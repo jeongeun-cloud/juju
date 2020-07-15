@@ -215,7 +215,7 @@ h4 {
             position: fixed;
             top: 0px;
             
-            
+            z-index: 999;
             
             /* 반응 없음 */
             /* overflow: scroll; */
@@ -292,6 +292,7 @@ h4 {
           float: left;
           
           border : 3px;
+          margin-top: 25px;
           margin-left : 10px;
        
        }
@@ -381,6 +382,29 @@ margin-left: 15%;
 
 
 
+/* 수량 증감 화살표 부분 시작 */
+
+.up-down{
+/*   border:1px solid #aaa; */
+  display:inline-block;
+  font-size:1.2vw;
+}
+#numup{
+/*   margin-top:0.2%; */
+/*   position:absolute; */
+/*   height:3px; */
+  border:1px solid #aaa;
+}
+#numdown{
+/*   position:absolute; */
+/*   height:10px; */
+/*   margin-top:0.2%; */
+/*   width:50px; */
+  border:1px solid #aaa;
+}
+
+/* 수량 증감 화살표 부분 끝 */
+
 
 
 
@@ -391,6 +415,10 @@ margin-left: 15%;
     
 </head>
 <body>
+
+
+<jsp:include page="../includes/header.jsp" flush="false"/>
+<jsp:include page="../includes/menuBar.jsp" flush="false"/>
 
 <jsp:include page="RecentlySeen.jsp" flush="false"/>
 
@@ -454,12 +482,31 @@ margin-left: 15%;
               <h1><c:out value="${product.itemName}" default="itemName"/></h1>
               <h2><c:out value="${product.price}" default="price"/>원 -> <c:out value="${product.normPrice}" default="normPrice"/>원</h2>
               <h5> 적립 포인트 : 120 포인트 </h5>
-              <h5> 수량 : <c:out value="${product.stock}" default="stock"/> </h5>
+              <h5> 재고 수량 : <c:out value="${product.stock}" default="stock"/> </h5>
+              
+              <!-- 수량 증감 부분 시작 -->
+              <div>
+                 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+				
+				<input value="1" min="1" size="2" id="input-view" name="number" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
+				<div class="up-down">
+				  <button id="numup"><i class="fas fa-plus"></i></button>
+				  <button id="numdown"><i class="fas fa-minus"></i></button>
+				</div>
+              </div>
+              
+              <!-- 수량 증감 부분 끝 -->
+              
+              
               <h5> 배송비 : 2500원 </h5>
               <h5> 총 결제금액 : 2600원 </h5>
               <div class="item-describe">
                 <p><c:out value="${product.itemContent}" default="itemContent"/></p>
               </div>
+              
+              
+              
               <button type="submit" class="add-to-cart" onclick="addToCartEvent()" >Add To Cart</button>
             </div>
 
@@ -627,7 +674,7 @@ margin-left: 15%;
 
         <button type="button" onclick="basketClicked(this)" class="basket-toggle-collapse" > 
             <span class="basket-toggle-icon"> </span>
-            <img src="https://postfiles.pstatic.net/MjAyMDA2MjlfMjEg/MDAxNTkzNDM0MTcyMjA1.88gzgV5fOBxNdrVHMP30f8M0QYJrvSab6jH2NfuZ6dQg.t1i-emD2OypaNqJsiUJYOdSci8sM9Dal67XTAMfJyf0g.PNG.glgltwwofus/cart.png?type=w773"/>
+            <img src="/resources/images/cart.png"/>
         </button>   
 
         <br>장바구니
@@ -639,6 +686,7 @@ margin-left: 15%;
          
         <c:forEach items="${list}" var="basket">
         
+        
         <div id="basketImg">
         <img src="<c:out value="${basket.itemImg1}"/>" class="basketItemImg"/>
         </div>
@@ -648,7 +696,7 @@ margin-left: 15%;
         <c:out value = "${basket.itemName}"/><br>
         <c:out value = "${basket.price}"/>원<br>
         <c:out value = "${basket.itemNum}"/>개<br>
-        <c:out value = "${basket.baskId}"/><br>
+        <input type="hidden"><c:out value = "${basket.baskId}"/><br>
         </h5>
         <br>
         </div>
@@ -710,9 +758,21 @@ productImages.forEach(image => image.addEventListener("click", changeImage));
    
    var $itemCode = $("#itemCode");
    
+   var $num = $("#input-view");
+   
+   
+   // 1. itemCode.val() 이 t_basket DB에 있는지 확인한다. 
+   	// 1-1. t_basket DB에 동일한 상품이 있으면 num.val() 만 더해서 update 한다. 
+   	// 1-2. t_basket DB에 동일한 상품이 없으면 data를 insertData(data) 한다. 
+   
+   // 2. getBasketList 로 장바구니 리스트를 모두 가져온다. 
+   
+   // 3. ajax 로 화면을 다시 draw 한다. 
+   
+   
    var data = {
    
-         itemNum : 1,
+         itemNum : $num.val(),
          idNo : "cus000001",
          itemCode : $itemCode.val()
    
@@ -741,6 +801,14 @@ productImages.forEach(image => image.addEventListener("click", changeImage));
    
 }
 // add to cart 버튼 onclick event function 끝
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
  
  
  
@@ -796,8 +864,16 @@ function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜
    console.log("결과 : " + jsonData)
    
    for(var i=0; i<jsonData.length; i++) {
-      
-      $basketList.append("<img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" />");
+	   
+	   
+	   
+   
+	   $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
+	   
+	   $basketList.append("<div id='basketContent'><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
+	   
+      /* 
+      $basketList.append("<img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" />");
       
       $basketList.append("<h5>");
       
@@ -808,14 +884,25 @@ function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜
       
       $basketList.append("</h5>");	
       $basketList.append("<br>");
+      
+       */
 
    }
    
-   
+   $("#basketList").append("<div id='endOfCart'>end of cart</div>");
+   $("#endOfCart").css("background-color","white");
+   $("#endOfCart").css("color","white");
+   $("#endOfCart").css("display","block");
+   $("#endOfCart").css("width","240px");
+   $("#endOfCart").css("height","50px");
+   $("#endOfCart").css("float","left");
+
    
    $("#basketList").css("text-align","left");
    $("#basketList").css("font-size","13px");
    $("#basketList").css("font-weight","bold");
+   
+   
    
    /* 
    $("#aaa").css("width","120px");
@@ -847,9 +934,18 @@ function moveCart() {
        var elem = document.getElementById("basketNav"),
        Style = window.getComputedStyle(elem),
        right = Style.getPropertyValue("right");
+      
+      
+        /* 장바구니 슬라이드 스크롤 맨 아래로 내리기*/
+       location.href="#endOfCart";
 
         /* 장바구니를 펼쳤다가 */
        elem.style.right = "0%";
+        
+        
+        
+        /* 장바구니 슬라이드 스크롤 맨 아래로 내리기?- 적용되는지 모르겠다 */
+       //document.getElementById("endOfCart").scrollIntoView();
 
         /* 1초 후에 장바구니를 닫아라 */
        setTimeout(function(){elem.style.right = "-20%";},1000);
@@ -889,6 +985,35 @@ function basketClicked(e) {
        }
    }
 /* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 끝 */
+
+
+
+
+
+
+/* 수량 증감 부분 시작 */
+ 
+ 
+
+$(document).ready(function(){
+  x = $('#input-view').val();
+    $('#numup').click(function(){
+      x++;
+      $('#input-view').val(x);
+    })
+  $('#numdown').click(function(){
+      x--;
+      if(x <= 0){
+          x=1;
+          $('#input-view').val(x);
+        }else{
+          $('#input-view').val(x);
+        }  
+    })
+  
+});
+ 
+/* 수량 증감 부분 끝 */
 
 
 

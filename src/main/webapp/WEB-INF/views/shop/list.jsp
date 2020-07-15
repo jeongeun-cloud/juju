@@ -81,6 +81,7 @@
 		<div class="p2">
 			<p><b>상품리스트</b></p>
 		    <form name="excelForm" id="excelForm" method="POST" action="/shop/excelDown">
+		    	<span class="glyphicon glyphicon-floppy-save" aria-hidden="true"></span>
 			    <input type="submit" id="excelDown" style="float:right" value="엑셀다운로드"/>
 			</form>
 			<button id="regBtn" type="button">Register New Item</button> <br>
@@ -129,44 +130,43 @@
 								<c:out value="${item.itemName }" />
 							</a>
 						</td>
-						<td><c:out value="${item.price }" />원</td>
-						<td><c:out value="${item.normPrice-price }" />원</td>
+						<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.price}" />원</td>
+						<td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" />원</td>
 						<td><c:out value="${item.dispStat }" /></td>
 						<td><c:out value="${item.saleStat }" /></td>
 						<td><fmt:formatDate pattern="yyyy/MM/dd HH:mm" value="${item.regDate }" /></td>
 						<td>
 							<button data-oper="modify" 
-								onclick="location.href='/shop/modify?itemCode=<c:out value="${item.itemCode }"/>&pageNum=<c:out value="${pageMaker.cri.pageNum}"/>&amount=<c:out value="${pageMaker.cri.amount}"/>'">
-								수정
-							</button>
+	                        onclick="location.href='/shop/modify?itemCode=<c:out value="${item.itemCode }"/>&pageNum=<c:out value="${pageMaker.cri.pageNum}"/>&amount=<c:out value="${pageMaker.cri.amount}"/>&keyword=<c:out value="${pageMaker.cri.keyword}"/>&type=<c:out value="${pageMaker.cri.type}"/>'">
+	                        	수정
+	                     	</button>
 						</td>
 					</tr>
 				</c:forEach>
 			</table>
 			
 			<div class='pull-right'>
-					<ul class="pagination">
-						<c:if test="${pageMaker.prev}">
-							<li class="paginate_button previous">
-								<a href="${pageMaker.startPage -1}">Previous</a>
-							</li>
-						</c:if>
+				<ul class="pagination">
+					<c:if test="${pageMaker.prev}">
+						<li class="paginate_button previous">
+							<a href="${pageMaker.startPage -1}">Previous</a>
+						</li>
+					</c:if>
 
-						<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-							<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active" : "" } ">
-								<a href="${num}">${num}</a>
-							</li>
-						</c:forEach>
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active" : "" } ">
+							<a href="${num}">${num}</a>
+						</li>
+					</c:forEach>
 
-						<c:if test="${pageMaker.next}">
-							<li class="paginate_button next">
-								<a href="${pageMaker.endPage +1 }">Next</a>
-							</li>
-						</c:if>
-					</ul>
-				</div>
-				<!--  end Pagination -->
+					<c:if test="${pageMaker.next}">
+						<li class="paginate_button next">
+							<a href="${pageMaker.endPage +1 }">Next</a>
+						</li>
+					</c:if>
+				</ul>
 			</div>
+			<!--  end Pagination -->
 
 			<form id='actionForm' action="/shop/list" method='get'>
 				<input type='hidden' name='pageNum' id="pageNum" value='${pageMaker.cri.pageNum}'>
@@ -181,12 +181,11 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">Modal Title</h4>
+							<!-- <h4 class="modal-title" id="myModalLabel">Modal Title</h4> -->
 						</div>
 						<div class="modal-body">처리가 완료되었습니다.</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary">Save changes</button>
 						</div>
 					</div>
 				</div>
@@ -211,16 +210,19 @@
 			var result = '<c:out value="${result}"/>';
 			
 			checkModal(result);
+			console.log(result);
 			
 			history.replaceState({}, null, null);
 			
 			function checkModal(result) {
-				if(result === '' || history.state ) {
+				if(result === '' || history.state) {
 					return;
 				}
 				
-				if(parseInt(result) > 0) {
-					$(".modal-body").html("상품 " + parseInt(result) + " 번이 등록되었습니다.");
+				if(result.length > 0) {
+					if(result != 'success') {
+						$(".modal-body").html("상품 " + result + " 번이 등록되었습니다.");
+					}
 				}
 				
 				$("#myModal").modal("show");

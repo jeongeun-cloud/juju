@@ -9,7 +9,7 @@
 <html lang="en">
 
 <head>
-<script src="http://code.jquery.com/jquery-1.12.1.js"></script>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,10 +17,12 @@
 <meta name="author" content="">
 
 <style>
+	.product_container{
+	width:1300px;
+	height:100%;
+	margin: 0 auto;
+	}
 
-   .row{
-   min-width:6300px;
-   }
    .pull-right > ul li{
    list-stlye-type:none;
    display:inline;
@@ -28,19 +30,25 @@
    
    .panel-body{
    position:relative;
-   width:1100px;
-   height:6100px;
-   margin: 50px
+   width:100%;
+   height:100%;
+  
    }
-   .list_sort{
+   .list_Sort{
         position: absolute;
-        right: 0;
-        bottom: 0;
+        right: 20px;
+        top:40px;
+       
     } 
     .rad_wrap{
-        display: inline-block;
+        display: inline-block;     
     }
       
+    .midCateg {
+    text-align: center;
+    text-size: 
+    
+    }
     .midCateg >  ul > li {
     list-style:none;
     display:inline;
@@ -50,13 +58,120 @@
     
     }
     .midcateg_li> a{
-    color: black;
+    color: darkgray;
+    font-size:20px;
     }
     .midcateg_li> a:hover{
     color:red;
     text-decoration:none;
     }
       
+    
+ /* pro_ul_li  */
+
+        a{
+            text-decoration: none;
+        }
+        li{
+            list-style: none;
+        }
+        .pro_module{
+            width: 270px;
+            height: 500px;
+            border: solid;
+        }
+        .pro_img_wrap{
+            width: 100%;
+            height: 300px;
+            background-color: tomato;
+            position: relative;
+            overflow: hidden;
+        }
+        .pro_module .txt_wrap{
+            position: relative;
+            margin-top: 16px;
+            background-color: greenyellow;
+            width: 100%;
+            height: 170px;
+        }
+        .txt_wrap .pro_flag_wrap{
+            margin-left: 1px;
+        }
+        .pro_flag_wrap .flag{
+            border: 1px solid darkgray;
+            background-color: darkgray;
+            display: inline-block;
+            min-width: 55px;
+            height: 25px;
+            margin: 0 0 0 -1px;
+            font-size: 12px;
+            line-height: 22px;
+            text-align: center;
+            font-weight: 800;
+            color: black;
+        }
+        .tit_info .info_itemName{
+            display: block;
+            color: black;
+            font-weight: bold;
+            font-size: 20px;
+            word-break: break-all;
+            padding: 8px 0 0;
+        }
+        .tit_info .info_idNo{
+            display: block;
+            color: black;
+            font-size: 15px;
+            word-break: break-all;
+            margin: 5px 0 0;
+        }
+        .price_info{
+            padding-top: 8px;
+            font-size: 0;
+        }
+        .price_info .sale{
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+           
+            
+        }
+        .price_info .sale .price{
+            display: inline-block;
+            vertical-align: top;
+            font-size: 21px;
+            line-height: 27px;
+            font-weight: 800;
+            color: black;
+        }
+        .price_info .normPrice{
+            display: inline-block;
+            padding-left: 6px;
+            color: black;
+            font-size: 13px;
+            line-height: 21px;
+            text-decoration: line-through;
+            vertical-align: middle;
+        }
+        .pro_module .cart_btn{
+            position: static;
+            margin-top: 5px;
+        }
+        .pro_list .pro_list_ul .pro_list_li{
+            float: left;
+            margin: 80px 0 0 36px;
+            min-height: 600px;
+        }  
+        #proContent{
+        margin: 80px -40px 92px 77px;
+        
+        width:270px;
+        height:500px;
+        border: solid;
+        float:left;
+        }    
+        
+       
      
       
 </style>
@@ -70,12 +185,16 @@
 <%@include file="../includes/menuBar.jsp" %>
 
 
-<div class="row">
-   <div class="col-lg-12">
-      <div class="panel panel-default">
+
+
+<!-- <div class="row"> -->
+<!--    <div class="col-lg-12"> -->
+      <div class="product_container">
          <div class="panel-heading">
-         <h1 style="color:orange"><c:out value="${cs}"/></h1>
-         <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>">
+         
+	         <h1 style="color:orange"><c:out value="${cs}"/></h1>
+	      
+	         <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>">
 
          </div>
          
@@ -140,7 +259,7 @@
                       <li class="midcateg_li"><a href="/product/list?classCode=Retort">전체보기</a></li>
                       <li class="midcateg_li"><a href="/product/list?classCode=RetortR01">젓갈류</a></li>
                       <li class="midcateg_li"><a href="/product/list?classCode=RetortR02">양념류</a></li>
-                      <li class="midcateg_li"><a href="/product/list?classCode=Retort03">반찬류</a></li>
+                      <li class="midcateg_li"><a href="/product/list?classCode=RetortR03">반찬류</a></li>
                       <li class="midcateg_li"><a href="/product/list?classCode=RetortR04">간식류</a></li>
                       <li class="midcateg_li"><a href="/product/list?classCode=RetortR05">건강 식품</a></li>
                       <li class="midcateg_li"><a href="/product/list?classCode=RetortR06">혼밥족반찬세트</a></li>
@@ -160,8 +279,8 @@
              </div>
        </div>   
          <!-- /.panel-heading -->
-      <div class="panel-body">
-      
+     
+      <div class="panel-body"> 
       <!-- listSort 정렬  -->
       <form id="listsortForm" action="/product/list" method="GET">
              <div class="list_Sort">
@@ -192,63 +311,69 @@
            </div>
           </div>   
        </form> 
-       
-       <form id="frm">
-          classCode: <input type="text" name="clasCode" id="classCode">
-          sort: <input type="text" name="sort" id="sort">
-       
-       </form>
-   
-          <!--end list sort 기준 리스트  -->
+      <!--end list sort 기준 리스트  -->
+      
+      <!--상품 목록 div  -->
              <div>
-            <table class="pro_table" border=1>
-               <thead>
-                  <tr>
-                     <th>상품번호</th>
-                     <th>상품이름</th> 
-                     <th>상품설명</th>
-                     <th>할인가격</th>
-                     <th>가격</th>
-                     <th>이미지</th>
-                     <th>상품 분류 코드</th>
-                     <th>상점 번호</th>
-                     <th>cart</th>
-                     
-                  </tr>
-               </thead>
-               
-        
-               <c:forEach items="${list}" var="board">
-                  <tr>
-                     <td><c:out value="${board.itemCode}" /></td>
-                     <td><c:out value="${board.itemName}" /></td>
-                     <td><c:out value="${board.itemContent}"/></td>
-                     <td><c:out value="${board.price}" /></td>
-                     <td><c:out value="${board.normPrice}" /></td>   
-                  <%--    <td><img src="${board.itemImg1}" onerror="this.src='/resources/images/default.png'" width="200px" height="130px"/></td>  --%>
-                     <td><img src="/resources/images/default.png" alt="기본" width="100px" height="100px"/></td> 
-                     <td><c:out value="${board.classCode}" /></td>
-                     <td><c:out value="${board.idNo}" /></td>
-                     <td><button>add to cart</button></td>
-                     
-                     
-
-                  </tr>
-            
-      <%--              <div class="aa" style="width: 300px; height: 300px; background-color:pink; border-style:solid;">
-                   상품번호 :      <c:out value="${board.itemCode}" /> <br>
-                   상품 이름:    <c:out value="${board.itemName}" />   <br>
-                   상품 설명 :    <c:out value="${board.itemContent}"/><br>
-                   할인가격:   <c:out value="${board.price}" /><br>
-                   가격:      <c:out value="${board.normPrice}" /><br>
-                   상품분류코드:   <c:out value="${board.classCode}" /><br>
-                   가게번호:   <c:out value="${board.IDno}" />
-                   
-                   </div> --%>
-               </c:forEach>
-            </table>
-         </div>      
-            <!--페이징 처리  -->
+				<div class="whole_list">
+          
+	               <c:forEach items="${list}" var="board">
+	         
+							<section id="pro_container"> 
+							
+							    <div class="pro_list">
+							        <ul class="pro_list_ul">
+							            <li class="pro_list_li">
+							                <div class="pro_module">
+							                <div class="pro_img_wrap">
+							                    <a href="#" class="conts">
+							                        <img src="/resources/images/default.png" alt="메인 이미지">
+							                    </a>
+							                </div>
+							                <!-- END img_wrap -->
+							                <div class="txt_wrap">
+							                
+							                        <div class="pro_flag_wrap">
+							                            <span class="flag">NEW</span>
+							                        </div>
+							                        <!-- END pro_flag_wrap -->
+							                        <div class=tit_info>
+							                            <span class="info_itemName"> <c:out value="${board.itemName}" /> </span>
+							                            <span class="info_idNo"><c:out value="${board.idNo}" /></span>
+							                        </div>
+							                        <!-- END tit_info -->
+							                        <div class="price_info">
+							                                <p class="sale">
+							                                    <span class="price"><c:out value="${board.price}" />
+							                                        <span class="won">원</span>
+							                                    </span>
+							                                </p>
+							                                <p class="normPrice">
+							                                  <c:out value="${board.normPrice}" />
+							                                  <span class="won">원</span>
+							                                </p>
+							                        </div>
+							                  
+							                    <div class="cart_btn">
+							                        <button type="button" class="add_to_cart">add to cart</button>
+							                    </div>
+							                </div>
+							                <!-- END txt_wrap -->
+							                
+							                </div>
+							                <!-- END pro_moduel  -->
+							            </li>     
+							        </ul>    
+							    </div>
+							    <!--END pro_list  -->
+							</section>     
+	                   
+	               </c:forEach>
+			</div>
+           
+        </div>     
+        <!--END 상품 목록 div 끝  --> 
+ <%--            <!--페이징 처리  -->
             <div class ='pull-right'>
                <ul class="pagination">
                
@@ -267,29 +392,34 @@
                      <li class="paginate_button next"><a href="${pageMaker.endPage+1 }">Next</a></li>
                   </c:if>
                
-               </ul></div>
+               </ul></div>         
+               
             <!--페이징 처리 끝  -->
+            
+            
             <form id='actionForm' action="/product/list" method='get'>
              <input type='hidden' name='classCode' value='<c:out value="${cs}"/>'>
-            <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum }'>
-            <input type='hidden' name='amount' value='${pageMaker.cri.amount }'>          
-   
+            
          </form>
-         </div>
+         </div> --%>
+         
          <!-- /.panel-body -->
       </div>
       <!-- /.panel -->
    </div>
    <!-- /.col-lg-12 -->
 
-</div> 
+<!-- </div>  -->
 <!-- /.row -->
+<!-- </div> -->
 
 </body>
 
 
-
-<script type="text/javascript">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" 
+integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" 
+crossorigin="anonymous"></script>
+<script>
 
 //컨트롤러에서 데이터 받기
 var jsonData = JSON.parse('${category}');
@@ -400,9 +530,8 @@ $(document).on("change", "select.mainCateg", function(){
    })
 
    
-   /* List sort radiobutton onclick  */
+   /* List sort radiobutton onclick (value 로 들어오는 것은 sort값  )  */
    
-   /* value 로 들어오는 것은 sort값  */
    function changeSort(value){
       
       var classCode = $(".cs").val();
@@ -410,54 +539,56 @@ $(document).on("change", "select.mainCateg", function(){
       console.log(classCode);
       
       var allData = {"classCode": classCode, "sort": value};
-
-      console.log(JSON.stringify(allData));
        
-       
-      listSort(allData)
-      
-      .then(function(response){
+      listSort(allData).then(function(response){
+    	console.log(response);
+    	console.log("데이터 그리기 시작한다");
+    	draw(response);
     	  
-      console.log("draw시작한다.")
-      draw(response);
-      
-      })
-      
-      
-      
-      
+      }) 
+      .catch(function(error){
+    	  console.log(error);
+      });
+    
    }
-
 
 
    function listSort(allData) {
       
       console.log("listSort 실행");
       
-      $.ajax({
-         url:"/product/test",
+      return $.ajax({
+         url:"/product/test/"+allData.classCode+"/"+allData.sort,
          type: "GET",
-         data: allData,
-         dataType: "TEXT",
-         error: function(request, error){console.log("통신 실패ㅜ"+"code:"+request.status+"\n"+"message"+request.responseText+"\n"+"error:"+error)},
-         success: function(){
-            alert("통신 성공!!")
-    
-            }
-      
+         contentType: "application/json"
       });
    }
    
-   function draw(TEXT){
-	   
-	   var $sortList = $("#sortList");
-	   
-	   $sortList.empty();
-	   
-	   console.log("결과:"+ jsonData);
-	   
+	function draw(response){
+		
+	var $whole_list = $(".whole_list");
 
-   }
+		console.log(response);
+		
+		console.log("데이터 개수"+response.length);
+		
+		$whole_list.empty();
+		console.log("테이블 초기화 성공");
+		
+		
+				
+	for(var i=0; i<response.length; i++){
+			console.log("table그리기 시작한다!!!!");
+		  	
+		$whole_list.append("<div id='proContent'>"+response[i].itemCode+"<br>"+response[i].itemName+"<br>"+response[i].price+"<br>"+response[i].classCode+"<br><br><br></div>");
+			
+		}
+	}
+		
+		
+		
+		
+	
   
    
    

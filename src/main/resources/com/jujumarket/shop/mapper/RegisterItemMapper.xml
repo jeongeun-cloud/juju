@@ -117,4 +117,11 @@
 		select idNo, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail from t_item where to_char(updateDate, 'yy/mm/dd') = to_char(sysdate-1)
 	</select>
 	
+	<select id="getResultTotal" resultType="int">
+		select count(*) 
+		from t_item 
+		where itemName like '%' || #{keyword} || '%' 
+		or itemContent like '%' || #{keyword} || '%'
+	</select>
+	
 </mapper>

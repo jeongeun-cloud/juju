@@ -7,9 +7,9 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
    
-    <style>
+     <style>
         li{
             /* 앞에 점 없앰 */
             list-style: none;
@@ -58,7 +58,7 @@
         left: 0;
         right: 0;
     }
-    .whole_menu .title > a{
+    .whole_menu .title {
         /* 대분류 */
         font-size:16px;
         font-weight:bold;
@@ -71,13 +71,12 @@
         /* 중분류 */
         list-style:none;
         padding-left:0px;
-        z-index:1;
         
     }
-    .navbar-search{
-        position: absolute;
-        margin-left: 1180px;
-        min-width:150px; /*or I can probably just use columns*/
+
+    #defaultmenu {
+        width: 100%;
+        min-width: 1080px;
     }
     #defaultmenu > ul{
 
@@ -90,6 +89,7 @@
         position: absolute;
         height: 40px;
         padding: 0 28px;
+  
 
     }
 
@@ -101,18 +101,75 @@
         min-width: 1080px;
         height: 40px;
         border: 1px;
-        display: inline-block;
+        text-align: center;
       
     }
     .navbar-default .navbar-nav>li>a{
-        color:teal;
+        color:green;
         font-weight: 800;
        
     }
-    a:hover{
-    text-decoration:none;
-    
+    #defaultmenu > ul{
+        margin-left: 20%;
+        width: 1300px;
     }
+    .search_bar{
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translate(-50%,-50%);
+    transition: all 1s;
+    width: 50px;
+    height: 50px;
+    /* background: #5d8f6b; */
+    box-sizing: border-box;
+    border-radius: 25px;
+    border: 4px solid #A3B6C5;
+    padding: 5px;
+}
+
+.search_content{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;;
+    height: 42.5px;
+    line-height: 30px;
+    outline: 0;
+    border: 0;
+    display: none;
+    font-size: 1em;
+    border-radius: 20px;
+    padding: 0 20px;
+}
+
+.fa{
+    box-sizing: border-box;
+    padding: 10px;
+    width: 42.5px;
+    height: 42.5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 50%;
+    color: white;
+    text-align: center;
+    font-size: 1.2em;
+    transition: all 1s;
+}
+.search_bar:hover{
+    width: 200px;
+    cursor: pointer;
+}
+
+.search_bar:hover .search_content{
+    display: block;
+}
+
+.search_bar:hover .fa{
+    background: #A3B6C5;
+    color: white;
+}
 
 
     
@@ -121,17 +178,17 @@
 </head>
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <!--   <script src="js/bootstrap.min.js"></script> -->
+    <!--   <script src="js/bootstrap.min.js"></script> -->
    
     <nav class="navbar navbar-default whole_menu" role="navigation" style=" background-color: #c9decf;">
       
 
         <div id="defaultmenu" class="navbar-collapse collapse">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">JUJU MARKET</a>
-              </div>
            
             <ul class="nav navbar-nav"> 
+            	<div class="navbar-header">
+               			 <a class="navbar-brand" href="/">JUJU MARKET</a>
+            	</div>
         
                 <!-- 전체 카테고리  -->
                 <li class="dropdown whole_menu_category"  style="padding-left: 100px;"><a href="#" data-toggle="dropdown" class="dropdown-toggle">▲전체카테고리<b class="caret"></b></a>
@@ -225,17 +282,11 @@
                 
                 <!-- end 나머지 각 menu bar -->
             </ul><!-- end nav navbar-nav -->
-
-            <form class="navbar-form navbar-search" role="search">
-                <div class="search-container">
-                    <div class="input-group add-on" >
-                        <input type="search" class="form-control" placeholder="Search" name="search-text" id="search-text">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit" ><i class="glyphicon glyphicon-search"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            <form class="search_bar" action="">
+                <input class="search_content" type="search">
+                <i class="fa fa-search"></i>
+              </form>
+            
         </div>
             </nav>
 
@@ -258,3 +309,4 @@
 
 
 </script>
+

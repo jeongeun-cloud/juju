@@ -6,6 +6,10 @@
 <%@include file="../includes/header.jsp" %>
 
 <%@include file="../includes/menuBar.jsp" %>
+<%@include file="../basket/basket.jsp" %>
+
+<%-- <jsp:include page="../basket/basket.jsp" flush="false"> --%>
+
 
 <style>
 .ma_top_banner_wrap > mySlides {
@@ -18,7 +22,6 @@ height: 500px;
 .w3-badge {height:13px;width:13px;padding:0}
 
 </style>
-
 <br>
     
         <!-- 첫번째 배너 광고 -->
