@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8" isELIgnored="false"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file = "../includes/header.jsp" %>
+<%@ include file = "../includes/menuBar.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -23,12 +24,8 @@
 	<br>주문 내역은 [마이페이지 > 주문내역/배송조회]에서 다시 확인할 수 있습니다.
 	<br>
 	<strong>주문번호: </strong> ${order.orderCode}
-	
-
-	<h3>
-		<c:out value="${order.orderCode}"></c:out>
-	</h3>
-
+	<br>
+	<br>
 
 	<form action="orderResult" method="post">
 		<!-- 	<form name="form_order"> -->
@@ -55,20 +52,16 @@
 				<!-- OrderController의 list -> jsp에서 DB 호출시 ${list} -->
 				<!-- totalPrice를 구하기 위해 c:set 사용하여 forEach로 반복문 돌려주었음  -->
 
-				<c:set var="totalPrice" value="${0}" />
-				<c:forEach var="order" items="${orderList}">
-					<c:set var="totalPrice"
-						value="${totalPrice + (order.price * order.itemNum)}" />
+				<c:forEach var="item" items="${itemList}">
 					<tr cellpadding="40" align=center>
-						<td><c:out value="${order.itemImg1}"></c:out></td>
-						<td><c:out value="${order.itemName}"></c:out></td>
-						<td><c:out value="${order.normPrice}"></c:out></td>
-						<td><c:out value="${order.itemNum}"></c:out></td>
-						<td><c:out value="${order.normPrice - order.price}"></c:out></td>
-						<td><c:out value="${order.price * order.itemNum}"></c:out></td>
+						<td><c:out value="${item.itemImg1}"></c:out></td>
+						<td><c:out value="${item.itemName}"></c:out></td>
+						<td><c:out value="${item.normPrice}"></c:out></td>
+						<td><c:out value="${item.itemNum}"></c:out></td>
+						<td><c:out value="${item.normPrice - item.price}"></c:out></td>
+						<td><c:out value="${item.price * item.itemNum}"></c:out></td>
 					</tr>
 				</c:forEach>
-
 
 			</tbody>
 		</table>
@@ -84,11 +77,11 @@
 
 		<tr>
 			<td>이름</td>
-			<td>${orderResult.memName}</td>
+			<td>${orderMember.memName}</td>
 		</tr>
 		<tr>
 			<td>연락처</td>
-			<td>${orderResult.contact}</td>
+			<td>${orderMember.contact}</td>
 		</tr>
 		
 	</table>
@@ -103,19 +96,20 @@
 
 		<tr>
 			<td>이름</td>
-			<td>${orderResult.receiver}</td>
+			<td>${delivery.receiver}</td>
 		</tr>
 		<tr>
 			<td>주소</td>
-			<td>${orderResult.receivAddr}</td>
+			<td>${delivery.receivAddr}</td>
+			
 		</tr>
 		<tr>
 			<td>연락처</td>
-			<td>${orderResult.receivContact}</td>
+			<td>${delivery.receivContact}</td>
 		</tr>
 		<tr>
 			<td>요청사항</td>
-			<td>${orderResult.reqNote}</td>
+			<td>${delivery.reqNote}</td>
 		</tr>
 	</table>
 
@@ -132,7 +126,7 @@
 		</tr>
 		<tr>
 			<td>결제금액</td>
-			<td>totalPrice + deliCharge</td>
+			<td>${order.totalPay}</td>
 		</tr>
 
 	</table>

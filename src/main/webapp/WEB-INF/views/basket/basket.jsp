@@ -9,6 +9,7 @@
 <html>
 
 <head>
+<script src="http://code.jquery.com/jquery-1.12.1.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Basket List</title>
 
@@ -22,12 +23,14 @@
                
                
                
-           /* 장바구니 css 시작 */      
+        
+      
+         /* 장바구니 css 시작 */      
         .basketContainer {
             position: fixed;
             top: 0px;
             
-            
+            z-index: 999;
             
             /* 반응 없음 */
             /* overflow: scroll; */
@@ -104,6 +107,7 @@
           float: left;
           
           border : 3px;
+          margin-top: 25px;
           margin-left : 10px;
        
        }
@@ -143,6 +147,7 @@
        /* 장바구니 css 끝 */  
 
 
+
 </style>
 </head>
 <body>
@@ -162,31 +167,8 @@
 
         <ul class="basketList" id="basketList">
         
-        
-        <!-- 장바구니 리스트 영역 시작 -->
-         
-        <c:forEach items="${list}" var="basket">
-        
-        <div id="basketImg">
-        <img src="<c:out value="${basket.itemImg1}"/>" class="basketItemImg"/>
-        </div>
-        
-        <div id="basketContent">
-        <h5 class="basketItemDescribe">
-        <c:out value = "${basket.itemName}"/><br>
-        <c:out value = "${basket.price}"/>원<br>
-        <c:out value = "${basket.itemNum}"/>개<br>
-        <c:out value = "${basket.baskId}"/><br>
-        </h5>
-        <br>
-        </div>
-        
-        
-        
-        </c:forEach> 
-          
-        <!-- 장바구니 리스트 영역 끝 -->
-        
+        	
+        	
         
         
         </ul>
@@ -202,6 +184,118 @@
 
 <script>
  
+
+window.onload = function() {
+	//alert("페이지 시작할 때 뜨는 알람");
+	
+	console.log("getBasketList 실행");
+	getBasketList()
+	
+	.then(function(response){
+		console.log("getBasketList 결과는?");
+	    console.log(response);  
+		draw(response);
+		
+	})
+	
+}
+
+ 
+ 
+/* 장바구니 리스트 ajax 로 불러오기 시작 */
+function getBasketList() {
+   
+   return $.ajax({
+      url: "/product/cart",
+      type: "GET",
+      dataType: "JSON",
+      error : function(){console.log("통신실패")},
+      success : function(){console.log("통신성공")}
+      
+   
+      });
+   
+}
+/* 장바구니 리스트 ajax 로 불러오기 끝 */
+
+
+
+
+
+
+// html 구조 안에다가 장바구니 내용 넣기 function 시작
+function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜? 
+   
+   
+   var $basketList = $("#basketList");
+   
+   
+   $basketList.empty();
+   
+   console.log("결과 : " + jsonData)
+   
+   for(var i=0; i<jsonData.length; i++) {
+	   
+	   
+	   
+   
+	   $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
+	   
+	   $basketList.append("<div id='basketContent'><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
+	   
+      /* 
+      $basketList.append("<img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" />");
+      
+      $basketList.append("<h5>");
+      
+      $basketList.append(jsonData[i].itemName+"<br>");
+      $basketList.append(jsonData[i].price+"원<br>");
+      $basketList.append(jsonData[i].itemNum+"개<br>");
+      $basketList.append(jsonData[i].baskId+"<br>");
+      
+      $basketList.append("</h5>");	
+      $basketList.append("<br>");
+      
+       */
+
+   }
+   
+   $("#basketList").append("<div id='endOfCart'>end of cart</div>");
+   $("#endOfCart").css("background-color","white");
+   $("#endOfCart").css("color","white");
+   $("#endOfCart").css("display","block");
+   $("#endOfCart").css("width","240px");
+   $("#endOfCart").css("height","50px");
+   $("#endOfCart").css("float","left");
+
+   
+   $("#basketList").css("text-align","left");
+   $("#basketList").css("font-size","13px");
+   $("#basketList").css("font-weight","bold");
+   
+   
+   
+   /* 
+   $("#aaa").css("width","120px");
+   $("#aaa").css("height","100px");
+   $("#aaa").css("display","block");
+   $("#aaa").css("margin","3px");
+   $("#aaa").css("padding","3px");
+   $("#aaa").css("border","3px");
+   
+   $("#bbb").css("width","120px");
+   $("#bbb").css("height","100px");
+   $("#bbb").css("float","left");
+   $("#bbb").css("margin","3px");
+    */
+}
+//html 구조 안에다가 장바구니 내용 넣기 function 끝
+
+ 
+ 
+
+
+
  
 
 /* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 시작 */

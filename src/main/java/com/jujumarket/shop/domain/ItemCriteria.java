@@ -44,9 +44,9 @@ public class ItemCriteria {
 	   
 //	   public static void main(String[] args) {
 //		  ItemCriteria cri = new ItemCriteria();
-//	      cri.setPageNum(3);
-//	      cri.setAmount(20);
-//	      cri.setKeyword("ë‹¬ë‹¬");
+//	      cri.setPageNum(1);
+//	      cri.setAmount(1);
+//	      cri.setKeyword("°Ç½Ä");
 //	      
 //	      System.out.println(cri.getListLink());
 //	   }

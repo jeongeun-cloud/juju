@@ -26,59 +26,59 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 //@DependsOn(value={"sqlSession"})
 public class BoardServiceImpl implements BoardService{
-	
+   
 
-//	@Autowired
-//	private SqlSession sqlSession;
+//   @Autowired
+//   private SqlSession sqlSession;
 
-	@Setter(onMethod_ = @Autowired)
-	private Board_ItemMapper mapper;
+   @Setter(onMethod_ = @Autowired)
+   private Board_ItemMapper mapper;
 
 
 
-	
-	@Override
-	public List<Board_ItemVO> gets(String classCode) {
-		log.info("gets...");
-	return mapper.gets(classCode);
-	}
-	
-	@Override
-	   public List<CategoryVO> category() {
-	      log.info("카테고리 체크....");
-	      return mapper.category();
-	   }
-	
-	@Override
-	public List<Board_ItemVO> getList(Criteria cri) {
-		log.info("getList with Criteria"+cri);
-		return mapper.getListWithPaging(cri);
-	}
-	
-	//상품 sort해서 조회
-	
-	@Override 
-	public List<Board_ItemVO> listSort(SortVO sort) {
-	
-//	System.out.println("serviceImpl 까지 들어왔다");
-//	System.out.println("serviceImpl 에서의 cs는? " + sort.getClassCode());
-//	System.out.println("serviceImpl 에서의 sort는? " + sort.getSort());
+   
+   @Override
+   public List<Board_ItemVO> gets(String classCode) {
+      log.info("gets...");
+   return mapper.gets(classCode);
+   }
+   
+   @Override
+      public List<CategoryVO> category() {
+         log.info("카테고리 체크....");
+         return mapper.category();
+      }
+   
+   @Override
+   public List<Board_ItemVO> getList(Criteria cri) {
+      log.info("getList with Criteria"+cri);
+      return mapper.getListWithPaging(cri);
+   }
+   
+   //상품 sort해서 조회
+   
+   @Override 
+   public List<Board_ItemVO> listSort(SortVO sort) {
+   
+   System.out.println("serviceImpl 까지 들어왔다");
+   System.out.println("serviceImpl 에서의 cs는? " + sort.getClassCode());
+   System.out.println("serviceImpl 에서의 sort는? " + sort.getSort());
 
-	  
-	  if(sort.getSort().equals("best")) {
-		  return mapper.bestProduct(sort.getClassCode()); 
-	  }else if(sort.getSort().equals("highPrice")) { 
-		  return mapper.highPrice(sort.getClassCode()); 
-	  }  else if(sort.getSort().equals("lowPrice")) {
-		  return mapper.lowPrice(sort.getClassCode()); 
-	  } else {
-		  return mapper.newProduct(sort.getClassCode());
-	  }
-	
+     
+     if(sort.getSort().equals("best")) {
+        return mapper.bestProduct(sort.getClassCode()); 
+     }else if(sort.getSort().equals("highPrice")) { 
+        return mapper.highPrice(sort.getClassCode()); 
+     }  else if(sort.getSort().equals("lowPrice")) {
+        return mapper.lowPrice(sort.getClassCode()); 
+     } else {
+        return mapper.newProduct(sort.getClassCode());
+     }
+   
 
-	  
-	  //return sqlSession.selectList("productSQL.getUserProductList",map);
-	  
-	  }
+     
+     //return sqlSession.selectList("productSQL.getUserProductList",map);
+     
+     }
 
 }

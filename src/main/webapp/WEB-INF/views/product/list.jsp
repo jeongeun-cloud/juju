@@ -70,6 +70,8 @@
 <%@include file="../includes/menuBar.jsp" %>
 
 
+
+
 <div class="row">
    <div class="col-lg-12">
       <div class="panel panel-default">
@@ -117,7 +119,7 @@
                       <li class="midcateg_li"><a href="/product/list?classCode=MeatM05">가공육</a></li>
                    </ul>
                 </c:when>
-                <c:when test="${cs == 'Veggie' || cs=='VeggieV01'|| cs=='VeggieV03' ||cs=='VeggieV04'}">
+                <c:when test="${cs == 'Veggie' || cs=='VeggieV01'|| cs=='VeggieV02' || cs=='VeggieV03' ||cs=='VeggieV04'}">
                    <ul>
                       <li class="midcateg_li"><a href="/product/list?classCode=Veggie">전체보기</a></li>
                       <li class="midcateg_li"><a href="/product/list?classCode=VeggieV01">각종나물</a></li>
@@ -152,7 +154,7 @@
                       <li class="midcateg_li"><a href="/product/list?classCode=Grain">전체보기</a></li>
                       <li class="midcateg_li"><a href="/product/list?classCode=GrainG01">쌀</a></li>
                       <li class="midcateg_li"><a href="/product/list?classCode=GrainG02">잡곡류</a></li>
-                      <li class="midcateg_li" ><a href="/product/list?classCode=GrainG03w">건식</a></li>
+                      <li class="midcateg_li" ><a href="/product/list?classCode=GrainG03">건식</a></li>
                    </ul>
                 </c:when>
                 
@@ -416,16 +418,17 @@ $(document).on("change", "select.mainCateg", function(){
        
       listSort(allData)
       
-/*       .then(function(response){
-    	  console.log("listSort 결과는?")
-    	  console.log(response);
-    	  
-      }) */
-      
-   
+      .then(function(response){
          
+      console.log("draw시작한다.")
+      draw(response);
       
-      }
+      })
+      
+      
+      
+      
+   }
 
 
 
@@ -440,14 +443,24 @@ $(document).on("change", "select.mainCateg", function(){
          dataType: "TEXT",
          error: function(request, error){console.log("통신 실패ㅜ"+"code:"+request.status+"\n"+"message"+request.responseText+"\n"+"error:"+error)},
          success: function(){
-        	 alert("통신 성공!!")
-        	 console.log();
-        	 }
+            alert("통신 성공!!")
+    
+            }
       
       });
    }
    
-   
+   function draw(TEXT){
+      
+      var $sortList = $("#sortList");
+      
+      $sortList.empty();
+      
+      console.log("결과:"+ jsonData);
+      
+
+   }
+  
    
    
    

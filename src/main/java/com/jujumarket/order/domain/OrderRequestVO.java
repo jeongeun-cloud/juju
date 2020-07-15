@@ -3,11 +3,11 @@ package com.jujumarket.order.domain;
 import lombok.Data;
 
 
-
 @Data
 public class OrderRequestVO {
 	//t_order
 	private String orderCode;
+	
 	private Long totalPay;
 	private Long totalSum;
 	private Long totalDiscount;
@@ -28,8 +28,11 @@ public class OrderRequestVO {
 	private String contact;
 	
 	//배송지정보에 들어가는 column
+	private String shippingCode;
 	private String receiver;
 	private String receivContact;
+//	private String roadAddr;
+//	private String jibunAddr;
 	private String receivAddr;
 	private String reqNote;
 	

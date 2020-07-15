@@ -8,6 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+	img{
+		width : 250px;
+	}
+</style>
 
 </head>
 <body>
@@ -17,71 +22,78 @@
        <form id="actionForm" method="POST">
            <input type="hidden" name="itemCode" value='<c:out value="${item.itemCode }"/>'>
            <div class="container">
-	           <label for="itemName">상품 이름</label><br>
-		       <input type="text" name="itemName" style="width: 350px;" value='<c:out value="${item.itemName }"/>' readonly="readonly">
+	           <label for="itemName">상품 이름 : </label> <c:out value="${item.itemName }"/> <br>
 	       </div>
            <div class="container">
-	           <label for="category">카테고리 분류</label><br>
-		       <input type="text" name="getCategory" style="width: 350px;" value='<c:out value="${getCategory }"/>' readonly="readonly">
+	           <label for="category">카테고리 : </label> <c:out value="${getCategory }"/> <br>
 	       </div>
 	       <div class="container">
 	           <label for="itemContent">상품 상세정보</label><br>
-	           <textarea name="itemContent" style="height: 200px; width:350px" readonly="readonly"><c:out value="${item.itemContent }"/></textarea>
+	           <textarea name="itemContent" style="height: 200px; width:350px; resize:none;" readonly="readonly"><c:out value="${item.itemContent }"/></textarea>
 	       </div>
 	       <div class="container">
-	           <label for="price">판매가격</label>
-	           <input type="text" name="price" value='<c:out value="${item.price }"/>' readonly="readonly"> <br>
-	           <label for="normPrice">정상가격</label>
-	           <input type="text" name="normPrice" value='<c:out value="${item.normPrice }"/>' readonly="readonly">
+	           <label for="price">판매가격 : </label> <fmt:formatNumber type="number" maxFractionDigits="3" value="${item.price}" /><br>
+	           <label for="normPrice">정상가격 : </label> <fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" />
 	       </div>
 	       <div class="container">
-	           <label for="stock">재고</label>
-	           <input type="text" name="stock" value='<c:out value="${item.stock }"/>' readonly="readonly"><br>
+	           <label for="stock">재고 : </label> <fmt:formatNumber type="number" maxFractionDigits="3" value="${item.stock}" /> <br>
 	       </div>
 	       
 	       <div class="container">
 	           <label for="status"><b>표시상태 설정</b></label><br>
 	           <label for="">진열상태</label>
 	           <input type="hidden" id="disValue" value='<c:out value="${item.dispStat}"/>'>
-	           <input type="radio" name="dispStat" value="진열함">진열함
-	           <input type="radio" name="dispStat" value="진열안함">진열안함<br>
+	           <input type="radio" name="dispStat" value="진열함" onclick="return false;">진열함
+	           <input type="radio" name="dispStat" value="진열안함" onclick="return false;">진열안함<br>
 	           <label for="">판매상태</label>
 	           <input type="hidden" id="saleValue" value='<c:out value="${item.saleStat}"/>'>
-	           <input type="radio" name="saleStat" value="판매중">판매중
-	           <input type="radio" name="saleStat" value="판매중지">판매중지
-	           <input type="radio" name="saleStat" value="품절">품절
+	           <input type="radio" name="saleStat" value="판매중" onclick="return false;">판매중
+	           <input type="radio" name="saleStat" value="판매중지" onclick="return false;">판매중지
+	           <input type="radio" name="saleStat" value="품절" onclick="return false;">품절
 	       </div>
 	       <div class="container">
 	           <label>상품 특성<small style="opacity:0.75;">(특성이 선택되어 있지 않으면 기본입니다.)</small></label><br>
 	           <input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
-	           <input type="checkbox" name="itemChr" value="신상품">신상품
-	           <input type="checkbox" name="itemChr" value="best">Best
-	           <input type="checkbox" name="itemChr" value="할인">할인
+	           <input type="checkbox" name="itemChr" value="신상품" onclick="return false;">신상품
+	           <input type="checkbox" name="itemChr" value="best" onclick="return false;">Best
+	           <input type="checkbox" name="itemChr" value="할인" onclick="return false;">할인
 	       </div>
 
            <div class="container">
 	        	<label>메인 이미지</label>
-	            <div class="select_img1"><img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg1}"/>' /></div>
+	            <div class="select_img1">
+	            	<img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" />
+	            </div>
 	        </div>
 	        <div class="container">
 	        	<label>서브 이미지</label>
-	            <div class="select_img2"><img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg2}"/>' /></div>
+	            <div class="select_img2">
+	            	<img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" />
+	            </div>
 	        </div>
 	        <div class="container">
 	        	<label>서브 이미지</label>
-	            <div class="select_img3"><img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg3}"/>' /></div>
+	            <div class="select_img3">
+	            	<img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" />
+	            </div>
 	        </div>
 	        <div class="container">
 	        	<label>서브 이미지</label>
-	            <div class="select_img4"><img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg4}"/>' /></div>
+	            <div class="select_img4">
+	            	<img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" />
+	            </div>
 	        </div>
 	        <div class="container">
 	        	<label>상품 상세 설명 이미지</label>
-	            <div class="select_img5"><img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.imgDetail}"/>' /></div>
+	            <div class="select_img5">
+	            	<img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" />
+	            </div>
 	        </div>
 	        
 	        <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
 			<input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
+			<input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>' >
+            <input type='hidden' name='type' value='<c:out value="${cri.type }"/>' >
 
 			<button type="submit" data-oper='remove'>Remove</button>
 			<button type="submit" data-oper='list'>List</button>
@@ -160,6 +172,7 @@
 				 	}
 		 		}
 		 	}
+
 	   });
    </script>
 </body>

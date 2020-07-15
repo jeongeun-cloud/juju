@@ -31,9 +31,9 @@ import net.sf.json.JSONArray;
 @AllArgsConstructor
 public class BasketController {
    
-   private BasketService service;
+   private BasketService basketservice;
    
-   private ItemMainService iservice;
+   private ItemMainService itemservice;
    
    
 //   모든 url 에 장바구니 db 연결 
@@ -41,7 +41,7 @@ public class BasketController {
    public void list(Model model) {
       
       log.info("listaaa");
-      model.addAttribute("list", service.getList());
+      model.addAttribute("list", basketservice.getList());
    }
    
 //   item 으로 끝나는 곳에 장바구니 db 랑 item db 연결 
@@ -49,18 +49,17 @@ public class BasketController {
    public void get(@RequestParam("itemCode") String itemCode, Model model) {
       
       log.info("/item");
-      model.addAttribute("product", iservice.get(itemCode));
-      model.addAttribute("list", service.getList());
-      
+      model.addAttribute("product", itemservice.get(itemCode));
+      model.addAttribute("list", basketservice.getList());
    }
    
-   @GetMapping("/cart")
+   @GetMapping("/basket")
    @ResponseBody
-   public ResponseEntity<?> cartlist(Model model) {
+   public ResponseEntity<?> basketlist(Model model) {
 	   
       log.info("listaaa");
       List<BasketVO> basket = null;
-      basket = service.getList();
+      basket = basketservice.getList();
       model.addAttribute("basket",JSONArray.fromObject(basket));
       
       return ResponseEntity.status(HttpStatus.OK).body(JSONArray.fromObject(basket));
@@ -68,13 +67,14 @@ public class BasketController {
 //      model.addAttribute("list", service.getList());
    }
    
-   
-   @PostMapping("/cart")
+   // cart, basket 통일하기 
+   // 제약 걸기 
+   @PostMapping("/basket")
    @ResponseBody
    public ResponseEntity<?> register(@RequestBody BasketVO basket) {
       
       log.info("register: " + basket);
-      service.register(basket);
+      basketservice.register(basket);
       return ResponseEntity.status(HttpStatus.OK).body("DB insert ok~");
    }
    
