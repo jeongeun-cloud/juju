@@ -154,7 +154,7 @@
 					</c:if>
 
 					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-						<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active" : "" } ">
+						<li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
 							<a href="${num}">${num}</a>
 						</li>
 					</c:forEach>
@@ -220,7 +220,7 @@
 				}
 				
 				if(result.length > 0) {
-					if(result != 'success') {
+					if(result != 'result') {
 						$(".modal-body").html("상품 " + result + " 번이 등록되었습니다.");
 					}
 				}

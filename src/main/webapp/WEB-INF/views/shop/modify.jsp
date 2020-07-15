@@ -69,7 +69,6 @@
 			<label>상품 특성<small style="opacity:0.75;">(특성을 선택하지 않으면 기본으로 설정 됩니다.)</small></label><br> 
 			<input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
 			<input type="checkbox" name="itemChr" value="신상품">신상품 
-			<input type="checkbox" name="itemChr" value="best">Best 
 			<input type="checkbox" name="itemChr" value="할인">할인
 			<!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
             <input type="checkbox" name="itemChr" value="기본" style="visibility:hidden">
@@ -170,11 +169,11 @@
 				return n;
 			}
 			
-			if($('#itemName').val()=='') {
+			if($('#itemName').val()=='' || $('#itemName').val().trim() == '') {
 				alert('상품명이 입력되지 않았습니다.');
 				$('#itemName').focus();
 				return false;
-			}else if($('#itemContent').val()==''){
+			}else if($('#itemContent').val()=='' || $('#itemContent').val().trim() == ''){
 				alert('상품 상세 정보가 입력되지 않았습니다.');
 				$('#itemContent').focus();
 				return false;
@@ -190,8 +189,8 @@
 				alert('재고가 입력되지 않았습니다.');
 				$('#stock').focus();
 				return false;
-			}else if($("input[type=checkbox][name=itemChr] : checked" == false)) {
-				$("input[type=checkbox][name=itemChr]")[3].checked = true;
+			}else if($("input[type=checkbox][name=itemChr]")[0].checked == true || $("input[type=checkbox][name=itemChr]")[1].checked == true) {
+				$("input[type=checkbox][name=itemChr]")[2].checked = false;
 			}
 			
 			$('#price').val(removeComma($('#price').val()));
@@ -248,7 +247,7 @@
 			 	}
 		 	}
 			
-			// 체크박스 다중값 불러와서 체크해주기, 기본인 애는 체크해제 해주기
+			// 체크박스 다중값 불러와서 체크해주기
 		 	var chk = $("#chkValue").val();
 		 	chk  = chk.split(",");
 		 	var itemChr = $("input[type=checkbox][name=itemChr]");
@@ -260,8 +259,6 @@
 				 	}
 		 		}
 		 	}
-		 	$("input[type=checkbox][name=itemChr]")[3].checked = false;
-		 	
 		 	
 		 	// 단위 콤마 찍어주기
 		 	$("#price").val(addCommas($("#price").val()));

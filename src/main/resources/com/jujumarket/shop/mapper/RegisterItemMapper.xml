@@ -23,7 +23,7 @@
    
    <select id="getList" resultType="com.jujumarket.shop.domain.RegisterItemVO">
       <![CDATA[
-      		select * from t_item
+      		select * from t_item order by regDate DESC
       ]]>
    </select>
 
@@ -32,7 +32,7 @@
 	      select *
 	      from (select /*+INDEX_DESC(t_item pk_item) */
 				rownum rn, itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail, regDate, updateDate, classCode, idNo
-				from t_item
+				from (select * from t_item order by regDate desc)
 				where
       ]]>
       
@@ -40,6 +40,7 @@
       
       <![CDATA[
          rownum <= #{pageNum} * #{amount}
+        
          	)
      	 where rn > (#{pageNum} -1) * #{amount}
       ]]>
@@ -67,13 +68,13 @@
 
 	<insert id="insert">
 		insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail, classCode, idNo) 
-		values ('item'||lpad(seq_item.nextval,6,'0'), #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat},
+		values ('idNo'||'item'||lpad(seq_item.nextval,5,'0'), #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat},
 		 #{itemChr}, #{itemImg1}, #{itemImg2}, #{itemImg3}, #{itemImg4}, #{imgDetail}, #{classCode}, 'idNo')
 	</insert>
 	
 	<insert id="insertSelectKey">
 		<selectKey keyProperty="itemCode" order="BEFORE" resultType="String">
-			select 'item'||lpad(seq_item.nextval,6,'0') from dual
+			select 'idNo'||'item'||lpad(seq_item.nextval,5,'0') from dual
 		</selectKey>
 		
 		insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail, classCode, idNo)

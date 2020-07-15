@@ -9,9 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 
 
 </head>
@@ -27,37 +24,37 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading"><c:out value="${Board_FAQ.content}"/></div>
+				<div class="panel-heading"><c:out value="${BoardFAQ.content}"/></div>
 				<div class="panel-body">
 
                    <form id = "actionForm" role="form" method="post">
 
 					<div class="from-group">
 						<label>Title</label><input class="form-control" name='title'
-							value='<c:out value="${Board_FAQ.title}"/>'
+							value='<c:out value="${BoardFAQ.title}"/>'
 						readonly="readonly">
 					</div>
 
 				<div class="from-group">
 						<label>내용</label>
 						<textarea class="form-control" rows="10" name='content'
-						readonly="readonly"><c:out value="${Board_FAQ.content}"/></textarea>
+						readonly="readonly"><c:out value="${BoardFAQ.content}"/></textarea>
 				</div>
 
 
 				<div class="from-group">
 						<label>게시글타입</label><input class="form-control" name='boardType'
-							value='<c:out value="${Board_FAQ.boardType}"/>'readonly="readonly">
+							value='<c:out value="${BoardFAQ.boardType}"/>'readonly="readonly">
 				</div>
 					
 				<div class="from-group">
 						<label>작성자</label><input class="form-control" name='idNo'
-							value='<c:out value="${Board_FAQ.idNo}"/>'readonly="readonly">
+							value='<c:out value="${BoardFAQ.idNo}"/>'readonly="readonly">
 				</div>
 					
 				<div  class="from-group">
 						<label>글번호</label><input class="form-control" name='postingNo'
-							value='<c:out value="${Board_FAQ.postingNo}"/>'readonly="readonly">
+							value='<c:out value="${BoardFAQ.postingNo}"/>'readonly="readonly">
 			    </div>
 			    
 			           <input type="hidden"  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
@@ -73,7 +70,7 @@
                     
                     
                     <form  id='operForm' action="/commuinty/notice/modify" method="get">
-	                    <input type="hidden" id='postingNo' name='postingNo' value='<c:out value="${Board_FAQ.postingNo}"/>'>
+	                    <input type="hidden" id='postingNo' name='postingNo' value='<c:out value="${BoardFAQ.postingNo}"/>'>
 	                    <input type="hidden"  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
 	                    <input type="hidden" name ='amount' value='<c:out value="${cri.amount}"/>'>  
 	                    <input type ="hidden" name= 'type' value='<c:out value="${cri.type}"/>'>

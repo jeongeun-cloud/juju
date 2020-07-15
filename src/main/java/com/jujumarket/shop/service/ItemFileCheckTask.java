@@ -66,7 +66,7 @@ public class ItemFileCheckTask {
 		
 		log.warn("-----------------------------");
 		for(File file : removeFiles) {
-			log.warn(file.getAbsolutePath() + "Áö¿ì±â");
+			log.warn(file.getAbsolutePath() + "ì§€ìš°ê¸°");
 			file.delete();
 		}
 	}

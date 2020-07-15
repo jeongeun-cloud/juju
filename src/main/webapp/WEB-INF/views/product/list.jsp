@@ -17,11 +17,13 @@
 <meta name="author" content="">
 
 <style>
+
    .product_container{
    width:1300px;
    height:100%;
    margin: 0 auto;
    }
+
 
    .pull-right > ul li{
    list-stlye-type:none;
@@ -192,9 +194,11 @@
       <div class="product_container">
          <div class="panel-heading">
          
-            <h1 style="color:orange"><c:out value="${cs}"/></h1>
-         
-            <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>">
+
+	         <h1 style="color:orange"><c:out value="${cs}"/></h1>
+	      
+	         <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>">
+
 
          </div>
          
@@ -315,61 +319,63 @@
       
       <!--상품 목록 div  -->
              <div>
-            <div class="whole_list">
+
+				<div class="whole_list">
           
-                  <c:forEach items="${list}" var="board">
-            
-                     <section id="pro_container"> 
-                     
-                         <div class="pro_list">
-                             <ul class="pro_list_ul">
-                                 <li class="pro_list_li">
-                                     <div class="pro_module">
-                                     <div class="pro_img_wrap">
-                                         <a href="#" class="conts">
-                                             <img src="/resources/images/default.png" alt="메인 이미지">
-                                         </a>
-                                     </div>
-                                     <!-- END img_wrap -->
-                                     <div class="txt_wrap">
-                                     
-                                             <div class="pro_flag_wrap">
-                                                 <span class="flag">NEW</span>
-                                             </div>
-                                             <!-- END pro_flag_wrap -->
-                                             <div class=tit_info>
-                                                 <span class="info_itemName"> <c:out value="${board.itemName}" /> </span>
-                                                 <span class="info_idNo"><c:out value="${board.idNo}" /></span>
-                                             </div>
-                                             <!-- END tit_info -->
-                                             <div class="price_info">
-                                                     <p class="sale">
-                                                         <span class="price"><c:out value="${board.price}" />
-                                                             <span class="won">원</span>
-                                                         </span>
-                                                     </p>
-                                                     <p class="normPrice">
-                                                       <c:out value="${board.normPrice}" />
-                                                       <span class="won">원</span>
-                                                     </p>
-                                             </div>
-                                       
-                                         <div class="cart_btn">
-                                             <button type="button" class="add_to_cart">add to cart</button>
-                                         </div>
-                                     </div>
-                                     <!-- END txt_wrap -->
-                                     
-                                     </div>
-                                     <!-- END pro_moduel  -->
-                                 </li>     
-                             </ul>    
-                         </div>
-                         <!--END pro_list  -->
-                     </section>     
-                      
-                  </c:forEach>
-         </div>
+	               <c:forEach items="${list}" var="board">
+	         
+							<section id="pro_container"> 
+							
+							    <div class="pro_list">
+							        <ul class="pro_list_ul">
+							            <li class="pro_list_li">
+							                <div class="pro_module">
+							                <div class="pro_img_wrap">
+							                    <a href="#" class="conts">
+							                        <img src="/resources/images/default.png" alt="메인 이미지">
+							                    </a>
+							                </div>
+							                <!-- END img_wrap -->
+							                <div class="txt_wrap">
+							                
+							                        <div class="pro_flag_wrap">
+							                            <span class="flag">NEW</span>
+							                        </div>
+							                        <!-- END pro_flag_wrap -->
+							                        <div class=tit_info>
+							                            <span class="info_itemName"> <c:out value="${board.itemName}" /> </span>
+							                            <span class="info_idNo"><c:out value="${board.idNo}" /></span>
+							                        </div>
+							                        <!-- END tit_info -->
+							                        <div class="price_info">
+							                                <p class="sale">
+							                                    <span class="price"><c:out value="${board.price}" />
+							                                        <span class="won">원</span>
+							                                    </span>
+							                                </p>
+							                                <p class="normPrice">
+							                                  <c:out value="${board.normPrice}" />
+							                                  <span class="won">원</span>
+							                                </p>
+							                        </div>
+							                  
+							                    <div class="cart_btn">
+							                        <button type="button" class="add_to_cart">add to cart</button>
+							                    </div>
+							                </div>
+							                <!-- END txt_wrap -->
+							                
+							                </div>
+							                <!-- END pro_moduel  -->
+							            </li>     
+							        </ul>    
+							    </div>
+							    <!--END pro_list  -->
+							</section>     
+	                   
+	               </c:forEach>
+			</div>
+
            
         </div>     
         <!--END 상품 목록 div 끝  --> 
@@ -541,6 +547,7 @@ $(document).on("change", "select.mainCateg", function(){
       var allData = {"classCode": classCode, "sort": value};
        
       listSort(allData).then(function(response){
+
        console.log(response);
        console.log("데이터 그리기 시작한다");
        draw(response);
@@ -548,6 +555,7 @@ $(document).on("change", "select.mainCateg", function(){
       }) 
       .catch(function(error){
          console.log(error);
+
       });
     
    }
@@ -564,31 +572,29 @@ $(document).on("change", "select.mainCateg", function(){
       });
    }
    
-   function draw(response){
-      
-   var $whole_list = $(".whole_list");
 
-      console.log(response);
-      
-      console.log("데이터 개수"+response.length);
-      
-      $whole_list.empty();
-      console.log("테이블 초기화 성공");
-      
-      
-            
-   for(var i=0; i<response.length; i++){
-         console.log("table그리기 시작한다!!!!");
-           
-      $whole_list.append("<div id='proContent'>"+response[i].itemCode+"<br>"+response[i].itemName+"<br>"+response[i].price+"<br>"+response[i].classCode+"<br><br><br></div>");
-         
-      }
-   }
-      
-      
-      
-      
-   
+	function draw(response){
+		
+	var $whole_list = $(".whole_list");
+
+		console.log(response);
+		
+		console.log("데이터 개수"+response.length);
+		
+		$whole_list.empty();
+		console.log("테이블 초기화 성공");
+		
+		
+				
+	for(var i=0; i<response.length; i++){
+			console.log("table그리기 시작한다!!!!");
+		  	
+		$whole_list.append("<div id='proContent'>"+response[i].itemCode+"<br>"+response[i].itemName+"<br>"+response[i].price+"<br>"+response[i].classCode+"<br><br><br></div>");
+			
+		}
+	}
+		
+
   
    
    

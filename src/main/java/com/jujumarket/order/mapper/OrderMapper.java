@@ -20,6 +20,5 @@ public interface OrderMapper {
 	public int insertorderCode(String orderCode);
 	
 	public List<OrderResponseVO> orderResponse(String idNo);
-	public String getOrderCodeByIdNo(String idNo);
-
+//	public String getRecentOrderCode(String idNo);
 }

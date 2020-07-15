@@ -62,7 +62,8 @@ resultType="com.jujumarket.board.domain.ReplyVO">
 select replyNo,idNo,postingNo,replyContent,regdate
 from t_reply
 where postingNo = #{postingNo}
-order by postingNo asc
+order by replyNo asc
+
 
 </select>
 

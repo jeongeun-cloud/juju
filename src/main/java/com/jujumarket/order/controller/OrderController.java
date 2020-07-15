@@ -33,19 +33,19 @@ public class OrderController {
 	private DeliverySerivce deliveryService;
 	
 	//상품테이블에서 idNo를 get방식으로 넘겨줌
-	//model에 orderList, memberInfo를 담아서 정보를 출력
 	@GetMapping("/orderItemsForm")
 	public void orderItemsForm(@RequestParam("idNo") String idNo, Model model) {
 		log.info("orderList");
-		
+		//model에 orderList를 담아 주문서(orderItemsForm.jsp)에 출력
 		model.addAttribute("orderList", orderService.getOrderResponse(idNo));
+		//model에 memberInfo를 담아 주문서(orderItemsForm.jsp)에 출력
 		model.addAttribute("memberInfo", orderMemberService.getOrderMemberInfo(idNo));
-		//memberInfo, orderList를 orderItemsForm.jsp에서 사용
+		//idNo로 최근주문정보 가져오기->deliveryService에서  해당 주문정보 호출
+//		model.addAttribute("recentDelivery", deliveryService.get(orderService.getRecentOrderCode(idNo)));
 
 	}
 
 	//orderResult화면을 보여줌
-	//값을 넘겨받아 화면에 뿌려주는..read() 사용 
 	@GetMapping("/orderResult")
 	public void orderResult(@RequestParam("orderCode") String orderCode, Model model) {
 		log.info("/orderResult");
@@ -53,15 +53,16 @@ public class OrderController {
 		String idNo = order.getIdNo();
 		OrderMemberVO orderMember = orderMemberService.getOrderMemberInfo(idNo);
 		List<OrderResponseVO> itemList = orderService.getOrderResponse(idNo);
+		//주문번호로 배송정보를 가져오기
 		DeliveryVO delivery = deliveryService.get(orderCode);
-		//jsp에서 사용할 요소들을 order, orderMember, itemList, delivery로 이름을 줘서 갖다쓴다 
+		//jsp에서 사용할 요소들을 order, orderMember, itemList, delivery로  이름 줘서 쓰기
 		model.addAttribute("order", order);
 		model.addAttribute("orderMember", orderMember);
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("delivery", delivery);
 	}
 
-	//orderResult 정보를  t_delivery DB에 insert. orderCode를 기준으로 insert한다
+	//orderResult 정보를  t_delivery DB에 insert. orderCode를 기준으로 insert
 	@PostMapping("/orderResult")
 	public String orderResult(OrderRequestVO order) {
 		log.info("orderResult");

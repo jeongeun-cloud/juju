@@ -186,7 +186,11 @@
  
 
 window.onload = function() {
+
    //alert("페이지 시작할 때 뜨는 알람");
+
+   /* alert("페이지 시작할 때 뜨는 알람"); */
+
    
    console.log("getBasketList 실행");
    getBasketList()
