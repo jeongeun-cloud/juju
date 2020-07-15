@@ -8,9 +8,9 @@ public class OrderResponseVO {
 	
 	private String itemImg1;
 	private String itemName;
-	private int normPrice;
-	private int itemNum;
-	private int price;
+	private Long normPrice;
+	private Long itemNum;
+	private Long price;
 	private String itemCode;
 	
 	

@@ -55,7 +55,6 @@
 	           <label>상품 특성<small style="opacity:0.75;">(특성이 선택되어 있지 않으면 기본입니다.)</small></label><br>
 	           <input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
 	           <input type="checkbox" name="itemChr" value="신상품" onclick="return false;">신상품
-	           <input type="checkbox" name="itemChr" value="best" onclick="return false;">Best
 	           <input type="checkbox" name="itemChr" value="할인" onclick="return false;">할인
 	       </div>
 

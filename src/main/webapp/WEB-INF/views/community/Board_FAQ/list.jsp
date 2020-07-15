@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@include file="../../includes/header.jsp" %>
+	<%@include file="../../includes/menuBar.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">   
@@ -115,7 +118,7 @@ tr:hover {
       <option value="C"
       <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>
       <option value="I"
-      <c:out value="${pageMaker.cri.type eq 'I'?'selected':''}"/>>아이다</option>
+      <c:out value="${pageMaker.cri.type eq 'I'?'selected':''}"/>>아이디</option>
       <option value="TC"
       <c:out value="${pageMaker.cri.type eq 'TC'?'selected':''}"/>>제목 or 내용</option>
       <option value="TI"
@@ -126,8 +129,8 @@ tr:hover {
       </select>
       
       <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-      <input name ='pageNum' value='${pageMaker.cri.pageNum}'>
-      <input name ='amount' value='${pageMaker.cri.amount}'>
+      <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
+      <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
        <button class ='btn btn-default'>검색</button>
       
       </form>
@@ -146,7 +149,7 @@ tr:hover {
 						<th>글 내용</th>
 
 						<th>글 타입</th>
-						<th>작성자</th>
+						<th>아이디</th>
 						<th>등록일</th>
 
 					</tr>
@@ -222,7 +225,7 @@ tr:hover {
 				<input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
 				<input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
-                <input  name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+                <input type="hidden"  name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
 			</form><!-- paging form end-->
 
 		

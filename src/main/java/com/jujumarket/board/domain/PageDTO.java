@@ -12,6 +12,7 @@ public class PageDTO {
 	private boolean prev , next;
 	
 	private int total;
+	private int resultTotal;
 	private Criteria cri;
 
 	public PageDTO(Criteria cri, int total) {
@@ -19,8 +20,11 @@ public class PageDTO {
 		this.cri = cri;
 		this.total = total;
 		
+
 		this.endPage = (int)(Math.ceil(cri.getPageNum()/10.0)) * 10;
 		this.startPage = this.endPage - 9;
+		
+		
 		
 		int realEnd = (int)(Math.ceil((total*10.0)/cri.getAmount()));
 		
