@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jujumarket.main.mapper.Board_ItemMapper">
+<mapper namespace="com.jujumarket.main.mapper.BoardItemMapper">
 
 <!--  <select id="getList" resultType="org.zerock.domain.ItemVO">
 <![CDATA[
@@ -14,12 +14,12 @@ order by regdate desc
  -->
 
 
-<select id="gets" resultType="com.jujumarket.main.domain.Board_ItemVO">
+<select id="gets" resultType="com.jujumarket.main.domain.BoardItemVO">
    select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, IDno from t_item where classCode like '%' || #{classCode}||'%'
    order by regDate DESC
 </select>
 
-<select id="getListWithPaging" resultType="com.jujumarket.main.domain.Board_ItemVO">
+<select id="getListWithPaging" resultType="com.jujumarket.main.domain.BoardItemVO">
 <![CDATA[
    select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo
    from(
@@ -41,7 +41,7 @@ order by regdate desc
 ]]>
 </select>
 <!--상품sort 해서 정렬  -->
-<select id="newProduct" resultType="com.jujumarket.main.domain.Board_ItemVO">
+<select id="newProduct" resultType="com.jujumarket.main.domain.BoardItemVO">
    select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo ,regDate
    from t_item
    where classCode in (select classCode from
@@ -51,25 +51,25 @@ order by regdate desc
 </select>
 
 
-<select id="bestProduct" resultType="com.jujumarket.main.domain.Board_ItemVO">
+<select id="bestProduct" resultType="com.jujumarket.main.domain.BoardItemVO">
 
 </select>
 
- <select id="lowPrice" resultType="com.jujumarket.main.domain.Board_ItemVO">
+ <select id="lowPrice" resultType="com.jujumarket.main.domain.BoardItemVO">
    select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo ,regDate
    from t_item
    where classCode in (select classCode from
    vw_category where classCode like '%'||#{classCode}||'%')
-   order by price ASC
+   order by price ASC , regDate DESC
    
 </select>
 
-<select id="highPrice" resultType="com.jujumarket.main.domain.Board_ItemVO">
+<select id="highPrice" resultType="com.jujumarket.main.domain.BoardItemVO">
    select itemCode , itemName, itemContent, price, normPrice,itemImg1,classCode, idNo ,regDate
    from t_item
    where classCode in (select classCode from
    vw_category where classCode like '%'||#{classCode}||'%')
-   order by price DESC
+   order by price DESC , regDate DESC
 
 </select>
 

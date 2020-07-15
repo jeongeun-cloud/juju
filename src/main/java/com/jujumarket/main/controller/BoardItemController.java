@@ -3,16 +3,18 @@ package com.jujumarket.main.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.jujumarket.main.domain.Board_ItemVO;
+import com.jujumarket.main.domain.BoardItemVO;
 import com.jujumarket.main.domain.CategoryVO;
 import com.jujumarket.main.domain.Criteria;
 import com.jujumarket.main.domain.PageDTO;
@@ -47,11 +49,11 @@ public class BoardItemController {
       model.addAttribute("category", JSONArray.fromObject(category));
       
 
-          //log.info("list"+cri);
+           //log.info("list"+cri);
          //log.info("class적용후 :"+order);
          //model.addAttribute("list",service.listSort(order));
          log.info("classCode는?:"+classCode);
-          model.addAttribute("list", service.gets(classCode)); 
+         model.addAttribute("list", service.gets(classCode)); 
          model.addAttribute("pageMaker",new PageDTO(cri,123));
          model.addAttribute("cs", classCode);//pageMaker 에 pageDTO 클래스의 객체를 만들어서 Model에 담아준다.
 
@@ -60,9 +62,9 @@ public class BoardItemController {
    
    
    
-   @GetMapping("/test")
+   @GetMapping(value = "/test/{classCode}/{sort}", produces= {MediaType.APPLICATION_JSON_VALUE})
    @ResponseBody
-   public ResponseEntity<?> test(String classCode, String sort, Model model) {
+   public ResponseEntity<?> test(@PathVariable String classCode, @PathVariable String sort, Model model) {
       
       System.out.println("컨트롤러 왔음");
       
@@ -73,25 +75,18 @@ public class BoardItemController {
       vo.setSort(sort);
       
       
-      List<Board_ItemVO> list = service.listSort(vo);
+      List<BoardItemVO> list = service.listSort(vo);
       
-      System.out.println("결과값!:"+list.toString());
+      System.out.println("controller결과값:"+list);
       
-      
-      return ResponseEntity.status(HttpStatus.OK).body(list.toString());
+      return ResponseEntity.status(HttpStatus.OK).body(list);
+		/* return ResponseEntity.status(HttpStatus.OK).body(list.toString()); */
       
    }
    
    
    
    
-   
-   
-   
-   
-   
-   
-
    
    @PostMapping("/list")
    public String gets(@RequestParam("classCode") String classCode, Model model) {
