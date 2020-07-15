@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+		<%@include file="../../includes/header.jsp" %>
+	<%@include file="../../includes/menuBar.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -27,13 +30,13 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Board Register</div>
 				<div class="panel-body">
-					<form role="form" action="/mypage/myQna/register" method="post">
+					<form  id = 'registerForm' role="form" action="/mypage/myQna/register" method="post">
 						<div class="from-group">
-							<label>Title</label><input class="form-control" name='title'>
+							<label>Title</label><input  id ='title' class="form-control" name='title'>
 						</div>
 						<div class="form-group">
 							<label>내용</label>
-							<textarea class="form-control" rows="10" name='content'></textarea>
+							<textarea class="form-control" id ='content' rows="10" name='content'></textarea>
 						</div>
 
 						<div class="form-group">
@@ -42,11 +45,11 @@
 						</div>
 
 						<div class="form-group">
-							<label>작성자</label><input class="form-control" name='idNo'>
+							<label>작성자</label><input class="form-control" name='idNo' value='운영자'>
 						</div>
 						
 						<div class="form-group">
-							<label>게시글타입</label><input class="form-control" name='boardType'>
+							<label>게시글타입</label><input class="form-control" name='boardType' readonly ='readonly' value = '3'>
 						</div>
 
 						<button type="submit" class="btn btn-default">글쓰기</button>
@@ -60,6 +63,39 @@
 	</div>
 	<!-- row end -->
 	
+	    <script type="text/javascript">
+   $(document).ready(function(){
+   
+   var registerForm = $("#registerForm");
+	   
+   $(".btn").on("click" , function(e){
+
+  	 if(!registerForm.find("#title").val()){
+  		 alert("제목입력 입력해주세요");
+  		 return false;
+  		 
+  	 }
+  		 
+  		 if(!registerForm.find("#content").val()){
+  	  		 alert("내용을 입력해주세요");
+  	  		 return false;
+  		 
+  	 }
+ 
+  	 
+  
+  	 
+  	 searchForm.find("input[name='pageNum']").val("1");
+  	 e.preventDefault();
+  	 
+  	 searchForm.submit();
+  	 
+  	 
+       });
+       });
+   
+   
+   </script>
 	
 	
 

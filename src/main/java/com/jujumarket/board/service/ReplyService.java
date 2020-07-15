@@ -16,5 +16,6 @@ public interface ReplyService {
 	public int remove(String replyNo);
 	
 	public List<ReplyVO> getList(Criteria cri, String postingNo);
+	
 
 }

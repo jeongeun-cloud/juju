@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+		<%@include file="../../includes/header.jsp" %>
+	<%@include file="../../includes/menuBar.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -124,8 +126,8 @@ tr:hover {
       
       <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
       <input name ='pageNum' value='${pageMaker.cri.pageNum}'>
-      <input name ='amount' value='${pageMaker.cri.amount}'>
-       <button class ='btn btn-default'>검색</button>
+      <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
+       <button type="hidden"  class ='btn btn-default'>검색</button>
       
       </form>
       </div>

@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+		<%@include file="../../includes/header.jsp" %>
+	<%@include file="../../includes/menuBar.jsp" %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-
+	
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">   
 <head>
@@ -92,8 +95,8 @@ tr:hover {
 		<div class="p1">
 			<ul>마이페이지
 			
-			<li><a>공지사항</a></li>
-			<li><a>자주하는질문</a></li>
+			<li><a href="/mypage/myQna/list">1:1문의</a></li>
+		
 			</ul>
 		</div>
 
@@ -125,8 +128,8 @@ tr:hover {
       </select>
       
       <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-      <input name ='pageNum' value='${pageMaker.cri.pageNum}'>
-      <input name ='amount' value='${pageMaker.cri.amount}'>
+      <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
+      <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
        <button class ='btn btn-default'>검색</button>
       
       </form>

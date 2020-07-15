@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+		<%@include file="../../includes/header.jsp" %>
+	<%@include file="../../includes/menuBar.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,10 +11,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
-
-	
-
 
 </head>
 <body>
@@ -74,10 +72,15 @@
 							value='<c:out value="${Board_QNA.idNo}"/>'readonly="readonly">
 				</div>
 					
-				<div class="from-group">
+				<div  class="from-group">
 						<label>글번호</label><input class="form-control" name='postingNo'
 							value='<c:out value="${Board_QNA.postingNo}"/>'readonly="readonly">
 			    </div>
+			    
+			           <input type="hidden"  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
+	                    <input type="hidden" name ='amount' value='<c:out value="${cri.amount}"/>'>  
+	                    <input type ="hidden" name= 'type' value='<c:out value="${cri.type}"/>'>
+	                    <input type ="hidden" name= 'keyword' value='<c:out value="${cri.keyword}"/>'>  
 					
 					<button data-oper='modify' class="btn btn-default">수정</button>
 					<button data-oper='remove' type="submit" class="btn btn-default">삭제</button>
@@ -86,7 +89,7 @@
                     
                     
                     <form id='operForm' action="/mypage/myQna/modify" method="get">
-	                    <input  id='postingNo' name='postingNo' value='<c:out value="${Board_QNA.postingNo}"/>'>
+	                    <input type="hidden" id='postingNo' name='postingNo' value='<c:out value="${Board_QNA.postingNo}"/>'>
 	                    <input type="hidden"  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
 	                    <input  type="hidden" name ='amount' value='<c:out value="${cri.amount}"/>'>  
 	                    <input type ="hidden" name= 'type' value='<c:out value="${cri.type}"/>'>
@@ -100,6 +103,7 @@
 	<!-- row end -->
 	
 	  <!-- reply-main -->
+	  
 				  <div class = "reply-main">
 			      <h4 class="reply-title" id="replytitle">댓글쓰기</h4>
 			
@@ -107,7 +111,7 @@
 				  <div id = "regiBtn">
 			      <div class="form-grop">
 			      <label>replyContent</label>
-			      <textarea class ="form-control" id="replyContentBtn"  rows='5'  name='replyContent' value=''></textarea></div>
+			      <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' value=""></textarea></div>
 			      
 			      <div class="form-grop">
 			      <label>id</label>
@@ -119,6 +123,7 @@
 			      <label>replyDate</label>
 			      <input class ="form-control" name='regDate' value=''></div> -->
 			      
+			     
 			       <div class="panel-heading">
 				   <i class="fa fa-comments fa-fw"></i>Reply
 				   <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>새 댓글쓰기</button>
@@ -181,7 +186,7 @@
 			  
 
 			  for(var i = 0, len =list.length || 0; i <len; i++){
-				  str += "<li class='left clearfix' data-replyNo ='"+list[i].replyNo+"'>";
+				  str += "<li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
 				  str += "<div><div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
 				  
 				  str += "<div><small class ='pull-right text-muted'>"+replyService.displayTime(list[i].regDate)+"</div></small>";
@@ -211,13 +216,30 @@
  			
  			
 		  regiBtn.find('button').on("click",function(e){
+			  if($("#replyContentBtn").val() == '' ){
+				  
+		  	  		 alert("댓글을 입력해주세요");
+		  	  		 return false;
+		  		 
+		  	 }
 			  
-			  alert("regiBtn");
+			  
 			  replyService.add(
 					   {idNo:$("#idNoBtn").val(), replyContent:$("#replyContentBtn").val(), postingNo:$("#postingNo").val()},
 					   
+					   
+					  
 					   function(result){
-						   alert("RESUTL : " + result);
+						   
+			
+						   var replyContent = $(".replyContent").val();
+						   var dd = "";
+		                   console.log(replyContent);
+		                 
+
+						   alert("댓글이 등록되었습니다. : " + result);
+					    	$("#replyContentBtn").val("");
+						   
 						   showList(1);
 				   }); 
 			   
@@ -271,26 +293,30 @@
       
       	//수정 start
  		 $("#list").on("click","button[id='ModifyBtn']",function(e){
- 		
-
-         $(".btn-dangers").show();
-         $(".btn-dange").hide();
-         $(".text").attr('readonly','readonly');
-    
-     
-      
  			
  			 
  			 var target = e.target
    		     //var replyLi = $(target).parent().parent().parent();
    		     var replyLi = $(target).closest("li");
    		     var replyNo = replyLi.data("replyno");
-     	     var str = '';
+ 			 var text = replyLi.data("text");
+ 			 console.log(text);
+ 			 
+ 	   		 $(target).parent().find(".text").val(text);
+ 	   		
+ 	         var str = '';
+ 			 
+ 			 
+             $(".btn-dangers").show();
+             $(".btn-dange").hide();
+             $(".text").attr('readonly','readonly');
+      		  
      	     
      	    $(target).parent().find("button")
      	   
         	 
      	    $(target).parent().find("button").hide();
+     	   
      	    
          	
      	    $(target).parent().find("#text").removeAttr("readonly");

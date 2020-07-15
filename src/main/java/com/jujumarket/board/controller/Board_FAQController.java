@@ -100,15 +100,19 @@ public class Board_FAQController {
 	}
 
 	@PostMapping("/Board_FAQ/modify")
-	public String modify(Board_FAQVO fqa, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+	public String modify(Board_FAQVO fqa,
+			@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + fqa);
 
 		if (service.modify(fqa)) {
 			rttr.addFlashAttribute("result", "success");
+			
+			
 		}
 
-		return "redirect:/community/Board_FAQ/list"+ cri.getListLink();
+		return "redirect:/community/Board_FAQ/list"+cri.getListLink();
 	}
+	
 
 	@PostMapping("/Board_FAQ/remove")
 	public String remove(@RequestParam("postingNo") String postingNo,
@@ -119,8 +123,10 @@ public class Board_FAQController {
 			rttr.addFlashAttribute("result", "success");
 		}
 		
-		return "redirect:/community/Board_FAQ/list" + cri.getListLink();
+		return "redirect:/community/Board_FAQ/list"+cri.getListLink();
+		
 	}
+	
 
 	@GetMapping({ "/notice/get", "/notice/modify" })
 	public void noticeGet(@RequestParam("postingNo") String postingNo,

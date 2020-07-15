@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+		<%@include file="../../includes/header.jsp" %>
+	<%@include file="../../includes/menuBar.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -53,10 +55,16 @@
 							value='<c:out value="${Board_FAQ.idNo}"/>'readonly="readonly">
 				</div>
 					
-				<div class="from-group">
+				<div  class="from-group">
 						<label>글번호</label><input class="form-control" name='postingNo'
 							value='<c:out value="${Board_FAQ.postingNo}"/>'readonly="readonly">
 			    </div>
+			    
+			           <input type="hidden"  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
+	                    <input type="hidden" name ='amount' value='<c:out value="${cri.amount}"/>'>  
+	                    <input type ="hidden" name= 'type' value='<c:out value="${cri.type}"/>'>
+	                    <input type ="hidden" name= 'keyword' value='<c:out value="${cri.keyword}"/>'>  
+			    
 					
 					<button data-oper='modify' class="btn btn-default">수정</button>
 					<button data-oper='remove' type="submit" class="btn btn-default">삭제</button>
@@ -64,10 +72,10 @@
               </form>
                     
                     
-                    <form id='operForm' action="/commuinty/notice/modify" method="get">
-	                    <input  id='postingNo' name='postingNo' value='<c:out value="${Board_FAQ.postingNo}"/>'>
+                    <form  id='operForm' action="/commuinty/notice/modify" method="get">
+	                    <input type="hidden" id='postingNo' name='postingNo' value='<c:out value="${Board_FAQ.postingNo}"/>'>
 	                    <input type="hidden"  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
-	                    <input  type="hidden" name ='amount' value='<c:out value="${cri.amount}"/>'>  
+	                    <input type="hidden" name ='amount' value='<c:out value="${cri.amount}"/>'>  
 	                    <input type ="hidden" name= 'type' value='<c:out value="${cri.type}"/>'>
 	                    <input type ="hidden" name= 'keyword' value='<c:out value="${cri.keyword}"/>'>           
 					</form><!-- operForm end -->

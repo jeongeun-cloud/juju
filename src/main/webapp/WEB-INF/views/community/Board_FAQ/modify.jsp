@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+		<%@include file="../../includes/header.jsp" %>
+	<%@include file="../../includes/menuBar.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,21 +30,21 @@
 				<div class="panel-heading">수정하기</div>
 				<div class="panel-body">
 
-                   <form role="form" action="/community/Board_FAQ/modify" method="post">
+                   <form id ='modifyForm' role="form" action="/community/Board_FAQ/modify" method="post">
 					<!-- 조회페이지에서 수정/삭제 페이지로 이동 -->
-					<input  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
-                    <input name='amount' value='<c:out value="${cri.amount}"/>'>
-                    <input name='type' value='<c:out value="${cri.type}"/>'>
-                    <input name='keyword' value='<c:out value="${cri.keyword}"/>'>
+					<input type='hidden'   name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
+                    <input type='hidden'  name='amount' value='<c:out value="${cri.amount}"/>'>
+                    <input type='hidden'  name='type' value='<c:out value="${cri.type}"/>'>
+                    <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
 
 					<div class="from-group">
-						<label>Title</label><input class="form-control" name='title'
+						<label>Title</label><input id='title' class="form-control" name='title'
 							value='<c:out value="${Board_FAQ.title}"/>'>
 					</div>
 
 					<div class="from-group">
 						<label>내용</label>
-						<textarea class="form-control" rows="10" name='content'
+						<textarea class="form-control" id='content' rows="10" name='content'
 					 ><c:out value="${Board_FAQ.content}"/></textarea>
 					</div>
 
@@ -109,10 +111,26 @@
 				formObj.append(keywordTag);
 				formObj.append(typeTag);			
 
+		 }else{
+			 
+			 
+			 var modifyForm = $("#modifyForm");
+			   
+			   if(!modifyForm.find("#title").val()){
+		  		 alert("제목입력 입력해주세요");
+		  		 return false;
+			 
 		 }
-			 formObj.submit();
-	
-		
+			   if(!modifyForm.find("#content").val()){
+		  	  		 alert("내용을 입력해주세요");
+		  	  		 return false;
+		  		 
+		  	 }
+		 }
+		 
+		  formObj.submit();
+		  	 
+		  	 
 	});
 	});
 	
