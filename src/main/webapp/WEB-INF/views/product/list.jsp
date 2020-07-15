@@ -17,11 +17,13 @@
 <meta name="author" content="">
 
 <style>
-	.product_container{
-	width:1300px;
-	height:100%;
-	margin: 0 auto;
-	}
+
+   .product_container{
+   width:1300px;
+   height:100%;
+   margin: 0 auto;
+   }
+
 
    .pull-right > ul li{
    list-stlye-type:none;
@@ -192,9 +194,11 @@
       <div class="product_container">
          <div class="panel-heading">
          
+
 	         <h1 style="color:orange"><c:out value="${cs}"/></h1>
 	      
 	         <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>">
+
 
          </div>
          
@@ -315,6 +319,7 @@
       
       <!--상품 목록 div  -->
              <div>
+
 				<div class="whole_list">
           
 	               <c:forEach items="${list}" var="board">
@@ -370,6 +375,7 @@
 	                   
 	               </c:forEach>
 			</div>
+
            
         </div>     
         <!--END 상품 목록 div 끝  --> 
@@ -541,13 +547,15 @@ $(document).on("change", "select.mainCateg", function(){
       var allData = {"classCode": classCode, "sort": value};
        
       listSort(allData).then(function(response){
-    	console.log(response);
-    	console.log("데이터 그리기 시작한다");
-    	draw(response);
-    	  
+
+       console.log(response);
+       console.log("데이터 그리기 시작한다");
+       draw(response);
+         
       }) 
       .catch(function(error){
-    	  console.log(error);
+         console.log(error);
+
       });
     
    }
@@ -564,6 +572,7 @@ $(document).on("change", "select.mainCateg", function(){
       });
    }
    
+
 	function draw(response){
 		
 	var $whole_list = $(".whole_list");
@@ -585,10 +594,7 @@ $(document).on("change", "select.mainCateg", function(){
 		}
 	}
 		
-		
-		
-		
-	
+
   
    
    

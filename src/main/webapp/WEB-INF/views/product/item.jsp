@@ -120,7 +120,7 @@ h4 {
   margin: 2rem 0;
   padding: 1rem 0 0 0; }
 
-.add-to-cart {
+.add-to-basket {
   position: relative;
   display: inline-block;
   background: #3e3e3f;
@@ -134,9 +134,9 @@ h4 {
   transform: translateZ(0);
   transition: color 0.3s ease;
   letter-spacing: 0.0625rem; }
-  .add-to-cart:hover::before {
+  .add-to-basket:hover::before {
     transform: scaleX(1); }
-  .add-to-cart::before {
+  .add-to-basket::before {
     position: absolute;
     content: "";
     z-index: -1;
@@ -499,15 +499,15 @@ margin-left: 15%;
               <!-- 수량 증감 부분 끝 -->
               
               
-              <h5> 배송비 : 2500원 </h5>
-              <h5> 총 결제금액 : 2600원 </h5>
+              <h5> 배송비 : 0원 </h5>
+              <h5> 총 결제금액 : ${product.normPrice}원 </h5>
               <div class="item-describe">
                 <p><c:out value="${product.itemContent}" default="itemContent"/></p>
               </div>
               
               
               
-              <button type="submit" class="add-to-cart" onclick="addToCartEvent()" >Add To Cart</button>
+              <button type="submit" class="add-to-basket" onclick="addToBasketEvent()" >장바구니 담기</button>
             </div>
 
             <input type="hidden" value="${product.itemCode}" id="itemCode"/>
@@ -674,7 +674,7 @@ margin-left: 15%;
 
         <button type="button" onclick="basketClicked(this)" class="basket-toggle-collapse" > 
             <span class="basket-toggle-icon"> </span>
-            <img src="/resources/images/cart.png"/>
+            <img src="/resources/images/basket.png"/>
         </button>   
 
         <br>장바구니
@@ -753,22 +753,64 @@ productImages.forEach(image => image.addEventListener("click", changeImage));
 
 
 
- // add to cart 버튼 onclick event function 시작
- function addToCartEvent() {
+ // add to basket 버튼 onclick event function 시작
+ function addToBasketEvent() {
    
    var $itemCode = $("#itemCode");
    
    var $num = $("#input-view");
    
+   // 현재 장바구니 담긴 갯수 - length 로 바꿔줘야하는데 안되네 
+   var basketSize = 10;
    
-   // 1. itemCode.val() 이 t_basket DB에 있는지 확인한다. 
-   	// 1-1. t_basket DB에 동일한 상품이 있으면 num.val() 만 더해서 update 한다. 
-   	// 1-2. t_basket DB에 동일한 상품이 없으면 data를 insertData(data) 한다. 
+   // 장바구니 한도
+   var basketMax = 40;
    
-   // 2. getBasketList 로 장바구니 리스트를 모두 가져온다. 
+   // 장바구니 담긴 갯수 구하기 
+   /* var basketSize = getBasketList();
    
-   // 3. ajax 로 화면을 다시 draw 한다. 
+   console.log("basketSize: "+basketSize); //[object Object]
    
+   console.log("basketSize.responseJSON: " + basketSize.responseJSON); //undefined
+   
+   console.log("basketSize.length: "+basketSize.length); 
+   
+   console.log("getBasketList().responseJSON: " + getBasketList().responseJSON);
+   
+   console.log("getBasketList().length: "+getBasketList().length);
+
+   
+   console.log("getBasketList().size: "+getBasketList().size);
+   
+   
+   console.log("getBasketList()"+getBasketList()); */
+   
+   // 이거 왜 안나오지 
+   //console.log("장바구니에 지금 얼마나 담겼어? " + basketSize.responseJSON.length);
+   
+   //console.log("getBasketList().keys.length 길이 : "+getBasketList().keys.length);
+	
+  
+   //console.log("Object.keys(): "+Object.keys(getBasketList()));
+   
+   
+   
+   //console.log(Object.keys(getBasketList()))
+   
+   
+   
+   //console.log("Object.keys(getBasketList()): "+Object.keys(getBasketList()));
+   
+   
+   // 1. 장바구니에 담긴 물건 갯수를 확인한다. 
+   		//1-1. 장바구니에 담긴 물건이 max 초과이면 
+	if(basketSize>basketMax){
+	   		//1-1-1. alert("장바구니에 담을 수 있는 상품은 20개 이하입니다.")
+		alert("장바구니에 담을 수 있는 상품은 "+basketMax+"개 이하입니다.")		
+			//1-1-2. insert,getBasketList,draw, movebasket 하지 않고 빠져나간다.    
+	}else{
+		//1-2. 장바구니에 담긴 물건이 20개 넘지 않으면 
+			// insert,getBasketList,draw, movebasket 실행
    
    var data = {
    
@@ -797,10 +839,14 @@ productImages.forEach(image => image.addEventListener("click", changeImage));
       }) 
    
    .then(function(){
-      moveCart(); }) // 장바구니 슬라이드 자동으로 열고 닫게 하기 
+      moveBasket(); }) // 장바구니 슬라이드 자동으로 열고 닫게 하기 
    
+	}
+			
+			
+			
 }
-// add to cart 버튼 onclick event function 끝
+// add to basket 버튼 onclick event function 끝
  
  
  
@@ -819,7 +865,7 @@ function insertData(data) {
    console.log("insertData 실행");
 
    return $.ajax({
-      url: "/product/cart",
+      url: "/product/basket",
       type: "POST",
       data: JSON.stringify(data),
       contentType: "application/json"
@@ -834,7 +880,7 @@ function insertData(data) {
 function getBasketList() {
    
    return $.ajax({
-      url: "/product/cart",
+      url: "/product/basket",
       type: "GET",
       dataType: "JSON",
       error : function(){console.log("통신실패")},
@@ -889,13 +935,13 @@ function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜
 
    }
    
-   $("#basketList").append("<div id='endOfCart'>end of cart</div>");
-   $("#endOfCart").css("background-color","white");
-   $("#endOfCart").css("color","white");
-   $("#endOfCart").css("display","block");
-   $("#endOfCart").css("width","240px");
-   $("#endOfCart").css("height","50px");
-   $("#endOfCart").css("float","left");
+   $("#basketList").append("<div id='endOfBasket'>end of basket</div>");
+   $("#endOfBasket").css("background-color","white");
+   $("#endOfBasket").css("color","white");
+   $("#endOfBasket").css("display","block");
+   $("#endOfBasket").css("width","240px");
+   $("#endOfBasket").css("height","50px");
+   $("#endOfBasket").css("float","left");
 
    
    $("#basketList").css("text-align","left");
@@ -928,16 +974,16 @@ function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜
 
 
 /* 장바구니 슬라이드 열렸다 닫히는 기능 시작 */
-function moveCart() {
+function moveBasket() {
  
-      /* cart 가 열렸다 닫혔다 하는 부분 시작 */
+      /* basket 가 열렸다 닫혔다 하는 부분 시작 */
        var elem = document.getElementById("basketNav"),
        Style = window.getComputedStyle(elem),
        right = Style.getPropertyValue("right");
       
       
         /* 장바구니 슬라이드 스크롤 맨 아래로 내리기*/
-       location.href="#endOfCart";
+       location.href="#endOfBasket";
 
         /* 장바구니를 펼쳤다가 */
        elem.style.right = "0%";
@@ -945,11 +991,11 @@ function moveCart() {
         
         
         /* 장바구니 슬라이드 스크롤 맨 아래로 내리기?- 적용되는지 모르겠다 */
-       //document.getElementById("endOfCart").scrollIntoView();
+       //document.getElementById("endOfBasket").scrollIntoView();
 
         /* 1초 후에 장바구니를 닫아라 */
        setTimeout(function(){elem.style.right = "-20%";},1000);
-       /* cart 가 열렸다 닫혔다 하는 부분 끝 */
+       /* basket 가 열렸다 닫혔다 하는 부분 끝 */
       
 
 }
