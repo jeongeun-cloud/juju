@@ -167,8 +167,8 @@
 
         <ul class="basketList" id="basketList">
         
-        	
-        	
+           
+           
         
         
         </ul>
@@ -186,18 +186,18 @@
  
 
 window.onload = function() {
-	//alert("페이지 시작할 때 뜨는 알람");
-	
-	console.log("getBasketList 실행");
-	getBasketList()
-	
-	.then(function(response){
-		console.log("getBasketList 결과는?");
-	    console.log(response);  
-		draw(response);
-		
-	})
-	
+   //alert("페이지 시작할 때 뜨는 알람");
+   
+   console.log("getBasketList 실행");
+   getBasketList()
+   
+   .then(function(response){
+      console.log("getBasketList 결과는?");
+       console.log(response);  
+      draw(response);
+      
+   })
+   
 }
 
  
@@ -235,14 +235,14 @@ function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜
    console.log("결과 : " + jsonData)
    
    for(var i=0; i<jsonData.length; i++) {
-	   
-	   
-	   
+      
+      
+      
    
-	   $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
-	   
-	   $basketList.append("<div id='basketContent'><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
-	   
+      $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
+      
+      $basketList.append("<div id='basketContent'><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
+      
       /* 
       $basketList.append("<img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" />");
       
@@ -253,7 +253,7 @@ function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜
       $basketList.append(jsonData[i].itemNum+"개<br>");
       $basketList.append(jsonData[i].baskId+"<br>");
       
-      $basketList.append("</h5>");	
+      $basketList.append("</h5>");   
       $basketList.append("<br>");
       
        */
@@ -319,8 +319,8 @@ function basketClicked(e) {
    }
 /* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 끝 */
 
- 	
- 	
+    
+    
 </script>
 </body>
 </html>
