@@ -7,14 +7,21 @@
 
 	<insert id="insertSelectKey">
 		<selectKey keyProperty="shippingCode" order="BEFORE"
-			resultType="String"> 
-			
-			   select seq_delivery.nextval from dual
-	</selectKey>
-	
-		insert into t_delivery(shippingCode, receiver, receivAddr, receivContact, reqNote, orderCode, itemCode)
-		values (#{shippingCode}, #{receiver}, #{receivAddr}, #{receivContact}, #{reqNote}, #{orderCode}, #{itemCode})
+			resultType="String">
+
+			select seq_delivery.nextval from dual
+		</selectKey>
+
+		insert into t_delivery(shippingCode, receiver, receivAddr,
+		receivContact, reqNote, orderCode, itemCode)
+		values (#{shippingCode},
+		#{receiver}, #{receivAddr}, #{receivContact}, #{reqNote},
+		#{orderCode}, #{itemCode})
 	</insert>
+
+
+
+
 
 	<select id="readByOrderCode"
 		resultType="com.jujumarket.order.domain.DeliveryVO">
@@ -22,6 +29,6 @@
 
 	</select>
 
-	
+
 
 </mapper>

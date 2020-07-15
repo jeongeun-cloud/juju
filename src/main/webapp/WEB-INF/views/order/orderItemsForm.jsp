@@ -114,13 +114,13 @@
 				<tbody>
 					<tr class="dot_line">
 						<td>이름</td>
-						<td><input type="text" id="memName" name="memName"
+						<td><input type="text" class="memberInfo" id="memName" name="memName"
 							value="${memberInfo.memName}" size="15" readonly="readonly" /></td>
 					</tr>
 
 					<tr class="dot_line">
 						<td class="fixed_join">연락처</td>
-						<td><input type="text" id="contact" name="contact"
+						<td><input type="text" class="memberInfo" id="contact" name="contact"
 							value="${memberInfo.contact}" size="15" readonly="readonly" />
 					</tr>
 
@@ -131,13 +131,18 @@
 					</tr>
 				</tbody>
 			</table>
-			<input type="hidden" id="memAddr" value="${memberInfo.memAddr }">
+			<input type="hidden" class="memberInfo" id="memAddr" value="${memberInfo.memAddr }">
 		</div>
 
 
 
 		<h2>배송지정보</h2>
 		<input type="checkbox" id="sameAsMem"> 회원정보와 동일
+		<input type="checkbox" id="recentDelivery"> 최근배송지
+			<input type="hidden" class="recentDeliveryInfo" id="recentReceiver" value = "${recentDelivery.receiver}">
+			<input type="hidden" class="recentDeliveryInfo" id="recentReceivContact" value = "${recentDelivery.receivContact}">
+			<input type="hidden" class="recentDeliveryInfo" id="recentReceivAddr" value="${recentDelivery.receivAddr}">
+		
 		<div class="detail_table">
 
 			<table>
@@ -145,8 +150,7 @@
 
 					<tr class="dot_line">
 						<td class="fixed_join">수령인</td>
-						<td><input id="receiver" name="receiver" type="text"
-							size="40" value="" />
+						<td><input id="receiver" name="receiver" type="text" size="40" value="" />
 					</tr>
 
 
@@ -154,12 +158,9 @@
 
 					<tr class="dot_line">
 						<td class="fixed_join">연락처</td>
-						<td><input type="text" id="receivContact"
-							name="receivContact" value="" /></td>
+						<td><input id="receivContact" name="receivContact" type = "text" size = "40" value="" /></td>
 
 					</tr>
-
-
 
 					<tr class="dot_line">
 						<td class="fixed_join">주소</td>
@@ -168,7 +169,6 @@
 							href="javascript:execDaumPostcode()">우편번호검색</a> <br>
 							<p>
 
-								<!-- 		도로명 <-> 지번 주소 글자 위치 바꿔야함  -> id가 뒤바뀐것을 고쳐서 해결 -->
 
 								지번 주소: <input type="text" id="jibunAddress" name="jibunAddress"
 									size="50" value="" /><br> <br> 도로명 주소: <input
@@ -200,7 +200,6 @@
 		<br> <br> <br>
 		<center>
 			<br> <br>
-
 
 
 			<button type="submit" id="submitBtn">결제하기</button>
