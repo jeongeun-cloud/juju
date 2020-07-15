@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.shop.mapper.RegisterItemMapper">
+
+  <sql id="itemcriteria">
+      <trim prefix="(" suffix=") AND" prefixOverrides="OR">
+		
+		<foreach item="type" collection="typeArr">
+            <trim prefix="OR">
+               <choose>
+                  <when test="type == 'N'.toString()">
+                     itemName like '%' || #{keyword} || '%'
+                  </when>
+                  <when test="type == 'C'.toString()">
+                     itemContent like '%' || #{keyword} || '%'
+                  </when>
+               </choose>
+            </trim>
+         </foreach>
+		
+      </trim>
+   </sql>
+   
+   <select id="getList" resultType="com.jujumarket.shop.domain.RegisterItemVO">
+      <![CDATA[
+      		select * from t_item order by regDate DESC
+      ]]>
+   </select>
+
+   <select id="getListWithPaging" resultType="com.jujumarket.shop.domain.RegisterItemVO">
+      <![CDATA[
+	      select *
+	      from (select /*+INDEX_DESC(t_item pk_item) */
+				rownum rn, itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail, regDate, updateDate, classCode, idNo
+				from (select * from t_item order by regDate desc)
+				where
+      ]]>
+      
+      <include refid="itemcriteria"></include>
+      
+      <![CDATA[
+         rownum <= #{pageNum} * #{amount}
+        
+         	)
+     	 where rn > (#{pageNum} -1) * #{amount}
+      ]]>
+   </select>
+
+<!-- 
+
+	<select id="getList" resultType="com.jujumarket.shop.domain.RegisterItemVO">
+		<![CDATA[
+			select * from t_item 
+		]]>
+	</select>
+
+	<select id="getListWithPaging" resultType="com.jujumarket.shop.domain.RegisterItemVO">
+		<![CDATA[
+			select * from 
+				(select /*+INDEX_DESC(t_item pk_item) */
+				rownum rn, itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail, regDate, updateDate, classCode, idNo
+				from t_item
+				where rownum <= #{pageNum} * #{amount}
+				)
+			where rn > (#{pageNum} -1) * #{amount}
+		]]>
+	</select> -->
+
+	<insert id="insert">
+		insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail, classCode, idNo) 
+		values ('idNo'||'item'||lpad(seq_item.nextval,5,'0'), #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat},
+		 #{itemChr}, #{itemImg1}, #{itemImg2}, #{itemImg3}, #{itemImg4}, #{imgDetail}, #{classCode}, 'idNo')
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="itemCode" order="BEFORE" resultType="String">
+			select 'idNo'||'item'||lpad(seq_item.nextval,5,'0') from dual
+		</selectKey>
+		
+		insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail, classCode, idNo)
+		values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat},
+		 #{itemChr}, #{itemImg1}, #{itemImg2}, #{itemImg3}, #{itemImg4}, #{imgDetail}, #{classCode}, 'idNo')
+	</insert>
+	
+	<select id="read" resultType="com.jujumarket.shop.domain.RegisterItemVO">
+		select * from t_item where itemCode = #{itemCode}
+	</select>
+	
+	<delete id="delete">
+		delete from t_item where itemCode = #{itemCode}
+	</delete>
+	
+	<update id="update">
+		update t_item
+		set itemName = #{itemName}, itemContent = #{itemContent}, price = #{price}, 
+		normPrice = #{normPrice}, stock = #{stock}, dispStat = #{dispStat}, saleStat = #{saleStat}, 
+		itemChr = #{itemChr}, itemImg1 = #{itemImg1}, itemImg2 = #{itemImg2}, itemImg3 = #{itemImg3},
+		itemImg4 = #{itemImg4}, imgDetail = #{imgDetail}, updateDate = current_timestamp
+		where itemCode = #{itemCode}
+	</update>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from t_item
+	</select>
+	
+	<!-- 카테고리 전체 호출 -->
+	<select id="category" resultType="com.jujumarket.shop.domain.CategoryVO">
+		select * from vw_category
+	</select>
+	
+	<select id="getCategory" resultType="String">
+		select c.fullPath 
+		from t_item i, t_category c
+		where i.classCode = c.classCode and itemCode = #{itemCode}
+	</select>
+	
+	<select id="getOldFiles" resultType="com.jujumarket.shop.domain.RegisterItemVO">
+		select idNo, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail from t_item where to_char(updateDate, 'yy/mm/dd') = to_char(sysdate-1)
+	</select>
+	
+	<select id="getResultTotal" resultType="int">
+		select count(*) 
+		from t_item 
+		where itemName like '%' || #{keyword} || '%' 
+		or itemContent like '%' || #{keyword} || '%'
+	</select>
+	
+</mapper>
