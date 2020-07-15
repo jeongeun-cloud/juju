@@ -19,8 +19,8 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Service
 @AllArgsConstructor
-public class OrderServiceImpl implements OrderService{
-	
+public class OrderServiceImpl implements OrderService {
+
 	private OrderMapper orderMapper;
 	private OrderInfoMapper orderInfoMapper;
 	private OrderHistoryMapper orderHistoryMapper;
@@ -32,31 +32,31 @@ public class OrderServiceImpl implements OrderService{
 		log.info("register1......");
 		orderMapper.insertSelectKey(order);
 		List<OrderResponseVO> itemList = orderMapper.orderResponse(order.getIdNo());
+
 		log.info("크기: " + itemList.size());
 		Long totalSum = 0L;
 		Long totalDiscount = 0L;
-		//itemList.size()가 i개일때, t_order에는 1개의 row, t_order_info, t_order_history에는
-		//i개의  row가 인서트됨. 반복문 사용으로 insert되도록 작성해야 함 .
+		// itemList.size()가 i개일때, t_order에는 1개의 row, t_order_info, t_order_history에는
+		// i개의 row가 인서트됨. 반복문 사용으로 insert되도록 작성해야 함 .
 		for (int i = 0; i < itemList.size(); i++) {
 			OrderResponseVO item = itemList.get(i);
 			order.setItemCode(item.getItemCode());
 			order.setItemNum(item.getItemNum());
-			order.setDisAmount(item.getNormPrice()-item.getPrice());
+			order.setDisAmount(item.getNormPrice() - item.getPrice());
 			orderInfoMapper.insertSelectKey(order);
 			orderHistoryMapper.insertSelectKey(order);
-			//t_delivery에 OrderRequestVO에서 받아온 정보들을 insertSelectKey()로 register()
+			// t_delivery에 OrderRequestVO에서 받아온 정보들을 insertSelectKey()로 register()
 			deliveryMapper.insertSelectKey(order);
-			
-			totalSum += item.getNormPrice() * item.getItemNum() ;
-			totalDiscount += (item.getNormPrice()-item.getPrice()) * item.getItemNum();
+
+			totalSum += item.getNormPrice() * item.getItemNum();
+			totalDiscount += (item.getNormPrice() - item.getPrice()) * item.getItemNum();
 		}
 		order.setTotalSum(totalSum);
 		order.setTotalDiscount(totalDiscount);
-		order.setTotalPay(totalSum-totalDiscount);
+		order.setTotalPay(totalSum - totalDiscount);
 		return order.getOrderCode();
 	}
-	
-	
+
 	@Override
 	public OrderVO get(String orderCode) {
 		log.info("get......." + orderCode);
@@ -86,5 +86,10 @@ public class OrderServiceImpl implements OrderService{
 		log.info("getList..........");
 		return orderMapper.orderResponse(idNo);
 	}
-	
+
+//	@Override
+//	public String getRecentOrderCode(String idNo) {
+//		return orderMapper.getRecentOrderCode(idNo);
+//	}
+
 }

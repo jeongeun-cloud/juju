@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jujumarket.board.domain.Board_QNAVO;
+import com.jujumarket.board.domain.BoardQNAVO;
 import com.jujumarket.board.domain.Criteria;
-import com.jujumarket.board.mapper.Board_QNAMapper;
+import com.jujumarket.board.mapper.BoardQNAMapper;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -16,13 +17,13 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Service
 @AllArgsConstructor
-public class Board_QNAServiceImpl implements Board_QNAService {
+public class BoardQNAServiceImpl implements BoardQNAService {
 
 	@Setter(onMethod_ = @Autowired)
-	private Board_QNAMapper mapper;
+	private BoardQNAMapper mapper;
 	
 	@Override
-	public void register(Board_QNAVO qna) {
+	public void register(BoardQNAVO qna) {
 
 		log.info("regisert......" + qna);
 
@@ -31,14 +32,14 @@ public class Board_QNAServiceImpl implements Board_QNAService {
 	}
 
 	@Override
-	public Board_QNAVO get(String postingNo) {
+	public BoardQNAVO get(String postingNo) {
 
 		log.info("get......" + postingNo);
 		return mapper.read(postingNo);
 	}
 
 	@Override
-	public boolean modify(Board_QNAVO qna) {
+	public boolean modify(BoardQNAVO qna) {
 
 		log.info("modify...." + qna);
 		return mapper.update(qna) == 1;
@@ -52,8 +53,6 @@ public class Board_QNAServiceImpl implements Board_QNAService {
 	}
 
 
-
-
 	@Override
 	public int getTotal(Criteria cri) {
 		log.info("get total count");
@@ -61,27 +60,25 @@ public class Board_QNAServiceImpl implements Board_QNAService {
 	}
 
 	@Override
-	public List<Board_QNAVO> getList(Criteria cri) {
+	public List<BoardQNAVO> getList(Criteria cri) {
 		log.info("get List with criteria :" + cri);
 
 		return mapper.getListWithPaging(cri);
 	}
 
 	@Override
-	public List<Board_QNAVO> qna() {
+	public List<BoardQNAVO> qna() {
 		
 		log.info("get FAQ......");
 		
 		return mapper.qna();
 	}
 
-	@Override
-	public List<Board_QNAVO> getList() {
-         log.info("get FAQ......");
-		
-		return mapper.qna();
-	}
 
+	@Override
+	public int getResultTotal(Criteria cri) {
+		return mapper.getResultTotal(cri);
+	}
 	
 	}
 	

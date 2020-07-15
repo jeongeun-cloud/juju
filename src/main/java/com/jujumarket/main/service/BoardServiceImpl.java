@@ -1,19 +1,18 @@
 package com.jujumarket.main.service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
+import java.util.List;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 
-import com.jujumarket.main.domain.Board_ItemVO;
+import com.jujumarket.main.domain.BoardItemVO;
 import com.jujumarket.main.domain.CategoryVO;
 import com.jujumarket.main.domain.Criteria;
 import com.jujumarket.main.domain.SortVO;
-import com.jujumarket.main.mapper.Board_ItemMapper;
+import com.jujumarket.main.mapper.BoardItemMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -32,13 +31,13 @@ public class BoardServiceImpl implements BoardService{
 //   private SqlSession sqlSession;
 
    @Setter(onMethod_ = @Autowired)
-   private Board_ItemMapper mapper;
+   private BoardItemMapper mapper;
 
 
 
    
    @Override
-   public List<Board_ItemVO> gets(String classCode) {
+   public List<BoardItemVO> gets(String classCode) {
       log.info("gets...");
    return mapper.gets(classCode);
    }
@@ -50,7 +49,7 @@ public class BoardServiceImpl implements BoardService{
       }
    
    @Override
-   public List<Board_ItemVO> getList(Criteria cri) {
+   public List<BoardItemVO> getList(Criteria cri) {
       log.info("getList with Criteria"+cri);
       return mapper.getListWithPaging(cri);
    }
@@ -58,11 +57,11 @@ public class BoardServiceImpl implements BoardService{
    //상품 sort해서 조회
    
    @Override 
-   public List<Board_ItemVO> listSort(SortVO sort) {
+   public List<BoardItemVO> listSort(SortVO sort) {
    
-   System.out.println("serviceImpl 까지 들어왔다");
-   System.out.println("serviceImpl 에서의 cs는? " + sort.getClassCode());
-   System.out.println("serviceImpl 에서의 sort는? " + sort.getSort());
+  // System.out.println("serviceImpl 까지 들어왔다");
+  // System.out.println("serviceImpl 에서의 cs는? " + sort.getClassCode());
+  // System.out.println("serviceImpl 에서의 sort는? " + sort.getSort());
 
      
      if(sort.getSort().equals("best")) {

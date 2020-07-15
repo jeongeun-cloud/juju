@@ -20,6 +20,8 @@ public interface OrderService {
 	public List<OrderVO> getList();
 
 	public List<OrderResponseVO> getOrderResponse(String idNo);
+
+//	public String getRecentOrderCode(String idNo);
 	
 
 }
