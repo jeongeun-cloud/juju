@@ -30,5 +30,7 @@ public interface RegisterItemMapper {
 	public String getCategory(String itemCode);
 	
 	public List<RegisterItemVO> getOldFiles();
+
+	public int getResultTotal(ItemCriteria cri);
 	
 }

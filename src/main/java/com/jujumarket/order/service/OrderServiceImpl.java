@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jujumarket.order.domain.OrderRequestVO;
 import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
+import com.jujumarket.order.mapper.DeliveryMapper;
 import com.jujumarket.order.mapper.OrderHistoryMapper;
 import com.jujumarket.order.mapper.OrderInfoMapper;
 import com.jujumarket.order.mapper.OrderMapper;
@@ -23,27 +24,35 @@ public class OrderServiceImpl implements OrderService{
 	private OrderMapper orderMapper;
 	private OrderInfoMapper orderInfoMapper;
 	private OrderHistoryMapper orderHistoryMapper;
+	private DeliveryMapper deliveryMapper;
 
 	@Transactional
 	@Override
 	public String register(OrderRequestVO order) {
 		log.info("register1......");
 		orderMapper.insertSelectKey(order);
-//		String orderCode = orderMapper.getOrderCodeByIdNo(order.getIdNo());
-//		order.setOrderCode(orderCode);n
 		List<OrderResponseVO> itemList = orderMapper.orderResponse(order.getIdNo());
 		log.info("크기: " + itemList.size());
+		Long totalSum = 0L;
+		Long totalDiscount = 0L;
+		//itemList.size()가 i개일때, t_order에는 1개의 row, t_order_info, t_order_history에는
+		//i개의  row가 인서트됨. 반복문 사용으로 insert되도록 작성해야 함 .
 		for (int i = 0; i < itemList.size(); i++) {
-			log.info("register3......");
 			OrderResponseVO item = itemList.get(i);
-			log.info("register4......");
 			order.setItemCode(item.getItemCode());
-			log.info("register5......");
+			order.setItemNum(item.getItemNum());
+			order.setDisAmount(item.getNormPrice()-item.getPrice());
 			orderInfoMapper.insertSelectKey(order);
-			log.info("register6......");
 			orderHistoryMapper.insertSelectKey(order);
-			log.info("register7......");
+			//t_delivery에 OrderRequestVO에서 받아온 정보들을 insertSelectKey()로 register()
+			deliveryMapper.insertSelectKey(order);
+			
+			totalSum += item.getNormPrice() * item.getItemNum() ;
+			totalDiscount += (item.getNormPrice()-item.getPrice()) * item.getItemNum();
 		}
+		order.setTotalSum(totalSum);
+		order.setTotalDiscount(totalDiscount);
+		order.setTotalPay(totalSum-totalDiscount);
 		return order.getOrderCode();
 	}
 	

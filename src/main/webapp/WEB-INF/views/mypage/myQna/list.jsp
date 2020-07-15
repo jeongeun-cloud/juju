@@ -9,16 +9,13 @@
 <html>
 
 	
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">   
-<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 	
-	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
 
+	<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>  <!-- 모달띄어줌 -->
+	
 <style>
 <!
 DOCTYPE html> <html lang ="en"> <head> <meta charset ="UTF-8"> <meta name
@@ -86,6 +83,33 @@ tr:hover {
 	margin-top: 10px;
 	margin-left: 90%;
 }
+
+
+
+<!--모달디자인 -->
+body {font-family: Arial, Helvetica, sans-serif;}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+}
+
 </style>
 </head>
 <body>
@@ -93,7 +117,7 @@ tr:hover {
 
 	 <div class="pmain">
 		<div class="p1">
-			<ul>마이페이지
+			<ul><p>마이페이지</p>
 			
 			<li><a href="/mypage/myQna/list">1:1문의</a></li>
 		
@@ -117,7 +141,7 @@ tr:hover {
       <option value="C"
       <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>
       <option value="I"
-      <c:out value="${pageMaker.cri.type eq 'I'?'selected':''}"/>>아이다</option>
+      <c:out value="${pageMaker.cri.type eq 'I'?'selected':''}"/>>아이디</option>
       <option value="TC"
       <c:out value="${pageMaker.cri.type eq 'TC'?'selected':''}"/>>제목 or 내용</option>
       <option value="TI"
@@ -130,6 +154,7 @@ tr:hover {
       <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
       <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
       <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
+
        <button class ='btn btn-default'>검색</button>
       
       </form>
@@ -191,8 +216,8 @@ tr:hover {
 				</div><!--  modal dialog -->
 				</div><!-- modal 마지막 -->
 			
-					<!-- Paging -->
-		
+					
+		<!-- Paging -->
 			<div class='pull-right'>
 			<ul class="pagination">
 			
@@ -249,7 +274,7 @@ tr:hover {
 
 							if (parseInt(result) > 0) {
 
-								alert(result);
+							
 								$(".modal-body").html( "게시글" + parseInt(result)
 												+ "번이 등록되었습니다.");
 

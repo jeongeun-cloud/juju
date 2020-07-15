@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8" isELIgnored="false"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file = "../includes/header.jsp" %>
+<%@ include file = "../includes/menuBar.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <title>주문서 작성 및 결제</title>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -16,7 +17,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </head>
 <body>
@@ -24,7 +26,7 @@
 
 
 
-	<form action="orderResult" method="post">
+	<form action="orderResult" id="orderResult" method="post">
 
 		<p style="text-align: right;">
 			01 장바구니 > <strong> 02 주문서 작성/결제 > </strong> 03 주문완료
@@ -56,10 +58,19 @@
 				<!-- OrderController의 list -> jsp에서 DB 호출시 ${list} -->
 
 
-				<c:set var="totalPrice" value="${0}" />
+				<c:set var="totalPay" value="${0}" />
+				<c:set var="totalSum" value="${0}" />
+				<c:set var="totalDiscount" value="${0}" />
+
 				<c:forEach var="order" items="${orderList}">
-					<c:set var="totalPrice"
-						value="${totalPrice + (order.price * order.itemNum)}" />
+
+					<c:set var="totalPay"
+						value="${totalPay + (order.price * order.itemNum)}" />
+					<c:set var="totalSum"
+						value="${totalSum + (order.normPrice * order.itemNum)}" />
+					<tr cellpadding=40 align=center>
+						<c:set var="totalDiscount"
+							value="${totalDiscount + ((order.normPrice - order.price) * order.itemNum)}" />
 					<tr cellpadding=40 align=center>
 						<td><c:out value="${order.itemImg1}"></c:out></td>
 						<td><c:out value="${order.itemName}"></c:out></td>
@@ -75,12 +86,6 @@
 		</table>
 
 		<input type="hidden" value="${memberInfo.idNo}" name="idNo">
-		
-		
-		
-		
-		
-		
 
 		<div class="clear"></div>
 		<br> <br>
@@ -90,12 +95,14 @@
 		<table width=80% class="list_view">
 			<tbody>
 
-				<!-- computed column from t_order -->
 				<td class="fixed join">최종 결제금액</td>
-				<td class="fixed join">${totalPrice}</td>
+				<td class="fixed join">${totalPay}</td>
 
 			</tbody>
 		</table>
+		<input type="hidden" name="totalPay" value="${totalPay}"> 
+		<input type="hidden" name="totalSum" value="${totalSum}"> 
+		<input type="hidden" name="totalDiscount" value="${totalDiscount}">
 
 
 
@@ -107,20 +114,20 @@
 				<tbody>
 					<tr class="dot_line">
 						<td>이름</td>
-						<td><input type="text" id="memName" name="memName" value="${memberInfo.memName}"
-							size="15" /></td>
+						<td><input type="text" id="memName" name="memName"
+							value="${memberInfo.memName}" size="15" readonly="readonly" /></td>
 					</tr>
 
 					<tr class="dot_line">
 						<td class="fixed_join">연락처</td>
-						<td>
-							<input type="text" id="contact" name="contact" value="${memberInfo.contact}"/>r
+						<td><input type="text" id="contact" name="contact"
+							value="${memberInfo.contact}" size="15" readonly="readonly" />
 					</tr>
 
 					<tr class="dot_line">
 						<td>이메일</td>
-						<td><input type="text"
-							value="${memberInfo.emailAccount}" size="15" /></td>
+						<td><input type="text" value="${memberInfo.emailAccount}"
+							size="15"  readonly="readonly" /></td>
 					</tr>
 				</tbody>
 			</table>
@@ -138,18 +145,17 @@
 
 					<tr class="dot_line">
 						<td class="fixed_join">수령인</td>
-						<td><input id="receiver" name="receiver" type="text" size="40"
-							value="" />
+						<td><input id="receiver" name="receiver" type="text"
+							size="40" value="" />
 					</tr>
 
-		
+
 
 
 					<tr class="dot_line">
 						<td class="fixed_join">연락처</td>
-						 <td> 
-							<input type="text" id="receivContact" name="receivContact" value="" />
-						</td>
+						<td><input type="text" id="receivContact"
+							name="receivContact" value="" /></td>
 
 					</tr>
 
@@ -158,29 +164,23 @@
 					<tr class="dot_line">
 						<td class="fixed_join">주소</td>
 						<td><input type="text" id="zipcode" name="zipcode" size="5"
-							value="${orderer.zipcode }"> <a
+							value="" readonly="readonly"> <a
 							href="javascript:execDaumPostcode()">우편번호검색</a> <br>
 							<p>
-								지번 주소: <input type="text" id="roadAddress"
-									name="roadAddress" size="50" value="${orderer.roadAddress }" /><br>
-								<br> 도로명 주소: <input type="text" id="jibunAddress"
-									name="jibunAddress" size="50" value="${orderer.jibunAddress }" /><br>
-								<br> 나머지 주소: <input type="text" id="receivAddr"
-									name="receivAddr" size="50"
-									value="" />
-							</p> <input type="hidden" id="h_zipcode" name="h_zipcode"
-							value="${orderer.zipcode }" /> <input type="hidden"
-							id="h_roadAddress" name="h_roadAddress"
-							value="${orderer.roadAddress }" /> <input type="hidden"
-							id="h_jibunAddress" name="h_jibunAddress"
-							value="${orderer.jibunAddress }" /> <input type="hidden"
-							id="gd" name="gd"
-							value="" /></td>
+
+								<!-- 		도로명 <-> 지번 주소 글자 위치 바꿔야함  -> id가 뒤바뀐것을 고쳐서 해결 -->
+
+								지번 주소: <input type="text" id="jibunAddress" name="jibunAddress"
+									size="50" value="" /><br> <br> 도로명 주소: <input
+									type="text" id="roadAddress" name="roadAddress" size="50"
+									value="" /><br> <br> 나머지 주소: <input type="text"
+									id="receivAddr" name="receivAddr" size="50" value="" />
+							</p></td>
 					</tr>
 					<tr class="dot_line">
 						<td class="fixed_join">배송 메시지</td>
-						<td><input id="reqNote" name="reqNote"
-							type="text" size="50" placeholder="택배 기사님께 전달할 메시지를 남겨주세요." /></td>
+						<td><input id="reqNote" name="reqNote" type="text" size="50"
+							placeholder="택배 기사님께 전달할 메시지를 남겨주세요." /></td>
 					</tr>
 
 					</tboby>
@@ -203,7 +203,7 @@
 
 
 
-			<button type="submit">결제하기</button>
+			<button type="submit" id="submitBtn">결제하기</button>
 	</form>
 
 

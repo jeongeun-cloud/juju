@@ -8,7 +8,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<style>
+	img{
+		width : 250px;
+	}
+</style>
 </head>
 <body>
 	<a href='/shop/register'>상품 등록</a>
@@ -35,18 +39,18 @@
        </div>
 		<div class="container">
 			<label for="itemContent">상품 상세정보</label><br>
-			<textarea name="itemContent" id="itemContent" style="height: 200px; width: 350px"><c:out value="${item.itemContent }" /></textarea>
+			<textarea name="itemContent" id="itemContent" style="height: 200px; width: 350px; resize:none;"><c:out value="${item.itemContent }" /></textarea>
 		</div>
 		<div class="container">
 			<small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
 			<label for="price">판매가격</label> 
-			<input type="text" name="price" id="price" value='<c:out value="${item.price }"/>'> <br> 
+			<input type="text" name="price" id="price" numberOnly value='<c:out value="${item.price }"/>'> <br> 
 			<label for="normPrice">정상가격</label> 
-			<input type="text" name="normPrice" id="normPrice" value='<c:out value="${item.normPrice }"/>'>
+			<input type="text" name="normPrice" id="normPrice" numberOnly value='<c:out value="${item.normPrice }"/>'>
 		</div>
 		<div class="container">
 			<label for="stock">재고</label> 
-			<input type="text" name="stock" id="stock" value='<c:out value="${item.stock }"/>'><br>
+			<input type="text" name="stock" id="stock" numberOnly value='<c:out value="${item.stock }"/>'><br>
 		</div>
 
 		<div class="container">
@@ -68,33 +72,38 @@
 			<input type="checkbox" name="itemChr" value="best">Best 
 			<input type="checkbox" name="itemChr" value="할인">할인
 			<!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
-            <input type="hidden" name="itemChr" id="itemChrText" >
+            <input type="checkbox" name="itemChr" value="기본" style="visibility:hidden">
 		</div>
         
         <div class="container">
         	<label>메인 이미지</label>
-        	<input type='file' id="itemImg1" name="uploadFile" />
-            <div class="select_img1"><img src='/resources/upload/idNo/<c:out value="${item.itemImg1}"/>' /></div>
+        	<input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+        	<input type='hidden' name="itemImg1" value="<c:out value="${item.itemImg1}"/>">
+            <div class="select_img1"><img src='/resources/upload/idNo/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
         </div>
         <div class="container">
         	<label>서브 이미지</label>
-        	<input type='file' id="itemImg2" name="uploadFile" />
-            <div class="select_img2"><img src='/resources/upload/idNo/<c:out value="${item.itemImg2}"/>' /></div>
+        	<input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+        	<input type='hidden' name="itemImg2" value="<c:out value="${item.itemImg2}"/>">
+            <div class="select_img2"><img src='/resources/upload/idNo/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
         </div>
         <div class="container">
         	<label>서브 이미지</label>
-        	<input type='file' id="itemImg3" name="uploadFile" />
-            <div class="select_img3"><img src='/resources/upload/idNo/<c:out value="${item.itemImg3}"/>' /></div>
+        	<input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+        	<input type='hidden' name="itemImg3" value="<c:out value="${item.itemImg3}"/>">
+            <div class="select_img3"><img src='/resources/upload/idNo/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
         </div>
         <div class="container">
         	<label>서브 이미지</label>
-        	<input type='file' id="itemImg4" name="uploadFile" />
-            <div class="select_img4"><img src='/resources/upload/idNo/<c:out value="${item.itemImg4}"/>' /></div>
+        	<input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+        	<input type='hidden' name="itemImg4" value="<c:out value="${item.itemImg4}"/>">
+            <div class="select_img4"><img src='/resources/upload/idNo/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
         </div>
         <div class="container">
         	<label>상품 상세 설명 이미지</label>
-        	<input type='file' id="itemImg5" name="uploadFile" />
-            <div class="select_img5"><img src='/resources/upload/idNo/<c:out value="${item.imgDetail}"/>' /></div>
+        	<input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+        	<input type='hidden' name="imgDetail" value="<c:out value="${item.imgDetail}"/>">
+            <div class="select_img5"><img src='/resources/upload/idNo/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
         </div>
 
 		<button id="uploadBtn">Modify</button>
@@ -124,6 +133,19 @@
     		}
     		return true;
     	}
+    	
+		// 이미지 체크
+		for(let i=1; i<=5; i++) {
+	    	$("#itemImg"+i).change(function(){	
+	    		var imgFile = $('#itemImg'+i).val();
+	    		var fileSize = document.getElementById("itemImg"+i).files[0].size;
+				
+				if(!checkExtension(imgFile, fileSize)) {
+					$('#itemImg'+i).val("");
+					return false;
+				}
+	    	});
+		}
     	    	
     	// 사진 보이기
     	for(let i=1; i<=5; i++) {
@@ -142,15 +164,13 @@
 		// 등록
 		$("#uploadBtn").on("click", function(e) {
 			
-			if(!$('#mainCateg > option:selected').val()) {
-			    alert("대분류가 선택되지 않았습니다.");
-			    $('#mainCateg').focus();
-			    return false;
-			}else if(!$('#midCateg > option:selected').val()) {
-			    alert("중분류가 선택되지 않았습니다.");
-			    $('#midCateg').focus();
-			    return false;
-			}else if($('#itemName').val()=='') {
+			function removeComma(str){
+				n = str.replace(/,/g,"");
+				
+				return n;
+			}
+			
+			if($('#itemName').val()=='') {
 				alert('상품명이 입력되지 않았습니다.');
 				$('#itemName').focus();
 				return false;
@@ -158,11 +178,11 @@
 				alert('상품 상세 정보가 입력되지 않았습니다.');
 				$('#itemContent').focus();
 				return false;
-			}else if($('#price').val()=='' || $('#price').val() < 1000 || $('#price').val() > 1000000)	{
+			}else if($('#price').val()=='' || removeComma($('#price').val()) < 1000 || removeComma($('#price').val()) > 1000000){
 				alert('유효하지 않은 판매가 입니다.');
 				$('#price').focus();
 				return false;
-			}else if($('#normPrice').val()=='' || $('#normPrice').val() < 1000 || $('#normPrice').val() > 1000000){
+			}else if($('#normPrice').val()=='' || removeComma($('#normPrice').val()) < 1000 || removeComma($('#normPrice').val()) > 1000000){
 				alert('유효하지 않은 정상가 입니다.');
 				$('#normPrice').focus();
 				return false;
@@ -170,32 +190,13 @@
 				alert('재고가 입력되지 않았습니다.');
 				$('#stock').focus();
 				return false;
-			}else if($("#itemImg1").val() == "") {
-				alert("메인 이미지가 첨부되어 있지 않습니다.");
-				return false;
-			}else if($("#itemImg2").val()=="" || $("#itemImg3").val() == "" || $("#itemImg4")=="") {
-				alert("서브 이미지는 모두 첨부 되어야 합니다.");
-				return false;
-			}else if($("#itemImgDetail").val() == "") {
-				alert("상품 상세 이미지가 첨부되어 있지 않습니다.");
-				return false;
 			}else if($("input[type=checkbox][name=itemChr] : checked" == false)) {
-				$("#itemChrText").val('기본');
+				$("input[type=checkbox][name=itemChr]")[3].checked = true;
 			}
 			
-			/* 이미지 체크 */
-			var formData = new FormData();
-			var inputFile = $("input[name='uploadFile']");
-			var inputFiles = inputFile[0].files;
-			
-			console.log(inputFiles);
-			
-			for(var i=0; i<inputFiles.length; i++) {
-				if(!checkExtension(inputFiles[i].name, inputFiles[i].size)) {
-					return false;
-				}
-				formData.append("uploadFile", inputFiles[i]);
-			}
+			$('#price').val(removeComma($('#price').val()));
+			$('#normPrice').val(removeComma($('#normPrice').val()));
+			$('#stock').val(removeComma($('#stock').val()));
 			
 			$("form").submit();	// ajax로 수정해야 할지?
 		});
@@ -247,7 +248,7 @@
 			 	}
 		 	}
 			
-			// 체크박스 다중값 불러와서 체크해주기
+			// 체크박스 다중값 불러와서 체크해주기, 기본인 애는 체크해제 해주기
 		 	var chk = $("#chkValue").val();
 		 	chk  = chk.split(",");
 		 	var itemChr = $("input[type=checkbox][name=itemChr]");
@@ -259,6 +260,42 @@
 				 	}
 		 		}
 		 	}
+		 	$("input[type=checkbox][name=itemChr]")[3].checked = false;
+		 	
+		 	
+		 	// 단위 콤마 찍어주기
+		 	$("#price").val(addCommas($("#price").val()));
+		 	$("#normPrice").val(addCommas($("#normPrice").val()));
+		 	$("#stock").val(addCommas($("#stock").val()));
+		 	
+		 	//3자리 단위마다 콤마 생성
+			function addCommas(x) {
+			    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
+			 
+			//모든 콤마 제거
+			function removeCommas(x) {
+			    if(!x || x.length == 0) return "";
+			    else return x.split(",").join("");
+			}
+
+			// 숫자만 입력
+			$("input:text[numberOnly]").on("focus", function() {
+			    var x = $(this).val();
+			    x = removeCommas(x);
+			    $(this).val(x);
+			}).on("focusout", function() {
+			    var x = $(this).val();
+			    if(x && x.length > 0) {
+			        if(!$.isNumeric(x)) {
+			            x = x.replace(/[^0-9]/g,"");
+			        }
+			        x = addCommas(x);
+			        $(this).val(x);
+			    }
+			}).on("keyup", function() {
+			    $(this).val($(this).val().replace(/[^0-9]/g,""));
+			});
 		});
 	</script>
 </body>

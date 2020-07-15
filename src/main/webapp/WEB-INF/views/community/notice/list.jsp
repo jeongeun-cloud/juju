@@ -7,13 +7,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">   
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> 
+ <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">  메뉴바 겹침--> 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 정체모를 import -->
+	
 	<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <style>
@@ -24,68 +25,72 @@ DOCTYPE html> <html lang ="en"> <head> <meta charset ="UTF-8"> <meta name
 	border-collapse: collapse;
 	width: 90%;
 }
+			
+			<!--
+			배치-->th, td {
+				padding: 8px;
+				text-align: left;
+				border-bottom: 1px solid #ddd;
+			}
+			
+			th {
+				background-color: black;
+				color: white;
+				text-align: left;
+			}
+			
+			tr:hover {
+				background-color: #f5f5f5;
+			}
+			
+			.check {
+				width: 5%;
+				height: 30px;
+				left: 30%;
+			}
+			
+			.text {
+				width: 50%;
+				height: 25px;
+			}
+			
+			.serch {
+				margin-left: 200px;
+				margin-bottom: 10px;
+			}
+			
+			.sb {
+				height: 35px;
+			}
+			
+			<!--
+			화면 나눔-->.pmain {
+				width: 100%;
+				height: 300px;
+			}
+			
+			.p1 {
+				width: 15%;
+				float: left;
+			}
+			
+			.p2 {
+				width: 85%;
+				float: right;
+			}
+			
+			<!--
+			글쓰기 버튼-->.regBtn {
+				margin-top: 10px;
+				margin-left: 90%;
+			}
+			
 
-<!--
-배치-->th, td {
-	padding: 8px;
-	text-align: left;
-	border-bottom: 1px solid #ddd;
-}
-
-th {
-	background-color: black;
-	color: white;
-	text-align: left;
-}
-
-tr:hover {
-	background-color: #f5f5f5;
-}
-
-.check {
-	width: 5%;
-	height: 30px;
-	left: 30%;
-}
-
-.text {
-	width: 50%;
-	height: 25px;
-}
-
-.serch {
-	margin-left: 200px;
-	margin-bottom: 10px;
-}
-
-.sb {
-	height: 35px;
-}
-
-<!--
-화면 나눔-->.pmain {
-	width: 100%;
-	height: 300px;
-}
-
-.p1 {
-	width: 15%;
-	float: left;
-}
-
-.p2 {
-	width: 85%;
-	float: right;
-}
-
-<!--
-글쓰기 버튼-->.regBtn {
-	margin-top: 10px;
-	margin-left: 90%;
-}
-</style>
-</head>
-<body>
+			
+			
+			</style>
+			</head>
+	<body>
 
 
 	<div class="pmain">
@@ -93,7 +98,7 @@ tr:hover {
 			<ul>고객센터
 			
 			<li><a href='/community/notice/list'>공지사항</a></li>
-			<li><a href='/community/Board_FAQ/list'>자주하는질문</a></li>
+			<li><a href='/community/BoardFAQ/list'>자주하는질문</a></li>
 			</ul>
 		</div>
 
@@ -125,9 +130,9 @@ tr:hover {
       </select>
       
       <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-      <input name ='pageNum' value='${pageMaker.cri.pageNum}'>
+      <input  type="hidden" name ='pageNum' value='${pageMaker.cri.pageNum}'>
       <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
-       <button type="hidden"  class ='btn btn-default'>검색</button>
+       <button  class ='btn btn-default'>검색</button>
       
       </form>
       </div>
@@ -152,11 +157,7 @@ tr:hover {
 
                         <td><a class ='move' href='<c:out value="${notice.postingNo}"/>'>
 						<c:out value="${notice.title }" /></a></td>
-					<%-- 	
-						<td><a
-							href='/community/notice/get?postingNo=<c:out value="${notice.postingNo}"/>'>
-								<c:out value="${notice.title }" />
-						</a></td> --%>
+			
 
 						<td><c:out value="${notice.content }" /></td>
 						<td><c:out value="${notice.boardType }" /></td>
@@ -224,7 +225,7 @@ tr:hover {
 				<input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
 			    <input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
-                <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+                <input type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
 			</form><!-- paging form end-->
 
 			<button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>
@@ -251,7 +252,7 @@ tr:hover {
 
 							if (parseInt(result) > 0) {
 
-								alert(result);
+								
 								$(".modal-body").html(
 										"게시글" + parseInt(result)
 												+ "번이 등록되었습니다.");

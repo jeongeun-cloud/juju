@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,10 +103,8 @@
                           <a href="#" class="subMemu">고객센터</a>
                           <div class="subMemu-content">
                             <a href="/community/notice/list">공지사항</a>
-                            <a href="/community/Board_FAQ/list">자주하는 질문</a>
+                            <a href="/community/BoardFAQ/list">자주하는 질문</a>
                             <a href="/mypage/myQna/list">1:1 문의 게시판</a>
-                            
-                  
                           </div>
                         </li>
                       </ul>

@@ -1,6 +1,8 @@
 package com.jujumarket.shop.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.UUID;
 
@@ -44,7 +46,12 @@ public class RegisterItemContoller {
 		
 		log.info("total : " + total);
 		
-		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+		if(cri.getKeyword() != null && cri.getKeyword() != "") {
+			int resultTotal = service.getResultTotal(cri);
+			model.addAttribute("pageMaker", new ItemPageDTO(cri, resultTotal));
+		}else {
+			model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+		}
 	}
 	
 	// 이미지파일인지 확인
@@ -149,32 +156,34 @@ public class RegisterItemContoller {
 		for(MultipartFile multi : uploadFile) {
 			
 			String uploadFilename = multi.getOriginalFilename();
-			
-			// IE has file path
-			uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
-			
-			UUID uuid = UUID.randomUUID();
-			uploadFilename = uuid.toString() + "_" + uploadFilename;
-
-			
-			try {
-				// 이미지 파일 path에 올리기
-				File saveFile = new File(uploadPath, uploadFilename);
-				multi.transferTo(saveFile);
+			if(!uploadFilename.equals("")) {
+				// IE has file path
+				uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
 				
-			} catch (Exception e) {
-				log.error(e.getMessage());
-			} // end catch
-			
-			if(i==0) register.setItemImg1(uploadFilename);
-			else if(i==1) register.setItemImg2(uploadFilename);
-			else if(i==2) register.setItemImg3(uploadFilename);
-			else if(i==3) register.setItemImg4(uploadFilename);
-			else if(i==4) {
-				register.setImgDetail(uploadFilename);
-				break;
+				UUID uuid = UUID.randomUUID();
+				uploadFilename = uuid.toString() + "_" + uploadFilename;
+				System.out.println(uploadFilename + "여기");
+				
+				try {
+					// 이미지 파일 path에 올리기
+					File saveFile = new File(uploadPath, uploadFilename);
+					multi.transferTo(saveFile);
+					
+				} catch (Exception e) {
+					log.error(e.getMessage());
+				} // end catch
+				
+				if(i==0) register.setItemImg1(uploadFilename);
+				else if(i==1) register.setItemImg2(uploadFilename);
+				else if(i==2) register.setItemImg3(uploadFilename);
+				else if(i==3) register.setItemImg4(uploadFilename);
+				else if(i==4) {
+					register.setImgDetail(uploadFilename);
+					break;
+				}
+				i++;
 			}
-			i++;
+			
 		} // end for
 		
 		if(service.modify(register)) {
@@ -239,6 +248,7 @@ public class RegisterItemContoller {
 		
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addFlashAttribute("result", "success");
 		
 
 //		String[] arrIdx = itemCode.toString().split(",");
@@ -275,6 +285,7 @@ public class RegisterItemContoller {
 			
 			service.modify(vo);
 		}
+		rttr.addFlashAttribute("result", "success");
 		
 		return "redirect:/shop/list";
 	}
@@ -294,7 +305,7 @@ public class RegisterItemContoller {
 			}
 			service.modify(vo);
 		}
-		
+		rttr.addFlashAttribute("result", "success");
 		return "redirect:/shop/list";
 	}
 	
@@ -307,7 +318,7 @@ public class RegisterItemContoller {
 			vo.setSaleStat("품절");		
 			service.modify(vo);
 		}
-		
+		rttr.addFlashAttribute("result", "success");
 		return "redirect:/shop/list";
 	}
 
