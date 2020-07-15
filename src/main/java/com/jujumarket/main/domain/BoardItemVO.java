@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import lombok.Data;
 
 @Data
-public class Board_ItemVO {
+public class BoardItemVO {
 	
 	private String itemCode;
 	private String itemName;
@@ -25,5 +25,9 @@ public class Board_ItemVO {
 	private Timestamp updateDate;
 	private String classCode;
 	private String idNo;	//idNo 
+	
+
+
+
 
 }

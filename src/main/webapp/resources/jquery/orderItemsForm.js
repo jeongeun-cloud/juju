@@ -20,7 +20,7 @@ function execDaumPostcode() {
 				fullRoadAddr += extraRoadAddr;
 			}
 
-			document.getElementById('zipcode').value = data.zonecode; 
+			document.getElementById('zipcode').value = data.zonecode;
 			// 5자리
 			// 새우편번호
 			// 사용
@@ -48,23 +48,34 @@ function execDaumPostcode() {
 	// autoClose의 default가 true기 때문에 별도처리할 필요없음
 	// 해결
 };
+
 window.onload = function() {
 	init();
-}
+};
 
 function init() {
 
 	var sameAsMem = $("#sameAsMem");
-	var receiver = $("#receiver");
+	var recentDeliveryInfo = $("#recentDelivery");
+	var orderResult = $("#orderResult");
+
 	var memName = $("#memName");
 	var contact = $("#contact");
-	var receivContact = $("#receivContact");
 	var memAddr = $("#memAddr");
-	var reqNote = $("#reqNote");
+	
+	var receiver = $("#receiver");
+	var receivContact = $("#receivContact");
 	var receivAddr = $("#receivAddr");
+	var reqNote = $("#reqNote");
+	
+	var recentReceiver = $("#recentReceiver");
+	var recentReceivContact = $("#recentReceivContact");
+	var recentReceivAddr = $("#recentReceivAddr");
 
+	//회원정보에 저장된 배송지정보 check
 	sameAsMem.change(function() {
-
+		console.dir(sameAsMem);                             
+		
 		if (sameAsMem.is(":checked")) {
 			receiver.val(memName.val());
 			receivContact.val(contact.val());
@@ -76,39 +87,125 @@ function init() {
 		}
 
 	});
-
-	var submitBtn = $("#submitBtn");
-	submitBtn.click(function(e) {
-		e.preventDefault();
+	//최근배송지정보 check
+	recentDeliveryInfo.change(function(){
 		
-//	null, 빈 문자열, 입력값초과에 관한 유효성 check
-		if (receiver.val().trim() == "" || receiver.val() == null) {
-			alert("수령인을 입력해주세요");
-			receiver.focus();
-		} else if (receiver.val().length > 10) {
-			alert("수령인의 이름이 너무 깁니다")
-			receiver.focus();
-		} else if (receivContact.val().trim() == ""	|| receivContact.val() == null) {
-			alert("수령인의 연락처를 입력해주세요")
-			receivContact.focus();
-		} else if (receivContact.val().length > 13) {
-			alert("수령인 연락처가 너무 깁니다")
-			receivContact.focus();
-		} else if (receivAddr.val().trim() == "" || receivAddr.val() == null) {
-			alert("배송지의 주소를 입력해주세요")
-			receivAddr.focus();
-		} else if (receivAddr.val().length > 40) {
-			alert("배송지의 주소가 너무 깁니다")
-			receivAddr.focus();
-		} else if (reqNote.val().length > 16) {
-			alert("배송메시지의 길이가 너무 깁니다");
-			reqNote.focus();
+		console.dir(recentDeliveryInfo);                                                             
+		if (recentDeliveryInfo.is(":checked")) {
+			receiver.val(recentReceiver.val());
+			receivContact.val(recentReceivContact.val());
+			receivAddr.val(recentReceivAddr.val());
 		} else {
-
-			orderResult.submit();
+			receiver.val("");
+			receivContact.val("");
+			receivAddr.val("");
 		}
 		
 		
 	});
+	
+
+	//결제하기 버튼. [수령인], [수령인-연락처], [배송지], [배송메시지] 유효성 check를 통과해야 넘어감 
+	var submitBtn = $("#submitBtn");
+
+	submitBtn.click(function(e) {
+		e.preventDefault();
+
+		if (!(receiverCheck())) {
+			return false;
+		} else if (!(receivContactCheck())) {
+			return false;
+		} else if (!(receivAddrCheck())) {
+			return false;
+		} else if (!(reqNoteCheck())) {
+			return false;
+		} else {
+			orderResult.submit();
+		}
+
+	});
+	
+	
+
+	// [수령인](receiver) 입력값 유효성 check
+	function receiverCheck() {
+
+		var pattern_num = /[0-9]/; // 숫자
+		var pattern_eng = /[a-zA-Z]/; // 영어
+		var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+		var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글
+
+		if (receiver.val().trim() == "" || receiver.val() == null) {
+			alert("[수령인]값을 입력하시오.")
+			receiver.focus();
+			return false;
+		} else if (receiver.val().length > 10) {
+			alert("[수령인]10자까지만 입력할 수 있습니다. ")
+			receiver.focus();
+			return false;
+		} else if ((pattern_num.test(receiver.val()))
+				|| (pattern_spc.test(receiver.val()))) {
+			alert("[수령인]숫자나 특수문자를 입력할 수 없습니다.")
+			receiver.focus();
+			return false;
+		} else {
+			return true;
+		}
+	};
+
+	// [수령인-연락처](receivContact)유효성 check
+	function receivContactCheck() {
+		//휴대폰번호 정규식
+		var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+
+		if (receivContact.val().trim() == "" || receivContact.val() == null) {
+			alert("[배송지-연락처]값을 입력하시오.")
+			receivContact.focus();
+			return false;
+		} else if (receivContact.val().length > 13) {
+			alert("[배송지-연락처]13자까지만 입력할 수 있습니다.")
+			receivContact.focus();
+			return false;
+			// 수령인 연락처 입력값 유효성 check
+		} else if (!regExp.test(receivContact.val())) {
+			alert("[배송지-연락처]숫자,- 만 입력할 수 있습니다.");
+			receivContact.focus();
+			return false
+		} else {
+			return true;
+		}
+	};
+
+	
+	//[배송지](receivAddr)유효성check
+	function receivAddrCheck() {
+
+		if (receivAddr.val().trim() == "" || receivAddr.val() == null) {
+			alert("[배송지]값을 입력해주세요.");
+			receivAddr.focus();
+			return false;
+		} else if (receivAddr.val().length > 40) {
+			alert("[배송지]40자까지만 입력할 수 있습니다.");
+			receivAddr.focus();
+			return false;
+		} else {
+			return true;
+		}
+	};
+	
+	//[배송메시지] 유효성 check
+	function reqNoteCheck() {
+
+		 if (reqNote.val().length > 30) {
+			alert("[배송메시지]30자까지만 입력할 수 있습니다.");
+			reqNote.focus();
+			return false;
+		} else {
+			return true;
+		}
+
+	};
+	
+	
 
 }
