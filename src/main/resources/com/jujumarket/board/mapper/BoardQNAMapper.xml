@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jujumarket.board.mapper.Board_QNAMapper">
+<mapper namespace="com.jujumarket.board.mapper.BoardQNAMapper">
 
 	<select id="getList"
-		resultType="com.jujumarket.board.domain.Board_QNAVO">
+		resultType="com.jujumarket.board.domain.BoardQNAVO">
 <![CDATA[
   select * from T_Board_QNA ]]>
 	</select>
+
+   <select id="getResultTotal" resultType="int">
+      select count(*) 
+      from t_board_qna 
+      where title like '%' || #{keyword} || '%' 
+      or content like '%' || #{keyword} || '%'
+      or idNo like '%' || #{keyword} || '%'
+   </select>
+
 
 	<insert id ="insert">
 	insert into t_board_qna (postingNo,title,content,replyBool,boardType,idNo)
@@ -22,8 +31,10 @@
 	values (#{postingNo},#{title},#{content},#{replyBool},#{boardType},#{idNo})
 	</insert>
 	
-	<select id="read" resultType ="com.jujumarket.board.domain.Board_QNAVO">
+	<select id="read" resultType ="com.jujumarket.board.domain.BoardQNAVO">
+	
 	select * from t_board_QNA where postingNo = #{postingNo}
+	
 	</select>
 	
 	<delete id="delete">
@@ -32,7 +43,7 @@
 	</delete>
 	
 	
-		<update id="update">
+	<update id="update">
 	update t_board_QNA
 	set title = #{title},
 	content = #{content},
@@ -68,7 +79,7 @@
    </sql>
    
 
-   <select id="getListWithPaging" resultType="com.jujumarket.board.domain.Board_QNAVO">
+   <select id="getListWithPaging" resultType="com.jujumarket.board.domain.BoardQNAVO">
    <![CDATA[
    select
        postingNo,title,content,boardType,idNo,regDate,replyBool
@@ -77,10 +88,13 @@
        
        select /*+INDEX_DESC(t_board_qna pk_board) */
        rownum rn,postingNo,title,content,boardType,idNo,regDate,replyBool
-       from
-       t_Board_QNA
        
-       where  postingNo > '0' and
+       from
+       (select *from t_Board_QNA order by postingNo desc) 
+       
+       where 
+     
+       
        
    ]]>
   
@@ -89,6 +103,7 @@
    <![CDATA[
    
     rownum <= #{pageNum}*#{amount}
+  
        )
        where rn > (#{pageNum}-1) * #{amount}
    ]]>
@@ -96,13 +111,13 @@
 
     <select id="getTotalCount" resultType="int">
    select count(*) from t_board_qna 
-   
+<!--    
    where 
    
    <include refid="criteria"></include>
    
    
-   postingNo > '0'
+   postingNo > '0' -->
    
       </select>
   

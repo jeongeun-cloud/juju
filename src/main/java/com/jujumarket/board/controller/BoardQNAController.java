@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jujumarket.board.domain.Board_QNAVO;
+import com.jujumarket.board.domain.BoardQNAVO;
 import com.jujumarket.board.domain.Criteria;
 import com.jujumarket.board.domain.PageDTO;
-import com.jujumarket.board.service.Board_QNAService;
+import com.jujumarket.board.service.BoardQNAService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -22,9 +22,9 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/mypage/*")
 @AllArgsConstructor
 
-public class Board_QNAController {
+public class BoardQNAController {
 
-	private Board_QNAService service;
+	private BoardQNAService service;
 	
 	/*
 	 * @GetMapping("/myQna/list") public void list(Model model) {
@@ -36,7 +36,7 @@ public class Board_QNAController {
 
 
 	@PostMapping("/myQna/register")
-	public String register(Board_QNAVO qna, RedirectAttributes rttr) {
+	public String register(BoardQNAVO qna, RedirectAttributes rttr) {
 		log.info("register : " + qna);
 
 		service.register(qna);
@@ -51,18 +51,29 @@ public class Board_QNAController {
 	
 	  @GetMapping("/myQna/list") 
 	  public void list(Criteria cri, Model model) {
-		  
-	
-	  
+		    
 	  log.info("qna" + cri);
 	  
 	  
 	  model.addAttribute("qna", service.getList(cri));
 	  
 	  int total = service.getTotal(cri);
-	  log.info("total: " + total);
+
 	  
-	  model.addAttribute("pageMaker", new PageDTO(cri,total));
+	  if(cri.getKeyword() != null && cri.getKeyword()!="") {
+		  
+		  int resultTotal = service.getResultTotal(cri);
+
+		  
+		  System.out.println("resultTotal"+resultTotal);
+		  model.addAttribute("pageMaker", new PageDTO(cri,resultTotal));
+		  
+	  }else {
+	  
+	 
+		  System.out.println("total"+total);
+		  model.addAttribute("pageMaker", new PageDTO(cri,total));
+		  }
 	  }
 	 
 
@@ -78,13 +89,13 @@ public class Board_QNAController {
 
 		log.info("/myQna/get or /myQna/modify");
 
-		model.addAttribute("Board_QNA", service.get(postingNo));
+		model.addAttribute("BoardQNA", service.get(postingNo));
 		
 
 	}
 
 	@PostMapping("/myQna/modify")
-	public String modify(Board_QNAVO qna, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
+	public String modify(BoardQNAVO qna, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + qna);
 
 		if (service.modify(qna)) {

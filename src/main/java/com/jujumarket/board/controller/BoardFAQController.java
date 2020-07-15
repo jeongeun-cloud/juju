@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jujumarket.board.domain.Board_FAQVO;
+import com.jujumarket.board.domain.BoardFAQVO;
 import com.jujumarket.board.domain.Criteria;
 import com.jujumarket.board.domain.PageDTO;
-import com.jujumarket.board.service.Board_FAQService;
+import com.jujumarket.board.service.BoardFAQService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -22,37 +22,37 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/community/*")
 @AllArgsConstructor
 
-public class Board_FAQController {
+public class BoardFAQController {
 
-	private Board_FAQService service;
+	private BoardFAQService service;
 
 
-	@PostMapping("/Board_FAQ/register")
-	public String faqRegister(Board_FAQVO faq, RedirectAttributes rttr) {
+	@PostMapping("/BoardFAQ/register")
+	public String faqRegister(BoardFAQVO faq, RedirectAttributes rttr) {
 		log.info("register : " + faq);
 
 		service.register(faq);
 
 		rttr.addFlashAttribute("result", faq.getPostingNo());
 
-		return "redirect:/community/Board_FAQ/list";
+		return "redirect:/community/BoardFAQ/list";
 
 	}
 
 	@PostMapping("/notice/register")
-	public String noticeRegister(Board_FAQVO notice, RedirectAttributes rttr) {
+	public String noticeRegister(BoardFAQVO notice, RedirectAttributes rttr) {
 		log.info("register : " + notice);
 
 		service.register(notice);
 
-		rttr.addFlashAttribute("result", notice.getBoardType());
+		rttr.addFlashAttribute("result", notice.getPostingNo());
 
 		return "redirect:/community/notice/list";
 
 		
 	}
 
-	@GetMapping("/Board_FAQ/list")
+	@GetMapping("/BoardFAQ/list")
 	public void faqlist(Criteria cri, Model model) {
 
 		log.info("faq " + cri);
@@ -61,25 +61,31 @@ public class Board_FAQController {
 		model.addAttribute("faq", service.getList(cri));
 		
 		int total = service.getTotal(cri);
-		log.info("total: " + total);
+		log.info("total:dddddddd " + total);
 		
 		model.addAttribute("pageMaker", new PageDTO(cri,total));
 	}
 
+	
+	
+	
 	@GetMapping("/notice/list")
 	public void noticelist(Criteria cri,Model model) {
 		log.info("notice");
 
 		model.addAttribute("notice", service.noticegetList(cri));
 
-		int total = service.getTotal(cri);
+		int total = service.getnoticeTotal(cri);
+		log.info("total:dddddddd " + total);
 		log.info("total: " + total);
 		
+		
+		System.out.println("total"+total);
 		model.addAttribute("pageMaker", new PageDTO(cri,total));
 		
 	}
 
-	@GetMapping("/Board_FAQ/register")
+	@GetMapping("/BoardFAQ/register")
 	public void faqregister() {
 
 	}
@@ -89,18 +95,18 @@ public class Board_FAQController {
 
 	}
 
-	@GetMapping({ "/Board_FAQ/get", "/Board_FAQ/modify" })
+	@GetMapping({ "/BoardFAQ/get", "/BoardFAQ/modify" })
 	public void faqget(@RequestParam("postingNo") String postingNo, @ModelAttribute("cri") Criteria cri, Model model) {
 
-		log.info("/Board_FAQ/get or /Board_FAQ/modify");
+		log.info("/BoardFAQ/get or /BoardFAQ/modify");
 
-		model.addAttribute("Board_FAQ", service.get(postingNo));
+		model.addAttribute("BoardFAQ", service.get(postingNo));
 		
 
 	}
 
-	@PostMapping("/Board_FAQ/modify")
-	public String modify(Board_FAQVO fqa,
+	@PostMapping("/BoardFAQ/modify")
+	public String modify(BoardFAQVO fqa,
 			@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + fqa);
 
@@ -110,11 +116,11 @@ public class Board_FAQController {
 			
 		}
 
-		return "redirect:/community/Board_FAQ/list"+cri.getListLink();
+		return "redirect:/community/BoardFAQ/list"+cri.getListLink();
 	}
 	
 
-	@PostMapping("/Board_FAQ/remove")
+	@PostMapping("/BoardFAQ/remove")
 	public String remove(@RequestParam("postingNo") String postingNo,
 			@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
 		
@@ -123,7 +129,7 @@ public class Board_FAQController {
 			rttr.addFlashAttribute("result", "success");
 		}
 		
-		return "redirect:/community/Board_FAQ/list"+cri.getListLink();
+		return "redirect:/community/BoardFAQ/list"+cri.getListLink();
 		
 	}
 	
@@ -134,18 +140,19 @@ public class Board_FAQController {
 
 		log.info("/notice/get or /notice/modify");
 
-		model.addAttribute("Board_FAQ", service.get(postingNo));
+		model.addAttribute("BoardFAQ", service.get(postingNo));
 
 	}
 	
 
 	@PostMapping("/notice/modify")
-	public String noticeModify(Board_FAQVO notice,@ModelAttribute("cri") Criteria cri,  RedirectAttributes rttr) {
+	public String noticeModify(BoardFAQVO notice,@ModelAttribute("cri") Criteria cri,  RedirectAttributes rttr) {
 		log.info("modify : " + notice);
 
 		if (service.modify(notice)) {
 			rttr.addFlashAttribute("result", "success");
 		}
+		
 
 		return "redirect:/community/notice/list" + cri.getListLink();
 	}

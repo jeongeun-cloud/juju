@@ -8,14 +8,10 @@
 
 <html>
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">   
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
- 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
 	<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
 	
 
@@ -95,7 +91,7 @@ tr:hover {
 		<div class="p1">
 			<ul>고객센터
 				<li><a href='/community/notice/list'>공지사항</a></li>
-				<li><a href='/community/Board_FAQ/list'>자주하는질문</a></li>
+				<li><a href='/community/BoardFAQ/list'>자주하는질문</a></li>
 			</ul>
 		</div>
 
@@ -109,7 +105,7 @@ tr:hover {
       
       
       
-      <form id='searchForm' action="/community/Board_FAQ/list" method='get'>
+      <form id='searchForm' action="/community/BoardFAQ/list" method='get'>
       <select name='type'>
       <option value=""
       <c:out value="${pageMaker.cri.type ==null?'selected':''}"/>>--</option>
@@ -221,7 +217,7 @@ tr:hover {
 			</div><!-- endPaging -->
 			
 			<!-- paging form -->
-			<form id='actionForm' action="/community/Board_FAQ/list" method='get'>
+			<form id='actionForm' action="/community/BoardFAQ/list" method='get'>
 				<input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
 				<input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
@@ -242,7 +238,7 @@ tr:hover {
 	   <script type="text/javascript">
 	   var actionForm = $("#actionForm");
          $(document).ready(function() {
-        
+      
 
             var result = '<c:out value="${result}"/>';
 
@@ -259,8 +255,7 @@ tr:hover {
                }
                
                if(parseInt(result)> 0 ){
-                  
-            	   alert(result);
+          
                   $(".modal-body").html("게시글" + parseInt(result)+ "번이 등록되었습니다.");
                
             }
@@ -272,7 +267,7 @@ tr:hover {
             
             $("#regBtn").on("click",function(){
             	
-            	self.location ="/community/Board_FAQ/register"
+            	self.location ="/community/BoardFAQ/register"
             });
 
             
@@ -294,7 +289,7 @@ tr:hover {
 
          	e.preventDefault();
          	actionForm.append("<input type='hidden' name='postingNo' value = '" + $(this).attr("href") + "'>");
-            actionForm.attr("action", "/community/Board_FAQ/get");
+            actionForm.attr("action", "/community/BoardFAQ/get");
          	actionForm.submit();
          	
          });

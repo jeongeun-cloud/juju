@@ -9,9 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 
 
 </head>
@@ -30,7 +27,7 @@
 				<div class="panel-heading">수정하기</div>
 				<div class="panel-body">
 
-                   <form id ='modifyForm' role="form" action="/community/Board_FAQ/modify" method="post">
+                   <form id ='modifyForm' role="form" action="/community/BoardFAQ/modify" method="post">
 					<!-- 조회페이지에서 수정/삭제 페이지로 이동 -->
 					<input type='hidden'   name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
                     <input type='hidden'  name='amount' value='<c:out value="${cri.amount}"/>'>
@@ -39,29 +36,29 @@
 
 					<div class="from-group">
 						<label>Title</label><input id='title' class="form-control" name='title'
-							value='<c:out value="${Board_FAQ.title}"/>'>
+							value='<c:out value="${BoardFAQ.title}"/>'>
 					</div>
 
 					<div class="from-group">
 						<label>내용</label>
 						<textarea class="form-control" id='content' rows="10" name='content'
-					 ><c:out value="${Board_FAQ.content}"/></textarea>
+					 ><c:out value="${BoardFAQ.content}"/></textarea>
 					</div>
 
 
 					<div class="from-group">
 						<label>게시글타입</label><input class="form-control" name='boardType'
-							value='<c:out value="${Board_FAQ.boardType}"/>'readonly="readonly">
+							value='<c:out value="${BoardFAQ.boardType}"/>'readonly="readonly">
 					</div>
 					
 					<div class="from-group">
 						<label>작성자</label><input class="form-control" name='idNo'
-							value='<c:out value="${Board_FAQ.idNo}"/>'readonly="readonly">
+							value='<c:out value="${BoardFAQ.idNo}"/>'readonly="readonly">
 					</div>
 					
 					<div class="from-group">
 						<label>글번호</label><input class="form-control" name='postingNo'
-							value='<c:out value="${Board_FAQ.postingNo}"/>'readonly="readonly">
+							value='<c:out value="${BoardFAQ.postingNo}"/>'readonly="readonly">
 					</div>
 
 					
@@ -94,12 +91,12 @@
 
 		 if(operation === 'remove'){
 			 
-			 formObj.attr("action","/community/Board_FAQ/remove");
+			 formObj.attr("action","/community/BoardFAQ/remove");
 			 
 		 }else if(operation ==='list'){
 		 
 		
-				formObj.attr("action", "/community/Board_FAQ/list").attr("method","get");
+				formObj.attr("action", "/community/BoardFAQ/list").attr("method","get");
 				var pageNumTag = $("input[name='pageNum']").clone();
 				var amountTag = $("input[name='amount']").clone();
 				var keywordTag = $("input[name='keyword']").clone();
@@ -116,13 +113,13 @@
 			 
 			 var modifyForm = $("#modifyForm");
 			   
-			   if(!modifyForm.find("#title").val()){
-		  		 alert("제목입력 입력해주세요");
+			   if(!modifyForm.find("#title").val()||modifyForm.find("#title").val().trim()==""||modifyForm.find("#title").val().length>30){
+		  		 alert("양식에 맞게 제목입력 입력해주세요(1~30자)");
 		  		 return false;
 			 
 		 }
-			   if(!modifyForm.find("#content").val()){
-		  	  		 alert("내용을 입력해주세요");
+			   if(!modifyForm.find("#content").val()||modifyForm.find("#content").val().trim()==""||modifyForm.find("#content").val().length>600){
+		  	  		 alert("양식에 맞게 내용을 입력해주세요(1~600자)");
 		  	  		 return false;
 		  		 
 		  	 }

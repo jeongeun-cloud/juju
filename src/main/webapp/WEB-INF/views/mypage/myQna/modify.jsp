@@ -40,34 +40,34 @@
                    
 					<div class="from-group">
 						<label>Title</label><input id ='title' class="form-control" name='title'
-							value='<c:out value="${Board_QNA.title}"/>'>
+							value='<c:out value="${BoardQNA.title}"/>'>
 					</div>
 
 					<div class="from-group">
 						<label>내용</label>
 						<textarea class="form-control" id ='content' rows="10" name='content'
-					 ><c:out value="${Board_QNA.content}"/></textarea>
+					 ><c:out value="${BoardQNA.content}"/></textarea>
 					</div>
 
 
 					<div class="from-group">
 						<label>게시글타입</label><input class="form-control" name='boardType'
-							value='<c:out value="${Board_QNA.boardType}"/>'readonly="readonly">
+							value='<c:out value="${BoardQNA.boardType}"/>'readonly="readonly">
 					</div>
 					
 					<div class="from-group">
 						<label>작성자</label><input class="form-control" name='idNo'
-							value='<c:out value="${Board_QNA.idNo}"/>'readonly="readonly">
+							value='<c:out value="${BoardQNA.idNo}"/>'readonly="readonly">
 					</div>
 					
 					<div class="from-group">
 						<label>답글여부</label><input class="form-control" name='replyBool'
-							value='<c:out value="${Board_QNA.replyBool}"/>'readonly="readonly">
+							value='<c:out value="${BoardQNA.replyBool}"/>'readonly="readonly">
 					</div>
 					
 					<div class="from-group">
 						<label>글번호</label><input class="form-control" name='postingNo'
-							value='<c:out value="${Board_QNA.postingNo}"/>'readonly="readonly">
+							value='<c:out value="${BoardQNA.postingNo}"/>'readonly="readonly">
 					</div>
 					
 	
@@ -129,20 +129,20 @@
 	   $(".btn-default").on("click" , function(e){
 	  	
 		   
-		   if(!modifyForm.find("#title").val()){
-	  		 alert("제목입력 입력해주세요");
+		   if(!modifyForm.find("#title").val()||modifyForm.find("#title").val().trim()==""||modifyForm.find("#title").val().length>30){
+	  		 alert("양식에 맞게 제목입력 입력해주세요(1~30자)");
 	  		 return false;
 	  		 
 	  	 }
 	  		 
-	  		 if(!modifyForm.find("#content").val()){
-	  	  		 alert("내용을 입력해주세요");
+	  		 if(!modifyForm.find("#content").val()||modifyForm.find("#content").val().trim()==""||modifyForm.find("#content").val().length>600){
+	  	  		 alert("양식에 맞게 내용입력 입력해주세요(1~600자)");
 	  	  		 return false;
 	  		 
 	  	 }
 		  
 	  	 
-	  	 searchForm.submit();
+	  		modifyForm.submit();
 	  	 
 	  	 
 	       });
