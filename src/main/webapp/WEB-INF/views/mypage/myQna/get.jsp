@@ -391,7 +391,8 @@
              
               str += "<button id='RemoveBtn' class ='btn btn-dangers'>"+'삭제'+"</button>"
               str += "<button id='ModifyBtn' class ='btn btn-dangers'>"+'수정'+"</button></div>"
-              str += "<div id='divBtnDelete' class ='btn btn-dange' style='display: none'>"          
+              str += "<div id='divBtnDelete' class ='btn btn-dange' style='display: none'>"  
+            
               str += "<button id='Mbtn' class ='btn btn-danger' >"+'수정완료'+"</button>"
               str += "<button id='Cbtn' class ='btn btn-danger' >"+'수정취소'+"</button></div>"
              

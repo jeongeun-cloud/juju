@@ -1,4 +1,6 @@
-package com.jujumarket.board.controller;
+package com.jujumarket.main.controller;
+
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,33 +14,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jujumarket.board.domain.Criteria;
-import com.jujumarket.board.domain.ReplyVO;
-import com.jujumarket.board.service.ReplyService;
+import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.main.domain.PrdReplyVO;
+import com.jujumarket.main.service.PrdReplyService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
-import java.util.List;
-
 
 @RestController
 @Log4j
 @AllArgsConstructor
-@RequestMapping("/replies/")
-public class ReplyController {
+@RequestMapping("/repliesprdQnA/")
+public class PrdReplyController {
 	
-	private ReplyService service;
+	private PrdReplyService service;
 
 	@PostMapping(value = "/new", 
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> create(@RequestBody ReplyVO vo){
+	public ResponseEntity<String> create(@RequestBody PrdReplyVO vo){
 
-		log.info("ReplyVO: " + vo);
+		log.info("PrdReplyVO: " + vo);
 		
 		int insertCount = service.register(vo);
 		
-		log.info("Reply INSERT COUNT : " + insertCount);
+		log.info("PrdReplyVO INSERT COUNT : " + insertCount);
 		
 		return insertCount == 1
 				? new ResponseEntity<>("success", HttpStatus.OK)
@@ -46,35 +46,38 @@ public class ReplyController {
 				// 삼항 연산자 처리
 	}
 
-	@GetMapping(value = "pages/{postingNo}/{page}",
+	@GetMapping(value = "pages/{itemCode}/{page}",
 			produces =
 			{MediaType.APPLICATION_XML_VALUE,
 			 MediaType.APPLICATION_JSON_UTF8_VALUE})		
 			
-	public ResponseEntity<List<ReplyVO>> getList(
-			@PathVariable("page") int page,
-			@PathVariable("postingNo") String postingNo){
+	
+	public ResponseEntity<List<PrdReplyVO>> getList(
+			@PathVariable("itemCode") String itemCode,
+			@PathVariable("page") int page){
 		
+		
+		System.out.println(itemCode+"dddddddd");
 				log.info("getList...............댓글");
-				Criteria cri = new Criteria(page,1);
+				Criteria cri = new Criteria(page,10);
 		         log.info(cri + "댓글");
 
 		         
-		         return new ResponseEntity<>(service.getList(cri, postingNo),HttpStatus.OK);
+		         return new ResponseEntity<>(service.getList(cri, itemCode),HttpStatus.OK);
 		       }
 	
-	@GetMapping(value = "/{postingNo}",
+	@GetMapping(value = "/{itemCode}",
 			produces = {MediaType.APPLICATION_XML_VALUE,
 					    MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<ReplyVO> get(@PathVariable("postingNo") String postingNo){
+	public ResponseEntity<PrdReplyVO> get(@PathVariable("itemCode") String itemCode){
 		
-		 log.info("get   : " +postingNo);
+		 log.info("get   : " +itemCode);
 		
-		 return new ResponseEntity<>(service.get(postingNo), HttpStatus.OK);
+		 return new ResponseEntity<>(service.get(itemCode), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value="/{replyNo}", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> remove(@PathVariable("replyNo") String replyNo){
+	public ResponseEntity<String> remove(@PathVariable("replyNo") int replyNo){
 		
 		log.info("remove  : " +  replyNo);
 		
@@ -89,8 +92,8 @@ public class ReplyController {
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> modify(
-			@RequestBody ReplyVO vo,
-			@PathVariable("replyNo") String replyNo){
+			@RequestBody PrdReplyVO vo,
+			@PathVariable("replyNo") int replyNo){
 		
 		vo.setReplyNo(replyNo);
 		
@@ -100,6 +103,8 @@ public class ReplyController {
 		return service.modify(vo) == 1
 		? new ResponseEntity<>("success", HttpStatus.OK)
 		: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	
 	}
 	
-}//main
+
+}

@@ -1,35 +1,33 @@
-package com.jujumarket.board.mapper;
+package com.jujumarket.main.mapper;
+
 
 import java.util.List;
 import java.util.stream.IntStream;
 
-import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.jujumarket.board.domain.Criteria;
-import com.jujumarket.board.domain.ReplyVO;
-import com.jujumarket.board.mapper.ReplyMapper;
-
+import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.main.domain.PrdReplyVO;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 @Log4j
-public class ReplyMapperTests {
+public class PrdReplyMapperTests {
 	
 	//private String[] bnoArr = {"56","58","59","63"};
 	private String[] idArr = {"1","2","3","4","5","6","7","8","9","10"};
 	
 	
 	@Setter(onMethod_={@Autowired})
-	private ReplyMapper mapper;
+	private PrdReplyMapper mapper;
 	
-      @Test
+	@Test
 	public void testMapper() {
 		
 		log.info(mapper);
@@ -40,34 +38,40 @@ public class ReplyMapperTests {
 		
 	IntStream.rangeClosed(1,10).forEach(i ->{
 		
-		ReplyVO vo = new ReplyVO();
+		PrdReplyVO vo = new PrdReplyVO();
 	
-	     	 vo.setIdNo("Idno2");
-			 vo.setPostingNo("38");
-		     vo.setReplyContent("Reply 내용38");
-		
+		     vo.setReplyDepth(i);
+		     vo.setReplyCount(i);
+		     vo.setReplyNo(i); 
+		     vo.setItemCode("item"+i);
+		     vo.setReplyContent("내용"+i);
+		     vo.setReplyCode("code"+i);
+		     vo.setIdNo("idNo"+i);
+		     
 			
 			mapper.insert(vo);			
-		
+			
+
 	});
 		
 	}
 	
-	//@Test
+	@Test
 	public void testRead() {
 		
-		String targetreplyNo = "3";
+		String targetreplyNo = "item1";
 		
-		ReplyVO vo = mapper.read(targetreplyNo);
+		PrdReplyVO vo = mapper.read(targetreplyNo);
 		
 		log.info(vo);
+		System.out.println(vo);
 		
 	}
 	
 	//@Test
 	public void testDelete() {
 		
-		String gargetreplyNo = "3";
+		int gargetreplyNo = 3;
 		
 		mapper.delete(gargetreplyNo);
 		
@@ -76,11 +80,13 @@ public class ReplyMapperTests {
 	//@Test
 	public void testUpdate() {
 
-		String targetreplyNo = "11";
+		String targetreplyNo = "item1";
 		
-		ReplyVO vo = mapper.read(targetreplyNo);
+		PrdReplyVO vo = mapper.read(targetreplyNo);
 		
-		vo.setReplyContent("update Reply");
+		vo.setReplyContent("ddd Reply");
+		
+		vo.setReplyNo(1);
 		
 		int count = mapper.update(vo);
 		
@@ -91,11 +97,14 @@ public class ReplyMapperTests {
 	public void testList() {
 		
 		Criteria cri = new Criteria();
+	
 		// "10"
+		 
+		List<PrdReplyVO> replies = mapper.getListWithPaging(cri,idArr[0]);
 		
-		List<ReplyVO> replies = mapper.getListWithPaging(cri,idArr[3]);
 		
 		replies.forEach(reply -> log.info(reply));
+		System.out.println();
 		
 	}
 	

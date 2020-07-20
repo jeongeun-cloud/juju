@@ -322,11 +322,11 @@ margin-right: 9%;
       
 <!-- regi_main 시작 -->      
 <div class="regi_main">
-	<!-- regi_tit 시작 -->
+   <!-- regi_tit 시작 -->
     <div class="regi_tit">
        <p><b>[1:1문의]</b></p>
    </div>
-	<!-- regi_tit 끝 -->
+   <!-- regi_tit 끝 -->
           
       
       

@@ -1,22 +1,27 @@
-console.log("Reply Module.............");
+console.log("prdreply Module.............");
 
-var replyService = (function() {
 
-	function add(reply, callback, error) {
-		
-		console.log(JSON.stringify(reply));
+var prdreplyService = (function() {
 
-		console.log("add reply...........");
+
+	function add(prdreply, callback, error) {
+
+		console.log("add prdreply...........");
 
 		$.ajax({
+
 			type : 'post',
-			url : '/replies/new',
-			data : JSON.stringify(reply),
+			url : '/repliesprdQnA/new',
+			data : JSON.stringify(prdreply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr) {
 
 				if (callback) {
+					
 					callback(result);
+					
+					
+					
 				}
 			},
 			error : function(xhr, status, er) {
@@ -31,11 +36,20 @@ var replyService = (function() {
 	
 	function getList(param, callback, error){
 		
-	
-		var postingNo = param.postingNo;
+		console.log(JSON.stringify(param));
+		
+		
+		var itemCode = param.itemCode;
+		
+		
+		
 		var page = param.page || 1;
 		
-		$.getJSON("/replies/pages/"+postingNo+"/"+page+".json",
+		console.log(itemCode);
+		
+		console.log(page);;
+		
+		$.getJSON("/repliesprdQnA/pages/"+itemCode+"/"+page+".json",
 		function(data){
 			if(callback){
 				callback(data);
@@ -50,12 +64,12 @@ var replyService = (function() {
 		
 	}
 	
-	function remove(postingNo, callback, error){
+	function remove(itemCode, callback, error){
 		
 		$.ajax({
 			
 			type : 'delete',
-			url : '/replies/' + postingNo,
+			url : '/repliesprdQnA/' + itemCode,
 			success : function(deleteResult, status, xhr){
 				
 				if(callback){
@@ -72,15 +86,15 @@ var replyService = (function() {
 		
 	}
 	
-	function update(reply, callback, error){
+	function update(prdreply, callback, error){
 		
-
+     console.log("바prdreply보" + prdreply);
 
 	
 		$.ajax({
 			type : 'put',
-			url : '/replies/' + reply.replyNo,
-			data : JSON.stringify(reply),
+			url : '/repliesprdQnA/' + prdreply.replyNo,
+			data : JSON.stringify(prdreply),
 			contentType : "application/json; charset=utf-8",
 			success : function(result, status, xhr){
 				if(callback){
@@ -95,10 +109,10 @@ var replyService = (function() {
 		});
 	}
 	  
-	function get(postingNo, callback, error){
+	function get(itemCode, callback, error){
 	
 		
-		$.get("/replies/" + postingNo + ".json", function(result){
+		$.get("/repliesprdQnA/" + itemCode + ".json", function(result){
 			
 		  if(callback){
 			  callback(result);
@@ -140,22 +154,20 @@ var replyService = (function() {
 	                return [yy, '/', (mm > 9? '':'0') + mm, '/', (dd > 9 ? '' : '0') + dd].join('');
 
 	        }
-	        
-
-	        
-	        
-	        
 	};
 
 		
 	
 	return {
+		
+	
 		add : add,
 		get : get,
 		getList : getList,
 		remove : remove,
 		update : update,
 		displayTime : displayTime
+	}
 
-	};
+	
 })();

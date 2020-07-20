@@ -161,55 +161,55 @@
     .jaju_regBtn{
         position: relative;
        }
-       	     /* 모달디자인 시작  */
-		.close:hover,
-		.close:focus {
-		  color: #000;
-		  text-decoration: none;
-		  cursor: pointer;
-		}
-		
-		.modal-header {
-		  padding: 2px 16px;
-		  background-color: white;
-		  color: white;
-		}
-		
-		.modal-body {padding: 2px 16px;}
-		
-		.modal-footer {
-		  padding: 2px 16px;
-		  background-color: white;
-		  color: white;
-		}
-		
-		
-		#closeBtn {
-		  background-color: #ffc30b; 
-		  border: none;
-		  color: white;
-		  padding: 10px 20px;
-		  text-align: center;
-		  text-decoration: none;
-		  display: inline-block;
-		  font-size: 16px;
-		  margin: 4px 2px;
-		  transition-duration: 0.4s;
-		  cursor: pointer;
-		}
-		
-		#closeBtn:hover {
-		  background-color: white; 
-		  color: #ffc30b; 
-		  border: 2px solid #ffc30b;
-		
-		}
-		
-		#closeBtn:focus {
-		    outline: none; 
-		
-		}
-		/* 모달 디자인 끝 */
+               /* 모달디자인 시작  */
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      
+      .modal-header {
+        padding: 2px 16px;
+        background-color: white;
+        color: white;
+      }
+      
+      .modal-body {padding: 2px 16px;}
+      
+      .modal-footer {
+        padding: 2px 16px;
+        background-color: white;
+        color: white;
+      }
+      
+      
+      #closeBtn {
+        background-color: #ffc30b; 
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+      }
+      
+      #closeBtn:hover {
+        background-color: white; 
+        color: #ffc30b; 
+        border: 2px solid #ffc30b;
+      
+      }
+      
+      #closeBtn:focus {
+          outline: none; 
+      
+      }
+      /* 모달 디자인 끝 */
        
 </style>
 </head>
