@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.main.mapper.BobMapper">
+
+
+<select id="wholebest" resultType="com.jujumarket.main.domain.BoardItemVO">
+ <![CDATA[
+ select t.*
+ from (
+    select itemCode , itemName, itemContent, price, normPrice,itemImg1,itemChr,classCode, idNo ,regDate,
+    (select count(itemCode)from t_order_history  where t_item.itemCode=t_order_history.itemCode) orderCount
+    from t_item 
+    order by orderCount DESC
+ )t
+ where
+   ]]> 
+  <![CDATA[
+  ROWNUM<10
+    
+  ]]> 
+  
+<!--     select t.itemName ,t.itemCode, t.price,t.normPrice, t.idNo,t.classCode
+    from t_order_history h
+    join t_item t
+    on t.itemCode= h.itemCode -->
+    
+</select>
+</mapper>

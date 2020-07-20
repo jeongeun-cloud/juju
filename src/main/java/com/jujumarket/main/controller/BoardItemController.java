@@ -33,11 +33,7 @@ public class BoardItemController {
    
    private BoardService service;
    
-   @GetMapping("/list")
-   
-   /*   public void list(@RequestParam(value="classCode", required=false) String classCode , 
-         @RequestParam(value="sort" ,defaultValue="new") String order , Criteria cri, Model model)*/
-   
+   @GetMapping("/list")   
    public void list(@RequestParam(value="classCode", required=false) String classCode , Criteria cri, Model model){
       
       
@@ -47,11 +43,15 @@ public class BoardItemController {
       List<CategoryVO> category = null;
       category = service.category();
       model.addAttribute("category", JSONArray.fromObject(category));
-      
 
-           //log.info("list"+cri);
-         //log.info("class적용후 :"+order);
-         //model.addAttribute("list",service.listSort(order));
+      CategoryVO vo = new CategoryVO();
+      for(int i=0; i<category.size(); i++) {
+         vo = category.get(i);
+         if(vo.getClassCode().equals(classCode)) {
+            model.addAttribute("path", vo.getFullPath());
+         }
+         }
+
          log.info("classCode는?:"+classCode);
          model.addAttribute("list", service.gets(classCode)); 
          model.addAttribute("pageMaker",new PageDTO(cri,123));
@@ -80,7 +80,7 @@ public class BoardItemController {
       System.out.println("controller결과값:"+list);
       
       return ResponseEntity.status(HttpStatus.OK).body(list);
-		/* return ResponseEntity.status(HttpStatus.OK).body(list.toString()); */
+      /* return ResponseEntity.status(HttpStatus.OK).body(list.toString()); */
       
    }
    
@@ -97,17 +97,7 @@ public class BoardItemController {
       return "redirect:/product/list";
    }
    
-//   @GetMapping("/gets")
-//   public void gets(@RequestParam("classCode") String classCode, Model model) {
-//      log.info("/gets");
-//      model.addAttribute("board", service.gets(classCode));
-//   }
-   
 
-   
 
-   
-
-   
 
 }

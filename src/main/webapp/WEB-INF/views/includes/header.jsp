@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+     
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,7 +58,7 @@
         }
 
         .util_wrap li a:hover, .dropdown_sub:hover .subMemu {
-        color: #ffdf6f;
+        color: #ffc30b ;
         }
 
         .util_wrap li.dropdown_sub {
@@ -69,9 +68,10 @@
         .dropdown_sub .subMemu-content {
         display: none;
         position: absolute;
-        background-color: #f9f9f9;
+        background-color: #f6dd90;
+        border-radius: 30px;
         min-width: 130px;
-        width: 140px;
+        width: 150px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
         }
@@ -84,7 +84,10 @@
         text-align: left;
         }
 
-        .subMemu-content a:hover {background-color: #f1f1f1;}
+        .subMemu-content a:hover {
+         background-color: white;
+         border-radius: 10px;
+            }
 
         .dropdown_sub:hover .subMemu-content {
         display: block;
@@ -97,8 +100,21 @@
             <div class="head_util" >
                 <div class="util_wrap" >
                     <ul>
-                        <li><a href="#">로그인(마이페이지)</a></li>
-                        <li><a href="#">회원가입</a></li>
+                        <c:if test="${empty sessionMember}">
+                            <li><a href="/member/login">로그인</a></li>
+                             <li><a href="/member/chooseMemberType">회원가입</a></li>
+                        </c:if>
+                        <c:if test="${!empty sessionMember}">
+                            <li><a href="/member/logout">로그아웃</a></li>
+                        </c:if>
+                        <li class="dropdown_sub">
+                          <a href="#" class="subMemu">마이페이지</a>
+                          <div class="subMemu-content">
+                            <a href="#">쇼핑 이용 정보</a>
+                            <a href="#">게시판 이용 내역</a>
+                            <a href="#">개인 정보 수정</a>
+                          </div>
+                        </li>
                         <li class="dropdown_sub">
                           <a href="#" class="subMemu">고객센터</a>
                           <div class="subMemu-content">
@@ -112,7 +128,7 @@
             </div>
 
             <div class="head_logo" >
-                <div class="logo" ><img src="/resources/images/juju_logo.png" alt="JuJu_Market_Logo" style="height: 150px;"></div>
+                <div class="logo" ><a href="/"><img src="/resources/images/juju_logo.png"  alt="JuJu_Market_Logo" style="height: 150px;"></a></div>
             </div>
         </div>    
 

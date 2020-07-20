@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.main.mapper.ReviewMapper">
+
+	<sql id="criteria">
+	   <trim prefix="(" suffix=")AND" prefixOverrides="OR">
+	   
+	   </trim><!--  prefix end -->
+    </sql>
+
+
+	<select id="getList" resultType="com.jujumarket.main.domain.ReviewVO">
+	   <![CDATA[
+	   		select * from t_review where itemCode = #{itemCode} order by regDate DESC
+	   ]]>
+	</select>
+	
+	<select id="getListWithPaging" resultType="com.jujumarket.main.domain.ReviewVO">
+      <![CDATA[
+	      select *
+	      from (select /*+INDEX_DESC(t_review pk_review) */
+				rownum rn, reviewNo, reviewTitle, reviewContent, reviewImg, orderCode, itemCode, idNo
+				from (select * from t_review order by regDate desc)
+				where
+      ]]>
+      
+      <include refid="criteria"></include>
+      
+      <![CDATA[
+         rownum <= #{pageNum} * #{amount}
+        
+         	)
+     	 where rn > (#{pageNum} -1) * #{amount}
+      ]]>
+   	</select>
+	
+	<insert id="insert">
+		insert into t_review (reviewNo, reviewTitle, reviewContent, reviewImg, score, orderCode, itemCode, idNo) 
+		values seq_review.nextval, #{reviewTitle}, #{reviewContent}, #{reviewImg}, #{score}, 'orderCode', #{itemCode}, #{idNo})
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="reviewNo" order="BEFORE" resultType="String">
+			select seq_review.nextval from dual
+		</selectKey>
+		
+		insert into t_review (reviewNo, reviewTitle, reviewContent, reviewImg, score, orderCode, itemCode, idNo)
+		values (#{reviewNo}, #{reviewTitle}, #{reviewContent}, #{reviewImg}, #{score}, 'orderCode', #{itemCode}, #{idNo})
+	</insert>
+	
+	<select id="read" resultType="com.jujumarket.main.domain.ReviewVO">
+		select * from t_review where reviewNo = #{reviewNo}
+	</select>
+	
+	<delete id="delete">
+		delete from t_review where reviewNo = #{reviewNo}
+	</delete>
+	
+	<update id="update">
+		update t_review
+		set reviewTitle = #{reviewTitle}, reviewContent = #{reviewContent}, reviewImg = #{reviewImg}, 
+		score = #{score}, updateDate = current_timestamp
+		where reviewNo = #{reviewNo}
+	</update>
+	
+</mapper>
