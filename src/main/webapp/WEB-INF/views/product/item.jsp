@@ -30,7 +30,6 @@
 
 
   
-  
 /* 아이템 상세페이지 css 시작 */
 .itemDiv {
   font-family: "Pontano Sans", sans-serif;
@@ -327,8 +326,20 @@ h4 {
        }
        
        
+       #dltBtn {
        
+       width: 10px;
+       heigth: 10px;
        
+       }
+       
+       #dltBtnImg{
+       
+       width: 10px;
+       height: 10px;
+       
+       }
+    
        /* 장바구니 css 끝 */  
 
 
@@ -406,10 +417,211 @@ margin-left: 15%;
 /* 수량 증감 화살표 부분 끝 */
 
 
+/*댓글 dropdown*/
+.dropbtn {
+  background-color: #;
+  color: white;
+  padding: 10px;
+  font-size: 8px;
+  border: none;
+  cursor: pointer;
+}
+<!-- 버튼색상 -->
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #ddd;
+}
+
+.dropdown {
+  float: right;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 40px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  right: 0;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+/*댓글 dropdown end*/
 
 
 
 
+
+
+
+
+/* 리뷰 모달 스타일 시작 */
+.reviewtext {
+     width: 100%;
+     padding: 12px 20px;
+     margin: 8px 0;
+     display: inline-block;
+     border: 1px solid #ccc;
+     box-sizing: border-box;
+   }
+   
+   /* Extra styles for the register button */
+   .reviewBtn {
+     width: 100%;
+     padding: 10px 18px;
+     background-color: #f44336;
+     background-color: #4CAF50;
+     padding: 14px 20px;
+     margin: 8px 0;
+     border: none;
+     cursor: pointer;
+     color : white;
+     font-weight:bold;
+     font-size:14px;
+   }
+   
+   .reviewBtn:hover {
+      opacity : 0.8;
+   }
+   
+   .reviewContainer {
+     padding: 16px;
+     max-width: 970px;
+   }
+   
+   /* The Modal (background) */
+   .modal {
+     display: none; /* Hidden by default */
+     position: fixed; /* Stay in place */
+     z-index: 1; /* Sit on top */
+     left: 0;
+     top: 0;
+     width: 100%; /* Full width */
+     height: 100%; /* Full height */
+     overflow: auto; /* Enable scroll if needed */
+     background-color: rgb(0,0,0); /* Fallback color */
+     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+     padding-top: 60px;
+   }
+   
+   .modal label {
+      font-size:14px;
+   }
+   
+   /* Modal Content/Box */
+   .modal-content {
+     background-color: #fefefe;
+     margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+     border: 1px solid #888;
+     width: 80%; /* Could be more or less, depending on screen size */
+   }
+   
+   /* The Close Button (x) */
+   .closeBtn {
+     position: absolute;
+     right: 25px;
+     top: 0;
+     color: #000;
+     font-size: 35px;
+     font-weight: bold;
+   }
+   
+   .closeBtn:hover,
+   .closeBtn:focus {
+     color: red;
+     cursor: pointer;
+   }
+   
+   /* Add Zoom Animation */
+   .animate {
+     -webkit-animation: animatezoom 0.6s;
+     animation: animatezoom 0.6s
+   }
+   
+   @-webkit-keyframes animatezoom {
+     from {-webkit-transform: scale(0)} 
+     to {-webkit-transform: scale(1)}
+   }
+     
+   @keyframes animatezoom {
+     from {transform: scale(0)} 
+     to {transform: scale(1)}
+   }
+   
+   /* Change styles for span and cancel button on extra small screens */
+   @media screen and (max-width: 300px) {
+     .reviewBtn {
+        width: 100%;
+     }
+   }
+/* 리뷰 모달 스타일 끝 */
+
+/* 별점 스타일 */
+   #star_grade {
+      margin : 0;
+   }
+   #star_grade a{
+       text-decoration: none;
+       color: gray;
+       font-size : 25px;
+   }
+   #star_grade a.on{
+       color: red;
+   }
+/* 별점 스타일 끝 */
+
+/* 리뷰 리스트 스타일 */
+   .collapsible {
+    /*  background-color: #777;
+     color: white; */
+     background-color : white;
+     color : grey;
+     cursor: pointer;
+     padding: 18px;
+     width: 100%;
+     border: none;
+     text-align: left;
+     outline: none;
+     /* font-size: 15px; */
+   }
+   
+   .active, .collapsible:hover {
+     /* background-color: #555; */
+   }
+   
+   .content {
+     padding: 0 18px;
+     max-height: 0;
+     overflow: hidden;
+     transition: max-height 0.2s ease-out;
+     background-color: #f1f1f1;
+   }
+   
+   .btn {
+     background-color: #008CBA;
+     border: none;
+     color: white;
+     padding: 3px 12px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     margin: 4px 2px;
+     cursor: pointer;
+     float:right;
+   }
 
 </style>
     
@@ -487,13 +699,13 @@ margin-left: 15%;
               <!-- 수량 증감 부분 시작 -->
               <div>
                  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
-				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-				
-				<input value="1" min="1" size="2" id="input-view" name="number" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
-				<div class="up-down">
-				  <button id="numup"><i class="fas fa-plus"></i></button>
-				  <button id="numdown"><i class="fas fa-minus"></i></button>
-				</div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            
+            <input value="1" min="1" size="2" id="input-view" name="number" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
+            <div class="up-down">
+              <button id="numup"><i class="fas fa-plus"></i></button>
+              <button id="numdown"><i class="fas fa-minus"></i></button>
+            </div>
               </div>
               
               <!-- 수량 증감 부분 끝 -->
@@ -536,7 +748,7 @@ margin-left: 15%;
         <jsp:include page="MoveBar.jsp" flush="false"/>
         
         <!-- <h1>상품 상세 정보 영역</h1> -->
-        <img src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FJzZtp%2FbtqAQNlqhSP%2F7xOrk21PUKuPZOMDXuSkLK%2Fimg.jpg">
+        <img src="<c:out value="${product.imgDetail}"/>">
         
         </div>
      
@@ -548,36 +760,180 @@ margin-left: 15%;
      
         <!-- 상품평 body 시작 -->
      
-        <div id="prdReview">
-        
-        <jsp:include page="MoveBar.jsp" flush="false"/>
-        
+     <div id="prdReview">
+     
+     <jsp:include page="MoveBar.jsp" flush="false"/>
         <h1>상품평 영역</h1>
-        <img src="https://t1.daumcdn.net/cfile/tistory/191592154C6239356D">
+        <!-- <img src="https://t1.daumcdn.net/cfile/tistory/191592154C6239356D"> <br> -->
+        <button onclick="orderCheck()" style="width:auto; float:right;">리뷰 남기기</button>
+        <br>
+        <!-- 리뷰 리스트 영역 -->
+        <div id="reviewDiv">
         
+           <!-- <div style="float: left; width: 20%; font-weight:bold;">아이디 자리</div> 
+           <div style="float: left; width: 80%; font-weight:bold; text-align:right;">
+            2020/07/19
+         </div>
+           <div style="font-weight:bold;">별점자리</div>
+         
+           <div style="float: left; width: 20%;">
+            <img style="height:75px;" src="/resources/images/noImg.png">
+         </div>
+           <div style="width:80%; float:left">
+              <button class="collapsible">위치보기</button>
+            <div class="content">
+              <p style="">위치 조절중..</p>
+              <button class="btn" style="background-color: #f44336;">삭제</button>
+              <button class="btn">수정</button>
+            </div>
+           </div> -->
+           
         </div>
-     
-        <!-- 상품평 body 끝 -->
-     
-     
-     
-     
-     
-        <!-- 상품 문의 body 시작 -->
-     
-        <div id="prdQnA">
         
-        <jsp:include page="MoveBar.jsp" flush="false"/>
-        
-        <h1>상품 문의 영역</h1>
-        <img src="https://lh3.googleusercontent.com/proxy/65nlh6HvxRv9iVxxf4PHNLPFCf9tJIRvU982P2WGPkEDI5i_RWu5McYd-dZp3Lv5sDPVXtzukdCOYyiHZVefYUzkb9nnPsBL73WYidkw5KTXh-qTJCr6psOnqRzKVzEvW7SBUyUfXpmZBTX9BBbOruToIkwj">
-        
+      <!-- 리뷰 등록 모달 영역 -->
+      <div id="review" class="modal">
+        <div class="modal-content animate" style="max-width:798px;">
+          <div class="imgcontainer">
+            <span onclick="document.getElementById('review').style.display='none'" class="closeBtn" title="Close Modal">&times;</span>
+          </div>
+      
+          <div class="reviewContainer">
+            <label for="title"><b>리뷰 제목</b></label>
+            <input type="text" name="reviewTitle" id="reviewTitle" class="reviewtext" placeholder="리뷰 제목을 남겨주세요." required> <br>
+      
+            <label for="content"><b>리뷰 내용</b></label>
+            <textarea name="reviewContent" id="reviewContent" class="reviewtext" rows=5 cols=40 placeholder="내용을 입력하세요.&#10;※ 욕설, 영업에 방해되는 글은 관리자에 의해 삭제됩니다." style="resize:none;"></textarea>
+            
+            <label for="img"><b>이미지 첨부</b></label>
+            <input type='file' name="reviewImg" id="reviewImg" accept="image/gif, image/jpeg, image/png, image/jpg" />
+            
+            <label for="score"><b>별점</b></label> <br>
+           <p id="star_grade">
+              <a href="#" id="score1" score="1" onclick="scoreAction($(this).attr('score'));">★</a>
+              <a href="#" id="score2" score="2" onclick="scoreAction($(this).attr('score'));">★</a>
+              <a href="#" id="score3" score="3" onclick="scoreAction($(this).attr('score'));">★</a>
+              <a href="#" id="score4" score="4" onclick="scoreAction($(this).attr('score'));">★</a>
+              <a href="#" id="score5" score="5" onclick="scoreAction($(this).attr('score'));">★</a>
+           </p>
+           
+           <input type="hidden" name="idNo" id="idNo" value="idNo">
+           <input type="hidden" name="score" id="score" value="0">
+           <input type="hidden" name="itemCode" value="${product.itemCode}">
+           <input type="hidden" name="reviewNo" id="reviewNo">
+            
+            <button class="reviewBtn" id="reviewBtn">등록하기</button>
+            <button style="display:none;" class="reviewBtn" id="updateBtn">수정하기</button>
+          </div>
         </div>
+      </div>
+      <div class='pull-right'>
+         <ul class="pagination">
+            <c:if test="${pageMaker.prev}">
+               <li class="paginate_button previous">
+                  <a href="${pageMaker.startPage -1}">Previous</a>
+               </li>
+            </c:if>
+
+            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+               <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                  <a href="${num}">${num}</a>
+               </li>
+            </c:forEach>
+
+            <c:if test="${pageMaker.next}">
+               <li class="paginate_button next">
+                  <a href="${pageMaker.endPage +1 }">Next</a>
+               </li>
+            </c:if>
+         </ul>
+      </div>
+      <!--  end Pagination -->
+     </div>
+     <!-- 상품평 body 끝 -->
      
-        <!-- 상품 문의 body 끝 -->
+     
+     
+     
+     
+     <!-- 상품 문의 body 시작 -->
+     
+     <div id="prdQnA">
+     
+     <jsp:include page="MoveBar.jsp" flush="false"/>
+     
+     <h1>상품 문의 영역</h1>
+     <img src="https://lh3.googleusercontent.com/proxy/65nlh6HvxRv9iVxxf4PHNLPFCf9tJIRvU982P2WGPkEDI5i_RWu5McYd-dZp3Lv5sDPVXtzukdCOYyiHZVefYUzkb9nnPsBL73WYidkw5KTXh-qTJCr6psOnqRzKVzEvW7SBUyUfXpmZBTX9BBbOruToIkwj">
+     
+     </div>
+  
+     <!-- 상품 문의 body 끝 -->
         
         
+     <!-- 상품 문의 댓글 영역 -->
+         <div class = "reply-main">
+               <h4 class="reply-title" id="replytitle">댓글쓰기</h4>
+         
+            
+              <div id = "regiBtn">
+               <div class="form-grop">
+               <label>replyContent</label>
+               <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
+
+              
+               <div class="form-grop">
+               <label>id</label>
+               <input class ="form-control" id ="idNoBtn"  name='idNo' value='idNo' readonly="readonly"></div>
+               <div class="form-grop">
+                <label>replyDepth</label>
+                <input class ="form-control" id ="replyDepth"  name='replyDepth' value='1' readonly="readonly"></div>
+                <div class="form-grop">
+                 <label>replyCount</label>
+                <input class ="form-control" id ="replyCount"  name='replyCount' value='1' readonly="readonly"></div>
+               <div class="form-grop">
+                <label>replyCode</label>
+                <input class ="form-control" id ="replyCode"  name='replyCode' value='1' readonly="readonly"></div>
+                <div class="form-grop">
+                 <label>itemCode</label>
+                <input class ="form-control" id ="itemCode"  name='itemCode' value='product22222' readonly="readonly"></div>
+ 
+                 
+    
+               
+         <!--       <div class="form-grop">
+               <label>replyDate</label>
+               <input class ="form-control" name='regDate' value=''></div> -->
+               
+              
+                <div class="panel-heading">
+               <i class="fa fa-comments fa-fw"></i>Reply
+               <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 입력하기</button>
+               </div> <!-- /,panel-heading -->
+               </div><!-- regiBtn -->
+   
+             </div>  <!-- reply-main end -->
+   
+         
+               <div id ="list">   
+               <div class="panel-body">  <!-- 댓글 목록 리스트 -->          
+               <ul class="chat">
+               <!--  start reply -->
+               <li class="left clearfix" data-itemCode='itemCode'>
+                    <div>
+                    <div class="header">
+                    <strong class="primary-font">dfdfd</strong>
+                    <small class="pull-rigth text-muted">2018-01-01 13:13</small>
+                   </div>
+                   <p>Good jop!</p>
+               </div>
+                   </li>
+                   <!--  end reply -->
+               </ul>
+               <!--  end ul -->
+               </div><!-- 댓글 div 마지막 -->
+               <!--  /.panel .chat-panel -->
+                 </div><!-- RemoveBtn end -->
         
+        <!-- 상품 문의 댓글 영역  끝-->
         
         <!-- 배송안내 body 시작 -->
      
@@ -684,7 +1040,7 @@ margin-left: 15%;
         
         <!-- 장바구니 리스트 영역 시작 -->
          
-        <c:forEach items="${list}" var="basket">
+      <%--   <c:forEach items="${list}" var="basket">
         
         
         <div id="basketImg">
@@ -703,7 +1059,7 @@ margin-left: 15%;
         
         
         
-        </c:forEach> 
+        </c:forEach>  --%>
           
         <!-- 장바구니 리스트 영역 끝 -->
         
@@ -723,7 +1079,304 @@ margin-left: 15%;
      
 </body>
 
+<!-- 상품평 스크립트 -->
+<script type="text/javascript" src="/resources/js/prdreply.js"></script>  <!--댓글 스크립트. 경로인듯  -->
+<script type="text/javascript">
+ 
+   
+$(document).ready(function(){
 
+        var itemCode = $("#itemCode").val();
+         var replyUL = $(".chat");
+   
+        showList(1);//<댓글 호출 매서드
+   
+    function showList(page){
+
+       prdreplyService.getList({itemCode:itemCode,page: page || 1}, function(list){
+          
+         var str="";
+         
+         if(list == null || list.length == 0){
+          
+            replyUL.html("");
+         
+              return;
+         }
+         
+
+         for(var i = 0, len =list.length || 0; i <len; i++){
+            str += "<li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
+            str += "<div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
+            
+            str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>";
+              
+            str += "<div><textarea class='text' id='text' rows='5'>"+list[i].replyContent+"</textArea>";
+            str += '<button id="replybtn" class ="replybtn">답글달기</button> <br>'
+            
+            str += '<div class="dropdown">'
+            str += '<button class="dropbtn">:</button>'
+            str += '<div id="myDropdown" class="dropdown-content">'
+            
+            str += '<button id="modify" class ="modify">수정</button> <br>'
+            str += '<button id="delete" class ="deletebtn">삭제</button>'
+            
+            str += '</div></div></div></div>'
+         
+            
+         }
+         replyUL.html(str);
+
+         
+                });//end function
+               }//end showList
+              
+               var regiBtn = $("#regiBtn")
+                
+               
+               regiBtn.find('button').on("click",function(e){
+                   
+                  console.log("들어옴");
+                  
+                  if($("#replyContentBtn").val() == ''||$("#replyContentBtn").val().trim()==""||$("#replyContentBtn").val().length>600){
+                     
+                           alert("댓글양식에 맞게 입력해주세요(1~600자)");
+                           return false;
+                      
+                   }
+                  
+                  
+                  prdreplyService.add(
+                         {idNo:$("#idNoBtn").val(), replyContent:$("#replyContentBtn").val(),  itemCode:$("#itemCode").val(),
+                          replyDepth:$("#replyDepth").val(), replyCount:$("#replyCount").val(), replyCode:$("#replyCode").val(),
+           
+                         },
+                         
+                         
+                        
+                         function(result){
+                            
+                
+                            var replyContent = $(".replyContent").val();
+                            
+                                console.log(replyContent);
+                              
+
+                            alert("댓글이 등록되었습니다. : " + result);
+                             $("#replyContentBtn").val("");
+                            
+                            showList(1);
+                      }); 
+                   
+                 
+                  
+                  });
+             //댓글 입력 end
+             
+             
+             //대댓글처리
+             $(document).on("click","button[id='replybtn']", function(e) {
+                var replybtn = $("#replybtn")
+  
+             console.log("답글버튼 온")
+             
+              $(".replyDiv").remove();
+              $(".commentEditDiv").remove();
+         
+             
+             var commentDepth = $(this).parent().find(".commentDepth").val();
+                 if(commentDepth>9) {
+                    alert("댓글 차수를 초과하여 더 이상 대댓글을 등록할 수 없습니다!");
+                    return;
+                 }
+                 
+                 var replyDiv = document.createElement("div");
+                 replyDiv.setAttribute("class", "replyDiv");
+                  
+                 var textArea = document.createElement("textarea");
+                 textArea.setAttribute("id", "replyTextarea");
+                 textArea.setAttribute("placeholder", "댓글을 입력해주세요");
+                  
+                 var reCommentRegBtn = document.createElement("button");
+                 reCommentRegBtn.setAttribute("class", "reCommentRegBtn");
+                 reCommentRegBtn.innerHTML="답변 등록";
+
+                 replyDiv.appendChild(textArea);
+                 replyDiv.appendChild(reCommentRegBtn);
+                  
+                 e.target.after(replyDiv);
+              });
+             //대댓글처리 end
+             
+             
+             
+         
+               
+               
+ 
+
+       //: . dropDown 클릭시발생하는 이벤트
+
+       window.onclick = function(e) {
+       
+          
+          
+           var target = e.target
+             //var replyLi = $(target).parent().parent().parent();
+             var replyLi = $(target).closest("li");
+             var replyNo = replyLi.data("replyno");
+           
+             $(target).parent().find("#myDropdown").toggle("show");
+             
+   
+             
+          if (!event.target.matches('.dropbtn')) {
+           var dropdowns = $(target).parent().find("#myDropdown");
+           var i;
+           for (i = 0; i < dropdowns.length; i++) {
+             var openDropdown = dropdowns[i];
+             if (openDropdown.classList.contains('show')) {
+               openDropdown.classList.remove('show');
+               
+             }
+           }
+         }
+             
+       }//: . dropDown 클릭시발생하는 이벤트 end
+       
+       
+        
+        $(document).on("click","button[id='delete']", function(e) {
+               
+               console.log("삭제ddd");
+              
+            
+          var target = e.target
+          //var replyLi = $(target).parent().parent().parent();
+          var replyLi = $(target).closest("li");
+          var replyNo = replyLi.data("replyno");
+          
+          var ids = replyLi.data("id");
+          
+          console.log("replyNo == " + replyNo);
+          
+       
+       
+       
+          prdreplyService.remove(replyNo , function(count){
+            
+             console.log(count);
+             
+             if(count === "success"){
+                showList(1);
+                alert("REMOVED");
+                
+                
+             }
+          }, function(err){
+           alert('ERROR....')   
+             
+          });
+ 
+    });       //댓글 삭제end
+    
+  /*   $(document).on("click","button[id='modify']", function(e){
+             
+           console.log("수정");
+             
+             var target = e.target
+                var replyLi = $(target).closest("li");
+                var replyNo = replyLi.data("replyno");
+             var text = replyLi.data("text");
+         
+             
+             var str = $(target).parent().find(".text").val(text);
+        
+              
+             
+             
+               $(".btn-dangers").show();
+               $(".btn-dange").hide();
+               $(".text").attr('readonly','readonly');
+                
+               
+              $(target).parent().find("button")
+             
+              
+              $(target).parent().find("button").hide();
+             
+              
+              
+              $(target).parent().find("#text").removeAttr("readonly");
+             
+             //$(target).siblings("button").hide();
+              
+                 
+             $(target).parent().parent().find("#divBtnDelete").show();
+              
+           
+             showList(1);
+          
+          
+         }); */
+      
+        
+            $(document).on("click","button[id='modify']",function(e){
+                 
+                 
+             
+               
+               var target = e.target;
+               var replyLi = $(target).closest("li");
+               var replyNo = replyLi.data("replyno");
+               var itemCode = replyLi.data("itemCode");
+              
+           
+               var replyContent =  $(target).parent().parent().parent().find("#text").val();
+               
+               console.log(replyContent);
+           
+                if(replyContent==''||replyContent.trim()==''||replyContent.length>600){
+                   
+                   alert("댓글은 1~600자에 맞게 입력해주세요")
+                   return false;
+                }
+          
+                prdreplyService.update({
+                    
+                
+                   
+                replyNo  : replyNo,    
+                itemCode : itemCode,
+                replyContent : replyContent
+
+               
+            },function(result){
+                  
+                  alert("수정 완료 ........")
+                  showList(1);
+               
+            });
+                  
+            });
+            
+/*             $("document").on("click","button[id='modify']",function(e){
+
+          
+              showList(1);
+         
+             
+            });
+     */
+    
+     
+               
+});//ready end
+   
+ 
+   
+   
+</script>
 <script>
 
 
@@ -743,81 +1396,72 @@ productImages.forEach(image => image.addEventListener("click", changeImage));
 
 
 
-// 브라우저 열리자마자 장바구니 리스트 가져오기
-//$(document).ready(function(){draw(function(){getBasketList();});})
+// 브라우저 열리자마자 장바구니 리스트 가져오기 시작
+$(document).ready(
+         
+          getBasketList()
+         
+         .then(function(response){ 
+            
+           console.log("getBasketList 결과는?");
+            console.log(response);  
+            console.log("draw 실행");
+            draw(response); // 가져온 결과를 화면에 다시 그리기 
+            
+            }) 
+      
+)
+// 브라우저 열리자마자 장바구니 리스트 가져오기 끝
+      
+      
+      
+
+
+
+// 장바구니 한도
+var basketMax = 30;
 
 
 
 
-
-
-
-
- // add to basket 버튼 onclick event function 시작
- function addToBasketEvent() {
+// 장바구니 담기 onclick 이벤트 시작
+function addToBasketEvent() {
    
+      
+   // 1. 장바구니에 담긴 물건 리스트를 불러온다 
+   getBasketList()
+   .then(function(response){
+      
+      //1-1. 장바구니에 담긴 물건이 max 초과이면 
+      if(response.length>basketMax){
+         //1-1-1. 담을 수 없음을 알림 
+         alert("장바구니에 담을 수 있는 상품은 "+basketMax+"개 이하입니다.");
+         
+      //1-2. 장바구니에 담긴 물건이 max 넘지 않으면    
+      }else{
+         //1-2-1. 장바구니에 담는 일련의 과정 실행 
+         insert2Basket();
+      }
+   
+})
+
+}
+//장바구니 담기 onclick 이벤트 끝
+
+
+
+
+// 장바구니에 담는 일련의 과정 function 시작
+ function insert2Basket() {
+    
    var $itemCode = $("#itemCode");
    
    var $num = $("#input-view");
    
-   // 현재 장바구니 담긴 갯수 - length 로 바꿔줘야하는데 안되네 
-   var basketSize = 10;
-   
-   // 장바구니 한도
-   var basketMax = 40;
-   
-   // 장바구니 담긴 갯수 구하기 
-   /* var basketSize = getBasketList();
-   
-   console.log("basketSize: "+basketSize); //[object Object]
-   
-   console.log("basketSize.responseJSON: " + basketSize.responseJSON); //undefined
-   
-   console.log("basketSize.length: "+basketSize.length); 
-   
-   console.log("getBasketList().responseJSON: " + getBasketList().responseJSON);
-   
-   console.log("getBasketList().length: "+getBasketList().length);
-
-   
-   console.log("getBasketList().size: "+getBasketList().size);
-   
-   
-   console.log("getBasketList()"+getBasketList()); */
-   
-   // 이거 왜 안나오지 
-   //console.log("장바구니에 지금 얼마나 담겼어? " + basketSize.responseJSON.length);
-   
-   //console.log("getBasketList().keys.length 길이 : "+getBasketList().keys.length);
-	
-  
-   //console.log("Object.keys(): "+Object.keys(getBasketList()));
-   
-   
-   
-   //console.log(Object.keys(getBasketList()))
-   
-   
-   
-   //console.log("Object.keys(getBasketList()): "+Object.keys(getBasketList()));
-   
-   
-   // 1. 장바구니에 담긴 물건 갯수를 확인한다. 
-   		//1-1. 장바구니에 담긴 물건이 max 초과이면 
-	if(basketSize>basketMax){
-	   		//1-1-1. alert("장바구니에 담을 수 있는 상품은 20개 이하입니다.")
-		alert("장바구니에 담을 수 있는 상품은 "+basketMax+"개 이하입니다.")		
-			//1-1-2. insert,getBasketList,draw, movebasket 하지 않고 빠져나간다.    
-	}else{
-		//1-2. 장바구니에 담긴 물건이 20개 넘지 않으면 
-			// insert,getBasketList,draw, movebasket 실행
-   
    var data = {
-   
          itemNum : $num.val(),
          idNo : "cus000001",
          itemCode : $itemCode.val()
-   
    };
    
    insertData(data) // 해당 페이지 상품을 db 에 넣기 
@@ -841,18 +1485,8 @@ productImages.forEach(image => image.addEventListener("click", changeImage));
    .then(function(){
       moveBasket(); }) // 장바구니 슬라이드 자동으로 열고 닫게 하기 
    
-	}
-			
-			
-			
 }
-// add to basket 버튼 onclick event function 끝
- 
- 
- 
- 
- 
-
+//장바구니에 담는 일련의 과정 function 끝
  
  
  
@@ -875,6 +1509,7 @@ function insertData(data) {
  
  
  
+ 
 
 /* 장바구니 리스트 ajax 로 불러오기 시작 */
 function getBasketList() {
@@ -886,7 +1521,6 @@ function getBasketList() {
       error : function(){console.log("통신실패")},
       success : function(){console.log("통신성공")}
       
-   
       });
    
 }
@@ -901,38 +1535,30 @@ function getBasketList() {
 // html 구조 안에다가 장바구니 내용 넣기 function 시작
 function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜? 
    
-   
    var $basketList = $("#basketList");
-   
    
    $basketList.empty();
    
    console.log("결과 : " + jsonData)
    
    for(var i=0; i<jsonData.length; i++) {
-	   
-	   
-	   
-   
-	   $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
-	   
-	   $basketList.append("<div id='basketContent'><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
-	   
-      /* 
-      $basketList.append("<img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" />");
       
-      $basketList.append("<h5>");
+      $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
       
-      $basketList.append(jsonData[i].itemName+"<br>");
-      $basketList.append(jsonData[i].price+"원<br>");
-      $basketList.append(jsonData[i].itemNum+"개<br>");
-      $basketList.append(jsonData[i].baskId+"<br>");
-      
-      $basketList.append("</h5>");	
-      $basketList.append("<br>");
-      
-       */
+      $basketList.append("<div id='basketContent'><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
 
+      
+      // 이게 삭제 버튼 있는 버전 
+      //$basketList.append("<div id='basketContent'><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5><button id='dltBtn'><img id='dltBtnImg' src='/resources/images/deleteBasketBtn.png'></button></div>");
+
+      
+      //$basketList.append("<button id='dltBtn'><img id='dltBtnImg' src='/resources/images/deleteBasketBtn.png'></button>")
+      
+      // <img src='/resources/images/deleteBasketBtn.png'>
+      
+      
+      
+      
    }
    
    $("#basketList").append("<div id='endOfBasket'>end of basket</div>");
@@ -942,33 +1568,19 @@ function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜
    $("#endOfBasket").css("width","240px");
    $("#endOfBasket").css("height","50px");
    $("#endOfBasket").css("float","left");
-
    
    $("#basketList").css("text-align","left");
    $("#basketList").css("font-size","13px");
    $("#basketList").css("font-weight","bold");
    
    
+   //$("#dltBtn").css("width","10px");
+   //$("#dltBtnImg").css("width","10px");
    
-   /* 
-   $("#aaa").css("width","120px");
-   $("#aaa").css("height","100px");
-   $("#aaa").css("display","block");
-   $("#aaa").css("margin","3px");
-   $("#aaa").css("padding","3px");
-   $("#aaa").css("border","3px");
    
-   $("#bbb").css("width","120px");
-   $("#bbb").css("height","100px");
-   $("#bbb").css("float","left");
-   $("#bbb").css("margin","3px");
-    */
 }
 //html 구조 안에다가 장바구니 내용 넣기 function 끝
 
- 
- 
- 
  
 
 
@@ -988,11 +1600,6 @@ function moveBasket() {
         /* 장바구니를 펼쳤다가 */
        elem.style.right = "0%";
         
-        
-        
-        /* 장바구니 슬라이드 스크롤 맨 아래로 내리기?- 적용되는지 모르겠다 */
-       //document.getElementById("endOfBasket").scrollIntoView();
-
         /* 1초 후에 장바구니를 닫아라 */
        setTimeout(function(){elem.style.right = "-20%";},1000);
        /* basket 가 열렸다 닫혔다 하는 부분 끝 */
@@ -1000,10 +1607,6 @@ function moveBasket() {
 
 }
 /* 장바구니 슬라이드 열렸다 닫히는 기능 끝 */
-
-
-
-
 
 
 
@@ -1038,8 +1641,6 @@ function basketClicked(e) {
 
 
 /* 수량 증감 부분 시작 */
- 
- 
 
 $(document).ready(function(){
   x = $('#input-view').val();
@@ -1055,13 +1656,319 @@ $(document).ready(function(){
         }else{
           $('#input-view').val(x);
         }  
-    })
+    });
+
+
+    // reviewList 출력
+     showList(1)
   
 });
  
 /* 수량 증감 부분 끝 */
 
+/* 리뷰 부분 시작 */
 
+// 리뷰 남기기 모달 띄우기
+   var modal = document.getElementById('review');
+   
+   // 모달 끄기
+   window.onclick = function(event) {
+       if (event.target == modal) {
+           modal.style.display = "none";
+       }
+   }
+    
+   // 별점 주기
+   $('#star_grade a').click(function(){
+       $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+       $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+       return false;
+   });
+   
+   // 별점 가져오기
+   function scoreAction(score) {
+      $("#score").val(score);
+   }
+   
+   // 주문 한 사람인지 비교
+   function orderCheck() {
+      if($("#idNo").val() != 'idNo') {
+         alert("상품 후기는 상품을 구매하시고 배송온료된 회원 분만 한달 내 작성 가능합니다.");
+         return false;
+      }
+      document.getElementById('review').style.display='block';
+      // 버튼 및 내용 초기화
+      $("#reviewBtn").show();
+      $("#updateBtn").hide();
+      $("#reviewTitle").val("");
+      $("#reviewContent").val("");
+      $("#reviewImg").val("");
+      $("#score").val("0");
+      $("#reviewNo").val("");
+      $("#star_grade a").parent().children("a").removeClass("on");
+   }
+   
+   // 리뷰 등록
+   $("#reviewBtn").on("click", function(e) {
+      
+      if($('#reviewTitle').val()=='' || $('#reviewTitle').val().trim() == '') {
+         alert('리뷰 제목을 입력해주세요.');
+         $('#reviewTitle').focus();
+         return false;
+      }else if($('#reviewContent').val()=='' || $('#reviewContent').val().trim() == ''){
+         alert('리뷰 내용을 입력해주세요.');
+         $('#reviewContent').focus();
+         return false;
+      }else if($('#score').val()=='0') {
+         var scoreResult = confirm("별점을 선택하지 않으면 0점으로 반영됩니다. 그대로 진행하시겠습니까?");
+         if(!scoreResult) {
+            return false;
+         }
+      }
+
+      var sendData = JSON.stringify(
+            {reviewTitle:$('#reviewTitle').val(), reviewContent:$('#reviewContent').val(), 
+               reviewImg:$('#reviewImg').val(), score:$('#score').val(),
+               idNo:$('#idNo').val(), itemCode:$('#itemCode').val()
+            });
+      
+      $.ajax({
+         url : '/review/regReview',
+         data : sendData,
+         type : 'POST',
+         contentType : "application/json; charset=utf-8",
+         success : function(result) {
+            document.getElementById('review').style.display = "none";
+            alert("상품평이 정상적으로 등록되었습니다.");
+            showList(1);
+         },
+         error : function(er) {
+            alert("통신 오류입니다. 잠시 후 다시 시도해주세요.");
+            error(er);
+         }
+         
+      }); // $.ajax
+   }); // 등록 event
+   
+   // 상품 평 리스트 출력
+     function getList(param, callback, error){
+        
+        var itemCode = param.itemCode;
+        var page = param.page || 1;
+        
+        $.getJSON("/review/pages/"+itemCode+"/"+page+".json",
+        function(data){
+          if(callback){
+             callback(data);
+             
+          }
+        }).fail(function(xhr,status, err){
+           if(error){
+              error();
+           }
+        });
+     }
+   
+   var itemCode = $("#itemCode").val();
+   var reviewList = $("#reviewDiv");
+     
+     function showList(page){
+
+         getList({itemCode:itemCode,page: page || 1}, function(list){
+            var str="";
+           
+              if(list == null || list.length == 0){
+                reviewList.html("");
+                   return;
+              }
+     
+           for(var i = 0, len =list.length || 0; i <len; i++){
+              var star = "";
+              var stars = new Array(); 
+              
+              for(var j=0; j<list[i].score; j++) {
+                 star += "★";
+              }
+              stars[i] = star;
+
+              str += "<div style='width:100%; overflow:hidden;'>";
+              str += "<div style='float: left; width: 20%; font-weight:bold;'>"+ list[i].idNo +"</div>"; 
+              str += "<div style='float: left; width: 80%; font-weight:bold; text-align:right;'>"+ displayTime(list[i].regDate) +"</div>"; 
+              str += "<div style='float: left; width: 100%; font-weight:bold; color:red;'>"+ stars[i] +"</div>"; 
+              str += "<div style='float: left; width: 20%;'><img style='height:75px;' src='/resources/images/noImg.png'></div>"; 
+
+              str += "<div style='width:80%; float:left'>"; 
+               str += "<button class='collapsible'>"+ list[i].reviewTitle + "</button>";
+                str += "<div class='content'>";
+                str += "<p style=''>"+ list[i].reviewContent +"</p>";
+                str += "<button id='removeBtn' data-oper='"+ list[i].reviewNo +"' class='btn' style='background-color: #f44336;'>삭제</button>";
+                str += "<button id='modifyBtn' data-oper='"+ list[i].reviewNo +"' class='btn'>수정</button>";
+                str += "</div>";
+                str += "</div>";
+
+                str += "</div>";
+                str += "<br><hr>"
+                //console.log(list[i].reviewContent);
+              
+           }
+           
+            reviewList.html(str);
+           
+           // 리뷰 리스트 효과
+             var coll = $(".collapsible");
+             
+             for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function() {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    
+                    if (content.style.maxHeight){
+                         content.style.maxHeight = null;
+                    } else {
+                         content.style.maxHeight = content.scrollHeight + "px";
+                    } 
+                  });
+             }
+             
+        }); //end function
+     } //end showList
+     
+     // 시간 변환
+   function displayTime(timeValue){
+         
+      var today = new Date();
+      var gap = today.getTime() - timeValue;
+      var dateObj = new Date(timeValue);
+              
+      var str = "";
+           
+      if (gap < (1000 * 60 * 60 * 24)){
+          var hh = dateObj.getHours();
+          var mi = dateObj.getMonth() + 1 ;//getMonth() is zero-based
+          var ss = dateObj.getDate();
+
+          return[(hh > 9? '' : '0')+ hh, ':',(mi > 9 ? '': '0') + mi, ':',(ss > 9 ? '':'0') + ss].join('');
+          
+      }else {
+           var yy = dateObj.getFullYear();
+           var mm = dateObj.getMonth() + 1; // getMonth() is zero-based
+           var dd = dateObj.getDate();
+   
+           return [yy, '-', (mm > 9? '':'0') + mm, '-', (dd > 9 ? '' : '0') + dd].join('');
+      }
+   };
+     
+    // 삭제 기능
+     $("#reviewDiv").on("click","button[id='removeBtn']", function(e){
+        
+        var target = e.target;
+        var dataFormat = $(target).closest("button");
+        var reviewNo = dataFormat.data("oper");
+        console.log(reviewNo);
+        
+        var result = confirm("정말로 삭제하시겠습니까?");
+         if (result) {
+           $.ajax({
+               type : 'delete',
+               url : '/review/' + reviewNo,
+               success : function(result){
+                     alert("정상적으로 삭제되었습니다.");
+               showList(1);
+               },
+               error : function(er){
+               alert('통신 오류입니다. 잠시 후 다시 시도해주세요.');
+               error(er);
+               }
+            });
+         }else {
+            return false;
+         }
+
+   });   // 삭제 function 끝
+   
+   
+   // 수정할 내용 불러오기
+   $("#reviewDiv").on("click","button[id='modifyBtn']",function(e){
+
+      // 1. 모달 띄우기 (당사자에게만 보일거지만 그래도 한 번 더 구별 해주기)
+      if($("#idNo").val() != 'idNo') {
+         alert("당사자만 수정할 수 있습니다.");
+         return false;
+      }
+      document.getElementById('review').style.display='block';
+      
+      // 2. 모달에 값 넣어진 채로(reviewNo 로 하나만 get해와야 할듯)
+      var target = e.target;
+        var dataFormat = $(target).closest("button");
+        var reviewNo = dataFormat.data("oper");
+        console.log(reviewNo);
+        $("#reviewNo").val(reviewNo);
+      
+      $.get("/review/" + reviewNo + ".json", function(result){
+         console.log(result);
+         // 버튼 보이기 숨기기, 각 값 넣어주기 
+         $("#reviewBtn").hide();
+         $("#updateBtn").show();
+         $("#reviewTitle").val(result.reviewTitle);
+         $("#reviewContent").val(result.reviewContent);
+         $("#score").val(result.score);
+         
+         // 별점 불러와서 색칠
+         $("#score"+result.score).trigger("click", function() {
+            $(this).parent().children("a").removeClass("on"); 
+             $(this).addClass("on").prevAll("a").addClass("on");
+             return false;
+         });
+
+      }).fail(function(er){
+         alert('통신 오류입니다. 잠시 후 다시 시도해주세요.');
+         error(er);
+      });
+
+   });   // 수정할 내용 불러오기 끝
+   
+   // 3. 수정 버튼 눌렀을 때
+   $("#updateBtn").on("click", function(e) {
+      
+      if($('#reviewTitle').val()=='' || $('#reviewTitle').val().trim() == '') {
+         alert('리뷰 제목을 입력해주세요.');
+         $('#reviewTitle').focus();
+         return false;
+      }else if($('#reviewContent').val()=='' || $('#reviewContent').val().trim() == ''){
+         alert('리뷰 내용을 입력해주세요.');
+         $('#reviewContent').focus();
+         return false;
+      }else if($('#score').val()=='0') {
+         var scoreResult = confirm("별점을 선택하지 않으면 0점으로 반영됩니다. 그대로 진행하시겠습니까?");
+         if(!scoreResult) {
+            return false;
+         }
+      }
+      
+      var reviewNo = $("#reviewNo").val();
+      var sendData = JSON.stringify(
+            {reviewTitle:$('#reviewTitle').val(), reviewContent:$('#reviewContent').val(), 
+               reviewImg:$('#reviewImg').val(), score:$('#score').val()
+            });
+      
+      $.ajax({
+         type : 'put',
+         url : '/review/' + reviewNo,
+         data : sendData,
+         contentType : "application/json; charset=utf-8",
+         success : function(result){
+            document.getElementById('review').style.display = "none";
+            alert("정상적으로 수정되었습니다.");
+            showList(1);
+         },error : function(er){
+            alert("통신 오류입니다. 잠시 후 다시 시도해주세요.");
+            error(er);
+         }
+      });
+   });   // 수정기능 끝
+   
+     
+/* 리뷰 부분 끝 */
 
 
 

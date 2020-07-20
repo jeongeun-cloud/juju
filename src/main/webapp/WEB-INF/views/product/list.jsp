@@ -195,7 +195,7 @@
          <div class="panel-heading">
          
 
-	         <h1 style="color:orange"><c:out value="${cs}"/></h1>
+	         <h1 style="color:orange"><c:out value="${path}"/></h1>
 	      
 	         <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>">
 

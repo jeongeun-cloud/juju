@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jujumarket.main.domain.BasketVO;
+import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.main.domain.PageDTO;
+import com.jujumarket.main.domain.ReviewVO;
 import com.jujumarket.main.service.BasketService;
 import com.jujumarket.main.service.ItemMainService;
+import com.jujumarket.main.service.ReviewService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -35,7 +40,6 @@ public class BasketController {
    
    private ItemMainService itemservice;
    
-   
 //   모든 url 에 장바구니 db 연결 
    @GetMapping("*")
    public void list(Model model) {
@@ -47,8 +51,8 @@ public class BasketController {
 //   item 으로 끝나는 곳에 장바구니 db 랑 item db 연결 
    @GetMapping("/item")
    public void get(@RequestParam("itemCode") String itemCode, Model model) {
-      
       log.info("/item");
+
       model.addAttribute("product", itemservice.get(itemCode));
       model.addAttribute("list", basketservice.getList());
    }
@@ -168,8 +172,6 @@ public class BasketController {
 //      
 //      return "redirect:/basket/list";
 //   }
-   
-   
    
 
 }

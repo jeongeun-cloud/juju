@@ -48,6 +48,13 @@ public class BoardItemController {
       category = service.category();
       model.addAttribute("category", JSONArray.fromObject(category));
       
+      CategoryVO vo = new CategoryVO();
+      for(int i=0; i<category.size(); i++) {
+    	  vo = category.get(i);
+    	  if(vo.getClassCode().equals(classCode)) {
+    		  model.addAttribute("path", vo.getFullPath());
+    	  }
+      }
 
            //log.info("list"+cri);
          //log.info("class적용후 :"+order);
