@@ -20,7 +20,7 @@
         .whole_menu .dropdown-menu  a {
         /*전체 카테고리 안에 중분류 글씨 */
     	color:black;
-        font-weight: 500;
+        font-weight: 900;
         }
         .whole_menu .whole_menu-content.withdesc a:after {
         /* 전체 메뉴 안에 디테일한 설명들  */
@@ -32,6 +32,7 @@
         line-height: 0;
         margin: 10px 0 15px;
         text-transform: uppercase;
+        font-weight: 700;
     
     }
   
@@ -50,7 +51,7 @@
         /* 전체카테고리 dropdown한 내용 */
 
         padding: 25px 25px;
-        background:#fafafa;
+        background:#fafafa ;
     }
 
     .whole_menu .dropdown.whole_menu_category .dropdown-menu {
@@ -64,7 +65,7 @@
         font-weight:bold;
         margin-top:15px;
         text-transform:uppercase;
-        border-bottom:1px solid #efefef;
+        border-bottom:1px solid black;
         padding-bottom:10px;
     }
     .whole_menu ul {
@@ -75,14 +76,16 @@
     }
 
     #defaultmenu {
-        width: 100%;
+      
         min-width: 1080px;
+        width:1300px;
     }
     #defaultmenu > ul{
 
     display: table;
-    width: auto;
     float: left;
+    margin-left: 15%;
+    /* width: 1300px; */
     }
     .dropdown_each_menu{
         display: table-cell;
@@ -105,14 +108,20 @@
       
     }
     .navbar-default .navbar-nav>li>a{
-        color:green;
-        font-weight: 800;
+        color:black;
+        font-weight:bold
        
     }
-    #defaultmenu > ul{
-        margin-left: 20%;
-        width: 1300px;
+
+    .navbar-default .navbar-nav>.open>a:hover{
+        background-color:#ffc20b65;
     }
+    .navbar-default .navbar-brand{
+        color: black;
+        font-weight: bold;
+       
+    }
+/* 검색바 */
     .search_bar{
     position: absolute;
     top: 50%;
@@ -157,7 +166,8 @@
     font-size: 1.2em;
     transition: all 1s;
 }
-.search_bar:hover{
+
+form:hover{
     width: 200px;
     cursor: pointer;
 }
@@ -180,7 +190,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!--   <script src="js/bootstrap.min.js"></script> -->
    
-    <nav class="navbar navbar-default whole_menu" role="navigation" style=" background-color: #c9decf;">
+    <nav class="navbar navbar-default whole_menu" role="navigation" style=" background-color: #ffc30b ;">
       
 
         <div id="defaultmenu" class="navbar-collapse collapse">
@@ -191,7 +201,7 @@
             	</div>
         
                 <!-- 전체 카테고리  -->
-                <li class="dropdown whole_menu_category"  style="padding-left: 100px;"><a href="#" data-toggle="dropdown" class="dropdown-toggle">▲전체카테고리<b class="caret"></b></a>
+                <li class="dropdown whole_menu_category"  style="padding-left: 10px;"><a href="#" data-toggle="dropdown" class="dropdown-toggle">▲전체카테고리<b class="caret"></b></a>
                     <ul class="dropdown-menu fullwidth">
                         <!-- 대분류 /중분류-->
                         <li class="whole_menu-content withdesc">
@@ -282,14 +292,15 @@
                 
                 <!-- end 나머지 각 menu bar -->
             </ul><!-- end nav navbar-nav -->
-            <form class="search_bar" action="">
+            <!-- <form class="search_bar" action="">
                 <input class="search_content" type="search">
                 <i class="fa fa-search"></i>
-              </form>
+              </form> -->
             
         </div>
             </nav>
 
+           
            
               
 

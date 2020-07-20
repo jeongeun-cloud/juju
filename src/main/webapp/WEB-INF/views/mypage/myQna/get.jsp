@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
-      <%@include file="../../includes/header.jsp" %>
-   <%@include file="../../includes/menuBar.jsp" %>
+<%@include file="../../includes/header.jsp" %>
+<%@include file="../../includes/menuBar.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -10,14 +10,207 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
+
+
+<style>
+/* css 영역 */
+
+
+
+
+/* 사이드 메뉴 */
+.side{
+          
+     width: 200px;
+     height: 500px;
+     background-color: white;
+     float: left;
+     margin-right: 90px;
+     border:solid;
+            
+}
+
+ .regi_side_tit{
+      padding-top: 12px;
+      padding-bottom:12px ;
+      text-align: center;
+      width: 100%;
+      background-color: #ffc30b;
+      font-size: 20px;
+      font-weight: 900;
+            
+}
+/* 사이드 메뉴 끝 */
+
+
+
+
+
+
+
+
+
+        
+.regi_main{
+   float:  right;
+   width: 1000px;
+   height: 1000px;
+   background-color: white;
+} 
+
+.regi_main .regi_tit{
+   font-size: 30px;
+   margin-bottom:50px;
+
+}
+
+
+
+
+.regi_content{
+   width: 1300px;
+   height: 1000px;
+   margin:0 auto;
+   border: solid;
+}
+        
+.regi_wrap{
+                 
+   position: relative;
+   display: inline-block;
+   padding-top: 30px;
+   background-color: cornsilk;
+}
+        
+
+
+
+
+
+
+
+/* 등록, 리셋 버튼 시작 */
+#modifyBtn,
+#deleteBtn,
+#listBtn {
+  background-color: #ffc30b; 
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+
+#modifyBtn:hover,
+#deleteBtn:hover,
+#listBtn:hover {
+  background-color: white; 
+  color: #ffc30b; 
+  border: 2px solid #ffc30b;
+}
+
+#modifyBtn:focus,
+#deleteBtn:focus,
+#listBtn:focus { 
+    outline: none; 
+}
+
+
+/* 등록, 리셋 버튼 끝 */
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+
 </head>
 <body>
+
+
+
+
+
+<div class="regi_content">
+ <div class="regi_wrap">
+
+
+
+<%-- 
    <div class="row">
       <div class="col-lg-12">
          <h1 class="page-header"><c:out value="공지사항"/></h1>
       </div>
    </div>
    <!--  col-lg-12 end -->
+ --%>
+
+
+
+
+
+<!-- side 시작 -->
+   <div class="side">
+      <div class="1nb_list">
+         <div class="regi_side_tit">고객센터</div>
+           <div class="regi_side_menu">
+               <ul class="regi_menu">
+                    <p><b>쇼핑 이용 정보</b></p>
+                    <li> <a href='#'>-주문내역</a></li>
+                    <li><a href='#'>-장바구니</a></li>
+                    <br>
+                    <p><b>게시판 이용 내역</b></p>
+                    <li> <a href='#'>-1:1문의</a></li>
+                    <li><a href='#'>-나의 상품평</a></li>
+                    <li><a href='#'>-나의 상품 문의</a></li>
+                    <br>
+                    <p><b>개인정보 수정</b></p>
+                    <li> <a href='#'>-개인정보 수정</a></li>
+                    <li><a href='#'>-비밀번호 변경</a></li>
+                    <li><a href='#'>-회원 탈퇴</a></li>
+
+                </ul>
+           </div>
+     </div>
+     <!-- 1nb_list -->
+  </div>
+<!-- side 끝-->
+
+
+
+
+
+
+
+
+<!-- regi_main 시작 -->      
+<div class="regi_main">
+   
+   <!-- regi_tit 시작 -->
+    <div class="regi_tit">
+       <p><b>[1:1문의 등록하기]</b></p>
+   </div>
+   <!-- regi_tit 끝 -->
+
+
+
+
+
+
+
 
 
    <div class="row">
@@ -61,9 +254,9 @@
                        <input type ="hidden" name= 'type' value='<c:out value="${cri.type}"/>'>
                        <input type ="hidden" name= 'keyword' value='<c:out value="${cri.keyword}"/>'>  
                
-               <button data-oper='modify' class="btn btn-default">수정</button>
-               <button data-oper='remove' type="submit" class="btn btn-default">삭제</button>
-                    <button data-oper='list' type="submit" class="btn btn-info">리스트</button>
+               <button data-oper='modify' class="btn btn-default" id="modifyBtn">수정</button>
+               <button data-oper='remove' type="submit" class="btn btn-default" id="deleteBtn">삭제</button>
+                    <button data-oper='list' type="submit" class="btn btn-info" id="listBtn">리스트</button>
               </form>
                     
                     
@@ -133,6 +326,29 @@
                  </div><!-- RemoveBtn end -->
 
       
+      
+    
+      
+</div>
+<!-- regi_main 끝 -->         
+   
+   
+      
+      
+  
+</div>
+<!-- regi_content 끝 -->
+</div>      
+<!-- regi_wrap 끝 -->
+      
+         
+      
+      
+      
+      
+      
+      
+      
 
    <script type="text/javascript" src="/resources/js/reply.js"></script>  <!--댓글 스크립트. 경로인듯  -->
    
@@ -175,7 +391,8 @@
              
               str += "<button id='RemoveBtn' class ='btn btn-dangers'>"+'삭제'+"</button>"
               str += "<button id='ModifyBtn' class ='btn btn-dangers'>"+'수정'+"</button></div>"
-              str += "<div id='divBtnDelete' class ='btn btn-dange' style='display: none'>"          
+              str += "<div id='divBtnDelete' class ='btn btn-dange' style='display: none'>"  
+            
               str += "<button id='Mbtn' class ='btn btn-danger' >"+'수정완료'+"</button>"
               str += "<button id='Cbtn' class ='btn btn-danger' >"+'수정취소'+"</button></div>"
              

@@ -1,0 +1,24 @@
+#layer {
+   z-index: 2;
+   position: absolute;
+   top: 0px;
+   left: 0px;
+   width: 100%;
+   /* background-color:rgba(0,0,0,0.8); */
+}
+
+#popup_order_detail {
+   z-index: 3;
+   position: fixed;
+   text-align: center;
+   left: 10%;
+   top: 0%;
+   width: 60%;
+   height: 100%;
+   border: 2px solid;
+}
+
+#close {
+   z-index: 4;
+   float: right;
+}

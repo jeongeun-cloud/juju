@@ -26,7 +26,7 @@ public class DataSourceTests {
    
    @Test
    public void testConnection() {
-      
+	   log.info("AAAAA");
       try(
             Connection con = dataSource.getConnection();){
                     

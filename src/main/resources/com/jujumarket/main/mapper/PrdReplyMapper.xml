@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.main.mapper.PrdReplyMapper">
+
+<insert id="insert" >
+insert into t_prdQNA(replyNo,replyDepth,replyCount,replyContent,replyCode,itemCode,idNo)
+values (seq_prdReplyNo.nextval,#{replyDepth},#{replyCount},#{replyContent},#{replyCode},#{itemCode},#{idNo})
+
+</insert>
+
+
+<select id="read" resultType="com.jujumarket.main.domain.PrdReplyVO">
+select * from t_prdQNA where itemCode = #{itemCode}
+</select>
+
+<delete id ="delete">
+delete from t_prdQNA where replyNo = #{replyNo}
+</delete>
+
+<update id ="update">
+
+update t_prdQNA set replyContent = #{replyContent}, regDate = sysDate where
+replyNo = #{replyNo}
+
+</update>
+
+
+ <select id="getListWithPaging"
+resultType="com.jujumarket.main.domain.PrdReplyVO">
+
+select replyNo,replyDepth,replyCount,replyContent,replyCode,itemCode,idNo,regDate,updateDate
+from t_prdQNA
+where itemCode = #{itemCode}
+order by replyNo asc
+
+
+</select>
+
+<!-- replyNo number(30)  primary key not null,
+replyDepth number(30)not null,
+replyCount number(30)not null,
+replyContent varchar2(3000) not null,
+replyCode varchar2(50)not null,
+regDate timestamp not null,
+updateDate timestamp not null,
+itemCode VARCHAR2(50) not null,
+idNo varchar2(30) not null -->
+
+</mapper>

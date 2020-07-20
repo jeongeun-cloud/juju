@@ -29,7 +29,7 @@ public class ReplyMapperTests {
 	@Setter(onMethod_={@Autowired})
 	private ReplyMapper mapper;
 	
-	//@Test
+      @Test
 	public void testMapper() {
 		
 		log.info(mapper);
