@@ -11,8 +11,8 @@
 <link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
 <style>
         img{
-		width : 250px;
-    	}
+      width : 250px;
+       }
         li{
             list-style: none;
             float: left;
@@ -121,7 +121,7 @@
 <%@include file="../includes/header.jsp" %>
 <body>
 
-	 <div class="get_content">
+    <div class="get_content">
         <div class="get_wrap">
             <div class="side">
                 <div class="1nb_list">
@@ -239,71 +239,71 @@
        
    <script type="text/javascript">
    
-	   $(document).ready(function(){
-		   var actionForm = $("#actionForm");
-			
-			$('button').on("click", function(e) {
-				e.preventDefault();
-				
-				var operation = $(this).data("oper");
-				
-				console.log(operation);
-				
-				if(operation === 'remove') {
-					actionForm.attr("action", "/shop/remove");
-					
-				}else if(operation === 'list') {
-					actionForm.attr("action", "/shop/list").attr("method", "get");
-					var pageNumTag = $("input[name='pageNum']").clone();
-					var amountTag = $("input[name='amount']").clone();
-					
-					actionForm.empty();
-					actionForm.append(pageNumTag);
-					actionForm.append(amountTag);
-				}
-				actionForm.submit();
-			});
-			
-			
-		   var operForm = $("#operForm");
-		   
-		 	$("button[data-oper='list']").on("click", function(e) {
-		 		operForm.find("#itemCode").remove();
-		 		operForm.attr("action", "/shop/list");
-		 		operForm.submit();
-		 	});
-		 	
-		 	/* 라디오 값 불러와서 체크해주기 */
-			var disChk = $("#disValue").val();
-			var disRadio = $("input[type=radio][name=dispStat]");
-			for(i=0; i<disRadio.length; i++) {
-			 	if(disChk == disRadio[i].value) {
-			 		disRadio[i].checked = true;
-			 	}
-		 	}
-			
-			var saleChk = $("#saleValue").val();
-			var saleRadio = $("input[type=radio][name=saleStat]");
-			for(i=0; i<saleRadio.length; i++) {
-			 	if(saleChk == saleRadio[i].value) {
-			 		saleRadio[i].checked = true;
-			 	}
-		 	}
-		 	
-			// 체크박스 다중값 불러와서 체크해주기
-		 	var chk = $("#chkValue").val();
-		 	chk  = chk.split(",");
-		 	var itemChr = $("input[type=checkbox][name=itemChr]");
-		 	
-		 	for(i=0; i<itemChr.length; i++) {
-		 		for(j=0; j<chk.length; j++) {
-				 	if(chk[j] == itemChr[i].value) {
-				 		itemChr[i].checked = true;
-				 	}
-		 		}
-		 	}
+      $(document).ready(function(){
+         var actionForm = $("#actionForm");
+         
+         $('button').on("click", function(e) {
+            e.preventDefault();
+            
+            var operation = $(this).data("oper");
+            
+            console.log(operation);
+            
+            if(operation === 'remove') {
+               actionForm.attr("action", "/shop/remove");
+               
+            }else if(operation === 'list') {
+               actionForm.attr("action", "/shop/list").attr("method", "get");
+               var pageNumTag = $("input[name='pageNum']").clone();
+               var amountTag = $("input[name='amount']").clone();
+               
+               actionForm.empty();
+               actionForm.append(pageNumTag);
+               actionForm.append(amountTag);
+            }
+            actionForm.submit();
+         });
+         
+         
+         var operForm = $("#operForm");
+         
+          $("button[data-oper='list']").on("click", function(e) {
+             operForm.find("#itemCode").remove();
+             operForm.attr("action", "/shop/list");
+             operForm.submit();
+          });
+          
+          /* 라디오 값 불러와서 체크해주기 */
+         var disChk = $("#disValue").val();
+         var disRadio = $("input[type=radio][name=dispStat]");
+         for(i=0; i<disRadio.length; i++) {
+             if(disChk == disRadio[i].value) {
+                disRadio[i].checked = true;
+             }
+          }
+         
+         var saleChk = $("#saleValue").val();
+         var saleRadio = $("input[type=radio][name=saleStat]");
+         for(i=0; i<saleRadio.length; i++) {
+             if(saleChk == saleRadio[i].value) {
+                saleRadio[i].checked = true;
+             }
+          }
+          
+         // 체크박스 다중값 불러와서 체크해주기
+          var chk = $("#chkValue").val();
+          chk  = chk.split(",");
+          var itemChr = $("input[type=checkbox][name=itemChr]");
+          
+          for(i=0; i<itemChr.length; i++) {
+             for(j=0; j<chk.length; j++) {
+                if(chk[j] == itemChr[i].value) {
+                   itemChr[i].checked = true;
+                }
+             }
+          }
 
-	   });
+      });
    </script>
 </body>
 </html>

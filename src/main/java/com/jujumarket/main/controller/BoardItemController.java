@@ -50,7 +50,7 @@ public class BoardItemController {
          if(vo.getClassCode().equals(classCode)) {
             model.addAttribute("path", vo.getFullPath());
          }
-      	}
+         }
 
          log.info("classCode는?:"+classCode);
          model.addAttribute("list", service.gets(classCode)); 
@@ -80,7 +80,7 @@ public class BoardItemController {
       System.out.println("controller결과값:"+list);
       
       return ResponseEntity.status(HttpStatus.OK).body(list);
-		/* return ResponseEntity.status(HttpStatus.OK).body(list.toString()); */
+      /* return ResponseEntity.status(HttpStatus.OK).body(list.toString()); */
       
    }
    

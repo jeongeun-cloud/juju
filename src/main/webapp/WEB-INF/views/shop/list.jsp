@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -42,7 +42,7 @@
         }
         
         .side{
-         	
+            
             width: 200px;
             height: 200px;
             background-color: white;
@@ -124,10 +124,10 @@
            
         }
         table {
-		border-collapse: collapse;
+      border-collapse: collapse;
         width: 90%;
         margin-left: 50px;
-	    }
+       }
         .regi_list-btn{
             margin-bottom: 80px;
         }
@@ -179,74 +179,74 @@
         
         .page_num a{
          color: black;
-		  float: left;
-		  padding: 8px 16px;
-		  text-decoration: none;
-	
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+   
         }
-	     .pagination a:hover:not(.active) {
-	       background-color: #f6dd90;
-	       border-radius: 50%;}
-	     
-	     .regi_table{
-	     margin-botton: 20px;
-	     }
-	     .default_btn{
-	     background-color: #ffc30b;
-	     border: solid #ffc30b;
-	     border-radius:10px;
-	     color:white;
-	     }
-	     /* 모달디자인 시작  */
-		.close:hover,
-		.close:focus {
-		  color: #000;
-		  text-decoration: none;
-		  cursor: pointer;
-		}
-		
-		.modal-header {
-		  padding: 2px 16px;
-		  background-color: white;
-		  color: white;
-		}
-		
-		.modal-body {padding: 2px 16px;}
-		
-		.modal-footer {
-		  padding: 2px 16px;
-		  background-color: white;
-		  color: white;
-		}
-		
-		
-		#closeBtn {
-		  background-color: #ffc30b; 
-		  border: none;
-		  color: white;
-		  padding: 10px 20px;
-		  text-align: center;
-		  text-decoration: none;
-		  display: inline-block;
-		  font-size: 16px;
-		  margin: 4px 2px;
-		  transition-duration: 0.4s;
-		  cursor: pointer;
-		}
-		
-		#closeBtn:hover {
-		  background-color: white; 
-		  color: #ffc30b; 
-		  border: 2px solid #ffc30b;
-		
-		}
-		
-		#closeBtn:focus {
-		    outline: none; 
-		
-		}
-		/* 모달 디자인 끝 */
-	     
+        .pagination a:hover:not(.active) {
+          background-color: #f6dd90;
+          border-radius: 50%;}
+        
+        .regi_table{
+        margin-botton: 20px;
+        }
+        .default_btn{
+        background-color: #ffc30b;
+        border: solid #ffc30b;
+        border-radius:10px;
+        color:white;
+        }
+        /* 모달디자인 시작  */
+      .close:hover,
+      .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      
+      .modal-header {
+        padding: 2px 16px;
+        background-color: white;
+        color: white;
+      }
+      
+      .modal-body {padding: 2px 16px;}
+      
+      .modal-footer {
+        padding: 2px 16px;
+        background-color: white;
+        color: white;
+      }
+      
+      
+      #closeBtn {
+        background-color: #ffc30b; 
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+      }
+      
+      #closeBtn:hover {
+        background-color: white; 
+        color: #ffc30b; 
+        border: 2px solid #ffc30b;
+      
+      }
+      
+      #closeBtn:focus {
+          outline: none; 
+      
+      }
+      /* 모달 디자인 끝 */
+        
          </style>
 </head>
 <body>
@@ -337,7 +337,7 @@
                                     <td>
                                         <button class="default_btn"
                                         onclick="location.href='/shop/modify?itemCode=<c:out value="${item.itemCode }"/>&pageNum=<c:out value="${pageMaker.cri.pageNum}"/>&amount=<c:out value="${pageMaker.cri.amount}"/>&keyword=<c:out value="${pageMaker.cri.keyword}"/>&type=<c:out value="${pageMaker.cri.type}"/>'">
-                                 		           수정
+                                                  수정
                                         </button> 
                                     </td>
                                 </tr>
@@ -406,121 +406,121 @@
     <!-- regi_content -->
 
     <script type="text/javascript">
-		$(document).ready(function(){
+      $(document).ready(function(){
 
-			// 모달 관련 js
-			var result = '<c:out value="${result}"/>';
-			
-			checkModal(result);
-			console.log(result);
-			
-			history.replaceState({}, null, null);
-			
-			function checkModal(result) {
-				if(result === '' || history.state) {
-					return;
-				}
-				
-				if(result.length > 0) {
-					if(result != 'result') {
-						$(".modal-body").html("상품 " + result + " 번이 등록되었습니다.");
-					}
-				}
-				
-				$("#myModal").modal("show");
-			} 
-			
-			
-			// 전체 선택
-			$("#chkAll").click(function(){
-		        //클릭되었으면
-		        if($("#chkAll").prop("checked")){
-		            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
-		            $("input[name=chk]").prop("checked",true);
-		            //클릭이 안되있으면
-		        }else{
-		            //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
-		            $("input[name=chk]").prop("checked",false);
-		        }
-		    });
-			
-			// register로 이동
-			$("#pro_regiBtn").on("click", function(){
-				self.location="/shop/register";
-			});
-		 	
-		});
-		
-		// 체크박스 일괄 처리
-		function statAction(val) {
-			
-			var checkRow = "";
-			$("input[name='chk']:checked").each (function (){
-				checkRow = checkRow + $(this).val()+"," ;
-			});
-		  	checkRow = checkRow.substring(0,checkRow.lastIndexOf(",")); //맨끝 콤마 지우기
-		 
-		  	if(checkRow == ''){
-		    	alert("변경 혹은 삭제할 대상을 선택하세요.");
-		    	return false;
-		  	}
-		  	//console.log("### checkRow => " + checkRow);
-		  	
-		  	var page = $("#pageNum").val();
-		  	var amount = $("#amount").val();
-		  	
-			// 진열상태 변경 
-		  	if(val == "dis") {
-		  		location.href="/shop/disModify?itemCode="+checkRow+"&pageNum="+page+"&amount"+amount;
-			// 판매상태 변경 
-		  	}else if(val == "sale") {
-		  		location.href="/shop/saleModify?itemCode="+checkRow+"&pageNum="+page+"&amount"+amount;
-			// 품절로 변경 
-		  	}else if(val == "sold") {
-		  		location.href="/shop/soldModify?itemCode="+checkRow+"&pageNum="+page+"&amount"+amount;
-			// 삭제
-		  	}else if(val == "remove") {
-		  		location.href="/shop/remove?itemCode="+checkRow+"&pageNum="+page+"&amount"+amount;
-		  	}
-		}
-		
-		// 페이지 이동 
-		var actionForm = $("#actionForm");
-		$(".paginate_button a").on("click", function(e) {
-			e.preventDefault();
-			
-			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-			actionForm.submit();
-		});
-		
-		// get
-	 	$(".move").on("click", function(e) {
-			e.preventDefault();
-			
-			actionForm.append("<input type='hidden' name='itemCode' value='" + $(this).attr("href") + "'>");
-			actionForm.attr("action", "/shop/get");
-			actionForm.submit();
-		});
-		
-		// search
-		var searchForm = $("#searchForm");
-      	$("#searchForm button").on("click", function(e) {
-	        if(!searchForm.find("option:selected").val()) {
-	        	alert("검색 종류를 선택하세요");
-	            return false;
-	         }
+         // 모달 관련 js
+         var result = '<c:out value="${result}"/>';
          
-	         if(!searchForm.find("input[name='keyword']").val()) {
-	            alert("키워드를 입력하세요");
-	            return false;
-	         }
+         checkModal(result);
+         console.log(result);
          
-	         searchForm.find("input[name='pageNum']").val("1");
-	         e.preventDefault();
-	         
-	         searchForm.submit();
-	      });
+         history.replaceState({}, null, null);
+         
+         function checkModal(result) {
+            if(result === '' || history.state) {
+               return;
+            }
+            
+            if(result.length > 0) {
+               if(result != 'success') {
+                  $(".modal-body").html("상품 " + result + " 번이 등록되었습니다.");
+               }
+            }
+            
+            $("#myModal").modal("show");
+         } 
+         
+         
+         // 전체 선택
+         $("#chkAll").click(function(){
+              //클릭되었으면
+              if($("#chkAll").prop("checked")){
+                  //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+                  $("input[name=chk]").prop("checked",true);
+                  //클릭이 안되있으면
+              }else{
+                  //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+                  $("input[name=chk]").prop("checked",false);
+              }
+          });
+         
+         // register로 이동
+         $("#pro_regiBtn").on("click", function(){
+            self.location="/shop/register";
+         });
+          
+      });
+      
+      // 체크박스 일괄 처리
+      function statAction(val) {
+         
+         var checkRow = "";
+         $("input[name='chk']:checked").each (function (){
+            checkRow = checkRow + $(this).val()+"," ;
+         });
+           checkRow = checkRow.substring(0,checkRow.lastIndexOf(",")); //맨끝 콤마 지우기
+       
+           if(checkRow == ''){
+             alert("변경 혹은 삭제할 대상을 선택하세요.");
+             return false;
+           }
+           //console.log("### checkRow => " + checkRow);
+           
+           var page = $("#pageNum").val();
+           var amount = $("#amount").val();
+           
+         // 진열상태 변경 
+           if(val == "dis") {
+              location.href="/shop/disModify?itemCode="+checkRow+"&pageNum="+page+"&amount"+amount;
+         // 판매상태 변경 
+           }else if(val == "sale") {
+              location.href="/shop/saleModify?itemCode="+checkRow+"&pageNum="+page+"&amount"+amount;
+         // 품절로 변경 
+           }else if(val == "sold") {
+              location.href="/shop/soldModify?itemCode="+checkRow+"&pageNum="+page+"&amount"+amount;
+         // 삭제
+           }else if(val == "remove") {
+              location.href="/shop/remove?itemCode="+checkRow+"&pageNum="+page+"&amount"+amount;
+           }
+      }
+      
+      // 페이지 이동 
+      var actionForm = $("#actionForm");
+      $(".paginate_button a").on("click", function(e) {
+         e.preventDefault();
+         
+         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+         actionForm.submit();
+      });
+      
+      // get
+       $(".move").on("click", function(e) {
+         e.preventDefault();
+         
+         actionForm.append("<input type='hidden' name='itemCode' value='" + $(this).attr("href") + "'>");
+         actionForm.attr("action", "/shop/get");
+         actionForm.submit();
+      });
+      
+      // search
+      var searchForm = $("#searchForm");
+         $("#searchForm button").on("click", function(e) {
+           if(!searchForm.find("option:selected").val()) {
+              alert("검색 종류를 선택하세요");
+               return false;
+            }
+         
+            if(!searchForm.find("input[name='keyword']").val()) {
+               alert("키워드를 입력하세요");
+               return false;
+            }
+         
+            searchForm.find("input[name='pageNum']").val("1");
+            e.preventDefault();
+            
+            searchForm.submit();
+         });
 
-	</script>
+   </script>
 </body>
 </html>

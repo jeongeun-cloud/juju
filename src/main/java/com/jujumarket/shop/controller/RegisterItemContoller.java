@@ -72,50 +72,61 @@ public class RegisterItemContoller {
 //		return false;
 //	}
 	
+	// 이미지 저장
+	public void imgSave(RegisterItemVO register, MultipartFile[] uploadFile, boolean isModify) {
+
+	      Boolean flag = true;
+	      String uploadFolder = servletContext.getRealPath("/resources/upload");
+	      // 폴더 생성
+	      File uploadPath = new File(uploadFolder, "idNo");   // 임시로! 로그인 후엔 idNo 변경해주기
+	      log.info("upload path : " + uploadPath);
+	      
+	      if(uploadPath.exists() == false) {
+	         uploadPath.mkdir();      // 각 상점마다 자신의 폴더를 가짐
+	      }
+
+	      int i = 0;
+	      for(MultipartFile multi : uploadFile) {
+	         
+	         String uploadFilename = multi.getOriginalFilename();
+	         
+	         if(isModify){
+	        	 flag = (!uploadFilename.equals(""));
+	         }
+
+	         if(flag) {
+		         // IE has file path
+		         uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
+		         
+		         UUID uuid = UUID.randomUUID();
+		         uploadFilename = uuid.toString() + "_" + uploadFilename;
+	
+		         try {
+		            // 이미지 파일 path에 올리기
+		            File saveFile = new File(uploadPath, uploadFilename);
+		            multi.transferTo(saveFile);
+		            
+		         } catch (Exception e) {
+		            log.error(e.getMessage());
+		         } // end catch
+	         
+		         if(i==0) register.setItemImg1(uploadFilename);
+		         else if(i==1) register.setItemImg2(uploadFilename);
+		         else if(i==2) register.setItemImg3(uploadFilename);
+		         else if(i==3) register.setItemImg4(uploadFilename);
+		         else if(i==4) {
+		            register.setImgDetail(uploadFilename);
+		            break;
+		         }
+	         } 
+	         i++;
+	      } // end for
+	}
+	
 	@PostMapping("/register")
 	public String register(RegisterItemVO register, MultipartFile[] uploadFile, RedirectAttributes rttr) {
 		
-		String uploadFolder = servletContext.getRealPath("/resources/upload");
-		
-		// 폴더 생성
-		File uploadPath = new File(uploadFolder, "idNo");	// 임시로! 로그인 후엔 idNo 변경해주기
-		log.info("upload path : " + uploadPath);
-		
-		if(uploadPath.exists() == false) {
-			uploadPath.mkdir();
-		}
-
-		int i = 0;
-		for(MultipartFile multi : uploadFile) {
-			
-			String uploadFilename = multi.getOriginalFilename();
-			
-			// IE has file path
-			uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
-			
-			UUID uuid = UUID.randomUUID();
-			uploadFilename = uuid.toString() + "_" + uploadFilename;
-
-			try {
-				// 이미지 파일 path에 올리기
-				File saveFile = new File(uploadPath, uploadFilename);
-				multi.transferTo(saveFile);
-				
-			} catch (Exception e) {
-				log.error(e.getMessage());
-			} // end catch
-			
-			if(i==0) register.setItemImg1(uploadFilename);
-			else if(i==1) register.setItemImg2(uploadFilename);
-			else if(i==2) register.setItemImg3(uploadFilename);
-			else if(i==3) register.setItemImg4(uploadFilename);
-			else if(i==4) {
-				register.setImgDetail(uploadFilename);
-				break;
-			}
-			i++;
-		} // end for
-
+		imgSave(register, uploadFile, false);
 		
 		service.register(register);
 		rttr.addFlashAttribute("result", register.getItemCode());
@@ -149,49 +160,7 @@ public class RegisterItemContoller {
 	public String modify(RegisterItemVO register, MultipartFile[] uploadFile, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
 		log.info("modify : " + register);
 		
-		String uploadFolder = servletContext.getRealPath("/resources/upload");
-		
-		// 폴더 생성
-		File uploadPath = new File(uploadFolder, "idNo");	// 임시로! 로그인 후엔 idNo 변경해주기
-		log.info("upload path : " + uploadPath);
-		
-		if(uploadPath.exists() == false) {
-			uploadPath.mkdir();		// 각 상점마다 자신의 폴더를 가짐
-		}
-
-		int i = 0;
-		for(MultipartFile multi : uploadFile) {
-			
-			String uploadFilename = multi.getOriginalFilename();
-			
-			if(!uploadFilename.equals("")) {
-				// IE has file path
-				uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
-				
-				UUID uuid = UUID.randomUUID();
-				uploadFilename = uuid.toString() + "_" + uploadFilename;
-
-				try {
-					// 이미지 파일 path에 올리기
-					File saveFile = new File(uploadPath, uploadFilename);
-					multi.transferTo(saveFile);
-					
-				} catch (Exception e) {
-					log.error(e.getMessage());
-				} // end catch
-				
-				if(i==0) register.setItemImg1(uploadFilename);
-				else if(i==1) register.setItemImg2(uploadFilename);
-				else if(i==2) register.setItemImg3(uploadFilename);
-				else if(i==3) register.setItemImg4(uploadFilename);
-				else if(i==4) {
-					register.setImgDetail(uploadFilename);
-					break;
-				}
-			}
-			i++;
-			
-		} // end for
+		imgSave(register, uploadFile, true);
 		
 		if(service.modify(register)) {
 			rttr.addFlashAttribute("result", "success");
@@ -234,7 +203,7 @@ public class RegisterItemContoller {
 		}
 		
 		if(service.remove(itemCode)) {
-			rttr.addFlashAttribute("remove", "success");
+			rttr.addFlashAttribute("result", "success");
 		}
 		
 //		rttr.addAttribute("pageNum", cri.getPageNum());
@@ -255,7 +224,7 @@ public class RegisterItemContoller {
 		
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
-		rttr.addFlashAttribute("remove", "success");
+		rttr.addFlashAttribute("result", "success");
 		
 
 //		String[] arrIdx = itemCode.toString().split(",");
