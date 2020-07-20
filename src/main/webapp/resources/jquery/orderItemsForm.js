@@ -21,32 +21,13 @@ function execDaumPostcode() {
 			}
 
 			document.getElementById('zipcode').value = data.zonecode;
-			// 5자리
-			// 새우편번호
-			// 사용
+	
 			document.getElementById('roadAddress').value = fullRoadAddr;
 			document.getElementById('jibunAddress').value = data.jibunAddress;
 
-			// if (data.autoRoadAddress) {
-			// var expRoadAddr = data.autoRoadAddress
-			// + extraRoadAddr;
-			// document.getElementById('guide').innerHTML = '(예상 도로명 주소 : '
-			// + expRoadAddr + ')';
-			//
-			// } else if (data.autoJibunAddress) {
-			// var expJibunAddr = data.autoJibunAddress;
-			// document.getElementById('guide').innerHTML = '(예상 지번 주소 : '
-			// + expJibunAddr + ')';
-			//
-			// } else {
-			// document.getElementById('guide').innerHTML = '';
-			// }
-
-			// 우편번호 검색에서 검색하고 눌렀을 때 모달창 안닫히는 문제, 우편번호 검색에서 다른 주소 눌렀을 때 안 바뀌는 문제
 		}
 	}).open()
-	// autoClose의 default가 true기 때문에 별도처리할 필요없음
-	// 해결
+
 };
 
 window.onload = function() {
@@ -56,7 +37,7 @@ window.onload = function() {
 function init() {
 
 	var sameAsMem = $("#sameAsMem");
-	var recentDeliveryInfo = $("#recentDelivery");
+	var recentDelivery = $("#recentDelivery");
 	var orderResult = $("#orderResult");
 
 	var memName = $("#memName");
@@ -73,13 +54,13 @@ function init() {
 	var recentReceivAddr = $("#recentReceivAddr");
 
 	//회원정보에 저장된 배송지정보 check
-	sameAsMem.change(function() {
-		console.dir(sameAsMem);                             
+	sameAsMem.change(function() {                            
 		
 		if (sameAsMem.is(":checked")) {
 			receiver.val(memName.val());
 			receivContact.val(contact.val());
 			receivAddr.val(memAddr.val());
+			recentDelivery.prop("checked", false);
 		} else {
 			receiver.val("");
 			receivContact.val("");
@@ -88,13 +69,13 @@ function init() {
 
 	});
 	//최근배송지정보 check
-	recentDeliveryInfo.change(function(){
+	recentDelivery.change(function(){
 		
-		console.dir(recentDeliveryInfo);                                                             
-		if (recentDeliveryInfo.is(":checked")) {
+		if (recentDelivery.is(":checked")) {
 			receiver.val(recentReceiver.val());
 			receivContact.val(recentReceivContact.val());
 			receivAddr.val(recentReceivAddr.val());
+			sameAsMem.prop("checked", false);
 		} else {
 			receiver.val("");
 			receivContact.val("");

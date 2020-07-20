@@ -3,7 +3,7 @@ package com.jujumarket.order.service;
 import org.springframework.stereotype.Service;
 
 import com.jujumarket.order.domain.OrderMemberVO;
-import com.jujumarket.order.mapper.MemberMapper;
+import com.jujumarket.member.mapper.MemberMapper;
 
 import lombok.AllArgsConstructor;
 
