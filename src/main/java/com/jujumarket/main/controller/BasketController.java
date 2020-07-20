@@ -60,7 +60,7 @@ public class BasketController {
    @GetMapping("/basket")
    @ResponseBody
    public ResponseEntity<?> basketlist(Model model) {
-	   
+      
       log.info("listaaa");
       List<BasketVO> basket = null;
       basket = basketservice.getList();

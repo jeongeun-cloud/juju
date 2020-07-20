@@ -92,7 +92,7 @@
         .pro_module .txt_wrap{
             position: relative;
             margin-top: 16px;
-            background-color: greenyellow;
+         /*    background-color: greenyellow; */
             width: 100%;
             height: 170px;
         }
@@ -161,18 +161,72 @@
         }
         .pro_list .pro_list_ul .pro_list_li{
             float: left;
-            margin: 80px 0 0 36px;
+            margin: 80px 0 0 25px;
             min-height: 600px;
         }  
-        #proContent{
-        margin: 80px -40px 92px 77px;
-        
+        #so_Content{
+        margin: 90px -42px 92px 70px;      
         width:270px;
         height:500px;
         border: solid;
         float:left;
-        }    
-        
+        }   
+        #so_img{
+        width:100%;
+        height:300px;
+        position:relative;
+        overflow:hidden;
+        background-color:pink;
+	 } 
+	 #so_flag{
+	 margin-top:16px;
+	 margin-left:1px;
+	 width:55px;
+	 height:25px;
+	 font-size:12px;
+	 line-height:22px;
+	 font-weight:900;
+	 background-color:darkgray;
+	 text-align:center;
+	 
+	 
+	 }
+	 #so_itemName{
+	 display:block;
+	 font-weight:bold;
+	 font-size:20px;
+	 word-break: break-all;
+	 margin-top: 8px;
+	 }
+     #so_idNo{
+     display:block;
+     font-size:15px;
+     word-break:break-all;
+     margin-top:5px;
+     } 
+     #so_price{
+     display:inline-block;
+     font-size:21px;
+     line-height:27px;
+     font-weight:800;
+     margin-top:8px;
+     
+     }
+     #so_norPrice{
+     display:inline-block;
+     padding-left:6px;
+     font-size:13px;
+     line-height:21px;
+     text-decoration:line-through;
+     vertical-align:middle;
+     margin-top:8px;
+     }
+     #so_cart{
+     position: static;
+     margin-top:5px;
+     }
+     .mainCateg{
+     margin-left:70px;}
        
      
       
@@ -197,7 +251,7 @@
 
 	         <h1 style="color:orange"><c:out value="${path}"/></h1>
 	      
-	         <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>">
+	         <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>"> 
 
 
          </div>
@@ -337,7 +391,7 @@
 							                </div>
 							                <!-- END img_wrap -->
 							                <div class="txt_wrap">
-							                
+							                	 <a href="#" class="conts">
 							                        <div class="pro_flag_wrap">
 							                            <span class="flag">NEW</span>
 							                        </div>
@@ -358,7 +412,7 @@
 							                                  <span class="won">원</span>
 							                                </p>
 							                        </div>
-							                  
+							                  		 </a>
 							                    <div class="cart_btn">
 							                        <button type="button" class="add_to_cart">add to cart</button>
 							                    </div>
@@ -426,6 +480,7 @@
 integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" 
 crossorigin="anonymous"></script>
 <script>
+
 
 //컨트롤러에서 데이터 받기
 var jsonData = JSON.parse('${category}');
@@ -588,8 +643,17 @@ $(document).on("change", "select.mainCateg", function(){
 				
 	for(var i=0; i<response.length; i++){
 			console.log("table그리기 시작한다!!!!");
-		  	
-		$whole_list.append("<div id='proContent'>"+response[i].itemCode+"<br>"+response[i].itemName+"<br>"+response[i].price+"<br>"+response[i].classCode+"<br><br><br></div>");
+			
+
+	
+		
+		$whole_list.append("<div id='so_Content'>"+"<div id='so_img'>"+response[i].itemImg1+"</div>"+
+				"<div id='so_flag'>"+response[i].itemChr+"</div>"+
+				"<div id='so_itemName'>"+response[i].itemName+"</div>"+
+				"<div id='so_idNo'>"+response[i].idNo+"</div>"+
+				"<div id='so_price'>"+response[i].price+"원</div>"+
+				"<div id='so_norPrice'>"+response[i].normPrice+"원</div>"+
+				"<div id='so_cart'>"+"<button class='so_add_cart'>add to cart</button>"+"</div></div>");
 			
 		}
 	}
