@@ -19,34 +19,28 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
  
 
-
 @Log4j
 @Service
 @AllArgsConstructor
-//@DependsOn(value={"sqlSession"})
+
 public class BoardServiceImpl implements BoardService{
    
-
-//   @Autowired
-//   private SqlSession sqlSession;
-
    @Setter(onMethod_ = @Autowired)
    private BoardItemMapper mapper;
 
-
-
-   
    @Override
-   public List<BoardItemVO> gets(String classCode) {
+    public List<BoardItemVO> gets(String classCode) {
       log.info("gets...");
    return mapper.gets(classCode);
    }
    
+   
    @Override
-      public List<CategoryVO> category() {
-         log.info("카테고리 체크....");
-         return mapper.category();
-      }
+   public List<CategoryVO> category() {
+     log.info("카테고리 체크....");
+     return mapper.category();
+  }
+   
    
    @Override
    public List<BoardItemVO> getList(Criteria cri) {
@@ -54,7 +48,7 @@ public class BoardServiceImpl implements BoardService{
       return mapper.getListWithPaging(cri);
    }
    
-   //상품 sort해서 조회
+
    
    @Override 
    public List<BoardItemVO> listSort(SortVO sort) {
@@ -66,17 +60,17 @@ public class BoardServiceImpl implements BoardService{
      
      if(sort.getSort().equals("best")) {
         return mapper.bestProduct(sort.getClassCode()); 
-     }else if(sort.getSort().equals("highPrice")) { 
+     }
+     else if(sort.getSort().equals("highPrice")) { 
         return mapper.highPrice(sort.getClassCode()); 
-     }  else if(sort.getSort().equals("lowPrice")) {
+     }  
+     else if(sort.getSort().equals("lowPrice")) {
         return mapper.lowPrice(sort.getClassCode()); 
-     } else {
+     }
+     else {
         return mapper.newProduct(sort.getClassCode());
      }
    
-
-     
-     //return sqlSession.selectList("productSQL.getUserProductList",map);
      
      }
 

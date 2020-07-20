@@ -6,94 +6,216 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+
+        li{
+            list-style: none;
+            float: left;
+        }
+        a{
+            text-decoration: none;
+            color: #303030;
+            font-size: 17px;
+        }
+        .regi_content{
+            width: 1300px;
+            height: 100%;
+            margin:0 auto;
+           
+         }
+        .regi_wrap{
+                 
+                 position: relative;
+                display: inline-block;
+                padding-top: 30px;
+                
+             }
+        .side{
+          box-sizing: border-box;
+          width: 200px;
+          height: 200px;
+          background-color: white;
+          float: left;
+          margin-right: 90px;
+          border:solid #ffc30b;
+           
+         }
+        .regi_side_tit{
+            padding-top: 12px;
+            padding-bottom:12px;
+            text-align: center;
+            width: 100%;
+            background-color: #ffc30b;
+            font-size: 20px;
+            font-weight: 900;
+            height:29px;
+            
+
+         }
+         .regi_main{
+            float:  right;
+            width: 1000px;
+         
+            background-color: white;
+        } 
+        .regi_main .regi_tit{
+            font-size: 30px;
+            margin-bottom:50px;
+            
+
+        }
+        .regi_form{
+            margin: 50px 100px 0 150px;
+        }
+        .container label,
+        .container_i label{
+            font-size: 20px;
+            font-weight: 900;
+            
+        }
+        .container{
+            margin-bottom: 20px;
+        }
+        #uploadBtn,
+        #resetBtn{
+            background-color: #ffc30b; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 4px 2px;
+          
+        }
+        .regi_btn{
+            float: right;
+        }
+ 
+</style>
 
 </head>
 <body>
-	<a href='/shop/register'>상품 등록</a>
-    <a href='/shop/list'>상품 리스트</a>
-    <h2>상품 등록</h2>
-    <form role="form" action="/shop/register" method="POST" enctype="multipart/form-data">
-        <div class="container"> 
-            <label for="">상품 정보 입력</label><br>
-            
-            <select class="mainCateg" id="mainCateg">
-            	<option value="">대분류 선택</option>
-            </select>
-            <select class="midCateg" id="midCateg">
-            	<option value="">중분류 선택</option>
-            </select>
+<%@include file="../includes/header.jsp" %>
+    <div class="regi_content">
+        <div class="regi_wrap">
+            <div class="side">
+                <div class="1nb_list">
+                    <div class="regi_side_tit">
+                        상품 관리
+                    </div>
+                    <div class="regi_side_menu">
+                        <ul class="regi_menu">
+                            <li> <a href='/shop/register'><i class="fa fa-check" ></i>상품 등록</a></li>
+                            <li><a href='/shop/list'><i class="fa fa-check" ></i>상품 리스트</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- side -->
+            <div class="regi_main">
+                <div class="regi_tit">
+                    <p><b><i class="fa fa-list-alt"></i>상품 등록</b></p>
+                </div>
+                <div class="regi_form">
+                        <form role="form" action="/shop/register" method="POST" enctype="multipart/form-data">
+                            <div class="container"> 
+                                <label for="" ><i class="fa fa-chevron-right"></i>상품 정보 입력</label><br>
+                                   
+                                        <select class="mainCateg" id="mainCateg">
+                                            <option value="">대분류 선택</option>
+                                        </select>
+                                        <select class="midCateg" id="midCateg">
+                                            <option value="">중분류 선택</option>
+                                        </select>
+                                    
+                            </div>
+                            <!-- 분류코드 저장하기 위한 hidden값 -->
+                            <input type="hidden" name="classCode" id="classCode" >
+                            
+                            <input type="text" name="itemName" id="itemName" placeholder="상품명을 입력하세요." style="width: 350px;">
+                            <div class="container">
+                                
+                                <label for="itemContent">상품 상세정보</label><br>
+                                <textarea name="itemContent" id="itemContent" style="height: 200px; width:350px; resize:none;"></textarea>
+                            </div>
+                            <div class="container">
+                                <small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
+                                <label for="price"><i class="fa fa-chevron-right"></i>판매가격</label>
+                                <input type="text" name="price" id="price" numberOnly><br>
+                                <label for="normPrice"><i class="fa fa-chevron-right"></i>정상가격</label>
+                                <input type="text" name="normPrice" id="normPrice" numberOnly>
+                            </div>
+                            <div class="container" >
+                               <label for="stock" > <i class="fa fa-chevron-right"></i>재고</label>
+                                <input type="text" name="stock" id="stock" numberOnly><br>
+                            </div>
+                            
+                            <div class="container">
+                                <div class="display">
+                                        <label for="status"><i class="fa fa-chevron-right"></i><b>표시상태 설정</b></label><br>
+                                        <div class="display_sta">
+                                            <label for="">진열상태</label>
+                                            <input type="radio" name="dispStat" value="진열함" checked="checked">진열함
+                                            <input type="radio" name="dispStat" value="진열안함">진열안함<br>
+                                            <label for="">판매상태</label>
+                                            <input type="radio" name="saleStat" value="판매중" checked="checked">판매중
+                                            <input type="radio" name="saleStat" value="판매중지">판매중지
+                                        </div>    
+                                </div>    
+                            </div>
+                            <div class="container">
+                                <label><i class="fa fa-chevron-right"></i>상품 특성 <small style="opacity:0.75;">(특성을 선택하지 않으면 기본으로 설정 됩니다.)</small></label><br>
+                                <input type="checkbox" name="itemChr" value="신상품">신상품
+                                <input type="checkbox" name="itemChr" value="할인">할인
+                                <!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
+                                <input type="checkbox" name="itemChr" value="기본" checked="checked" style="visibility:hidden">
+                            </div>
+                            
+                            <!-- 파일 업로드 시작 -->
+                            <div class="container_i">
+                                <label><i class="fa fa-chevron-right"></i>메인 이미지</label>
+                                <input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                <div class="select_img1"><img src="" /></div>
+                            </div>
+                            <div class="container_i">
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                                <input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                <div class="select_img2"><img src="" /></div>
+                            </div>
+                            <div class="container_i">
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                                <input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                <div class="select_img3"><img src="" /></div>
+                            </div>
+                            <div class="container_i">
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                                <input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                <div class="select_img4"><img src="" /></div>
+                            </div>
+                            <div class="container_i">
+                                <label><i class="fa fa-chevron-right"></i>상품 상세 설명 이미지</label>
+                                <input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                <div class="select_img5"><img src="" /></div>
+                            </div>
+                            
+                            <!-- <button type="button" onclick="submitAction();">Submit Button</button> -->
+                            <!-- <button type="submit">Submit Button</button> -->
+                            <div class="regi_btn">
+                                <button id="uploadBtn">Submit Button</button>
+                                <button id="resetBtn" type="reset">Reset Button</button>
+                            </div>
+                        </form>
+                </div>
+            </div>
+
         </div>
-        <!-- 분류코드 저장하기 위한 hidden값 -->
-        <input type="hidden" name="classCode" id="classCode" >
-        
-        <input type="text" name="itemName" id="itemName" placeholder="상품명을 입력하세요." style="width: 350px;">
-        <div class="container">
-            <label for="itemContent">상품 상세정보</label><br>
-            <textarea name="itemContent" id="itemContent" style="height: 200px; width:350px; resize:none;"></textarea>
-        </div>
-        <div class="container">
-        	<small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
-            <label for="price">판매가격</label>
-            <input type="text" name="price" id="price" numberOnly><br>
-            <label for="normPrice">정상가격</label>
-            <input type="text" name="normPrice" id="normPrice" numberOnly>
-        </div>
-        <div class="container">
-            <label for="stock">재고</label>
-            <input type="text" name="stock" id="stock" numberOnly><br>
-        </div>
-        
-        <div class="container">
-            <label for="status"><b>표시상태 설정</b></label><br>
-            <label for="">진열상태</label>
-            <input type="radio" name="dispStat" value="진열함" checked="checked">진열함
-            <input type="radio" name="dispStat" value="진열안함">진열안함<br>
-            <label for="">판매상태</label>
-            <input type="radio" name="saleStat" value="판매중" checked="checked">판매중
-            <input type="radio" name="saleStat" value="판매중지">판매중지
-        </div>
-        <div class="container">
-            <label>상품 특성 <small style="opacity:0.75;">(특성을 선택하지 않으면 기본으로 설정 됩니다.)</small></label><br>
-            <input type="checkbox" name="itemChr" value="신상품">신상품
-            <input type="checkbox" name="itemChr" value="할인">할인
-            <!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
-            <input type="checkbox" name="itemChr" value="기본" checked="checked" style="visibility:hidden">
-        </div>
-        
-        <!-- 파일 업로드 시작 -->
-        <div class="container">
-        	<label>메인 이미지</label>
-            <input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-            <div class="select_img1"><img src="" /></div>
-        </div>
-        <div class="container">
-        	<label>서브 이미지</label>
-            <input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-            <div class="select_img2"><img src="" /></div>
-        </div>
-        <div class="container">
-        	<label>서브 이미지</label>
-            <input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-            <div class="select_img3"><img src="" /></div>
-        </div>
-        <div class="container">
-        	<label>서브 이미지</label>
-            <input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-            <div class="select_img4"><img src="" /></div>
-        </div>
-        <div class="container">
-        	<label>상품 상세 설명 이미지</label>
-            <input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-            <div class="select_img5"><img src="" /></div>
-        </div>
-        
-        <!-- <button type="button" onclick="submitAction();">Submit Button</button> -->
-        <!-- <button type="submit">Submit Button</button> -->
-        <button id="uploadBtn">Submit Button</button>
-        <button id="resetBtn" type="reset">Reset Button</button>
-    </form>
+    </div>
     
  	<script
 	  src="https://code.jquery.com/jquery-3.5.1.js"

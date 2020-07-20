@@ -6,109 +6,233 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<style>
-	img{
-		width : 250px;
-	}
-</style>
+    <style>
+         li{
+            list-style: none;
+            float: left;
+        }
+        a{
+            text-decoration: none;
+            color: #303030;
+            font-size: 17px;
+        }
+        .modi_content{
+            width: 1300px;
+            height: 100%;
+            margin:0 auto;
+            
+         }
+        .modi_wrap{
+                 
+            position: relative;
+            display: inline-block;
+            padding-top: 30px;
+           
+                
+             }
+        .side{
+		  box-sizing: border-box;
+          width: 200px;
+          height: 200px;
+          background-color: white;
+          float: left;
+          margin-right: 90px;
+          border:solid #ffc30b;
+           
+         }
+        .modi_side_tit{
+            padding-top: 12px;
+            padding-bottom:12px ;
+            text-align: center;
+            width: 100%;
+          
+            background-color: #ffc30b;
+            font-size: 20px;
+            font-weight: 900;
+            
+
+         }
+        .modi_main{
+            float:  right;
+            width: 1000px;       
+            background-color: white;
+        } 
+        .modi_main .modi_tit{
+            font-size: 30px;
+            margin-bottom:50px;
+
+        }
+        .modi_form{
+            margin: 50px 100px 0 150px;
+
+        }
+        .container label{
+            font-size: 20px;
+            font-weight: 900;
+            
+        }
+        .container{
+            margin-bottom:20px;
+        }
+        /* 버튼 */
+        .modi_btn #uploadBtn,
+        .modi_btn #rBtn,
+        .modi_btn #lBtn{
+            background-color: #ffc30b; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 4px 2px;
+          
+        }
+        .modi_btn #uploadBtn:hover,
+        .modi_btn #rBtn:hover,
+        .modi_btn #lBtn:hover{
+        background-color: white; 
+        color: #ffc30b; 
+        border: 2px solid #ffc30b;
+        }
+        .modi_btn #uploadBtn:focus,
+        .modi_btn #rBtn:focus,
+        .modi_btn #lBtn:focus{
+        outline:none;
+        }
+        
+        .modi_btn{
+            float: right;
+        }
+        /* 버튼 끝 */
+    </style>
 </head>
 <body>
-	<a href='/shop/register'>상품 등록</a>
-    <a href='/shop/list'>상품 리스트</a>
-	<h2>상품 수정</h2>
-	<form role="form" action="/shop/modify" method="POST" enctype="multipart/form-data">
-		<!-- 추가 -->
-		<input type="hidden" name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
-		<input type="hidden" name='amount' value='<c:out value="${cri.amount }"/>'>
-		<input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>' >
-        <input type='hidden' name='type' value='<c:out value="${cri.type }"/>' >
-		
-		<div class="container">
-			<label for="category">상품 정보 수정</label><br>
-		</div>
-		<input type="hidden" name="itemCode" value='<c:out value="${item.itemCode }"/>'>
-		<div class="container">
-	        <label for="itemName">상품 이름</label><br>
-			<input type="text" name="itemName" id="itemName" style="width: 350px;" value='<c:out value="${item.itemName }"/>'>
-       	</div>
-		<div class="container">
-           <label for="category">카테고리 분류</label><br>
-	       <input type="text" name="getCategory" style="width: 350px;" value='<c:out value="${getCategory }"/>' readonly="readonly">
-       </div>
-		<div class="container">
-			<label for="itemContent">상품 상세정보</label><br>
-			<textarea name="itemContent" id="itemContent" style="height: 200px; width: 350px; resize:none;"><c:out value="${item.itemContent }" /></textarea>
-		</div>
-		<div class="container">
-			<small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
-			<label for="price">판매가격</label> 
-			<input type="text" name="price" id="price" numberOnly value='<c:out value="${item.price }"/>'> <br> 
-			<label for="normPrice">정상가격</label> 
-			<input type="text" name="normPrice" id="normPrice" numberOnly value='<c:out value="${item.normPrice }"/>'>
-		</div>
-		<div class="container">
-			<label for="stock">재고</label> 
-			<input type="text" name="stock" id="stock" numberOnly value='<c:out value="${item.stock }"/>'><br>
-		</div>
-
-		<div class="container">
-			<label for="status"><b>표시상태 설정</b></label><br> 
-			<label for="">진열상태</label>
-				<input type="hidden" id="disValue" value='<c:out value="${item.dispStat}"/>'>
-				<input type="radio" name="dispStat" value="진열함">진열함
-				<input type="radio" name="dispStat" value="진열안함">진열안함<br>
-			<label for="">판매상태</label> 
-				<input type="hidden" id="saleValue" value='<c:out value="${item.saleStat}"/>'>
-				<input type="radio" name="saleStat" value="판매중">판매중
-				<input type="radio" name="saleStat" value="판매중지">판매중지 
-				<input type="radio" name="saleStat" value="품절">품절
-		</div>
-		<div class="container">
-			<label>상품 특성<small style="opacity:0.75;">(특성을 선택하지 않으면 기본으로 설정 됩니다.)</small></label><br> 
-			<input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
-			<input type="checkbox" name="itemChr" value="신상품">신상품 
-			<input type="checkbox" name="itemChr" value="할인">할인
-			<!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
-            <input type="checkbox" name="itemChr" value="기본" style="visibility:hidden">
-		</div>
-        
-        <div class="container">
-        	<label>메인 이미지</label>
-        	<input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-        	<input type='hidden' name="itemImg1" value="<c:out value="${item.itemImg1}"/>">
-            <div class="select_img1"><img src='/resources/upload/idNo/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
+<%@include file="../includes/header.jsp" %>
+    <div class="modi_content">
+        <div class="modi_wrap">
+            <div class="side">
+                <div class="1nb_list">
+                    <div class="modi_side_tit">
+                        상품 관리
+                    </div>
+                    <div class="modi_side_menu">
+                        <ul class="modi_menu">
+                            <li> <a href='/shop/register'><i class="fa fa-check" ></i>상품 등록</a></li>
+                            <li><a href='/shop/list'><i class="fa fa-check" ></i>상품 리스트</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- side -->
+            <div class="modi_main">
+                <div class="modi_tit">
+                    <p><b><i class="fa fa-list-alt"></i>상품 수정</b></p>
+                </div>
+                    <div class="modi_form">
+                        <form role="form" action="/shop/modify" method="POST" enctype="multipart/form-data">
+                            <!-- 추가 -->
+                            <input type="hidden" name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
+                            <input type="hidden" name='amount' value='<c:out value="${cri.amount }"/>'>
+                            <input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>' >
+                            <input type='hidden' name='type' value='<c:out value="${cri.type }"/>' >
+                            
+                            <div class="container">
+                                <label for="category"><i class="fa fa-scissors"></i>상품 정보 수정</label><br>
+                            </div>
+                            <input type="hidden" name="itemCode" value='<c:out value="${item.itemCode }"/>'>
+                            <div class="container">
+                                <label for="itemName"><i class="fa fa-chevron-right"></i>상품 이름</label><br>
+                                <input type="text" name="itemName" id="itemName" style="width: 350px;" value='<c:out value="${item.itemName }"/>'>
+                            </div>
+                            <div class="container">
+                            <label for="category"><i class="fa fa-chevron-right"></i>카테고리 분류</label><br>
+                            <input type="text" name="getCategory" style="width: 350px;" value='<c:out value="${getCategory }"/>' readonly="readonly">
+                        </div>
+                            <div class="container">
+                                <label for="itemContent"><i class="fa fa-chevron-right"></i>상품 상세정보</label><br>
+                                <textarea name="itemContent" id="itemContent" style="height: 200px; width: 350px; resize:none;"><c:out value="${item.itemContent }" /></textarea>
+                            </div>
+                            <div class="container">
+                                <small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
+                                <label for="price"><i class="fa fa-chevron-right"></i>판매가격</label> 
+                                <input type="text" name="price" id="price" numberOnly value='<c:out value="${item.price }"/>'> <br> 
+                                <label for="normPrice"><i class="fa fa-chevron-right"></i>정상가격</label> 
+                                <input type="text" name="normPrice" id="normPrice" numberOnly value='<c:out value="${item.normPrice }"/>'>
+                            </div>
+                            <div class="container">
+                                <label for="stock"><i class="fa fa-chevron-right"></i>재고</label> 
+                                <input type="text" name="stock" id="stock" numberOnly value='<c:out value="${item.stock }"/>'><br>
+                            </div>
+                    
+                            <div class="container">
+                                <label for="status"><b><i class="fa fa-chevron-right"></i>표시상태 설정</b></label><br> 
+                                <label for="">진열상태</label>
+                                    <input type="hidden" id="disValue" value='<c:out value="${item.dispStat}"/>'>
+                                    <input type="radio" name="dispStat" value="진열함">진열함
+                                    <input type="radio" name="dispStat" value="진열안함">진열안함<br>
+                                <label for="">판매상태</label> 
+                                    <input type="hidden" id="saleValue" value='<c:out value="${item.saleStat}"/>'>
+                                    <input type="radio" name="saleStat" value="판매중">판매중
+                                    <input type="radio" name="saleStat" value="판매중지">판매중지 
+                                    <input type="radio" name="saleStat" value="품절">품절
+                            </div>
+                            <div class="container">
+                                <label><i class="fa fa-chevron-right"></i>상품 특성<small style="opacity:0.75;">(특성을 선택하지 않으면 기본으로 설정 됩니다.)</small></label><br> 
+                                <input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
+                                <input type="checkbox" name="itemChr" value="신상품">신상품 
+                                <input type="checkbox" name="itemChr" value="할인">할인
+                                <!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
+                                <input type="checkbox" name="itemChr" value="기본" style="visibility:hidden">
+                            </div>
+                            
+                            <div class="container">
+                                <label><i class="fa fa-chevron-right"></i>메인 이미지</label>
+                                <input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                <input type='hidden' name="itemImg1" value="<c:out value="${item.itemImg1}"/>">
+                                <!-- <div class="select_img1"><img src='/resources/upload/idNo/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" /></div> -->
+                            </div>
+                            <div class="container">
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                                <input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                <input type='hidden' name="itemImg2" value="<c:out value="${item.itemImg2}"/>">
+                                <!-- <div class="select_img2"><img src='/resources/upload/idNo/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" /></div> -->
+                            </div>
+                            <div class="container">
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                                <input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                <input type='hidden' name="itemImg3" value="<c:out value="${item.itemImg3}"/>">
+                                <!-- <div class="select_img3"><img src='/resources/upload/idNo/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" /></div> -->
+                            </div>
+                            <div class="container">
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                                <input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                <input type='hidden' name="itemImg4" value="<c:out value="${item.itemImg4}"/>">
+                                <!-- <div class="select_img4"><img src='/resources/upload/idNo/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" /></div> -->
+                            </div>
+                            <div class="container">
+                                <label><i class="fa fa-chevron-right"></i>상품 상세 설명 이미지</label>
+                                <input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                <input type='hidden' name="imgDetail" value="<c:out value="${item.imgDetail}"/>">
+                                <!-- <div class="select_img5"><img src='/resources/upload/idNo/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" /></div> -->
+                            </div>
+                    
+                            <div class="modi_btn">
+                                <button id="uploadBtn" >Modify</button>
+                                <button type="button" class="btn" id="rBtn" data-oper='remove'>Remove</button>
+                                <button type="button" class="btn" id="lBtn" data-oper='list'>List</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- modi_form -->
+            </div>
         </div>
-        <div class="container">
-        	<label>서브 이미지</label>
-        	<input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-        	<input type='hidden' name="itemImg2" value="<c:out value="${item.itemImg2}"/>">
-            <div class="select_img2"><img src='/resources/upload/idNo/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
-        </div>
-        <div class="container">
-        	<label>서브 이미지</label>
-        	<input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-        	<input type='hidden' name="itemImg3" value="<c:out value="${item.itemImg3}"/>">
-            <div class="select_img3"><img src='/resources/upload/idNo/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
-        </div>
-        <div class="container">
-        	<label>서브 이미지</label>
-        	<input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-        	<input type='hidden' name="itemImg4" value="<c:out value="${item.itemImg4}"/>">
-            <div class="select_img4"><img src='/resources/upload/idNo/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
-        </div>
-        <div class="container">
-        	<label>상품 상세 설명 이미지</label>
-        	<input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-        	<input type='hidden' name="imgDetail" value="<c:out value="${item.imgDetail}"/>">
-            <div class="select_img5"><img src='/resources/upload/idNo/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
-        </div>
-
-		<button id="uploadBtn">Modify</button>
-		<button type="button" class="btn" data-oper='remove'>Remove</button>
-		<button type="button" class="btn" data-oper='list'>List</button>
-	</form>
+    </div>
 	
 	<script
 	  src="https://code.jquery.com/jquery-3.5.1.js"
