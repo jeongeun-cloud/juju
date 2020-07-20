@@ -2,7 +2,6 @@ package com.jujumarket.main.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Select;
 
 import com.jujumarket.main.domain.ItemMainVO;
 
