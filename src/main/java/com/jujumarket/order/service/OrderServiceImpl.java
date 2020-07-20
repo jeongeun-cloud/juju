@@ -87,9 +87,9 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.orderResponse(idNo);
 	}
 
-//	@Override
-//	public String getRecentOrderCode(String idNo) {
-//		return orderMapper.getRecentOrderCode(idNo);
-//	}
+	@Override
+	public String getRecentOrderCode(String idNo) {
+		return orderMapper.getRecentOrderCode(idNo);
+	}
 
 }

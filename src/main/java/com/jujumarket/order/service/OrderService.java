@@ -21,7 +21,7 @@ public interface OrderService {
 
 	public List<OrderResponseVO> getOrderResponse(String idNo);
 
-//	public String getRecentOrderCode(String idNo);
+	public String getRecentOrderCode(String idNo);
 	
 
 }
