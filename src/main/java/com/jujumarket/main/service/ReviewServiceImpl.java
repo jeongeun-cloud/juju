@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jujumarket.main.domain.Criteria;
 import com.jujumarket.main.domain.ReviewVO;
+import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.main.domain.ReviewPageDTO;
 import com.jujumarket.main.mapper.ReviewMapper;
 
 import lombok.AllArgsConstructor;
@@ -26,13 +27,6 @@ public class ReviewServiceImpl implements ReviewService {
 		log.info("getList.....");
 		
 		return mapper.getList(itemCode);
-	}
-	
-	@Override
-	public List<ReviewVO> getListWithPaging(Criteria cri, String itemCode) {
-		log.info("getList with Cri..... : " + cri);
-		
-		return mapper.getListWithPaging(cri, itemCode);
 	}
 
 	@Override
@@ -61,6 +55,14 @@ public class ReviewServiceImpl implements ReviewService {
 		log.info("remove......" + reviewNo);
 		
 		return mapper.delete(reviewNo);
+	}
+
+	@Override
+	public ReviewPageDTO getListPage(Criteria cri, String itemCode) {
+		
+		return new ReviewPageDTO(
+				mapper.getCountByItemCode(itemCode),
+				mapper.getListWithPaging(cri, itemCode));
 	}
 
 //	@Override

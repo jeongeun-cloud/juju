@@ -227,7 +227,7 @@
      crossorigin="anonymous"></script>
     <script type="text/javascript">
 
-      var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif)$");
+      var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG)$");
        var maxSize = 5242880;
        
        function checkExtension(fileType, fileSize) {

@@ -2,8 +2,9 @@ package com.jujumarket.main.service;
 
 import java.util.List;
 
-import com.jujumarket.main.domain.Criteria;
 import com.jujumarket.main.domain.ReviewVO;
+import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.main.domain.ReviewPageDTO;
 
 public interface ReviewService {
 	
@@ -17,7 +18,7 @@ public interface ReviewService {
 	
 	public List<ReviewVO> getList(String itemCode);
 	
-	public List<ReviewVO> getListWithPaging(Criteria cri, String itemCode);
+	public ReviewPageDTO getListPage(Criteria cri, String itemCode);
 	
 //	public int getTotal(Criteria cri);
 

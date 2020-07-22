@@ -2,6 +2,8 @@ package com.jujumarket.main.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.jujumarket.main.domain.Criteria;
 import com.jujumarket.main.domain.ReviewVO;
 
@@ -9,7 +11,7 @@ public interface ReviewMapper {
 	
 	public List<ReviewVO> getList(String itemCode);
 	
-	public List<ReviewVO> getListWithPaging(Criteria cri, String itemCode);
+	public List<ReviewVO> getListWithPaging(@Param("cri") Criteria cri, @Param("itemCode") String itemCode);
 	
 	public int insert(ReviewVO register);
 	
@@ -21,6 +23,6 @@ public interface ReviewMapper {
 	
 	public int update(ReviewVO register);
 	
-//	public int getTotalCount(Criteria cri);
+	public int getCountByItemCode(String itemCode);
 
 }

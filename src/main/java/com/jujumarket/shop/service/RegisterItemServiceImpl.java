@@ -70,7 +70,7 @@ public class RegisterItemServiceImpl implements RegisterItemService {
 
 	@Override
 	public List<CategoryVO> category() {
-		log.info("ì¹´í…Œê³ ë¦¬ ì²´í¬....");
+		log.info("Ä«Å×°í¸® Ã¼Å©....");
 		return mapper.category();
 	}
 	
@@ -86,41 +86,41 @@ public class RegisterItemServiceImpl implements RegisterItemService {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         
         try{
-            //Excel Down ì‹œì‘
+            //Excel Down ½ÃÀÛ
             Workbook workbook = new XSSFWorkbook();
-            //ì‹œíŠ¸ìƒì„±
-            Sheet sheet = workbook.createSheet("ìƒí’ˆ ë¦¬ìŠ¤íŠ¸");
+            //½ÃÆ®»ı¼º
+            Sheet sheet = workbook.createSheet("»óÇ° ¸®½ºÆ®");
             
-            //í–‰, ì—´, ì—´ë²ˆí˜¸
+            //Çà, ¿­, ¿­¹øÈ£
             Row row = null;
             Cell cell = null;
             int rowNo = 0;
 
-            // í—¤ë” ìƒì„±
+            // Çì´õ »ı¼º
             row = sheet.createRow(rowNo++);
     
             cell = row.createCell(0);
-            cell.setCellValue("ìƒí’ˆì½”ë“œ");
+            cell.setCellValue("»óÇ°ÄÚµå");
             cell = row.createCell(1);
-            cell.setCellValue("ìƒí’ˆëª…");
+            cell.setCellValue("»óÇ°¸í");
             cell = row.createCell(2);
-            cell.setCellValue("íŒë§¤ê°€");
+            cell.setCellValue("ÆÇ¸Å°¡");
             cell = row.createCell(3);
-            cell.setCellValue("ì •ìƒê°€");
+            cell.setCellValue("Á¤»ó°¡");
             cell = row.createCell(4);
-            cell.setCellValue("ì¬ê³ ");
+            cell.setCellValue("Àç°í");
             cell = row.createCell(5);
-            cell.setCellValue("ì§„ì—´ìƒíƒœ");
+            cell.setCellValue("Áø¿­»óÅÂ");
             cell = row.createCell(6);
-            cell.setCellValue("íŒë§¤ìƒíƒœ");
+            cell.setCellValue("ÆÇ¸Å»óÅÂ");
             cell = row.createCell(7);
-            cell.setCellValue("ìƒí’ˆ íŠ¹ì„±");
+            cell.setCellValue("»óÇ° Æ¯¼º");
             cell = row.createCell(8);
-            cell.setCellValue("ë“±ë¡ì¼");
+            cell.setCellValue("µî·ÏÀÏ");
             cell = row.createCell(9);
-            cell.setCellValue("ìˆ˜ì •ì¼");
+            cell.setCellValue("¼öÁ¤ÀÏ");
     
-            // ë°ì´í„° ë¶€ë¶„ ìƒì„±
+            // µ¥ÀÌÅÍ ºÎºĞ »ı¼º
             for(Object obj : list) {
                 RegisterItemVO vo = (RegisterItemVO) obj;
                 
@@ -148,12 +148,12 @@ public class RegisterItemServiceImpl implements RegisterItemService {
                 cell.setCellValue(format.format(vo.getUpdateDate()));
             }
             
-            // ì»¨í…ì¸  íƒ€ì…ê³¼ íŒŒì¼ëª… ì§€ì •
+            // ÄÁÅÙÃ÷ Å¸ÀÔ°ú ÆÄÀÏ¸í ÁöÁ¤
             response.setContentType("ms-vnd/excel");
-//            response.setHeader("Content-Disposition", "attachment;filename=ProductList.xls");	// ì˜›ë‚  ë²„ì „ excel2003?ì´ì „
-            response.setHeader("Content-Disposition", "attachment;filename=ProductList.xlsx");	// excel2007ì´í›„ ë²„ì „
+//            response.setHeader("Content-Disposition", "attachment;filename=ProductList.xls");	// ¿¾³¯ ¹öÀü excel2003?ÀÌÀü
+            response.setHeader("Content-Disposition", "attachment;filename=ProductList.xlsx");	// excel2007ÀÌÈÄ ¹öÀü
  
-            // ì—‘ì…€ ì¶œë ¥
+            // ¿¢¼¿ Ãâ·Â
             workbook.write(response.getOutputStream());
 //            workbook.close();
         } catch (IOException e) {

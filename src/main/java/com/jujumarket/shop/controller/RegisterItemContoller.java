@@ -68,7 +68,7 @@ public class RegisterItemContoller {
 		}
 	}
 	
-	// ì´ë¯¸ì§€íŒŒì¼ì¸ì§€ í™•ì¸
+	// ÀÌ¹ÌÁöÆÄÀÏÀÎÁö È®ÀÎ
 //	private boolean checkImgType(File file) {
 //		try {
 //			String contentType = Files.probeContentType(file.toPath());
@@ -79,17 +79,17 @@ public class RegisterItemContoller {
 //		return false;
 //	}
 	
-	// ì´ë¯¸ì§€ ì €ì¥
+	// ÀÌ¹ÌÁö ÀúÀå
 	public void imgSave(RegisterItemVO register, MultipartFile[] uploadFile, boolean isModify) {
 
 	      Boolean flag = true;
 	      String uploadFolder = servletContext.getRealPath("/resources/upload");
-	      // í´ë” ìƒì„±
-	      File uploadPath = new File(uploadFolder, "idNo");   // ì„ì‹œë¡œ! ë¡œê·¸ì¸ í›„ì—” idNo ë³€ê²½í•´ì£¼ê¸°
+	      // Æú´õ »ı¼º
+	      File uploadPath = new File(uploadFolder, "idNo");   // ÀÓ½Ã·Î! ·Î±×ÀÎ ÈÄ¿£ idNo º¯°æÇØÁÖ±â
 	      log.info("upload path : " + uploadPath);
 	      
 	      if(uploadPath.exists() == false) {
-	         uploadPath.mkdir();      // ê° ìƒì ë§ˆë‹¤ ìì‹ ì˜ í´ë”ë¥¼ ê°€ì§
+	         uploadPath.mkdir();      // °¢ »óÁ¡¸¶´Ù ÀÚ½ÅÀÇ Æú´õ¸¦ °¡Áü
 	      }
 
 	      int i = 0;
@@ -109,7 +109,7 @@ public class RegisterItemContoller {
 		         uploadFilename = uuid.toString() + "_" + uploadFilename;
 	
 		         try {
-		            // ì´ë¯¸ì§€ íŒŒì¼ pathì— ì˜¬ë¦¬ê¸°
+		            // ÀÌ¹ÌÁö ÆÄÀÏ path¿¡ ¿Ã¸®±â
 		            File saveFile = new File(uploadPath, uploadFilename);
 		            multi.transferTo(saveFile);
 		            
@@ -200,12 +200,12 @@ public class RegisterItemContoller {
 			
 			if(file.exists()) {
 				if(file.delete()) {
-					System.out.println("ì‚­ì œì„±ê³µ");
+					System.out.println("»èÁ¦¼º°ø");
 				}else {
-					System.out.println("ì‚­ì œì‹¤íŒ¨");
+					System.out.println("»èÁ¦½ÇÆĞ");
 				}
 			}else {
-				System.out.println("íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŒ");
+				System.out.println("ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾ÊÀ½");
 			}
 		}
 		
@@ -225,7 +225,7 @@ public class RegisterItemContoller {
 	public String remove(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
 		
 		for(int i=0; i<itemCode.length; i++) {
-			//log.info(itemCode[i] + "ì•„ì´í…œ ì½”ë“œ ë„˜ì–´ì˜´");
+			//log.info(itemCode[i] + "¾ÆÀÌÅÛ ÄÚµå ³Ñ¾î¿È");
 			service.remove(itemCode[i]);
 		}
 		
@@ -237,7 +237,7 @@ public class RegisterItemContoller {
 //		String[] arrIdx = itemCode.toString().split(",");
 //		
 //	  	for (int i=0; i<arrIdx.length; i++) {
-//	  		log.info(arrIdx[i] + "ìŠ¤í”Œë¦¿ ë°°ì—´");
+//	  		log.info(arrIdx[i] + "½ºÇÃ¸´ ¹è¿­");
 //	  		service.remove(arrIdx[i]);
 //	  	}
 	  	
@@ -259,11 +259,11 @@ public class RegisterItemContoller {
 		for(int i=0; i<itemCode.length; i++) {
 			RegisterItemVO vo = service.get(itemCode[i]);
 			
-			// ì§„ì—´ìƒíƒœ ë³€ê²½
-			if(vo.getDispStat().equals("ì§„ì—´í•¨")) {
-				vo.setDispStat("ì§„ì—´ì•ˆí•¨");
+			// Áø¿­»óÅÂ º¯°æ
+			if(vo.getDispStat().equals("Áø¿­ÇÔ")) {
+				vo.setDispStat("Áø¿­¾ÈÇÔ");
 			}else {
-				vo.setDispStat("ì§„ì—´í•¨");
+				vo.setDispStat("Áø¿­ÇÔ");
 			}
 			
 			service.modify(vo);
@@ -279,12 +279,12 @@ public class RegisterItemContoller {
 		for(int i=0; i<itemCode.length; i++) {
 			RegisterItemVO vo = service.get(itemCode[i]);
 
-			// íŒë§¤ìƒíƒœ ë³€ê²½
-			if(vo.getSaleStat().equals("íŒë§¤ì¤‘")) {
-				vo.setSaleStat("íŒë§¤ì¤‘ì§€");
+			// ÆÇ¸Å»óÅÂ º¯°æ
+			if(vo.getSaleStat().equals("ÆÇ¸ÅÁß")) {
+				vo.setSaleStat("ÆÇ¸ÅÁßÁö");
 			}else {
 				log.info(vo.getItemChr() + "2");
-				vo.setSaleStat("íŒë§¤ì¤‘");
+				vo.setSaleStat("ÆÇ¸ÅÁß");
 			}
 			service.modify(vo);
 		}
@@ -298,7 +298,7 @@ public class RegisterItemContoller {
 		for(int i=0; i<itemCode.length; i++) {
 			RegisterItemVO vo = service.get(itemCode[i]);
 			
-			vo.setSaleStat("í’ˆì ˆ");		
+			vo.setSaleStat("Ç°Àı");		
 			service.modify(vo);
 		}
 		rttr.addFlashAttribute("result", "success");
