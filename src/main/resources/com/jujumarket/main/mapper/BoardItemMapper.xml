@@ -15,7 +15,9 @@ order by regdate desc
 
 
 <select id="gets" resultType="com.jujumarket.main.domain.BoardItemVO">
-   select itemCode , itemName, itemContent, price, normPrice,itemImg1,itemChr,classCode, IDno from t_item where classCode like '%' || #{classCode}||'%'
+   select itemCode , itemName, itemContent, price, normPrice,itemImg1,dispStat,saleStat,itemChr,classCode, IDno from t_item 
+   where classCode like '%' || #{classCode}||'%' 
+    AND dispStat ='진열함'
    order by regDate DESC
 </select>
 
@@ -42,39 +44,43 @@ order by regdate desc
 </select>
 <!--상품sort 해서 정렬  -->
 <select id="newProduct" resultType="com.jujumarket.main.domain.BoardItemVO">
-   select itemCode , itemName, itemContent, price, normPrice,itemImg1,itemChr,classCode, idNo ,regDate
+   select itemCode , itemName, itemContent, price, normPrice,itemImg1,dispStat,saleStat,itemChr,classCode, idNo ,regDate
    from t_item
    where classCode in (select classCode from
    vw_category where classCode like '%'||#{classCode}||'%')
+   AND dispStat ='진열함'
    order by regDate DESC
 
 </select>
 
 
 <select id="bestProduct" resultType="com.jujumarket.main.domain.BoardItemVO">
-	select itemCode , itemName, itemContent, price, normPrice,itemImg1,itemChr,classCode, idNo ,regDate,
+	select itemCode , itemName, itemContent, price, normPrice,itemImg1,dispStat,saleStat,itemChr,classCode, idNo ,regDate,
     (select count(itemCode)from t_order_history  where t_item.itemCode=t_order_history.itemCode) orderCount
     from t_item 
     where classCode in (select classCode from
  	vw_category where classCode like '%'||#{classCode}||'%')
+ 	AND dispStat ='진열함'
     order by orderCount DESC , regDate DESC
 
 </select>
 
  <select id="lowPrice" resultType="com.jujumarket.main.domain.BoardItemVO">
-   select itemCode , itemName, itemContent, price, normPrice,itemImg1,itemChr,classCode, idNo ,regDate
+   select itemCode , itemName, itemContent, price, normPrice,itemImg1,dispStat,saleStat,itemChr,classCode, idNo ,regDate
    from t_item
    where classCode in (select classCode from
    vw_category where classCode like '%'||#{classCode}||'%')
+   AND dispStat ='진열함'
    order by price ASC , regDate DESC
    
 </select>
 
 <select id="highPrice" resultType="com.jujumarket.main.domain.BoardItemVO">
-   select itemCode , itemName, itemContent, price, normPrice,itemImg1,itemChr,classCode, idNo ,regDate
+   select itemCode , itemName, itemContent, price, normPrice,itemImg1,dispStat,saleStat,itemChr,classCode, idNo ,regDate
    from t_item
    where classCode in (select classCode from
    vw_category where classCode like '%'||#{classCode}||'%')
+   AND dispStat ='진열함'
    order by price DESC , regDate DESC
 
 </select>

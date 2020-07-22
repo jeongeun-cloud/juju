@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class DeliveryVO {
+	private Long deliveryNo;
 	private String shippingCode;
 	private String receiver;
 	private String receivAddr;
@@ -12,6 +13,6 @@ public class DeliveryVO {
 	private String reqNote;
 	private String orderCode;
 	// 아이템코드는 nullable
-	private String itemCode;
+	private String baskId;
 
 }

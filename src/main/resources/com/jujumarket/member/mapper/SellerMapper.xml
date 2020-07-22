@@ -5,22 +5,20 @@
 <mapper namespace="com.jujumarket.member.mapper.SellerMapper">
 
 	<insert id="insert">
-		insert into m_shop(idNo, shopName, pwd, shopAddr,
-		contact1)
-		values(#{idNo}, #{shopName}, #{pwd}, #{shopAddr},
-		#{contact1})
+		insert into m_shop(idNo, shopName, shopAddr, contact1)
+		values(#{idNo}, #{shopName}, #{shopAddr}, #{contact1})
 
 	</insert>
 
 
-
-	<select id="getSellerPwdByIdNo" resultType="String">
-		select pwd
-		from m_shop
-		where idNo = #{idNo}
-
-
-	</select>
+	<update id="update">
+		update m_shop
+		set shopAddr = #{shopAddr},
+			contact1 = #{contact1},
+			contact2 = #{contact2},
+			postCode = #{shopPostCode}
+	</update>
+	
 
 
 
