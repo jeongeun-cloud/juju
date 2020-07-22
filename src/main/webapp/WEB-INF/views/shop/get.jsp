@@ -20,11 +20,7 @@
         body{
             color: #303030;
         }
-         a{
-		   	text-decoration: none;
-		  	 color: #303030;
-		   }
-        .get_menu a{
+        a{
             text-decoration: none;
             color: #303030;
             font-size: 17px;
