@@ -18,8 +18,11 @@
        color: #303030;
    }
    a{
+   	text-decoration: none;
+  	 color: #303030;
+   }
+   .jaju_menu a{
        text-decoration: none;
-       color: #303030;
        font-size: 17px;
    }
    .jaju_content{
