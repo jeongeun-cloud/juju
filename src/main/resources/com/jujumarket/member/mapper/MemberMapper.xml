@@ -7,26 +7,39 @@
    <insert id="insertCustomer">
       <selectKey keyProperty="idNo" order="BEFORE"
       resultType="String">
-         select 'c'||lpad(seq_idNo.nextval,5,'0')
+         select 'c'||lpad(seq_customer.nextval,4,'0')
          from dual
       </selectKey>
    
-      insert into t_member (idNo, emailAccount, memName, memCode) 
-      values (#{idNo}, #{emailAccount}, #{memName}, 'CUSTOMER')
+      insert into t_member (idNo, pwd, emailAccount, memName, memCode) 
+      values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'CUSTOMER')
    </insert>
    
    <insert id="insertSeller">
       <selectKey keyProperty="idNo" order="BEFORE"
       resultType="String">
-         select 's'||lpad(seq_idNo.nextval,5,'0')
+         select 's'||lpad(seq_seller.nextval,4,'0')
          from dual
       </selectKey>
    
-      insert into t_member (idNo, emailAccount, memName, memCode) 
-      values (#{idNo}, #{emailAccount}, #{memName}, 'SELLER')
+      insert into t_member (idNo, pwd, emailAccount, memName, memCode) 
+      values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'SELLER')
    </insert>
+<!--    
+   <select id ="read" resultType="com.jujumarket.member.domain.MemberVO">
+      select idNo
+      from t_member
+      where emailAccount = #{emailAccount}
    
+   </select> -->
 
+   <select id ="getIdNoByEmailAccount" resultType="String">
+      select idNo
+      from t_member
+      where emailAccount = #{emailAccount}
+   
+   </select>
+   
    <select id ="getEmailAccount" resultType="String">
       select emailAccount
       from t_member
@@ -51,6 +64,14 @@
       and tm.idNo = #{idNo} 
    
    </select>
+   
+   <update id="update">
+      update t_member
+      set memAddr = #{memAddr},
+      postCode = #{postCode},
+      pwd = #{pwd}
+   
+   </update>
 
 
    

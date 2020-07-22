@@ -10,6 +10,7 @@
 <head> 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Insert title here</title>
 <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>  <!-- 모달띄어줌 -->
 
@@ -27,7 +28,7 @@ li {
 
 }
 
-a{
+.regi_menu a{
    text-decoration: none;
    color: #303030;
    font-size: 17px;
@@ -38,7 +39,7 @@ a{
 
 table {
    border-collapse: collapse;
-   width: 90%;
+   width: 100%;
 }
 
 
@@ -80,17 +81,6 @@ tr:hover {
 }
 
 
-/* 화면 나눔 */
-.p1 {
-   width: 15%;
-   float: left;
-}
-
-.p2 {
-   width: 85%;
-   float: right;
-}
-
 
 
 
@@ -126,7 +116,7 @@ tr:hover {
 
 #regBtn {
 
-margin-right: 9%;
+margin-right: 0%;
 
 }
 /* 글쓰기, 검색 버튼 끝 */
@@ -137,6 +127,12 @@ margin-right: 9%;
 
 
 /* 페이지 버튼 디자인 시작 */
+
+.pageBtns {
+	text-align: center;
+}
+
+
 .pageBtns a{
     color: black;
     float: left;
@@ -217,7 +213,7 @@ margin-right: 9%;
      background-color: white;
      float: left;
      margin-right: 90px;
-     border:solid;
+     border:solid #ffc30b ;
             
 }
 
@@ -231,9 +227,23 @@ margin-right: 9%;
       font-weight: 900;
             
 }
+
+.regi_menu {
+	margin-top:20px;
+
+
+}
+
+
 /* 사이드 메뉴 끝 */
 
 
+
+.col-lg-12 {
+
+	text-align: center;
+    margin: 10px 0 30px 0;
+}
 
 
 
@@ -249,6 +259,7 @@ margin-right: 9%;
 .regi_main .regi_tit{
    font-size: 30px;
    margin-bottom:50px;
+   text-align: center;
 
 }
 
@@ -258,7 +269,6 @@ margin-right: 9%;
    width: 1300px;
    height: 1000px;
    margin:0 auto;
-   border: solid;
 }
         
 .regi_wrap{
@@ -266,7 +276,6 @@ margin-right: 9%;
    position: relative;
    display: inline-block;
    padding-top: 30px;
-   background-color: cornsilk;
 }
         
 
@@ -287,22 +296,22 @@ margin-right: 9%;
 <!-- side 시작 -->
    <div class="side">
       <div class="1nb_list">
-         <div class="regi_side_tit">고객센터</div>
+         <div class="regi_side_tit">마이페이지</div>
            <div class="regi_side_menu">
                <ul class="regi_menu">
                     <p><b>쇼핑 이용 정보</b></p>
-                    <li> <a href='#'>-주문내역</a></li>
-                    <li><a href='#'>-장바구니</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>주문내역</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>장바구니</a></li>
                     <br>
                     <p><b>게시판 이용 내역</b></p>
-                    <li> <a href='#'>-1:1문의</a></li>
-                    <li><a href='#'>-나의 상품평</a></li>
-                    <li><a href='#'>-나의 상품 문의</a></li>
+                    <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>나의 상품평</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
                     <br>
                     <p><b>개인정보 수정</b></p>
-                    <li> <a href='#'>-개인정보 수정</a></li>
-                    <li><a href='#'>-비밀번호 변경</a></li>
-                    <li><a href='#'>-회원 탈퇴</a></li>
+                    <li> <a href='#'><i class="fa fa-check" ></i>개인정보 수정</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
 
                 </ul>
            </div>
@@ -322,21 +331,19 @@ margin-right: 9%;
       
 <!-- regi_main 시작 -->      
 <div class="regi_main">
-   <!-- regi_tit 시작 -->
-    <div class="regi_tit">
-       <p><b>[1:1문의]</b></p>
-   </div>
-   <!-- regi_tit 끝 -->
-          
       
       
 
 
 
       <div class="p2">
+   <!-- regi_tit 시작 -->
+    <div class="regi_tit">
+       <p><b>1:1문의</b></p>
+   </div>
+   <!-- regi_tit 끝 -->
+          
 
-
-         <p>1:1 문의</p>
                <!-- 검색창 form-->
            <div class='row'>
       <div class="col-lg-12">
@@ -440,7 +447,7 @@ margin-right: 9%;
             <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
             <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
              <input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
-                <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+             <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
          </form><!-- paging form end-->
 
          

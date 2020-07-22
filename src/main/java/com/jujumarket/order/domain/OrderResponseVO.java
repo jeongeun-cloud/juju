@@ -12,6 +12,7 @@ public class OrderResponseVO {
 	private Long itemNum;
 	private Long price;
 	private String itemCode;
+	private String baskId;
 	
 	
 	

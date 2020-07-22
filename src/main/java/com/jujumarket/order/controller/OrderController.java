@@ -32,15 +32,15 @@ public class OrderController {
    private OrderMemberService orderMemberService;
    private DeliverySerivce deliveryService;
    
-   //»óÇ°Å×ÀÌºí¿¡¼­ idNo¸¦ get¹æ½ÄÀ¸·Î ³Ñ°ÜÁÜ
+   //ìƒí’ˆí…Œì´ë¸”ì—ì„œ idNoë¥¼ getë°©ì‹ìœ¼ë¡œ ë„˜ê²¨ì¤Œ
    @GetMapping("/orderItemsForm")
    public void orderItemsForm(@RequestParam("idNo") String idNo, Model model) {
       log.info("orderList");
-      //model¿¡ orderList¸¦ ´ã¾Æ ÁÖ¹®¼­(orderItemsForm.jsp)¿¡ Ãâ·Â
+      //modelì— orderListë¥¼ ë‹´ì•„ ì£¼ë¬¸ì„œ(orderItemsForm.jsp)ì— ì¶œë ¥
       model.addAttribute("orderList", orderService.getOrderResponse(idNo));
-      //model¿¡ memberInfo¸¦ ´ã¾Æ ÁÖ¹®¼­(orderItemsForm.jsp)¿¡ Ãâ·Â
+      //modelì— memberInfoë¥¼ ë‹´ì•„ ì£¼ë¬¸ì„œ(orderItemsForm.jsp)ì— ì¶œë ¥
       model.addAttribute("memberInfo", orderMemberService.getOrderMemberInfo(idNo));
-      //idNo·Î ÃÖ±ÙÁÖ¹®Á¤º¸ °¡Á®¿À±â->deliveryService¿¡¼­  ÇØ´ç ÁÖ¹®Á¤º¸ È£Ãâ
+      //idNoë¡œ ìµœê·¼ì£¼ë¬¸ì •ë³´ ê°€ì ¸ì˜¤ê¸°->deliveryServiceì—ì„œ  í•´ë‹¹ ì£¼ë¬¸ì •ë³´ í˜¸ì¶œ
       String orderCode = orderService.getRecentOrderCode(idNo);
       if(orderCode!=null) {
       model.addAttribute("recentDelivery", deliveryService.get(orderCode));
@@ -48,7 +48,7 @@ public class OrderController {
 
    }
 
-   //orderResultÈ­¸éÀ» º¸¿©ÁÜ
+   //orderResultí™”ë©´ì„ ë³´ì—¬ì¤Œ
    @GetMapping("/orderResult")
    public void orderResult(@RequestParam("orderCode") String orderCode, Model model) {
       log.info("/orderResult");
@@ -56,16 +56,16 @@ public class OrderController {
       String idNo = order.getIdNo();
       OrderMemberVO orderMember = orderMemberService.getOrderMemberInfo(idNo);
       List<OrderResponseVO> itemList = orderService.getOrderResponse(idNo);
-      //ÁÖ¹®¹øÈ£·Î ¹è¼ÛÁ¤º¸¸¦ °¡Á®¿À±â
+      //ì£¼ë¬¸ë²ˆí˜¸ë¡œ ë°°ì†¡ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ê¸°
       DeliveryVO delivery = deliveryService.get(orderCode);
-      //jsp¿¡¼­ »ç¿ëÇÒ ¿ä¼ÒµéÀ» order, orderMember, itemList, delivery·Î  ÀÌ¸§ Áà¼­ ¾²±â
+      //jspì—ì„œ ì‚¬ìš©í•  ìš”ì†Œë“¤ì„ order, orderMember, itemList, deliveryë¡œ  ì´ë¦„ ì¤˜ì„œ ì“°ê¸°
       model.addAttribute("order", order);
       model.addAttribute("orderMember", orderMember);
       model.addAttribute("itemList", itemList);
       model.addAttribute("delivery", delivery);
    }
 
-   //orderResult Á¤º¸¸¦  t_delivery DB¿¡ insert. orderCode¸¦ ±âÁØÀ¸·Î insert
+   //orderResult ì •ë³´ë¥¼  t_delivery DBì— insert. orderCodeë¥¼ ê¸°ì¤€ìœ¼ë¡œ insert
    @PostMapping("/orderResult")
    public String orderResult(OrderRequestVO order) {
       log.info("orderResult");

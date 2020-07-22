@@ -85,7 +85,7 @@
         .pro_img_wrap{
             width: 100%;
             height: 300px;
-            background-color: tomato;
+            background-color: black;
             position: relative;
             overflow: hidden;
         }
@@ -177,27 +177,27 @@
         position:relative;
         overflow:hidden;
         background-color:pink;
-	 } 
-	 #so_flag{
-	 margin-top:16px;
-	 margin-left:1px;
-	 width:55px;
-	 height:25px;
-	 font-size:12px;
-	 line-height:22px;
-	 font-weight:900;
-	 background-color:darkgray;
-	 text-align:center;
-	 
-	 
-	 }
-	 #so_itemName{
-	 display:block;
-	 font-weight:bold;
-	 font-size:20px;
-	 word-break: break-all;
-	 margin-top: 8px;
-	 }
+    } 
+    #so_flag{
+    margin-top:16px;
+    margin-left:1px;
+    width:55px;
+    height:25px;
+    font-size:12px;
+    line-height:22px;
+    font-weight:900;
+    background-color:darkgray;
+    text-align:center;
+    
+    
+    }
+    #so_itemName{
+    display:block;
+    font-weight:bold;
+    font-size:20px;
+    word-break: break-all;
+    margin-top: 8px;
+    }
      #so_idNo{
      display:block;
      font-size:15px;
@@ -227,7 +227,21 @@
      }
      .mainCateg{
      margin-left:70px;}
-       
+     /*품절 된 상황  */
+
+       .soldout{
+           text-align:center;
+           width:100%;
+           bottom: 50px; 
+           font-size: 3.5em;
+           font-weight: bold; 
+           position: absolute; 
+           color: white;
+           
+           
+
+       }
+
      
       
 </style>
@@ -249,9 +263,9 @@
          <div class="panel-heading">
          
 
-	         <h1 style="color:orange"><c:out value="${path}"/></h1>
-	      
-	         <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>"> 
+            <h1 style="color:orange"><c:out value="${path}"/></h1>
+         
+            <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>"> 
 
 
          </div>
@@ -373,63 +387,97 @@
       
       <!--상품 목록 div  -->
              <div>
-
-				<div class="whole_list">
+            
+            <div class="whole_list">
           
-	               <c:forEach items="${list}" var="board">
-	         
-							<section id="pro_container"> 
-							
-							    <div class="pro_list">
-							        <ul class="pro_list_ul">
-							            <li class="pro_list_li">
-							                <div class="pro_module">
-							                <div class="pro_img_wrap">
-							                    <a href="#" class="conts">
-							                        <img src="/resources/images/default.png" alt="메인 이미지">
-							                    </a>
-							                </div>
-							                <!-- END img_wrap -->
-							                <div class="txt_wrap">
-							                	 <a href="#" class="conts">
-							                        <div class="pro_flag_wrap">
-							                            <span class="flag">NEW</span>
-							                        </div>
-							                        <!-- END pro_flag_wrap -->
-							                        <div class=tit_info>
-							                            <span class="info_itemName"> <c:out value="${board.itemName}" /> </span>
-							                            <span class="info_idNo"><c:out value="${board.idNo}" /></span>
-							                        </div>
-							                        <!-- END tit_info -->
-							                        <div class="price_info">
-							                                <p class="sale">
-							                                    <span class="price"><c:out value="${board.price}" />
-							                                        <span class="won">원</span>
-							                                    </span>
-							                                </p>
-							                                <p class="normPrice">
-							                                  <c:out value="${board.normPrice}" />
-							                                  <span class="won">원</span>
-							                                </p>
-							                        </div>
-							                  		 </a>
-							                    <div class="cart_btn">
-							                        <button type="button" class="add_to_cart">add to cart</button>
-							                    </div>
-							                </div>
-							                <!-- END txt_wrap -->
-							                
-							                </div>
-							                <!-- END pro_moduel  -->
-							            </li>     
-							        </ul>    
-							    </div>
-							    <!--END pro_list  -->
-							</section>     
-	                   
-	               </c:forEach>
-			</div>
-
+                  <c:forEach items="${list}" var="board">
+                     
+                     <section id="pro_container"> 
+                     
+                         <div class="pro_list">
+                             <ul class="pro_list_ul">
+                                 <li class="pro_list_li">
+                                     <div class="pro_module">
+                                           <!--판매중  -->
+                                          <c:if test="${board.saleStat=='판매중'}">
+                                            <div class="pro_img_wrap">
+                                        
+                                               <a href="#" class="conts">
+                                                   <img src="/resources/images/default.png" alt="메인 이미지">
+                                               </a>
+                                
+                                                  </div>    
+                                                   </c:if>
+                                                   
+                                            <!-- 품절일때  -->
+                                            <c:if test="${board.saleStat=='품절'}">
+                                            <div class="pro_img_wrap">
+                                        
+                                               <a href="#" class="conts" style="opacity:0.2;">
+                                                   <img src="/resources/images/default.png" alt="메인 이미지">
+                                               </a>
+                                                  <div class="soldout">
+                                                         <p>품절</p>
+                                                         </div>
+                                                  </div>    
+                                                   </c:if>
+                                                   
+                                                   <!--판매 중지일때  -->
+                                                   <c:if test="${board.saleStat=='판매중지'}">
+                                            <div class="pro_img_wrap">
+                                        
+                                               <a href="#" class="conts" style="opacity:0.2;">
+                                                   <img src="/resources/images/default.png" alt="메인 이미지">
+                                               </a>
+                                                  <div class="soldout">
+                                                         <p>판매 중지</p>
+                                                         </div>
+                                                  </div>    
+                                                   </c:if>
+                                              
+                                    
+                                     <!-- END img_wrap -->
+                                     <div class="txt_wrap">
+                                         <a href="#" class="conts">
+                                             <div class="pro_flag_wrap">
+                                                 <span class="flag"> <c:out value="${board.itemChr}" /></span>
+                                             </div>
+                                             <!-- END pro_flag_wrap -->
+                                             <div class=tit_info>
+                                                 <span class="info_itemName"> <c:out value="${board.itemName}" /> </span>
+                                                 <span class="info_idNo"><c:out value="${board.idNo}" /></span>
+                                             </div>
+                                             <!-- END tit_info -->
+                                             <div class="price_info">
+                                                     <p class="sale">
+                                                         <span class="price"><c:out value="${board.price}" />
+                                                             <span class="won">원</span>
+                                                         </span>
+                                                     </p>
+                                                     <p class="normPrice">
+                                                       <c:out value="${board.normPrice}" />
+                                                       <span class="won">원</span>
+                                                     </p>
+                                             </div>
+                                              </a>
+                                         <div class="cart_btn">
+                                             <button type="button" class="add_to_cart">add to cart</button>
+                                         </div>
+                                     </div>
+                                     <!-- END txt_wrap -->
+                                     
+                                     </div>
+                                     <!-- END pro_moduel  -->
+                                 </li>     
+                             </ul>    
+                         </div>
+                         <!--END pro_list  -->
+                     </section>     
+                          
+                  </c:forEach>
+         </div>
+       
+        
            
         </div>     
         <!--END 상품 목록 div 끝  --> 
@@ -628,36 +676,37 @@ $(document).on("change", "select.mainCateg", function(){
    }
    
 
-	function draw(response){
-		
-	var $whole_list = $(".whole_list");
+   function draw(response){
+      
+   var $whole_list = $(".whole_list");
 
-		console.log(response);
-		
-		console.log("데이터 개수"+response.length);
-		
-		$whole_list.empty();
-		console.log("테이블 초기화 성공");
-		
-		
-				
-	for(var i=0; i<response.length; i++){
-			console.log("table그리기 시작한다!!!!");
-			
-
-	
-		
-		$whole_list.append("<div id='so_Content'>"+"<div id='so_img'>"+response[i].itemImg1+"</div>"+
-				"<div id='so_flag'>"+response[i].itemChr+"</div>"+
-				"<div id='so_itemName'>"+response[i].itemName+"</div>"+
-				"<div id='so_idNo'>"+response[i].idNo+"</div>"+
-				"<div id='so_price'>"+response[i].price+"원</div>"+
-				"<div id='so_norPrice'>"+response[i].normPrice+"원</div>"+
-				"<div id='so_cart'>"+"<button class='so_add_cart'>add to cart</button>"+"</div></div>");
-			
-		}
-	}
-		
+      console.log(response);
+      
+      console.log("데이터 개수"+response.length);
+      
+      $whole_list.empty();
+      console.log("테이블 초기화 성공");
+      
+      
+   
+      
+   for(var i=0; i<response.length; i++){
+         console.log("table그리기 시작한다!!!!");
+         
+      if(response[i].saleStat=='판매중'){   
+      
+      $whole_list.append("<div id='so_Content'>"+"<div id='so_img'>"+response[i].itemImg1+"</div>"+
+            "<div id='so_flag'>"+response[i].itemChr+"</div>"+
+            "<div id='so_itemName'>"+response[i].itemName+"</div>"+
+            "<div id='so_idNo'>"+response[i].idNo+"</div>"+
+            "<div id='so_price'>"+response[i].price+"원</div>"+
+            "<div id='so_norPrice'>"+response[i].normPrice+"원</div>"+
+            "<div id='so_cart'>"+"<button class='so_add_cart'>add to cart</button>"+"</div></div>");
+      }
+         
+      }
+   }
+      
 
   
    

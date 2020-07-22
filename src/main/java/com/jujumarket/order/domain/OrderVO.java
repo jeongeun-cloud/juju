@@ -11,6 +11,7 @@ public class OrderVO {
 	private Long totalPay;
 	private Long totalSum;
 	private Long totalDiscount;
+	private String receivAddr;
 	private Long deliCharge;
 	private Timestamp orderDate;
 	private String isMember;

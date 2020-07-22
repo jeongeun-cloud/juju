@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jujumarket.main.mapper.PrdReplyMapper;
 import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.main.domain.PrdReplyPageDTO;
 import com.jujumarket.main.domain.PrdReplyVO;
 
 import lombok.Setter;
@@ -24,6 +25,14 @@ public class PrdReplyServiceImpl implements PrdReplyService {
 	    log.info("register........." + vo);
 		
 		return mapper.insert(vo);
+	}
+	
+	@Override
+	public int replyRgister(PrdReplyVO vo) {
+
+		 log.info("register2........." + vo);
+			
+			return mapper.insert2(vo);
 	}
 
 
@@ -61,5 +70,18 @@ public class PrdReplyServiceImpl implements PrdReplyService {
 	return	mapper.getListWithPaging(cri, itemCode);
 	
 	}
+
+	@Override
+	public PrdReplyPageDTO getPrdReplyListPage(Criteria cri, String itemCode) {
+		return new PrdReplyPageDTO(
+				mapper.getCountByitemCode(itemCode),
+				mapper.getListWithPaging(cri,itemCode) 
+		);
+	
+	
+	}
+
+
+	
 
 }

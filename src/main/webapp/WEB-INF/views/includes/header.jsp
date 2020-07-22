@@ -73,7 +73,8 @@
         min-width: 130px;
         width: 150px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
+        z-index: 99;
+        font-size:15px;
         }
 
         .dropdown_sub .subMemu-content a {
@@ -111,7 +112,7 @@
                           <a href="#" class="subMemu">마이페이지</a>
                           <div class="subMemu-content">
                             <a href="#">쇼핑 이용 정보</a>
-                            <a href="#">게시판 이용 내역</a>
+                            <a href="#">게시판 이용내역</a>
                             <a href="#">개인 정보 수정</a>
                           </div>
                         </li>
