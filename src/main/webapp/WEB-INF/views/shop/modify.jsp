@@ -15,6 +15,10 @@
             float: left;
         }
         a{
+	   	text-decoration: none;
+	  	 color: #303030;
+	   }
+        .get_menu a{
             text-decoration: none;
             color: #303030;
             font-size: 17px;

@@ -27,7 +27,7 @@
     body{
         color: #303030;
     }
-    a{
+    .jaju_menu a{
         text-decoration: none;
         color: #303030;
         font-size: 17px;

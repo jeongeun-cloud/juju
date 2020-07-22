@@ -85,7 +85,7 @@
         .pro_img_wrap{
             width: 100%;
             height: 300px;
-            background-color: tomato;
+            background-color: black;
             position: relative;
             overflow: hidden;
         }
@@ -227,7 +227,21 @@
      }
      .mainCateg{
      margin-left:70px;}
-       
+     /*품절 된 상황  */
+
+       .soldout{
+           text-align:center;
+           width:100%;
+           bottom: 50px; 
+           font-size: 3.5em;
+           font-weight: bold; 
+           position: absolute; 
+           color: white;
+           
+           
+
+       }
+
      
       
 </style>
@@ -373,27 +387,60 @@
       
       <!--상품 목록 div  -->
              <div>
-
+				
 				<div class="whole_list">
           
 	               <c:forEach items="${list}" var="board">
-	         
+	         			
 							<section id="pro_container"> 
 							
 							    <div class="pro_list">
 							        <ul class="pro_list_ul">
 							            <li class="pro_list_li">
 							                <div class="pro_module">
-							                <div class="pro_img_wrap">
-							                    <a href="#" class="conts">
-							                        <img src="/resources/images/default.png" alt="메인 이미지">
-							                    </a>
-							                </div>
+								               	 <!--판매중  -->
+								              	 <c:if test="${board.saleStat=='판매중'}">
+								                    <div class="pro_img_wrap">
+								                
+									                    <a href="#" class="conts">
+									                        <img src="/resources/images/default.png" alt="메인 이미지">
+									                    </a>
+										  
+		                                            </div>    
+	                                                </c:if>
+	                                                
+								                    <!-- 품절일때  -->
+								                    <c:if test="${board.saleStat=='품절'}">
+								                    <div class="pro_img_wrap">
+								                
+									                    <a href="#" class="conts" style="opacity:0.2;">
+									                        <img src="/resources/images/default.png" alt="메인 이미지">
+									                    </a>
+										                    <div class="soldout">
+			                                                <p>품절</p>
+			                                                </div>
+		                                            </div>    
+	                                                </c:if>
+	                                                
+	                                                <!--판매 중지일때  -->
+	                                                <c:if test="${board.saleStat=='판매중지'}">
+								                    <div class="pro_img_wrap">
+								                
+									                    <a href="#" class="conts" style="opacity:0.2;">
+									                        <img src="/resources/images/default.png" alt="메인 이미지">
+									                    </a>
+										                    <div class="soldout">
+			                                                <p>판매 중지</p>
+			                                                </div>
+		                                            </div>    
+	                                                </c:if>
+                                              
+							               
 							                <!-- END img_wrap -->
 							                <div class="txt_wrap">
 							                	 <a href="#" class="conts">
 							                        <div class="pro_flag_wrap">
-							                            <span class="flag">NEW</span>
+							                            <span class="flag"> <c:out value="${board.itemChr}" /></span>
 							                        </div>
 							                        <!-- END pro_flag_wrap -->
 							                        <div class=tit_info>
@@ -426,10 +473,11 @@
 							    </div>
 							    <!--END pro_list  -->
 							</section>     
-	                   
+	                   	 
 	               </c:forEach>
 			</div>
-
+		 
+		  
            
         </div>     
         <!--END 상품 목록 div 끝  --> 
@@ -640,12 +688,12 @@ $(document).on("change", "select.mainCateg", function(){
 		console.log("테이블 초기화 성공");
 		
 		
-				
+	
+		
 	for(var i=0; i<response.length; i++){
 			console.log("table그리기 시작한다!!!!");
 			
-
-	
+		if(response[i].saleStat=='판매중'){	
 		
 		$whole_list.append("<div id='so_Content'>"+"<div id='so_img'>"+response[i].itemImg1+"</div>"+
 				"<div id='so_flag'>"+response[i].itemChr+"</div>"+
@@ -654,6 +702,7 @@ $(document).on("change", "select.mainCateg", function(){
 				"<div id='so_price'>"+response[i].price+"원</div>"+
 				"<div id='so_norPrice'>"+response[i].normPrice+"원</div>"+
 				"<div id='so_cart'>"+"<button class='so_add_cart'>add to cart</button>"+"</div></div>");
+		}
 			
 		}
 	}
