@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -19,7 +19,7 @@
         .whole_menu .dropdown a,
         .whole_menu .dropdown-menu  a {
         /*전체 카테고리 안에 중분류 글씨 */
-    	color:black;
+       color:black;
         font-weight: 900;
         }
         .whole_menu .whole_menu-content.withdesc a:after {
@@ -45,7 +45,7 @@
     
     }
     .whole_menu .dropdown-menu {
-    	left: auto;
+       left: auto;
     }
     .whole_menu .whole_menu-content {
         /* 전체카테고리 dropdown한 내용 */
@@ -167,10 +167,7 @@
     transition: all 1s;
 }
 
-form:hover{
-    width: 200px;
-    cursor: pointer;
-}
+
 
 .search_bar:hover .search_content{
     display: block;
@@ -196,9 +193,9 @@ form:hover{
         <div id="defaultmenu" class="navbar-collapse collapse">
            
             <ul class="nav navbar-nav"> 
-            	<div class="navbar-header">
-               			 <a class="navbar-brand" href="/">JUJU MARKET</a>
-            	</div>
+               <div class="navbar-header">
+                         <a class="navbar-brand" href="/">JUJU MARKET</a>
+               </div>
         
                 <!-- 전체 카테고리  -->
                 <li class="dropdown whole_menu_category"  style="padding-left: 10px;"><a href="#" data-toggle="dropdown" class="dropdown-toggle">▲전체카테고리<b class="caret"></b></a>
@@ -320,4 +317,3 @@ form:hover{
 
 
 </script>
-

@@ -9,19 +9,209 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Insert title here</title>
 
+<style>
 
+
+
+
+li {
+   list-style: none;
+
+}
+
+.regi_menu a{
+   text-decoration: none;
+   color: #303030;
+   font-size: 17px;
+}
+
+
+
+
+
+/* 사이드 메뉴 */
+.side{
+          
+     width: 200px;
+     height: 500px;
+     background-color: white;
+     float: left;
+     margin-right: 90px;
+     border:solid #ffc30b;
+            
+}
+
+ .regi_side_tit{
+      padding-top: 12px;
+      padding-bottom:12px ;
+      text-align: center;
+      width: 100%;
+      background-color: #ffc30b;
+      font-size: 20px;
+      font-weight: 900;
+            
+}
+
+.regi_menu {
+	margin-top:20px;
+
+}
+
+/* 사이드 메뉴 끝 */
+
+
+
+
+
+        
+.regi_main{
+   float:  right;
+   width: 1000px;
+   height: 1000px;
+   background-color: white;
+} 
+
+.regi_main .regi_tit{
+   font-size: 30px;
+   margin-bottom:50px;
+   text-align: center;
+
+}
+
+
+
+
+.regi_content{
+   width: 1300px;
+   height: 1000px;
+   margin:0 auto;
+}
+        
+.regi_wrap{
+                 
+   position: relative;
+   display: inline-block;
+   padding-top: 30px;
+}
+        
+
+
+
+
+/* 등록, 리셋 버튼 시작 */
+#completeBtn,
+#deleteBtn,
+#listBtn {
+  background-color: #ffc30b; 
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+
+#completeBtn:hover,
+#deleteBtn:hover,
+#listBtn:hover {
+  background-color: white; 
+  color: #ffc30b; 
+  border: 2px solid #ffc30b;
+}
+
+#completeBtn:focus,
+#deleteBtn:focus,
+#listBtn:focus { 
+    outline: none; 
+}
+
+.btns {
+margin-top : 20px;
+}
+
+
+/* 등록, 리셋 버튼 끝 */
+
+
+
+
+
+
+
+
+
+
+
+</style>
 
 
 </head>
 <body>
-	<div class="row">
-		<div class="col-lg-12">
-			<h1 class="page-header">수정하기</h1>
-		</div>
-	</div>
-	<!--  col-lg-12 end -->
+
+
+
+
+<div class="regi_content">
+ <div class="regi_wrap">
+
+
+
+
+
+
+<!-- side 시작 -->
+   <div class="side">
+      <div class="1nb_list">
+         <div class="regi_side_tit">마이페이지</div>
+           <div class="regi_side_menu">
+               <ul class="regi_menu">
+                    <p><b>쇼핑 이용 정보</b></p>
+                    <li><a href='#'><i class="fa fa-check" ></i>주문내역</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>장바구니</a></li>
+                    <br>
+                    <p><b>게시판 이용 내역</b></p>
+                    <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>나의 상품평</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
+                    <br>
+                    <p><b>개인정보 수정</b></p>
+                    <li> <a href='#'><i class="fa fa-check" ></i>개인정보 수정</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
+
+                </ul>
+           </div>
+     </div>
+     <!-- 1nb_list -->
+  </div>
+<!-- side 끝-->
+
+
+
+
+
+<!-- regi_main 시작 -->      
+<div class="regi_main">
+   
+   <!-- regi_tit 시작 -->
+    <div class="regi_tit">
+       <p><b>1:1문의 수정하기</b></p>
+   </div>
+   <!-- regi_tit 끝 -->
+
+
+
+
+
+
 
 
 	<div class="row">
@@ -70,11 +260,12 @@
 							value='<c:out value="${BoardQNA.postingNo}"/>'readonly="readonly">
 					</div>
 					
-	
-					
-					<button type="button" data-oper='modify' class="btn-default">수정완료</button>
-					<button type="button" data-oper='remove' class="btn btn-danger">삭제</button>
-					<button type="button" data-oper='list' class="btn btn-info">리스트</button>
+					<div class="btns">
+					<button type="button" data-oper='modify' class="btn-default" id="completeBtn">수정완료</button>
+					<button type="button" data-oper='remove' class="btn btn-danger" id="deleteBtn">삭제</button>
+					<button type="button" data-oper='list' class="btn btn-info" id="listBtn">리스트</button>
+					</div>
+
 					</form>
 					
 					
@@ -83,6 +274,20 @@
 		</div>
 	</div>
 	<!-- row end -->
+	
+	
+	
+</div>
+<!-- regi_main 끝 -->     
+	
+	  
+</div>
+<!-- regi_content 끝 -->
+</div>      
+<!-- regi_wrap 끝 -->
+      
+	
+	
 	
 	<script type="text/javascript">
 	$(document).ready(function(){

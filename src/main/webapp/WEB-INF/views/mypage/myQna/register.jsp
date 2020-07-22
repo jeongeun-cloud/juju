@@ -8,11 +8,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Insert title here</title>
 
 
 <style>
 /* css 영역 */
+
+
+
+li {
+   list-style: none;
+
+}
+
+.regi_menu a{
+   text-decoration: none;
+   color: #303030;
+   font-size: 17px;
+}
+
+
 
 
 
@@ -24,7 +40,7 @@
      background-color: white;
      float: left;
      margin-right: 90px;
-     border:solid;
+     border:solid #ffc30b;
             
 }
 
@@ -38,6 +54,12 @@
       font-weight: 900;
             
 }
+
+.regi_menu {
+	margin-top:20px;
+
+}
+
 /* 사이드 메뉴 끝 */
 
 
@@ -76,6 +98,13 @@
 }
 
 
+.btns {
+	width: 23%;
+	margin: auto;
+	margin-top: 10px;
+	
+}
+
 /* 등록, 리셋 버튼 끝 */
 
 
@@ -98,6 +127,7 @@
 .regi_main .regi_tit{
    font-size: 30px;
    margin-bottom:50px;
+   text-align: center;
 
 }
 
@@ -108,7 +138,6 @@
    width: 1300px;
    height: 1000px;
    margin:0 auto;
-   border: solid;
 }
         
 .regi_wrap{
@@ -116,7 +145,6 @@
    position: relative;
    display: inline-block;
    padding-top: 30px;
-   background-color: cornsilk;
 }
         
 
@@ -152,22 +180,22 @@ margin: auto;
 <!-- side 시작 -->
    <div class="side">
       <div class="1nb_list">
-         <div class="regi_side_tit">고객센터</div>
+         <div class="regi_side_tit">마이페이지</div>
            <div class="regi_side_menu">
                <ul class="regi_menu">
                     <p><b>쇼핑 이용 정보</b></p>
-                    <li> <a href='#'>-주문내역</a></li>
-                    <li><a href='#'>-장바구니</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>주문내역</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>장바구니</a></li>
                     <br>
                     <p><b>게시판 이용 내역</b></p>
-                    <li> <a href='#'>-1:1문의</a></li>
-                    <li><a href='#'>-나의 상품평</a></li>
-                    <li><a href='#'>-나의 상품 문의</a></li>
+                    <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>나의 상품평</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
                     <br>
                     <p><b>개인정보 수정</b></p>
-                    <li> <a href='#'>-개인정보 수정</a></li>
-                    <li><a href='#'>-비밀번호 변경</a></li>
-                    <li><a href='#'>-회원 탈퇴</a></li>
+                    <li> <a href='#'><i class="fa fa-check" ></i>개인정보 수정</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
+                    <li><a href='#'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
 
                 </ul>
            </div>
@@ -186,7 +214,7 @@ margin: auto;
    
    <!-- regi_tit 시작 -->
     <div class="regi_tit">
-       <p><b>[1:1문의 등록하기]</b></p>
+       <p><b>1:1문의 등록하기</b></p>
    </div>
    <!-- regi_tit 끝 -->
 
@@ -221,8 +249,11 @@ margin: auto;
                      <label>게시글타입</label><input class="form-control" name='boardType' readonly ='readonly' value = '3'>
                   </div>
 
+
+				  <div class="btns">
                   <button type="submit" id="regBtn" class="btn btn-default">글쓰기</button>
                   <button type="reset" id="resetBtn" class="btn btn-default">초기화</button>
+				  </div>
    
                   
                </form>

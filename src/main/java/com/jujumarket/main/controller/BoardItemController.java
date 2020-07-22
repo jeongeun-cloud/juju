@@ -56,7 +56,7 @@ public class BoardItemController {
          model.addAttribute("list", service.gets(classCode)); 
          model.addAttribute("pageMaker",new PageDTO(cri,123));
          model.addAttribute("cs", classCode);//pageMaker 에 pageDTO 클래스의 객체를 만들어서 Model에 담아준다.
-
+         
       
    }
    

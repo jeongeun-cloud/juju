@@ -113,11 +113,6 @@
 
        
 
-        /* .dltBtn {
-            margin-left: 800px;
-            margin-top:300px;
-           
-        } */
 
        
 
@@ -133,6 +128,7 @@
             height : 200px;
 
             margin: auto;
+            margin-top: 100px;
             
         }
 
@@ -194,17 +190,42 @@
            
             width: 80px;
             height: 30px;
-            margin-left:890px;
+            margin-left:800px;
             background-color: #303030;
             color: white;
             border:none;
             border-radius:10%;
+            
+            float:left;
         }
 
         
         
-
         
+        #thumbnailImg {
+        
+        	width: 80px;
+        
+        }
+
+
+
+		#chkAllBox {
+			
+			margin-top: 58px;
+			width: 200px;
+			float: left;
+			margin-left: -80px;
+		
+		}
+		
+		#dltBtnDiv {
+			margin-top: 50px;
+			width: 200px;
+			
+			float:left;
+		}
+         
 
 
     </style>
@@ -249,34 +270,44 @@
 
         <div id="basketTableContainer" >
             <!-- 장바구니 내역 -->
+            
+            
+            <div id="basketList">
 
             <table id="basketTable" style="margin:-30px" >
             <thead id="tableHead">
                 <tr>
+                
                     <th colspan="5" id="tableTitle" style="text-align: center">장바구니 내역</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody  id="tableBody">
+            
 
-
-                <tr id="tableBody">
-                    <td><input type="checkbox" id="chkBox"></td>
-                    <td><img id="thumbnailImg" src="https://lh3.googleusercontent.com/proxy/epy1T2E3Y0UdWBtuHPd0q_1P1ecUqcn23z96jp2RPBzuYYWJwH3F-YY0Kqg8d6oZtH0DQODf46nlFyP_kIs-el_ldi5WuP6zwXjVAGSPBzJUEjiJzgnkQanHHrPLC8VTuh2f0PzAd5_APbQ-Km3cUHaLxdI-3jUgoCGSsg"></td>
-                    <td>{삼계탕}<br>{4,300}원</td>
-                    <td>{5}개</td>
-                    <td>{21,500}원</td>
-                </tr>
+                
+                <!-- ajax 로 장바구니 리스트 그리는 영역 -->
+                
 
 
             </tbody>
-                
 
             </table>
+            
+            </div>
+            
+            <div  id='chkAllBox'>
+            <!-- 전체 체크하는 박스 -->
+            <input type='checkbox' id="chkAll" checked="checked" onclick="checkAll()"> 전체 선택
+            </div>
 
 
-        
+			<div id="dltBtnDiv">
             <!-- 선택 삭제 버튼 -->
             <button id="dltBtn">선택 삭제</button>
+			</div>	
+            
+            
+            
         </div>
 
         
@@ -293,7 +324,7 @@
 
                 <h5>총 주문금액</h5>
                                 
-                <h3>{21,500}원</h3>
+                <h3 id="tPrice">0</h3>
             </div>
 
             <div class="countBoxDiv" id="mathSymbol">
@@ -306,9 +337,9 @@
                 <br>
                 <br>
 
-                <h5>할인금액</h5>
+                <h5 id="dcPrice">할인금액</h5>
                                 
-                <h3>{1,000}원</h3>
+                <h3>0</h3>
             </div>
 
             <div class="countBoxDiv" id="mathSymbol">
@@ -323,7 +354,7 @@
 
                 <h5>배송비</h5>
                                 
-                <h3>{2,500}원</h3>
+                <h3 id="deliPrice">2500</h3>
             </div>
 
             <div class="countBoxDiv" id="mathSymbol">
@@ -338,7 +369,7 @@
                 
                 <h5>총 결제금액</h5>
                                 
-                <h3>{23,000}원</h3>
+                <h3 id=realTotalPrice>0</h3>
             </div>
 
 
@@ -354,6 +385,200 @@
 
 
     </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script>
+
+
+
+var chkBoxes = document.getElementsByName("chkBox");
+
+var totalPrice = 0;
+
+
+
+/*  브라우저가 열리자마자 하는 basket DB 관련 작업 시작 */
+$(document).ready(
+         
+		 // 1. 장바구니 DB에 있는 물건 리스트를 불러온다 
+          getBasketList()
+         
+         .then(function(response){ 
+            
+           console.log("getBasketList 결과는?");
+            console.log(response);  
+         	// 2. 새로 그린다 
+        	draw(response);
+            }) 
+            
+      
+);
+/* 브라우저가 열리자마자 하는 basket DB 관련 작업 끝 */
+
+
+
+
+/* 브라우저가 열리자마자 count box 에 체크된 것만 계산하기 시작하는 function 시작 */
+window.onload = function() {
+	
+	//alert("window onload 와 j쿼리 같이 쓸 수 있다 가능함! ");
+	
+	for(var i=0; i<chkBoxes.length; i++) {
+
+
+        var price = chkBoxes[i].value * 1;
+        totalPrice += price;
+
+    }
+
+    
+    document.getElementById("tPrice").innerHTML = totalPrice;
+	
+	
+}
+/* 브라우저가 열리자마자 count box 에 체크된 것만 계산하기 시작하는 function 끝 */
+
+
+
+
+
+
+// 체크박스 누를 때마다 발생하는 이벤트 function 시작
+function chkEvent(e) {
+
+
+    //alert(e.checked)
+
+    price = e.value;
+
+    // String 을 int 로 바꾸기 
+    price *= 1;
+    totalPrice *= 1;
+
+    // 체크박스가 체크되어 있으면 
+    if(e.checked == true) {
+
+        // 총합계에 금액을 합친다 
+        totalPrice += price;
+
+        // 총합계를 나타낸다. 
+        document.getElementById("tPrice").innerHTML = totalPrice;
+
+    
+    // 체크박스가 체크되어 있지 않으면 
+    } else {
+
+        // 총합계에서 금액을 뺀다 
+        totalPrice -= price;
+
+        // 총합계를 나타낸다. 
+        document.getElementById("tPrice").innerHTML = totalPrice;
+
+    }
+
+}
+// 체크박스 누를 때마다 발생하는 이벤트 function 끝
+
+
+
+
+
+
+
+
+/* 전체선택 체크박스 구현 function 시작 */
+function checkAll() {
+	
+	// 전체선택이 체크되어있으면
+	if($("#chkAll").prop("checked")){
+		
+		for(var i=0; i<chkBoxes.length; i++) {
+			// 모든 체크박스를 다 선택 
+			chkBoxes[i].checked="checked";
+			
+			chkEvent(chkBoxes[i]);
+		};
+		
+		// 전체선택이 체크되어 있지 않으면
+	}else {
+		for(var i=0; i<chkBoxes.length; i++) {
+			// 모든 체크박스를 다 해제 
+			chkBoxes[i].checked="";
+			
+			
+			chkEvent(chkBoxes[i]);
+		};
+	}
+}
+/* 전체선택 체크박스 구현 function 끝 */
+
+
+
+
+
+
+/* 장바구니 리스트 ajax 로 불러오기 시작 */
+function getBasketList() {
+   
+   return $.ajax({
+      url: "/product/basket",
+      type: "GET",
+      dataType: "JSON",
+      error : function(){console.log("통신실패")},
+      success : function(){console.log("통신성공")}
+      
+      });
+   
+}
+/* 장바구니 리스트 ajax 로 불러오기 끝 */
+
+ 
+ 
+
+// html 구조 안에다가 장바구니 내용 넣기 function 시작
+function draw(jsonData) { 
+   
+	var $tableBody = $("#tableBody");
+	
+	$tableBody.empty();
+	
+	console.log("그리기 전 결과 확인: " + jsonData);
+	
+	for(var i=0; i<jsonData.length; i++) {
+		
+		$tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id='chkBox' checked='checked' value=\""+jsonData[i].price*jsonData[i].itemNum+"\" onclick='chkEvent(this)'></td><td><img id='thumbnailImg' src=\""+jsonData[i].itemImg1+"\"></td><td>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원</td><td>"+jsonData[i].itemNum+"개</td><td>"+jsonData[i].price*jsonData[i].itemNum+"원</td></tr>");
+		
+	}
+	
+   
+}
+//html 구조 안에다가 장바구니 내용 넣기 function 끝
+
+ 
+
+
+
+
+
+
+
+</script>    
+    
+    
+    
+    
+    
 
 
 </body>
