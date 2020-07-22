@@ -580,6 +580,7 @@ margin-left: 15%;
    #star_grade a.on{
        color: red;
    }
+
 /* 별점 스타일 끝 */
 
 /* 리뷰 리스트 스타일 */
@@ -764,30 +765,44 @@ margin-left: 15%;
      
      <jsp:include page="MoveBar.jsp" flush="false"/>
         <h1>상품평 영역</h1>
-        <!-- <img src="https://t1.daumcdn.net/cfile/tistory/191592154C6239356D"> <br> -->
+        <!-- 리뷰 갯수 표시 -->
+        <h4 id="reviewAmount"></h4> 
+        
+        <!-- 평균 별점 구현 중 -->
+        <div id="starAvg">
+           <a style="text-decoration:none; font-size:30px;">★</a>
+           <a>★</a>
+           <a>★</a>
+           <a>★</a>
+           <a>★</a>
+           <p id="avg"><strong>4.8</strong></p> <span>/</span> <span>5.0</span>
+        </div>
+      
+      <!-- 리뷰 남기기 버튼 -->
         <button onclick="orderCheck()" style="width:auto; float:right;">리뷰 남기기</button>
         <br>
+        
         <!-- 리뷰 리스트 영역 -->
         <div id="reviewDiv">
-        
-           <!-- <div style="float: left; width: 20%; font-weight:bold;">아이디 자리</div> 
-           <div style="float: left; width: 80%; font-weight:bold; text-align:right;">
-            2020/07/19
-         </div>
-           <div style="font-weight:bold;">별점자리</div>
-         
-           <div style="float: left; width: 20%;">
-            <img style="height:75px;" src="/resources/images/noImg.png">
-         </div>
-           <div style="width:80%; float:left">
-              <button class="collapsible">위치보기</button>
-            <div class="content">
-              <p style="">위치 조절중..</p>
-              <button class="btn" style="background-color: #f44336;">삭제</button>
-              <button class="btn">수정</button>
+            <!-- 
+            <div style="float: left; width: 20%; font-weight:bold;">아이디 자리</div> 
+              <div style="float: left; width: 80%; font-weight:bold; text-align:right;">
+               2020/07/19
             </div>
-           </div> -->
-           
+              <div style="font-weight:bold;">별점자리</div>
+            
+              <div style="float: left; width: 20%;">
+               <img style="height:75px;" src="/resources/images/noImg.png">
+            </div>
+              <div style="width:80%; float:left">
+                 <button class="collapsible">위치보기</button>
+               <div class="content">
+                 <p style="">위치 조절중..</p>
+                 <button class="btn" style="background-color: #f44336;">삭제</button>
+                 <button class="btn">수정</button>
+               </div>
+              </div> 
+              -->
         </div>
         
       <!-- 리뷰 등록 모달 영역 -->
@@ -798,7 +813,7 @@ margin-left: 15%;
           </div>
       
           <div class="reviewContainer">
-            <label for="title"><b>리뷰 제목</b></label>
+             <label for="title"><b>리뷰 제목</b></label>
             <input type="text" name="reviewTitle" id="reviewTitle" class="reviewtext" placeholder="리뷰 제목을 남겨주세요." required> <br>
       
             <label for="content"><b>리뷰 내용</b></label>
@@ -806,49 +821,32 @@ margin-left: 15%;
             
             <label for="img"><b>이미지 첨부</b></label>
             <input type='file' name="reviewImg" id="reviewImg" accept="image/gif, image/jpeg, image/png, image/jpg" />
-            
+         <input type="hidden" id="imgValue">
+         
             <label for="score"><b>별점</b></label> <br>
-           <p id="star_grade">
+              <p id="star_grade">
               <a href="#" id="score1" score="1" onclick="scoreAction($(this).attr('score'));">★</a>
               <a href="#" id="score2" score="2" onclick="scoreAction($(this).attr('score'));">★</a>
               <a href="#" id="score3" score="3" onclick="scoreAction($(this).attr('score'));">★</a>
               <a href="#" id="score4" score="4" onclick="scoreAction($(this).attr('score'));">★</a>
               <a href="#" id="score5" score="5" onclick="scoreAction($(this).attr('score'));">★</a>
-           </p>
+              </p>
            
-           <input type="hidden" name="idNo" id="idNo" value="idNo">
-           <input type="hidden" name="score" id="score" value="0">
-           <input type="hidden" name="itemCode" value="${product.itemCode}">
-           <input type="hidden" name="reviewNo" id="reviewNo">
+              <input type="hidden" name="idNo" id="idNo" value="idNo">
+              <input type="hidden" name="score" id="score" value="0">
+              <input type="hidden" name="itemCode" value="${product.itemCode}">
+              <input type="hidden" name="reviewNo" id="reviewNo">
             
             <button class="reviewBtn" id="reviewBtn">등록하기</button>
             <button style="display:none;" class="reviewBtn" id="updateBtn">수정하기</button>
           </div>
         </div>
       </div>
-      <div class='pull-right'>
-         <ul class="pagination">
-            <c:if test="${pageMaker.prev}">
-               <li class="paginate_button previous">
-                  <a href="${pageMaker.startPage -1}">Previous</a>
-               </li>
-            </c:if>
-
-            <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-               <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
-                  <a href="${num}">${num}</a>
-               </li>
-            </c:forEach>
-
-            <c:if test="${pageMaker.next}">
-               <li class="paginate_button next">
-                  <a href="${pageMaker.endPage +1 }">Next</a>
-               </li>
-            </c:if>
-         </ul>
+      
+      <div class="reviewPage">
+      
       </div>
-      <!--  end Pagination -->
-     </div>
+     </div> <!-- prdReview 끝 -->
      <!-- 상품평 body 끝 -->
      
      
@@ -884,19 +882,18 @@ margin-left: 15%;
                <label>id</label>
                <input class ="form-control" id ="idNoBtn"  name='idNo' value='idNo' readonly="readonly"></div>
                <div class="form-grop">
-                <label>replyDepth</label>
-                <input class ="form-control" id ="replyDepth"  name='replyDepth' value='1' readonly="readonly"></div>
+          <!--      <label>replyDepth</label>
+                <input class ="form-control" id ="replyDepth"  name='replyDepth' value='1' readonly="readonly"></div> -->
                 <div class="form-grop">
                  <label>replyCount</label>
                 <input class ="form-control" id ="replyCount"  name='replyCount' value='1' readonly="readonly"></div>
                <div class="form-grop">
-                <label>replyCode</label>
-                <input class ="form-control" id ="replyCode"  name='replyCode' value='1' readonly="readonly"></div>
+         <!--        <label>replyCode</label>
+                <input class ="form-control" id ="replyCode"  name='replyCode' value='1' readonly="readonly"></div> -->
                 <div class="form-grop">
                  <label>itemCode</label>
-                <input class ="form-control" id ="itemCode"  name='itemCode' value='product22222' readonly="readonly"></div>
- 
-                 
+                <input class ="form-control" id ="itemCode"  name='itemCode' value='itemCode' readonly="readonly"></div>
+            
     
                
          <!--       <div class="form-grop">
@@ -919,17 +916,22 @@ margin-left: 15%;
                <!--  start reply -->
                <li class="left clearfix" data-itemCode='itemCode'>
                     <div>
-                    <div class="header">
-                    <strong class="primary-font">dfdfd</strong>
-                    <small class="pull-rigth text-muted">2018-01-01 13:13</small>
-                   </div>
+                       <div class="header">
+                       <strong class="primary-font">작동이앙대</strong>
+                       <small class="pull-rigth text-muted">2018-01-01 13:13</small>
+                      </div>
                    <p>Good jop!</p>
-               </div>
+                   </div>
                    </li>
                    <!--  end reply -->
-               </ul>
-               <!--  end ul -->
-               </div><!-- 댓글 div 마지막 -->
+               </ul> <!--  end ul -->
+                
+                   </div><!-- 댓글 div 마지막 -->
+               
+                        <div class="panel-footer">
+               
+               
+                         </div>
                <!--  /.panel .chat-panel -->
                  </div><!-- RemoveBtn end -->
         
@@ -1086,174 +1088,222 @@ margin-left: 15%;
    
 $(document).ready(function(){
 
-        var itemCode = $("#itemCode").val();
+         var itemCode = $("#itemCode").val();
          var replyUL = $(".chat");
    
-        showList(1);//<댓글 호출 매서드
+         showList(1);//<댓글 호출 매서드
    
-    function showList(page){
+               function showList(page){
 
-       prdreplyService.getList({itemCode:itemCode,page: page || 1}, function(list){
-          
-         var str="";
-         
-         if(list == null || list.length == 0){
-          
-            replyUL.html("");
-         
-              return;
-         }
-         
+              console.log("showList" + page);
+              prdreplyService.getList({itemCode:itemCode,page: page || 1},
+                 function(prdReplyCnt,list){
+                    
+                 console.log("prdReplyCnt" + prdReplyCnt);
+                 console.log("list" + list);
+                 console.log(list);
+                   
+                 if(page == -1){
+                    pageNum = Math.ceil(prdReplyCnt/10.0);
+                    showList(pageNum);
+                    return;
+                  }
+                 
+                 
+                   var str="";
+                          if(list == null || list.length == 0){
+                          replyUL.html("");
+                         return;
+                          }
 
-         for(var i = 0, len =list.length || 0; i <len; i++){
-            str += "<li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
-            str += "<div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
+          //문의글 , 답글 구현
+            for(var i = 0, len =list.length || 0; i <len; i++){
             
-            str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>";
+           var replyDepth = list[i].replyDepth;
+           console.log(replyDepth);
+            str += "<ul><li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
+
+                 if(replyDepth==0){
+                     str += "<div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
+                     str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
+                     str += "<div><textarea class='text' id='text' rows='5'>"+list[i].replyContent+"</textArea>";
+                     str += "<div><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
+                     str += '<button id="replybtn" class ="replybtn" >답글달기</button> <br></div></div></div>'; 
+               
+                 }else{
+      
               
-            str += "<div><textarea class='text' id='text' rows='5'>"+list[i].replyContent+"</textArea>";
-            str += '<button id="replybtn" class ="replybtn">답글달기</button> <br>'
+                    str += "<div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
+                      str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
+                      str += "<div>"+'&nbsp; >Re:'+"<textarea class='text' id='text' rows='5'>"+list[i].replyContent+"</textArea>";
+                      str += "<div><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
+                   /*    str += '<button id="replybtn" class ="replybtn" >답글달기</button> <br></div></div></div>';  */
+                     
+                    
+                 }
+            //문의글 , 답글 구현 end
             
-            str += '<div class="dropdown">'
-            str += '<button class="dropbtn">:</button>'
-            str += '<div id="myDropdown" class="dropdown-content">'
             
-            str += '<button id="modify" class ="modify">수정</button> <br>'
-            str += '<button id="delete" class ="deletebtn">삭제</button>'
-            
-            str += '</div></div></div></div>'
-         
+            str += '<div class="dropdown">';
+            str += '<button class="dropbtn">:</button>';
+            str += '<div id="myDropdown" class="dropdown-content">';
+            str += '<button id="modify" class ="modify">수정</button> <br>';
+            str += '<button id="delete" class ="deletebtn">삭제</button>';
+            str += '</div></div></li></ul>'
             
          }
          replyUL.html(str);
-
+         showReplyPage(prdReplyCnt);
+  
          
                 });//end function
+                
+                
                }//end showList
-              
+               
+               
+              //문의 입력  start
                var regiBtn = $("#regiBtn")
                 
                
                regiBtn.find('button').on("click",function(e){
-                   
-                  console.log("들어옴");
-                  
-                  if($("#replyContentBtn").val() == ''||$("#replyContentBtn").val().trim()==""||$("#replyContentBtn").val().length>600){
+               if($("#replyContentBtn").val() == ''||$("#replyContentBtn").val().trim()==""||$("#replyContentBtn").val().length>600){
                      
-                           alert("댓글양식에 맞게 입력해주세요(1~600자)");
-                           return false;
+                    alert("댓글양식에 맞게 입력해주세요(1~600자)");
+                    return false;
                       
-                   }
-                  
-                  
-                  prdreplyService.add(
-                         {idNo:$("#idNoBtn").val(), replyContent:$("#replyContentBtn").val(),  itemCode:$("#itemCode").val(),
-                          replyDepth:$("#replyDepth").val(), replyCount:$("#replyCount").val(), replyCode:$("#replyCode").val(),
-           
-                         },
+               }
+      
+               prdreplyService.add(
+                    {idNo:$("#idNoBtn").val(), replyContent:$("#replyContentBtn").val(),  itemCode:$("#itemCode").val(),
+                    replyDepth:$("#replyDepth").val(), replyCount:$("#replyCount").val(), replyCode:$("#replyCode").val(),
+                    },
                          
                          
                         
-                         function(result){
+                function(result){
                             
                 
-                            var replyContent = $(".replyContent").val();
-                            
-                                console.log(replyContent);
-                              
-
-                            alert("댓글이 등록되었습니다. : " + result);
-                             $("#replyContentBtn").val("");
-                            
-                            showList(1);
-                      }); 
-                   
-                 
-                  
-                  });
-             //댓글 입력 end
+                    var replyContent = $(".replyContent").val();
+                    console.log(replyContent);
+                alert("댓글이 등록되었습니다. : " + result);
+                 $("#replyContentBtn").val("");
+                   showList(pageNum);
+                 }); 
+            });
+             //문의 입력 end
              
              
-             //대댓글처리
+             //답글글처리(대댓글)
              $(document).on("click","button[id='replybtn']", function(e) {
-                var replybtn = $("#replybtn")
-  
-             console.log("답글버튼 온")
-             
-              $(".replyDiv").remove();
-              $(".commentEditDiv").remove();
-         
-             
-             var commentDepth = $(this).parent().find(".commentDepth").val();
-                 if(commentDepth>9) {
-                    alert("댓글 차수를 초과하여 더 이상 대댓글을 등록할 수 없습니다!");
-                    return;
-                 }
-                 
-                 var replyDiv = document.createElement("div");
-                 replyDiv.setAttribute("class", "replyDiv");
-                  
-                 var textArea = document.createElement("textarea");
-                 textArea.setAttribute("id", "replyTextarea");
-                 textArea.setAttribute("placeholder", "댓글을 입력해주세요");
-                  
-                 var reCommentRegBtn = document.createElement("button");
-                 reCommentRegBtn.setAttribute("class", "reCommentRegBtn");
-                 reCommentRegBtn.innerHTML="답변 등록";
+               
+               
+                  var replybtn = $("#replybtn")
+                   var target = e.target; 
+                   var replyLi = $(target).closest("li");
+                   var replyNodata = replyLi.data("replyno");
+                        
+                   console.log(replyNodata);
 
-                 replyDiv.appendChild(textArea);
-                 replyDiv.appendChild(reCommentRegBtn);
+                   $(".replyDiv").remove();
+                   $(".commentEditDiv").remove();
+
+                 
+                      var replyDiv = document.createElement("div");
+                     replyDiv.setAttribute("class", "replyDiv");
                   
-                 e.target.after(replyDiv);
-              });
-             //대댓글처리 end
+                    var textArea = document.createElement("textarea");
+                    textArea.setAttribute("id", "replyTextarea");
+                    textArea.setAttribute("placeholder", "댓글을 입력해주세요");
+                    
+                    var replyNo = document.createElement("input");
+                    replyNo.setAttribute("id","replyNo");
+                    replyNo.setAttribute("type","hidden");
+                    replyNo.setAttribute("value",replyNodata);
+                    
+                    
+                    var reCommentRegBtn = document.createElement("button");
+                    reCommentRegBtn.setAttribute("class", "reCommentRegBtn");
+                    reCommentRegBtn.innerHTML="답변 등록";
+
+                    replyDiv.appendChild(textArea);
+                    replyDiv.appendChild(replyNo);
+                    
+                    replyDiv.appendChild(reCommentRegBtn);
+                     
+                    e.target.after(replyDiv);
+               //대댓글처리 창 만들기 end
              
              
-             
-         
-               
-               
- 
+             });
+      
+               // 대댓글 등록버튼 이벤트
+          $(document).on("click","button[class='reCommentRegBtn']", function(e){
+      
+              var replyRegister = $("#replyTextarea").val()
+             var replyNo = $("#replyNo").val()
+   
+                      prdreplyService.replyadd(
+                         {idNo:'idNo', replyContent:replyRegister,       
+                          itemCode:$("#itemCode").val(),replyDepth:1,
+                         replyCount:$("#replyCount").val(), replyCode:01 ,  
+                         replyNo : replyNo
+                         },
+                                  
+                         function(result){
+                        e.preventDefault();
+                         var replyContent = $(".replyContent").val();                                       
+                         console.log(replyContent);
+                         alert("댓글이 등록되었습니다. : " + result);
+                         $("#replyContentBtn").val("");
+                         showList(1);
+                  }); 
+                 
+          });
+      
+             // 대댓글 등록버튼 이벤트 end
 
        //: . dropDown 클릭시발생하는 이벤트
 
        window.onclick = function(e) {
        
-          
-          
+   
            var target = e.target
              //var replyLi = $(target).parent().parent().parent();
              var replyLi = $(target).closest("li");
              var replyNo = replyLi.data("replyno");
            
              $(target).parent().find("#myDropdown").toggle("show");
+
              
-   
-             
-          if (!event.target.matches('.dropbtn')) {
-           var dropdowns = $(target).parent().find("#myDropdown");
-           var i;
-           for (i = 0; i < dropdowns.length; i++) {
-             var openDropdown = dropdowns[i];
-             if (openDropdown.classList.contains('show')) {
-               openDropdown.classList.remove('show');
+              if (!event.target.matches('.dropbtn')) {
+                  var dropdowns = $(target).parent().find("#myDropdown");
+                   var i;
+                          for (i = 0; i < dropdowns.length; i++) {
+                         var openDropdown = dropdowns[i];
+                              if (openDropdown.classList.contains('show')) {
+                               openDropdown.classList.remove('show');
                
-             }
-           }
-         }
+                               }
+                          }
+            }
              
-       }//: . dropDown 클릭시발생하는 이벤트 end
+     }//: . dropDown 클릭시발생하는 이벤트 end
        
        
         
-        $(document).on("click","button[id='delete']", function(e) {
+      $(document).on("click","button[id='delete']", function(e) {
                
-               console.log("삭제ddd");
+       console.log("삭제ddd");
               
             
-          var target = e.target
+          var target = e.target;
+          
+          console.log(target);
           //var replyLi = $(target).parent().parent().parent();
           var replyLi = $(target).closest("li");
+          
+          console.log(replyLi+"LLLIII");
           var replyNo = replyLi.data("replyno");
           
           var ids = replyLi.data("id");
@@ -1262,13 +1312,13 @@ $(document).ready(function(){
           
        
        
-       
+        
           prdreplyService.remove(replyNo , function(count){
             
              console.log(count);
              
              if(count === "success"){
-                showList(1);
+                showList(pageNum);
                 alert("REMOVED");
                 
                 
@@ -1276,65 +1326,58 @@ $(document).ready(function(){
           }, function(err){
            alert('ERROR....')   
              
-          });
+          }); 
  
-    });       //댓글 삭제end
+    });       //문의글 삭제, 댓글 삭제end
     
-  /*   $(document).on("click","button[id='modify']", function(e){
-             
-           console.log("수정");
-             
-             var target = e.target
-                var replyLi = $(target).closest("li");
-                var replyNo = replyLi.data("replyno");
-             var text = replyLi.data("text");
-         
-             
-             var str = $(target).parent().find(".text").val(text);
-        
-              
-             
-             
-               $(".btn-dangers").show();
-               $(".btn-dange").hide();
-               $(".text").attr('readonly','readonly');
+ 
+          //문의글 수정, 댓글수정
+          $(document).on("click","button[id='modify']",function(e){
                 
-               
-              $(target).parent().find("button")
-             
-              
-              $(target).parent().find("button").hide();
-             
-              
-              
-              $(target).parent().find("#text").removeAttr("readonly");
-             
-             //$(target).siblings("button").hide();
-              
-                 
-             $(target).parent().parent().find("#divBtnDelete").show();
-              
-           
-             showList(1);
-          
-          
-         }); */
-      
-        
-            $(document).on("click","button[id='modify']",function(e){
-                 
-                 
-             
-               
                var target = e.target;
                var replyLi = $(target).closest("li");
                var replyNo = replyLi.data("replyno");
-               var itemCode = replyLi.data("itemCode");
-              
-           
+               var itemCode = replyLi.data("itemCode");         
                var replyContent =  $(target).parent().parent().parent().find("#text").val();
+             
                
-               console.log(replyContent);
+              
+               //대댓글의경우 replyContent null, parent() 한개더 줘서 replyContetn 값을 줌
+               if(replyContent==null){
+                  
+                  var replyContent =  $(target).parent().parent().parent().parent().find("#text").val();
+                  $(target).parent().parent().parent().parent().find("#text").hide();
+                  
+               }else{
+               
+                  $(target).parent().parent().parent().find("#text").hide();
+                  $(target).parent().parent().parent().find("#replybtn").hide();
+               }
+               
+               
+               var replyDiv = document.createElement("div");
+               replyDiv.setAttribute("class", "replyDiv");
+
+               var textArea = document.createElement("textarea");
+               textArea.setAttribute("id", "replyTextarea");
+               textArea.setAttribute("placeholder", "댓글을 입력해주세요");
+
+               var replyNo = document.createElement("input");
+               replyNo.setAttribute("id","replyNo");
+               replyNo.setAttribute("type","hidden");
+/*                replyNo.setAttribute("value",replyNodata);
+ */
+
+        
+               replyDiv.appendChild(textArea);
+               replyDiv.appendChild(replyNo);
+
+       
+               
+               $(target).parent().parent().after(replyDiv);
+               
+               
+               
            
                 if(replyContent==''||replyContent.trim()==''||replyContent.length>600){
                    
@@ -1343,34 +1386,76 @@ $(document).ready(function(){
                 }
           
                 prdreplyService.update({
-                    
-                
-                   
-                replyNo  : replyNo,    
-                itemCode : itemCode,
-                replyContent : replyContent
+                      
+                      replyNo  : replyNo,    
+                      itemCode : itemCode,
+                      replyContent : replyContent
 
                
-            },function(result){
+               },function(result){
                   
-                  alert("수정 완료 ........")
-                  showList(1);
-               
-            });
+                     alert("수정 완료 ........")
+                     showList(pageNum);
                   
-            });
+                });
+                  
+          });//문의글 수정, 댓글수정 end
             
-/*             $("document").on("click","button[id='modify']",function(e){
-
-          
-              showList(1);
-         
-             
-            });
-     */
-    
      
+          
+          //댓글 페이징처리 start
+          var pageNum =1;
+          var replyPageFooter = $(".panel-footer");
+          
+          function showReplyPage(prdReplyCnt){
                
+             var endNum = Math.ceil(pageNum / 10.0) * 10;
+             var startNum = endNum - 9;
+             
+             var prev = startNum !=1;
+             var next = false;
+             
+             if(endNum * 10 >= prdReplyCnt){
+                endNum = Math.ceil(prdReplyCnt/10.0);
+             }
+             if(endNum * 10 < prdReplyCnt){
+                next = true;
+             }
+             
+             var str = "<ul class='pagination pull-rigth'>";
+             
+             if(prev){
+                str+= "<li class='page-item'><a class='page-link' href='"+(startNum - 1)+"'>Previous</a><li>";
+             }
+                     
+                 for(var i = startNum; i <= endNum; i++){
+                    
+                     var active = pageNum == i?"active":"";
+                     
+                     str+= "<li class='page-item"+active+"'><a class='page-link' href='"+i+"'>"+i+"</a><li>";        
+                 }
+                 if(next){
+                    str+="<li class='page-item'><a class='page-link' href='"+(endNum+1)+"'>Next</a><li>";  
+                 }
+                  str += "</ul></div>";
+                  console.log(str);
+                  replyPageFooter.html(str);
+          }
+          
+          
+          replyPageFooter.on("click", "li a", function(e){
+              e.preventDefault();
+              console.log("page click");
+              
+             var targetPageNum = $(this).attr("href");
+             
+             console.log("targetPageNum:"  + targetPageNum );
+             pageNum = targetPageNum;
+             
+             showList(pageNum);
+          })
+          
+          
 });//ready end
    
  
@@ -1660,7 +1745,7 @@ $(document).ready(function(){
 
 
     // reviewList 출력
-     showList(1)
+     showList(1);
   
 });
  
@@ -1668,137 +1753,216 @@ $(document).ready(function(){
 
 /* 리뷰 부분 시작 */
 
-// 리뷰 남기기 모달 띄우기
-   var modal = document.getElementById('review');
+   // 리뷰 남기기 모달 띄우기
+      var modal = document.getElementById('review');
    
-   // 모달 끄기
-   window.onclick = function(event) {
-       if (event.target == modal) {
+      // 모달 끄기
+      window.onclick = function(event) {
+      if (event.target == modal) {
            modal.style.display = "none";
-       }
-   }
+          }
+      }
     
-   // 별점 주기
-   $('#star_grade a').click(function(){
-       $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
-       $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
-       return false;
-   });
+      // 별점 주기
+      $('#star_grade a').click(function(){
+            $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
+          $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
+          return false;
+      });
    
-   // 별점 가져오기
-   function scoreAction(score) {
-      $("#score").val(score);
-   }
-   
-   // 주문 한 사람인지 비교
-   function orderCheck() {
-      if($("#idNo").val() != 'idNo') {
-         alert("상품 후기는 상품을 구매하시고 배송온료된 회원 분만 한달 내 작성 가능합니다.");
-         return false;
+      // 별점 가져오기
+      function scoreAction(score) {
+       $("#score").val(score);
       }
-      document.getElementById('review').style.display='block';
-      // 버튼 및 내용 초기화
-      $("#reviewBtn").show();
-      $("#updateBtn").hide();
-      $("#reviewTitle").val("");
-      $("#reviewContent").val("");
-      $("#reviewImg").val("");
-      $("#score").val("0");
-      $("#reviewNo").val("");
-      $("#star_grade a").parent().children("a").removeClass("on");
-   }
    
-   // 리뷰 등록
-   $("#reviewBtn").on("click", function(e) {
-      
-      if($('#reviewTitle').val()=='' || $('#reviewTitle').val().trim() == '') {
-         alert('리뷰 제목을 입력해주세요.');
-         $('#reviewTitle').focus();
-         return false;
-      }else if($('#reviewContent').val()=='' || $('#reviewContent').val().trim() == ''){
-         alert('리뷰 내용을 입력해주세요.');
-         $('#reviewContent').focus();
-         return false;
-      }else if($('#score').val()=='0') {
-         var scoreResult = confirm("별점을 선택하지 않으면 0점으로 반영됩니다. 그대로 진행하시겠습니까?");
-         if(!scoreResult) {
-            return false;
+      // 주문 한 사람인지 비교
+      function orderCheck() {
+       if($("#idNo").val() != 'idNo') {
+           alert("상품 후기는 상품을 구매하시고 배송온료된 회원 분만 한달 내 작성 가능합니다.");
+        return false;
          }
+         document.getElementById('review').style.display='block';
+      
+         // 버튼 및 내용 초기화
+         $("#reviewBtn").show();
+         $("#updateBtn").hide();
+         $("#reviewTitle").val("");
+         $("#reviewContent").val("");
+         $("#reviewImg").val("");
+         $("#score").val("0");
+         $("#reviewNo").val("");
+         $("#star_grade a").parent().children("a").removeClass("on");
       }
-
-      var sendData = JSON.stringify(
-            {reviewTitle:$('#reviewTitle').val(), reviewContent:$('#reviewContent').val(), 
-               reviewImg:$('#reviewImg').val(), score:$('#score').val(),
-               idNo:$('#idNo').val(), itemCode:$('#itemCode').val()
-            });
       
-      $.ajax({
-         url : '/review/regReview',
-         data : sendData,
-         type : 'POST',
-         contentType : "application/json; charset=utf-8",
-         success : function(result) {
-            document.getElementById('review').style.display = "none";
-            alert("상품평이 정상적으로 등록되었습니다.");
-            showList(1);
-         },
-         error : function(er) {
-            alert("통신 오류입니다. 잠시 후 다시 시도해주세요.");
-            error(er);
-         }
+      // 이미지 체크
+      var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG)$");
+    var maxSize = 5242880;
+    
+    function checkExtension(fileType, fileSize) {
+       if(fileSize >= maxSize) {
+          alert("이미지 사이즈 초과입니다.");
+          return false;
+       }
+       
+       if(!regex.test(fileType)) {
+          alert("이미지만 업로드 가능합니다!");
+          return false;
+       }
+       return true;
+    }
+    
+    // 리뷰 이미지 업로드 할 때
+    //var uuidImgName = "";   // 업로드된 파일 이름 저장하기 위한 변수
+    var uploadResult = false;   // 업로드 success 여부
+    
+    $("input[type='file']").change(function(e) {
+       var formData = new FormData();
+         var inputFile = $("input[name='reviewImg']");
+         var files = inputFile[0].files;
+         console.log(files);
          
-      }); // $.ajax
+         for(var i=0; i<files.length; i++) {
+            if(!checkExtension(files[i].name, files[i].size) ) {
+               return false;
+            }
+            formData.append("uploadFile", files[i]);
+         }
+        formData.append("itemCode", $("#itemCode").val());
+         
+         $.ajax({
+            url : '/review/uploadAjaxAction',
+            processData : false,
+            contentType : false,
+            data : formData,
+            type : 'POST',
+            dataType : 'json',
+            success : function(result) {
+               console.log(result);
+               $("#imgValue").val(result.toString());
+               uploadResult = true;
+            }
+      });   // $.ajax
+         
+    });
+   
+      // 리뷰 등록
+      $("#reviewBtn").on("click", function(e) {
+         console.log(uploadResult);
+
+       if($('#reviewTitle').val()=='' || $('#reviewTitle').val().trim() == '') {
+           alert('리뷰 제목을 입력해주세요.');
+            $('#reviewTitle').focus();
+            return false;
+         }else if($('#score').val()=='0') {
+           var scoreResult = confirm("별점을 선택하지 않으면 0점으로 반영됩니다. 그대로 진행하시겠습니까?");
+            
+           if(!scoreResult) {
+               return false;
+            }
+         }
+       
+       if($('#reviewImg').val() != '' && uploadResult == false) {
+          alert("이미지가 제대로 첨부되지 않았습니다. 다시 시도해주세요.");
+          return false;
+       }
+       
+         var sendData = JSON.stringify(
+               {reviewTitle:$('#reviewTitle').val(), reviewContent:$('#reviewContent').val(), 
+                     reviewImg:$('#imgValue').val(), score:$('#score').val(),
+                     idNo:$('#idNo').val(), itemCode:$('#itemCode').val()
+               });
+
+         $.ajax({
+           url : '/review/regReview',
+            data : sendData,
+            type : 'POST',
+            contentType : "application/json; charset=utf-8",
+            success : function(result) {
+               document.getElementById('review').style.display = "none";
+               alert("상품평이 정상적으로 등록되었습니다.");
+               showList(1);
+            },error : function(er) {
+               alert("통신 오류입니다. 잠시 후 다시 시도해주세요.");
+               error(er);
+            }
+         }); // $.ajax
    }); // 등록 event
    
-   // 상품 평 리스트 출력
-     function getList(param, callback, error){
+      // 상품 평 리스트 출력
+    function getList(param, callback, error){
         
-        var itemCode = param.itemCode;
+       var itemCode = param.itemCode;
         var page = param.page || 1;
         
         $.getJSON("/review/pages/"+itemCode+"/"+page+".json",
         function(data){
-          if(callback){
-             callback(data);
-             
-          }
+           if(callback){
+               //callback(data);
+               callback(data.reviewCnt, data.list);
+             }
         }).fail(function(xhr,status, err){
            if(error){
-              error();
-           }
+               error();
+              }
         });
-     }
+   }
    
-   var itemCode = $("#itemCode").val();
-   var reviewList = $("#reviewDiv");
-     
-     function showList(page){
-
-         getList({itemCode:itemCode,page: page || 1}, function(list){
-            var str="";
+      var itemCode = $("#itemCode").val();
+      var reviewList = $("#reviewDiv");
+    
+   function showList(page){
+      
+       getList({itemCode:itemCode,page: page || 1}, function(reviewCnt, list){
+           //console.log(reviewCnt + " reviewCnt");
+           //console.log(list + " list");
            
-              if(list == null || list.length == 0){
-                reviewList.html("");
-                   return;
+           if(page == -1) {
+              pageNum = Math.ceil(reviewCnt/10.0);
+              showList(pageNum);
+              return;
+           }
+          
+          var str="";
+           
+            if(list == null || list.length == 0){
+               reviewList.html("");
+                  return;
               }
-     
-           for(var i = 0, len =list.length || 0; i <len; i++){
+            
+            // 리뷰 개수표시
+            $("#reviewAmount").html("리뷰 (" + list.length + ")개");
+            
+           var avgNum = "";
+            // list html 본문에 뿌리기
+         for(var i = 0, len =list.length || 0; i <len; i++){
               var star = "";
-              var stars = new Array(); 
-              
-              for(var j=0; j<list[i].score; j++) {
-                 star += "★";
-              }
-              stars[i] = star;
+               var stars = new Array();
 
-              str += "<div style='width:100%; overflow:hidden;'>";
-              str += "<div style='float: left; width: 20%; font-weight:bold;'>"+ list[i].idNo +"</div>"; 
-              str += "<div style='float: left; width: 80%; font-weight:bold; text-align:right;'>"+ displayTime(list[i].regDate) +"</div>"; 
-              str += "<div style='float: left; width: 100%; font-weight:bold; color:red;'>"+ stars[i] +"</div>"; 
-              str += "<div style='float: left; width: 20%;'><img style='height:75px;' src='/resources/images/noImg.png'></div>"; 
+                 for(var j=0; j<list[i].score; j++) {
+                   star += "★";
+                 }
+                 for(var x=list[i].score; x<5; x++) {
+                    star += "☆";
+                 }
+                 stars[i] = star;
+                 
+                 var path = "";
+                 if(list[i].reviewImg != null) {
+                    path = "src='/resources/review/" + list[i].itemCode + "/" + list[i].reviewImg + "'";
+                 }
+                 
+                 if(list[i].reviewContent == null) {
+                    list[i].reviewContent = "";
+                 }
 
-              str += "<div style='width:80%; float:left'>"; 
-               str += "<button class='collapsible'>"+ list[i].reviewTitle + "</button>";
+                 str += "<div style='width:100%; overflow:hidden;'>";
+                 str += "<div style='float: left; width: 20%; font-weight:bold;'>"+ list[i].idNo +"</div>"; 
+                 str += "<div style='float: left; width: 80%; font-weight:bold; text-align:right;'>"+ displayTime(list[i].regDate) +"</div>"; 
+                 str += "<div style='float: left; width: 100%; font-weight:bold; color:red;'>"+ stars[i] +"</div>"; 
+                 str += "<div style='float: left; width: 20%;'><img class='resultImg' style='height:75px;' "+ path +" /></div>"; 
+
+                 str += "<div style='width:80%; float:left'>"; 
+                  str += "<button class='collapsible'>"+ list[i].reviewTitle + "</button>";
                 str += "<div class='content'>";
                 str += "<p style=''>"+ list[i].reviewContent +"</p>";
                 str += "<button id='removeBtn' data-oper='"+ list[i].reviewNo +"' class='btn' style='background-color: #f44336;'>삭제</button>";
@@ -1809,163 +1973,215 @@ $(document).ready(function(){
                 str += "</div>";
                 str += "<br><hr>"
                 //console.log(list[i].reviewContent);
+               
+                avgNum += list[i].score;
+              }
+            avgNum /= list.length;
+            $("#avg").html();
               
-           }
-           
             reviewList.html(str);
-           
-           // 리뷰 리스트 효과
-             var coll = $(".collapsible");
+              showReviewPage(reviewCnt);     
+
+              // 리뷰 리스트 효과
+         var coll = $(".collapsible");
              
-             for (i = 0; i < coll.length; i++) {
-                coll[i].addEventListener("click", function() {
-                    this.classList.toggle("active");
+              for (i = 0; i < coll.length; i++) {
+                 coll[i].addEventListener("click", function() {
+                   this.classList.toggle("active");
                     var content = this.nextElementSibling;
                     
                     if (content.style.maxHeight){
                          content.style.maxHeight = null;
                     } else {
-                         content.style.maxHeight = content.scrollHeight + "px";
+                       content.style.maxHeight = content.scrollHeight + "px";
                     } 
-                  });
-             }
+            });
+         }
              
-        }); //end function
-     } //end showList
-     
-     // 시간 변환
-   function displayTime(timeValue){
-         
-      var today = new Date();
-      var gap = today.getTime() - timeValue;
-      var dateObj = new Date(timeValue);
-              
-      var str = "";
-           
-      if (gap < (1000 * 60 * 60 * 24)){
-          var hh = dateObj.getHours();
-          var mi = dateObj.getMonth() + 1 ;//getMonth() is zero-based
-          var ss = dateObj.getDate();
-
-          return[(hh > 9? '' : '0')+ hh, ':',(mi > 9 ? '': '0') + mi, ':',(ss > 9 ? '':'0') + ss].join('');
-          
-      }else {
-           var yy = dateObj.getFullYear();
-           var mm = dateObj.getMonth() + 1; // getMonth() is zero-based
-           var dd = dateObj.getDate();
+      }); //end function
+   } //end showList
    
-           return [yy, '-', (mm > 9? '':'0') + mm, '-', (dd > 9 ? '' : '0') + dd].join('');
+   var pageNum = 1;
+      var reviewPageFooter = $(".reviewPage");
+      
+      // review 페이징
+      function showReviewPage(reviewCnt) {
+         
+         var endNum = Math.ceil(pageNum / 10.0) * 10;
+         var startNum = endNum - 9;
+         
+         var prev = startNum != 1;
+         var next = false;
+         
+         if(endNum * 10 >= reviewCnt) {
+            endNum = Math.ceil(reviewCnt/10.0);
+         }
+         if(endNum * 10 < reviewCnt) {
+            next = true;
+         }
+         
+         var str = "<ul class='pagination pull-right'>";
+         
+         if(prev) {
+            str += "<li class='page-item'><a class='page-link' href='" + (startNum -1) + "'> Previous </a></li>";
+         }
+         
+         for(var i=startNum; i<=endNum; i++) {
+            var active = pageNum == i ? "active" : "";
+            str += "<li class='page-item " + active +" '><a class='page-link' href='" + i + "'>" + i + "</a></li>";
+         }
+         
+         if(next) {
+            str += "<li class='page-item'><a class='page-link' href='" + (endNum + 1) + "'>Next</a></li>";
+         }
+         
+         str += "</ul></div>";
+         //console.log(str);
+         reviewPageFooter.html(str);
       }
-   };
+      
+      // 리뷰 페이지 이동
+      reviewPageFooter.on("click", "li a", function(e) {
+      e.preventDefault();
+      // console.log("page click!");
+      
+      var targetPageNum = $(this).attr("href");
+      // console.log("targetPageNum : " + targetPageNum);
+      
+      pageNum = targetPageNum;
+      
+      showList(pageNum);
+      });
+     
+   // 시간 변환
+      function displayTime(timeValue){
+         
+         var today = new Date();
+         var gap = today.getTime() - timeValue;
+         var dateObj = new Date(timeValue);
+              
+         var str = "";
+           
+         if (gap < (1000 * 60 * 60 * 24)){
+           var hh = dateObj.getHours();
+             var mi = dateObj.getMonth() + 1 ;//getMonth() is zero-based
+             var ss = dateObj.getDate();
+
+             return[(hh > 9? '' : '0')+ hh, ':',(mi > 9 ? '': '0') + mi, ':',(ss > 9 ? '':'0') + ss].join('');
+          
+         }else {
+              var yy = dateObj.getFullYear();
+              var mm = dateObj.getMonth() + 1; // getMonth() is zero-based
+              var dd = dateObj.getDate();
+   
+              return [yy, '-', (mm > 9? '':'0') + mm, '-', (dd > 9 ? '' : '0') + dd].join('');
+         }
+      };
      
     // 삭제 기능
-     $("#reviewDiv").on("click","button[id='removeBtn']", function(e){
+   $("#reviewDiv").on("click","button[id='removeBtn']", function(e){
         
-        var target = e.target;
+       var target = e.target;
         var dataFormat = $(target).closest("button");
         var reviewNo = dataFormat.data("oper");
         console.log(reviewNo);
         
         var result = confirm("정말로 삭제하시겠습니까?");
-         if (result) {
+        if (result) {
            $.ajax({
                type : 'delete',
-               url : '/review/' + reviewNo,
-               success : function(result){
-                     alert("정상적으로 삭제되었습니다.");
-               showList(1);
-               },
-               error : function(er){
-               alert('통신 오류입니다. 잠시 후 다시 시도해주세요.');
-               error(er);
-               }
-            });
-         }else {
-            return false;
-         }
+                  url : '/review/' + reviewNo,
+                  success : function(result){
+                   alert("정상적으로 삭제되었습니다.");
+                     showList(pageNum);
+                  },error : function(er){
+                    alert('통신 오류입니다. 잠시 후 다시 시도해주세요.');
+                     error(er);
+                  }
+         });
+      }else {
+           return false;
+        }
 
    });   // 삭제 function 끝
    
    
-   // 수정할 내용 불러오기
-   $("#reviewDiv").on("click","button[id='modifyBtn']",function(e){
+      // 수정할 내용 불러오기
+      $("#reviewDiv").on("click","button[id='modifyBtn']",function(e){
 
       // 1. 모달 띄우기 (당사자에게만 보일거지만 그래도 한 번 더 구별 해주기)
-      if($("#idNo").val() != 'idNo') {
-         alert("당사자만 수정할 수 있습니다.");
-         return false;
-      }
-      document.getElementById('review').style.display='block';
-      
-      // 2. 모달에 값 넣어진 채로(reviewNo 로 하나만 get해와야 할듯)
-      var target = e.target;
-        var dataFormat = $(target).closest("button");
-        var reviewNo = dataFormat.data("oper");
-        console.log(reviewNo);
-        $("#reviewNo").val(reviewNo);
-      
-      $.get("/review/" + reviewNo + ".json", function(result){
-         console.log(result);
-         // 버튼 보이기 숨기기, 각 값 넣어주기 
-         $("#reviewBtn").hide();
-         $("#updateBtn").show();
-         $("#reviewTitle").val(result.reviewTitle);
-         $("#reviewContent").val(result.reviewContent);
-         $("#score").val(result.score);
-         
-         // 별점 불러와서 색칠
-         $("#score"+result.score).trigger("click", function() {
-            $(this).parent().children("a").removeClass("on"); 
-             $(this).addClass("on").prevAll("a").addClass("on");
-             return false;
-         });
-
-      }).fail(function(er){
-         alert('통신 오류입니다. 잠시 후 다시 시도해주세요.');
-         error(er);
-      });
-
-   });   // 수정할 내용 불러오기 끝
-   
-   // 3. 수정 버튼 눌렀을 때
-   $("#updateBtn").on("click", function(e) {
-      
-      if($('#reviewTitle').val()=='' || $('#reviewTitle').val().trim() == '') {
-         alert('리뷰 제목을 입력해주세요.');
-         $('#reviewTitle').focus();
-         return false;
-      }else if($('#reviewContent').val()=='' || $('#reviewContent').val().trim() == ''){
-         alert('리뷰 내용을 입력해주세요.');
-         $('#reviewContent').focus();
-         return false;
-      }else if($('#score').val()=='0') {
-         var scoreResult = confirm("별점을 선택하지 않으면 0점으로 반영됩니다. 그대로 진행하시겠습니까?");
-         if(!scoreResult) {
+         if($("#idNo").val() != 'idNo') {
+           alert("당사자만 수정할 수 있습니다.");
             return false;
          }
-      }
+         document.getElementById('review').style.display='block';
       
-      var reviewNo = $("#reviewNo").val();
-      var sendData = JSON.stringify(
-            {reviewTitle:$('#reviewTitle').val(), reviewContent:$('#reviewContent').val(), 
-               reviewImg:$('#reviewImg').val(), score:$('#score').val()
+         // 2. 모달에 값 넣어진 채로(reviewNo 로 하나만 get해와야 할듯)
+         var target = e.target;
+        var dataFormat = $(target).closest("button");
+        var reviewNo = dataFormat.data("oper");
+        //console.log(reviewNo);
+        $("#reviewNo").val(reviewNo);
+      
+         $.get("/review/" + reviewNo + ".json", function(result){
+            // 버튼 보이기 숨기기, 각 값 넣어주기 
+            $("#reviewBtn").hide();
+            $("#updateBtn").show();
+            $("#reviewTitle").val(result.reviewTitle);
+            $("#reviewContent").val(result.reviewContent);
+            $("#score").val(result.score);
+            $("#reviewImg").val('');
+            $("#imgValue").val(result.reviewImg);
+         
+            // 별점 불러와서 색칠
+            $("#score"+result.score).trigger("click", function() {
+               $(this).parent().children("a").removeClass("on"); 
+               $(this).addClass("on").prevAll("a").addClass("on");
+               return false;
+            });
+
+      }).fail(function(er){
+           alert('통신 오류입니다. 잠시 후 다시 시도해주세요.');
+            error(er);
+         });
+
+      });   // 수정할 내용 불러오기 끝
+   
+      // 3. 수정 버튼 눌렀을 때
+      $("#updateBtn").on("click", function(e) {
+      
+       if($('#reviewTitle').val()=='' || $('#reviewTitle').val().trim() == '') {
+           alert('리뷰 제목을 입력해주세요.');
+            $('#reviewTitle').focus();
+            return false;
+         }else if($('#score').val()=='0') {
+           var scoreResult = confirm("별점을 선택하지 않으면 0점으로 반영됩니다. 그대로 진행하시겠습니까?");
+            if(!scoreResult) {
+               return false;
+            }
+         }
+      
+         var reviewNo = $("#reviewNo").val();
+         var sendData = JSON.stringify(
+           {reviewTitle:$('#reviewTitle').val(), reviewContent:$('#reviewContent').val(), 
+               reviewImg:$('#imgValue').val(), score:$('#score').val()
             });
       
-      $.ajax({
-         type : 'put',
-         url : '/review/' + reviewNo,
-         data : sendData,
-         contentType : "application/json; charset=utf-8",
-         success : function(result){
-            document.getElementById('review').style.display = "none";
-            alert("정상적으로 수정되었습니다.");
-            showList(1);
-         },error : function(er){
-            alert("통신 오류입니다. 잠시 후 다시 시도해주세요.");
-            error(er);
-         }
-      });
-   });   // 수정기능 끝
+         $.ajax({
+            type : 'put',
+            url : '/review/' + reviewNo,
+            data : sendData,
+            contentType : "application/json; charset=utf-8",
+            success : function(result){
+               document.getElementById('review').style.display = "none";
+               alert("정상적으로 수정되었습니다.");
+               showList(pageNum);
+            },error : function(er){
+               alert("통신 오류입니다. 잠시 후 다시 시도해주세요.");
+               error(er);
+            }
+         });
+      });   // 수정기능 끝
    
      
 /* 리뷰 부분 끝 */

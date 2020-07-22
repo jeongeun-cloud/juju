@@ -3,38 +3,79 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jujumarket.main.mapper.PrdReplyMapper">
 
-<insert id="insert" >
+
+<insert id="insert">
+	<selectKey keyProperty="replyCode" order="BEFORE" resultType="String">
+         select DECODE(code, null, '01', LPAD(code+1, 2, '0')) replyCode
+         from (select MAX(replyCode) code
+                 from T_PRDQNA
+                where itemCode = #{itemCode} and REPLYDEPTH = '0')
+      </selectKey>
+			insert into t_prdQNA(replyNo,replyDepth,replyCount,replyContent,replyCode,itemCode,idNo)
+			values (seq_prdReplyNo.nextval,#{replyDepth},#{replyCount},#{replyContent},#{replyCode},#{itemCode},#{idNo})
+</insert>
+
+   <insert id="insert2">
+   
+
+      <selectKey keyProperty="replyCode" order="BEFORE" resultType="String">
+         select replyCode|| code
+         from (select LPAD(max(REPLYCOUNT)+1, 2, '0') code
+               from T_PRDQNA
+               where replyNo=#{replyNo} ), T_PRDQNA
+         where replyNo=#{replyNo}
+      </selectKey>
+      
 insert into t_prdQNA(replyNo,replyDepth,replyCount,replyContent,replyCode,itemCode,idNo)
 values (seq_prdReplyNo.nextval,#{replyDepth},#{replyCount},#{replyContent},#{replyCode},#{itemCode},#{idNo})
+   </insert>
 
-</insert>
 
 
 <select id="read" resultType="com.jujumarket.main.domain.PrdReplyVO">
-select * from t_prdQNA where itemCode = #{itemCode}
+		select * from t_prdQNA where itemCode = #{itemCode}
 </select>
 
 <delete id ="delete">
-delete from t_prdQNA where replyNo = #{replyNo}
+		delete from t_prdQNA where replyNo = #{replyNo}
 </delete>
 
 <update id ="update">
-
-update t_prdQNA set replyContent = #{replyContent}, regDate = sysDate where
-replyNo = #{replyNo}
-
+		update t_prdQNA set replyContent = #{replyContent}, updateDate = sysDate where
+		replyNo = #{replyNo}
 </update>
 
 
- <select id="getListWithPaging"
-resultType="com.jujumarket.main.domain.PrdReplyVO">
+<select id="getListWithPaging" resultType="com.jujumarket.main.domain.PrdReplyVO">
+<!-- 		select replyNo,replyDepth,replyCount,replyContent,replyCode,itemCode,idNo,regDate,updateDate
+		from t_prdQNA
+		where itemCode = #{itemCode}
+		order by replyNo asc
+		
+		 -->
+    <![CDATA[
+   select replyNo,replyDepth,replyCount,replyContent,replyCode,
+   itemCode,idNo,regDate,updateDate,SUBSTR(replyCode,0,2)sub
+   from(
+        select /*+INDEX(t_prdQNA idx_prdqnareply)*/
+        rownum rn,replyNo,replyDepth,replyCount,replyContent,replyCode,
+        itemCode,idNo,regDate,updateDate,SUBSTR(replyCode,0,2)sub
+        from (select * from t_prdQNA  order by SUBSTR(replyCode,0,2) desc, regdate asc)       
+    	where itemCode = #{itemCode}
+    	and replyNo >0
+    	and rownum <= #{cri.pageNum} * #{cri.amount}
+	)where rn > (#{cri.pageNum}-1) * #{cri.amount}     
+	
+	 
 
-select replyNo,replyDepth,replyCount,replyContent,replyCode,itemCode,idNo,regDate,updateDate
-from t_prdQNA
-where itemCode = #{itemCode}
-order by replyNo asc
+	]]>
+		
+</select>
 
-
+<select id="getCountByitemCode" resultType="int">
+<![CDATA[
+select count(replyNo) from t_prdQNA where itemCode = #{itemCode}
+]]>
 </select>
 
 <!-- replyNo number(30)  primary key not null,

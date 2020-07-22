@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.main.domain.PrdReplyPageDTO;
 import com.jujumarket.main.domain.PrdReplyVO;
 import com.jujumarket.main.service.PrdReplyService;
 
@@ -45,6 +46,24 @@ public class PrdReplyController {
 						: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 				// 삼항 연산자 처리
 	}
+	
+	
+	@PostMapping(value = "/replynew", 
+			consumes = "application/json",
+			produces = {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> replycreate(@RequestBody PrdReplyVO vo){
+
+		log.info("PrdReplyVO: " + vo);
+		
+		int insertCount2 = service.replyRgister(vo);
+		
+		log.info("PrdReplyVO INSERT COUNT : " + insertCount2);
+		
+		return insertCount2 == 1
+				? new ResponseEntity<>("success", HttpStatus.OK)
+						: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+				// 삼항 연산자 처리
+	}
 
 	@GetMapping(value = "pages/{itemCode}/{page}",
 			produces =
@@ -52,18 +71,13 @@ public class PrdReplyController {
 			 MediaType.APPLICATION_JSON_UTF8_VALUE})		
 			
 	
-	public ResponseEntity<List<PrdReplyVO>> getList(
+	public ResponseEntity<PrdReplyPageDTO> getList(
 			@PathVariable("itemCode") String itemCode,
 			@PathVariable("page") int page){
 		
-		
-		System.out.println(itemCode+"dddddddd");
-				log.info("getList...............댓글");
 				Criteria cri = new Criteria(page,10);
-		         log.info(cri + "댓글");
 
-		         
-		         return new ResponseEntity<>(service.getList(cri, itemCode),HttpStatus.OK);
+		 return new ResponseEntity<>(service.getPrdReplyListPage(cri, itemCode),HttpStatus.OK);
 		       }
 	
 	@GetMapping(value = "/{itemCode}",

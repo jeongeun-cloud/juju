@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@include file="../../includes/header.jsp" %>
 <%@include file="../../includes/menuBar.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -13,12 +13,12 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Insert title here</title>
 <!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 정체모를 import -->
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 정체모를 import -->
 <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <style>
-	
-	
+   
+   
 body {
    font-family: Arial, Helvetica, sans-serif;
    color: #303030;
@@ -35,48 +35,48 @@ li {
    color: #303030;
    font-size: 17px;
 }
-	
-		
+   
+      
 table {
-	border-collapse: collapse;
-	width: 100%;
+   border-collapse: collapse;
+   width: 100%;
 }
-			
+         
 /* 배치 */
 th, td {
-	padding: 8px;
-	text-align: left;
-	border-bottom: 1px solid #ddd;
+   padding: 8px;
+   text-align: left;
+   border-bottom: 1px solid #ddd;
 }
 
 th {
-	background-color: black;
-	color: white;
-	text-align: left;
+   background-color: black;
+   color: white;
+   text-align: left;
 }
 
 tr:hover {
-	background-color: #f5f5f5;
+   background-color: #f5f5f5;
 }
 
 .check {
-	width: 5%;
-	height: 30px;
-	left: 30%;
+   width: 5%;
+   height: 30px;
+   left: 30%;
 }
 
 .text {
-	width: 50%;
-	height: 25px;
+   width: 50%;
+   height: 25px;
 }
 
 .serch {
-	margin-left: 200px;
-	margin-bottom: 10px;
+   margin-left: 200px;
+   margin-bottom: 10px;
 }
 
 .sb {
-	height: 35px;
+   height: 35px;
 }
 
 
@@ -129,7 +129,7 @@ margin-top: 10px;
 /* 페이지 버튼 디자인 시작 */
 
 .pageBtns {
-	text-align: center;
+   text-align: center;
 }
 
 
@@ -229,7 +229,7 @@ margin-top: 10px;
 }
 
 .regi_menu {
-	margin-top:20px;
+   margin-top:20px;
 
 
 }
@@ -241,7 +241,7 @@ margin-top: 10px;
 
 .col-lg-12 {
 
-	text-align: center;
+   text-align: center;
     margin: 10px 0 30px 0;
 }
 
@@ -283,7 +283,7 @@ margin-top: 10px;
 
 
 
-			
+         
 </style>
 </head>
 <body>
@@ -326,18 +326,18 @@ margin-top: 10px;
 
 
 
-		
-	<!-- regi_tit 시작 -->
+      
+   <!-- regi_tit 시작 -->
     <div class="regi_tit">
        <p><b>공지사항</b></p>
    </div>
    <!-- regi_tit 끝 -->
-		
-		
-		
+      
+      
+      
 
 
-					<!-- 검색창 form-->
+               <!-- 검색창 form-->
            <div class='row'>
       <div class="col-lg-12">
       
@@ -368,83 +368,83 @@ margin-top: 10px;
       </form>
       </div>
       </div><!-- 검색창마지막 -->
-			
-			<table tit aria-setsize="500px">
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>글 제목</th>
-						<th>글 내용</th>
+         
+         <table tit aria-setsize="500px">
+            <thead>
+               <tr>
+                  <th>번호</th>
+                  <th>글 제목</th>
+                  <th>글 내용</th>
 
-						<th>글 타입</th>
-						<th>등록일</th>
-					</tr>
-				</thead>
+                  <th>글 타입</th>
+                  <th>등록일</th>
+               </tr>
+            </thead>
                  
                  <!-- 페이징처리 -->
-				<c:forEach items="${notice}" var="notice">
-					<tr>
-						<td><c:out value="${notice.postingNo }" /></td>
+            <c:forEach items="${notice}" var="notice">
+               <tr>
+                  <td><c:out value="${notice.postingNo }" /></td>
 
                         <td><a class ='move' href='<c:out value="${notice.postingNo}"/>'>
-						<c:out value="${notice.title }" /></a></td>
-			
+                  <c:out value="${notice.title }" /></a></td>
+         
 
-						<td><c:out value="${notice.content }" /></td>
-						<td><c:out value="${notice.boardType }" /></td>
-						<td><fmt:formatDate pattern="yyyy/MM/dd"
-								value="${notice.regDate }" /></td>
+                  <td><c:out value="${notice.content }" /></td>
+                  <td><c:out value="${notice.boardType }" /></td>
+                  <td><fmt:formatDate pattern="yyyy/MM/dd"
+                        value="${notice.regDate }" /></td>
 
 
 
-					</tr>
+               </tr>
 
-				</c:forEach>
+            </c:forEach>
 
-			</table>
-			
+         </table>
+         
 
-			<button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>
+         <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>
     
-			
-					<!-- Paging -->
-		
-			<div class='pageBtns'>
-			<ul class="pagination1">
-			
-			<c:if test="${pageMaker.prev}">
-			<li class="paginate_button1 pervious">
-			<a href="${pageMaker.startPage -1}">Pervious</a>
-			</li>
-			</c:if>
-			
-			<c:forEach var="num" begin="${pageMaker.startPage}"
-			end="${pageMaker.endPage}">
-			<li class='paginate_button1 ${pageMaker.cri.pageNum == num? "active":""}'>
-			<a href="${num}">${num}</a></li>
-			</c:forEach>
-			
-			<c:if test="${pageMaker.next}">
-			<li class="paginate_button1 next">
-			<a href="${pageMaker.endPage +1}">Next</a>
-			</li>
-			</c:if>
-			
-			</ul>
-			</div><!-- endPaging -->
-			
-			<!-- paging form end-->
-			<form id='actionForm' action="/community/notice/list" method='get'>
-				<input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
-				<input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
-			    <input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
+         
+               <!-- Paging -->
+      
+         <div class='pageBtns'>
+         <ul class="pagination1">
+         
+         <c:if test="${pageMaker.prev}">
+         <li class="paginate_button1 pervious">
+         <a href="${pageMaker.startPage -1}">Pervious</a>
+         </li>
+         </c:if>
+         
+         <c:forEach var="num" begin="${pageMaker.startPage}"
+         end="${pageMaker.endPage}">
+         <li class='paginate_button1 ${pageMaker.cri.pageNum == num? "active":""}'>
+         <a href="${num}">${num}</a></li>
+         </c:forEach>
+         
+         <c:if test="${pageMaker.next}">
+         <li class="paginate_button1 next">
+         <a href="${pageMaker.endPage +1}">Next</a>
+         </li>
+         </c:if>
+         
+         </ul>
+         </div><!-- endPaging -->
+         
+         <!-- paging form end-->
+         <form id='actionForm' action="/community/notice/list" method='get'>
+            <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
+            <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
+             <input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
                 <input type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-			</form><!-- paging form end-->
+         </form><!-- paging form end-->
 
 
-		
-		
-	
+      
+      
+   
       
 </div>
 <!-- regi_main 끝 -->      
@@ -461,10 +461,10 @@ margin-top: 10px;
 </div>      
 <!-- regi_wrap 끝 -->
       
-      	
+         
 <!-- modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
-	<div class="modal-dialog">
+   <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header" style="border-bottom:none;">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -477,102 +477,102 @@ margin-top: 10px;
     </div>
 
   </div><!--  modal-content -->
-	</div><!--  modal dialog -->
-</div><!-- modal 마지막 -->	
+   </div><!--  modal dialog -->
+</div><!-- modal 마지막 -->   
 
-		
-		
-		
-		
-		
+      
+      
+      
+      
+      
 
-		<script type="text/javascript">
-		  var actionForm = $("#actionForm");
-	
-		
-		$(document).ready(
-					function() {
+      <script type="text/javascript">
+        var actionForm = $("#actionForm");
+   
+      
+      $(document).ready(
+               function() {
 
-						var result = '<c:out value="${result}"/>';
+                  var result = '<c:out value="${result}"/>';
 
-						checkModal(result);
+                  checkModal(result);
 
-						function checkModal(result) {
+                  function checkModal(result) {
 
-							if (result === '') {
-								return;
-							}
+                     if (result === '') {
+                        return;
+                     }
 
-							if (parseInt(result) > 0) {
+                     if (parseInt(result) > 0) {
 
-								
-								$(".modal-body").html(
-										"게시글" + parseInt(result)
-												+ "번이 등록되었습니다.");
+                        
+                        $(".modal-body").html(
+                              "게시글" + parseInt(result)
+                                    + "번이 등록되었습니다.");
 
-							}
-							$("#myModal").modal("show");
+                     }
+                     $("#myModal").modal("show");
 
-						}
+                  }
 
-						$("#regBtn").on("click", function() {
+                  $("#regBtn").on("click", function() {
 
-							self.location = "/community/notice/register"
-						});
-						
-					});
-			
-		              
-	         $(".paginate_button a").on("click", function(e){
-	        	
-	        
-	         	e.preventDefault();
-	         	
-	         	console.log('click');
-	         
-	         	actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-	         	actionForm.submit();
-	         });
-	         
-	         $(".move").on("click",function(e){
-	        	   
+                     self.location = "/community/notice/register"
+                  });
+                  
+               });
+         
+                    
+            $(".paginate_button a").on("click", function(e){
+              
+           
+               e.preventDefault();
+               
+               console.log('click');
+            
+               actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+               actionForm.submit();
+            });
+            
+            $(".move").on("click",function(e){
+                 
 
-	          	e.preventDefault();
-	          	actionForm.append("<input type='hidden' name='postingNo' value = '" + $(this).attr("href") + "'>");
-	             actionForm.attr("action", "/community/notice/get");
-	          	actionForm.submit();
-	          	
-	          });
-	         
-	         <!--검색 스크립트 start-->
-	         var searchForm =$("#searchForm");
-	         
-	         $("#searchForm button").on("click" , function(e){
-	            	
-	        	 if(!searchForm.find("option:selected").val()){
-	        		 alert("검색종류를 선택하세요");
-	        		 return false;
-	        		 
-	        	 }
-	        	 if(!searchForm.find("input[name='keyword']").val()){
-	        		 alert("검색어 입력하세요");
-	        		 return false;
-	        		 
-	        	 }
-	        	 
-	        	 searchForm.find("input[name='pageNum']").val("1");
-	        	 e.preventDefault();
-	        	 
-	        	 searchForm.submit();
-	        	 
-	        	 
-	             });
-	         
-	         <!--검색 스크립트 end-->
-		</script>
+                e.preventDefault();
+                actionForm.append("<input type='hidden' name='postingNo' value = '" + $(this).attr("href") + "'>");
+                actionForm.attr("action", "/community/notice/get");
+                actionForm.submit();
+                
+             });
+            
+            <!--검색 스크립트 start-->
+            var searchForm =$("#searchForm");
+            
+            $("#searchForm button").on("click" , function(e){
+                  
+               if(!searchForm.find("option:selected").val()){
+                  alert("검색종류를 선택하세요");
+                  return false;
+                  
+               }
+               if(!searchForm.find("input[name='keyword']").val()){
+                  alert("검색어 입력하세요");
+                  return false;
+                  
+               }
+               
+               searchForm.find("input[name='pageNum']").val("1");
+               e.preventDefault();
+               
+               searchForm.submit();
+               
+               
+                });
+            
+            <!--검색 스크립트 end-->
+      </script>
 
-	</div>
-	<!-- main-->
+   </div>
+   <!-- main-->
 
 
 

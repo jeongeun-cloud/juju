@@ -33,30 +33,29 @@ public class PrdReplyMapperTests {
 		log.info(mapper);
 	}
 	
-	//@Test
+	@Test
 	public void testCreate() {
 		
 	IntStream.rangeClosed(1,10).forEach(i ->{
 		
 		PrdReplyVO vo = new PrdReplyVO();
 	
-		     vo.setReplyDepth(i);
-		     vo.setReplyCount(i);
-		     vo.setReplyNo(i); 
-		     vo.setItemCode("item"+i);
-		     vo.setReplyContent("내용"+i);
-		     vo.setReplyCode("code"+i);
-		     vo.setIdNo("idNo"+i);
+		
+		     vo.setReplyNo(1); 
+		     vo.setItemCode("product22222");
+		     vo.setReplyContent("내용");
+		     vo.setReplyCode("code");
+		     vo.setIdNo("idNo");
 		     
 			
-			mapper.insert(vo);			
+			mapper.insert2(vo);			
 			
 
 	});
 		
 	}
 	
-	@Test
+	//@Test
 	public void testRead() {
 		
 		String targetreplyNo = "item1";
