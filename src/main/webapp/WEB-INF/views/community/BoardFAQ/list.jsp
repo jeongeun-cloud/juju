@@ -13,7 +13,7 @@
 <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
 <meta name="viewport " content ="width =device-width, initial-scale =1.0 "> 
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<title>공지사항 </title>
+<title> FAQ </title>
  
 <style>
     table {
@@ -307,14 +307,14 @@
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header" style="border-bottom:none;">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                             </div>
 
                             <div class="modal-body">처리가 완료되었습니다.</div>
 
-                            <div class="modal-footer">
+                            <div class="modal-footer" style="border-top:none;">
                             <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>                      
                             </div>
                     
