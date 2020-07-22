@@ -16,8 +16,8 @@
  		</insert>
  		
  		<insert id="insertSelectKey">
-		 	insert into t_order_history(orderCode, itemCode)
- 			values(#{orderCode}, #{itemCode})
+		 	insert into t_order_history(orderCode, itemCode, baskId)
+ 			values(#{orderCode}, #{itemCode}, #{baskId})
  		</insert>
  		
 <!--  		<insert id="insertSelectKey">

@@ -6,12 +6,19 @@
 
 	<!-- 파일업로드 후 이미지 추가해주기 -->
 	<!-- 권한코드는 삭제되었음 2020-07-15 -->
-	<insert id="insert">
+	<insert id="insertShopInfo">
 		insert into m_shop_info(idNo, businessCode, bank, bankAccount)
 		values(#{idNo}, #{businessCode}, #{bank}, #{bankAccount})
 
 	</insert>
 
+	<update id="update">
+		update m_shop_info
+		set bank = #{bank}
+			bankAccount = #{bankAccount}
+			thumbNail = #{thumbNail}
+			
+	</update>
 
 
 
