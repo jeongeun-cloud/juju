@@ -6,17 +6,17 @@
 
 
 	<insert id="insertSelectKey">
-		<selectKey keyProperty="shippingCode" order="BEFORE"
-			resultType="String">
+		<selectKey keyProperty="deliveryNo" order="BEFORE"
+			resultType="Long">
 
 			select seq_delivery.nextval from dual
 		</selectKey>
 
-		insert into t_delivery(shippingCode, receiver, receivAddr,
-		receivContact, reqNote, orderCode, itemCode)
-		values (#{shippingCode},
+		insert into t_delivery(deliveryNo, receiver, receivAddr,
+		receivContact, reqNote, orderCode, baskId)
+		values (#{deliveryNo},
 		#{receiver}, #{receivAddr}, #{receivContact}, #{reqNote},
-		#{orderCode}, #{itemCode})
+		#{orderCode}, #{baskId})
 	</insert>
 
 

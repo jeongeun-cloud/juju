@@ -4,26 +4,56 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jujumarket.member.mapper.MemberMapper">
 	
-	<!-- xml상 쿼리에 default 준거 #{}로 받아오면 안됨  -->
-	<insert id="insert" >
+	<insert id="insertCustomer">
 		<selectKey keyProperty="idNo" order="BEFORE"
 		resultType="String">
-			select seq_t_member.nextval
+			select 'c'||lpad(seq_customer.nextval,4,'0')
 			from dual
 		</selectKey>
-
-		insert into t_member(idNo, emailAccount, memName, memCode, postCode) 
-		values(#{idNo}, #{emailAccount}, #{memName}, 'CUSTOMER', #{postCode}) 
 	
-		
+		insert into t_member (idNo, pwd, emailAccount, memName, memCode) 
+		values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'CUSTOMER')
 	</insert>
 	
-	<select id ="getMemberIdNoByEmailAccount" resultType="String">
-		select idNo 
+	<insert id="insertSeller">
+		<selectKey keyProperty="idNo" order="BEFORE"
+		resultType="String">
+			select 's'||lpad(seq_seller.nextval,4,'0')
+			from dual
+		</selectKey>
+	
+		insert into t_member (idNo, pwd, emailAccount, memName, memCode) 
+		values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'SELLER')
+	</insert>
+<!-- 	
+	<select id ="read" resultType="com.jujumarket.member.domain.MemberVO">
+		select idNo
+		from t_member
+		where emailAccount = #{emailAccount}
+	
+	</select> -->
+
+	<select id ="getIdNoByEmailAccount" resultType="String">
+		select idNo
 		from t_member
 		where emailAccount = #{emailAccount}
 	
 	</select>
+	
+	<select id ="getEmailAccount" resultType="String">
+		select emailAccount
+		from t_member
+		where emailAccount = #{emailAccount}
+	
+	</select>
+	
+	<select id="getPwdByEmailAccount" resultType="String">
+		select pwd
+		from t_member
+		where emailAccount = #{emailAccount}
+
+
+	</select> 
 	
 		<!-- orderItemsForm.jsp에 뿌려주기 위한 회원정보들을 MemberVO, CustomerVO에서 각각 받아 OrderMemberVO를 만듦 -->
 	<select id="orderMemberInfo" resultType="com.jujumarket.order.domain.OrderMemberVO">
@@ -34,6 +64,14 @@
 		and tm.idNo = #{idNo} 
 	
 	</select>
+	
+	<update id="update">
+		update t_member
+		set memAddr = #{memAddr},
+		postCode = #{postCode},
+		pwd = #{pwd}
+	
+	</update>
 
 
 	

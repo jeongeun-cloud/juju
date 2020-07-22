@@ -5,5 +5,5 @@ import com.jujumarket.member.domain.SellerVO;
 public interface SellerMapper {
 	public void insert(SellerVO seller);
 	
-	public String getSellerPwdByIdNo(String idNo);
+//	public void readSeller(SellerVO seller);
 }

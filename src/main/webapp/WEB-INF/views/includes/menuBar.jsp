@@ -19,7 +19,7 @@
         .whole_menu .dropdown a,
         .whole_menu .dropdown-menu  a {
         /*전체 카테고리 안에 중분류 글씨 */
-    	color:black;
+       color:black;
         font-weight: 900;
         }
         .whole_menu .whole_menu-content.withdesc a:after {
@@ -45,7 +45,7 @@
     
     }
     .whole_menu .dropdown-menu {
-    	left: auto;
+       left: auto;
     }
     .whole_menu .whole_menu-content {
         /* 전체카테고리 dropdown한 내용 */
@@ -167,10 +167,7 @@
     transition: all 1s;
 }
 
-form:hover{
-    width: 200px;
-    cursor: pointer;
-}
+
 
 .search_bar:hover .search_content{
     display: block;
@@ -196,9 +193,9 @@ form:hover{
         <div id="defaultmenu" class="navbar-collapse collapse">
            
             <ul class="nav navbar-nav"> 
-            	<div class="navbar-header">
-               			 <a class="navbar-brand" href="/">JUJU MARKET</a>
-            	</div>
+               <div class="navbar-header">
+                         <a class="navbar-brand" href="/">JUJU MARKET</a>
+               </div>
         
                 <!-- 전체 카테고리  -->
                 <li class="dropdown whole_menu_category"  style="padding-left: 10px;"><a href="#" data-toggle="dropdown" class="dropdown-toggle">▲전체카테고리<b class="caret"></b></a>
@@ -320,4 +317,3 @@ form:hover{
 
 
 </script>
-
