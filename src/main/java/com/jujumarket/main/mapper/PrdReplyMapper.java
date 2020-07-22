@@ -12,6 +12,8 @@ import com.jujumarket.main.domain.PrdReplyVO;
 public interface PrdReplyMapper {
 
 	public int insert(PrdReplyVO vo);
+
+	public int insert2(PrdReplyVO vo);
 	
 	public PrdReplyVO read(String itemCode);
 
@@ -23,6 +25,6 @@ public interface PrdReplyMapper {
 			@Param("cri") Criteria cri,
 			@Param("itemCode") String itemCode);
 	
-	
+	public int getCountByitemCode(String itemCode);
 	
 }

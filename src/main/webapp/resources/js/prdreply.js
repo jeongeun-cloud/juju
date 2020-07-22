@@ -34,6 +34,36 @@ var prdreplyService = (function() {
 	}
 	
 	
+	function replyadd(prdreply, callback, error) {
+
+		console.log("add prdreplyreplyadd...........");
+
+		$.ajax({
+
+			type : 'post',
+			url : '/repliesprdQnA/replynew',
+			data : JSON.stringify(prdreply),
+			contentType : "application/json; charset=utf-8",
+			success : function(result, status, xhr) {
+
+				if (callback) {
+					
+					callback(result);
+					
+					
+					
+				}
+			},
+			error : function(xhr, status, er) {
+				if (error) {
+					error(er);
+				}
+			}
+		}) // ajax
+
+	}
+	
+	
 	function getList(param, callback, error){
 		
 		console.log(JSON.stringify(param));
@@ -52,7 +82,7 @@ var prdreplyService = (function() {
 		$.getJSON("/repliesprdQnA/pages/"+itemCode+"/"+page+".json",
 		function(data){
 			if(callback){
-				callback(data);
+				callback(data.prdReplyCnt, data.list);
 				
 			}	
 		}).fail(function(xhr,status, err){
@@ -60,6 +90,9 @@ var prdreplyService = (function() {
 				error();
 			}
 		});
+		
+	
+			
 		
 		
 	}
@@ -155,13 +188,15 @@ var prdreplyService = (function() {
 
 	        }
 	};
+	
 
-		
 	
 	return {
 		
 	
 		add : add,
+		replyadd : replyadd,
+		
 		get : get,
 		getList : getList,
 		remove : remove,

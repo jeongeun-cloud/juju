@@ -12,6 +12,7 @@ public class PrdReplyVO {
 	private int replyNo;
 	private String replyContent;
 	private String replyCode;
+
 	private String itemCode;
 	private String idNo;
 	private Date regDate;
