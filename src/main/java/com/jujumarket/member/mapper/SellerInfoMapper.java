@@ -4,7 +4,7 @@
   import com.jujumarket.member.domain.SellerVO;
   
   public interface SellerInfoMapper { 
-	  public void insert(SellerVO seller);
+	  public void insertShopInfo(SellerVO seller);
   
   
   }

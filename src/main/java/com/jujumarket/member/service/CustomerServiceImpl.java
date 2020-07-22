@@ -21,7 +21,7 @@ public class CustomerServiceImpl implements CustomerService{
 	@Transactional
 	@Override
 	public void register(CustomerVO customer) {
-		memberMapper.insert(customer);
+		memberMapper.insertCustomer(customer);
 		customerMapper.insert(customer);
 		
 	}

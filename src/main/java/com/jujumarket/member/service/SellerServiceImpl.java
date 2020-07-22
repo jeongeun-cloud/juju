@@ -23,9 +23,9 @@ public class SellerServiceImpl implements SellerService{
 	@Transactional
 	@Override
 	public void register(SellerVO seller) {
-		memberMapper.insert(seller);
+		memberMapper.insertSeller(seller);
 		sellerMapper.insert(seller);
-		sellerInfoMapper.insert(seller);
+		sellerInfoMapper.insertShopInfo(seller);
 	
 	}
 

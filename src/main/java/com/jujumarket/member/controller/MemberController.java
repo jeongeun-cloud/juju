@@ -3,6 +3,7 @@ package com.jujumarket.member.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jujumarket.member.domain.CustomerVO;
+import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SellerVO;
 import com.jujumarket.member.service.CustomerService;
 import com.jujumarket.member.service.MailService;
@@ -49,14 +51,12 @@ public class MemberController {
 	}
 	
 	//REST방식으로 이메일 중복체크
-	//아직구현안됨 0720
 	@ResponseBody
-	@PostMapping("/duplicateCheck")
-	public ResponseEntity<?> duplicateCheck(@RequestBody String email){
-		boolean result = memberService.duplicateCheck(email);
+	@PostMapping(value = "/duplicateCheck", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> duplicateCheck(@RequestBody String emailAccount){
+		boolean result = memberService.duplicateCheck(emailAccount);
 		return ResponseEntity.status(HttpStatus.OK).body(result);
 	}
-	
 	
 	
 	//일반고객폼
@@ -64,11 +64,17 @@ public class MemberController {
 	public void customerJoinForm() {
 	}
 	
+	
 	//일반고객 가입 정보 POST방식 DB INSERT
 	@PostMapping("/customerJoinForm")
 	public String customerJoinForm(CustomerVO customer) {
 		customerService.register(customer);
-		return "/member/customerJoinComplete";
+		return "redirect:/member/customerJoinComplete";
+	}
+
+	@GetMapping("/customerJoinComplete")
+	public void customerJoinComplete() {
+		
 	}
 	
 	//상인회원가입폼 
@@ -76,12 +82,17 @@ public class MemberController {
 	public void sellerJoinForm() {
 		
 	}
-
+	
 	//상인(판매자) 가입정보 POST방식 DB INSERT
 	@PostMapping("/sellerJoinForm")
 	public String sellerJoinForm(SellerVO seller) {
 		sellerService.register(seller);
-		return "/member/sellerJoinComplete";
+		return "redirect:/member/sellerJoinComplete";
+	}
+	
+	@GetMapping("/sellerJoinComplete")
+	public void sellerJoinComplete() {
+		
 	}
 	
 	//주주마켓 로그인 페이지
@@ -90,18 +101,19 @@ public class MemberController {
 		
 	}
 	
-	//세션에 로그인 정보를 저장
+	//세션에 로그인 정보 저장
+	//이메일로 idNo가져와서 세션에 로그인정보 저장하기 
 	@PostMapping("/login")
 	public String login(String emailAccount, String pwd, HttpSession session, RedirectAttributes rttr) {
 		
 		if(memberService.loginCheck(emailAccount, pwd)) {
-			rttr.addFlashAttribute("result", "성공했습니다!");
-			session.setAttribute("sessionMember", emailAccount);
-			return "/member/loginSuccess";
+//			MemberVO member = memberService.getInfoByEmail(emailAccount);
+			String idNo = memberService.getIdNoByEmail(emailAccount);
+			session.setAttribute("sessionMember", idNo);
+			return "redirect:/";
 			
 		}else {
-			rttr.addFlashAttribute("result", "실패했습니다!");
-			//jsp상에서 alert 창 띄워줄 것 (아직)
+			rttr.addFlashAttribute("result", "로그인 실패");
 			return "redirect:/member/login";
 		}
 	}

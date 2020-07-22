@@ -1,14 +1,8 @@
 package com.jujumarket.member.service;
 
-import java.io.UnsupportedEncodingException;
-
-import javax.mail.MessagingException;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jujumarket.member.mail.MailHandler;
-import com.jujumarket.member.mail.TempKey;
+//import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.mapper.CustomerMapper;
 import com.jujumarket.member.mapper.MemberMapper;
 import com.jujumarket.member.mapper.SellerMapper;
@@ -20,25 +14,34 @@ import lombok.extern.log4j.Log4j;
 @Service
 @AllArgsConstructor
 public class MemberServiceImpl implements MemberSerivce {
-	
+
 	private MemberMapper memberMapper;
 	private CustomerMapper customerMapper;
 	private SellerMapper sellerMapper;
-	
+
 	@Override
 	public boolean loginCheck(String emailAccount, String pwd) {
-		
-		String idNo = memberMapper.getMemberIdNoByEmailAccount(emailAccount);
-		String customerPwd = customerMapper.getCustomerPwdByIdNo(idNo);
-		String sellerPwd = sellerMapper.getSellerPwdByIdNo(idNo);
-		
-		return pwd.equals(customerPwd) || pwd.equals(sellerPwd);
-		
+		return pwd.equals(memberMapper.getPwdByEmailAccount(emailAccount));
+
 	}
 
 	@Override
-	public boolean duplicateCheck(String email) {
+	public boolean duplicateCheck(String emailAccount) {
+		String email = memberMapper.getEmailAccount(emailAccount);
+		if(email==null){
+			return true;
+		}else {
 		return false;
 	}
+	}
 
+	/*
+	 * @Override public MemberVO getInfoByEmail(String emailAccount) { return
+	 * memberMapper.read(emailAccount); }
+	 */
+
+	@Override
+	public String getIdNoByEmail(String emailAccount) {
+		return memberMapper.getIdNoByEmailAccount(emailAccount);
+	}
 }

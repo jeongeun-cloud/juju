@@ -5,18 +5,16 @@
 <mapper namespace="com.jujumarket.member.mapper.CustomerMapper">
 
 	<insert id="insert">
-		insert into m_customer(idNo, pwd, contact)
-		values(#{idNo}, #{pwd}, #{contact})
+		insert into m_customer(idNo, contact)
+		values(#{idNo}, #{contact})
 
 	</insert>
 
-	<select id="getCustomerPwdByIdNo" resultType="String">
-		select pwd
-		from m_customer
-		where idNo = #{idNo}
+	<update id="update">
+		update m_customer
+		set contact = #{contact}
+	</update>
 
-
-	</select>
 
 
 

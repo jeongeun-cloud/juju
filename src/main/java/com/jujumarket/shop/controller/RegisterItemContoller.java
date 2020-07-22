@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -42,6 +43,12 @@ public class RegisterItemContoller {
 
 	private ServletContext servletContext;
 	private RegisterItemService service;
+	
+	@GetMapping("/")
+	public String index() {
+		
+		return "shop/index";
+	}
 	
 	@GetMapping("/list")
 	public void list(ItemCriteria cri, Model model) {

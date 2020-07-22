@@ -9,4 +9,5 @@ public class MemberVO {
 	private String memName;
 	private String memCode;
 	private String memAddr;
+	private String pwd;
 } 

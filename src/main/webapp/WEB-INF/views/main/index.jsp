@@ -12,14 +12,30 @@
 
 
 <style>
-.ma_top_banner_wrap > mySlides {
-display:none;
-height: 500px;
 
-}
+	.mySlides{
+	 width:100%;
+	 height:600px;
+	}
 
-.w3-left, .w3-right, .w3-badge {cursor:pointer}
-.w3-badge {height:13px;width:13px;padding:0}
+	.w3-left, .w3-right, .w3-badge {cursor:pointer}
+	.w3-badge {height:13px;width:13px;padding:0}
+	
+	.main_new_pro{
+		margin:50px auto;
+		width:1200px;
+		/* border:solid; */
+		height:1300px;
+	}
+	.main_new_tit p{
+	font-size:30px;
+	text-align: center;
+	}
+	.main_new_tit h5{
+	text-align: center;
+	}
+
+	/*실시간 베스트  */
 
 </style>
 <br>
@@ -27,10 +43,10 @@ height: 500px;
         <!-- 첫번째 배너 광고 -->
         <div class="ma_top_banner_wrap" >
             <div class="w3-content w3-display-container" style="max-width:100%; ">
-                <img class="mySlides" src="/resources/images/i1.jpg" style="width:100%">
-                <img class="mySlides" src="/resources/images/i2.jpg" style="width:100%">
-                <img class="mySlides" src="/resources/images/i3.jpg" style="width:100%">
-                <img class="mySlides" src="/resources/images/i4.jpg" style="width:100%">
+                <img class="mySlides" src="/resources/images/i1.jpg" >
+                <img class="mySlides" src="/resources/images/i2.jpg" >
+                <img class="mySlides" src="/resources/images/i3.jpg" >
+                <img class="mySlides" src="/resources/images/i4.jpg" >
               
                 <!-- 밑에 동그라미 -->
                 <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
@@ -46,6 +62,17 @@ height: 500px;
 
          </div>
         <!--END 첫번째 배너 광고   -->
+        
+        <div class="main_new_pro">
+        	<div class="main_new_tit">        		  	
+        		<p><b>새로운 상품</b></p>   
+        		<h5>매일 새로운 주주마켓의 제품을 만나보세요 </h5>   		
+        	</div>   
+        	<div class="main_new_li">
+        		<%@include file="RealNew.jsp" %>
+        	</div>          		  
+        </div>
+ 
         <script>
      // top_banner_wrap 기능
         // 밑에 동그라미(순서)가 같이 움직이는 기능 
