@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jujumarket.main.mapper.ReviewMapper">
 
-	<sql id="criteria">
+<!-- 	<sql id="criteria">
 	   <trim prefix="(" suffix=")AND" prefixOverrides="OR">
 	   
-	   </trim><!--  prefix end -->
+	   </trim> prefix end
     </sql>
-
+ -->
 
 	<select id="getList" resultType="com.jujumarket.main.domain.ReviewVO">
 	   <![CDATA[
@@ -17,20 +17,15 @@
 	
 	<select id="getListWithPaging" resultType="com.jujumarket.main.domain.ReviewVO">
       <![CDATA[
-	      select *
-	      from (select /*+INDEX_DESC(t_review pk_review) */
-				rownum rn, reviewNo, reviewTitle, reviewContent, reviewImg, orderCode, itemCode, idNo
-				from (select * from t_review order by regDate desc)
-				where
-      ]]>
-      
-      <include refid="criteria"></include>
-      
-      <![CDATA[
-         rownum <= #{pageNum} * #{amount}
-        
-         	)
-     	 where rn > (#{pageNum} -1) * #{amount}
+	      	select reviewNo, reviewTitle, reviewContent, reviewImg, score, regDate, updateDate, orderCode, itemCode, idNo
+	      	from (select /*+INDEX(t_review idx_review) */
+				rownum rn, reviewNo, reviewTitle, reviewContent, reviewImg, score, regDate, updateDate, orderCode, itemCode, idNo
+				from t_review
+				where itemCode = #{itemCode}
+					and reviewNo > 0
+					and rownum <= #{cri.pageNum} * #{cri.amount}
+				)
+			where rn > (#{cri.pageNum} -1) * #{cri.amount}
       ]]>
    	</select>
 	
@@ -62,5 +57,11 @@
 		score = #{score}, updateDate = current_timestamp
 		where reviewNo = #{reviewNo}
 	</update>
+	
+	<select id="getCountByItemCode" resultType="int">
+		<![CDATA[
+	   		select count(reviewNo) from t_review where itemCode = #{itemCode}
+	   ]]>
+	</select>
 	
 </mapper>

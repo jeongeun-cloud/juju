@@ -1,6 +1,8 @@
 package com.jujumarket.main.controller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,9 +18,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.main.domain.ReviewPageDTO;
 import com.jujumarket.main.domain.ReviewVO;
 import com.jujumarket.main.service.ReviewService;
 
@@ -32,22 +38,13 @@ import lombok.extern.log4j.Log4j;
 public class ReviewController {
 	
 	private ReviewService service;
-	//private ServletContext servletContext;
+	private ServletContext servletContext;
 	
 	@PostMapping(value = "/regReview",
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> create(@RequestBody ReviewVO vo) {
 		log.info("ReviewVO : " + vo);
-		
-//		String uploadFolder = servletContext.getRealPath("/resources/review");
-//		
-//	    File uploadPath = new File(uploadFolder, vo.getItemCode());
-//	    log.info("upload path : " + uploadPath);
-//	      
-//	    if(uploadPath.exists() == false) {
-//	       uploadPath.mkdir();      // 각 상품마다 폴더를 가짐
-//	    }
 		
 		int insertCount = service.register(vo);
 		
@@ -58,25 +55,94 @@ public class ReviewController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<String>> uploadAjaxPost(MultipartFile[] uploadFile, String itemCode) {
+		
+		String uploadFolder = servletContext.getRealPath("/resources/review");
+		
+	    File uploadPath = new File(uploadFolder, itemCode);
+	    System.out.println("업로드 된 경로 " + uploadPath);
+	      
+	    if(uploadPath.exists() == false) {
+	       uploadPath.mkdir();
+	    }
+	    
+	    String uploadFilename = "";
+	    for(MultipartFile multi : uploadFile) {     
+	        uploadFilename = multi.getOriginalFilename();
+	
+	        uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
+	         
+	        UUID uuid = UUID.randomUUID();
+	        uploadFilename = uuid.toString() + "_" + uploadFilename;
+	        
+	        try {
+	        	// 이미지 파일 path에 올리기
+	        	File saveFile = new File(uploadPath, uploadFilename);
+	            multi.transferTo(saveFile);
+	            
+	        } catch (Exception e) {
+	        	log.error(e.getMessage());
+	    	} // end catch
+	    }
+	    
+	    List<String> list = new ArrayList<>();
+	    list.add(uploadFilename);
+	    
+		return new ResponseEntity<>(list , HttpStatus.OK);
+	}
+	
+//	@GetMapping(value = "pages/{itemCode}/{page}",
+//			produces =
+//			{MediaType.APPLICATION_XML_VALUE,
+//			 MediaType.APPLICATION_JSON_UTF8_VALUE})
+//			
+//	public ResponseEntity<List<ReviewVO>> getList(
+//			@PathVariable("page") int page,
+//			@PathVariable("itemCode") String itemCode){
+//		
+//			log.info("getList...............");
+//	         
+//        return new ResponseEntity<>(service.getList(itemCode), HttpStatus.OK);
+//	}
+	
 	@GetMapping(value = "pages/{itemCode}/{page}",
 			produces =
 			{MediaType.APPLICATION_XML_VALUE,
-			 MediaType.APPLICATION_JSON_UTF8_VALUE})
-			
-	public ResponseEntity<List<ReviewVO>> getList(
+			MediaType.APPLICATION_JSON_UTF8_VALUE})
+	
+	public ResponseEntity<ReviewPageDTO> getList(
 			@PathVariable("page") int page,
 			@PathVariable("itemCode") String itemCode){
+			
+			Criteria cri = new Criteria(page, 10);
+			log.info("get Review List ItemCode : " + itemCode);
+			log.info("cri : " + cri);
 		
-			log.info("getList...............");
-//			Criteria cri = new Criteria(page,1);
-//	        System.out.println(cri.toString() + "여기!");
-	         
-        return new ResponseEntity<>(service.getList(itemCode), HttpStatus.OK);
+		return new ResponseEntity<>(service.getListPage(cri, itemCode), HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value="/{reviewNo}", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> remove(@PathVariable("reviewNo") String reviewNo) {
 		log.info("remove : " + reviewNo);
+		
+		ReviewVO vo = service.get(reviewNo);
+		
+		String filePath = servletContext.getRealPath("/resources/review");
+		filePath = filePath + "/" + vo.getItemCode() + "/";
+
+		File file = new File(filePath + vo.getReviewImg());
+		
+		if(file.exists()) {
+			if(file.delete()) {
+				System.out.println(file.getName() + "삭제성공");
+			}else {
+				System.out.println(file.getName() + "삭제실패");
+			}
+		}else {
+			System.out.println("파일이 존재하지 않음");
+		}
 		
 		return service.remove(reviewNo) == 1
 				? new ResponseEntity<>("success", HttpStatus.OK)

@@ -32,32 +32,23 @@ public class OrderController {
    private OrderMemberService orderMemberService;
    private DeliverySerivce deliveryService;
    
-   //ìƒí’ˆí…Œì´ë¸”ì—ì„œ idNoë¥¼ getë°©ì‹ìœ¼ë¡œ ë„˜ê²¨ì¤Œ
+   //»óÇ°Å×ÀÌºí¿¡¼­ idNo¸¦ get¹æ½ÄÀ¸·Î ³Ñ°ÜÁÜ
    @GetMapping("/orderItemsForm")
    public void orderItemsForm(@RequestParam("idNo") String idNo, Model model) {
       log.info("orderList");
-      //modelì— orderListë¥¼ ë‹´ì•„ ì£¼ë¬¸ì„œ(orderItemsForm.jsp)ì— ì¶œë ¥
+      //model¿¡ orderList¸¦ ´ã¾Æ ÁÖ¹®¼­(orderItemsForm.jsp)¿¡ Ãâ·Â
       model.addAttribute("orderList", orderService.getOrderResponse(idNo));
-      //modelì— memberInfoë¥¼ ë‹´ì•„ ì£¼ë¬¸ì„œ(orderItemsForm.jsp)ì— ì¶œë ¥
+      //model¿¡ memberInfo¸¦ ´ã¾Æ ÁÖ¹®¼­(orderItemsForm.jsp)¿¡ Ãâ·Â
       model.addAttribute("memberInfo", orderMemberService.getOrderMemberInfo(idNo));
-      //idNoë¡œ ìµœê·¼ì£¼ë¬¸ì •ë³´ ê°€ì ¸ì˜¤ê¸°->deliveryServiceì—ì„œ  í•´ë‹¹ ì£¼ë¬¸ì •ë³´ í˜¸ì¶œ
-<<<<<<< HEAD
+      //idNo·Î ÃÖ±ÙÁÖ¹®Á¤º¸ °¡Á®¿À±â->deliveryService¿¡¼­  ÇØ´ç ÁÖ¹®Á¤º¸ È£Ãâ
       String orderCode = orderService.getRecentOrderCode(idNo);
       if(orderCode!=null) {
       model.addAttribute("recentDelivery", deliveryService.get(orderCode));
       }
-=======
-      //String orderCode = orderService.getRecentOrderCode(idNo);
-      //if(orderCode!=null) {
-      //model.addAttribute("recentDelivery", deliveryService.get(orderCode));
-      //}
->>>>>>> branch 'develop' of https://github.com/jeongeun-cloud/juju.git
 
    }
-<<<<<<< HEAD
-=======
 
-   //orderResultí™”ë©´ì„ ë³´ì—¬ì¤Œ
+   //orderResultÈ­¸éÀ» º¸¿©ÁÜ
    @GetMapping("/orderResult")
    public void orderResult(@RequestParam("orderCode") String orderCode, Model model) {
       log.info("/orderResult");
@@ -65,75 +56,16 @@ public class OrderController {
       String idNo = order.getIdNo();
       OrderMemberVO orderMember = orderMemberService.getOrderMemberInfo(idNo);
       List<OrderResponseVO> itemList = orderService.getOrderResponse(idNo);
-      //ì£¼ë¬¸ë²ˆí˜¸ë¡œ ë°°ì†¡ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ê¸°
+      //ÁÖ¹®¹øÈ£·Î ¹è¼ÛÁ¤º¸¸¦ °¡Á®¿À±â
       DeliveryVO delivery = deliveryService.get(orderCode);
-      //jspì—ì„œ ì‚¬ìš©í•  ìš”ì†Œë“¤ì„ order, orderMember, itemList, deliveryë¡œ  ì´ë¦„ ì¤˜ì„œ ì“°ê¸°
+      //jsp¿¡¼­ »ç¿ëÇÒ ¿ä¼ÒµéÀ» order, orderMember, itemList, delivery·Î  ÀÌ¸§ Áà¼­ ¾²±â
       model.addAttribute("order", order);
       model.addAttribute("orderMember", orderMember);
       model.addAttribute("itemList", itemList);
       model.addAttribute("delivery", delivery);
    }
 
-   //orderResult ì •ë³´ë¥¼  t_delivery DBì— insert. orderCodeë¥¼ ê¸°ì¤€ìœ¼ë¡œ insert
-   @PostMapping("/orderResult")
-   public String orderResult(OrderRequestVO order) {
-      log.info("orderResult");
-      log.info(order);
-      String orderCode = orderService.register(order);
-
-      return "redirect:/order/orderResult" + "?orderCode=" + orderCode;
-   }
-
-   @PostMapping("/modify")
-   public String modify(OrderVO order, RedirectAttributes rttr) {
-      log.info("modify: " + order);
-
-      if (orderService.modify(order)) {
-         rttr.addFlashAttribute("result", "success");
-      }
-
-      return "redirect: /order/list";
-   }
-
-   @PostMapping("/remove")
-   public String remove(@RequestParam("orderCode") String orderCode, RedirectAttributes rttr) {
-      log.info("remove......" + orderCode);
-      if (orderService.remove(orderCode)) {
-         rttr.addFlashAttribute("result", "success");
-      }
-
-      return "redirect:/order/list";
-   }
-
-
-   @GetMapping("/basketList")
-	public void ddd() {
-		
-	}
->>>>>>> branch 'develop' of https://github.com/jeongeun-cloud/juju.git
-
-<<<<<<< HEAD
-   //orderResultí™”ë©´ì„ ë³´ì—¬ì¤Œ
-   @GetMapping("/orderResult")
-   public void orderResult(@RequestParam("orderCode") String orderCode, Model model) {
-      log.info("/orderResult");
-      OrderVO order = orderService.get(orderCode);
-      String idNo = order.getIdNo();
-      OrderMemberVO orderMember = orderMemberService.getOrderMemberInfo(idNo);
-      List<OrderResponseVO> itemList = orderService.getOrderResponse(idNo);
-      //ì£¼ë¬¸ë²ˆí˜¸ë¡œ ë°°ì†¡ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ê¸°
-      DeliveryVO delivery = deliveryService.get(orderCode);
-      //jspì—ì„œ ì‚¬ìš©í•  ìš”ì†Œë“¤ì„ order, orderMember, itemList, deliveryë¡œ  ì´ë¦„ ì¤˜ì„œ ì“°ê¸°
-      model.addAttribute("order", order);
-      model.addAttribute("orderMember", orderMember);
-      model.addAttribute("itemList", itemList);
-      model.addAttribute("delivery", delivery);
-   }
-=======
->>>>>>> branch 'develop' of https://github.com/jeongeun-cloud/juju.git
-
-<<<<<<< HEAD
-   //orderResult ì •ë³´ë¥¼  t_delivery DBì— insert. orderCodeë¥¼ ê¸°ì¤€ìœ¼ë¡œ insert
+   //orderResult Á¤º¸¸¦  t_delivery DB¿¡ insert. orderCode¸¦ ±âÁØÀ¸·Î insert
    @PostMapping("/orderResult")
    public String orderResult(OrderRequestVO order) {
       log.info("orderResult");
@@ -171,6 +103,4 @@ public class OrderController {
    }
 
 
-=======
->>>>>>> branch 'develop' of https://github.com/jeongeun-cloud/juju.git
 }

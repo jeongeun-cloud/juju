@@ -26,8 +26,8 @@ DOCTYPE html> <html lang ="en"> <head> <meta charset ="UTF-8"> <meta name
 	width: 90%;
 }
 			
-			<!--
-			배치-->th, td {
+			/* 배치 */
+			th, td {
 				padding: 8px;
 				text-align: left;
 				border-bottom: 1px solid #ddd;
@@ -63,8 +63,8 @@ DOCTYPE html> <html lang ="en"> <head> <meta charset ="UTF-8"> <meta name
 				height: 35px;
 			}
 			
-			<!--
-			화면 나눔-->.pmain {
+			/* 화면 나눔 */
+			.pmain {
 				width: 100%;
 				height: 300px;
 			}
@@ -79,13 +79,11 @@ DOCTYPE html> <html lang ="en"> <head> <meta charset ="UTF-8"> <meta name
 				float: right;
 			}
 			
-			<!--
-			글쓰기 버튼-->.regBtn {
+			/* 글쓰기 버튼 */
+			.regBtn {
 				margin-top: 10px;
 				margin-left: 90%;
 			}
-			
-
 			
 			
 			</style>
@@ -96,9 +94,8 @@ DOCTYPE html> <html lang ="en"> <head> <meta charset ="UTF-8"> <meta name
 	<div class="pmain">
 		<div class="p1">
 			<ul>고객센터
-			
-			<li><a href='/community/notice/list'>공지사항</a></li>
-			<li><a href='/community/BoardFAQ/list'>자주하는질문</a></li>
+				<li><a href='/community/notice/list'>공지사항</a></li>
+				<li><a href='/community/BoardFAQ/list'>자주하는질문</a></li>
 			</ul>
 		</div>
 
@@ -317,12 +314,6 @@ DOCTYPE html> <html lang ="en"> <head> <meta charset ="UTF-8"> <meta name
 	         
 	         <!--검색 스크립트 end-->
 		</script>
-
-	</div>
-	<!-- main-->
-
-
-
 
 
 </body>
