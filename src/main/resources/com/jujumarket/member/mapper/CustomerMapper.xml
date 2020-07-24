@@ -6,13 +6,27 @@
 
 	<insert id="insert">
 		insert into m_customer(idNo, contact)
-		values(#{idNo}, #{contact})
+		values(#{idNo},
+		#{contact})
 
 	</insert>
 
-	<update id="update">
+	<select id="getCustomerInfoByIdNo"
+		resultType="com.jujumarket.member.domain.CustomerVO">
+		select tm.idNo, tm.emailAccount, tm.memName, tm.memAddr,
+		tm.postCode, mc.contact
+		from t_member tm, m_customer mc
+		where tm.idNo = mc.idNo
+		and tm.idNo = #{idNo}
+
+
+	</select>
+
+	<update id="modifyCustomerInfo">
 		update m_customer
-		set contact = #{contact}
+		set 
+		 contact = #{contact}
+		 where idNo = #{idNo}
 	</update>
 
 

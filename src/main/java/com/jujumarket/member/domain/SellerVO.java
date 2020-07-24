@@ -13,7 +13,7 @@ public class SellerVO {
 	//t_member(nullable)
 	private String pwd;
 	private String memAddr;
-	private String PostCode;
+	private String postCode;
 	
 	
 	//m_shop(NN)

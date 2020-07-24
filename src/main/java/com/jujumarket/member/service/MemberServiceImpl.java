@@ -2,6 +2,8 @@ package com.jujumarket.member.service;
 
 import org.springframework.stereotype.Service;
 
+import com.jujumarket.member.domain.CustomerVO;
+import com.jujumarket.member.domain.SellerVO;
 //import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.mapper.CustomerMapper;
 import com.jujumarket.member.mapper.MemberMapper;
@@ -44,4 +46,19 @@ public class MemberServiceImpl implements MemberSerivce {
 	public String getIdNoByEmail(String emailAccount) {
 		return memberMapper.getIdNoByEmailAccount(emailAccount);
 	}
+
+	@Override
+	public CustomerVO getCustomerInfoByIdNo(String idNo) {
+		return customerMapper.getCustomerInfoByIdNo(idNo);
+	}
+
+	@Override
+	public SellerVO getSellerInfoByIdNo(String idNo) {
+		return sellerMapper.getSellerInfoByIdNo(idNo);
+	}
+
+
+	
 }
+
+

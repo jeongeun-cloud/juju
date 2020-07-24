@@ -26,7 +26,7 @@
 		<!-- 회원코드
 		<input type="text" id="memCode" name="memCode">
 		 -->
-		 연락처(선택):
+		 연락처(필수):
 		<input type="text" id="contact" name="contact"> <br>
 		주소(선택):
 		<input type="text" id="memAddr" name="memAddr"> <br>

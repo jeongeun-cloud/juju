@@ -41,268 +41,268 @@ import net.sf.json.JSONArray;
 @AllArgsConstructor
 public class RegisterItemContoller {
 
-	private ServletContext servletContext;
-	private RegisterItemService service;
-	
-	@GetMapping("/")
-	public String index() {
-		
-		return "shop/index";
-	}
-	
-	@GetMapping("/list")
-	public void list(ItemCriteria cri, Model model) {
-		log.info("list : " + cri);
-		
-		model.addAttribute("list", service.getList(cri));
-		//model.addAttribute("pageMaker", new ItemPageDTO(cri, 123));
-		int total = service.getTotal(cri);
-		
-		log.info("total : " + total);
-		
-		if(cri.getKeyword() != null && cri.getKeyword() != "") {
-			int resultTotal = service.getResultTotal(cri);
-			model.addAttribute("pageMaker", new ItemPageDTO(cri, resultTotal));
-		}else {
-			model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
-		}
-	}
-	
-	// ¿ÃπÃ¡ˆ∆ƒ¿œ¿Œ¡ˆ »Æ¿Œ
-//	private boolean checkImgType(File file) {
-//		try {
-//			String contentType = Files.probeContentType(file.toPath());
-//			return contentType.startsWith("image");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
-	
-	// ¿ÃπÃ¡ˆ ¿˙¿Â
-	public void imgSave(RegisterItemVO register, MultipartFile[] uploadFile, boolean isModify) {
+   private ServletContext servletContext;
+   private RegisterItemService service;
+   
+   @GetMapping("/")
+   public String index() {
+      
+      return "shop/index";
+   }
+   
+   @GetMapping("/list")
+   public void list(ItemCriteria cri, Model model) {
+      log.info("list : " + cri);
+      
+      model.addAttribute("list", service.getList(cri));
+      //model.addAttribute("pageMaker", new ItemPageDTO(cri, 123));
+      int total = service.getTotal(cri);
+      
+      log.info("total : " + total);
+      
+      if(cri.getKeyword() != null && cri.getKeyword() != "") {
+         int resultTotal = service.getResultTotal(cri);
+         model.addAttribute("pageMaker", new ItemPageDTO(cri, resultTotal));
+      }else {
+         model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+      }
+   }
+   
+   // Ïù¥ÎØ∏ÏßÄÌååÏùºÏù∏ÏßÄ ÌôïÏù∏
+//   private boolean checkImgType(File file) {
+//      try {
+//         String contentType = Files.probeContentType(file.toPath());
+//         return contentType.startsWith("image");
+//      } catch (IOException e) {
+//         e.printStackTrace();
+//      }
+//      return false;
+//   }
+   
+   // Ïù¥ÎØ∏ÏßÄ Ï†ÄÏû•
+   public void imgSave(RegisterItemVO register, MultipartFile[] uploadFile, boolean isModify) {
 
-	      Boolean flag = true;
-	      String uploadFolder = servletContext.getRealPath("/resources/upload");
-	      // ∆˙¥ı ª˝º∫
-	      File uploadPath = new File(uploadFolder, "idNo");   // ¿”Ω√∑Œ! ∑Œ±◊¿Œ »ƒø£ idNo ∫Ø∞Ê«ÿ¡÷±‚
-	      log.info("upload path : " + uploadPath);
-	      
-	      if(uploadPath.exists() == false) {
-	         uploadPath.mkdir();      // ∞¢ ªÛ¡°∏∂¥Ÿ ¿⁄Ω≈¿« ∆˙¥ı∏¶ ∞°¡¸
-	      }
+         Boolean flag = true;
+         String uploadFolder = servletContext.getRealPath("/resources/upload");
+         // Ìè¥Îçî ÏÉùÏÑ±
+         File uploadPath = new File(uploadFolder, "idNo");   // ÏûÑÏãúÎ°ú! Î°úÍ∑∏Ïù∏ ÌõÑÏóî idNo Î≥ÄÍ≤ΩÌï¥Ï£ºÍ∏∞
+         log.info("upload path : " + uploadPath);
+         
+         if(uploadPath.exists() == false) {
+            uploadPath.mkdir();      // Í∞Å ÏÉÅÏ†êÎßàÎã§ ÏûêÏã†Ïùò Ìè¥ÎçîÎ•º Í∞ÄÏßê
+         }
 
-	      int i = 0;
-	      for(MultipartFile multi : uploadFile) {
-	         
-	         String uploadFilename = multi.getOriginalFilename();
-	         
-	         if(isModify){
-	        	 flag = (!uploadFilename.equals(""));
-	         }
+         int i = 0;
+         for(MultipartFile multi : uploadFile) {
+            
+            String uploadFilename = multi.getOriginalFilename();
+            
+            if(isModify){
+               flag = (!uploadFilename.equals(""));
+            }
 
-	         if(flag) {
-		         // IE has file path
-		         uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
-		         
-		         UUID uuid = UUID.randomUUID();
-		         uploadFilename = uuid.toString() + "_" + uploadFilename;
-	
-		         try {
-		            // ¿ÃπÃ¡ˆ ∆ƒ¿œ pathø° ø√∏Æ±‚
-		            File saveFile = new File(uploadPath, uploadFilename);
-		            multi.transferTo(saveFile);
-		            
-		         } catch (Exception e) {
-		            log.error(e.getMessage());
-		         } // end catch
-	         
-		         if(i==0) register.setItemImg1(uploadFilename);
-		         else if(i==1) register.setItemImg2(uploadFilename);
-		         else if(i==2) register.setItemImg3(uploadFilename);
-		         else if(i==3) register.setItemImg4(uploadFilename);
-		         else if(i==4) {
-		            register.setImgDetail(uploadFilename);
-		            break;
-		         }
-	         } 
-	         i++;
-	      } // end for
-	}
-	
-	@PostMapping("/register")
-	public String register(RegisterItemVO register, MultipartFile[] uploadFile, RedirectAttributes rttr) {
-		
-		imgSave(register, uploadFile, false);
-		
-		service.register(register);
-		rttr.addFlashAttribute("result", register.getItemCode());
-		
-		return "redirect:/shop/list";
-	}
-	
-//	@GetMapping("/register")
-//	public void register() {
-//		
-//	}
-	
-	@GetMapping("/register")
-	public void register(Model model) {
+            if(flag) {
+               // IE has file path
+               uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
+               
+               UUID uuid = UUID.randomUUID();
+               uploadFilename = uuid.toString() + "_" + uploadFilename;
+   
+               try {
+                  // Ïù¥ÎØ∏ÏßÄ ÌååÏùº pathÏóê Ïò¨Î¶¨Í∏∞
+                  File saveFile = new File(uploadPath, uploadFilename);
+                  multi.transferTo(saveFile);
+                  
+               } catch (Exception e) {
+                  log.error(e.getMessage());
+               } // end catch
+            
+               if(i==0) register.setItemImg1(uploadFilename);
+               else if(i==1) register.setItemImg2(uploadFilename);
+               else if(i==2) register.setItemImg3(uploadFilename);
+               else if(i==3) register.setItemImg4(uploadFilename);
+               else if(i==4) {
+                  register.setImgDetail(uploadFilename);
+                  break;
+               }
+            } 
+            i++;
+         } // end for
+   }
+   
+   @PostMapping("/register")
+   public String register(RegisterItemVO register, MultipartFile[] uploadFile, RedirectAttributes rttr) {
+      
+      imgSave(register, uploadFile, false);
+      
+      service.register(register);
+      rttr.addFlashAttribute("result", register.getItemCode());
+      
+      return "redirect:/shop/list";
+   }
+   
+//   @GetMapping("/register")
+//   public void register() {
+//      
+//   }
+   
+   @GetMapping("/register")
+   public void register(Model model) {
 
-//		model.addAttribute("category", service.category());
-		List<CategoryVO> category = null;
-		category = service.category();
-		model.addAttribute("category", JSONArray.fromObject(category));
-	}
-	
-	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("itemCode") String itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model) {
-		log.info("/get or modify");
-		
-		model.addAttribute("getCategory", service.getCategory(itemCode));
-		model.addAttribute("item", service.get(itemCode));
-	}
-	
-	@PostMapping("/modify")
-	public String modify(RegisterItemVO register, MultipartFile[] uploadFile, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
-		log.info("modify : " + register);
-		
-		imgSave(register, uploadFile, true);
-		
-		if(service.modify(register)) {
-			rttr.addFlashAttribute("result", "success");
-		}
-		
-//		rttr.addAttribute("pageNum", cri.getPageNum());
-//		rttr.addAttribute("amount", cri.getAmount());
-//		rttr.addAttribute("type", cri.getType());
-//		rttr.addAttribute("keyword", cri.getKeyword());
-		 
-		return "redirect:/shop/list" + cri.getListLink();
-	}
-	
-	@PostMapping("/remove")
-	public String remove(@RequestParam("itemCode") String itemCode, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
-		log.info("remove....." + itemCode);
-		
-		RegisterItemVO vo = service.get(itemCode);
-		
-		String filePath = servletContext.getRealPath("/resources/upload/idNo");
+//      model.addAttribute("category", service.category());
+      List<CategoryVO> category = null;
+      category = service.category();
+      model.addAttribute("category", JSONArray.fromObject(category));
+   }
+   
+   @GetMapping({"/get", "/modify"})
+   public void get(@RequestParam("itemCode") String itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model) {
+      log.info("/get or modify");
+      
+      model.addAttribute("getCategory", service.getCategory(itemCode));
+      model.addAttribute("item", service.get(itemCode));
+   }
+   
+   @PostMapping("/modify")
+   public String modify(RegisterItemVO register, MultipartFile[] uploadFile, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
+      log.info("modify : " + register);
+      
+      imgSave(register, uploadFile, true);
+      
+      if(service.modify(register)) {
+         rttr.addFlashAttribute("result", "success");
+      }
+      
+//      rttr.addAttribute("pageNum", cri.getPageNum());
+//      rttr.addAttribute("amount", cri.getAmount());
+//      rttr.addAttribute("type", cri.getType());
+//      rttr.addAttribute("keyword", cri.getKeyword());
+       
+      return "redirect:/shop/list" + cri.getListLink();
+   }
+   
+   @PostMapping("/remove")
+   public String remove(@RequestParam("itemCode") String itemCode, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
+      log.info("remove....." + itemCode);
+      
+      RegisterItemVO vo = service.get(itemCode);
+      
+      String filePath = servletContext.getRealPath("/resources/upload/idNo");
 
-		File file = null;
-		
-		for(int i=0; i<5; i++) {
-			if(i == 0) file = new File(filePath + vo.getItemImg1());
-			else if(i==1) file = new File(filePath + vo.getItemImg2());
-			else if(i==2) file = new File(filePath + vo.getItemImg3());
-			else if(i==3) file = new File(filePath + vo.getItemImg4());
-			else if(i==4) file = new File(filePath + vo.getImgDetail());
-			
-			if(file.exists()) {
-				if(file.delete()) {
-					System.out.println("ªË¡¶º∫∞¯");
-				}else {
-					System.out.println("ªË¡¶Ω«∆–");
-				}
-			}else {
-				System.out.println("∆ƒ¿œ¿Ã ¡∏¿Á«œ¡ˆ æ ¿Ω");
-			}
-		}
-		
-		if(service.remove(itemCode)) {
-			rttr.addFlashAttribute("result", "success");
-		}
-		
-//		rttr.addAttribute("pageNum", cri.getPageNum());
-//		rttr.addAttribute("amount", cri.getAmount());
-//		rttr.addAttribute("type", cri.getType());
-//		rttr.addAttribute("keyword", cri.getKeyword());
-		
-		return "redirect:/shop/list" + cri.getListLink();
-	}
-	
-	@GetMapping("/remove")
-	public String remove(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
-		
-		for(int i=0; i<itemCode.length; i++) {
-			//log.info(itemCode[i] + "æ∆¿Ã≈€ ƒ⁄µÂ ≥—æÓø»");
-			service.remove(itemCode[i]);
-		}
-		
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getAmount());
-		rttr.addFlashAttribute("result", "success");
-		
+      File file = null;
+      
+      for(int i=0; i<5; i++) {
+         if(i == 0) file = new File(filePath + vo.getItemImg1());
+         else if(i==1) file = new File(filePath + vo.getItemImg2());
+         else if(i==2) file = new File(filePath + vo.getItemImg3());
+         else if(i==3) file = new File(filePath + vo.getItemImg4());
+         else if(i==4) file = new File(filePath + vo.getImgDetail());
+         
+         if(file.exists()) {
+            if(file.delete()) {
+               System.out.println("ÏÇ≠Ï†úÏÑ±Í≥µ");
+            }else {
+               System.out.println("ÏÇ≠Ï†úÏã§Ìå®");
+            }
+         }else {
+            System.out.println("ÌååÏùºÏù¥ Ï°¥Ïû¨ÌïòÏßÄ ÏïäÏùå");
+         }
+      }
+      
+      if(service.remove(itemCode)) {
+         rttr.addFlashAttribute("result", "success");
+      }
+      
+//      rttr.addAttribute("pageNum", cri.getPageNum());
+//      rttr.addAttribute("amount", cri.getAmount());
+//      rttr.addAttribute("type", cri.getType());
+//      rttr.addAttribute("keyword", cri.getKeyword());
+      
+      return "redirect:/shop/list" + cri.getListLink();
+   }
+   
+   @GetMapping("/remove")
+   public String remove(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, RedirectAttributes rttr) {
+      
+      for(int i=0; i<itemCode.length; i++) {
+         //log.info(itemCode[i] + "ÏïÑÏù¥ÌÖú ÏΩîÎìú ÎÑòÏñ¥Ïò¥");
+         service.remove(itemCode[i]);
+      }
+      
+      rttr.addAttribute("pageNum", cri.getPageNum());
+      rttr.addAttribute("amount", cri.getAmount());
+      rttr.addFlashAttribute("result", "success");
+      
 
-//		String[] arrIdx = itemCode.toString().split(",");
-//		
-//	  	for (int i=0; i<arrIdx.length; i++) {
-//	  		log.info(arrIdx[i] + "Ω∫«√∏¥ πËø≠");
-//	  		service.remove(arrIdx[i]);
-//	  	}
-	  	
-	  	return "redirect:/shop/list";
-	}
-	
-	@PostMapping("/excelDown")
-	public void ExcelDown(HttpServletResponse response){
+//      String[] arrIdx = itemCode.toString().split(",");
+//      
+//        for (int i=0; i<arrIdx.length; i++) {
+//           log.info(arrIdx[i] + "Ïä§ÌîåÎ¶ø Î∞∞Ïó¥");
+//           service.remove(arrIdx[i]);
+//        }
+        
+        return "redirect:/shop/list";
+   }
+   
+   @PostMapping("/excelDown")
+   public void ExcelDown(HttpServletResponse response){
         log.info("@@@@@@@@@@@@@@@ExcelDown START@@@@@@@@@@@@@@@");
         
         service.getExcelDown(response);
         
         log.info("@@@@@@@@@@@@@@@ExcelDown END@@@@@@@@@@@@@@@");
     }
-	
-	@GetMapping("/disModify")
-	public String disModify(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model, RedirectAttributes rttr) {
-		
-		for(int i=0; i<itemCode.length; i++) {
-			RegisterItemVO vo = service.get(itemCode[i]);
-			
-			// ¡¯ø≠ªÛ≈¬ ∫Ø∞Ê
-			if(vo.getDispStat().equals("¡¯ø≠«‘")) {
-				vo.setDispStat("¡¯ø≠æ»«‘");
-			}else {
-				vo.setDispStat("¡¯ø≠«‘");
-			}
-			
-			service.modify(vo);
-		}
-		rttr.addFlashAttribute("result", "success");
-		
-		return "redirect:/shop/list";
-	}
-	
-	@GetMapping("/saleModify")
-	public String saleModify(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model, RedirectAttributes rttr) {
-		
-		for(int i=0; i<itemCode.length; i++) {
-			RegisterItemVO vo = service.get(itemCode[i]);
+   
+   @GetMapping("/disModify")
+   public String disModify(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model, RedirectAttributes rttr) {
+      
+      for(int i=0; i<itemCode.length; i++) {
+         RegisterItemVO vo = service.get(itemCode[i]);
+         
+         // ÏßÑÏó¥ÏÉÅÌÉú Î≥ÄÍ≤Ω
+         if(vo.getDispStat().equals("ÏßÑÏó¥Ìï®")) {
+            vo.setDispStat("ÏßÑÏó¥ÏïàÌï®");
+         }else {
+            vo.setDispStat("ÏßÑÏó¥Ìï®");
+         }
+         
+         service.modify(vo);
+      }
+      rttr.addFlashAttribute("result", "success");
+      
+      return "redirect:/shop/list";
+   }
+   
+   @GetMapping("/saleModify")
+   public String saleModify(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model, RedirectAttributes rttr) {
+      
+      for(int i=0; i<itemCode.length; i++) {
+         RegisterItemVO vo = service.get(itemCode[i]);
 
-			// ∆«∏≈ªÛ≈¬ ∫Ø∞Ê
-			if(vo.getSaleStat().equals("∆«∏≈¡ﬂ")) {
-				vo.setSaleStat("∆«∏≈¡ﬂ¡ˆ");
-			}else {
-				log.info(vo.getItemChr() + "2");
-				vo.setSaleStat("∆«∏≈¡ﬂ");
-			}
-			service.modify(vo);
-		}
-		rttr.addFlashAttribute("result", "success");
-		return "redirect:/shop/list";
-	}
-	
-	@GetMapping("/soldModify")
-	public String soldModify(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model, RedirectAttributes rttr) {
-		
-		for(int i=0; i<itemCode.length; i++) {
-			RegisterItemVO vo = service.get(itemCode[i]);
-			
-			vo.setSaleStat("«∞¿˝");		
-			service.modify(vo);
-		}
-		rttr.addFlashAttribute("result", "success");
-		return "redirect:/shop/list";
-	}
+         // ÌåêÎß§ÏÉÅÌÉú Î≥ÄÍ≤Ω
+         if(vo.getSaleStat().equals("ÌåêÎß§Ï§ë")) {
+            vo.setSaleStat("ÌåêÎß§Ï§ëÏßÄ");
+         }else {
+            log.info(vo.getItemChr() + "2");
+            vo.setSaleStat("ÌåêÎß§Ï§ë");
+         }
+         service.modify(vo);
+      }
+      rttr.addFlashAttribute("result", "success");
+      return "redirect:/shop/list";
+   }
+   
+   @GetMapping("/soldModify")
+   public String soldModify(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model, RedirectAttributes rttr) {
+      
+      for(int i=0; i<itemCode.length; i++) {
+         RegisterItemVO vo = service.get(itemCode[i]);
+         
+         vo.setSaleStat("ÌíàÏ†à");      
+         service.modify(vo);
+      }
+      rttr.addFlashAttribute("result", "success");
+      return "redirect:/shop/list";
+   }
 
 }

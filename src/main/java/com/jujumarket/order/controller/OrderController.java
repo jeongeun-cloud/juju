@@ -2,6 +2,8 @@ package com.jujumarket.order.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +36,11 @@ public class OrderController {
    
    //상품테이블에서 idNo를 get방식으로 넘겨줌
    @GetMapping("/orderItemsForm")
-   public void orderItemsForm(@RequestParam("idNo") String idNo, Model model) {
+   public String orderItemsForm(@RequestParam("idNo") String idNo, Model model, HttpSession session) {
       log.info("orderList");
+      if(session.getAttribute("sessionMember")==null) {
+    	  return "redirect:/member/login";
+      }
       //model에 orderList를 담아 주문서(orderItemsForm.jsp)에 출력
       model.addAttribute("orderList", orderService.getOrderResponse(idNo));
       //model에 memberInfo를 담아 주문서(orderItemsForm.jsp)에 출력
@@ -45,7 +50,7 @@ public class OrderController {
       if(orderCode!=null) {
       model.addAttribute("recentDelivery", deliveryService.get(orderCode));
       }
-
+      return "order/orderItemsForm";
    }
 
    //orderResult화면을 보여줌
@@ -65,11 +70,9 @@ public class OrderController {
       model.addAttribute("delivery", delivery);
    }
 
-   //orderResult 정보를  t_delivery DB에 insert. orderCode를 기준으로 insert
+   //orderResult 정보를  DB에 insert. orderCode를 기준으로 insert
    @PostMapping("/orderResult")
    public String orderResult(OrderRequestVO order) {
-      log.info("orderResult");
-      log.info(order);
       String orderCode = orderService.register(order);
 
       return "redirect:/order/orderResult" + "?orderCode=" + orderCode;
@@ -77,7 +80,6 @@ public class OrderController {
 
    @PostMapping("/modify")
    public String modify(OrderVO order, RedirectAttributes rttr) {
-      log.info("modify: " + order);
 
       if (orderService.modify(order)) {
          rttr.addFlashAttribute("result", "success");

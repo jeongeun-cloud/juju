@@ -3,6 +3,7 @@ package com.jujumarket.member.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SellerVO;
 import com.jujumarket.member.mapper.MemberMapper;
 import com.jujumarket.member.mapper.SellerInfoMapper;
@@ -27,6 +28,15 @@ public class SellerServiceImpl implements SellerService{
 		sellerMapper.insert(seller);
 		sellerInfoMapper.insertShopInfo(seller);
 	
+	}
+
+	@Transactional
+	@Override
+	public boolean modifySellerInfo(MemberVO member) {
+
+		return memberMapper.modifyMemberInfo(member)==1 
+		&& sellerMapper.modifySellerInfo(member)==1
+		&& sellerInfoMapper.modifySellerInfo(member)==1;
 	}
 
 

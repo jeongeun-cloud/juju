@@ -65,11 +65,12 @@
    
    </select>
    
-   <update id="update">
+   <update id="modifyMemberInfo">
       update t_member
-      set memAddr = #{memAddr},
-      postCode = #{postCode},
-      pwd = #{pwd}
+      set 
+      memName = #{memName},
+      memAddr = #{memAddr}
+      where idNo = #{idNo}
    
    </update>
 
