@@ -52,6 +52,7 @@ a {
 		<div class="b">
 			<ul>
 				<li><a href="/mypage/customerInfoModify">회원수정</a></li>
+				<li><a href="/mypage/modifyPwd">비밀번호 변경</a></li>
 				<li><a href="/mypage/memberDelete">회원탈퇴</a></li>
 			</ul>
 
@@ -106,7 +107,7 @@ $(document).ready(function(){
 	memAddr = $("#memAddr");
 	contact = $("#contact");
 	
-	 var result = $("#result").val();
+	 let result = $("#result").val();
      alertResult(result);
      history.replaceState({},null,null)
      
@@ -138,7 +139,7 @@ $(document).ready(function(){
 	
 	
 	function memNameCheck(){
-		var regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+		let regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
 
 		if (memName.val().trim() == "" || memName.val() == null) {
 			alert("값을 입력해주세요.");
@@ -159,7 +160,7 @@ $(document).ready(function(){
 	}
 	
 	function contactCheck(){
-		var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+		let regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 
 		if (contact.val().trim() == "" || contact.val() == null) {
 			alert("값을 입력해주세요.");

@@ -120,13 +120,23 @@ li {
 										<a href="/mypage/sellerInfoModify">개인 정보 수정</a>
 									</c:when>
 								</c:choose>
-							</div></li>
-						<li class="dropdown_sub"><a href="#" class="subMemu">고객센터</a>
-							<div class="subMemu-content">
-								<a href="/community/notice/list">공지사항</a> <a
-									href="/community/BoardFAQ/list">자주하는 질문</a> <a
-									href="/mypage/myQna/list">1:1 문의 게시판</a>
-							</div></li>
+								</div>
+							</li>
+							<li class="dropdown_sub"><a href="#" class="subMemu">고객센터</a>
+								<div class="subMemu-content">
+									<a href="/community/notice/list">공지사항</a> 
+									<a href="/community/BoardFAQ/list">자주하는 질문</a> 
+									<a href="/mypage/myQna/list">1:1 문의 게시판</a>
+								</div>
+							</li>
+							<c:choose>
+	                           <c:when test="${fn:substring(sessionMember, 0, 1) eq 's'}">
+	                              <li><a href="/shop/">상인 홈</a></li>
+	                           </c:when>
+	                           <c:when test="${fn:substring(sessionMember, 0, 1) eq 'a'}">
+	                              <li><a href="#">관리자 홈</a></li>
+	                           </c:when>
+                        	</c:choose>
 					</ul>
 				</div>
 			</div>

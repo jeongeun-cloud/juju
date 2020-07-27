@@ -1,8 +1,11 @@
 package com.jujumarket.member.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.jujumarket.member.domain.CustomerVO;
+import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SellerVO;
 //import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.mapper.CustomerMapper;
@@ -56,7 +59,27 @@ public class MemberServiceImpl implements MemberSerivce {
 	public SellerVO getSellerInfoByIdNo(String idNo) {
 		return sellerMapper.getSellerInfoByIdNo(idNo);
 	}
+	//회원탈퇴
+	@Override
+	public boolean deleteCheck(String idNo, String pwd) {
+		String originPwd = memberMapper.getPwdByIdNo(idNo);
+		if(pwd == null) {
+			return false;
+		}else if(pwd.equals(originPwd)) {
+			return true;
+		}
+		return false;
+	}
 
+	@Override
+	public List<String> getEmailList(MemberVO member) {
+		if(member.getMemCode().equals("SELLER")) {
+			member.setContact1(member.getContact());
+			return sellerMapper.getEmailList(member);
+		}else {
+			return customerMapper.getEmailList(member);
+		}
+	}
 
 	
 }

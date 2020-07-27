@@ -17,7 +17,8 @@
 		totalDiscount,receivAddr
 		deliCharge, isMember, idNo)
 		values(#{orderCode},
-		#{totalPay}, #{totalSum}, #{totalDiscount}, #{receivAddr}, #{deliCharge},
+		#{totalPay}, #{totalSum}, #{totalDiscount},
+		#{receivAddr}, #{deliCharge},
 		#{isMember}, #{idNo})
 	</insert>
 
@@ -27,8 +28,10 @@
 			resultType="String"> select
 			replace(replace(replace(substr(current_timestamp,0,17),' ',''),'/',''),':','') from dual
 		</selectKey>
-		insert into t_order(orderCode,totalPay, totalSum, totalDiscount, receivAddr, idNo)
-		values(#{orderCode},#{totalPay}, #{totalSum}, #{totalDiscount},	#{receivAddr}, #{idNo})
+		insert into t_order(orderCode,totalPay, totalSum, totalDiscount,
+		receivAddr, idNo)
+		values(#{orderCode},#{totalPay}, #{totalSum},
+		#{totalDiscount}, #{receivAddr}, #{idNo})
 	</insert>
 
 	<select id="read"
@@ -37,16 +40,42 @@
 
 	</select>
 
+	<select id="getone" resultType="com.jujumarket.main.domain.BasketVO">
+      <![CDATA[
+      SELECT *
+      FROM t_basket b
+      LEFT JOIN t_item i
+      ON b.itemcode = i.itemcode
+      WHERE b.baskId = #{baskId}
+      ORDER BY baskId
+      ]]>
+	</select>
+
 	<!-- orderItemsForm 상단에 출력되는 주문상품정보 -->
 	<select id="orderResponse"
 		resultType="com.jujumarket.order.domain.OrderResponseVO">
 
 		select item.itemImg1, item.itemCode, item.itemName,
 		item.normPrice, basket.itemNum, item.price, basket.baskId
-		from t_item item, t_basket
+		from t_item
+		item, t_basket
 		basket
 		where item.itemCode = basket.itemCode
-		and basket.idNo = #{idNo}
+		and
+		basket.idNo = #{idNo}
+
+
+	</select>
+
+	<select id="showOrderList"
+		resultType="com.jujumarket.order.domain.OrderResponseVO">
+		select item.itemImg1, item.itemCode, item.itemName,
+		item.normPrice, oi.itemNum, oi.disAmount, oi.totalPrice
+		from t_item
+		item, t_order_info oi
+		where item.itemCode = oi.itemCode
+		and oi.orderCode
+		= #{orderCode}
 
 
 	</select>

@@ -8,6 +8,8 @@ import com.jujumarket.member.domain.SellerVO;
 	  public void insertShopInfo(SellerVO seller);
 	  
 	  public int modifySellerInfo(MemberVO member);
+
+	public int deleteSellerInfo(String idNo);
   
   
   }

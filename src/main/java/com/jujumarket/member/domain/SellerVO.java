@@ -35,4 +35,7 @@ public class SellerVO {
 	
 	//m_shop_info(nullable)
 	private String backImg;
+	
+	//m_history 탈퇴사유(nullable)
+	private String reason;
 }

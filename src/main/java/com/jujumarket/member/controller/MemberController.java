@@ -1,5 +1,7 @@
 package com.jujumarket.member.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -71,25 +73,26 @@ public class MemberController {
 		customerService.register(customer);
 		return "redirect:/member/customerJoinComplete";
 	}
-
+	//일반고객 가입완료
 	@GetMapping("/customerJoinComplete")
 	public void customerJoinComplete() {
 		
 	}
 	
-	//상인회원가입폼 
+	//상인 회원가입폼 
 	@GetMapping("/sellerJoinForm")
 	public void sellerJoinForm() {
 		
 	}
 	
-	//상인(판매자) 가입정보 POST방식 DB INSERT
+	//상인 가입정보 POST방식 DB INSERT
 	@PostMapping("/sellerJoinForm")
 	public String sellerJoinForm(SellerVO seller) {
 		sellerService.register(seller);
 		return "redirect:/member/sellerJoinComplete";
 	}
 	
+	//상인 가입완료
 	@GetMapping("/sellerJoinComplete")
 	public void sellerJoinComplete() {
 		
@@ -121,8 +124,16 @@ public class MemberController {
 	//로그아웃 세션
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		session.removeAttribute("sessionMember");
+		session.invalidate();
 		return "redirect:/";
 	}
+	
+	//아이디, 비밀번호찾기(아직안됨)
+	@GetMapping("/findIdPwd")
+	public void findIdPwd( ) {
+		
+	}
+
+
 
 }
