@@ -6,9 +6,6 @@
 <%@include file="../includes/header.jsp" %>
 
 <%@include file="../includes/menuBar.jsp" %>
-<%@include file="../basket/basket.jsp" %>
-
-<%-- <jsp:include page="../basket/basket.jsp" flush="false"> --%>
 
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="/resources/css/swiper-bundle.min.css">
@@ -40,15 +37,6 @@
 	/*실시간 베스트  */
 	
 	/* 메인 리뷰 */
-/* 	    body {
-      background: #fff;
-      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      color: #000;
-      margin: 0;
-      padding: 0;
-    } */
-
     .swiper-container {
       width: 100%;
       padding-top: 50px;
