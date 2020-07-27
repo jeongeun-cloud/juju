@@ -5,6 +5,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -255,6 +259,8 @@
 <%@include file="../includes/menuBar.jsp" %>
 
 
+<%@include file="../includes/basketSlide.jsp" %>
+
 
 
 <!-- <div class="row"> -->
@@ -402,7 +408,8 @@
                                           <c:if test="${board.saleStat=='판매중'}">
                                             <div class="pro_img_wrap">
                                         
-                                               <a href="#" class="conts">
+                                               <a href="/product/item?itemCode=<c:out value='${board.itemCode}'/>" class="conts">
+
                                                    <img src="/resources/images/default.png" alt="메인 이미지">
                                                </a>
                                 
@@ -413,7 +420,8 @@
                                             <c:if test="${board.saleStat=='품절'}">
                                             <div class="pro_img_wrap">
                                         
-                                               <a href="#" class="conts" style="opacity:0.2;">
+                                                <a href="/product/item?itemCode=<c:out value='${board.itemCode}'/>" class="conts" style="opacity:0.2;">
+
                                                    <img src="/resources/images/default.png" alt="메인 이미지">
                                                </a>
                                                   <div class="soldout">
@@ -426,7 +434,8 @@
                                                    <c:if test="${board.saleStat=='판매중지'}">
                                             <div class="pro_img_wrap">
                                         
-                                               <a href="#" class="conts" style="opacity:0.2;">
+                                                <a href="/product/item?itemCode=<c:out value='${board.itemCode}'/>" class="conts" style="opacity:0.2;">
+
                                                    <img src="/resources/images/default.png" alt="메인 이미지">
                                                </a>
                                                   <div class="soldout">
@@ -438,10 +447,14 @@
                                     
                                      <!-- END img_wrap -->
                                      <div class="txt_wrap">
-                                         <a href="#" class="conts">
-                                             <div class="pro_flag_wrap">
-                                                 <span class="flag"> <c:out value="${board.itemChr}" /></span>
-                                             </div>
+                                         <a href="/product/item?itemCode=<c:out value='${board.itemCode}'/>" class="conts">
+                                              <div class="pro_flag_wrap">
+                                          
+                                            <c:if test="${board.itemChr!='default'}">
+                                                 <span class="flag"> <c:out value="${board.itemChr}" /></span>                                                                                
+                                             </c:if>
+                                             
+                                           </div>
                                              <!-- END pro_flag_wrap -->
                                              <div class=tit_info>
                                                  <span class="info_itemName"> <c:out value="${board.itemName}" /> </span>
@@ -461,7 +474,7 @@
                                              </div>
                                               </a>
                                          <div class="cart_btn">
-                                             <button type="button" class="add_to_cart">add to cart</button>
+                                             <button type="button" class="add_to_cart"  value="${board.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button>
                                          </div>
                                      </div>
                                      <!-- END txt_wrap -->
@@ -653,7 +666,7 @@ $(document).on("change", "select.mainCateg", function(){
 
        console.log(response);
        console.log("데이터 그리기 시작한다");
-       draw(response);
+       listdraw(response);
          
       }) 
       .catch(function(error){
@@ -676,7 +689,7 @@ $(document).on("change", "select.mainCateg", function(){
    }
    
 
-   function draw(response){
+   function listdraw(response){
       
    var $whole_list = $(".whole_list");
 
@@ -693,7 +706,6 @@ $(document).on("change", "select.mainCateg", function(){
    for(var i=0; i<response.length; i++){
          console.log("table그리기 시작한다!!!!");
          
-      if(response[i].saleStat=='판매중'){   
       
       $whole_list.append("<div id='so_Content'>"+"<div id='so_img'>"+response[i].itemImg1+"</div>"+
             "<div id='so_flag'>"+response[i].itemChr+"</div>"+
@@ -704,7 +716,6 @@ $(document).on("change", "select.mainCateg", function(){
             "<div id='so_cart'>"+"<button class='so_add_cart'>add to cart</button>"+"</div></div>");
       }
          
-      }
    }
       
 

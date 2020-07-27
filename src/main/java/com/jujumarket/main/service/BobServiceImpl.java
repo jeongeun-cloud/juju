@@ -26,5 +26,11 @@ public class BobServiceImpl implements BobService {
 		log.info("bobserive 하는중");
 		return mapper.wholebest();
 	}
+	
+	@Override
+	public List<BoardItemVO> reviewbest() {
+		
+		return mapper.reviewbest();
+	}
 
 }

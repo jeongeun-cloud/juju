@@ -125,13 +125,13 @@
 							            <li class="pro_list_li">
 							                <div class="pro_module">
 							                <div class="pro_img_wrap">
-							                    <a href="#" class="conts">
+							                   <a href="/product/item?itemCode=<c:out value='${realnew.itemCode}'/>" class="conts">
 							                        <img src="/resources/images/default1.png" alt="메인 이미지">
 							                    </a>
 							                </div>
 							                <!-- END img_wrap -->
 							                <div class="txt_wrap">
-							                	 <a href="#" class="conts">
+							                	 <a href="/product/item?itemCode=<c:out value='${realnew.itemCode}'/>" class="conts">
 							                        <div class="pro_flag_wrap">
 							                            <span class="flag"> <c:out value="${realnew.itemChr}" /></span>
 							                        </div>
@@ -143,7 +143,7 @@
 							                        <!-- END tit_info -->
 							                        <div class="price_info">
 							                                <p class="sale">
-							                                    <span class="price"><c:out value="${realnew.price}" />
+							                                    <span class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${realnew.price}" />
 							                                        <span class="won">원</span>
 							                                    </span>
 							                                </p>
