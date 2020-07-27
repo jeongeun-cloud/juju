@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.jujumarket.main.domain.BoardItemVO;
 import com.jujumarket.main.service.MainIndexService;
+import com.jujumarket.main.service.ReviewService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -32,6 +33,7 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	private MainIndexService mainservice;
+	private ReviewService reviewService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -43,7 +45,9 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		model.addAttribute("RealNew" ,mainservice.RealNew());
+		model.addAttribute("RealNew", mainservice.RealNew());
+		
+		model.addAttribute("mainReview", reviewService.mainReview());
 		
 //		List<BoardItemVO> list = mainservice.RealNew();
 //		System.out.println(list.toString());

@@ -206,146 +206,6 @@ h4 {
 
 
 
-
-
-      
-         /* 장바구니 css 시작 */      
-        .basketContainer {
-            position: fixed;
-            top: 0px;
-            
-            z-index: 999;
-            
-            /* 반응 없음 */
-            /* overflow: scroll; */
-            /* overflow: auto; */
-        }
-
-        #basketNav {
-            right: -20%;
-        }
-
-        .basketNavBar {
-            position : fixed;
-            width: 20%;
-            height : 100%;
-            /* 메뉴바 전체 배경색 */
-            background-color: rgb(0,158,219);
-            
-            color: white;
-
-            border-style:solid;
-            border-color: lightgray;
-
-            text-align: center;
-            align-items: center;
-            transition : 0.800s ease;
-            z-index: 1;
-            
-            /* 반응 없음 */
-            /* overflow: auto; */
-            
-        }
-
-        .basket-toggle-collapse {
-            float: left;
-            margin-left: -3.685em;
-            margin-top: 17em;
-            content: "";
-            outline: inherit;
-            border: 0px;
-            background: transparent;
-        }
-
-        .basket-toggle-icon,
-        .basket-toggle-icon::before,
-        .basket-toggle-icon::after{
-            content:"";
-            position: fixed;
-            background-color: transparent;
-            border-radius: 2em;
-            border: 0px solid transparent ; 
-           
-        }
-
-        
-       .basketList {
-           margin-left: 0px;
-           margin-top: 50px;
-           width:100%;
-           height: 60%;
-           background-color: white;
-           color: grey;
-           text-align: left;
-           border: 3px;
-           font-size: 1em;
-           
-           /* 여기서 스크롤 생김(양 초과했을 때) */
-           overflow: auto;
-       }
-       
-       
-       .basketItemImg {
-          
-          width: 100px;
-          float: left;
-          
-          border : 3px;
-          margin-top: 25px;
-          margin-left : 10px;
-       
-       }
-       
-       .basketItemDescribe {
-       
-      /*  text-align: left;
-       border: 3px; */
-       
-       }
-       
-       
-       #basketImg {
-       
-       width: 120px;
-       height: 100px;
-       float: left;
-       margin: 3px;
-       
-       
-       
-       }
-       
-       #basketContent {
-       
-       width: 120px;
-       height: 100px;
-       float: left;
-       margin: 3px;
-       
-       
-       }
-       
-       
-       #dltBtn {
-       
-       width: 10px;
-       heigth: 10px;
-       
-       }
-       
-       #dltBtnImg{
-       
-       width: 10px;
-       height: 10px;
-       
-       }
-    
-       /* 장바구니 css 끝 */  
-
-
-
-
-
 /* 지울 부분 시작 */
 
    
@@ -426,7 +286,7 @@ margin-left: 15%;
   border: none;
   cursor: pointer;
 }
-<!-- 버튼색상 -->
+/* 버튼색상  */
 .dropbtn:hover, .dropbtn:focus {
   background-color: #ddd;
 }
@@ -580,6 +440,15 @@ margin-left: 15%;
    #star_grade a.on{
        color: red;
    }
+   
+   #starAvg p, span {
+   		font-size : 25px;
+   }
+   
+   #starAvg a {
+   		text-decoration:none; 
+   		font-size:30px;
+   }
 
 /* 별점 스타일 끝 */
 
@@ -623,7 +492,39 @@ margin-left: 15%;
      cursor: pointer;
      float:right;
    }
+/* 리뷰 리스트 끝 */
 
+/* 평균 별점 스타일 */
+input[type=range] {
+	opacity: 0;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.star-rating-container {
+	background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6I0U2RTZFNTt9PC9zdHlsZT48cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyLjgsMTEuOSAxNC43LDE3LjUgMTAsMTMuOCA1LjMsMTcuNSA3LjIsMTEuOSAyLjUsOC4xIDguMSw4LjEgMTAsMi41IDExLjksOC4xIDE3LjUsOC4xICIvPjwvc3ZnPg==");
+	width: 198px;
+	background-size: 40px 40px;
+	height: 40px;
+	position: relative;
+	float : left;
+}
+
+.star-rating-container .avg {
+	background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6I0U0MUUyNjt9PC9zdHlsZT48cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyLjgsMTEuOSAxNC43LDE3LjUgMTAsMTMuOCA1LjMsMTcuNSA3LjIsMTEuOSAyLjUsOC4xIDguMSw4LjEgMTAsMi41IDExLjksOC4xIDE3LjUsOC4xICIvPjwvc3ZnPg==");
+	background-size: 40px 40px;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 100%;
+}
+
+/* 평균 별점 끝 */
 </style>
     
 </head>
@@ -635,6 +536,7 @@ margin-left: 15%;
 
 <jsp:include page="RecentlySeen.jsp" flush="false"/>
 
+<%@include file="../includes/basketSlide.jsp" %>
 
 <!-- 아이템 상세페이지 body 시작 -->
 <div class = "itemDiv">
@@ -674,12 +576,12 @@ margin-left: 15%;
             <div class="column-xs-12 column-md-7">
               <div class="product-gallery">
                 <div class="product-image">
-                  <img class="active" src="<c:out value="${product.itemImg1}"/>">
+                  <img class="active" src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg1}"/>">
                 </div>
                 <ul class="image-list">
-                  <li class="image-item"><img src="<c:out value="${product.itemImg1}"/>"></li>
-                  <li class="image-item"><img src="<c:out value="${product.itemImg2}"/>"></li>
-                  <li class="image-item"><img src="<c:out value="${product.itemImg3}"/>"></li>
+                  <li class="image-item"><img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg1}"/>"></li>
+                  <li class="image-item"><img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg2}"/>"></li>
+                  <li class="image-item"><img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg3}"/>"></li>
                 </ul>
               </div>
             </div>
@@ -693,9 +595,8 @@ margin-left: 15%;
 
             <div class="column-xs-12 column-md-5">
               <h1><c:out value="${product.itemName}" default="itemName"/></h1>
-              <h2><c:out value="${product.price}" default="price"/>원 -> <c:out value="${product.normPrice}" default="normPrice"/>원</h2>
+              <h2><fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" />원 -> <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.normPrice}" />원</h2>
               <h5> 적립 포인트 : 120 포인트 </h5>
-              <h5> 재고 수량 : <c:out value="${product.stock}" default="stock"/> </h5>
               
               <!-- 수량 증감 부분 시작 -->
               <div>
@@ -713,14 +614,11 @@ margin-left: 15%;
               
               
               <h5> 배송비 : 0원 </h5>
-              <h5> 총 결제금액 : ${product.normPrice}원 </h5>
+              <h5> 총 결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" />원 </h5>
               <div class="item-describe">
                 <p><c:out value="${product.itemContent}" default="itemContent"/></p>
               </div>
-              
-              
-              
-              <button type="submit" class="add-to-basket" onclick="addToBasketEvent()" >장바구니 담기</button>
+              <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" >장바구니 담기</button>
             </div>
 
             <input type="hidden" value="${product.itemCode}" id="itemCode"/>
@@ -749,7 +647,7 @@ margin-left: 15%;
         <jsp:include page="MoveBar.jsp" flush="false"/>
         
         <!-- <h1>상품 상세 정보 영역</h1> -->
-        <img src="<c:out value="${product.imgDetail}"/>">
+        <img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.imgDetail}"/>">
         
         </div>
      
@@ -768,14 +666,13 @@ margin-left: 15%;
         <!-- 리뷰 갯수 표시 -->
         <h4 id="reviewAmount"></h4> 
         
+		
+        
         <!-- 평균 별점 구현 중 -->
         <div id="starAvg">
-        	<a style="text-decoration:none; font-size:30px;">★</a>
-        	<a>★</a>
-        	<a>★</a>
-        	<a>★</a>
-        	<a>★</a>
-        	<p id="avg"><strong>4.8</strong></p> <span>/</span> <span>5.0</span>
+        	<div id="resultStar" class="star-rating-container" data-star-rating-average=""></div>
+        		&nbsp;&nbsp;
+        		<span id="avg"></span> <span>/5.0</span>
         </div>
 		
 		<!-- 리뷰 남기기 버튼 -->
@@ -809,7 +706,7 @@ margin-left: 15%;
       <div id="review" class="modal">
         <div class="modal-content animate" style="max-width:798px;">
           <div class="imgcontainer">
-            <span onclick="document.getElementById('review').style.display='none'" class="closeBtn" title="Close Modal">&times;</span>
+            <span onclick="modalClose();" class="closeBtn" title="Close Modal">&times;</span>
           </div>
       
           <div class="reviewContainer">
@@ -832,7 +729,10 @@ margin-left: 15%;
               <a href="#" id="score5" score="5" onclick="scoreAction($(this).attr('score'));">★</a>
            	</p>
            
-           	<input type="hidden" name="idNo" id="idNo" value="idNo">
+            <!-- 로그인 idNo -->
+           	<input type="hidden" id="sessionId" value='<c:out value="${sessionMember}"/>'>
+            <!-- 글쓴이 idNo -->
+           	<input type="hidden" name="idNo" id="idNo">
            	<input type="hidden" name="score" id="score" value="0">
            	<input type="hidden" name="itemCode" value="${product.itemCode}">
            	<input type="hidden" name="reviewNo" id="reviewNo">
@@ -849,11 +749,8 @@ margin-left: 15%;
      </div> <!-- prdReview 끝 -->
      <!-- 상품평 body 끝 -->
      
-     
-     
-     
-     
-     <!-- 상품 문의 body 시작 -->
+
+   	<!-- 상품 문의 body 시작 -->
      
      <div id="prdQnA">
      
@@ -873,7 +770,7 @@ margin-left: 15%;
          
             
               <div id = "regiBtn">
-               <div class="form-grop">
+               <div class="form-grop regiBtn">
                <label>replyContent</label>
                <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
 
@@ -990,101 +887,18 @@ margin-left: 15%;
         
         </div>
        <!-- 교환 및 반품 body 끝 -->       
-     
-        
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
-     
 
 </div>
 
 <!-- 아이템 상세페이지 body 끝 -->    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 장바구니 사이드메뉴바 body 시작 -->
-<div class="basketContainer">
-    <nav class="basketNavBar" id="basketNav">
-
-        <button type="button" onclick="basketClicked(this)" class="basket-toggle-collapse" > 
-            <span class="basket-toggle-icon"> </span>
-            <img src="/resources/images/basket.png"/>
-        </button>   
-
-        <br>장바구니
-
-        <ul class="basketList" id="basketList">
-        
-        
-        <!-- 장바구니 리스트 영역 시작 -->
-         
-      <%--   <c:forEach items="${list}" var="basket">
-        
-        
-        <div id="basketImg">
-        <img src="<c:out value="${basket.itemImg1}"/>" class="basketItemImg"/>
-        </div>
-        
-        <div id="basketContent">
-        <h5 class="basketItemDescribe">
-        <c:out value = "${basket.itemName}"/><br>
-        <c:out value = "${basket.price}"/>원<br>
-        <c:out value = "${basket.itemNum}"/>개<br>
-        <input type="hidden"><c:out value = "${basket.baskId}"/><br>
-        </h5>
-        <br>
-        </div>
-        
-        
-        
-        </c:forEach>  --%>
-          
-        <!-- 장바구니 리스트 영역 끝 -->
-        
-        
-        
-        </ul>
-
-
-    </nav>
-</div>
-<!-- 장바구니 사이드메뉴바 body 끝 -->
-
-
-
-
-
-     
 </body>
 
 <!-- 상품평 스크립트 -->
 <script type="text/javascript" src="/resources/js/prdreply.js"></script>  <!--댓글 스크립트. 경로인듯  -->
 <script type="text/javascript">
  
+/* 상품 문의 댓글 시작 */   
    
 $(document).ready(function(){
 
@@ -1099,9 +913,7 @@ $(document).ready(function(){
               prdreplyService.getList({itemCode:itemCode,page: page || 1},
                  function(prdReplyCnt,list){
                     
-                 console.log("prdReplyCnt" + prdReplyCnt);
-                 console.log("list" + list);
-                 console.log(list);
+              
                    
                  if(page == -1){
                     pageNum = Math.ceil(prdReplyCnt/10.0);
@@ -1166,7 +978,7 @@ $(document).ready(function(){
                var regiBtn = $("#regiBtn")
                 
                
-               regiBtn.find('button').on("click",function(e){
+               $("#regiBtn").on("click","button[id='addReplyBtn']",function(e){
                if($("#replyContentBtn").val() == ''||$("#replyContentBtn").val().trim()==""||$("#replyContentBtn").val().length>600){
                      
                     alert("댓글양식에 맞게 입력해주세요(1~600자)");
@@ -1355,7 +1167,7 @@ $(document).ready(function(){
                }
                
                
-               var replyDiv = document.createElement("div");
+/*                var replyDiv = document.createElement("div");
                replyDiv.setAttribute("class", "replyDiv");
 
                var textArea = document.createElement("textarea");
@@ -1365,8 +1177,8 @@ $(document).ready(function(){
                var replyNo = document.createElement("input");
                replyNo.setAttribute("id","replyNo");
                replyNo.setAttribute("type","hidden");
-/*                replyNo.setAttribute("value",replyNodata);
- */
+              replyNo.setAttribute("value",replyNodata);
+
 
         
                replyDiv.appendChild(textArea);
@@ -1376,7 +1188,7 @@ $(document).ready(function(){
                
                $(target).parent().parent().after(replyDiv);
                
-               
+                */
                
            
                 if(replyContent==''||replyContent.trim()==''||replyContent.length>600){
@@ -1457,13 +1269,10 @@ $(document).ready(function(){
           
           
 });//ready end
-   
- 
-   
-   
+/* 상품 문의 댓글 끝 */
 </script>
-<script>
 
+<script>
 
 /* 상품 상세페이지 이미지 누르면 확대되는 기능 시작 */
 const activeImage = document.querySelector(".product-image .active");
@@ -1475,254 +1284,6 @@ function changeImage(e) {
 
 productImages.forEach(image => image.addEventListener("click", changeImage));
 /* 상품 상세페이지 이미지 누르면 확대되는 기능 끝 */
-
-
-
-
-
-
-// 브라우저 열리자마자 장바구니 리스트 가져오기 시작
-$(document).ready(
-         
-          getBasketList()
-         
-         .then(function(response){ 
-            
-           console.log("getBasketList 결과는?");
-            console.log(response);  
-            console.log("draw 실행");
-            draw(response); // 가져온 결과를 화면에 다시 그리기 
-            
-            }) 
-      
-)
-// 브라우저 열리자마자 장바구니 리스트 가져오기 끝
-      
-      
-      
-
-
-
-// 장바구니 한도
-var basketMax = 30;
-
-
-
-
-// 장바구니 담기 onclick 이벤트 시작
-function addToBasketEvent() {
-   
-      
-   // 1. 장바구니에 담긴 물건 리스트를 불러온다 
-   getBasketList()
-   .then(function(response){
-      
-      //1-1. 장바구니에 담긴 물건이 max 초과이면 
-      if(response.length>basketMax){
-         //1-1-1. 담을 수 없음을 알림 
-         alert("장바구니에 담을 수 있는 상품은 "+basketMax+"개 이하입니다.");
-         
-      //1-2. 장바구니에 담긴 물건이 max 넘지 않으면    
-      }else{
-         //1-2-1. 장바구니에 담는 일련의 과정 실행 
-         insert2Basket();
-      }
-   
-})
-
-}
-//장바구니 담기 onclick 이벤트 끝
-
-
-
-
-// 장바구니에 담는 일련의 과정 function 시작
- function insert2Basket() {
-    
-   var $itemCode = $("#itemCode");
-   
-   var $num = $("#input-view");
-   
-   var data = {
-         itemNum : $num.val(),
-         idNo : "cus000001",
-         itemCode : $itemCode.val()
-   };
-   
-   insertData(data) // 해당 페이지 상품을 db 에 넣기 
-   
-   .then(function(response){
-      
-     console.log("insertData 결과는?");
-      console.log(response)
-      console.log("getBasketList 실행");
-      return getBasketList();}) // 장바구니 리스트를 DB에서 ajax 로 가져오기 
-   
-   .then(function(response){ 
-      
-     console.log("getBasketList 결과는?");
-      console.log(response);  
-      console.log("draw 실행");
-      draw(response); // 가져온 결과를 화면에 다시 그리기 
-      
-      }) 
-   
-   .then(function(){
-      moveBasket(); }) // 장바구니 슬라이드 자동으로 열고 닫게 하기 
-   
-}
-//장바구니에 담는 일련의 과정 function 끝
- 
- 
- 
- 
- 
- 
-//해당 페이지 상품을 db 에 넣기  function 시작
-function insertData(data) {
-   
-   console.log("insertData 실행");
-
-   return $.ajax({
-      url: "/product/basket",
-      type: "POST",
-      data: JSON.stringify(data),
-      contentType: "application/json"
-   });
-}
-//해당 페이지 상품을 db 에 넣기  function 끝
- 
- 
- 
- 
-
-/* 장바구니 리스트 ajax 로 불러오기 시작 */
-function getBasketList() {
-   
-   return $.ajax({
-      url: "/product/basket",
-      type: "GET",
-      dataType: "JSON",
-      error : function(){console.log("통신실패")},
-      success : function(){console.log("통신성공")}
-      
-      });
-   
-}
-/* 장바구니 리스트 ajax 로 불러오기 끝 */
-
- 
- 
- 
- 
-
-
-// html 구조 안에다가 장바구니 내용 넣기 function 시작
-function draw(jsonData) { // JSONdata 에 xml 형태의 JSON이 들어온다 왜? 
-   
-   var $basketList = $("#basketList");
-   
-   $basketList.empty();
-   
-   console.log("결과 : " + jsonData)
-   
-   for(var i=0; i<jsonData.length; i++) {
-      
-      $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
-      
-      $basketList.append("<div id='basketContent'><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
-
-      
-      // 이게 삭제 버튼 있는 버전 
-      //$basketList.append("<div id='basketContent'><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5><button id='dltBtn'><img id='dltBtnImg' src='/resources/images/deleteBasketBtn.png'></button></div>");
-
-      
-      //$basketList.append("<button id='dltBtn'><img id='dltBtnImg' src='/resources/images/deleteBasketBtn.png'></button>")
-      
-      // <img src='/resources/images/deleteBasketBtn.png'>
-      
-      
-      
-      
-   }
-   
-   $("#basketList").append("<div id='endOfBasket'>end of basket</div>");
-   $("#endOfBasket").css("background-color","white");
-   $("#endOfBasket").css("color","white");
-   $("#endOfBasket").css("display","block");
-   $("#endOfBasket").css("width","240px");
-   $("#endOfBasket").css("height","50px");
-   $("#endOfBasket").css("float","left");
-   
-   $("#basketList").css("text-align","left");
-   $("#basketList").css("font-size","13px");
-   $("#basketList").css("font-weight","bold");
-   
-   
-   //$("#dltBtn").css("width","10px");
-   //$("#dltBtnImg").css("width","10px");
-   
-   
-}
-//html 구조 안에다가 장바구니 내용 넣기 function 끝
-
- 
-
-
-
-/* 장바구니 슬라이드 열렸다 닫히는 기능 시작 */
-function moveBasket() {
- 
-      /* basket 가 열렸다 닫혔다 하는 부분 시작 */
-       var elem = document.getElementById("basketNav"),
-       Style = window.getComputedStyle(elem),
-       right = Style.getPropertyValue("right");
-      
-      
-        /* 장바구니 슬라이드 스크롤 맨 아래로 내리기*/
-       location.href="#endOfBasket";
-
-        /* 장바구니를 펼쳤다가 */
-       elem.style.right = "0%";
-        
-        /* 1초 후에 장바구니를 닫아라 */
-       setTimeout(function(){elem.style.right = "-20%";},1000);
-       /* basket 가 열렸다 닫혔다 하는 부분 끝 */
-      
-
-}
-/* 장바구니 슬라이드 열렸다 닫히는 기능 끝 */
-
-
-
-
-
-
-
-/* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 시작 */
-
-function basketClicked(e) {
-       e.classList.toggle("show");
-       var elem = document.getElementById("basketNav"),
-       Style = window.getComputedStyle(elem),
-       right = Style.getPropertyValue("right");
-
-       /* 장바구니가 열려있으면 */
-       if(right === "0px") {
-           /* 장바구니를 닫고 */
-           elem.style.right = "-20%";
-
-        /* 그게 아니면 */
-       }else {
-           /* 장바구니를 펼쳐라 */
-           elem.style.right = "0%";
-       }
-   }
-/* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 끝 */
-
-
-
-
 
 
 /* 수량 증감 부분 시작 */
@@ -1745,22 +1306,34 @@ $(document).ready(function(){
 
 
     // reviewList 출력
-     showList(1);
-  
+    showList(1);
+
 });
  
 /* 수량 증감 부분 끝 */
+
 
 /* 리뷰 부분 시작 */
 
 	// 리뷰 남기기 모달 띄우기
    	var modal = document.getElementById('review');
    
-   	// 모달 끄기
+   	// 모달 다른 부분 눌러서 끄기
    	window.onclick = function(event) {
 		if (event.target == modal) {
         	modal.style.display = "none";
        	}
+   	}
+   	
+ 	// 모달 x로 끄기
+   	function modalClose() {
+   		document.getElementById('review').style.display='none';
+   		// 이미지 초기화
+   		$("#imgValue").val('');
+   		// 별점 초기화
+   		for(var i=1; i<=5; i++) {
+	     	$("#score"+i).parent().children("a").removeClass("on"); 
+   		}
    	}
     
    	// 별점 주기
@@ -1777,10 +1350,13 @@ $(document).ready(function(){
    
    	// 주문 한 사람인지 비교
    	function orderCheck() {
-    	if($("#idNo").val() != 'idNo') {
-        	alert("상품 후기는 상품을 구매하시고 배송온료된 회원 분만 한달 내 작성 가능합니다.");
-        return false;
-      	}
+   		
+   		// 주문 번호 생기면 추가
+      	var sessionId = $("#sessionId").val();
+		if($("#sessionId").val() == '') {
+        	alert("상품 후기는 상품을 구매하시고 배송완료된 회원 분만 한달 내 작성 가능합니다.");
+			return false;
+		}
       	document.getElementById('review').style.display='block';
       
       	// 버튼 및 내용 초기화
@@ -1795,7 +1371,7 @@ $(document).ready(function(){
    	}
    	
    	// 이미지 체크
-   	var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG)$");
+   	var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG|JPG)$");
     var maxSize = 5242880;
     
     function checkExtension(fileType, fileSize) {
@@ -1869,7 +1445,7 @@ $(document).ready(function(){
       	var sendData = JSON.stringify(
       			{reviewTitle:$('#reviewTitle').val(), reviewContent:$('#reviewContent').val(), 
 	               	reviewImg:$('#imgValue').val(), score:$('#score').val(),
-	               	idNo:$('#idNo').val(), itemCode:$('#itemCode').val()
+	               	idNo:$('#sessionId').val(), itemCode:$('#itemCode').val()
             	});
 
       	$.ajax({
@@ -1886,6 +1462,7 @@ $(document).ready(function(){
 	            error(er);
          	}
       	}); // $.ajax
+      	
 	}); // 등록 event
    
    	// 상품 평 리스트 출력
@@ -1929,15 +1506,12 @@ $(document).ready(function(){
                	return;
            	}
             
-            // 리뷰 개수표시
-            $("#reviewAmount").html("리뷰 (" + list.length + ")개");
-            
-     		var avgNum = "";
             // list html 본문에 뿌리기
 			for(var i = 0, len =list.length || 0; i <len; i++){
         		var star = "";
             	var stars = new Array();
-
+				
+            	// 한 줄 마다 리스트
               	for(var j=0; j<list[i].score; j++) {
                 	star += "★";
               	}
@@ -1946,19 +1520,28 @@ $(document).ready(function(){
            		}
               	stars[i] = star;
               	
+              	// 한 줄 마다 사진
               	var path = "";
               	if(list[i].reviewImg != null) {
               		path = "src='/resources/review/" + list[i].itemCode + "/" + list[i].reviewImg + "'";
               	}
-              	
+              	// 사진 없을 때
               	if(list[i].reviewContent == null) {
               		list[i].reviewContent = "";
               	}
-
+              	
+              	// 한 줄 마다 아이디 * 표시
+              	var tmp = '';
+              	for(z=0; z<list[i].emailAccount.substr(3).length; z++) {
+              		tmp += '*';
+              	}
+              	var userId = list[i].emailAccount.substr(0,3).concat(tmp);
+              	
               	str += "<div style='width:100%; overflow:hidden;'>";
-              	str += "<div style='float: left; width: 20%; font-weight:bold;'>"+ list[i].idNo +"</div>"; 
+              	str += "<div style='float: left; width: 20%; font-weight:bold;'>"+ userId +"</div>"; 
+              	str += "<input type='hidden' id='writer' value="+ list[i].idNo +">"; 
               	str += "<div style='float: left; width: 80%; font-weight:bold; text-align:right;'>"+ displayTime(list[i].regDate) +"</div>"; 
-              	str += "<div style='float: left; width: 100%; font-weight:bold; color:red;'>"+ stars[i] +"</div>"; 
+              	str += "<div style='float: left; width: 100%; font-size:14px; font-weight:bold; color:red;'>"+ stars[i] +"</div>"; 
               	str += "<div style='float: left; width: 20%;'><img class='resultImg' style='height:75px;' "+ path +" /></div>"; 
 
               	str += "<div style='width:80%; float:left'>"; 
@@ -1972,16 +1555,26 @@ $(document).ready(function(){
 
                 str += "</div>";
                 str += "<br><hr>"
-                //console.log(list[i].reviewContent);
-            	
-                avgNum += list[i].score;
+                
+                console.log(list[i].idNo + " 리스트 아이디");
+                
            	}
-            avgNum /= list.length;
-            $("#avg").html();
+            
+			var idNo = $("#writer").val();
+            var sessionId = $("#sessionId").val();
+            console.log(sessionId + " 세션 아이디");
+            console.log(idNo + " 글쓴 아이디");
+           	if(idNo != sessionId) {
+           		$('.btn').css('visibility', 'hidden');
+           	}else {
+           		$('.btn').css('visibility', 'visible');
+           	}
            	
             reviewList.html(str);
-           	showReviewPage(reviewCnt);  	
+           	showReviewPage(reviewCnt); 
+           	getScore();
 
+           	
            	// 리뷰 리스트 효과
 			var coll = $(".collapsible");
              
@@ -2055,8 +1648,9 @@ $(document).ready(function(){
      
 	// 시간 변환
    	function displayTime(timeValue){
-         
+		
    		var today = new Date();
+   		
       	var gap = today.getTime() - timeValue;
       	var dateObj = new Date(timeValue);
               
@@ -2064,8 +1658,8 @@ $(document).ready(function(){
            
       	if (gap < (1000 * 60 * 60 * 24)){
         	var hh = dateObj.getHours();
-          	var mi = dateObj.getMonth() + 1 ;//getMonth() is zero-based
-          	var ss = dateObj.getDate();
+          	var mi = dateObj.getMinutes() 
+          	var ss = dateObj.getSeconds();
 
           	return[(hh > 9? '' : '0')+ hh, ':',(mi > 9 ? '': '0') + mi, ':',(ss > 9 ? '':'0') + ss].join('');
           
@@ -2080,7 +1674,13 @@ $(document).ready(function(){
      
     // 삭제 기능
 	$("#reviewDiv").on("click","button[id='removeBtn']", function(e){
-        
+		var idNo = $("#writer").val();
+        var sessionId = $("#sessionId").val();
+		if(idNo != sessionId) {
+        	alert("당사자만 삭제할 수 있습니다.");
+			return false;
+		}
+		
     	var target = e.target;
         var dataFormat = $(target).closest("button");
         var reviewNo = dataFormat.data("oper");
@@ -2102,18 +1702,20 @@ $(document).ready(function(){
 		}else {
         	return false;
         }
-
 	});   // 삭제 function 끝
    
    
    	// 수정할 내용 불러오기
    	$("#reviewDiv").on("click","button[id='modifyBtn']",function(e){
-
-		// 1. 모달 띄우기 (당사자에게만 보일거지만 그래도 한 번 더 구별 해주기)
-      	if($("#idNo").val() != 'idNo') {
+   		
+   		// 1. 모달 띄우기 (당사자에게만 보일거지만 그래도 한 번 더 구별 해주기)
+      	var idNo = $("#writer").val();
+        var sessionId = $("#sessionId").val();
+		if(idNo != sessionId) {
         	alert("당사자만 수정할 수 있습니다.");
-         	return false;
-      	}
+			return false;
+		}
+		
       	document.getElementById('review').style.display='block';
       
       	// 2. 모달에 값 넣어진 채로(reviewNo 로 하나만 get해와야 할듯)
@@ -2144,7 +1746,6 @@ $(document).ready(function(){
         	alert('통신 오류입니다. 잠시 후 다시 시도해주세요.');
          	error(er);
       	});
-
    	});   // 수정할 내용 불러오기 끝
    
    	// 3. 수정 버튼 눌렀을 때
@@ -2181,12 +1782,76 @@ $(document).ready(function(){
 	            error(er);
          	}
       	});
-   	});   // 수정기능 끝
+      	// 이미지  초기화
+      	$("#imgValue").val('');
+     	// 별점 초기화
+   		for(var i=1; i<=5; i++) {
+	     	$("#score"+i).parent().children("a").removeClass("on"); 
+   		}
+      	
+   	});	// 수정기능 끝
+   	
+ 	// 평균 별점 뽑아내기 위해
+    function getScore(){
+        
+    	var itemCode = $("#itemCode").val();
+        
+        $.getJSON("/review/pages/"+itemCode+".json",
+        function(data){
+        	var avgNum = 0;
+        	for(var i=0; i<data.length; i++) {
+        		avgNum += data[i].score;
+        	}
+        	avgNum /= data.length;
+        	avgNum = avgNum.toFixed(1);
+        	
+        	$("#reviewAmount").html("리뷰 (" + data.length + ")개");
+        	$("#avg").html("<strong>"+ avgNum +"</strong>");
+        	
+        	$("#resultStar").data('star-rating-average', avgNum);
+        	
+        	// 평균 별점 찍기
+        	var StarRating = (function() {
+          	  var setUpStars  = function() {
+          	    $('.star-rating-container').each(function(){
+          	      var numStars = 5;
+          	      var $starContainer = $(this);
+          	      var $user = $('<div />').addClass('user');
+          	      var $avg = $('<div />').addClass('avg');
+          	      var $val = $('<div />').addClass('user-value');
+          	      var avg = $starContainer.data('star-rating-average');
+          	      // console.log(avg + "평균");
+          	      var avgPct = 100 - avg / numStars * 100 + '%'
+
+          	      $starContainer.prepend($user).prepend($avg).prepend($val);
+
+          	      $avg.css({
+          	        right: avgPct
+          	      });
+
+          	    });
+
+          	  }
+          	  
+          	  return {
+          	    init: function() {
+          	      setUpStars();
+          	    }
+          	  }
+          	}());
+
+          	StarRating.init();
+        	
+        	// console.log(avgNum + "평균 점수");
+           	// console.log(data.length + "길이");
+        }).fail(function(err){
+        	console.log("평균 별점 불러오기 에러입니다.");
+        
+        });
+	}
    
      
 /* 리뷰 부분 끝 */
-
-
 
 </script>
 

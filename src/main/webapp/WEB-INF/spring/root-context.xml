@@ -60,6 +60,10 @@
 		base-package="com.jujumarket.order.mapper" />
 	<context:component-scan
 		base-package="com.jujumarket.order.service"></context:component-scan>
+	<mybatis-spring:scan
+		base-package="com.jujumarket.admin.mapper" />
+	<context:component-scan
+		base-package="com.jujumarket.admin.service"></context:component-scan>
 
 	<!-- 메일 보내기 (SEND) -->
 
