@@ -40,6 +40,7 @@ public class ReviewController {
 	private ReviewService service;
 	private ServletContext servletContext;
 	
+	// 리뷰 등록
 	@PostMapping(value = "/regReview",
 			consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
@@ -55,6 +56,7 @@ public class ReviewController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	// 리뷰 사진 등록
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<String>> uploadAjaxPost(MultipartFile[] uploadFile, String itemCode) {
@@ -93,20 +95,19 @@ public class ReviewController {
 		return new ResponseEntity<>(list , HttpStatus.OK);
 	}
 	
-//	@GetMapping(value = "pages/{itemCode}/{page}",
-//			produces =
-//			{MediaType.APPLICATION_XML_VALUE,
-//			 MediaType.APPLICATION_JSON_UTF8_VALUE})
-//			
-//	public ResponseEntity<List<ReviewVO>> getList(
-//			@PathVariable("page") int page,
-//			@PathVariable("itemCode") String itemCode){
-//		
-//			log.info("getList...............");
-//	         
-//        return new ResponseEntity<>(service.getList(itemCode), HttpStatus.OK);
-//	}
+	// 별점 평균 낼 때
+	@GetMapping(value = "pages/{itemCode}",
+			produces =
+			{MediaType.APPLICATION_XML_VALUE,
+			 MediaType.APPLICATION_JSON_UTF8_VALUE})
+			
+	public ResponseEntity<List<ReviewVO>> getScore(@PathVariable("itemCode") String itemCode){
+			log.info("getList...............");
+	         
+        return new ResponseEntity<>(service.getList(itemCode), HttpStatus.OK);
+	}
 	
+	// 페이징 별 리스트 출력
 	@GetMapping(value = "pages/{itemCode}/{page}",
 			produces =
 			{MediaType.APPLICATION_XML_VALUE,
@@ -123,6 +124,7 @@ public class ReviewController {
 		return new ResponseEntity<>(service.getListPage(cri, itemCode), HttpStatus.OK);
 	}
 	
+	// 리뷰 삭제
 	@DeleteMapping(value="/{reviewNo}", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> remove(@PathVariable("reviewNo") String reviewNo) {
 		log.info("remove : " + reviewNo);
@@ -149,6 +151,7 @@ public class ReviewController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	// 리뷰 수정
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH},
 			value = "/{reviewNo}",
 			consumes = "application/json",
@@ -161,6 +164,7 @@ public class ReviewController {
 				: new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
+	// 리뷰 하나 불러오기
 	@GetMapping(value = "/{reviewNo}",
 			produces = {MediaType.APPLICATION_XML_VALUE,
 		    MediaType.APPLICATION_JSON_UTF8_VALUE})

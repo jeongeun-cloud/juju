@@ -19,16 +19,16 @@
 
 
 	<insert id ="insert">
-	insert into t_board_qna (postingNo,title,content,replyBool,boardType,idNo)
-	values (seq_board_QNA.nextval, #{title},#{content},#{replyBool},#{boardType},#{idNo})
+	insert into t_board_qna (postingNo,title,content,idNo)
+	values (seq_board_QNA.nextval, #{title},#{content},#{idNo})
 	</insert>
 	
 	<insert id = "insertSelectKey">
 	<selectKey keyProperty="postingNo" order="BEFORE" resultType="String">
 	select seq_board_QNA.nextval from dual
 	</selectKey>
-	insert into t_board_qna (postingNo,title,content,replyBool,boardType,idNo)
-	values (#{postingNo},#{title},#{content},#{replyBool},#{boardType},#{idNo})
+	insert into t_board_qna (postingNo,title,content,idNo)
+	values (#{postingNo},#{title},#{content},#{idNo})
 	</insert>
 	
 	<select id="read" resultType ="com.jujumarket.board.domain.BoardQNAVO">
@@ -47,10 +47,8 @@
 	update t_board_QNA
 	set title = #{title},
 	content = #{content},
-	replyBool = #{replyBool},
-	boardType = #{boardType},
 	idNo = #{idNo},
-	regdate = sysdate	
+	updateDate = sysdate	
 	
 	where postingNo = #{postingNo}
 
@@ -82,12 +80,12 @@
    <select id="getListWithPaging" resultType="com.jujumarket.board.domain.BoardQNAVO">
    <![CDATA[
    select
-       postingNo,title,content,boardType,idNo,regDate,replyBool
+       postingNo,title,content,idNo,regDate
        from
        (
        
        select /*+INDEX_DESC(t_board_qna pk_board) */
-       rownum rn,postingNo,title,content,boardType,idNo,regDate,replyBool
+       rownum rn,postingNo,title,content,idNo,regDate
        
        from
        (select *from t_Board_QNA order by postingNo desc) 

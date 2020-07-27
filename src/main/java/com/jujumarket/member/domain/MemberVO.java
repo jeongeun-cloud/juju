@@ -9,6 +9,7 @@ public class MemberVO {
 	private String emailAccount;
 	private String memName;
 	private String memCode;
+	private String pwd; 
 
 	//nullable
 	private String memAddr;

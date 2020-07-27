@@ -13,7 +13,7 @@ public class SellerVO {
 	//t_member(nullable)
 	private String pwd;
 	private String memAddr;
-	private String PostCode;
+	private String postCode;
 	
 	
 	//m_shop(NN)
@@ -35,4 +35,7 @@ public class SellerVO {
 	
 	//m_shop_info(nullable)
 	private String backImg;
+	
+	//m_history 탈퇴사유(nullable)
+	private String reason;
 }

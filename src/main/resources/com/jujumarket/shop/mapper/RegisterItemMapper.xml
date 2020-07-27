@@ -68,18 +68,18 @@
 
 	<insert id="insert">
 		insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail, classCode, idNo) 
-		values ('idNo'||'item'||lpad(seq_item.nextval,5,'0'), #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat},
-		 #{itemChr}, #{itemImg1}, #{itemImg2}, #{itemImg3}, #{itemImg4}, #{imgDetail}, #{classCode}, 'idNo')
+		values (#{idNo}||'p'||lpad(seq_item.nextval,4,'0'), #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat},
+		 #{itemChr}, #{itemImg1}, #{itemImg2}, #{itemImg3}, #{itemImg4}, #{imgDetail}, #{classCode}, #{idNo})
 	</insert>
 	
 	<insert id="insertSelectKey">
 		<selectKey keyProperty="itemCode" order="BEFORE" resultType="String">
-			select 'idNo'||'item'||lpad(seq_item.nextval,5,'0') from dual
+			select #{idNo}||'p'||lpad(seq_item.nextval,4,'0') from dual
 		</selectKey>
 		
 		insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail, classCode, idNo)
 		values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat},
-		 #{itemChr}, #{itemImg1}, #{itemImg2}, #{itemImg3}, #{itemImg4}, #{imgDetail}, #{classCode}, 'idNo')
+		 #{itemChr}, #{itemImg1}, #{itemImg2}, #{itemImg3}, #{itemImg4}, #{imgDetail}, #{classCode}, #{idNo})
 	</insert>
 	
 	<select id="read" resultType="com.jujumarket.shop.domain.RegisterItemVO">
@@ -119,7 +119,7 @@
 	</select>
 	
 	<select id="getResultTotal" resultType="int">
-		select count(*) 
+		select count(*)
 		from t_item 
 		where itemName like '%' || #{keyword} || '%' 
 		or itemContent like '%' || #{keyword} || '%'

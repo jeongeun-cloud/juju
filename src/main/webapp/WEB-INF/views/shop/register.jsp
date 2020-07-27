@@ -104,6 +104,7 @@
 </style>
 
 </head>
+<%@include file="./idCheck.jsp" %>
 <body>
 <%@include file="../includes/header.jsp" %>
     <div class="regi_content">
@@ -141,6 +142,7 @@
                             </div>
                             <!-- 분류코드 저장하기 위한 hidden값 -->
                             <input type="hidden" name="classCode" id="classCode" >
+                            <input type="hidden" name="idNo" id="idNo" value='<c:out value="${sessionMember}"/>' >
                             
                             <input type="text" name="itemName" id="itemName" placeholder="상품명을 입력하세요." style="width: 350px;">
                             <div class="container">
@@ -175,13 +177,14 @@
                             </div>
                             <div class="container">
                                 <label><i class="fa fa-chevron-right"></i>상품 특성 <small style="opacity:0.75;">(특성을 선택하지 않으면 기본으로 설정 됩니다.)</small></label><br>
-                                <input type="checkbox" name="itemChr" value="신상품">신상품
-                                <input type="checkbox" name="itemChr" value="할인">할인
+                                <input type="checkbox" name="itemChr" value="new">신상품
+                                <input type="checkbox" name="itemChr" value="sale">할인
                                 <!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
-                                <input type="checkbox" name="itemChr" value="기본" checked="checked" style="visibility:hidden">
+                                <input type="checkbox" name="itemChr" value="default" checked="checked" style="visibility:hidden">
                             </div>
                             
                             <!-- 파일 업로드 시작 -->
+                            <label><small style="opacity:0.75;">메인, 서브 이미지 규격 : 270*300</small></label><br>
                             <div class="container_i">
                                 <label><i class="fa fa-chevron-right"></i>메인 이미지</label>
                                 <input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
@@ -227,7 +230,7 @@
      crossorigin="anonymous"></script>
     <script type="text/javascript">
 
-      var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG)$");
+      var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG|JPG)$");
        var maxSize = 5242880;
        
        function checkExtension(fileType, fileSize) {

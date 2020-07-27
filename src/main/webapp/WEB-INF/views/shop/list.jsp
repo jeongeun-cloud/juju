@@ -189,7 +189,9 @@
           border-radius: 50%;}
         
         .regi_table{
+
         margin-botton: 20px;
+
         }
         .default_btn{
         background-color: #ffc30b;
@@ -249,6 +251,9 @@
         
          </style>
 </head>
+
+<%@include file="./idCheck.jsp" %>
+
 <body>
 <%@include file="../includes/header.jsp" %>
     <div class="regi_content">

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.admin.mapper.BannerMapper">
+
+   
+   <select id="getEvent" resultType="com.jujumarket.admin.domain.BannerVO">
+      <![CDATA[
+      		select * from t_img where bannerType='event' order by regDate DESC
+      ]]>
+   </select>
+
+	<insert id="insert">
+		insert into t_img (imgNo, uuid, imgPath, imgName, idNo, bannerType) 
+		values (seq_imgNo.nextval, #{uuid}, #{imgPath}, #{imgName}, #{idNo}, #{bannerType})
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="imgNo" order="BEFORE" resultType="String">
+			select seq_imgNo.nextval from dual
+		</selectKey>
+		
+		insert into t_img (imgNo, uuid, imgPath, imgName, idNo, bannerType)
+		values (#{imgNo}, #{uuid}, #{imgPath}, #{imgName}, #{idNo}, #{bannerType})
+	</insert>
+	
+	<delete id="delete">
+		delete from t_img where imgNo = #{imgNo}
+	</delete>
+
+</mapper>

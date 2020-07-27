@@ -274,7 +274,7 @@
                   <td><c:out value="${item.normPrice}"></c:out></td>
                   <td><c:out value="${item.itemNum}"></c:out></td>
                   <td><c:out value="${item.normPrice - item.price}"></c:out></td>
-                  <td><c:out value="${item.price * item.itemNum}"></c:out></td>
+                  <td><c:out value="${item.totalPrice}"></c:out></td>
                </tr>
             </c:forEach>
 

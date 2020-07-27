@@ -119,8 +119,8 @@
 
 </head>
 <%@include file="../includes/header.jsp" %>
+<%@include file="./idCheck.jsp" %>
 <body>
-
     <div class="get_content">
         <div class="get_wrap">
             <div class="side">

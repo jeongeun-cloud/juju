@@ -84,7 +84,7 @@
 
     display: table;
     float: left;
-    margin-left: 15%;
+    margin-left: 25%;
     /* width: 1300px; */
     }
     .dropdown_each_menu{
@@ -282,9 +282,7 @@
                 </li>
                 <li class="dropdown_each_menu"><a href="/bob" data-toggle="dropdown" class="dropdown-toggle">베스트 오브 베스트</a>
                 </li>
-                <li class="dropdown_each_menu"><a href="#" data-toggle="dropdown" class="dropdown-toggle">같이사요 </a>    
-                </li>
-                <li class="dropdown_each_menu"><a href="#" data-toggle="dropdown" class="dropdown-toggle">이벤트 </a>    
+                <li class="dropdown_each_menu"><a href="/event" data-toggle="dropdown" class="dropdown-toggle">이벤트 </a>    
                 </li>
                 
                 <!-- end 나머지 각 menu bar -->

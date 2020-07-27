@@ -24,5 +24,7 @@ public interface ReviewMapper {
 	public int update(ReviewVO register);
 	
 	public int getCountByItemCode(String itemCode);
+	
+	public List<ReviewVO> getMainReview();
 
 }

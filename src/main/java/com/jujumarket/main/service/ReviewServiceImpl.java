@@ -65,6 +65,12 @@ public class ReviewServiceImpl implements ReviewService {
 				mapper.getListWithPaging(cri, itemCode));
 	}
 
+	@Override
+	public List<ReviewVO> mainReview() {
+		log.info("main Review....");
+		return mapper.getMainReview();
+	}
+
 //	@Override
 //	public int getTotal(Criteria cri) {
 //		log.info("get total count");

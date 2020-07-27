@@ -18,7 +18,7 @@ public class CustomerVO {
 	//m_customer
 	private String contact;
 	
-	
-	
+	//m_history 탈퇴사유 (nullable)
+	private String reason;
 	
 }

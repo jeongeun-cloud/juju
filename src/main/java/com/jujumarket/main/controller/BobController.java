@@ -21,7 +21,7 @@ public class BobController {
 	public void list(Model model) {
 		log.info("controller 작동중");
 		model.addAttribute("BestBob", bobservice.wholebest());
-		
+		model.addAttribute("ReviewBob", bobservice.reviewbest());
 		
 	}
 }

@@ -132,10 +132,10 @@ body {
 
 
 	<script>
-		var modal = document.getElementById("myModal");
-		var btn = document.getElementById("myBtn");
-		var span = document.getElementsByClassName("close")[0];
-		var $sellerAuthBtn = $("#sellerAuthBtn");
+		let modal = document.getElementById("myModal");
+		let btn = document.getElementById("myBtn");
+		let span = document.getElementsByClassName("close")[0];
+		let $sellerAuthBtn = $("#sellerAuthBtn");
 
 		btn.onclick = function(e) {
 			e.preventDefault();
@@ -160,29 +160,29 @@ body {
 		
 		$(document).ready(function(){
 			
-			emailSendBtn = $("#emailSendBtn");
-			emailAccount = $("#emailAccount");
-			tempCode = $("#tempCode");
-			pwd = $("#pwd");
-			pwdChk = $("#pwdChk");
-			shopName = $("#shopName");
-			shopNameModal = $("#shopNameModal");
-			memName = $("#memName");
-			memNameModal = $("#memNameModal");
-			businessCode = $("#businessCode");
-			businessRegFile = $("#businessRegFile");
-			memAddr = $("#memAddr");
-			shopAddr = $("#shopAddr");
-			contact1 = $("#contact1");
-			contact2 = $("#contact2");
-			bankAccount = $("#bankAccount");
-			
-			emailAuthBtn = $("#emailAuthBtn");
-			inputCode = $("#inputCode");
-			authResult = $("#authResult");
-			
-			emailDuplicateCheckBtn = $("#emailDuplicateCheckBtn");
-			duplicateCheckResult = $("#duplicateCheckResult");
+			let emailSendBtn = $("#emailSendBtn");
+			let emailAccount = $("#emailAccount");
+			let tempCode = $("#tempCode");
+			let pwd = $("#pwd");
+			let pwdChk = $("#pwdChk");
+			let shopName = $("#shopName");
+			let shopNameModal = $("#shopNameModal");
+			let memName = $("#memName");
+			let memNameModal = $("#memNameModal");
+			let businessCode = $("#businessCode");
+			let businessRegFile = $("#businessRegFile");
+			let memAddr = $("#memAddr");
+			let shopAddr = $("#shopAddr");
+			let contact1 = $("#contact1");
+			let contact2 = $("#contact2");
+			let bankAccount = $("#bankAccount");
+
+			let emailAuthBtn = $("#emailAuthBtn");
+			let inputCode = $("#inputCode");
+			let authResult = $("#authResult");
+
+			let emailDuplicateCheckBtn = $("#emailDuplicateCheckBtn");
+			let duplicateCheckResult = $("#duplicateCheckResult");
 			
 			
 			
@@ -224,7 +224,7 @@ body {
 					return false;
 				}
 				
-				var email =  emailAccount.val();
+				let email =  emailAccount.val();
 				
 				emailAuth(email)
 				.then(function(response){
@@ -288,8 +288,8 @@ body {
 			
 			
 			
-			var submitBtn = $("#submitBtn");
-			var sellerJoinForm = $("#sellerJoinForm");
+			let submitBtn = $("#submitBtn");
+			let sellerJoinForm = $("#sellerJoinForm");
 		
 			submitBtn.click(function(e) {
 			e.preventDefault();
@@ -326,7 +326,7 @@ body {
 		
 		function emailAccountCheck(){
 
-			var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			
 			if (emailAccount.val().trim() == "" || emailAccount.val() == null) {
 				alert("이메일주소를 입력해주세요.");
@@ -350,7 +350,7 @@ body {
 		
 		function pwdCheck(){
 			
-			var regExp = /^[A-Za-z0-9]{6,12}$/;
+			let regExp = /^[A-Za-z0-9]{6,12}$/;
 			
 			if (pwd.val().trim() == "" || pwd.val() == null) {
 				alert("비밀번호를 입력해주세요.");
@@ -372,7 +372,7 @@ body {
 		
 	function businessCodeCheck(){
 			
-			var regExp =  /[^1-15]/g;
+			let regExp =  /[^1-15]/g;
 			
 			if (businessCode.val().trim() == "" || businessCode.val() == null) {
 				alert("사업자등록번호를 입력해주세요.");
@@ -393,7 +393,7 @@ body {
 		
 		function bankAccountCheck(){
 			
-			var regExp =  /[^1-15]/g;
+			let regExp =  /[^1-15]/g;
 			
 			if (bankAccount.val().trim() == "" || bankAccount.val() == null) {
 				alert("계좌번호를 입력해주세요.");
@@ -414,7 +414,7 @@ body {
 		
 		
 		function shopNameCheck(){
-			var regExp = /^[가-힣]{1,10}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
+			let regExp = /^[가-힣]{1,10}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
 
 			if (shopName.val().trim() == "" || shopName.val() == null) {
 				alert("상점이름을 입력해주세요.");
@@ -436,7 +436,7 @@ body {
 		
 		
 		function memNameCheck(){
-			var regExp = /^[가-힣]{1,5}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
+			let regExp = /^[가-힣]{1,5}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
 
 			if (memName.val().trim() == "" || memName.val() == null) {
 				alert("회원이름을 입력해주세요.");
@@ -457,7 +457,7 @@ body {
 		};
 		
 		function contact1Check(){
-			var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+			let regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 
 			if (contact1.val().trim() == "" || contact1.val() == null) {
 				alert("연락처1을 입력해주세요.");
@@ -479,7 +479,7 @@ body {
 		
 		
 		function shopAddrCheck(){
-			var regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+			let regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
 
 			if (shopAddr.val().trim() == "" || shopAddr.val() == null) {
 				alert("상점주소를 입력해주세요.");
@@ -520,8 +520,8 @@ body {
 				{
 						oncomplete : function(data) {
 
-							var fullRoadAddr = data.roadAddress;
-							var extraRoadAddr = '';
+							let fullRoadAddr = data.roadAddress;
+							let extraRoadAddr = '';
 
 							if (data.bname !== ''
 									&& /[동|로|가]$/g.test(data.bname)) {

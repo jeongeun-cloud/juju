@@ -13,6 +13,7 @@ public class OrderInfoVO {
 	private Long itemNum;
 	//OrderInfoVO에만 존재하는 컬럼
 	private Long disAmount;
+	private Long totalPrice;
 	private Timestamp orderDate;
 
 }

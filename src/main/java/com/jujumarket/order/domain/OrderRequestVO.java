@@ -19,8 +19,8 @@ public class OrderRequestVO {
 	private String baskId;
 	//OrderInfoVO에만 존재하는 컬럼 
 	private Long itemNum;
-	//OrderInfoVO에만 존재하는 컬럼
 	private Long disAmount;
+	private Long totalPrice;
 	private String orderStat;
 	
 	//주문자 정보

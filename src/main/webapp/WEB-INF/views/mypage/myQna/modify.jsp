@@ -239,11 +239,6 @@ margin-top : 20px;
 					 ><c:out value="${BoardQNA.content}"/></textarea>
 					</div>
 
-
-					<div class="from-group">
-						<label>게시글타입</label><input class="form-control" name='boardType'
-							value='<c:out value="${BoardQNA.boardType}"/>'readonly="readonly">
-					</div>
 					
 					<div class="from-group">
 						<label>작성자</label><input class="form-control" name='idNo'
