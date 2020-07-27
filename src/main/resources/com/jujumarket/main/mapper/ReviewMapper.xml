@@ -2,32 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jujumarket.main.mapper.ReviewMapper">
 
-<!-- 	<sql id="criteria">
-	   <trim prefix="(" suffix=")AND" prefixOverrides="OR">
-	   
-	   </trim> prefix end
-    </sql>
- -->
-
 	<select id="getList" resultType="com.jujumarket.main.domain.ReviewVO">
 	   <![CDATA[
-	   		select * from t_review where itemCode = #{itemCode} order by regDate DESC
+	   		select r.*, m.emailAccount 
+	   		from t_review r, t_member m 
+	   		where r.idNo = m.idNo 
+	   		and itemCode = #{itemCode} 
+	   		order by regDate DESC
 	   ]]>
 	</select>
 	
 	<select id="getListWithPaging" resultType="com.jujumarket.main.domain.ReviewVO">
       <![CDATA[
-	      	select reviewNo, reviewTitle, reviewContent, reviewImg, score, regDate, updateDate, orderCode, itemCode, idNo
-	      	from (select /*+INDEX(t_review idx_review) */
-				rownum rn, reviewNo, reviewTitle, reviewContent, reviewImg, score, regDate, updateDate, orderCode, itemCode, idNo
-				from t_review
-				where itemCode = #{itemCode}
-					and reviewNo > 0
-					and rownum <= #{cri.pageNum} * #{cri.amount}
-				)
-			where rn > (#{cri.pageNum} -1) * #{cri.amount}
+      		select r.*, m.emailAccount
+			from (select /*+INDEX(t_review idx_review) */
+			    rownum rn, reviewNo, reviewTitle, reviewContent, reviewImg, score, regDate, updateDate, orderCode, itemCode, idNo
+			    from t_review
+			    where itemCode = #{itemCode}
+			        and reviewNo > 0
+			        and rownum <= #{cri.pageNum} * #{cri.amount}
+			    ) r,
+			    t_member m
+			where r.idno = m.idno 
+			and rn > (#{cri.pageNum} -1) * #{cri.amount}
+
       ]]>
    	</select>
+      	<!-- select reviewNo, reviewTitle, reviewContent, reviewImg, score, regDate, updateDate, orderCode, itemCode, idNo
+      	from (select /*+INDEX(t_review idx_review) */
+			rownum rn, reviewNo, reviewTitle, reviewContent, reviewImg, score, regDate, updateDate, orderCode, itemCode, idNo
+			from t_review
+			where itemCode = #{itemCode}
+				and reviewNo > 0
+				and rownum <= #{cri.pageNum} * #{cri.amount}
+			)
+		where rn > (#{cri.pageNum} -1) * #{cri.amount} -->
 	
 	<insert id="insert">
 		insert into t_review (reviewNo, reviewTitle, reviewContent, reviewImg, score, orderCode, itemCode, idNo) 
@@ -62,6 +71,12 @@
 		<![CDATA[
 	   		select count(reviewNo) from t_review where itemCode = #{itemCode}
 	   ]]>
+	</select>
+	
+	<select id="getMainReview" resultType="com.jujumarket.main.domain.ReviewVO">
+		<![CDATA[
+			select * from t_review where score=5 and reviewImg is not null and rownum <=5
+		]]>
 	</select>
 	
 </mapper>
