@@ -49,31 +49,11 @@ public class HomeController {
 		
 		model.addAttribute("mainReview", reviewService.mainReview());
 		
-//		List<BoardItemVO> list = mainservice.RealNew();
-//		System.out.println(list.toString());
-		
-//		BoardItemVO vo = new BoardItemVO();
-//		vo.setItemName("gggg");
-//		
-//		List<BoardItemVO> list = new ArrayList<>();
-//		
-//		list.add(vo);
-//		System.out.println(list.toString());
-//		
-//		model.addAttribute("RealNew" , list);
 
 		
 		return "/main/index";
 	}
 	
-	/*
-	 * @RequestMapping(value = "/", method = RequestMethod.GET) public String
-	 * newlist(Model model) { log.info("실시간 상품 controller...");
-	 * model.addAttribute("RealNew" , mainservice.RealNew());
-	 * 
-	 * return "RealNew";
-	 * 
-	 * }
-	 */
+
 	
 }
