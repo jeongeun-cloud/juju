@@ -11,10 +11,9 @@ public class OrderResponseVO {
 	private Long normPrice;
 	private Long itemNum;
 	private Long price;
+	private Long totalPrice;
 	private String itemCode;
 	private String baskId;
-	
-	
 	
 	
 }

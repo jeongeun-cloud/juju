@@ -6,15 +6,59 @@
 
 	<insert id="insert">
 		insert into m_customer(idNo, contact)
-		values(#{idNo}, #{contact})
+		values(#{idNo},
+		#{contact})
 
 	</insert>
 
-	<update id="update">
+
+	<insert id="insertJoinInfo">
+		insert into m_history (historyNo, idNo, condition, accoutType)
+		values
+		(seq_history.nextval, #{idNo}, 일반고객', 'CUSTOMER')
+
+	</insert>
+
+	<insert id="insertDeleteInfo">
+		insert into m_history(historyNo, idNo, condition, accountType, reason)
+		values(seq_history.nextval, #{idNo}, '탈퇴', 'CUSTOMER', #{reason})
+	</insert>
+	
+	<select id="getEmailList" resultType="String">
+		select tm.emailAccount
+		from t_member tm, m_customer mc
+		where tm.idNo = mc.idNo 
+		and tm.memName = #{memName}
+		and mc.contact = #{contact}
+	
+	</select>
+
+
+	<select id="getCustomerInfoByIdNo"
+		resultType="com.jujumarket.member.domain.CustomerVO">
+		select tm.idNo, tm.emailAccount, tm.memName, tm.memAddr,
+		tm.postCode, mc.contact
+		from t_member tm, m_customer mc
+		where tm.idNo =
+		mc.idNo
+		and tm.idNo = #{idNo}
+
+
+	</select>
+
+	<update id="modifyCustomerInfo">
 		update m_customer
-		set contact = #{contact}
+		set
+		contact = #{contact}
+		where idNo =
+		#{idNo}
 	</update>
 
+	<delete id="deleteCustomer">
+		delete m_customer
+		where idNo = #{idNo}
+
+	</delete>
 
 
 

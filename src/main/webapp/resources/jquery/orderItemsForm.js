@@ -3,8 +3,8 @@ function execDaumPostcode() {
 	new daum.Postcode({
 		oncomplete : function(data) {
 
-			var fullRoadAddr = data.roadAddress;
-			var extraRoadAddr = '';
+			let fullRoadAddr = data.roadAddress;
+			let extraRoadAddr = '';
 
 			if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
 				extraRoadAddr += data.bname;
@@ -36,22 +36,22 @@ window.onload = function() {
 
 function init() {
 
-	var sameAsMem = $("#sameAsMem");
-	var recentDelivery = $("#recentDelivery");
-	var orderResult = $("#orderResult");
+	let sameAsMem = $("#sameAsMem");
+	let recentDelivery = $("#recentDelivery");
+	let orderResult = $("#orderResult");
 
-	var memName = $("#memName");
-	var contact = $("#contact");
-	var memAddr = $("#memAddr");
+	let memName = $("#memName");
+	let contact = $("#contact");
+	let memAddr = $("#memAddr");
 	
-	var receiver = $("#receiver");
-	var receivContact = $("#receivContact");
-	var receivAddr = $("#receivAddr");
-	var reqNote = $("#reqNote");
+	let receiver = $("#receiver");
+	let receivContact = $("#receivContact");
+	let receivAddr = $("#receivAddr");
+	let reqNote = $("#reqNote");
 	
-	var recentReceiver = $("#recentReceiver");
-	var recentReceivContact = $("#recentReceivContact");
-	var recentReceivAddr = $("#recentReceivAddr");
+	let recentReceiver = $("#recentReceiver");
+	let recentReceivContact = $("#recentReceivContact");
+	let recentReceivAddr = $("#recentReceivAddr");
 
 	//회원정보에 저장된 배송지정보 check
 	sameAsMem.change(function() {                            
@@ -87,7 +87,7 @@ function init() {
 	
 
 	//결제하기 버튼. [수령인], [수령인-연락처], [배송지], [배송메시지] 유효성 check를 통과해야 넘어감 
-	var submitBtn = $("#submitBtn");
+	let submitBtn = $("#submitBtn");
 
 	submitBtn.click(function(e) {
 		e.preventDefault();
@@ -111,10 +111,10 @@ function init() {
 	// [수령인](receiver) 입력값 유효성 check
 	function receiverCheck() {
 
-		var pattern_num = /[0-9]/; // 숫자
-		var pattern_eng = /[a-zA-Z]/; // 영어
-		var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
-		var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글
+		let pattern_num = /[0-9]/; // 숫자
+		let pattern_eng = /[a-zA-Z]/; // 영어
+		let pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+		let pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글
 
 		if (receiver.val().trim() == "" || receiver.val() == null) {
 			alert("[수령인]값을 입력하시오.")
@@ -137,7 +137,7 @@ function init() {
 	// [수령인-연락처](receivContact)유효성 check
 	function receivContactCheck() {
 		//휴대폰번호 정규식
-		var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+		let regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 
 		if (receivContact.val().trim() == "" || receivContact.val() == null) {
 			alert("[배송지-연락처]값을 입력하시오.")

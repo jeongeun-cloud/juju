@@ -15,6 +15,7 @@
  			values(#{orderCode}, #{itemCode}, #{orderStat})
  		</insert>
  		
+ 		
  		<insert id="insertSelectKey">
 		 	insert into t_order_history(orderCode, itemCode, baskId)
  			values(#{orderCode}, #{itemCode}, #{baskId})
@@ -43,5 +44,10 @@
 			where 
 			orderCode = #{orderCode}
 		</update> 		 
+ 		
+ 		
+ 		
+ 		
+ 		
  		
  	</mapper>
