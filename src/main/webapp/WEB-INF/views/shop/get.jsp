@@ -20,11 +20,7 @@
         body{
             color: #303030;
         }
-         a{
-		   	text-decoration: none;
-		  	 color: #303030;
-		   }
-        .get_menu a{
+        a{
             text-decoration: none;
             color: #303030;
             font-size: 17px;
@@ -183,38 +179,38 @@
                         <div class="container">
                             <label>상품 특성<small style="opacity:0.75;">(특성이 선택되어 있지 않으면 기본입니다.)</small></label><br>
                             <input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
-                            <input type="checkbox" name="itemChr" value="신상품" onclick="return false;">신상품
-                            <input type="checkbox" name="itemChr" value="할인" onclick="return false;">할인
+                            <input type="checkbox" name="itemChr" value="new" onclick="return false;">신상품
+                            <input type="checkbox" name="itemChr" value="sale" onclick="return false;">할인
                         </div>
              
                         <div class="container">
                              <label>메인 이미지</label>
                              <div class="select_img1">
-                                 <img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" />
                              </div>
                          </div>
                          <div class="container">
                              <label>서브 이미지</label>
                              <div class="select_img2">
-                                 <img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" />
                              </div>
                          </div>
                          <div class="container">
                              <label>서브 이미지</label>
                              <div class="select_img3">
-                                 <img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" />
                              </div>
                          </div>
                          <div class="container">
                              <label>서브 이미지</label>
                              <div class="select_img4">
-                                 <img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" />
                              </div>
                          </div>
                          <div class="container">
                              <label>상품 상세 설명 이미지</label>
                              <div class="select_img5">
-                                 <img class="thumbnail" src='/resources/upload/idNo/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" />
                              </div>
                          </div>
                          

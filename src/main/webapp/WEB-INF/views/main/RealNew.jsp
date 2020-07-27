@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+
+<%@include file="../includes/basketSlide.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,6 +116,14 @@
             margin: 40px 0 0 25px;
             min-height: 550px;
         } 
+        
+        
+        
+        
+        
+        
+        
+        
     </style>
 </head>
 <body>
@@ -154,7 +166,7 @@
 							                        </div>
 							                  		 </a>
 							                    <div class="cart_btn">
-							                        <button type="button" class="add_to_cart">add to cart</button>
+							                        <button type="button" class="add_to_cart" value="${realnew.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button>
 							                    </div>
 							                </div>
 							                <!-- END txt_wrap -->
@@ -170,5 +182,12 @@
 	               </c:forEach>
 
                 </div>		
+                
+                
+                
+                
+                
+                
+                
 </body>
 </html>

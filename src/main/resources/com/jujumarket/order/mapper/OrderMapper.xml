@@ -1,86 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
- 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
- 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jujumarket.order.mapper.OrderMapper">
 
 
-	<select id="getList"
-		resultType="com.jujumarket.order.domain.OrderVO">
- 		<![CDATA[
- 			select * from t_order 
- 		]]>
-	</select>
+   <select id="getList"
+      resultType="com.jujumarket.order.domain.OrderVO">
+       <![CDATA[
+          select * from t_order 
+       ]]>
+   </select>
 
-	<insert id="insert">
-		insert into t_order(orderCode, totalPay, totalSum,
-		totalDiscount,receivAddr
-		deliCharge, isMember, idNo)
-		values(#{orderCode},
-		#{totalPay}, #{totalSum}, #{totalDiscount}, #{receivAddr}, #{deliCharge},
-		#{isMember}, #{idNo})
-	</insert>
+   <insert id="insert">
+      insert into t_order(orderCode, totalPay, totalSum,
+      totalDiscount,receivAddr
+      deliCharge, isMember, idNo)
+      values(#{orderCode},
+      #{totalPay}, #{totalSum}, #{totalDiscount},
+      #{receivAddr}, #{deliCharge},
+      #{isMember}, #{idNo})
+   </insert>
 
-	<!-- replace함수써서 주문번호 PK 만들어놓은건데 ctrl + shift + F 누르면 안됨 공백이 빠짐! -->
-	<insert id="insertSelectKey">
-		<selectKey keyProperty="orderCode" order="BEFORE"
-			resultType="String"> select
-			replace(replace(replace(substr(current_timestamp,0,17),' ',''),'/',''),':','') from dual
-		</selectKey>
-		insert into t_order(orderCode,totalPay, totalSum, totalDiscount, receivAddr, idNo)
-		values(#{orderCode},#{totalPay}, #{totalSum}, #{totalDiscount},	#{receivAddr}, #{idNo})
-	</insert>
+   <!-- replace함수써서 주문번호 PK 만들어놓은건데 ctrl + shift + F 누르면 안됨 공백이 빠짐! -->
+   <insert id="insertSelectKey">
+      <selectKey keyProperty="orderCode" order="BEFORE"
+         resultType="String"> select
+         replace(replace(replace(substr(current_timestamp,0,17),' ',''),'/',''),':','') from dual
+      </selectKey>
+      insert into t_order(orderCode,totalPay, totalSum, totalDiscount,
+      receivAddr, idNo)
+      values(#{orderCode},#{totalPay}, #{totalSum},
+      #{totalDiscount}, #{receivAddr}, #{idNo})
+   </insert>
 
-	<select id="read"
-		resultType="com.jujumarket.order.domain.OrderVO">
-		select * from t_order where orderCode = #{orderCode}
+   <select id="read"
+      resultType="com.jujumarket.order.domain.OrderVO">
+      select * from t_order where orderCode = #{orderCode}
 
-	</select>
+   </select>
 
-	<!-- orderItemsForm 상단에 출력되는 주문상품정보 -->
-	<select id="orderResponse"
-		resultType="com.jujumarket.order.domain.OrderResponseVO">
+   <select id="getone" resultType="com.jujumarket.main.domain.BasketVO">
+      <![CDATA[
+      SELECT *
+      FROM t_basket b
+      LEFT JOIN t_item i
+      ON b.itemcode = i.itemcode
+      WHERE b.baskId = #{baskId}
+      ORDER BY baskId
+      ]]>
+   </select>
 
-		select item.itemImg1, item.itemCode, item.itemName,
-		item.normPrice, basket.itemNum, item.price, basket.baskId
-		from t_item item, t_basket
-		basket
-		where item.itemCode = basket.itemCode
-		and basket.idNo = #{idNo}
+   <!-- orderItemsForm 상단에 출력되는 주문상품정보 -->
+   <select id="orderResponse"
+      resultType="com.jujumarket.order.domain.OrderResponseVO">
 
-
-	</select>
-
-	<delete id="delete">
-		delete from t_order where orderCode = #{orderCode}
-
-	</delete>
-
-	<select id="getRecentOrderCode" resultType="String">
-		select orderCode
-		from(
-		select orderCode
-		from t_order
-		where idNo = #{idNo} order by 1 desc)
-		where rownum = 1
-	</select>
-
+      select item.itemImg1, item.itemCode, item.itemName,
+      item.normPrice, basket.itemNum, item.price, basket.baskId
+      from t_item
+      item, t_basket
+      basket
+      where item.itemCode = basket.itemCode
+      and
+      basket.idNo = #{idNo}
 
 
-	<update id="update">
-		update t_order
-		set
-		totalPay = #{totalPay},
-		totalSum =
-		#{totalSum},
-		totalDiscount = #{totalDiscount},
-		deliCharge =
-		#{deliCharge},
-		orderDate = current_timestamp,
-		isMember = #{isMember},
-		idNo = #{idNo}
-		where
-		orderCode = #{orderCode}
-	</update>
+   </select>
+
+   <select id="showOrderList"
+      resultType="com.jujumarket.order.domain.OrderResponseVO">
+      select item.itemImg1, item.itemCode, item.itemName,
+      item.normPrice, oi.itemNum, oi.disAmount, oi.totalPrice
+      from t_item
+      item, t_order_info oi
+      where item.itemCode = oi.itemCode
+      and oi.orderCode
+      = #{orderCode}
+
+
+   </select>
+
+   <delete id="delete">
+      delete from t_order where orderCode = #{orderCode}
+
+   </delete>
+
+   <select id="getRecentOrderCode" resultType="String">
+      select orderCode
+      from(
+      select orderCode
+      from t_order
+      where idNo = #{idNo} order by 1 desc)
+      where rownum = 1
+   </select>
+
+
+
+   <update id="update">
+      update t_order
+      set
+      totalPay = #{totalPay},
+      totalSum =
+      #{totalSum},
+      totalDiscount = #{totalDiscount},
+      deliCharge =
+      #{deliCharge},
+      orderDate = current_timestamp,
+      isMember = #{isMember},
+      idNo = #{idNo}
+      where
+      orderCode = #{orderCode}
+   </update>
 
 </mapper>

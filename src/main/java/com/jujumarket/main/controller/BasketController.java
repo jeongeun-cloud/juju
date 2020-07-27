@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +33,7 @@ import net.sf.json.JSONArray;
 
 @Controller
 @Log4j
-@RequestMapping(value = {"product/*", "basket/*"})
+@RequestMapping(value = {"product/*", "basket/*", "includes/*"})
 @AllArgsConstructor
 public class BasketController {
    
@@ -41,12 +42,20 @@ public class BasketController {
    private ItemMainService itemservice;
    
 //   모든 url 에 장바구니 db 연결 
-   @GetMapping("*")
-   public void list(Model model) {
-      
-      log.info("listaaa");
-      model.addAttribute("list", basketservice.getList());
+//   @GetMapping("*")
+//   public void list(@RequestBody String id, Model model) {
+//      
+//      log.info("listaaa");
+//      model.addAttribute("list", basketservice.getList(id));
+//   }
+   
+   
+   @GetMapping("/basketSlide")
+   public void basketSlide() {
+	   
+	   
    }
+   
    
 //   item 으로 끝나는 곳에 장바구니 db 랑 item db 연결 
    @GetMapping("/item")
@@ -54,16 +63,17 @@ public class BasketController {
       log.info("/item");
 
       model.addAttribute("product", itemservice.get(itemCode));
-      model.addAttribute("list", basketservice.getList());
    }
    
    @GetMapping("/basket")
    @ResponseBody
-   public ResponseEntity<?> basketlist(Model model) {
+   public ResponseEntity<?> basketlist(String id, Model model) {
       
+	   System.out.println("컨트롤러에 id 잘 들어오나"+id);
+	   
       log.info("listaaa");
       List<BasketVO> basket = null;
-      basket = basketservice.getList();
+      basket = basketservice.getList(id);
       model.addAttribute("basket",JSONArray.fromObject(basket));
       
       return ResponseEntity.status(HttpStatus.OK).body(JSONArray.fromObject(basket));
@@ -71,16 +81,53 @@ public class BasketController {
 //      model.addAttribute("list", service.getList());
    }
    
-   // cart, basket 통일하기 
-   // 제약 걸기 
    @PostMapping("/basket")
    @ResponseBody
    public ResponseEntity<?> register(@RequestBody BasketVO basket) {
+	   
+	   log.info("register: " + basket);
+	   
+	   // 수량 안들어왔으면 1로 설정해준다
+	   if(basket.getItemNum()==null) {
+		   basket.setItemNum(1);
+	   }
+	   
       
-      log.info("register: " + basket);
       basketservice.register(basket);
       return ResponseEntity.status(HttpStatus.OK).body("DB insert ok~");
    }
+   
+   
+   
+   @DeleteMapping("/remove")
+   @ResponseBody
+   public ResponseEntity<?> delete(@RequestBody String baskId) {
+	   
+	   log.info("delete...");
+	   basketservice.remove(baskId);
+	   return ResponseEntity.status(HttpStatus.OK).body("DB remove ok~");
+	   
+   }
+   
+   
+   
+   
+   
+   
+   
+//   @PostMapping("/remove")
+// public String remove(@RequestParam("baskId") String baskId, RedirectAttributes rttr) {
+//    
+//    log.info("remove...." + baskId);
+//    
+//    if(service.remove(baskId)) {
+//       rttr.addFlashAttribute("result", "success");
+//    }
+//    
+//    return "redirect:/basket/list";
+// }
+   
+   
    
    
 //   @GetMapping("/item")
