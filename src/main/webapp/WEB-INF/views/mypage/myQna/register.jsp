@@ -235,20 +235,11 @@ margin: auto;
                      <label>내용</label>
                      <textarea class="form-control" id ='content' rows="10" name='content' placeholder ='내용은 1~600자에 맞게 입력해주세요'></textarea>
                   </div>
-
-                  <div class="form-group1">
-                     <label>답글여부</label>
-                     <textarea class="form-control" name='replyBool' >2</textarea>
-                  </div>
+  
 
                   <div class="form-group1">
                      <label>작성자</label><input class="form-control" name='idNo' value='운영자'>
                   </div>
-                  
-                  <div class="form-group1">
-                     <label>게시글타입</label><input class="form-control" name='boardType' readonly ='readonly' value = '3'>
-                  </div>
-
 
 				  <div class="btns">
                   <button type="submit" id="regBtn" class="btn btn-default">글쓰기</button>

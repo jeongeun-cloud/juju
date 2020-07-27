@@ -18,7 +18,7 @@ delete from t_reply where replyNo = #{replyNo}
 
 <update id ="update">
 
-update t_reply set replyContent = #{replyContent}, regdate = sysdate where
+update t_reply set replyContent = #{replyContent}, updateDate = sysdate where
 replyNo = #{replyNo}
 
 </update>

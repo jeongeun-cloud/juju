@@ -61,7 +61,7 @@
         .button {
         background-color: #ffc30b;
         color: white;
-		      
+            
         }
         .button:focus { 
             outline: none; 
@@ -204,27 +204,27 @@
         
         #thumbnailImg {
         
-        	width: 80px;
+           width: 80px;
         
         }
 
 
 
-		#chkAllBox {
-			
-			margin-top: 58px;
-			width: 200px;
-			float: left;
-			margin-left: -80px;
-		
-		}
-		
-		#dltBtnDiv {
-			margin-top: 50px;
-			width: 200px;
-			
-			float:left;
-		}
+      #chkAllBox {
+         
+         margin-top: 58px;
+         width: 200px;
+         float: left;
+         margin-left: -80px;
+      
+      }
+      
+      #dltBtnDiv {
+         margin-top: 50px;
+         width: 200px;
+         
+         float:left;
+      }
          
 
 
@@ -297,14 +297,14 @@
             
             <div  id='chkAllBox'>
             <!-- 전체 체크하는 박스 -->
-            <input type='checkbox' id="chkAll" checked="checked" onclick="checkAll()"> 전체 선택
+            <input type='checkbox' id="chkAll" checked="checked" onclick="allchkEvt(this)"> 전체 선택
             </div>
 
 
-			<div id="dltBtnDiv">
+         <div id="dltBtnDiv">
             <!-- 선택 삭제 버튼 -->
-            <button id="dltBtn">선택 삭제</button>
-			</div>	
+            <button id="dltBtn" onclick="chosenDlt()">선택 삭제</button>
+         </div>   
             
             
             
@@ -354,7 +354,7 @@
 
                 <h5>배송비</h5>
                                 
-                <h3 id="deliPrice">2500</h3>
+                <h3 id="deliPrice">2,500</h3>
             </div>
 
             <div class="countBoxDiv" id="mathSymbol">
@@ -377,17 +377,33 @@
 
         <div id="orderBtns">
 
-            <button class="button chooseNorder">선택 상품 주문</button>
-            <button class="button allOrder">전체 상품 주문</button>
+            <button class="button chooseNorder" onclick="orderSelected()">선택 상품 주문</button>
+            <button class="button allOrder" onclick="orderAll()">전체 상품 주문</button>
 
         </div>
 
+
+      <form id="actionForm" action="/order/orderItemsForm" method="post">
+      
+         <input type="hidden" name="checkRow" id="checkRow" value="" >
+         <input type="hidden" name="idNo" id="idNo" value="c0001" >
+      
+      </form>
 
 
     </div>
     
     
     
+    
+<!-- 세션에 저장된 id 불러오기용 div 시작 -->
+<div>
+
+<input type="hidden" id="hiddenId" value="<%=(String)session.getAttribute("sessionMember")%>">
+
+</div>
+<!-- 세션에 저장된 id 불러오기용 div 끝-->
+
     
     
     
@@ -400,9 +416,9 @@
     
 <script>
 
-
-
 var chkBoxes = document.getElementsByName("chkBox");
+
+var allChkBox = document.getElementById("chkAll");
 
 var totalPrice = 0;
 
@@ -411,15 +427,15 @@ var totalPrice = 0;
 /*  브라우저가 열리자마자 하는 basket DB 관련 작업 시작 */
 $(document).ready(
          
-		 // 1. 장바구니 DB에 있는 물건 리스트를 불러온다 
+       // 1. 장바구니 DB에 있는 물건 리스트를 불러온다 
           getBasketList()
          
          .then(function(response){ 
             
            console.log("getBasketList 결과는?");
             console.log(response);  
-         	// 2. 새로 그린다 
-        	draw(response);
+            // 2. 새로 그린다 
+           draw(response);
             }) 
             
       
@@ -429,99 +445,195 @@ $(document).ready(
 
 
 
-/* 브라우저가 열리자마자 count box 에 체크된 것만 계산하기 시작하는 function 시작 */
-window.onload = function() {
-	
-	//alert("window onload 와 j쿼리 같이 쓸 수 있다 가능함! ");
-	
-	for(var i=0; i<chkBoxes.length; i++) {
 
+
+
+
+// 체크박스 구현하기  시작
+
+// onload 될 때 
+// 1. 체크박스, 전체선택 체크박스  default 를 checked 로 설정해서 몽땅 체크되어 있게한다 
+// 2. 가격 default 는 모두 더한 계산 값으로 입력한다 
+
+
+// 체크박스 하나가 클릭되었을 때 
+// 1. 체크 안 되어 있으면 체크하고 + 계산한다, 그리고 모든 체크박스가 체크되어있는지 검사해서 모두 체크되어있으면 전체선택을 체크하게 한다(계산없이) 
+// 2. 체크 되어있으면 체크를 해제하고 - 계산한다 , 그리고 전체선택 체크박스를 해제한다 
+
+
+// 전체선택 체크박스가 클릭되었을 때 
+// 1. 체크박스를 다 검사한다. (chkBoxes 배열로 받아온다)
+// 2. 전체선택 체크박스가 체크되어 있지 않으면 체크로 바꾸고 개개인 체크박스가 false 일때만  이거 실행-- [체크 안 되어 있으면 체크하고 + 계산한다]
+// 3. 전체선택 체크박스가 체크되어 있으면 체크를 해제하고 개개인 체크박스가 true 일때만 이거 실행 -- [체크 되어 있으면 체크를 해제하고 - 계산한다]
+
+
+
+
+
+/* 페이지 로딩 되자마자 가격을 모두 더한 계산 값으로 입력하는 function 시작 */
+window.onload = function() {
+   
+   //가격 default 는 모두 더한 계산 값으로 입력한다 
+   for(var i=0; i<chkBoxes.length; i++) {
 
         var price = chkBoxes[i].value * 1;
+        
         totalPrice += price;
 
     }
-
-    
-    document.getElementById("tPrice").innerHTML = totalPrice;
-	
-	
+   
+   setTotalPrice(totalPrice);
+   
 }
-/* 브라우저가 열리자마자 count box 에 체크된 것만 계산하기 시작하는 function 끝 */
+/* 페이지 로딩 되자마자 가격을 모두 더한 계산 값으로 입력하는 function 끝 */
 
 
 
 
 
 
-// 체크박스 누를 때마다 발생하는 이벤트 function 시작
-function chkEvent(e) {
+// 체크박스 개개인 클릭 이벤트 function 시작
+// 체크박스 하나가 클릭되었을 때 
+function onechkEvt(e) {
+   
+   // 1. 체크 되면
+      if(e.checked == true ) {
+         // +계산한다
+         plus(e);
+         
+      //  모든 체크박스가 체크되어있는지 검사해서 모두 체크되어있으면 전체선택을 체크하게 한다(계산없이) 
+         if(isAllCheck()) {
+            allChkBox.checked = "checked";
+         }
+         
+   // 2. 체크 해제되면
+      } else {
+         
+         // -계산한다
+         minus(e);
+         
+         // 전체선택 체크박스를 해제한다 
+         allChkBox.checked = false;
+         
+      }
+   
+}
+// 체크박스 개개인 클릭 이벤트 function 끝 
 
 
-    //alert(e.checked)
 
-    price = e.value;
+//   + 계산하는 function 시작 
+function plus(e) {
+   
+   var price = e.value;
+   
+    // String 을 int 로 바꾸기 
+    price *= 1;
+    totalPrice *= 1;
+
+    totalPrice += price;
+    
+    setTotalPrice(totalPrice);
+   
+}
+//   + 계산하는 function 끝 
+
+
+
+
+// 체크를 해제하고 - 계산하는 function 시작
+function minus(e) {
+   
+   var price = e.value;
 
     // String 을 int 로 바꾸기 
     price *= 1;
     totalPrice *= 1;
 
-    // 체크박스가 체크되어 있으면 
-    if(e.checked == true) {
-
-        // 총합계에 금액을 합친다 
-        totalPrice += price;
-
-        // 총합계를 나타낸다. 
-        document.getElementById("tPrice").innerHTML = totalPrice;
-
+    totalPrice -= price;
     
-    // 체크박스가 체크되어 있지 않으면 
-    } else {
+    setTotalPrice(totalPrice);
+   
+}
+// 체크를 해제하고 - 계산하는 function 끝 
 
-        // 총합계에서 금액을 뺀다 
-        totalPrice -= price;
 
-        // 총합계를 나타낸다. 
-        document.getElementById("tPrice").innerHTML = totalPrice;
+
+// 모두 체크되어 있는지 검사하는 function 시작
+function isAllCheck() {
+   
+   var result = true;
+   
+   for(var i=0; i<chkBoxes.length; i++) {
+
+      if(chkBoxes[i].checked == false) {
+         
+         result = false;
+         
+      }
 
     }
-
+   
+   return result;
 }
-// 체크박스 누를 때마다 발생하는 이벤트 function 끝
+//모두 체크되어 있는지 검사하는 function 끝 
 
 
 
 
-
-
-
-
-/* 전체선택 체크박스 구현 function 시작 */
-function checkAll() {
-	
-	// 전체선택이 체크되어있으면
-	if($("#chkAll").prop("checked")){
-		
-		for(var i=0; i<chkBoxes.length; i++) {
-			// 모든 체크박스를 다 선택 
-			chkBoxes[i].checked="checked";
-			
-			chkEvent(chkBoxes[i]);
-		};
-		
-		// 전체선택이 체크되어 있지 않으면
-	}else {
-		for(var i=0; i<chkBoxes.length; i++) {
-			// 모든 체크박스를 다 해제 
-			chkBoxes[i].checked="";
-			
-			
-			chkEvent(chkBoxes[i]);
-		};
-	}
+// 가격 설정하는 function 시작 
+function setTotalPrice(totalPrice) {
+   
+   document.getElementById("tPrice").innerHTML = totalPrice*1;
+   
+   document.getElementById("realTotalPrice").innerHTML = totalPrice*1 + 2500;
+   
 }
-/* 전체선택 체크박스 구현 function 끝 */
+// 가격 설정하는 function 끝 
+
+
+
+
+
+
+// 전체선택 체크박스 클릭 이벤트 function 시작 
+// 전체선택 체크박스가 클릭되었을 때 
+function allchkEvt(e) {
+   
+   // 전체선택 체크박스가 해제되면 
+   if(e.checked == false) {
+      
+      for(var i=0; i<chkBoxes.length; i++) {
+         // 개개인 체크박스가 true 일때만
+         if(chkBoxes[i].checked == true) {
+            // 체크를 해제하고 - 계산한다
+            chkBoxes[i].checked = false;
+            minus(chkBoxes[i]);
+         }
+
+       }
+      
+   // 전체선택 체크박스가 체크되면
+   }else {
+      
+      for(var i=0; i<chkBoxes.length; i++) {
+               
+               // 개개인 체크박스가 false 일때만
+               if(chkBoxes[i].checked == false) {
+                  // 체크하고 + 계산한다
+                  chkBoxes[i].checked = true;
+                  plus(chkBoxes[i]);
+               }
+      
+             }
+   }
+   
+}
+// 전체선택 체크박스 클릭 이벤트 function 끝 
+
+
+
+//체크박스 구현하기  끝
 
 
 
@@ -531,9 +643,12 @@ function checkAll() {
 /* 장바구니 리스트 ajax 로 불러오기 시작 */
 function getBasketList() {
    
+   var id = document.getElementById("hiddenId").value;
+   
    return $.ajax({
       url: "/product/basket",
       type: "GET",
+      data: {"id":id},
       dataType: "JSON",
       error : function(){console.log("통신실패")},
       success : function(){console.log("통신성공")}
@@ -549,23 +664,134 @@ function getBasketList() {
 // html 구조 안에다가 장바구니 내용 넣기 function 시작
 function draw(jsonData) { 
    
-	var $tableBody = $("#tableBody");
-	
-	$tableBody.empty();
-	
-	console.log("그리기 전 결과 확인: " + jsonData);
-	
-	for(var i=0; i<jsonData.length; i++) {
-		
-		$tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id='chkBox' checked='checked' value=\""+jsonData[i].price*jsonData[i].itemNum+"\" onclick='chkEvent(this)'></td><td><img id='thumbnailImg' src=\""+jsonData[i].itemImg1+"\"></td><td>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원</td><td>"+jsonData[i].itemNum+"개</td><td>"+jsonData[i].price*jsonData[i].itemNum+"원</td></tr>");
-		
-	}
-	
+   var $tableBody = $("#tableBody");
+   
+   $tableBody.empty();
+   
+   console.log("그리기 전 결과 확인: " + jsonData);
+   
+   for(var i=0; i<jsonData.length; i++) {
+      
+      $tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id=\""+jsonData[i].baskId+"\"  checked='checked' value=\""+jsonData[i].price*jsonData[i].itemNum+"\" onclick='onechkEvt(this)'></td><td><img id='thumbnailImg' src=\""+jsonData[i].itemImg1+"\"></td><td>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원</td><td>"+jsonData[i].itemNum+"개</td><td>"+jsonData[i].price*jsonData[i].itemNum+"원</td></tr>");
+      
+   }
+   
    
 }
 //html 구조 안에다가 장바구니 내용 넣기 function 끝
 
  
+
+
+
+
+
+// 선택 삭제 function 시작
+function chosenDlt() {
+   
+   for(var i=0; i<chkBoxes.length; i++) {
+      // 선택된 체크박스만
+      if(chkBoxes[i].checked == true) {
+         // DB에서 지운다 
+         deletefromBasket(chkBoxes[i].id);
+         
+         getBasketList()
+         
+         .then(function(response){
+               
+               console.log("getBasketList 결과는?")
+               console.log(response);
+               draw(response);
+               
+            })
+      }
+
+    } 
+   
+}
+// 선택 삭제 function 끝 
+
+
+
+/* 장바구니 에서 ajax 로 지우기 funciton 시작 */
+function deletefromBasket(baskId) {
+   
+   return $.ajax({
+      url: "/product/remove",
+      type: "delete",
+      data: baskId,
+      error : function(){console.log("통신실패")},
+      success : function(){console.log("통신성공")}
+      
+      });
+   
+}
+/* 장바구니 에서 ajax 로 지우기 funciton 끝 */
+
+
+
+
+
+
+// 선택 상품 주문 onclick 이벤트 시작 
+function orderSelected() {
+   
+   var checkRow = [];
+   
+   for(var i=0; i<chkBoxes.length; i++) {
+      // 개개인 체크박스가 true 일때만 배열에 담는다 
+      if(chkBoxes[i].checked == true) {
+         
+         checkRow.push(chkBoxes[i].id);
+         
+      }
+
+    }
+   
+   //alert("배열 잘 나오냐"+checkRow.toString());
+   
+   // 선택한 상품이 없으면 선택해 달라는 alert 발생 
+   if(checkRow.length == 0){
+        alert("주문할 상품을 선택해주세요.");
+        return false;
+     }
+   
+   // POST 방식으로 선택된 baskId 를 넘긴다 
+   var chkRow = document.getElementById("checkRow");
+   chkRow.value = checkRow;
+   var actionForm = $("#actionForm");
+   actionForm.submit();
+
+}
+// 선택 상품 주문 onclick 이벤트 끝
+
+
+
+
+
+
+
+// 전체 상품 주문 onclick 이벤트 시작 
+function orderAll() {
+   
+   var checkRow = [];
+   
+   // 모든 상품을 배열에 담는다 
+   for(var i=0; i<chkBoxes.length; i++) {
+      checkRow.push(chkBoxes[i].id);
+    }
+   
+   
+   // POST 방식으로 선택된 baskId 를 넘긴다 
+   var chkRow = document.getElementById("checkRow");
+   chkRow.value = checkRow;
+   var actionForm = $("#actionForm");
+   actionForm.submit();
+
+}
+// 전체 상품 주문 onclick 이벤트 끝 
+
+
 
 
 

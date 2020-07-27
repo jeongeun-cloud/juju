@@ -873,7 +873,7 @@ margin-left: 15%;
          
             
               <div id = "regiBtn">
-               <div class="form-grop">
+               <div class="form-grop regiBtn">
                <label>replyContent</label>
                <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
 
@@ -1166,7 +1166,7 @@ $(document).ready(function(){
                var regiBtn = $("#regiBtn")
                 
                
-               regiBtn.find('button').on("click",function(e){
+               $("#regiBtn").on("click","button[id='addReplyBtn']",function(e){
                if($("#replyContentBtn").val() == ''||$("#replyContentBtn").val().trim()==""||$("#replyContentBtn").val().length>600){
                      
                     alert("댓글양식에 맞게 입력해주세요(1~600자)");
@@ -1355,7 +1355,7 @@ $(document).ready(function(){
                }
                
                
-               var replyDiv = document.createElement("div");
+/*                var replyDiv = document.createElement("div");
                replyDiv.setAttribute("class", "replyDiv");
 
                var textArea = document.createElement("textarea");
@@ -1365,8 +1365,8 @@ $(document).ready(function(){
                var replyNo = document.createElement("input");
                replyNo.setAttribute("id","replyNo");
                replyNo.setAttribute("type","hidden");
-/*                replyNo.setAttribute("value",replyNodata);
- */
+              replyNo.setAttribute("value",replyNodata);
+
 
         
                replyDiv.appendChild(textArea);
@@ -1376,7 +1376,7 @@ $(document).ready(function(){
                
                $(target).parent().parent().after(replyDiv);
                
-               
+                */
                
            
                 if(replyContent==''||replyContent.trim()==''||replyContent.length>600){
@@ -1847,6 +1847,7 @@ $(document).ready(function(){
    
    	// 리뷰 등록
    	$("#reviewBtn").on("click", function(e) {
+   		
    		console.log(uploadResult);
 
     	if($('#reviewTitle').val()=='' || $('#reviewTitle').val().trim() == '') {
@@ -1886,6 +1887,8 @@ $(document).ready(function(){
 	            error(er);
          	}
       	}); // $.ajax
+      	
+      
 	}); // 등록 event
    
    	// 상품 평 리스트 출력

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.shop.mapper.ManagementMapper">
+
+
+
+<!-- <select id="getList" resultType="com.jujumarket.shop.domain.ManagementVO">
+	
+		 select * from t_delivery 
+</select> -->
+
+<select id="searchordergetList" resultType="com.jujumarket.shop.domain.ManagementVO" >
+	<![CDATA[
+		 select h.ordercode, h.orderstat, o.totalpay, o.orderdate, i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver 
+from t_order_history h, t_order_info o, t_item i, t_delivery d
+where h.ordercode = o.ordercode
+and h.itemCode = i.itemCode
+and d.ordercode = h.orderCode
+	]]>
+</select>
+
+
+
+<select id="shippinggetList" resultType="com.jujumarket.shop.domain.ManagementVO">
+	<![CDATA[
+		 select h.itemCode,h.ordercode, h.orderstat, o.totalpay, o.orderdate, i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver 
+from t_order_history h, t_order_info o, t_item i, t_delivery d
+where h.ordercode = o.ordercode
+and h.itemCode = i.itemCode
+and d.ordercode = h.orderCode
+
+	]]>
+</select>
+
+
+<select id="pricegetList" resultType="com.jujumarket.shop.domain.ManagementVO">
+<![CDATA[
+select i.itemCode,price,ordercode
+from t_order_info o,t_item i
+where o.itemcode = i.itemcode
+	]]>
+	
+	
+</select>
+
+ <update id="update">
+update t_delivery set 
+shippingCode = '1234'
+where orderCode = '1';
+</update>
+<!-- <select id="read" resultType ="com.jujumarket.shop.mapper.ManagementVO">
+	
+	select orderCode,orderStat,itemCode,totalPay,orderDate,itemName
+   ,shippingCode,receivAddr,receivContact,receiver 
+    from t_item i,(select * from t_delivery d,t_order o,t_order_history h
+	where h.ordercode = 'abc1234')
+	where i.itemcode = 's0001p0002'
+
+	</select> -->
+
+</mapper>
