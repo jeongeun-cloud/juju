@@ -46,9 +46,9 @@ public class BasketServiceImpl implements BasketService {
 	}
 
 	@Override
-	public List<BasketVO> getList() {
+	public List<BasketVO> getList(String id) {
 		log.info("getList.........");
-		return mapper.getList();
+		return mapper.getList(id);
 	}
 	
 	

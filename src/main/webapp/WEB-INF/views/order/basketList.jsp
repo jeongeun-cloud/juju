@@ -490,8 +490,6 @@ window.onload = function() {
 
 
 
-
-
 // 체크박스 개개인 클릭 이벤트 function 시작
 // 체크박스 하나가 클릭되었을 때 
 function onechkEvt(e) {
@@ -593,9 +591,6 @@ function setTotalPrice(totalPrice) {
 
 
 
-
-
-
 // 전체선택 체크박스 클릭 이벤트 function 시작 
 // 전체선택 체크박스가 클릭되었을 때 
 function allchkEvt(e) {
@@ -642,6 +637,8 @@ function allchkEvt(e) {
 
 /* 장바구니 리스트 ajax 로 불러오기 시작 */
 function getBasketList() {
+	
+	var id = document.getElementById("hiddenId").value;
    
    var id = document.getElementById("hiddenId").value;
    
@@ -782,8 +779,10 @@ function orderAll() {
     }
    
    
-   // POST 방식으로 선택된 baskId 를 넘긴다 
-   var chkRow = document.getElementById("checkRow");
+
+	// POST 방식으로 선택된 baskId 를 넘긴다 
+	var chkRow = document.getElementById("checkRow");
+
    chkRow.value = checkRow;
    var actionForm = $("#actionForm");
    actionForm.submit();

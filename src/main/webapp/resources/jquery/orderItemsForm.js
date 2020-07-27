@@ -54,7 +54,9 @@ function init() {
 	let recentReceivAddr = $("#recentReceivAddr");
 
 	//회원정보에 저장된 배송지정보 check
-	sameAsMem.change(function() {                            
+	sameAsMem.change(function() {       
+		
+		console.log("작동되나 이거");
 		
 		if (sameAsMem.is(":checked")) {
 			receiver.val(memName.val());

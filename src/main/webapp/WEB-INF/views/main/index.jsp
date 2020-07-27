@@ -12,31 +12,31 @@
 
 <style>
 
-	.mySlides{
-	 width:100%;
-	 height:600px;
-	}
+   .mySlides{
+    width:100%;
+    height:600px;
+   }
 
-	.w3-left, .w3-right, .w3-badge {cursor:pointer}
-	.w3-badge {height:13px;width:13px;padding:0}
-	
-	.main_new_pro{
-		margin:50px auto;
-		width:1200px;
-		/* border:solid; */
-		height:1300px;
-	}
-	.main_new_tit p{
-	font-size:30px;
-	text-align: center;
-	}
-	.main_new_tit h5{
-	text-align: center;
-	}
+   .w3-left, .w3-right, .w3-badge {cursor:pointer}
+   .w3-badge {height:13px;width:13px;padding:0}
+   
+   .main_new_pro{
+      margin:50px auto;
+      width:1200px;
+      /* border:solid; */
+      height:1300px;
+   }
+   .main_new_tit p{
+   font-size:30px;
+   text-align: center;
+   }
+   .main_new_tit h5{
+   text-align: center;
+   }
 
-	/*실시간 베스트  */
-	
-	/* 메인 리뷰 */
+   /*실시간 베스트  */
+   
+   /* 메인 리뷰 */
     .swiper-container {
       width: 100%;
       padding-top: 50px;
@@ -51,10 +51,10 @@
     }
     
     .swiper-img {
-    	background-size: cover;
-    	background-position: center;
-    	width: 300px;
-      	height: 300px;
+       background-size: cover;
+       background-position: center;
+       width: 300px;
+         height: 300px;
     }
     /* 메인 리뷰 끝 */
 
@@ -85,60 +85,60 @@
         <!--END 첫번째 배너 광고   -->
         
         <div class="main_new_pro">
-        	<div class="main_new_tit">        		  	
-        		<p><b>새로운 상품</b></p>   
-        		<h5>매일 새로운 주주마켓의 제품을 만나보세요 </h5>   		
-        	</div>   
-        	<div class="main_new_li">
-        		<%@include file="RealNew.jsp" %>
-        	</div>          		  
+           <div class="main_new_tit">                   
+              <p><b>새로운 상품</b></p>   
+              <h5>매일 새로운 주주마켓의 제품을 만나보세요 </h5>         
+           </div>   
+           <div class="main_new_li">
+              <%@include file="RealNew.jsp" %>
+           </div>                  
         </div>
         
           <!-- Swiper -->
-		  <div class="swiper-container">
-		    <div class="swiper-wrapper">
-			    <c:forEach items="${mainReview }" var="review">
-			    	<div class="swiper-slide">
-				    	<div class='swiper-img' style='background-image:url(/resources/review/<c:out value="${review.itemCode}"/>/<c:out value="${review.reviewImg}"/>)'></div>
-				    	<p><c:out value="${review.reviewTitle}"/></p>
-			    	</div>
-			    </c:forEach>
-		    </div>
-		    <!-- Add Pagination -->
-		    <div class="swiper-pagination"></div>
-		  </div>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+             <c:forEach items="${mainReview }" var="review">
+                <div class="swiper-slide">
+                   <div class='swiper-img' style='background-image:url(/resources/review/<c:out value="${review.itemCode}"/>/<c:out value="${review.reviewImg}"/>)'></div>
+                   <p><c:out value="${review.reviewTitle}"/></p>
+                </div>
+             </c:forEach>
+          </div>
+          <!-- Add Pagination -->
+          <div class="swiper-pagination"></div>
+        </div>
  
  
- 	<!-- Swiper JS -->
-  	<script src="/resources/js/swiper-bundle.min.js"></script>
-	<script type="text/javascript">
-     	// top_banner_wrap 기능
+    <!-- Swiper JS -->
+     <script src="/resources/js/swiper-bundle.min.js"></script>
+   <script type="text/javascript">
+        // top_banner_wrap 기능
         // 밑에 동그라미(순서)가 같이 움직이는 기능 
         var slideIndex = 1;
         showDivs(slideIndex);
 
         function plusDivs(n) {
-        	showDivs(slideIndex += n);
+           showDivs(slideIndex += n);
         }
 
         function currentDiv(n) {
-        	showDivs(slideIndex = n);
+           showDivs(slideIndex = n);
         }
 
         function showDivs(n) {
-	        var i;
-	        var x = document.getElementsByClassName("mySlides");
-	        var dots = document.getElementsByClassName("demo");
-	        if (n > x.length) {slideIndex = 1}
-	        if (n < 1) {slideIndex = x.length}
-	        for (i = 0; i < x.length; i++) {
-	            x[i].style.display = "none";  
-	        }
-	        for (i = 0; i < dots.length; i++) {
-	            dots[i].className = dots[i].className.replace(" w3-white", " ");
-	        }
-	        x[slideIndex-1].style.display = "block";  
-	        dots[slideIndex-1].className += " w3-white";
+           var i;
+           var x = document.getElementsByClassName("mySlides");
+           var dots = document.getElementsByClassName("demo");
+           if (n > x.length) {slideIndex = 1}
+           if (n < 1) {slideIndex = x.length}
+           for (i = 0; i < x.length; i++) {
+               x[i].style.display = "none";  
+           }
+           for (i = 0; i < dots.length; i++) {
+               dots[i].className = dots[i].className.replace(" w3-white", " ");
+           }
+           x[slideIndex-1].style.display = "block";  
+           dots[slideIndex-1].className += " w3-white";
         
         }
         
@@ -146,18 +146,18 @@
         carousel();
 
         function carousel() {
-	        var i;
-	        var x = document.getElementsByClassName("mySlides");
-	        var dots = document.getElementsByClassName("demo");
-	        for (i = 0; i < x.length; i++) {
-	            x[i].style.display = "none";  
-	        }
-	        myIndex++;
-	        if (myIndex > x.length) {myIndex = 1}    
-	        x[myIndex-1].style.display = "block"; 
-	     
-	        
-	        setTimeout(carousel, 2000);  // Change image every 2 seconds
+           var i;
+           var x = document.getElementsByClassName("mySlides");
+           var dots = document.getElementsByClassName("demo");
+           for (i = 0; i < x.length; i++) {
+               x[i].style.display = "none";  
+           }
+           myIndex++;
+           if (myIndex > x.length) {myIndex = 1}    
+           x[myIndex-1].style.display = "block"; 
+        
+           
+           setTimeout(carousel, 2000);  // Change image every 2 seconds
         }
 
         /* 메인 리뷰 */
@@ -178,6 +178,6 @@
             },
         });
         /* 메인 리뷰 끝 */
-	</script>
+   </script>
 </body>
 </html>

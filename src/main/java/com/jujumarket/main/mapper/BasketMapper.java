@@ -9,7 +9,7 @@ import com.jujumarket.main.domain.BasketVO;
 public interface BasketMapper {
 	
 //	@Select("select * from t_basket")
-	public List<BasketVO> getList();
+	public List<BasketVO> getList(String id);
 	
 	  public void insert(BasketVO basket);
 	  

@@ -14,6 +14,6 @@ public interface BasketService {
 	
 	public boolean remove(String baskId);
 	
-	public List<BasketVO> getList();
+	public List<BasketVO> getList(String id);
 
 }
