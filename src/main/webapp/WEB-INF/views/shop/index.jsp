@@ -11,6 +11,7 @@
     <title>Document</title>
 
 </head>
+<%@include file="./idCheck.jsp" %>
 <body>
     <div class="admi_container">
         <div class="admi_tit">

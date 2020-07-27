@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.jujumarket.main.service.BobService;
+import com.jujumarket.main.service.EventService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -13,15 +14,14 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequestMapping("/")
 @AllArgsConstructor
-public class BobController {
+public class EventContoller {
 	
-	private BobService bobservice;
+	private EventService service;
 	
-	@GetMapping("/bob")
+	@GetMapping("/event")
 	public void list(Model model) {
 		log.info("controller 작동중");
-		model.addAttribute("BestBob", bobservice.wholebest());
-		model.addAttribute("ReviewBob", bobservice.reviewbest());
 		
+		model.addAttribute("event", service.getEvent());
 	}
 }

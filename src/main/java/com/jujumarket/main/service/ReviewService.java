@@ -20,6 +20,8 @@ public interface ReviewService {
 	
 	public ReviewPageDTO getListPage(Criteria cri, String itemCode);
 	
+	public List<ReviewVO> mainReview();
+	
 //	public int getTotal(Criteria cri);
 
 }

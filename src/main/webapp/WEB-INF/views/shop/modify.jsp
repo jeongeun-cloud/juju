@@ -114,8 +114,13 @@
             float: right;
         }
         /* 버튼 끝 */
+        
+        .itemImg {
+        	width:250px;
+        }
     </style>
 </head>
+<%@include file="./idCheck.jsp" %>
 <body>
 <%@include file="../includes/header.jsp" %>
     <div class="modi_content">
@@ -145,6 +150,7 @@
                             <input type="hidden" name='amount' value='<c:out value="${cri.amount }"/>'>
                             <input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>' >
                             <input type='hidden' name='type' value='<c:out value="${cri.type }"/>' >
+                            <input type="hidden" name="idNo" id="idNo" value='<c:out value="${sessionMember}"/>' >
                             
                             <div class="container">
                                 <label for="category"><i class="fa fa-scissors"></i>상품 정보 수정</label><br>
@@ -189,41 +195,42 @@
                             <div class="container">
                                 <label><i class="fa fa-chevron-right"></i>상품 특성<small style="opacity:0.75;">(특성을 선택하지 않으면 기본으로 설정 됩니다.)</small></label><br> 
                                 <input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
-                                <input type="checkbox" name="itemChr" value="신상품">신상품 
-                                <input type="checkbox" name="itemChr" value="할인">할인
+                                <input type="checkbox" name="itemChr" value="new">신상품 
+                                <input type="checkbox" name="itemChr" value="sale">할인
                                 <!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
-                                <input type="checkbox" name="itemChr" value="기본" style="visibility:hidden">
+                                <input type="checkbox" name="itemChr" value="default" style="visibility:hidden">
                             </div>
                             
+                            <label><small style="opacity:0.75;">메인, 서브 이미지 규격 : 270*300</small></label><br>
                             <div class="container">
                                 <label><i class="fa fa-chevron-right"></i>메인 이미지</label>
                                 <input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg1" value="<c:out value="${item.itemImg1}"/>">
-                                <!-- <div class="select_img1"><img src='/resources/upload/idNo/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" /></div> -->
+                                <div class="select_img1"><img class='itemImg' src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
                             </div>
                             <div class="container">
                                 <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
                                 <input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg2" value="<c:out value="${item.itemImg2}"/>">
-                                <!-- <div class="select_img2"><img src='/resources/upload/idNo/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" /></div> -->
+                                <div class="select_img2"><img class='itemImg' src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
                             </div>
                             <div class="container">
                                 <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
                                 <input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg3" value="<c:out value="${item.itemImg3}"/>">
-                                <!-- <div class="select_img3"><img src='/resources/upload/idNo/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" /></div> -->
+                                <div class="select_img3"><img class='itemImg' src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
                             </div>
                             <div class="container">
                                 <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
                                 <input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg4" value="<c:out value="${item.itemImg4}"/>">
-                                <!-- <div class="select_img4"><img src='/resources/upload/idNo/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" /></div> -->
+                                <div class="select_img4"><img class='itemImg' src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
                             </div>
                             <div class="container">
                                 <label><i class="fa fa-chevron-right"></i>상품 상세 설명 이미지</label>
                                 <input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="imgDetail" value="<c:out value="${item.imgDetail}"/>">
-                                <!-- <div class="select_img5"><img src='/resources/upload/idNo/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" /></div> -->
+                                <div class="select_img5"><img class='itemImg' src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
                             </div>
                     
                             <div class="modi_btn">
@@ -244,7 +251,7 @@
      crossorigin="anonymous"></script>
    <script type="text/javascript">
       
-      var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG)$");
+      var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG|JPG)$");
        var maxSize = 5242880;
        
        function checkExtension(fileName, fileSize) {
