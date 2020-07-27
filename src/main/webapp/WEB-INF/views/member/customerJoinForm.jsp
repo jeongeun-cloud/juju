@@ -26,7 +26,7 @@
 		<!-- 회원코드
 		<input type="text" id="memCode" name="memCode">
 		 -->
-		 연락처(선택):
+		 연락처(필수):
 		<input type="text" id="contact" name="contact"> <br>
 		주소(선택):
 		<input type="text" id="memAddr" name="memAddr"> <br>
@@ -93,7 +93,7 @@
 					return false;
 				}
 				
-				var email =  emailAccount.val();
+				let email =  emailAccount.val();
 				
 				emailAuth(email)
 				.then(function(response){
@@ -168,8 +168,8 @@
 		});
 		
 		
-		var submitBtn = $("#submitBtn");
-		var customerJoinForm = $("#customerJoinForm");
+		let submitBtn = $("#submitBtn");
+		let customerJoinForm = $("#customerJoinForm");
 
 		submitBtn.click(function(e) {
 			e.preventDefault();
@@ -200,7 +200,7 @@
 		
 		function emailAccountCheck(){
 
-			var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			
 			if (emailAccount.val().trim() == "" || emailAccount.val() == null) {
 				alert("값을 입력해주세요.");
@@ -224,7 +224,7 @@
 		
 		function pwdCheck(){
 			
-			var regExp = /^[A-Za-z0-9]{6,12}$/;
+			let regExp = /^[A-Za-z0-9]{6,12}$/;
 			
 			if (pwd.val().trim() == "" || pwd.val() == null) {
 				alert("값을 입력해주세요.");
@@ -244,7 +244,7 @@
 		};
 		
 		function memNameCheck(){
-			var regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+			let regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
 
 			if (memName.val().trim() == "" || memName.val() == null) {
 				alert("값을 입력해주세요.");
@@ -265,7 +265,7 @@
 		};
 		
 		function contactCheck(){
-			var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+			let regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 
 			if (contact.val().trim() == "" || contact.val() == null) {
 				alert("값을 입력해주세요.");

@@ -17,5 +17,6 @@ public class ReviewVO {
 	private String orderCode;
 	private String itemCode;
 	private String idNo;
+	private String emailAccount;
 
 }

@@ -6,10 +6,9 @@
 <%@include file="../includes/header.jsp" %>
 
 <%@include file="../includes/menuBar.jsp" %>
-<%@include file="../basket/basket.jsp" %>
 
-<%-- <jsp:include page="../basket/basket.jsp" flush="false"> --%>
-
+<!-- Link Swiper's CSS -->
+<link rel="stylesheet" href="/resources/css/swiper-bundle.min.css">
 
 <style>
 
@@ -36,6 +35,28 @@
 	}
 
 	/*실시간 베스트  */
+	
+	/* 메인 리뷰 */
+    .swiper-container {
+      width: 100%;
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .swiper-slide {
+      width: 300px;
+      height: 300px;
+      margin-bottom : 40px;
+
+    }
+    
+    .swiper-img {
+    	background-size: cover;
+    	background-position: center;
+    	width: 300px;
+      	height: 300px;
+    }
+    /* 메인 리뷰 끝 */
 
 </style>
 <br>
@@ -72,56 +93,91 @@
         		<%@include file="RealNew.jsp" %>
         	</div>          		  
         </div>
+        
+          <!-- Swiper -->
+		  <div class="swiper-container">
+		    <div class="swiper-wrapper">
+			    <c:forEach items="${mainReview }" var="review">
+			    	<div class="swiper-slide">
+				    	<div class='swiper-img' style='background-image:url(/resources/review/<c:out value="${review.itemCode}"/>/<c:out value="${review.reviewImg}"/>)'></div>
+				    	<p><c:out value="${review.reviewTitle}"/></p>
+			    	</div>
+			    </c:forEach>
+		    </div>
+		    <!-- Add Pagination -->
+		    <div class="swiper-pagination"></div>
+		  </div>
  
-        <script>
-     // top_banner_wrap 기능
+ 
+ 	<!-- Swiper JS -->
+  	<script src="/resources/js/swiper-bundle.min.js"></script>
+	<script type="text/javascript">
+     	// top_banner_wrap 기능
         // 밑에 동그라미(순서)가 같이 움직이는 기능 
         var slideIndex = 1;
         showDivs(slideIndex);
 
         function plusDivs(n) {
-        showDivs(slideIndex += n);
+        	showDivs(slideIndex += n);
         }
 
         function currentDiv(n) {
-        showDivs(slideIndex = n);
+        	showDivs(slideIndex = n);
         }
 
         function showDivs(n) {
-        var i;
-        var x = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("demo");
-        if (n > x.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = x.length}
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";  
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" w3-white", " ");
-        }
-        x[slideIndex-1].style.display = "block";  
-        dots[slideIndex-1].className += " w3-white";
-       
+	        var i;
+	        var x = document.getElementsByClassName("mySlides");
+	        var dots = document.getElementsByClassName("demo");
+	        if (n > x.length) {slideIndex = 1}
+	        if (n < 1) {slideIndex = x.length}
+	        for (i = 0; i < x.length; i++) {
+	            x[i].style.display = "none";  
+	        }
+	        for (i = 0; i < dots.length; i++) {
+	            dots[i].className = dots[i].className.replace(" w3-white", " ");
+	        }
+	        x[slideIndex-1].style.display = "block";  
+	        dots[slideIndex-1].className += " w3-white";
         
         }
+        
         var myIndex = 0;
         carousel();
 
         function carousel() {
-        var i;
-        var x = document.getElementsByClassName("mySlides");
-        var dots = document.getElementsByClassName("demo");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";  
-        }
-        myIndex++;
-        if (myIndex > x.length) {myIndex = 1}    
-        x[myIndex-1].style.display = "block"; 
-     
-        
-        setTimeout(carousel, 2000);  // Change image every 2 seconds
+	        var i;
+	        var x = document.getElementsByClassName("mySlides");
+	        var dots = document.getElementsByClassName("demo");
+	        for (i = 0; i < x.length; i++) {
+	            x[i].style.display = "none";  
+	        }
+	        myIndex++;
+	        if (myIndex > x.length) {myIndex = 1}    
+	        x[myIndex-1].style.display = "block"; 
+	     
+	        
+	        setTimeout(carousel, 2000);  // Change image every 2 seconds
         }
 
-        </script>
+        /* 메인 리뷰 */
+        var swiper = new Swiper('.swiper-container', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            },
+            pagination: {
+              el: '.swiper-pagination',
+            },
+        });
+        /* 메인 리뷰 끝 */
+	</script>
 </body>
 </html>

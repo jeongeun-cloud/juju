@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.shop.mapper.ShopManageMapper">
+
+<!--오늘 총 주문 금액  -->
+<select id="todayOrderTotal" resultType ="int">
+
+  
+  select sum(o.sumPrice) as todayOrderTotal
+  from t_order_info o , t_item t
+  where o.itemCode= t.itemCode AND t.idNo ='s0018' AND to_char(orderdate, 'yy/mm/dd') = to_char(sysdate)
+  group by t.idNo
+  
+</select>
+
+ <select id="prevOrderTotal" resultType="int">
+
+ 
+  select sum(o.sumPrice) as prevOrderTotal
+	from t_order_info o , t_item t
+	where o.itemCode= t.itemCode AND t.idNo='s0018' AND to_char(orderdate, 'yy/mm') = to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm')-1,'yy/mm')
+	group by t.idNo
+
+  
+</select> 
+</mapper>

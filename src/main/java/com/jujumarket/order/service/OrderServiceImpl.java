@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jujumarket.main.domain.BasketVO;
 import com.jujumarket.order.domain.OrderRequestVO;
 import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
@@ -36,7 +37,8 @@ public class OrderServiceImpl implements OrderService {
 		log.info("크기: " + itemList.size());
 		Long totalSum = 0L;
 		Long totalDiscount = 0L;
-		// itemList.size()가 i개일때, t_order에는 1개의 row, t_order_info, t_order_history, t_delivery에는
+		// itemList.size()가 i개일때, t_order에는 1개의 row, t_order_info, t_order_history,
+		// t_delivery에는
 		// i개의 row가 인서트됨. 반복문 사용으로 insert되도록 작성해야 함 .
 		for (int i = 0; i < itemList.size(); i++) {
 			OrderResponseVO item = itemList.get(i);
@@ -44,6 +46,7 @@ public class OrderServiceImpl implements OrderService {
 			order.setBaskId(item.getBaskId());
 			order.setItemNum(item.getItemNum());
 			order.setDisAmount(item.getNormPrice() - item.getPrice());
+			order.setTotalPrice(item.getPrice() * item.getItemNum());
 			orderInfoMapper.insertSelectKey(order);
 			orderHistoryMapper.insertSelectKey(order);
 			// t_delivery에 OrderRequestVO에서 받아온 정보들을 insertSelectKey()로 register()
@@ -91,6 +94,16 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public String getRecentOrderCode(String idNo) {
 		return orderMapper.getRecentOrderCode(idNo);
+	}
+
+	@Override
+	public List<OrderResponseVO> showOrderList(String orderCode) {
+		return orderMapper.showOrderList(orderCode);
+	}
+
+	@Override
+	public BasketVO getOne(String baskId) {
+		return orderMapper.getone(baskId);
 	}
 
 }

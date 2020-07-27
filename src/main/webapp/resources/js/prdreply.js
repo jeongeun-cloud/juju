@@ -77,7 +77,7 @@ var prdreplyService = (function() {
 		
 		console.log(itemCode);
 		
-		console.log(page);;
+		console.log(page);
 		
 		$.getJSON("/repliesprdQnA/pages/"+itemCode+"/"+page+".json",
 		function(data){

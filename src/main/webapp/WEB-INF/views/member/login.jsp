@@ -30,7 +30,7 @@
 			<input type="password" name="pwd" id="pwd" placeholder="PASSWORD"><br>
 	
 			<input type="submit" value="로그인"><br>
-			<a href="/member/login/findIdPwd">아이디찾기/비밀번호 찾기(아직안됨 누르지마셈)</a><br>
+			<a href="/member/findIdPwd">아이디찾기/비밀번호 찾기(아직안됨 누르지마셈)</a><br>
 <!-- 			<button type="button">네이버 로그인</button><br>
 			<button type="button">페이스북 로그인</button><br>
 			<button type="button">카카오톡 로그인</button><br> -->
@@ -42,22 +42,15 @@
     $(document).ready(function() {
     	
         var result = $("#result").val();
-
         alertResult(result);
-    
         history.replaceState({},null,null)
         
-        
         function alertResult(result){
-        
-           
            if (result ==='' || history.state){
               return;
            }
-      
            alert(result);
         }
-        	
         });
 	</script>
 </body>

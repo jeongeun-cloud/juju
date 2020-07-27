@@ -7,5 +7,7 @@ import com.jujumarket.main.domain.BoardItemVO;
 public interface BobMapper {
 	
 	public List<BoardItemVO> wholebest();
-
+	
+	
+	public List<BoardItemVO> reviewbest();
 }
