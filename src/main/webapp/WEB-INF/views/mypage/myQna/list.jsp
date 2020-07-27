@@ -383,7 +383,7 @@ margin-right: 0%;
                   <th>번호</th>    
                   <th>제목</th>   
 
-                  <th>답변여부</th> 
+                  <th>내용</th> 
                   <th>등록일</th>  
                </tr>
             </thead>
@@ -397,11 +397,12 @@ margin-right: 0%;
                <tr>
                   <td><c:out value="${myQna.postingNo }" /></td>
 
-                        <td><a class ='move' href='<c:out value="${myQna.postingNo}"/>'>
+                  <td><a class ='move' href='<c:out value="${myQna.postingNo}"/>'>
                   <c:out value="${myQna.title }" /></a></td>
       
 
-                  <td><c:out value="${myQna.replyBool }" /></td>
+                 <td><c:out value="${myQna.content }" /></td>
+               
                   <td><fmt:formatDate pattern="yyyy/MM/dd"
                         value="${myQna.regDate }" /></td>
                      

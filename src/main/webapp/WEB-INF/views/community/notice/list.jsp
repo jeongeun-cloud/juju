@@ -381,7 +381,7 @@ margin-top: 10px;
                </tr>
             </thead>
                  
-                 <!-- 페이징처리 -->
+             
             <c:forEach items="${notice}" var="notice">
                <tr>
                   <td><c:out value="${notice.postingNo }" /></td>

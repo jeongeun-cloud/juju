@@ -13,6 +13,7 @@ public class BoardFAQVO {
 	private String boardType;
 	private String idNo;
 	private Date regDate;
+	private Date updateDate;
 	
 //	postingNo Varchar2(30 ) NOT NULL,
 //	  title Varchar2(30 ) NOT NULL,
