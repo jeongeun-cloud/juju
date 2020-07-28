@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class BoardItemVO {
 	
+	private int rank;
+	private int orderCnt;
 	private String itemCode;
 	private String itemName;
 	private String itemContent;

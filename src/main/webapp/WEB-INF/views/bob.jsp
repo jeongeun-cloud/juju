@@ -34,13 +34,14 @@
             text-decoration: none;
         }
         a:hover{
-           text-decoration:none;
-           }
+        	text-decoration:none;
+        	}
         li{
             list-style: none;
         }
         .bob_pro{
-           height: 2100px;
+
+        	height: 2100px;
             width: 1000px;
             margin: 30px auto;
 
@@ -151,63 +152,64 @@
                 </div>
                 <div class="bob_pro_li">
                     <c:forEach items="${BestBob}" var="bob">
-            
-                     <section id="pro_container"> 
-                     
-                         <div class="pro_list">
-                             <ul class="pro_list_ul">
-                                 <li class="pro_list_li">
-                                     <div class="pro_module">
-                                     <div class="pro_img_wrap">
-                                         <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
-                                             <img src="/resources/images/default1.png" alt="메인 이미지">
-                                         </a>
-                                     </div>
-                                     <!-- END img_wrap -->
-                                     <div class="txt_wrap">
-                                         <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
-                                             <div class="pro_flag_wrap">
-                                                 <span class="flag"> <c:out value="${bob.itemChr}" /></span>
-                                             </div>
-                                             <!-- END pro_flag_wrap -->
-                                             <div class=tit_info>
-                                                 <span class="info_itemName"> <c:out value="${bob.itemName}" /> </span>
-                                                 <span class="info_idNo"><c:out value="${bob.idNo}" /></span>
-                                             </div>
-                                             <!-- END tit_info -->
-                                             <div class="price_info">
-                                                     <p class="sale">
-                                                         <span class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${bob.price}" />
-                                                             <span class="won">원</span>
-                                                         </span>
-                                                     </p>
-                                                     <p class="normPrice">
-                                                       <c:out value="${bob.normPrice}" />
-                                                       <span class="won">원</span>
-                                                     </p>
-                                             </div>
-                                              </a>
-                                         <div class="cart_btn">
-                                             <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button>
-                                         </div>
-                                     </div>
-                                     <!-- END txt_wrap -->
-                                     
-                                     </div>
-                                     <!-- END pro_moduel  -->
-                                 </li>     
-                             </ul>    
-                         </div>
-                         <!--END pro_list  -->
-                     </section>     
-                      
-                  </c:forEach>
+	         
+							<section id="pro_container"> 
+							
+							    <div class="pro_list">
+							        <ul class="pro_list_ul">
+							            <li class="pro_list_li">
+							                <div class="pro_module">
+							                <div class="pro_img_wrap">
+							                    <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
+							                        <img src="/resources/images/default1.png" alt="메인 이미지">
+							                    </a>
+							                </div>
+							                <!-- END img_wrap -->
+							                <div class="txt_wrap">
+							                	 <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
+							                        <div class="pro_flag_wrap">
+							                            <span class="flag"> <c:out value="${bob.itemChr}" /></span>
+							                        </div>
+							                        <!-- END pro_flag_wrap -->
+							                        <div class=tit_info>
+							                            <span class="info_itemName"> <c:out value="${bob.itemName}" /> </span>
+							                            <span class="info_idNo"><c:out value="${bob.idNo}" /></span>
+							                        </div>
+							                        <!-- END tit_info -->
+							                        <div class="price_info">
+							                                <p class="sale">
+							                                    <span class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${bob.price}" />
+							                                        <span class="won">원</span>
+							                                    </span>
+							                                </p>
+							                                <p class="normPrice">
+							                                  <c:out value="${bob.normPrice}" />
+							                                  <span class="won">원</span>
+							                                </p>
+							                        </div>
+							                  		 </a>
+							                    <div class="cart_btn">
+							                        <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button>
+							                    </div>
+							                </div>
+							                <!-- END txt_wrap -->
+							                
+							                </div>
+							                <!-- END pro_moduel  -->
+							            </li>     
+							        </ul>    
+							    </div>
+							    <!--END pro_list  -->
+							</section>     
+	                   
+	               </c:forEach>
 
                 </div>
                 <!--bob_pro_li  -->
             </div>
             <!--bob_pro  -->
             
+
             <!--후기 베스트 시작  -->
             <div class="bob_pro">
                  <div class="bob_tit" style="background-color:pink">
@@ -215,62 +217,65 @@
                 </div>
                 <div class="bob_pro_li">
                     <c:forEach items="${ReviewBob}" var="bob">
-            
-                     <section id="pro_container"> 
-                     
-                         <div class="pro_list">
-                             <ul class="pro_list_ul">
-                                 <li class="pro_list_li">
-                                     <div class="pro_module">
-                                     <div class="pro_img_wrap">
-                                         <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
-                                             <img src="/resources/images/default1.png" alt="메인 이미지">
-                                         </a>
-                                     </div>
-                                     <!-- END img_wrap -->
-                                     <div class="txt_wrap">
-                                         <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
-                                             <div class="pro_flag_wrap">
-                                                 <span class="flag"> <c:out value="${bob.itemChr}" /></span>
-                                             </div>
-                                             <!-- END pro_flag_wrap -->
-                                             <div class=tit_info>
-                                                 <span class="info_itemName"> <c:out value="${bob.itemName}" /> </span>
-                                                 <span class="info_idNo"><c:out value="${bob.idNo}" /></span>
-                                             </div>
-                                             <!-- END tit_info -->
-                                             <div class="price_info">
-                                                     <p class="sale">
-                                                         <span class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${bob.price}" />
-                                                             <span class="won">원</span>
-                                                         </span>
-                                                     </p>
-                                                     <p class="normPrice">
-                                                       <c:out value="${bob.normPrice}" />
-                                                       <span class="won">원</span>
-                                                     </p>
-                                             </div>
-                                              </a>
-                                         <div class="cart_btn">
-                                             <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button>
-                                         </div>
-                                     </div>
-                                     <!-- END txt_wrap -->
-                                     
-                                     </div>
-                                     <!-- END pro_moduel  -->
-                                 </li>     
-                             </ul>    
-                         </div>
-                         <!--END pro_list  -->
-                     </section>     
-                      
-                  </c:forEach>
+	         
+							<section id="pro_container"> 
+							
+							    <div class="pro_list">
+							        <ul class="pro_list_ul">
+							            <li class="pro_list_li">
+							                <div class="pro_module">
+							                <div class="pro_img_wrap">
+							                    <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
+							                        <img src="/resources/images/default1.png" alt="메인 이미지">
+							                    </a>
+							                </div>
+							                <!-- END img_wrap -->
+							                <div class="txt_wrap">
+							                	 <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
+							                        <div class="pro_flag_wrap">
+							                            <span class="flag"> <c:out value="${bob.itemChr}" /></span>
+							                        </div>
+							                        <!-- END pro_flag_wrap -->
+							                        <div class=tit_info>
+							                            <span class="info_itemName"> <c:out value="${bob.itemName}" /> </span>
+							                            <span class="info_idNo"><c:out value="${bob.idNo}" /></span>
+							                        </div>
+							                        <!-- END tit_info -->
+							                        <div class="price_info">
+							                                <p class="sale">
+							                                    <span class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${bob.price}" />
+							                                        <span class="won">원</span>
+							                                    </span>
+							                                </p>
+							                                <p class="normPrice">
+							                                  <c:out value="${bob.normPrice}" />
+							                                  <span class="won">원</span>
+							                                </p>
+							                        </div>
+							                  		 </a>
+							                    <div class="cart_btn">
+							                        <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button>
+							                    </div>
+							                </div>
+							                <!-- END txt_wrap -->
+							                
+							                </div>
+							                <!-- END pro_moduel  -->
+							            </li>     
+							        </ul>    
+							    </div>
+							    <!--END pro_list  -->
+							</section>     
+	                   
+	               </c:forEach>
+
 
                 </div>
+                <!--bob_pro_li  -->
             </div>
             <!--bob_pro  -->
             
+
             
         </div>
         <!--bob_wrap  -->
