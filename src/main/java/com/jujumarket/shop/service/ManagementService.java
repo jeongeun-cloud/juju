@@ -11,7 +11,7 @@ public interface ManagementService {
     ///searchorder /shipping
 	//  public ManagementVO get(String orderCode); 상세보기 보류
 	
-	public boolean modify(String shippingCode); //송장번호수정
+	public boolean shippingupdate(ManagementVO vo); //송장번호수정
 	
 	/* public ManagementVO get(String orderCode); */
 		 
