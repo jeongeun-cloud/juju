@@ -20,6 +20,7 @@ import com.jujumarket.main.service.ReviewService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import message.messageService;
 
 /**
  * Handles requests for the application home page.
@@ -34,6 +35,7 @@ public class HomeController {
 	
 	private MainIndexService mainservice;
 	private ReviewService reviewService;
+	//private messageService mservice;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -49,6 +51,7 @@ public class HomeController {
 		
 		model.addAttribute("mainReview", reviewService.mainReview());
 		
+		//mservice.sendAlarm();
 
 		
 		return "/main/index";

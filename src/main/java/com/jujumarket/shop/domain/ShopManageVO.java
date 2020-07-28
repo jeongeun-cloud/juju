@@ -6,14 +6,16 @@ import lombok.Data;
 public class ShopManageVO {
 	
 	private String shopName;
-	private int todayOrderTotal;
-	private int prevOrderTotal;
-	private int todayOrderCnt;
-	private int prevOrderCnt;
-	private int todayRefundTotal;
-	private int prevRefundTotal;
-	private int todayRefundCnt;
-	private int prevRefundCnt;
+	private Integer todayOrderTotal;
+	private Integer prevOrderTotal;
+	private Integer todayOrderCnt;
+	private Integer prevOrderCnt;
+	private Integer todayRefundTotal;
+	private Integer prevRefundTotal;
+	private Integer todayRefundCnt;
+	private Integer prevRefundCnt;
+	
+	
 	
 	public String getShopName() {
 		return shopName;

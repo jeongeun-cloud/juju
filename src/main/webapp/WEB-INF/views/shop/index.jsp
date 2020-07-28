@@ -20,8 +20,8 @@
         
         <div class="admi_manager">
             <div class="admi_btn_wrap">
-                <input type="button" value="상품관리">
-                <input type="button" value="주문관리">
+                <input type="button" value="상품관리" >
+                <input type="button" value="주문관리" onClick="location.href='/shop/sales'">
             </div>
 
             <div class="quick_wrap">
