@@ -37,7 +37,8 @@
             width: 20%;
             height : 100%;
             /* 메뉴바 전체 배경색 */
-            background-color: rgb(0,158,219);
+            /* background-color: rgb(0,158,219); */
+            background-color : cornsilk;
             
             color: white;
 

@@ -6,6 +6,6 @@ import com.jujumarket.admin.domain.BannerVO;
 
 public interface EventService {
 	
-	public List<BannerVO> getEvent();
+	public List<BannerVO> getBanner(String bannerType);
 
 }

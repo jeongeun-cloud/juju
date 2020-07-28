@@ -182,6 +182,12 @@
       } 
       
       
+        #basketItemImg {
+    
+    	width: 200px;
+    
+    }
+    
       
        
 
@@ -269,7 +275,7 @@
 
             <c:forEach var="item" items="${itemList}">
                <tr cellpadding="40" align=center>
-                  <td><c:out value="${item.itemImg1}"></c:out></td>
+                  <td><img id="basketItemImg" src="<c:out value="${item.itemImg1}"/>"></td>
                   <td><c:out value="${item.itemName}"></c:out></td>
                   <td><c:out value="${item.normPrice}"></c:out></td>
                   <td><c:out value="${item.itemNum}"></c:out></td>
