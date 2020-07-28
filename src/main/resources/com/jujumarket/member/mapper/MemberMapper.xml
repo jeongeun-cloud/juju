@@ -41,12 +41,12 @@
    
    </select>
    
-	<select id="getPwdByIdNo" resultType="String">
-		select pwd
-		from t_member
-		where idNo = #{idNo}
-	
-	</select>
+   <select id="getPwdByIdNo" resultType="String">
+      select pwd
+      from t_member
+      where idNo = #{idNo}
+   
+   </select>
    
    
    <select id="getPwdByEmailAccount" resultType="String">
@@ -77,8 +77,8 @@
    </update>
    
    <delete id="deleteMember">
-   	delete t_member
-	where idNo = #{idNo}   
+      delete t_member
+   where idNo = #{idNo}   
    
    </delete>
 

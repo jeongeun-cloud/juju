@@ -10,25 +10,39 @@
 </select> -->
 
 <select id="searchordergetList" resultType="com.jujumarket.shop.domain.ManagementVO" >
-	<![CDATA[
-		 select h.ordercode, h.orderstat, o.totalpay, o.orderdate, i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver 
+	
+select h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
+i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
+,o.itemNum,i.price
 from t_order_history h, t_order_info o, t_item i, t_delivery d
+
+
 where h.ordercode = o.ordercode
-and h.itemCode = i.itemCode
 and d.ordercode = h.orderCode
-	]]>
+
+and o.itemCode = i.itemCode
+and h.itemCode = i.itemCode
+and h.baskId = d.baskId
+and h.baskid = o.baskid
+
 </select>
 
 
 
 <select id="shippinggetList" resultType="com.jujumarket.shop.domain.ManagementVO">
 	<![CDATA[
-		 select h.itemCode,h.ordercode, h.orderstat, o.totalpay, o.orderdate, i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver 
+select h.itemCode,h.ordercode, h.orderstat, o.totalprice, o.orderdate, i.itemName,
+d.shippingCode, d.receivAddr, d.receivContact, d.receiver
+,o.itemNum,i.price 
 from t_order_history h, t_order_info o, t_item i, t_delivery d
+
 where h.ordercode = o.ordercode
-and h.itemCode = i.itemCode
 and d.ordercode = h.orderCode
 
+and o.itemCode = i.itemCode
+and h.itemCode = i.itemCode
+and h.baskId = d.baskId
+and h.baskid = o.baskid
 	]]>
 </select>
 
@@ -43,10 +57,10 @@ where o.itemcode = i.itemcode
 	
 </select>
 
- <update id="update">
+<update id="shippingupdate">
 update t_delivery set 
-shippingCode = '1234'
-where orderCode = '1';
+shippingCode = #{shippingCode}
+where orderCode = #{orderCode}
 </update>
 <!-- <select id="read" resultType ="com.jujumarket.shop.mapper.ManagementVO">
 	

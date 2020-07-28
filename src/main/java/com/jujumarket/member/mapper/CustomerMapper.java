@@ -9,6 +9,8 @@ import com.jujumarket.member.domain.MemberVO;
 public interface CustomerMapper {
 	
 	public void insert(CustomerVO customer);
+	
+	public void insertJoinInfo(CustomerVO customer);
 	//회원정보 수정 시 기존정보 가져오기
 	public CustomerVO getCustomerInfoByIdNo(String idNo);
 
@@ -19,5 +21,6 @@ public interface CustomerMapper {
 	public int insertDeleteInfo(MemberHistoryVO memberHistory);
 	//id찾기
 	public List<String> getEmailList(MemberVO member);
+
 
 }

@@ -21,10 +21,10 @@ public class ManagementServiceImpl implements ManagementService {
 	private ManagementMapper mapper;
 
 	@Override
-	public boolean modify(String shippingCode) {
+	public boolean shippingupdate(ManagementVO vo) {
 		// TODO Auto-generated method stub
 		
-		return mapper.update(shippingCode) == 1;
+		return mapper.shippingupdate(vo) == 1;
 	}
 
 	

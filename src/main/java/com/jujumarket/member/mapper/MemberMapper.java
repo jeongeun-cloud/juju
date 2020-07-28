@@ -10,11 +10,11 @@ public interface MemberMapper {
 	
 	public void insertCustomer(CustomerVO customer);
 
-	public void insertJoinInfo(CustomerVO customer);
+//	public void insertJoinInfo(CustomerVO customer);
 
 	public void insertSeller(SellerVO seller);
 
-	public void insertJoinInfo(SellerVO seller);
+//	public void insertJoinInfo(SellerVO seller);
 	//세션정보에 id넣기
 	public String getIdNoByEmailAccount(String emailAccount);
 	//비밀번호 받아서 회원정보 삭제

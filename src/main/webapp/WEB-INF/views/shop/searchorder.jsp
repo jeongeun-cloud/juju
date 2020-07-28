@@ -59,42 +59,53 @@ table, td, th {
                         <th>송장번호</th>
                          <th>주문상태</th>
                         <th>상품명</th>
-                        <th>고객명</th>
-                        <th>주문상태</th>
-                        <th>결제금액</th>
-                        <th>연락처</th>
+                        <th>상품수량</th>
+                        <th>판매가</th>
                         
+                        <th>결제금액</th>
+                        <th>고객명</th>
+                        <th>연락처</th>
+                        <th>주소</th>
+                        
+  
+                        
+   
                       
                     </tr>
                   </thead>
                   
+                  
+                  
               <c:forEach items="${list}" var="list">
-              <c:forEach items="${price}" var="price">
+        
                      <tr>
-  
+    
                <tr>
+               
                   <td><input type="checkbox"></td>
                   <td><fmt:formatDate pattern="yyyy/MM/dd"
                         value="${list.orderDate }" /></td>
                   <td><c:out value="${list.orderCode }" /></td>
+                  <td><c:out value="${list.shippingCode }" /></td>
                    <td><c:out value="${list.orderStat }" /></td>
                   
-                    <td><c:out value="${list.shippingCode }" /></td>   
-                     <td><c:out value="${list.itemName }" /></td>  
-                     <td><c:out value="${list.itemCode }" /></td>  
+                    <td><c:out value="${list.itemName }" /></td>   
+                     <td><c:out value="${list.itemNum }" /></td>  
+                     <td><c:out value="${list.price }" /></td>  
                      
-                     <td><c:out value="${price.price }" /></td>  
-                     <td><c:out value="${price.itemCode}" /></td>  
+         
                     
-					<td><c:out value="${list.totalPay}"/></td>
+					<td><c:out value="${list.totalPrice}"/></td>
                       <td><c:out value="${list.receiver }" /></td>  
                         <td><c:out value="${list.receivContact }" /></td>  
                    <td><c:out value="${list.receivAddr }" /></td>
                         
                     </tr> 
+                                                                              
+
                     
                   </c:forEach>
-                  </c:forEach>
+            
                   </table>
 
       </form>	
