@@ -142,7 +142,7 @@
                             </div>
                             <!-- 분류코드 저장하기 위한 hidden값 -->
                             <input type="hidden" name="classCode" id="classCode" >
-                            <input type="hidden" name="idNo" id="idNo" value='<c:out value="${sessionMember}"/>' >
+                            <input type="hidden" name="idNo" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
                             
                             <input type="text" name="itemName" id="itemName" placeholder="상품명을 입력하세요." style="width: 350px;">
                             <div class="container">

@@ -15,25 +15,21 @@
    border: 1px;
    height: 200px;
 }
-
 li {
    /* 앞에 점 없앰 */
    list-style: none;
    color: black;
 }
-
 .head_logo {
    /* 가운데 정렬 */
    display: flex;
    justify-content: center;
    padding-bottom: 20px;
 }
-
 .head_util {
    font-size: 15px;
    margin-top: 15px;
 }
-
 .util_wrap ul {
    list-style-type: none;
    margin: 0;
@@ -44,11 +40,9 @@ li {
    justify-content: flex-end;
    padding-right: 60px;
 }
-
 .util_wrap ul li {
    float: left;
 }
-
 .util_wrap li a, .subMemu {
    display: inline-block;
    color: black;
@@ -56,15 +50,12 @@ li {
    padding: 14px 16px;
    text-decoration: none;
 }
-
 .util_wrap li a:hover, .dropdown_sub:hover .subMemu {
    color: #ffc30b;
 }
-
 .util_wrap li.dropdown_sub {
    display: inline-block;
 }
-
 .dropdown_sub .subMemu-content {
    display: none;
    position: absolute;
@@ -76,7 +67,6 @@ li {
    z-index: 99;
    font-size: 15px;
 }
-
 .dropdown_sub .subMemu-content a {
    color: black;
    padding: 12px 16px;
@@ -84,12 +74,10 @@ li {
    display: block;
    text-align: left;
 }
-
 .subMemu-content a:hover {
    background-color: white;
    border-radius: 10px;
 }
-
 .dropdown_sub:hover .subMemu-content {
    display: block;
 }
@@ -106,17 +94,19 @@ li {
                      <li><a href="/member/chooseMemberType">회원가입</a></li>
                   </c:if>
                   <c:if test="${!empty sessionMember}">
-                     <li><a>${sessionMember} 님 안녕하세요!</a></li>
+                     <li><a>${sessionMember.memName} 님 안녕하세요!</a></li>
                      <li><a href="/member/logout">로그아웃</a></li>
                   </c:if>
                   <li class="dropdown_sub"><a href="#" class="subMemu">마이페이지</a>
                      <div class="subMemu-content">
                         <a href="#">쇼핑 이용 정보</a> <a href="#">게시판 이용내역</a>
                         <c:choose>
-                           <c:when test="${fn:substring(sessionMember, 0, 1) eq 'c'}">
+                           <%-- <c:when test="${fn:substring(sessionMember, 0, 1) eq 'c'}"> --%>
+                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
                               <a href="/mypage/customerInfoModify">개인 정보 수정</a>
                            </c:when>
-                           <c:when test="${fn:substring(sessionMember, 0, 1) eq 's'}">
+<%--                            <c:when test="${fn:substring(sessionMember, 0, 1) eq 's'}"> --%>
+                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
                               <a href="/mypage/sellerInfoModify">개인 정보 수정</a>
                            </c:when>
                         </c:choose>
@@ -130,10 +120,12 @@ li {
                         </div>
                      </li>
                      <c:choose>
-                        <c:when test="${fn:substring(sessionMember, 0, 1) eq 's'}">
+<%--                         <c:when test="${fn:substring(sessionMember, 0, 1) eq 's'}"> --%>
+                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
                            <li><a href="/shop/">상인 홈</a></li>
                         </c:when>
-                        <c:when test="${fn:substring(sessionMember, 0, 1) eq 'a'}">
+<%--                         <c:when test="${fn:substring(sessionMember, 0, 1) eq 'a'}"> --%>
+                           <c:when test="${sessionMember.memCode eq 'ADMIN'}">
                            <li><a href="#">관리자 홈</a></li>
                         </c:when>
                      </c:choose>

@@ -8,9 +8,9 @@ import com.jujumarket.member.domain.SellerVO;
 
 public interface SellerMapper {
 	public void insert(SellerVO seller);
-	//회원정보수정
+	
 	public void insertJoinInfo(SellerVO seller);
-
+	//회원정보수정
 	public SellerVO getSellerInfoByIdNo(String idNo);
 	
 	public int modifySellerInfo(MemberVO member);
