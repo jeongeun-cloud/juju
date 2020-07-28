@@ -10,6 +10,10 @@ public interface BannerMapper {
 	
 	public void insertSelectKey(BannerVO vo);
 	
-	public List<BannerVO> getEvent();
+	public List<BannerVO> getBanner(String bannerType);
+	
+	public int delete(String imgNo);
+	
+	public BannerVO read(String imgNo);
 
 }

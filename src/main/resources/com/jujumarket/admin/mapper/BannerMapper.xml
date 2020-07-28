@@ -3,9 +3,9 @@
 <mapper namespace="com.jujumarket.admin.mapper.BannerMapper">
 
    
-   <select id="getEvent" resultType="com.jujumarket.admin.domain.BannerVO">
+   <select id="getBanner" resultType="com.jujumarket.admin.domain.BannerVO">
       <![CDATA[
-      		select * from t_img where bannerType='event' order by regDate DESC
+      		select * from t_img where bannerType=#{bannerType} order by regDate DESC
       ]]>
    </select>
 
@@ -26,5 +26,9 @@
 	<delete id="delete">
 		delete from t_img where imgNo = #{imgNo}
 	</delete>
+	
+	<select id="read" resultType="com.jujumarket.admin.domain.BannerVO">
+		select * from t_img where imgNo = #{imgNo}
+	</select>
 
 </mapper>

@@ -1,5 +1,7 @@
 package com.jujumarket.admin.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,27 @@ public class BannerServiceImpl implements BannerService {
 		log.info("register banner... " + vo);
 		
 		mapper.insertSelectKey(vo);
+	}
+	
+	@Override
+	public List<BannerVO> getBanner(String bannerType) {
+		log.info("Banner 불러오기...");
+		
+		return mapper.getBanner(bannerType);
+	}
+
+	@Override
+	public int remove(String imgNo) {
+		log.info("remove.... " + imgNo);
+		
+		return mapper.delete(imgNo);
+	}
+
+	@Override
+	public BannerVO get(String imgNo) {
+		log.info("get...." + imgNo);
+		
+		return mapper.read(imgNo);
 	}
 
 }

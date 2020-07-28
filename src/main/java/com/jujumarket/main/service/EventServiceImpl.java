@@ -21,10 +21,10 @@ public class EventServiceImpl implements EventService {
 	private BannerMapper mapper;
 
 	@Override
-	public List<BannerVO> getEvent() {
-		log.info("event Banner 불러오기...");
+	public List<BannerVO> getBanner(String bannerType) {
+		log.info("Banner 불러오기...");
 		
-		return mapper.getEvent();
+		return mapper.getBanner(bannerType);
 	}
 
 }
