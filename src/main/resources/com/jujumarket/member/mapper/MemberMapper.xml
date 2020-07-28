@@ -25,13 +25,7 @@
       insert into t_member (idNo, pwd, emailAccount, memName, memCode) 
       values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'SELLER')
    </insert>
-<!--    
-   <select id ="read" resultType="com.jujumarket.member.domain.MemberVO">
-      select idNo
-      from t_member
-      where emailAccount = #{emailAccount}
-   
-   </select> -->
+
 
    <select id ="getIdNoByEmailAccount" resultType="String">
       select idNo
@@ -46,6 +40,14 @@
       where emailAccount = #{emailAccount}
    
    </select>
+   
+	<select id="getPwdByIdNo" resultType="String">
+		select pwd
+		from t_member
+		where idNo = #{idNo}
+	
+	</select>
+   
    
    <select id="getPwdByEmailAccount" resultType="String">
       select pwd
@@ -65,13 +67,20 @@
    
    </select>
    
-   <update id="update">
+   <update id="modifyMemberInfo">
       update t_member
-      set memAddr = #{memAddr},
-      postCode = #{postCode},
-      pwd = #{pwd}
+      set 
+      memName = #{memName},
+      memAddr = #{memAddr}
+      where idNo = #{idNo}
    
    </update>
+   
+   <delete id="deleteMember">
+   	delete t_member
+	where idNo = #{idNo}   
+   
+   </delete>
 
 
    

@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.jujumarket.admin.service.BannerService;
 import com.jujumarket.main.domain.BoardItemVO;
 import com.jujumarket.main.service.MainIndexService;
 import com.jujumarket.main.service.ReviewService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import net.sf.json.JSONArray;
 
 /**
  * Handles requests for the application home page.
@@ -34,6 +36,7 @@ public class HomeController {
 	
 	private MainIndexService mainservice;
 	private ReviewService reviewService;
+	private BannerService bannerService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -47,33 +50,13 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		model.addAttribute("RealNew", mainservice.RealNew());
 		
-		model.addAttribute("mainReview", reviewService.mainReview());
-		
-//		List<BoardItemVO> list = mainservice.RealNew();
-//		System.out.println(list.toString());
-		
-//		BoardItemVO vo = new BoardItemVO();
-//		vo.setItemName("gggg");
-//		
-//		List<BoardItemVO> list = new ArrayList<>();
-//		
-//		list.add(vo);
-//		System.out.println(list.toString());
-//		
-//		model.addAttribute("RealNew" , list);
-
+		model.addAttribute("mainReview", reviewService.mainReview());			// 메인 리뷰
+		model.addAttribute("advertise", bannerService.getBanner("advertise"));	// 중간 광고
+		model.addAttribute("mainImg", bannerService.getBanner("main"));			// 메인 슬라이더
 		
 		return "/main/index";
 	}
 	
-	/*
-	 * @RequestMapping(value = "/", method = RequestMethod.GET) public String
-	 * newlist(Model model) { log.info("실시간 상품 controller...");
-	 * model.addAttribute("RealNew" , mainservice.RealNew());
-	 * 
-	 * return "RealNew";
-	 * 
-	 * }
-	 */
+
 	
 }

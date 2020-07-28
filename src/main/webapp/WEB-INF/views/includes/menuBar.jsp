@@ -84,7 +84,7 @@
 
     display: table;
     float: left;
-    margin-left: 15%;
+    margin-left: 25%;
     /* width: 1300px; */
     }
     .dropdown_each_menu{

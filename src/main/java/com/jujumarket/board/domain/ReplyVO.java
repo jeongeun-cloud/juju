@@ -9,11 +9,16 @@ import lombok.Setter;
 @Data
 public class ReplyVO {
 	
-	private String idNo;
-	private String postingNo;
-	private String replyContent;
 	private String replyNo;
+	private String replyContent;
 	private Date regDate;
+	private Date updateDate;
+	
+	private String postingNo;
+	
+	
+	private String idNo;
+	
 	
 	
 	

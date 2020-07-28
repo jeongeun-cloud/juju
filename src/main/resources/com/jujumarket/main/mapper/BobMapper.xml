@@ -20,11 +20,30 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
   ROWNUM<10
     
   ]]> 
-  
-<!--     select t.itemName ,t.itemCode, t.price,t.normPrice, t.idNo,t.classCode
-    from t_order_history h
-    join t_item t
-    on t.itemCode= h.itemCode -->
     
 </select>
+
+<select id="reviewbest" resultType="com.jujumarket.main.domain.BoardItemVO">
+
+ <![CDATA[
+select rl.*
+from(
+	select r.itemCode, t.itemChr, t.itemName, t.price, t.normPrice
+	from (
+	select  itemcode ,avg(score) reviewAvg , count(itemCode) reviewCnt
+	from t_review
+	group by itemcode
+	order by reviewAvg DESC , reviewCnt DESC )r , t_item t
+	where r.itemCode= t.itemCode) rl
+where 
+]]>
+	 <![CDATA[
+ 
+ 	 ROWNUM<10
+	
+	 ]]>
+
+</select>
+
+
 </mapper>

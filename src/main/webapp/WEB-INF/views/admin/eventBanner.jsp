@@ -13,6 +13,61 @@
     <title>Admin Page</title>
 <%-- <%@include file="../includes/header.jsp" %> --%>
 <style>
+		li{
+       list-style: none;
+       
+   	}
+   	body{
+       color: #303030;
+   	}
+   	a{
+       text-decoration: none;
+       color: #303030;
+       font-size: 17px;
+   	}
+   	.banner_content{
+       width: 1300px;
+       height: 1000px;
+       margin:0 auto;
+       border: solid;
+   	}
+   	.banner_wrap{
+      position: relative;
+      display: inline-block;
+      padding-top: 30px;
+      background-color: cornsilk;
+   	}
+   
+   	.side{
+       width: 200px;
+       height: 500px;
+       background-color: white;
+       float: left;
+       margin-right: 90px;
+       border:solid;
+       
+   	}
+   	.banner_main{
+       float:  right;
+       width: 1000px;
+       height: 1000px;
+       background-color: white;
+   	} 
+   	.banner_side_tit{
+       padding-top: 12px;
+       padding-bottom:12px ;
+       text-align: center;
+       width: 100%;
+       background-color: #ffc30b;
+       font-size: 20px;
+       font-weight: 900;
+   	}
+   	
+   .banner_main .banner_tit{
+       font-size: 30px;
+       margin-bottom:50px;
+
+   }
 	#activeImg img{
 		height : 170px;
 		width : 700px;
@@ -29,9 +84,10 @@
                     </div>
                     <div class="banner_side_menu">
                         <ul class="banner_menu">
-                            <li><a href='#'><i class="fa fa-check" ></i>메인 배너</a></li>
-                            <li><a href='#'><i class="fa fa-check" ></i>제철 상품</a></li>
-                            <li><a href='#'><i class="fa fa-check" ></i>이벤트</a></li>
+                            <li><a href='/admin/mainBanner'><i class="fa fa-check" ></i>메인 배너</a></li>
+                            <li><a href='/admin/advertise'><i class="fa fa-check" ></i>중간 광고</a></li>
+                            <li><a href='/admin/seasonalMagazine'><i class="fa fa-check" ></i>제철 페이지</a></li>
+                            <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i>이벤트</a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,12 +96,12 @@
 
             <div class="banner_main">
                 <div class="banner_tit">
-                    <p><b><i class="fa fa-list-alt"></i>배너 관리</b></p>
+                    <p><b><i class="fa fa-list-alt"></i>이벤트 등록</b></p>
                 </div>
                 <p style='opacity:0.75;'>이미지 규격 : 1000*220</p>
                 <div class="uploadDiv">
                 	<input type="file" name="uploadFile" multiple>
-                	<button id="uploadBtn">등록하기</button>
+                	<!-- <button id="uploadBtn">등록하기</button> -->
                 </div>
                 <div class="uploadResult">
                 	<ul>
@@ -57,7 +113,7 @@
                 <div id="activeImg">
                 	<c:forEach items="${event }" var="event">
 		           		<img class="banner" alt="" src='/resources/banner/<c:out value="${event.imgPath}"/>/<c:out value="${event.uuid}"/>_<c:out value="${event.imgName}"/>' >
-		           		<button>삭제</button>
+		           		<button id='removeBtn' data-oper='<c:out value="${event.imgNo}"/>'>삭제</button>
 		           	</c:forEach>
                 </div>
              </div>
@@ -68,7 +124,7 @@
     <!-- banner_content -->
 
     <script type="text/javascript">
-    	$(document).ready(function() {
+    	$(document).ready(function(e) {
     		
     		var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG|JPG)$");
     		var maxSize = 5242880;
@@ -88,7 +144,7 @@
     		
     		var cloneObj = $(".uploadDiv").clone();
     		
-    		$("#uploadBtn").on("click", function(e) {
+    		$("input[type='file']").change(function(e) {
     			var formData = new FormData();
     			var inputFile = $("input[name='uploadFile']");
     			var files = inputFile[0].files;
@@ -112,25 +168,83 @@
     				success : function(result) {
     					console.log(result);
     					
+    					alert("정상적으로 등록되었습니다.");
+    					
     					showUploadedFile(result);
     					
-    					$(".uploadDiv").html(cloneObj.html());
+    					//$(".uploadDiv").html(cloneObj.html());
     				}
     			}); // $.ajax
-    		}); // uploadBtn click event
+    		}); // 
     		
-    		var uploadResult = $(".uploadResult ul");
     		function showUploadedFile(uploadResultArr) {
+    			if(!uploadResultArr || uploadResultArr.length == 0) {return; }
+    			
     			var str = "";
+	    		var uploadUL = $(".uploadResult ul");
     			
     			$(uploadResultArr).each(function(i, obj) {
 	    			var fileCallPath = encodeURIComponent(obj.imgPath + "/" + obj.uuid + "_" + obj.imgName);
-    				str += "<li><img src='/admin/display?imgName=" + fileCallPath + "'></li>";
+	    			str += "<li><div>";
+	    			str += "<span>" + obj.imgName + "</span>";
+	    			str += "<button type='button' data-no='"+ obj.imgNo +"' data-file=\'" + fileCallPath + "\' data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+    				str += "<img src='/admin/display?imgName=" + fileCallPath + "'>";
+    				str += "</div></li>";
     			});
     			
-    			
-    			uploadResult.append(str);
+    			uploadUL.append(str);
     		}
+    		
+    		$(".uploadResult").on("click", "button", function(e) {
+    			var targetFile = $(this).data("file");
+    			var type = $(this).data("type");
+    			var imgNo = $(this).data("no");
+    			
+    			var targetLi = $(this).closest("li");
+    			
+    			$.ajax({
+    				url : '/admin/deleteFile',
+    				data : {fileName : targetFile, type : type, bannerType : 'event', imgNo : imgNo},
+    				dataType : 'text',
+    				type : 'POST',
+    				success : function(result) {
+    					if(result == 'deleted') {
+    						alert("정상적으로 삭제되었습니다.");
+    						location.reload();
+    					}else {
+    						alert("오류가 생겼습니다. 잠시 후 다시 시도해주세요.");
+    					}
+    					targetLi.remove();
+    				}
+    			});	// $.ajax
+    	        
+    		}); // uploadResult on click
+    		
+    		$("#activeImg").on("click","button[id='removeBtn']", function(e){
+    	        var target = e.target;
+    	        var dataFormat = $(target).closest("button");
+    	        var imgNo = dataFormat.data("oper");
+    	        
+    	        var result = confirm("정말로 삭제하시겠습니까? 삭제하면 메인 화면에도 반영됩니다.");
+    	        if (result) {
+	    	        $.ajax({
+	    				url : '/admin/remove',
+	    				data : {imgNo : imgNo},
+	    				dataType : 'text',
+	    				type : 'POST',
+	    				success : function(result) {
+	    					if(result == 'deleted') {
+	    						alert("정상적으로 삭제되었습니다.");
+	    						location.reload();
+	    					}else {
+	    						alert("오류가 생겼습니다. 잠시 후 다시 시도해주세요.");
+	    					}
+	    				}
+	    			});	// $.ajax
+    	        }else {
+    	        	return false;
+    	        }
+    		});
     	});
 	</script>
 </body>

@@ -2,6 +2,8 @@ package com.jujumarket.admin.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,47 +41,49 @@ public class BannerContoller {
 
 	private ServletContext servletContext;
 	private BannerService service;
-	private EventService eventService;
-	
+
+	// 배너 관리 겟 매핑
 	@GetMapping("/eventBanner")
-	public void banner(Model model) {
+	public void eventBanner(Model model) {
 		log.info("eventBanner........");
 		
-		model.addAttribute("event", eventService.getEvent());
+		String bannerType = "event";
+		model.addAttribute("event", service.getBanner(bannerType));
 	}
 	
-	private String getFolder() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	@GetMapping("/advertise")
+	public void advertise(Model model) {
+		log.info("advertise........");
 		
-		Date date = new Date();
-		
-		String str = sdf.format(date);
-		
-		return str.replace("-", File.separator);
+		String bannerType = "advertise";
+		model.addAttribute("advertise", service.getBanner(bannerType));
 	}
 	
-//	이미지 파일 타입 확인 메서드
-//	private boolean checkImageType(File file) {
-//		try {
-//			String contentType = Files.probeContentType(file.toPath());
-//			
-//			return contentType.startsWith("image");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return false;
-//	}
+	@GetMapping("/mainBanner")
+	public void mainBanner(Model model) {
+		log.info("mainBanner........");
+		
+		String bannerType = "main";
+		model.addAttribute("main", service.getBanner(bannerType));
+	}
 	
-	@PostMapping(value = "/eventBanner", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ResponseBody
-	public ResponseEntity<List<BannerVO>> uploadBanner(MultipartFile[] uploadFile) {
+	@GetMapping("/seasonalMagazine")
+	public void seasonalMagazine(Model model) {
+		log.info("eventBanner........");
+		
+		String bannerType = "seasonal";
+		model.addAttribute("seasonal", service.getBanner(bannerType));
+	}
+	
+	// 파일 업로드 중복코드 메서드
+	public List<BannerVO> imgSave(MultipartFile[] uploadFile, String bannerType) {
+		
 		List<BannerVO> list = new ArrayList<>();
 		String uploadFolder = servletContext.getRealPath("/resources/banner");
 		
-		System.out.println(uploadFolder + " 업로드 패스");
+		System.out.println("업로드 경로 " + uploadFolder);
 		
-		String uploadFolderPath = getFolder();
+		String uploadFolderPath = File.separator + bannerType;
 		
 		File uploadPath = new File(uploadFolder, uploadFolderPath);
 		log.info("upload path : " + uploadPath);
@@ -106,7 +110,7 @@ public class BannerContoller {
 				
 				vo.setUuid(uuid.toString());
 				vo.setImgPath(uploadFolderPath);
-				vo.setBannerType("event");
+				vo.setBannerType(bannerType);
 				
 				vo.setIdNo("임시idNo");
 				service.register(vo);
@@ -117,9 +121,47 @@ public class BannerContoller {
 				log.error(e.getMessage());
 			}
 		}
+		return list;
+	}
+	
+	// 이벤트 배너
+	@PostMapping(value = "/eventBanner", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BannerVO>> uploadBanner(MultipartFile[] uploadFile) {
+		
+		List<BannerVO> list = imgSave(uploadFile, "event");
+		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
+	// 중간 광고 
+	@PostMapping(value = "/advertise", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BannerVO>> advertise(MultipartFile[] uploadFile) {
+		List<BannerVO> list = imgSave(uploadFile, "advertise");
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	// 메인 슬라이드 배너
+	@PostMapping(value = "/mainBanner", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BannerVO>> mainBanner(MultipartFile[] uploadFile) {
+		List<BannerVO> list = imgSave(uploadFile, "main");
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	// 제철 페이지
+	@PostMapping(value = "/seasonalMagazine", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BannerVO>> seasonalMagazine(MultipartFile[] uploadFile) {
+		List<BannerVO> list = imgSave(uploadFile, "seasonal");
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	// 올린 후 보이기 
 	@GetMapping("/display")
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String imgName) {
@@ -135,6 +177,57 @@ public class BannerContoller {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	// 파일 삭제 중복코드 메서드
+	public boolean removeImg(String fileName) {
+		File file;
+		String filePath = servletContext.getRealPath("/resources/banner");
+		
+		try {
+			file = new File(filePath + URLDecoder.decode(fileName, "UTF-8"));
+			file.delete();
+			
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	// 올린 후 삭제
+	@PostMapping("/deleteFile")
+	@ResponseBody
+	public ResponseEntity<String> deleteFile(String fileName, String type, String bannerType, String imgNo) {
+		log.info("deleteFile : " + fileName);
+		
+		boolean deleteFile = removeImg(fileName);
+		
+		if(!deleteFile) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		service.remove(imgNo);
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+	
+	// 이미 올라간 배너 삭제
+	@PostMapping("/remove")
+	@ResponseBody
+	public ResponseEntity<String> remove(String imgNo) {
+		
+		BannerVO vo = new BannerVO();
+		vo = service.get(imgNo);
+
+		String fileName = vo.getImgPath() + "/" + vo.getUuid() + "_" + vo.getImgName();
+		
+		boolean deleteFile = removeImg(fileName);
+		
+		if(!deleteFile) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		service.remove(imgNo);
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 	
 }

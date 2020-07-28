@@ -6,12 +6,15 @@ import lombok.Data;
 public class BasketVO {
 	
 	private String baskId;
-	private int itemNum;
+	private Integer itemNum;
 	private String idNo;
 	private String itemCode;
 	
 	private String itemName;
 	private String itemImg1;
 	private int price;
+	
+	private int normPrice;
+	
 
 }

@@ -25,7 +25,7 @@ SELECT *
 FROM t_basket b
 LEFT JOIN t_item i
 ON b.itemcode = i.itemcode
-WHERE b.idNo = 'cus000001'
+WHERE b.idNo = #{id}
 ORDER BY baskId
 ]]>
 </select>

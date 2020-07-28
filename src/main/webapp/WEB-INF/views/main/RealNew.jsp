@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+
+<%@include file="../includes/basketSlide.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,6 +116,14 @@
             margin: 40px 0 0 25px;
             min-height: 550px;
         } 
+        
+        
+        
+        
+        
+        
+        
+        
     </style>
 </head>
 <body>
@@ -125,13 +137,13 @@
 							            <li class="pro_list_li">
 							                <div class="pro_module">
 							                <div class="pro_img_wrap">
-							                    <a href="#" class="conts">
+							                   <a href="/product/item?itemCode=<c:out value='${realnew.itemCode}'/>" class="conts">
 							                        <img src="/resources/images/default1.png" alt="메인 이미지">
 							                    </a>
 							                </div>
 							                <!-- END img_wrap -->
 							                <div class="txt_wrap">
-							                	 <a href="#" class="conts">
+							                	 <a href="/product/item?itemCode=<c:out value='${realnew.itemCode}'/>" class="conts">
 							                        <div class="pro_flag_wrap">
 							                            <span class="flag"> <c:out value="${realnew.itemChr}" /></span>
 							                        </div>
@@ -143,7 +155,7 @@
 							                        <!-- END tit_info -->
 							                        <div class="price_info">
 							                                <p class="sale">
-							                                    <span class="price"><c:out value="${realnew.price}" />
+							                                    <span class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${realnew.price}" />
 							                                        <span class="won">원</span>
 							                                    </span>
 							                                </p>
@@ -154,7 +166,7 @@
 							                        </div>
 							                  		 </a>
 							                    <div class="cart_btn">
-							                        <button type="button" class="add_to_cart">add to cart</button>
+							                        <button type="button" class="add_to_cart" value="${realnew.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button>
 							                    </div>
 							                </div>
 							                <!-- END txt_wrap -->
@@ -170,5 +182,12 @@
 	               </c:forEach>
 
                 </div>		
+                
+                
+                
+                
+                
+                
+                
 </body>
 </html>

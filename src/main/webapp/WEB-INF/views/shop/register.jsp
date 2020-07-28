@@ -116,7 +116,7 @@
                     </div>
                     <div class="regi_side_menu">
                         <ul class="regi_menu">
-                            <li> <a href='/shop/register'><i class="fa fa-check" ></i>상품 등록</a></li>
+                            <li><a href='/shop/register'><i class="fa fa-check" ></i>상품 등록</a></li>
                             <li><a href='/shop/list'><i class="fa fa-check" ></i>상품 리스트</a></li>
                         </ul>
                     </div>

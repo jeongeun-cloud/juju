@@ -11,14 +11,14 @@
  		</select>
  	
  		<insert id="insert">
- 			insert into t_order_info(orderCode, itemCode, itemNum, disAmount)
- 			values(#{orderCode}, #{itemCode}, #{itemNum}, #{disAmount})
+ 			insert into t_order_info(orderCode, itemCode, itemNum, disAmount, totalPrice)
+ 			values(#{orderCode}, #{itemCode}, #{itemNum}, #{disAmount}, #{totalPrice})
  		</insert>
  		
  		
  		<insert id="insertSelectKey">
-		insert into t_order_info(orderCode, itemNum, itemCode, baskId)
- 			values(#{orderCode}, #{itemNum}, #{itemCode}, #{baskId})
+		insert into t_order_info(orderCode, itemNum, itemCode, disAmount, baskId, totalPrice)
+ 			values(#{orderCode}, #{itemNum}, #{itemCode},#{disAmount}, #{baskId}, #{totalPrice})
  		</insert>
  		
  		
@@ -41,7 +41,8 @@
 			set 
 			itemCode = #{itemCode},
 			itemNum = #{itemNum},
-			disAmount = #{disAmount}
+			disAmount = #{disAmount},
+			totalPrice = #{totalPrice}
 			where 
 			orderCode = #{orderCode}
 			
