@@ -31,14 +31,13 @@ public class MyPageController {
 	private SellerService sellerService;
 	private MailService mailService;
 
-	//일반고객 회원정보수정
 	@GetMapping("/customerInfoModify")
 	public String customerInfoModify(HttpSession session, Model model) {
-		Object member = session.getAttribute("sessionMember");
+		MemberVO member = (MemberVO)session.getAttribute("sessionMember");
 		if (member == null) {
 			return "redirect:/member/login";
 		}
-		String idNo = member.toString();
+		String idNo = member.getIdNo();
 		if (idNo.substring(0, 1).equals("c")) {
 			model.addAttribute("customerInfo", memberService.getCustomerInfoByIdNo(idNo));
 			return "/mypage/customerInfoModify";
@@ -47,23 +46,13 @@ public class MyPageController {
 		}
 	}
 
-	@PostMapping("/customerInfoModify")
-	public String customerInfoModify(MemberVO member, RedirectAttributes rttr) {
-		if (customerService.modifyCustomerInfo(member)) {
-			rttr.addFlashAttribute("result", "회원정보를 수정했습니다.");
-		}
-		return "redirect:/mypage/customerInfoModify";
-		
-	}
-	
-	//상인 회원정보수정
 	@GetMapping("/sellerInfoModify")
 	public String sellerInfoModify(HttpSession session, Model model) {
-		Object member = session.getAttribute("sessionMember");
+		MemberVO member = (MemberVO)session.getAttribute("sessionMember");
 		if (member == null) {
 			return "redirect:/member/login";
 		}
-		String idNo = member.toString();
+		String idNo = member.getIdNo();
 		if (idNo.substring(0, 1).equals("s")) {
 			model.addAttribute("sellerInfo", memberService.getSellerInfoByIdNo(idNo));
 			return "/mypage/sellerInfoModify";
@@ -72,7 +61,15 @@ public class MyPageController {
 		}
 
 	}
-	
+
+	@PostMapping("/customerInfoModify")
+	public String customerInfoModify(MemberVO member, RedirectAttributes rttr) {
+		if (customerService.modifyCustomerInfo(member)) {
+			rttr.addFlashAttribute("result", "회원정보를 수정했습니다.");
+		}
+		return "redirect:/mypage/customerInfoModify";
+
+	}
 
 	@PostMapping("/sellerInfoModify")
 	public String sellerInfoModify(MemberVO member, RedirectAttributes rttr) {
@@ -83,13 +80,11 @@ public class MyPageController {
 
 	}
 	
-	
 	@GetMapping("/modifyPwd")
 	public void modifyPwd(String pwd) {
 		
 	}
 
-	//회원탈퇴
 	@GetMapping("/memberDelete")
 	public String memberDelete(HttpSession session) {
 		Object member = session.getAttribute("sessionMember");
@@ -101,8 +96,10 @@ public class MyPageController {
 
 	@PostMapping("/memberDelete")
 	public String memberDelete(MemberHistoryVO memberHistory, HttpSession session, RedirectAttributes rttr) {
-		String idNo = session.getAttribute("sessionMember").toString();
-		//session에서 받아온 idNo를 memberHistory에 저장 
+//		String idNo = session.getAttribute("sessionMember").toString();
+		MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+		String idNo = member.getIdNo(); 
+//		session에서 받아온 idNo를 memberHistory에 저장
 		memberHistory.setIdNo(idNo);
 		if (memberService.deleteCheck(idNo, memberHistory.getPwd())) {
 			if (idNo.substring(0, 1).equals("c")) {
@@ -119,7 +116,6 @@ public class MyPageController {
 		return "redirect:/mypage/memberDelete";
 	}
 	
-	//회원탈퇴완료 
 	@GetMapping("/memberDeleteComplete")
 	public void memberDeleteComplete(HttpSession session) {
 		session.invalidate();

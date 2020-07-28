@@ -284,7 +284,7 @@ margin-top : 20px;
 	
 	
 	
-	<script type="text/javascript">
+<script type="text/javascript">
 	$(document).ready(function(){
 		
 		var formObj = $("form");
@@ -347,7 +347,7 @@ margin-top : 20px;
 	  	 
 	       });
 	
-	</script>
+</script>
 
 </body>
 </html>

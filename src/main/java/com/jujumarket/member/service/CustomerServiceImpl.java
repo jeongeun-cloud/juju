@@ -1,3 +1,4 @@
+
 package com.jujumarket.member.service;
 
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService{
 	@Override
 	public void register(CustomerVO customer) {
 		memberMapper.insertCustomer(customer);
-		memberMapper.insertJoinInfo(customer);
+		customerMapper.insertJoinInfo(customer);
 		customerMapper.insert(customer);
 		
 	}

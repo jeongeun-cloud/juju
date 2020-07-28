@@ -34,9 +34,9 @@
    text-align: center;
    }
 
-   /*실시간 베스트  */
-   
-   /* 메인 리뷰 */
+	/*실시간 베스트  */
+	
+	/* 메인 리뷰 */
     .swiper-container {
       width: 100%;
       padding-top: 50px;
@@ -57,6 +57,12 @@
          height: 300px;
     }
     /* 메인 리뷰 끝 */
+    
+    /* 중간 광고 */
+    .adImg img {
+    	width:100%;
+    }
+    /* 중간 광고 끝 */
 
 </style>
 <br>
@@ -94,7 +100,12 @@
            </div>                  
         </div>
         
-          <!-- Swiper -->
+        <!-- 첫번 째 중간광고 -->
+        <div class="adImg" style="max-width:100%; ">
+        	<img id="ad_img_1" src="" >
+        </div>
+        
+        <!-- Swiper -->
         <div class="swiper-container">
           <div class="swiper-wrapper">
              <c:forEach items="${mainReview }" var="review">
@@ -107,7 +118,11 @@
           <!-- Add Pagination -->
           <div class="swiper-pagination"></div>
         </div>
- 
+        
+        <!-- 두번 째 중간광고 -->
+ 		<div class="adImg" style="max-width:100%; ">
+        	<img id="ad_img_2" src="" >
+        </div>
  
     <!-- Swiper JS -->
      <script src="/resources/js/swiper-bundle.min.js"></script>
@@ -188,6 +203,27 @@
             },
         });
         /* 메인 리뷰 끝 */
+        
+        /* 중간 광고 */
+        var advertise = new Array();
+        
+        <c:forEach items = "${advertise}" var="ad">
+        	var json = new Object();
+        	json.uuid = "${ad.uuid}";
+        	json.imgPath = "${ad.imgPath}";
+        	json.imgName = "${ad.imgName}";
+        	advertise.push(json);
+        </c:forEach>
+        
+        var str = '/resources/banner/';
+        var url1 = str + advertise[0].imgPath + "/" + advertise[0].uuid + "_" + advertise[0].imgName;
+        var url2 = str + advertise[1].imgPath + "/" + advertise[1].uuid + "_" + advertise[1].imgName;
+        
+        $("#ad_img_1").attr("src", url1);
+        $("#ad_img_2").attr("src", url2);
+        
+        /* 중간 광고 끝 */
+        
    </script>
 </body>
 </html>

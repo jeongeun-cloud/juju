@@ -73,26 +73,25 @@ public class MemberController {
 		customerService.register(customer);
 		return "redirect:/member/customerJoinComplete";
 	}
-	//일반고객 가입완료
+
 	@GetMapping("/customerJoinComplete")
 	public void customerJoinComplete() {
 		
 	}
 	
-	//상인 회원가입폼 
+	//상인회원가입폼 
 	@GetMapping("/sellerJoinForm")
 	public void sellerJoinForm() {
 		
 	}
 	
-	//상인 가입정보 POST방식 DB INSERT
+	//상인(판매자) 가입정보 POST방식 DB INSERT
 	@PostMapping("/sellerJoinForm")
 	public String sellerJoinForm(SellerVO seller) {
 		sellerService.register(seller);
 		return "redirect:/member/sellerJoinComplete";
 	}
 	
-	//상인 가입완료
 	@GetMapping("/sellerJoinComplete")
 	public void sellerJoinComplete() {
 		
@@ -110,9 +109,9 @@ public class MemberController {
 	public String login(String emailAccount, String pwd, HttpSession session, RedirectAttributes rttr) {
 		
 		if(memberService.loginCheck(emailAccount, pwd)) {
-//			MemberVO member = memberService.getInfoByEmail(emailAccount);
-			String idNo = memberService.getIdNoByEmail(emailAccount);
-			session.setAttribute("sessionMember", idNo);
+			MemberVO member = memberService.getMemberInfo(emailAccount);
+//			String idNo = memberService.getIdNoByEmail(emailAccount);
+			session.setAttribute("sessionMember", member);
 			return "redirect:/";
 			
 		}else {
@@ -128,12 +127,32 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	//아이디, 비밀번호찾기(아직안됨)
 	@GetMapping("/findIdPwd")
 	public void findIdPwd( ) {
 		
 	}
+	
+	@ResponseBody
+	@PostMapping(value="/findId", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> findId(@RequestBody MemberVO member){
+		List<String> emailList = memberService.getEmailList(member);
 
+		return ResponseEntity.status(HttpStatus.OK).body(emailList);
+	}
+	
 
+	@PostMapping("/findIdPwd")
+	public String findIdPwd(MemberVO member, RedirectAttributes rttr) {
+		if(memberService.updatePwd(member)) {
+			rttr.addFlashAttribute("result", "비밀번호를 변경했습니다. 바뀐 비밀번호로 로그인 해주세요.");
+			return "redirect:/member/login";
+		}else {
+			rttr.addFlashAttribute("result", "변경안됨");
+			return "redirect:/member/findIdPwd";
+			
+			
+		}
+		
+	}
 
 }

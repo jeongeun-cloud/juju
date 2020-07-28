@@ -27,10 +27,19 @@
    </insert>
 
 
+<!-- 세션에 id만 받아올 때 만들었음 -->
    <select id ="getIdNoByEmailAccount" resultType="String">
       select idNo
       from t_member
       where emailAccount = #{emailAccount}
+   
+   </select>
+  
+  <!-- 세션에 VO 받아오기 -->
+   <select id="getMemberInfo" resultType="com.jujumarket.member.domain.MemberVO">
+   		select idNo, emailAccount, memName, memCode
+   		from t_member
+   		where emailAccount = #{emailAccount}
    
    </select>
    
@@ -41,12 +50,12 @@
    
    </select>
    
-	<select id="getPwdByIdNo" resultType="String">
-		select pwd
-		from t_member
-		where idNo = #{idNo}
-	
-	</select>
+   <select id="getPwdByIdNo" resultType="String">
+      select pwd
+      from t_member
+      where idNo = #{idNo}
+   
+   </select>
    
    
    <select id="getPwdByEmailAccount" resultType="String">
@@ -76,9 +85,18 @@
    
    </update>
    
+    <update id="updatePwd">
+      update t_member
+      set 
+      pwd = #{pwd}
+      where emailAccount = #{emailAccount}
+   
+   </update>
+   
+   
    <delete id="deleteMember">
-   	delete t_member
-	where idNo = #{idNo}   
+      delete t_member
+   where idNo = #{idNo}   
    
    </delete>
 

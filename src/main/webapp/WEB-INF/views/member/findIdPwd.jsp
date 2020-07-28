@@ -98,51 +98,58 @@ body {
 	</div>
 
 	<div id="findId" class="tabcontent">
-		<input type="radio" id="selectCustomer" name="memCode"
-			value="CUSTOMER" checked="checked">일반고객회원 <input type="radio"
-			id="selectSeller" name="memCode" value="SELLER"> 판매자 회원 <br>
+		<input type="radio" id="selectCustomer" name="memCode" value="CUSTOMER" checked="checked">일반고객회원
+		 <input type="radio" id="selectSeller" name="memCode" value="SELLER"> 판매자 회원 <br>
 		회원이름: <input type="text" id="memName" name="memName"><br>
 		연락처: <input type="text" id="contact" name="contact"><br>
 
 		<button type="submit" id="findIdBtn">확인</button>
 
+		<div id="findIdResult">
+			<ul id="resultUl"></ul>
+
+
+		</div>
 	</div>
 
 	<div id="findPwd" class="tabcontent">
-		가입된 이메일 주소로 인증번호를 받아 확인한 후 새로운 비밀번호를 설정할 수 있습니다. <br> <input type="text" id="emailAccount"
-			name="emailAccount" placeholder="이메일을 입력해주세요">
+<form action="/member/findIdPwd" method="POST">
+		가입된 이메일 주소로 인증번호를 받아 확인한 후 새로운 비밀번호를 설정할 수 있습니다. <br> <input
+			type="text" id="emailAccount" name="emailAccount"
+			placeholder="이메일을 입력해주세요"> <input type="hidden"
+			id="duplicateCheck"> <input type="hidden"
+			id="duplicateCheckResult" value="false">
 		<button id="emailSendBtn">인증번호 받기</button>
 		<br> <input type="text" id="inputCode" placeholder="인증번호를 입력해주세요">
 		<input type="hidden" id="tempCode">
 		<button id="emailAuthBtn">인증하기</button>
-		<input type="hidden" id="authResult" value="false">
-		<br>
+		<input type="hidden" id="authResult" value="false"> <br>
+
+
 
 		<div id="myModal" class="modal">
 
 			<div class="modal-content">
-			<span class="close">&times;</span> 
+				<span class="close">&times;</span> 새로운 비밀번호: <input type="password"
+					id="newPwd" name="pwd"><br> 비밀번호 확인 : <input
+					type="password" id="newPwdChk"><br>
 
-				새로운 비밀번호: <input type="text" id="setPwd" name="setPwd"><br>
-				비밀번호 확인 : <input type="text" id="setPwdChk" name="setPwdChk"><br>
 
 				<button type="submit" id="submitBtn">저장하기</button>
+	</form>
 			</div>
+
+
 		</div>
 
 	</div>
 
-
 	<script>		
 	
 	let modal = document.getElementById("myModal");
-	let btn = document.getElementById("emailAuthBtn");
 	let span = document.getElementsByClassName("close")[0];
 
-	btn.onclick = function(e) {
-		e.preventDefault();
-		modal.style.display = "block";
-	}
+
 
 	span.onclick = function() {
 		modal.style.display = "none";
@@ -168,6 +175,20 @@ body {
 		let tabNames = [ "findId", "findPwd" ];
 		let findIdBtn = $("#findIdBtn");
 		
+		let memName = $("#memName");
+		let contact = $("#contact");
+
+		let findPwd = $("#findPwd");
+		let emailSendBtn = $("#emailSendBtn");
+		let tempCode = $("#tempCode");
+		let emailAuthBtn = $("#emailAuthBtn");
+		let inputCode = $("#inputCode");
+		let authResult = $("#authResult");
+		let emailAccount = $("#emailAccount");
+		let submitBtn = $("#submitBtn");
+		let emailDuplicateCheckBtn = $("#emailDuplicateCheckBtn");
+		let duplicateCheckResult = $("#duplicateCheckResult");
+		
 		
 		
 		for (let i = 0; i < tablinks.length; i++) {
@@ -175,7 +196,46 @@ body {
 			let tabName = tabNames[i];
 			tablink.addEventListener("click", function(event) {
 				openTabs(event, tabName);
+				$("#"+tabName+"").find("input[type='text']").val("");
 			});
+		}
+		
+	
+
+		findIdBtn.click(function(e){
+			e.preventDefault();		
+			let memCode = $(":checked");
+			
+			let memberInfo = {
+					"memName" : memName.val(),
+					"contact" : contact.val(),
+					"memCode" : memCode.val()
+			}
+			
+			findId(memberInfo)
+			.then(function(response){
+				if(response==""){
+					alert("가입 정보가 없습니다.");
+				}
+				showResult(response);
+			})
+			.catch(function(error){
+				console.log(error);
+			});
+			
+		});
+		
+		function showResult(emailResults){
+			
+			let resultUl = $("#resultUl");
+			let str = "";
+			
+			for(let i = 0; i<emailResults.length; i++){
+				let emailResult = emailResults[i];
+				str+="<li>"+emailResult+"</li>"
+			}
+				resultUl.html(str);
+			
 		}
 
 		function openTabs(event, tabName) {
@@ -192,8 +252,111 @@ body {
 			document.getElementById(tabName).style.display = "block";
 			event.target.className += 'active';
 		}
+		
+		//memberInfo는 아이디찾기에서 입력하는 이름, 연락처 정보임
+		function findId(memberInfo){
+			
+		return $.ajax({
+			type : 'POST',
+			url  : '/member/findId',
+			data : JSON.stringify(memberInfo),
+			contentType: "application/json"
+		});
+		}
+		
+		emailAuthBtn.click(function(e){
+			e.preventDefault();
+			
+			//return true일때와 각 input항목 유효성검사, 정규식 처리 이후 가입하기 submit 되도록 처리하기 				
+			if(inputCode.val()==tempCode.val()){
+				alert("이메일 인증을 성공했습니다.");
+				authResult.val("true");
+				inputCode.val("");
+				modal.style.display = "block";
+			} else {
+				alert("이메일 인증을 실패했습니다.");
+				inputCode.val("");
+			}
+		});
+		
+		emailSendBtn.click(function(e){
+			
+			e.preventDefault();
+			
+			if (!(emailAccountCheck())) {
+				return false;
+			} 
+			
+			let email =  emailAccount.val();
+			
+			duplicateCheck(email)
+			.then(function(response){
+				if(response){
+					alert("가입정보가 없습니다");
+					duplicateCheckResult.val("false");
+				} else {
+					emailAuth(email)
+					.then(function(response){
+						alert("인증번호가 발송되었습니다");
+						console.log(response); //콘솔에 확인용(실제로 할 때는 지우자)
+						tempCode.val(response);
+					})
+					.catch(function(error){
+						console.log(error);
+					});
+				}
+			})
+			//자바의 트라이캐치문때문에 빨간줄이 떴다안떴다하는듯? 상관X 
+			.catch(function(error){
+				console.log(error);
+			});
+		});
+		
+		
+		function emailAuth(email){
+			return $.ajax({
+				type : 'POST',
+				url : '/member/emailAuth',
+				data : email,
+				contentType : "application/text; charset=UTF-8"
+			});
+		}
+		
+		
+		function emailAccountCheck(){
+
+			let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			
+			if (emailAccount.val().trim() == "" || emailAccount.val() == null) {
+				alert("값을 입력해주세요.");
+				emailAccount.focus();
+				return false;
+			} else if (emailAccount.val().length > 30) {
+				alert("30자까지만 입력할 수 있습니다.")
+				emailAccount.focus();
+				return false;
+			} else if (!regExp.test(emailAccount.val())) {
+				alert("이메일을 양식에 맞게 다시 입력하세요.");
+				emailAccount.focus();
+				return false
+			} else {
+				return true;
+			}
+			
+		};
+		
+		
+		
+		function duplicateCheck(emailAccount){
+			return $.ajax({
+				type : 'POST',
+				url : '/member/duplicateCheck',
+				data : emailAccount,
+				contentType : "application/text; charset=UTF-8"
+			});
+		} 
 	});
-	
+		
 	</script>
 
 </body>

@@ -22,6 +22,7 @@ public class EventContoller {
 	public void list(Model model) {
 		log.info("controller 작동중");
 		
-		model.addAttribute("event", service.getEvent());
+		String bannerType = "event";
+		model.addAttribute("event", service.getBanner(bannerType));
 	}
 }

@@ -37,7 +37,8 @@
             width: 20%;
             height : 100%;
             /* 메뉴바 전체 배경색 */
-            background-color: rgb(0,158,219);
+            /* background-color: rgb(0,158,219); */
+            background-color : cornsilk;
             
             color: white;
 
@@ -200,7 +201,7 @@
 <!-- 세션에 저장된 id 불러오기용 div 시작 -->
 <div>
 
-<input type="hidden" id="hiddenId" value="<%=(String)session.getAttribute("sessionMember")%>">
+<input type="hidden" id="hiddenId" value="${sessionMember.idNo}">
 
 </div>
 <!-- 세션에 저장된 id 불러오기용 div 끝-->

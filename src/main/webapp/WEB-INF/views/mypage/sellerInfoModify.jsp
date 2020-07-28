@@ -130,7 +130,7 @@ a {
 							value="${sellerInfo.backImg}"></td>
 					</tr>
 				</table>
-				<input type="hidden" id="idNo" name="idNo" value="${sessionMember}">
+				<input type="hidden" id="idNo" name="idNo" value="${sessionMember.idNo}">
 				<br>
 				<button type="submit" id="submitBtn">수정하기</button>
 

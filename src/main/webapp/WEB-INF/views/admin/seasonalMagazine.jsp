@@ -13,7 +13,7 @@
     <title>Admin Page</title>
 <%-- <%@include file="../includes/header.jsp" %> --%>
 <style>
-		li{
+	li{
        list-style: none;
        
    	}
@@ -96,9 +96,10 @@
 
             <div class="banner_main">
                 <div class="banner_tit">
-                    <p><b><i class="fa fa-list-alt"></i>이벤트 등록</b></p>
+                    <p><b><i class="fa fa-list-alt"></i>상품 고르기</b></p>
+                    <p><b><i class="fa fa-list-alt"></i>제철 페이지 매거진 등록</b></p>
                 </div>
-                <p style='opacity:0.75;'>이미지 규격 : 1000*220</p>
+                <p style='opacity:0.75;'>이미지 규격 : </p>
                 <div class="uploadDiv">
                 	<input type="file" name="uploadFile" multiple>
                 	<!-- <button id="uploadBtn">등록하기</button> -->
@@ -109,11 +110,11 @@
                 	</ul>
                 </div>
                 
-               	<label>현재 등록된 이벤트 이미지</label><br>
+               	<label>현재 등록된 매거진</label><br>
                 <div id="activeImg">
-                	<c:forEach items="${event }" var="event">
-		           		<img class="banner" alt="" src='/resources/banner/<c:out value="${event.imgPath}"/>/<c:out value="${event.uuid}"/>_<c:out value="${event.imgName}"/>' >
-		           		<button id='removeBtn' data-oper='<c:out value="${event.imgNo}"/>'>삭제</button>
+                	<c:forEach items="${seasonal }" var="seasonal">
+		           		<img class="banner" alt="" src='/resources/banner/<c:out value="${seasonal.imgPath}"/>/<c:out value="${seasonal.uuid}"/>_<c:out value="${seasonal.imgName}"/>' >
+		           		<button id='removeBtn' data-oper='<c:out value="${seasonal.imgNo}"/>'>삭제</button>
 		           	</c:forEach>
                 </div>
              </div>
@@ -124,7 +125,7 @@
     <!-- banner_content -->
 
     <script type="text/javascript">
-    	$(document).ready(function(e) {
+    	$(document).ready(function() {
     		
     		var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG|JPG)$");
     		var maxSize = 5242880;
@@ -159,7 +160,7 @@
     			}
     			
     			$.ajax({
-    				url : '/admin/eventBanner',
+    				url : '/admin/seasonalMagazine',
     				processData : false,
     				contentType : false,
     				data : formData,
@@ -167,15 +168,13 @@
     				dataType : 'json',
     				success : function(result) {
     					console.log(result);
-    					
     					alert("정상적으로 등록되었습니다.");
-    					
     					showUploadedFile(result);
     					
     					//$(".uploadDiv").html(cloneObj.html());
     				}
     			}); // $.ajax
-    		}); // 
+    		}); // uploadBtn click event
     		
     		function showUploadedFile(uploadResultArr) {
     			if(!uploadResultArr || uploadResultArr.length == 0) {return; }
@@ -192,6 +191,7 @@
     				str += "</div></li>";
     			});
     			
+    			
     			uploadUL.append(str);
     		}
     		
@@ -204,7 +204,7 @@
     			
     			$.ajax({
     				url : '/admin/deleteFile',
-    				data : {fileName : targetFile, type : type, bannerType : 'event', imgNo : imgNo},
+    				data : {fileName : targetFile, type : type, bannerType : 'seasonal', imgNo : imgNo},
     				dataType : 'text',
     				type : 'POST',
     				success : function(result) {
@@ -217,7 +217,6 @@
     					targetLi.remove();
     				}
     			});	// $.ajax
-    	        
     		}); // uploadResult on click
     		
     		$("#activeImg").on("click","button[id='removeBtn']", function(e){

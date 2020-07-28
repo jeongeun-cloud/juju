@@ -9,10 +9,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-<input type="hidden" id="seller" value='<c:out value="${fn:substring(sessionMember, 0, 1) }" />'>
+<input type="hidden" id="seller" value='<c:out value="${sessionMember.memCode}" />'>
 
 <script type="text/javascript" charset="UTF-8">
-	if($("#seller").val() != 's') {
+	if($("#seller").val() != 'SELLER') {
 		alert("잘못된 접근입니다.");
 		location.href='/';
 	} 

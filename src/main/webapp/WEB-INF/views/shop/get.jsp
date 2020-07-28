@@ -186,31 +186,31 @@
                         <div class="container">
                              <label>메인 이미지</label>
                              <div class="select_img1">
-                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember.idNo}"/>/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" />
                              </div>
                          </div>
                          <div class="container">
                              <label>서브 이미지</label>
                              <div class="select_img2">
-                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember.idNo}"/>/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" />
                              </div>
                          </div>
                          <div class="container">
                              <label>서브 이미지</label>
                              <div class="select_img3">
-                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember.idNo}"/>/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" />
                              </div>
                          </div>
                          <div class="container">
                              <label>서브 이미지</label>
                              <div class="select_img4">
-                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember.idNo}"/>/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" />
                              </div>
                          </div>
                          <div class="container">
                              <label>상품 상세 설명 이미지</label>
                              <div class="select_img5">
-                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember}"/>/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                 <img class="thumbnail" src='/resources/upload/<c:out value="${sessionMember.idNo}"/>/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" />
                              </div>
                          </div>
                          

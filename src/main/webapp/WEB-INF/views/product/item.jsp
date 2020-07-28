@@ -730,7 +730,7 @@ input[type=range] {
               </p>
            
             <!-- 로그인 idNo -->
-              <input type="hidden" id="sessionId" value='<c:out value="${sessionMember}"/>'>
+              <input type="hidden" id="sessionId" value='<c:out value="${sessionMember.idNo}"/>'>
             <!-- 글쓴이 idNo -->
               <input type="hidden" name="idNo" id="idNo">
               <input type="hidden" name="score" id="score" value="0">
@@ -1674,14 +1674,14 @@ $(document).ready(function(){
      
     // 삭제 기능
    $("#reviewDiv").on("click","button[id='removeBtn']", function(e){
-      var idNo = $("#writer").val();
+   		var idNo = $("#writer").val();
         var sessionId = $("#sessionId").val();
-      if(idNo != sessionId) {
-           alert("당사자만 삭제할 수 있습니다.");
-         return false;
-      }
+      	if(idNo != sessionId) {
+           	alert("당사자만 삭제할 수 있습니다.");
+         	return false;
+      	}
       
-       var target = e.target;
+        var target = e.target;
         var dataFormat = $(target).closest("button");
         var reviewNo = dataFormat.data("oper");
         console.log(reviewNo);
@@ -1698,8 +1698,8 @@ $(document).ready(function(){
                     alert('통신 오류입니다. 잠시 후 다시 시도해주세요.');
                      error(er);
                   }
-         });
-      }else {
+         	});
+      	}else {
            return false;
         }
    });   // 삭제 function 끝

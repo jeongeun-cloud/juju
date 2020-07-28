@@ -40,6 +40,7 @@
             list-style: none;
         }
         .bob_pro{
+
         	height: 2100px;
             width: 1000px;
             margin: 30px auto;
@@ -208,6 +209,7 @@
             </div>
             <!--bob_pro  -->
             
+
             <!--후기 베스트 시작  -->
             <div class="bob_pro">
                  <div class="bob_tit" style="background-color:pink">
@@ -267,10 +269,13 @@
 	                   
 	               </c:forEach>
 
+
                 </div>
+                <!--bob_pro_li  -->
             </div>
             <!--bob_pro  -->
             
+
             
         </div>
         <!--bob_wrap  -->

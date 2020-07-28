@@ -10,7 +10,7 @@ public interface ManagementMapper {
 	
 		public ManagementVO read(String orderCode);
 		
-		public int update(String shippingCode); //송장번호 입력은 수정으로 처리를 함
+		public int shippingupdate(ManagementVO vo); //송장번호 입력은 수정으로 처리를 함
 		
 		public List<ManagementVO> shippinggetList();
 		
