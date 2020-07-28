@@ -37,9 +37,8 @@ public class OrderServiceImpl implements OrderService {
       log.info("크기: " + itemList.size());
       Long totalSum = 0L;
       Long totalDiscount = 0L;
-      // itemList.size()가 i개일때, t_order에는 1개의 row, t_order_info, t_order_history,
-      // t_delivery에는
-      // i개의 row가 인서트됨. 반복문 사용으로 insert되도록 작성해야 함 .
+      // itemList.size() = i
+      //t_order에는 1개, t_order_info, t_order_history, t_delivery에는 i개의 row를 insert
       for (int i = 0; i < itemList.size(); i++) {
          OrderResponseVO item = itemList.get(i);
          order.setItemCode(item.getItemCode());

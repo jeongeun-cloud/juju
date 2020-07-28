@@ -11,10 +11,8 @@ public interface MemberSerivce {
 	public boolean loginCheck(String emailAccount, String pwd);
 
 	public boolean duplicateCheck(String emailAccount);
-
-//	public MemberVO getInfoByEmail(String emailAccount);
-
-	public String getIdNoByEmail(String emailAccount);
+//세션이었음
+//	public String getIdNoByEmail(String emailAccount);
 
 	public CustomerVO getCustomerInfoByIdNo(String idNo);
 
@@ -23,6 +21,10 @@ public interface MemberSerivce {
 	public boolean deleteCheck(String idNo, String pwd);
 
 	public List<String> getEmailList(MemberVO member);
+
+	public boolean updatePwd(MemberVO member);
+
+	public MemberVO getMemberInfo(String emailAccount);
 
 
 

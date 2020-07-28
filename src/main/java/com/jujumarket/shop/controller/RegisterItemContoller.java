@@ -1,10 +1,6 @@
 package com.jujumarket.shop.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,20 +8,17 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.xmlbeans.ResourceLoader;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.shop.domain.CategoryVO;
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.ItemPageDTO;
@@ -59,8 +52,8 @@ public class RegisterItemContoller {
 	@GetMapping("/list")
 	public void list(ItemCriteria cri, HttpSession session, Model model) {
 		log.info("list : " + cri);
-		
-		String idNo = (String) session.getAttribute("sessionMember");
+		MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+		String idNo = member.getIdNo();
 		System.out.println(idNo + " 세션 아이디");	// 이걸 이용해서 그 사람의 상품만 가져오기
 		
 		

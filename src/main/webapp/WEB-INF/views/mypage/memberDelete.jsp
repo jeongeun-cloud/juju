@@ -56,10 +56,12 @@ a {
 			<div class="b">
 				<ul>
 					<c:choose>
-						<c:when test="${fn:substring(sessionMember, 0, 1) eq 'c'}">
+<%-- 						<c:when test="${fn:substring(sessionMember, 0, 1) eq 'c'}"> --%>
+                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
 							<li><a href="/mypage/customerInfoModify">개인 정보 수정</a></li>
 						</c:when>
-						<c:when test="${fn:substring(sessionMember, 0, 1) eq 's'}">
+<%-- 						<c:when test="${fn:substring(sessionMember, 0, 1) eq 's'}"> --%>
+                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
 							<li><a href="/mypage/sellerInfoModify">개인 정보 수정</a></li>
 						</c:when>
 					</c:choose>
@@ -73,7 +75,7 @@ a {
 					placeholder="PASSWORD"><br> 탈퇴사유: <br>
 				<textarea id="reason" name="reason" rows="3" cols="50"
 					style="resize: none;"></textarea>
-				<input type="hidden" id="idNo" name="idNo" value="${sessionMember}">
+				<input type="hidden" id="idNo" name="idNo" value="${sessionMember.idNo}">
 				<br>
 				<button type="submit" id="submitBtn">탈퇴하기</button>
 

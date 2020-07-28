@@ -13,14 +13,14 @@
 
 
 	<insert id="insertJoinInfo">
-		insert into m_history (historyNo, idNo, condition, accoutType)
+		insert into m_history (historyNo, idNo, condition, memCode)
 		values
-		(seq_history.nextval, #{idNo}, 일반고객', 'CUSTOMER')
+		(seq_history.nextval, #{idNo}, '일반고객', 'CUSTOMER')
 
 	</insert>
 
 	<insert id="insertDeleteInfo">
-		insert into m_history(historyNo, idNo, condition, accountType, reason)
+		insert into m_history(historyNo, idNo, condition, memCode, reason)
 		values(seq_history.nextval, #{idNo}, '탈퇴', 'CUSTOMER', #{reason})
 	</insert>
 	

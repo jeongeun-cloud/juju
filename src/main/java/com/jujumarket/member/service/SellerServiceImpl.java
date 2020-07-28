@@ -26,7 +26,7 @@ public class SellerServiceImpl implements SellerService{
 	@Override
 	public void register(SellerVO seller) {
 		memberMapper.insertSeller(seller);
-		memberMapper.insertJoinInfo(seller);
+		sellerMapper.insertJoinInfo(seller);
 		sellerMapper.insert(seller);
 		sellerInfoMapper.insertShopInfo(seller);
 		

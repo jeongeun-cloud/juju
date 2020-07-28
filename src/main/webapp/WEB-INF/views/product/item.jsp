@@ -730,7 +730,7 @@ input[type=range] {
               </p>
            
             <!-- 로그인 idNo -->
-              <input type="hidden" id="sessionId" value='<c:out value="${sessionMember}"/>'>
+              <input type="hidden" id="sessionId" value='<c:out value="${sessionMember.idNo}"/>'>
             <!-- 글쓴이 idNo -->
               <input type="hidden" name="idNo" id="idNo">
               <input type="hidden" name="score" id="score" value="0">

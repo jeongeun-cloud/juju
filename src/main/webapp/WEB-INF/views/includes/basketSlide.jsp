@@ -200,7 +200,7 @@
 <!-- 세션에 저장된 id 불러오기용 div 시작 -->
 <div>
 
-<input type="hidden" id="hiddenId" value="<%=(String)session.getAttribute("sessionMember")%>">
+<input type="hidden" id="hiddenId" value="${sessionMember.idNo}">
 
 </div>
 <!-- 세션에 저장된 id 불러오기용 div 끝-->

@@ -45,10 +45,10 @@ public class MemberServiceImpl implements MemberSerivce {
 	 * memberMapper.read(emailAccount); }
 	 */
 
-	@Override
-	public String getIdNoByEmail(String emailAccount) {
-		return memberMapper.getIdNoByEmailAccount(emailAccount);
-	}
+//	@Override
+//	public String getIdNoByEmail(String emailAccount) {
+//		return memberMapper.getIdNoByEmailAccount(emailAccount);
+//	}
 
 	@Override
 	public CustomerVO getCustomerInfoByIdNo(String idNo) {
@@ -79,6 +79,17 @@ public class MemberServiceImpl implements MemberSerivce {
 		}else {
 			return customerMapper.getEmailList(member);
 		}
+	}
+
+	@Override
+	public boolean updatePwd(MemberVO member) {
+		return memberMapper.updatePwd(member) == 1;
+	}
+
+	//세션에 VO정보 가져오기
+	@Override
+	public MemberVO getMemberInfo(String emailAccount) {
+		return memberMapper.getMemberInfo(emailAccount);
 	}
 
 	

@@ -386,7 +386,7 @@
       <form id="actionForm" action="/order/orderItemsForm" method="post">
       
          <input type="hidden" name="checkRow" id="checkRow" value="" >
-         <input type="hidden" name="idNo" id="idNo" value="c0001" >
+         <input type="hidden" name="idNo" id="idNo" value="${sessionMember.idNo}" >
       
       </form>
 
@@ -399,7 +399,7 @@
 <!-- 세션에 저장된 id 불러오기용 div 시작 -->
 <div>
 
-<input type="hidden" id="hiddenId" value="<%=(String)session.getAttribute("sessionMember")%>">
+<input type="hidden" id="hiddenId" value="${sessionMember.idNo}">
 
 </div>
 <!-- 세션에 저장된 id 불러오기용 div 끝-->
