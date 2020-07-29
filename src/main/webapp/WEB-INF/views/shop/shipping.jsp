@@ -59,11 +59,10 @@
                 <input type="checkbox">배송완료
           </div>      
       <br>
-     
- 	  
-              <button> 검색 </button>  
-              <button> 초기화 </button>  
-
+               <button class='btn btn-default'> 검색 </button>  
+		       <button type = 'reset'> 초기화 </button>  
+  </div>
+  </form>
             <div>
 
              	<input type="button" id="shippingBtn" value='배송처리'>
@@ -159,7 +158,7 @@ $(document).ready(function(){
 	
 	
 		    //페이징처리
-		    $(".paginate_button a").on("click", function(e) {
+		     $("#searchForm").find(".btn").on("click", function(e) {
 		   
 		  	 e.preventDefault();
 		 	  var actionForm = $("#actionForm");

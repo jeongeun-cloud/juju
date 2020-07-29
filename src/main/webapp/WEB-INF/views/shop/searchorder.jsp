@@ -56,7 +56,7 @@ table, td, th {
 		          </div>      
 		      <br>
 		             <button class='btn btn-default'> 검색 </button>  
-		              <button> 초기화 </button>  
+		              <button type = 'reset'> 초기화 </button>  
 			</form> 
 		              <table tit aria-setsize="500px">
 		                  <thead>
@@ -167,7 +167,7 @@ $(document).ready(function(){
       
       //검색부분
       var searchForm = $("#searchForm");
-      $("#searchForm button").on("click", function(e){
+      $("#searchForm").find(".btn").on("click", function(e){
   
     
               if(!searchForm.find("option:selected").val()){
@@ -187,6 +187,8 @@ $(document).ready(function(){
     	  
       });
       
+      
+      $(document).on("click","button[id='shippingBtn']", function(e) {
 	
 });
 </script>
