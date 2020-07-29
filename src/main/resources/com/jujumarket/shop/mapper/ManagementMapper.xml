@@ -4,18 +4,127 @@
 
 
 
+  <sql id="itemcriteria">
+      <trim prefix="(" suffix=") AND" prefixOverrides="OR">
+		
+		<foreach item="type" collection="typeArr">
+            <trim prefix="OR">
+               <choose>
+                  <when test="type == 'O'.toString()">
+                     o.orderCode like '%' || #{keyword} || '%'
+                  </when>
+                  <when test="type == 'I'.toString()">
+                     itemName like '%' || #{keyword} || '%'                  
+                  </when>
+                  <when test="type == 'R'.toString()">
+                     receiver like '%' || #{keyword} || '%'                  
+                  </when>
+                  <when test="type == 'P'.toString()">
+                    receivContact like '%' || #{keyword} || '%'    
+                  </when>
+               </choose>
+            </trim>
+         </foreach>
+		
+      </trim>
+   </sql>
+
+
+
 <!-- <select id="getList" resultType="com.jujumarket.shop.domain.ManagementVO">
 	
 		 select * from t_delivery 
 </select> -->
 
-<select id="searchordergetList" resultType="com.jujumarket.shop.domain.ManagementVO" >
-	
+<select id = "searchordergetListPaging" resultType="com.jujumarket.shop.domain.ManagementVO" >
+<![CDATA[
+select s.orderCode, s.orderstat, s.totalprice, s.orderdate, 
+s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver
+,s.itemNum,s.price
+from
+   (
+   select /*+INDEX_DESC(t_order_history PK_T_ORDER_HISTORY) */
+     rownum rn,h.orderCode, h.orderstat, o.totalprice, o.orderdate, 
+i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
+,o.itemNum,i.price
+
+from t_order_history h, t_order_info o, t_item i, t_delivery d
+where
+]]>
+<include refid="itemcriteria"></include>
+<![CDATA[
+ h.orderCode = o.orderCode
+and d.orderCode = h.orderCode
+and o.itemCode = i.itemCode
+and h.itemCode = i.itemCode
+and h.baskId = d.baskId
+and h.baskid = o.baskid
+
+and rownum <= #{pageNum} * #{amount}
+) s
+where rn > (#{pageNum} -1)* #{amount}
+]]>
+
+</select>
+
+
+
+
+
+
+<select id = "shippinggetListPaging" resultType="com.jujumarket.shop.domain.ManagementVO" >
+<![CDATA[
+select s.ordercode, s.orderstat, s.totalprice, s.orderdate, 
+s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver
+,s.itemNum,s.price
+from
+   (
+   select /*+INDEX_DESC(t_order_history PK_T_ORDER_HISTORY) */
+     rownum rn,h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
+i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
+,o.itemNum,i.price
+
+from t_order_history h, t_order_info o, t_item i, t_delivery d
+where 
+]]>
+<include refid="itemcriteria"></include>
+<![CDATA[h.ordercode = o.ordercode
+and d.ordercode = h.orderCode
+and o.itemCode = i.itemCode
+and h.itemCode = i.itemCode
+and h.baskId = d.baskId
+and h.baskid = o.baskid
+and shippingcode is NULL
+
+and rownum <= #{pageNum} * #{amount}
+) s
+where rn > (#{pageNum} -1)* #{amount}
+]]>
+</select>
+
+<update id="shippingupdate">
+update t_delivery set 
+shippingCode = #{shippingCode}
+where orderCode = #{orderCode}
+</update>
+
+<select id="getTotalCount" resultType="int">
+   select count(*) from t_delivery
+</select>
+
+<select id="getnotCount" resultType="int">
+   select count(*) from t_delivery
+   WHERE shippingcode is NULL
+</select>
+
+
+
+
+<select id="searchordergetList" resultType="com.jujumarket.shop.domain.ManagementVO" >	
 select h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
 ,o.itemNum,i.price
 from t_order_history h, t_order_info o, t_item i, t_delivery d
-
 
 where h.ordercode = o.ordercode
 and d.ordercode = h.orderCode
@@ -24,13 +133,12 @@ and o.itemCode = i.itemCode
 and h.itemCode = i.itemCode
 and h.baskId = d.baskId
 and h.baskid = o.baskid
-
 </select>
 
 
 
 <select id="shippinggetList" resultType="com.jujumarket.shop.domain.ManagementVO">
-	<![CDATA[
+<![CDATA[
 select h.itemCode,h.ordercode, h.orderstat, o.totalprice, o.orderdate, i.itemName,
 d.shippingCode, d.receivAddr, d.receivContact, d.receiver
 ,o.itemNum,i.price 
@@ -43,25 +151,11 @@ and o.itemCode = i.itemCode
 and h.itemCode = i.itemCode
 and h.baskId = d.baskId
 and h.baskid = o.baskid
-	]]>
+]]>
 </select>
 
 
-<select id="pricegetList" resultType="com.jujumarket.shop.domain.ManagementVO">
-<![CDATA[
-select i.itemCode,price,ordercode
-from t_order_info o,t_item i
-where o.itemcode = i.itemcode
-	]]>
-	
-	
-</select>
 
-<update id="shippingupdate">
-update t_delivery set 
-shippingCode = #{shippingCode}
-where orderCode = #{orderCode}
-</update>
 <!-- <select id="read" resultType ="com.jujumarket.shop.mapper.ManagementVO">
 	
 	select orderCode,orderStat,itemCode,totalPay,orderDate,itemName
