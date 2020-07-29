@@ -4,13 +4,12 @@ package com.jujumarket.shop.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jujumarket.board.domain.Criteria;
+import com.jujumarket.shop.domain.ItemCriteria;
+import com.jujumarket.shop.domain.ItemPageDTO;
 import com.jujumarket.shop.domain.ManagementVO;
 import com.jujumarket.shop.service.ManagementService;
 
@@ -30,53 +29,54 @@ public class ManagementController {
 	 */
 	
 	 @GetMapping("/searchorder")
-	 public void  searlist(Model model) {
+	 public void  searlist(ItemCriteria cri , Model model) {
 	 
 	 log.info("searchorder list");
 	 
-	  model.addAttribute("list", service.searchordergetList()); 
-	  model.addAttribute("price", service.pricegetList()); 
+	 int total = service.getTotal(cri);
+ 
+	 System.out.println("total" + total);
+	 
+	
+	 
+	  model.addAttribute("list", service.searchordergetList(cri)); 
+	  model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+
 
 	 }
+	 
 	 
 	 @GetMapping("/shipping")
-	 public void  shippinglist(Model model) {
-
+	 public void  shippinglist(ItemCriteria cri , Model model) {
 	 
-	 model.addAttribute("list", service.shippinggetList()); 
-	 model.addAttribute("price", service.pricegetList()); 
+	 log.info("searchorder list");
+	 int total = service.getNotTotal(cri);
+	 
+	 System.out.println("total" + total);
+	 
+	  model.addAttribute("list", service.shippinggetList(cri)); 
+	  model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+
 
 	 }
+	 
+	
 	 
 	 @PostMapping("/shipping")
 		public void shippingupdate(String shippingCode,String orderCode, Model model) {
-
+          
+		 
+		  System.out.println("들어옴");
 		 ManagementVO vo = new ManagementVO();
 		 vo.setOrderCode(orderCode);
 		 vo.setShippingCode(shippingCode);
 		 
-		 System.out.println("넘어옴");
-		 System.out.println("orderCode" + orderCode);
-		 System.out.println("shippingCode" + shippingCode);
-		
-		 
+
 			model.addAttribute("shippingCode", service.shippingupdate(vo));
 			
 			
 		}
 
-	
-		/*
-		 * @PostMapping("/shipping") public String modify(String orderCode,
-		 * RedirectAttributes rttr) {
-		 * 
-		 * log.info("shipping log" + orderCode);
-		 * 
-		 * if(service.modify(orderCode)) {
-		 * 
-		 * rttr.addFlashAttribute("result", "success"); }
-		 * 
-		 * return "redirect:/shop/shipping"; }
-		 */
+
 
 }

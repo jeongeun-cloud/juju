@@ -2,24 +2,21 @@ package com.jujumarket.shop.service;
 
 import java.util.List;
 
+import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.ManagementVO;
-import com.jujumarket.shop.domain.RegisterItemVO;
+
 
 
 public interface ManagementService {
-
-    ///searchorder /shipping
-	//  public ManagementVO get(String orderCode); 상세보기 보류
 	
 	public boolean shippingupdate(ManagementVO vo); //송장번호수정
 	
-	/* public ManagementVO get(String orderCode); */
-		 
-	public List<ManagementVO> searchordergetList();
-
-	public List<ManagementVO> shippinggetList();
+	public List<ManagementVO> searchordergetList(ItemCriteria cri);
 	
-	public List<ManagementVO> pricegetList();
-
+	public List<ManagementVO> shippinggetList(ItemCriteria cri);
+	
+	public int getTotal(ItemCriteria cri);
+	
+	public int getNotTotal(ItemCriteria cri);
 
 }
