@@ -11,8 +11,8 @@
  		</select>
  	
  		<insert id="insert">
- 			insert into t_order_info(orderCode, itemCode, itemNum, disAmount, totalPrice)
- 			values(#{orderCode}, #{itemCode}, #{itemNum}, #{disAmount}, #{totalPrice})
+ 			insert into t_order_info(baskId, orderCode, itemCode, itemNum, disAmount, totalPrice)
+ 			values(#{baskId}, #{orderCode}, #{itemCode}, #{itemNum}, #{disAmount}, #{totalPrice})
  		</insert>
  		
  		
@@ -47,5 +47,14 @@
 			orderCode = #{orderCode}
 			
 		</update> 		 
+ 		
+ 		<select id="makeInfoAndHistory"
+	      resultType="com.jujumarket.order.domain.OrderInfoVO">
+	
+	    select b.baskId, b.itemNum, i.normPrice, i.price, i.itemCode
+		from t_item i, t_basket b
+		where i.itemCode = b.itemCode and b.baskId = #{baskId}
+	
+	   </select>
  		
  	</mapper>

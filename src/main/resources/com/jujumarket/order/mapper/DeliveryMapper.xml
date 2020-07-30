@@ -13,10 +13,10 @@
 		</selectKey>
 
 		insert into t_delivery(deliveryNo, receiver, receivAddr,
-		receivContact, reqNote, orderCode, baskId)
-		values (#{deliveryNo},
+		receivContact, reqNote, postCode, orderCode, baskId)
+		values (seq_delivery.nextval,
 		#{receiver}, #{receivAddr}, #{receivContact}, #{reqNote},
-		#{orderCode}, #{baskId})
+		#{postCode}, #{orderCode}, #{baskId})
 	</insert>
 
 

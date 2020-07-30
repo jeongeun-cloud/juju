@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file = "../includes/header.jsp" %>
 <%@ include file = "../includes/menuBar.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -319,6 +320,8 @@
 
            
             <c:forEach var="basketL" items="${list}">
+            
+            
 
                <c:set var="totalPay"
                   value="${totalPay + (basketL.price * basketL.itemNum)}" />
@@ -336,12 +339,20 @@
                   <td><c:out value="${basketL.normPrice - basketL.price}"></c:out></td>
                   <td><c:out value="${basketL.price * basketL.itemNum}"></c:out></td>
                </tr>
+               
+               
+               
+            <!-- 가져다 쓰기 위한 hidden input 태그들  -->
+      		<input type="hidden" id="itemName" value="${basketL.itemName}">
+      		<input type="hidden" id="itemSpc" value="<c:out value='${fn:length(list)}'></c:out>">
+               
+               
             </c:forEach>
 
          </tbody>
       </table>
 
-      <input type="hidden" value="${memberInfo.idNo}" name="idNo">
+      <input type="hidden" value="${memberInfo.idNo}" name="idNo" id="idNo">
 
 
       <div class="clear"></div>
@@ -361,11 +372,12 @@
 
          </tbody>
       </table>
-      <input type="hidden" name="totalPay" value="${totalPay}"> 
-      <input type="hidden" name="totalSum" value="${totalSum}"> 
-      <input type="hidden" name="totalDiscount" value="${totalDiscount}">
-
-
+      <!-- 가져다 쓰기 위한 hidden input 태그들  -->
+      <input type="hidden" name="totalPay" id="totalPay" value="${totalPay}"> 
+      <input type="hidden" name="totalSum" id="totalSum" value="${totalSum}"> 
+      <input type="hidden" name="totalDiscount" id="totalDiscount" value="${totalDiscount}">
+      
+	 
     </div> 
     <!-- end of div basketTableContainer -->
 
@@ -397,7 +409,7 @@
 
                <tr class="dot_line">
                   <td>이메일</td>
-                  <td><input type="text" value="${memberInfo.emailAccount}"
+                  <td><input type="text" id="email" value="${memberInfo.emailAccount}"
                      size="40"  readonly="readonly" /></td>
                </tr>
             </tbody>
@@ -554,6 +566,17 @@
 
 var basketIDArr = [];
 
+var orderCode = "";
+
+
+var totalPay = document.getElementById("totalPay")
+var totalSum = document.getElementById("totalSum")
+var totalDiscount = document.getElementById("totalDiscount")
+var idNo = document.getElementById("idNo")
+
+
+
+
 /* 그냥 baskId 잘 받아져 오는지 크롬 콘솔에서 확인하는 테스트용 onload 임(지워도 됨) 시작 */
 window.onload = function() {
 	/* 
@@ -587,6 +610,277 @@ window.onload = function() {
 	
 }
 /* 그냥 baskId 잘 받아져 오는지 크롬 콘솔에서 확인하는 테스트용 onload 임(지워도 됨) 끝 */
+
+
+
+function paymentComplete() {
+	
+	console.log("paymentComplete 메서드 들어왔다~ ")
+	
+	var selectedBasketList = document.getElementById("selectedBasketList");
+	
+	selectedBasketList = selectedBasketList.value;
+	
+	
+	console.log("selectedBasketList : " + selectedBasketList);
+	// [BasketVO(baskId=baskId218, itemNum=1, idNo=c0002, itemCode=abcd0013, itemName=빠삐용 시금치, itemImg1=babbi.jpg, price=1300, normPrice=1500), BasketVO(baskId=baskId219, itemNum=1, idNo=c0002, itemCode=abcd0013, itemName=빠삐용 시금치, itemImg1=babbi.jpg, price=1300, normPrice=1500)]
+	// 이런 문자열로 들어온다
+	
+	var baskIdArr = [];
+	
+	var bArr = selectedBasketList.split("baskId=");
+	
+	for(var i=1; i<bArr.length; i++) {
+		
+		// 이제 i는 1일때부터 첫 문장은 다 baskId 임 
+		console.log(bArr[i]);
+		cArr = bArr[i].split(",");
+		baskIdArr.push(cArr[0]);
+	}
+	
+	// 이제 baskIdArr 에는 ["baskId217", "baskId218", "baskId219"] 이렇게 배열로 담김! 
+	console.log(baskIdArr);
+	
+	
+	// t_order 테이블에 주문내용 insert 한다 
+	orderTableInsert()
+	
+	// t_order 테이블에 insert 성공했으면 
+	.then(function(){
+		
+		for(var i=0; i<baskIdArr.length; i++) {
+			
+			console.log(baskIdArr[i]);
+			
+			// t_order_info, t_order_history 테이블에 baskId 별로 insert 한다 
+			orderInfoTableInsert(baskIdArr[i]);
+			// t_delivery 테이블 insert (배송코드 null 인 상태로)
+			deliveryTableInsert(baskIdArr[i]);
+		}
+		
+	// t_order_info, t_order_history, t_delivery 테이블에 insert 성공했으면 	
+	}).then(function(){
+		
+		// t_payment 테이블에 insert 
+		paymentTableInsert();
+		
+	}).then(function(){
+		
+		
+		
+		setTimeout(function(){
+			
+			for(var i=0; i<baskIdArr.length; i++) {
+				
+				// 주문한 제품은 t_basket 테이블에서 delete - 얘가 자꾸 오류나넹.. 뭔가 순서 없이 먼저 실행되는듯? 
+				deletefromBasket(baskIdArr[i]);
+			}
+			
+		}, 1);
+		
+		
+	}).then(function(){
+		
+		setTimeout(function(){
+	
+		// orderResult 페이지로 넘어가기 
+		location.href = "/order/orderResult" + "?orderCode=" + orderCode;
+		
+		// orderResult 페이지에서는 DB에서 목록 가져오면 될듯 (c 태그로)
+		}, 3);
+	})
+	
+	
+	
+	
+}
+
+
+
+
+/* 장바구니 에서 ajax 로 지우기 funciton 시작 */
+function deletefromBasket(baskId) {
+   
+   return $.ajax({
+      url: "/product/remove",
+      type: "delete",
+      data: baskId,
+      error : function(){console.log("통신실패")},
+      success : function(){console.log("통신성공")}
+      
+      });
+   
+}
+/* 장바구니 에서 ajax 로 지우기 funciton 끝 */
+
+   
+// t_delivery 테이블에 insert 하는 function 시작
+function deliveryTableInsert(baskId) {
+	
+	var deliveryData = {
+			receiver: "수령인",
+			receivAddr: "수령인주소",
+			receivContact: "연락처",
+			reqNote: "메모",
+			postCode: "dd",
+			orderCode: orderCode,
+			baskId: baskId,
+			
+	}
+	
+	return $.ajax({
+		url: "/order/deliveryTableInsert",
+		type: "POST",
+		data: JSON.stringify(deliveryData),
+		contentType: "application/json",
+		error : function(){console.log("deliveryTableInsert 통신실패")},
+	    success : function(){console.log("deliveryTableInsert 통신성공")}
+	}); 
+	
+	
+	
+	
+}
+// t_delivery 테이블에 insert 하는 function 끝 
+
+
+
+
+// t_payment 테이블에 insert 하는 function 시작
+function paymentTableInsert() {
+	
+	var paymentData = {
+		orderCode : orderCode,
+		jujuName : "주주마켓",
+		jujuContact : "02-222-2222",
+		jujuAddr : "종로 A2",
+		jujuCeo : "주정은",
+		subTotal : 1000,
+		tax : 100, 
+		vat : 1100,
+		totalPay : 1100,
+		card : 1100,
+		cardCompany: "(주)카카오페이",
+		cardNum : "1111-1111-1111-1111",
+		approvalNum : "okok1234",
+		monthlyPay: "일시불"
+			
+	}
+	
+	
+	return $.ajax({
+		url: "/order/paymentTableInsert",
+		type: "POST",
+		data: JSON.stringify(paymentData),
+		contentType: "application/json",
+		error : function(){console.log("paymentTableInsert 통신실패")},
+	    success : function(){console.log("paymentTableInsert 통신성공")}
+	}); 
+	
+	
+	
+}
+// t_payment 테이블에 insert 하는 function 끝 
+
+
+// t_order_info, t_order_history 테이블에 insert 하는 function 시작
+function orderInfoTableInsert(baskId) {
+	
+	console.log("orderInfoTableInsert에서 baskId 잘 받아지냐 " + baskId);
+	
+	var orderInfoData = {
+		baskId : baskId,
+		orderCode : orderCode
+	}
+	
+	return $.ajax({
+		url: "/order/orderInfoInsert",
+		type: "POST",
+		data: JSON.stringify(orderInfoData),
+		contentType: "application/json",
+		error : function(){console.log("orderInfoTableInsert 통신실패")},
+	    success : function(){console.log("orderInfoTableInsert 통신성공")}
+	}); 
+	
+}
+// t_order_info, t_order_history 테이블에 insert 하는 function 끝 
+
+
+
+
+// t_order 테이블에 insert 하는 function 시작
+function orderTableInsert() {
+	
+	// orderCode 만들기 작업 (현재 날짜, 시간 timestamp 찍기)
+	
+	var date = new Date();
+	
+	var year = new String(date.getFullYear());
+	var month = new String(date.getMonth()+1); //1월이 0으로 되어서 1 더해줌
+	var day = new String(date.getDate());
+	var hour = new String(date.getHours());
+	var minute = new String(date.getMinutes());
+	var second = new String(date.getSeconds());
+	
+	// 년도 두 자리수로 자르기 
+	year = year.substring(2);
+	
+	// 월이 한자리수일 경우 두 자리수로 만들어 주기
+	if(month.length == 1) {
+		month = "0" + month;
+	}
+	
+	// 날짜가 한자리수일 경우 두 자리수로 만들어 주기
+	if(day.length == 1) {
+		day = "0" + day;
+	}
+	
+	// 시간이 한자리수일 경우 두 자리수로 만들어 주기
+	if(hour.length == 1) {
+		hour = "0" + hour;
+	}
+
+	// 분이 한자리수일 경우 두 자리수로 만들어 주기
+	if(minute.length == 1) {
+		minute = "0" + minute;
+	}
+
+	// 초가 한자리수일 경우 두 자리수로 만들어 주기
+	if(second.length == 1) {
+		second = "0" + second;
+	}
+	
+	
+	orderCode = year + "" + month + "" + day + "" + hour + "" + minute + "" + second;
+	
+	console.log("orderCode: "+orderCode);
+	
+	var orderData = {
+		orderCode: orderCode,
+		totalPay: totalPay.value,
+		totalSum: totalSum.value,
+		totalDiscount: totalDiscount.value,
+		receivAddr: "서울시",
+		deliCharge : 2500,
+		isMember: "Y",
+		idNo : idNo.value
+			
+	};
+	
+	
+	return $.ajax({
+		url: "/order/orderInsert",
+		type: "POST",
+		data: JSON.stringify(orderData),
+		contentType: "application/json",
+		error : function(){console.log("orderTableInsert 통신실패")},
+	    success : function(){console.log("orderTableInsert 통신성공")}
+		
+	});
+	
+	
+}
+//t_order 테이블에 insert 하는 function 끝
 
 
 

@@ -8,4 +8,7 @@ import com.jujumarket.order.domain.DeliveryVO;
 public interface DeliverySerivce {
 	
 	public DeliveryVO get(String orderCode);
+	
+	public void register(DeliveryVO delivery);
+	
 }

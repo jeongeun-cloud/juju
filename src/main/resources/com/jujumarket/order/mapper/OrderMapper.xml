@@ -14,7 +14,7 @@
 
    <insert id="insert">
       insert into t_order(orderCode, totalPay, totalSum,
-      totalDiscount,receivAddr
+      totalDiscount,receivAddr,
       deliCharge, isMember, idNo)
       values(#{orderCode},
       #{totalPay}, #{totalSum}, #{totalDiscount},
@@ -111,5 +111,19 @@
       where
       orderCode = #{orderCode}
    </update>
+   
+   
+   <insert id="paymentRegister">
+   	  insert into t_payment(orderCode, jujuName, jujuContact,
+      jujuAddr, jujuCeo, subTotal, tax, vat, totalPay, card, cardCompany, cardNum, approvalNum, monthlyPay)
+      values(#{orderCode},
+      #{jujuName}, #{jujuContact}, #{jujuAddr},
+      #{jujuCeo}, #{subTotal},
+      #{tax}, #{vat}, #{totalPay}, #{card}, #{cardCompany}, #{cardNum}, #{approvalNum}, #{monthlyPay})
+   
+   </insert>
+   
+   
+   
 
 </mapper>
