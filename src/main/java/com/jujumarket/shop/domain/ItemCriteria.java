@@ -16,6 +16,8 @@ public class ItemCriteria {
 	
 	private String type;
     private String keyword;
+    
+    private String idNo;
 	
 	public ItemCriteria() {
 		this(1,10);

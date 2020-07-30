@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jujumarket.admin.domain.BannerVO;
+import com.jujumarket.admin.domain.ListItemVO;
 import com.jujumarket.admin.mapper.BannerMapper;
-import com.jujumarket.shop.mapper.RegisterItemMapper;
+import com.jujumarket.shop.domain.ItemCriteria;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -47,6 +48,41 @@ public class BannerServiceImpl implements BannerService {
 		log.info("get...." + imgNo);
 		
 		return mapper.read(imgNo);
+	}
+
+	@Override
+	public List<ListItemVO> getItemList(ItemCriteria cri) {
+		log.info("getItemList....");
+		
+		return mapper.getItemList(cri);
+	}
+
+	@Override
+	public ListItemVO getItem(String itemCode) {
+		log.info("getItem....");
+		
+		return mapper.getItem(itemCode);
+	}
+
+	@Override
+	public void regSeason(ListItemVO vo) {
+		log.info("regSeason......");
+		
+		mapper.regSeason(vo);
+	}
+
+	@Override
+	public List<ListItemVO> getSeason() {
+		log.info("getSeason......");
+		
+		return mapper.getSeason();
+	}
+
+	@Override
+	public int getItemTotal(ItemCriteria cri) {
+		log.info("getItemTotal......");
+		
+		return mapper.getItemTotal(cri);
 	}
 
 }

@@ -16,5 +16,6 @@ public interface ItemMainService {
 	
 	public List<ItemMainVO> getList();
 	
+	public String getShop(String itemCode);
 
 }
