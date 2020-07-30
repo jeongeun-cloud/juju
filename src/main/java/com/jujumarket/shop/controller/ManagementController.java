@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jujumarket.admin.domain.BannerVO;
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.ItemPageDTO;
 import com.jujumarket.shop.domain.ManagementVO;
@@ -73,8 +71,18 @@ public class ManagementController {
 	 
 	 @PostMapping("/searchorder")
 	 public void searchcheck(String orderStat, Model model) {
+		 
+		  System.out.println(orderStat);
+		  
+		  if(orderStat.equals("all")){
+			
+			model.addAttribute("list", service.searcheckAll(orderStat)); 
+			
+		  }else {
+			  model.addAttribute("list", service.searcheck(orderStat)); 
+		  }
 	
-		 model.addAttribute("list", service.searcheck(orderStat)); 
+		 
 		
 	}
 	 
@@ -83,6 +91,7 @@ public class ManagementController {
 	 public void  shippinglist(ItemCriteria cri , Model model) {
 	 
 	 int total = service.getNotTotal(cri);
+	 
 
 	 
 	  model.addAttribute("list", service.shippinggetList(cri)); 
@@ -94,20 +103,31 @@ public class ManagementController {
 	
 	 
 	 @PostMapping("/shipping")
-		public void shippingupdate(String shippingCode,String orderCode, Model model) {
-          
-		 
-		  System.out.println("들어옴");
-		  ManagementVO vo = new ManagementVO();
-	      vo.setOrderCode(orderCode);
-		  vo.setShippingCode(shippingCode);
-		 
+		public void shippingupdate(String shippingCode,String orderCode,String baskId,String itemCode, Model model) {
+  
+		 System.out.println("들어옴2");
+		    ManagementVO vo = new ManagementVO();
+		  
+			String[] arrOrder = orderCode.toString().split(",");
+			String[] arrShipping = shippingCode.toString().split(",");
+			String[] arrbaskId = baskId.toString().split(",");
+			String[] arritemCode = itemCode.toString().split(",");
+			
+			for (int i=0; i<arrOrder.length; i++) {
+				vo.setOrderCode(arrOrder[i]);
+				vo.setShippingCode(arrShipping[i]);
+				vo.setBaskId(arrbaskId[i]);
+				vo.setItemCode(arritemCode[i]);
+				
+				
+				System.out.println(arrbaskId[i]);
+				System.out.println(arritemCode[i]);
+				service.shippingupdate(vo);
+				  
+				model.addAttribute("shippingCode");
 
-			model.addAttribute("shippingCode", service.shippingupdate(vo));
-			
-			
+		  	}	
 		}
-
-
+	 
 
 }

@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <![CDATA[
 select a.*
 from(
-select SUM(o.sumPrice) orderT ,to_char(orderDate, 'yy/mm/dd') dday 
+select SUM(o.totalPrice) orderT ,to_char(orderDate, 'yy/mm/dd') dday 
 from t_order_info o , t_item t
 where o.itemCode= t.itemCode AND t.idNo='s0018' AND orderDate < to_char(sysdate+1)
 group by t.idNo ,to_char(orderDate, 'yy/mm/dd')
@@ -28,7 +28,7 @@ where]]>
 <select id="todayOrderTotal" resultType ="java.lang.Integer">
 
   
-  select sum(o.sumPrice) as todayOrderTotal
+  select sum(o.totalPrice) as todayOrderTotal
   from t_order_info o , t_item t
   where o.itemCode= t.itemCode AND t.idNo = #{idNo} AND to_char(orderdate, 'yy/mm/dd') = to_char(sysdate)
   group by t.idNo
@@ -38,10 +38,10 @@ where]]>
  <select id="prevOrderTotal" resultType="java.lang.Integer">
 
  
-  select sum(o.sumPrice) as prevOrderTotal
-	from t_order_info o , t_item t
-	where o.itemCode= t.itemCode AND t.idNo= #{idNo} AND to_char(orderdate, 'yy/mm') = to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm')-1,'yy/mm')
-	group by t.idNo
+  select sum(o.totalPrice) as prevOrderTotal
+   from t_order_info o , t_item t
+   where o.itemCode= t.itemCode AND t.idNo= #{idNo} AND to_char(orderdate, 'yy/mm') = to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm')-1,'yy/mm')
+   group by t.idNo
 
   
 </select> 
@@ -65,7 +65,7 @@ group by t.idNo
 
 <select id="todayRefundTotal" resultType="java.lang.Integer">
 
-select  sum(o.sumprice) as todayRefundTotal
+select  sum(o.totalPrice) as todayRefundTotal
 from t_order_history h , t_item t, t_order_info o 
 where h.itemCode= t.itemCode and h.baskId= o.baskId and h.orderStat='환불' and t.idNo = #{idNo} and to_char(orderDate, 'yy/mm/dd') = to_char(sysdate)
 group by t.idNo
@@ -73,7 +73,7 @@ group by t.idNo
 
 <select id="prevRefundTotal" resultType="java.lang.Integer">
 
-select  sum(o.sumprice) as prevRefundTotal
+select  sum(o.totalPrice) as prevRefundTotal
 from t_order_history h , t_item t, t_order_info o 
 where h.itemCode= t.itemCode and h.baskId= o.baskId and h.orderStat='환불' and t.idNo = #{idNo}
 AND to_char(orderdate, 'yy/mm') = to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm')-1,'yy/mm')
@@ -131,7 +131,7 @@ order by orderCnt DESC
  <![CDATA[
 select a.*
 from(
-select sum(o.sumPrice)  orderTotalD ,to_char(orderDate, 'yy/mm/dd')  dayD
+select sum(o.totalPrice)  orderTotalD ,to_char(orderDate, 'yy/mm/dd')  dayD
 from t_order_info o , t_item t
 where o.itemCode= t.itemCode AND t.idNo = #{idNo}   AND orderDate < to_char(sysdate)
 group by t.idNo ,to_char(orderDate, 'yy/mm/dd')
@@ -147,7 +147,7 @@ where]]>
  <![CDATA[
 select b.*
 from (
-select sum(o.sumPrice) orderTotalM ,to_char(orderDate, 'yy/mm') dayM
+select sum(o.totalPrice) orderTotalM ,to_char(orderDate, 'yy/mm') dayM
 from t_order_info o , t_item t
 where o.itemCode= t.itemCode AND t.idNo = #{idNo} 
 AND to_char(orderDate, 'yy/mm') < to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm'),'yy/mm')
@@ -164,7 +164,7 @@ where ]]>
  <![CDATA[
 select c.*
 from(
-select sum(o.sumPrice) orderTotalY ,to_char(orderDate, 'yyyy') dayY
+select sum(o.totalPrice) orderTotalY ,to_char(orderDate, 'yyyy') dayY
 from t_order_info o , t_item t
 where o.itemCode= t.itemCode AND t.idNo = #{idNo}   
 AND to_char(orderDate, 'yyyy') < to_char(to_date(to_char(sysdate,'yyyy'),'yyyy'),'yyyy')

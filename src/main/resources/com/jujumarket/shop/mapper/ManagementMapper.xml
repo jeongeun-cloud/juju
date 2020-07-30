@@ -42,6 +42,7 @@
 select s.orderCode, s.orderstat, s.totalprice, s.orderdate, 
 s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver
 ,s.itemNum,s.price
+
 from
    (
    select /*+INDEX_DESC(t_order_history PK_T_ORDER_HISTORY) */
@@ -69,21 +70,17 @@ where rn > (#{pageNum} -1)* #{amount}
 </select>
 
 
-
-
-
-
 <select id = "shippinggetListPaging" resultType="com.jujumarket.shop.domain.ManagementVO" >
 <![CDATA[
 select s.ordercode, s.orderstat, s.totalprice, s.orderdate, 
 s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver
-,s.itemNum,s.price
+,s.itemNum,s.price,s.baskId,s.prgDate,s.itemCode
 from
    (
    select /*+INDEX_DESC(t_order_history PK_T_ORDER_HISTORY) */
      rownum rn,h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
-,o.itemNum,i.price
+,o.itemNum,i.price,h.baskId,h.prgDate,h.itemCode
 
 from t_order_history h, t_order_info o, t_item i, t_delivery d
 where 
@@ -96,7 +93,8 @@ and o.itemCode = i.itemCode
 and h.itemCode = i.itemCode
 and h.baskId = d.baskId
 and h.baskid = o.baskid
-and shippingcode is NULL
+
+
 
 and rownum <= #{pageNum} * #{amount}
 ) s
@@ -104,7 +102,7 @@ where rn > (#{pageNum} -1)* #{amount}
 ]]>
 </select>
 
-
+<!-- and shippingcode is NULL -->
 
 
 <update id="shippingupdate">
@@ -125,7 +123,7 @@ where orderCode = #{orderCode}
 
 
 
-<select id="searchordergetList" resultType="com.jujumarket.shop.domain.ManagementVO" >	
+<!-- <select id="searchordergetList" resultType="com.jujumarket.shop.domain.ManagementVO" >	
 select h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
 ,o.itemNum,i.price
@@ -133,15 +131,21 @@ from t_order_history h, t_order_info o, t_item i, t_delivery d
 
 where h.ordercode = o.ordercode
 and d.ordercode = h.orderCode
-
 and o.itemCode = i.itemCode
 and h.itemCode = i.itemCode
 and h.baskId = d.baskId
 and h.baskid = o.baskid
-</select>
+
+</select> -->
 
 
-
+<insert id = "insertSelectKey">
+	<selectKey keyProperty="baskId" order="BEFORE" resultType="String">
+	select SEQ_BASKET.nextval from dual
+	</selectKey>
+	insert into t_order_history (baskId,orderCode,orderStat,itemCode)
+	values (#{baskId},#{orderCode},'배송중',#{itemCode})
+	</insert>
 <!-- <select id="getcheck" resultType="com.jujumarket.shop.domain.ManagementVO">
 <![CDATA[
 select h.itemCode,h.ordercode, h.orderstat, o.totalprice, o.orderdate, i.itemName,
@@ -164,26 +168,37 @@ and h.orderstat = 'orderStat'
 
 <select id = "getcheck" resultType="com.jujumarket.shop.domain.ManagementVO" >
 <![CDATA[
-
-select 
-h.orderCode, h.orderstat, o.totalprice, o.orderdate, 
+select distinct h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
 ,o.itemNum,i.price
-
 from t_order_history h, t_order_info o, t_item i, t_delivery d
-where
 
+where h.ordercode = o.ordercode
+and d.ordercode = h.orderCode
 
-h.orderCode = o.orderCode
-and d.orderCode = h.orderCode
 and o.itemCode = i.itemCode
 and h.itemCode = i.itemCode
-and h.baskId = d.baskId
-and h.baskid = o.baskid
-and h.orderStat = #{orderStat}
 
+and h.orderStat = #{orderStat}
+]]>
+</select>
+<select id = "getcheckAll" resultType="com.jujumarket.shop.domain.ManagementVO" >
+<![CDATA[
+select distinct h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
+i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
+,o.itemNum,i.price
+from t_order_history h, t_order_info o, t_item i, t_delivery d
+
+where h.ordercode = o.ordercode
+and d.ordercode = h.orderCode
+
+and o.itemCode = i.itemCode
+and h.itemCode = i.itemCode
 
 ]]>
+
+<!-- and h.baskId = d.baskId
+and h.baskid = o.baskid -->
 
 </select>
 

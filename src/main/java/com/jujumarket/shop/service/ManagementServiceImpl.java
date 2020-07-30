@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.ManagementVO;
@@ -21,11 +22,12 @@ public class ManagementServiceImpl implements ManagementService {
 	@Setter(onMethod_ = @Autowired)
 	private ManagementMapper mapper;
 
+	@Transactional
 	@Override
-	public boolean shippingupdate(ManagementVO vo) {
-		// TODO Auto-generated method stub
-		
-		return mapper.shippingupdate(vo) == 1;
+	public void shippingupdate(ManagementVO vo) {
+
+	   mapper.shippingupdate(vo);
+	   mapper.insertSelectKey(vo);
 	}
 
 	
@@ -65,10 +67,10 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 
 
+	@Override
+	public List<ManagementVO> searcheckAll(String orderStat) {
 
-
-	
-
-
+		return mapper.getcheckAll(orderStat);
+	}
 
 }
