@@ -119,7 +119,8 @@ h4 {
   margin: 2rem 0;
   padding: 1rem 0 0 0; }
 
-.add-to-basket {
+.add-to-basket ,
+.add-to-alarm{
   position: relative;
   display: inline-block;
   background: #3e3e3f;
@@ -133,9 +134,11 @@ h4 {
   transform: translateZ(0);
   transition: color 0.3s ease;
   letter-spacing: 0.0625rem; }
-  .add-to-basket:hover::before {
+  .add-to-basket:hover::before,
+  .add-to-alarm:hover::before {
     transform: scaleX(1); }
-  .add-to-basket::before {
+  .add-to-basket::before ,
+  .add-to-alarm::before {
     position: absolute;
     content: "";
     z-index: -1;
@@ -618,7 +621,17 @@ input[type=range] {
               <div class="item-describe">
                 <p><c:out value="${product.itemContent}" default="itemContent"/></p>
               </div>
-              <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" >장바구니 담기</button>
+              <!-- 품절, 판매중지 인 상품 장바구니로 못넘어가게 하기 -->
+              <c:if test="${product.saleStat=='품절'||product.saleStat=='판매중지'}">
+              	<button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="alert('죄송합니다. 구매 불가한 상품입니다.')" >장바구니 담기</button>
+              </c:if>
+              <c:if test="${product.saleStat!='품절' && product.saleStat!='판매중지'}">
+              	<button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" >장바구니 담기</button>
+              </c:if>
+              <!-- 품절인 상황에만 입고 신청 알람받기 -->
+              <c:if test="${product.saleStat=='품절'}">
+             	 <button type="submit" class="add-to-alarm" >입고 신청 알람 받기</button>
+              </c:if>
             </div>
 
             <input type="hidden" value="${product.itemCode}" id="itemCode"/>
