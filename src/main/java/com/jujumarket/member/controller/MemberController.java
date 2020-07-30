@@ -1,7 +1,10 @@
 package com.jujumarket.member.controller;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jujumarket.member.domain.CustomerVO;
@@ -36,6 +41,7 @@ public class MemberController {
 	private CustomerService customerService;
 	private SellerService sellerService;
 	private MailService mailService;
+	private ServletContext servletContext;
 
 	//회원가입 누르면 가장 먼저 뜨는 폼. 일반고객/상인고객 중 택1
 	@GetMapping("/chooseMemberType")
@@ -87,8 +93,48 @@ public class MemberController {
 	
 	//상인(판매자) 가입정보 POST방식 DB INSERT
 	@PostMapping("/sellerJoinForm")
-	public String sellerJoinForm(SellerVO seller) {
-		sellerService.register(seller);
+	public String sellerJoinForm(SellerVO seller, MultipartFile[] uploadFile) {
+		
+		  String uploadFolder = servletContext.getRealPath("/resources/seller");
+	      File uploadPath = new File(uploadFolder, seller.getBusinessCode());
+	      System.out.println("upload path : " + uploadPath);
+	      log.info("upload path : " + uploadPath);
+	      
+	      //사업자등록번호를 이름으로 하는 이미지 저장폴더 생성
+	      if(uploadPath.exists() == false) {
+	         uploadPath.mkdir(); 
+	      }
+
+	      int i = 0;
+	      for(MultipartFile multi : uploadFile) {
+	         
+	         String uploadFilename = multi.getOriginalFilename();
+	         
+	         if(uploadFilename.equals("")) {
+	        	 break;
+	         }
+
+		         // IE has file path
+		         uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
+		         
+		         UUID uuid = UUID.randomUUID();
+		         uploadFilename = uuid.toString() + "_" + uploadFilename;
+	
+		         try {
+		            // 이미지 파일 path에 올리기
+		            File saveFile = new File(uploadPath, uploadFilename);
+		            multi.transferTo(saveFile);
+		            
+		         } catch (Exception e) {
+		            log.error(e.getMessage());
+		         } // end catch
+	         
+		         if(i==0) seller.setBusinessRegFile(uploadFilename);
+		         else if(i==1) seller.setThumbImg(uploadFilename);
+		         else if(i==2) seller.setBackImg(uploadFilename);
+		         i++;
+	      }
+	      sellerService.register(seller);
 		return "redirect:/member/sellerJoinComplete";
 	}
 	
@@ -115,7 +161,7 @@ public class MemberController {
 			return "redirect:/";
 			
 		}else {
-			rttr.addFlashAttribute("result", "로그인 실패");
+			rttr.addFlashAttribute("result", "로그인에 실패했습니다.");
 			return "redirect:/member/login";
 		}
 	}
