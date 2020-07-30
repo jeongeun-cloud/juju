@@ -39,7 +39,7 @@ table, td, th {
 		                <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
 					    <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
 					    <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>               
-					
+					    <button class='btn btn-default' id="searchBtn"> 검색 </button>  
 						      <br>
 						          <div>
 						              주문일<input type='date'>~<input type='date'>
@@ -47,17 +47,21 @@ table, td, th {
 		
 		          </div>
 		      <br>
-		          <div> 주문상태
-		                <input type="checkbox">전체
-		                <input type="checkbox">상품준비중
-		                <input type="checkbox">배송준비중
-		                <input type="checkbox">배송중
-		                <input type="checkbox">배송완료
-		          </div>      
+		      </form> 
+		      
+		      	<form id="test" method="POST">
+		          <div > 주문상태
+		                <input name='orderStat' type="radio" value = 'all' checked>전체
+		                <input name='orderStat' type="radio" value = '상품준비중'>상품준비중
+		                <input name='orderStat' type="radio" value = '배송중'>배송중
+		                <input name='orderStat' type="radio" value = 'orderStat'>배송완료
+		                <button class='radioBtn' id="radioBtn"> 검색 </button>
+		          </div>  
+		          </form>    
 		      <br>
-		             <button class='btn btn-default'> 검색 </button>  
+		             
 		              <button type = 'reset'> 초기화 </button>  
-			</form> 
+			
 		              <table tit aria-setsize="500px">
 		                  <thead>
 		                    <tr>
@@ -107,7 +111,8 @@ table, td, th {
 		                        
 		                    </tr> 
 		                  </c:forEach>
-		            
+		                  
+
 		                  </table>
 		                  
 		                  <!-- 페이징 처리 시작 -->
@@ -181,14 +186,29 @@ $(document).ready(function(){
      
               }
               searchForm.find("input[name='pageNum']").val("1");
-              e.preventDefault();
+             
               
               searchForm.submit();  
     	  
       });
       
-      
-      $(document).on("click","button[id='shippingBtn']", function(e) {
+      $("#radioBtn").on("click", function(e){
+
+         var check = $("input:radio[name='orderStat']:checked").val();
+    	 alert(check);
+         
+         $("#test").submit();
+          /* $.ajax({
+				url : '/shop/searchorder',
+				data : {orderStat : check},
+				dataType : 'text',
+				type : 'POST',
+				success : function(result) {
+					alert("ㅂ뀜");
+				}
+			});  */	// $.ajax
+
+      });
 	
 });
 </script>

@@ -22,6 +22,7 @@
                   <when test="type == 'P'.toString()">
                     receivContact like '%' || #{keyword} || '%'    
                   </when>
+                  
                </choose>
             </trim>
          </foreach>
@@ -88,7 +89,8 @@ from t_order_history h, t_order_info o, t_item i, t_delivery d
 where 
 ]]>
 <include refid="itemcriteria"></include>
-<![CDATA[h.ordercode = o.ordercode
+<![CDATA[
+h.ordercode = o.ordercode
 and d.ordercode = h.orderCode
 and o.itemCode = i.itemCode
 and h.itemCode = i.itemCode
@@ -102,6 +104,9 @@ where rn > (#{pageNum} -1)* #{amount}
 ]]>
 </select>
 
+
+
+
 <update id="shippingupdate">
 update t_delivery set 
 shippingCode = #{shippingCode}
@@ -114,7 +119,7 @@ where orderCode = #{orderCode}
 
 <select id="getnotCount" resultType="int">
    select count(*) from t_delivery
-   WHERE shippingcode is NULL
+   WHERE shippingCode is NULL
 </select>
 
 
@@ -137,7 +142,7 @@ and h.baskid = o.baskid
 
 
 
-<select id="shippinggetList" resultType="com.jujumarket.shop.domain.ManagementVO">
+<!-- <select id="getcheck" resultType="com.jujumarket.shop.domain.ManagementVO">
 <![CDATA[
 select h.itemCode,h.ordercode, h.orderstat, o.totalprice, o.orderdate, i.itemName,
 d.shippingCode, d.receivAddr, d.receivContact, d.receiver
@@ -151,9 +156,36 @@ and o.itemCode = i.itemCode
 and h.itemCode = i.itemCode
 and h.baskId = d.baskId
 and h.baskid = o.baskid
-]]>
-</select>
+and h.orderstat = 'orderStat'
 
+]]>
+</select> -->
+
+
+<select id = "getcheck" resultType="com.jujumarket.shop.domain.ManagementVO" >
+<![CDATA[
+
+select 
+h.orderCode, h.orderstat, o.totalprice, o.orderdate, 
+i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
+,o.itemNum,i.price
+
+from t_order_history h, t_order_info o, t_item i, t_delivery d
+where
+
+
+h.orderCode = o.orderCode
+and d.orderCode = h.orderCode
+and o.itemCode = i.itemCode
+and h.itemCode = i.itemCode
+and h.baskId = d.baskId
+and h.baskid = o.baskid
+and h.orderStat = #{orderStat}
+
+
+]]>
+
+</select>
 
 
 <!-- <select id="read" resultType ="com.jujumarket.shop.mapper.ManagementVO">
