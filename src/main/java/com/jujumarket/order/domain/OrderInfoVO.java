@@ -6,14 +6,17 @@ import lombok.Data;
 
 @Data
 public class OrderInfoVO {
-	private String orderCode;
 	private String baskId;
-	private String itemCode;
+	private String orderCode;
 	//OrderInfoVO에만 존재하는 컬럼 
 	private Long itemNum;
 	//OrderInfoVO에만 존재하는 컬럼
 	private Long disAmount;
-	private Long totalPrice;
 	private Timestamp orderDate;
+	private String itemCode;
+	private Long totalPrice;
+	private Long normPrice;
+	private Long price;
+	
 
 }

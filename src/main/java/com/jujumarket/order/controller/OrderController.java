@@ -1,5 +1,6 @@
 package com.jujumarket.order.controller;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,10 +21,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jujumarket.main.domain.BasketVO;
 import com.jujumarket.order.domain.DeliveryVO;
+import com.jujumarket.order.domain.OrderInfoVO;
 import com.jujumarket.order.domain.OrderMemberVO;
 import com.jujumarket.order.domain.OrderRequestVO;
 import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
+import com.jujumarket.order.domain.PaymentVO;
 import com.jujumarket.order.service.DeliverySerivce;
 import com.jujumarket.order.service.OrderMemberService;
 import com.jujumarket.order.service.OrderService;
@@ -57,7 +60,7 @@ public class OrderController {
 		// idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
 		String orderCode = orderService.getRecentOrderCode(idNo);
 		if (orderCode != null) {
-			model.addAttribute("recentDelivery", deliveryService.get(orderCode));
+			//model.addAttribute("recentDelivery", deliveryService.get(orderCode));
 		}
 		return "order/orderItemsForm";
 	}
@@ -71,10 +74,17 @@ public class OrderController {
 	@GetMapping("/orderResult")
 	public String orderResult(@RequestParam("orderCode") String orderCode, Model model, HttpSession session) {
 		log.info("/orderResult");
+		System.out.println("orderResult 들어왔음1");
 		if (session.getAttribute("sessionMember") == null) {
 			return "redirect:/member/login";
 		}
+		System.out.println("orderResult 들어왔음2" + orderCode);
 		OrderVO order = orderService.get(orderCode);
+		System.out.println("orderResult 들어왔음3");
+		
+		System.out.println("OrderController 에서 orderResult 메서드의 order.toString()" + order.toString());
+		System.out.println("orderResult 들어왔음4");
+		
 		List<OrderResponseVO> itemList = orderService.showOrderList(orderCode);
 		String idNo = order.getIdNo();
 		OrderMemberVO orderMember = orderMemberService.getOrderMemberInfo(idNo);
@@ -91,12 +101,15 @@ public class OrderController {
 
 	// orderResult 정보를 t_delivery DB에 insert. orderCode를 기준으로 insert
 	@PostMapping("/orderResult")
-	public String orderResult(OrderRequestVO order) {
-		log.info("orderResult");
-		log.info(order);
-		String orderCode = orderService.register(order);
+	public void orderResult(OrderRequestVO order) {
+		System.out.println("orderResult postmapping 진행");
+		System.out.println("order 에 뭐가 담겨오는거냐"+order.toString());
+		
+		//log.info("orderResult postmapping 진행");
+		//log.info(order);
+		orderService.register(order);
 
-		return "redirect:/order/orderResult" + "?orderCode=" + orderCode;
+		//return "redirect:/order/orderResult" + "?orderCode=" + orderCode;
 	}
 
 	@PostMapping("/modify")
@@ -165,7 +178,7 @@ public class OrderController {
 		// idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
 		String orderCode = orderService.getRecentOrderCode(idNo);
 		if (orderCode != null) {
-			model.addAttribute("recentDelivery", deliveryService.get(orderCode));
+			//model.addAttribute("recentDelivery", deliveryService.get(orderCode));
 		}
 
 	}
@@ -180,5 +193,59 @@ public class OrderController {
 		model.addAttribute("basket", orderService.getOne(baskId));
 
 	}
+	
+	
+	@PostMapping("/orderInsert")
+	@ResponseBody
+	public void orderInsert(@RequestBody OrderRequestVO order) {
+		
+		//System.out.println("OrderController의 orderInsert 메서드의 order.toString() : "+order.toString());
+		
+		orderService.register(order);
+		
+	}
+	
+	@PostMapping("/orderInfoInsert")
+	@ResponseBody
+	public void orderInfoInsert(@RequestBody OrderInfoVO notfullVO) {
+		
+		// notfullVO 에는 baskId 와 orderCode 만 들어있음 
+		System.out.println("OrderController 에서 baskId : " + notfullVO.getBaskId() + ", orderCode : " + notfullVO.getOrderCode());
+		
+		OrderInfoVO fullvo = orderService.getMakeInfoAndHistory(notfullVO.getBaskId());
+		
+		System.out.println("fullvo : " + fullvo.toString());
+		
+		fullvo.setOrderCode(notfullVO.getOrderCode());
+		fullvo.setDisAmount((fullvo.getNormPrice()-fullvo.getPrice())*fullvo.getItemNum());
+		fullvo.setTotalPrice(fullvo.getPrice()*fullvo.getItemNum());
+		
+		
+		orderService.orderInfoRegister(fullvo);
+		
+		orderService.orderHistoryRegister(fullvo);
+		
+	}
+	
+	@PostMapping("/paymentTableInsert")
+	@ResponseBody
+	public void paymentTableInsert(@RequestBody PaymentVO payment) {
+		
+		orderService.paymentRegister(payment);
+		
+	}
+	
+	
+	@PostMapping("/deliveryTableInsert")
+	@ResponseBody
+	public void deliveryTableInsert(@RequestBody DeliveryVO delivery) {
+		
+		deliveryService.register(delivery);
+		
+	}
+	
+	
+	
+	
 
 }
