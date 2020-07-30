@@ -127,6 +127,16 @@
     <!-- Swiper JS -->
      <script src="/resources/js/swiper-bundle.min.js"></script>
    <script type="text/javascript">
+   
+   /*알람  */
+	/*   window.onload = function () {
+       var ref = this.open('http://jujumarket-23.web.app/');
+       this.addEventListener('message', function (e) {
+           if (e.data.permission === "granted") { ref.close(); }
+           console.log(e.data.token);
+       });
+   }  */
+   /* 알람*/
         // top_banner_wrap 기능
         // 밑에 동그라미(순서)가 같이 움직이는 기능 
         var slideIndex = 1;

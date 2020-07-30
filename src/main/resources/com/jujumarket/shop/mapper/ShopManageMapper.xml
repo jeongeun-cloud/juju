@@ -4,25 +4,175 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jujumarket.shop.mapper.ShopManageMapper">
 
+
+<!--어제 오늘 주문량 비교  -->
+<select id="getCompareSta" resultType="com.jujumarket.shop.domain.WholeStaVO">
+<![CDATA[
+select a.*
+from(
+select SUM(o.sumPrice) orderT ,to_char(orderDate, 'yy/mm/dd') dday 
+from t_order_info o , t_item t
+where o.itemCode= t.itemCode AND t.idNo='s0018' AND orderDate < to_char(sysdate+1)
+group by t.idNo ,to_char(orderDate, 'yy/mm/dd')
+order by dday desc)a
+where]]> 
+<![CDATA[
+ rownum<3]]> 
+
+
+</select>
+
+
+
 <!--오늘 총 주문 금액  -->
-<select id="todayOrderTotal" resultType ="int">
+<select id="todayOrderTotal" resultType ="java.lang.Integer">
 
   
   select sum(o.sumPrice) as todayOrderTotal
   from t_order_info o , t_item t
-  where o.itemCode= t.itemCode AND t.idNo ='s0018' AND to_char(orderdate, 'yy/mm/dd') = to_char(sysdate)
+  where o.itemCode= t.itemCode AND t.idNo = #{idNo} AND to_char(orderdate, 'yy/mm/dd') = to_char(sysdate)
   group by t.idNo
   
 </select>
 
- <select id="prevOrderTotal" resultType="int">
+ <select id="prevOrderTotal" resultType="java.lang.Integer">
 
  
   select sum(o.sumPrice) as prevOrderTotal
 	from t_order_info o , t_item t
-	where o.itemCode= t.itemCode AND t.idNo='s0018' AND to_char(orderdate, 'yy/mm') = to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm')-1,'yy/mm')
+	where o.itemCode= t.itemCode AND t.idNo= #{idNo} AND to_char(orderdate, 'yy/mm') = to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm')-1,'yy/mm')
 	group by t.idNo
 
   
 </select> 
+
+<select id="todayOrderCnt" resultType="java.lang.Integer">
+
+select  count(*) todayOrderCnt
+from t_order_info o , t_item t
+where t.itemCode = o.itemCode AND t.idNo= #{idNo} AND to_char(orderdate, 'yy/mm/dd') = to_char(sysdate)
+group by t.idNo
+
+</select>
+
+<select id="prevOrderCnt" resultType="java.lang.Integer">
+
+select  count(*) prevOrderCnt
+from t_order_info o , t_item t
+where t.itemCode = o.itemCode AND t.idNo= #{idNo}  AND to_char(orderdate, 'yy/mm') = to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm')-1,'yy/mm')
+group by t.idNo
+</select>
+
+<select id="todayRefundTotal" resultType="java.lang.Integer">
+
+select  sum(o.sumprice) as todayRefundTotal
+from t_order_history h , t_item t, t_order_info o 
+where h.itemCode= t.itemCode and h.baskId= o.baskId and h.orderStat='환불' and t.idNo = #{idNo} and to_char(orderDate, 'yy/mm/dd') = to_char(sysdate)
+group by t.idNo
+</select>
+
+<select id="prevRefundTotal" resultType="java.lang.Integer">
+
+select  sum(o.sumprice) as prevRefundTotal
+from t_order_history h , t_item t, t_order_info o 
+where h.itemCode= t.itemCode and h.baskId= o.baskId and h.orderStat='환불' and t.idNo = #{idNo}
+AND to_char(orderdate, 'yy/mm') = to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm')-1,'yy/mm')
+group by t.idNo
+</select>
+
+<select id="todayRefundCnt" resultType="java.lang.Integer">
+
+select  count(t.idNo) as todayRefundCnt
+from t_order_history h , t_item t , t_order_info o
+where h.itemCode = t.itemCode and h.baskId= o.baskId and h.orderStat='환불' and t.idNo= #{idNo} 
+and to_char(orderDate, 'yy/mm/dd') = to_char(sysdate)
+group by t.idNo
+</select>
+
+<select id="prevRefundCnt" resultType="java.lang.Integer">
+
+select  count(t.idNo) as prevRefundCnt
+from t_order_history h , t_item t , t_order_info o
+where h.itemCode = t.itemCode and h.baskId= o.baskId and h.orderStat='환불' and t.idNo= #{idNo} 
+AND to_char(orderdate, 'yy/mm') = to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm')-1,'yy/mm')
+group by t.idNo
+</select>
+
+<!--오늘 상품 판매량 순위 top5  -->
+<select id="getTodayProSta" resultType="com.jujumarket.main.domain.BoardItemVO">
+ <![CDATA[
+select ROWNUM rank, a.*
+from(
+select  o.itemCode , t.itemName , sum(o.itemNum) orderCnt 
+from t_order_info o , t_item t
+where o.itemCode = t.itemCode and t.idNo = #{idNo}   AND to_char(orderdate, 'yy/mm/dd') = to_char(sysdate)
+group by o.itemcode , t.itemName
+order by sum(o.itemNum) desc)a
+where ]]> 
+ <![CDATA[
+ ROWNUM<6
+]]> 
+</select>
+
+<!--전체 상품 판매통계  -->
+<select id="getWholeSta" parameterType="String" resultType="com.jujumarket.shop.domain.WholeStaVO">
+select  t.itemName , sum(o.itemNum) orderCnt 
+from t_order_info o , t_item t
+where o.itemCode = t.itemCode and t.idNo = #{idNo} 
+group by o.itemcode, t.itemName
+order by orderCnt DESC
+
+
+</select>
+
+<!-- 지난3일간의 통계  -->
+
+<select id="getDaySta" resultType="com.jujumarket.shop.domain.WholeStaVO">
+ <![CDATA[
+select a.*
+from(
+select sum(o.sumPrice)  orderTotalD ,to_char(orderDate, 'yy/mm/dd')  dayD
+from t_order_info o , t_item t
+where o.itemCode= t.itemCode AND t.idNo = #{idNo}   AND orderDate < to_char(sysdate)
+group by t.idNo ,to_char(orderDate, 'yy/mm/dd')
+order by dayD DESC)a
+where]]>
+ <![CDATA[
+  ROWNUM<4]]>
+</select>
+
+<!-- 지난3달간의 통계  -->
+
+<select id="getMonthSta" resultType="com.jujumarket.shop.domain.WholeStaVO">
+ <![CDATA[
+select b.*
+from (
+select sum(o.sumPrice) orderTotalM ,to_char(orderDate, 'yy/mm') dayM
+from t_order_info o , t_item t
+where o.itemCode= t.itemCode AND t.idNo = #{idNo} 
+AND to_char(orderDate, 'yy/mm') < to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm'),'yy/mm')
+group by t.idNo ,to_char(orderDate, 'yy/mm')
+order by dayM DESC)b
+where ]]>
+ <![CDATA[
+ ROWNUM <4]]>
+</select>
+
+<!--지난3년간의 통계   -->
+
+<select id="getYearSta" resultType="com.jujumarket.shop.domain.WholeStaVO">
+ <![CDATA[
+select c.*
+from(
+select sum(o.sumPrice) orderTotalY ,to_char(orderDate, 'yyyy') dayY
+from t_order_info o , t_item t
+where o.itemCode= t.itemCode AND t.idNo = #{idNo}   
+AND to_char(orderDate, 'yyyy') < to_char(to_date(to_char(sysdate,'yyyy'),'yyyy'),'yyyy')
+group by t.idNo ,to_char(orderDate, 'yyyy')
+order by dayY DESC)c
+where  ]]>
+ <![CDATA[
+ ROWNUM<4 ]]>
+</select>
+
 </mapper>
