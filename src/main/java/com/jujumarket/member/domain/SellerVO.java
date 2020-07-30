@@ -1,5 +1,7 @@
 package com.jujumarket.member.domain;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -38,4 +40,5 @@ public class SellerVO {
 	
 	//m_history 탈퇴사유(nullable)
 	private String reason;
+	
 }

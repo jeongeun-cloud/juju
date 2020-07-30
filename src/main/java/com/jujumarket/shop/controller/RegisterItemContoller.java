@@ -38,11 +38,11 @@ public class RegisterItemContoller {
 	private ServletContext servletContext;
 	private RegisterItemService service;
 	
-	@GetMapping("/")
-	public String index() {
-		
-		return "shop/index";
-	}
+//	@GetMapping("/")
+//	public String index() {
+//		
+//		return "shop/index";
+//	}
 	
 	@GetMapping("/idCheck")
 	public void idCheck() {
@@ -53,9 +53,9 @@ public class RegisterItemContoller {
 	public void list(ItemCriteria cri, HttpSession session, Model model) {
 		log.info("list : " + cri);
 		MemberVO member = (MemberVO)session.getAttribute("sessionMember");
-		String idNo = member.getIdNo();
-		System.out.println(idNo + " 세션 아이디");	// 이걸 이용해서 그 사람의 상품만 가져오기
+		String idNo = member == null ? "" : member.getIdNo();	// 비어있을 때 null Exception 방지
 		
+		cri.setIdNo(idNo); // 이걸 이용해서 그 사람의 상품만 가져오기
 		
 		model.addAttribute("list", service.getList(cri));
 		//model.addAttribute("pageMaker", new ItemPageDTO(cri, 123));

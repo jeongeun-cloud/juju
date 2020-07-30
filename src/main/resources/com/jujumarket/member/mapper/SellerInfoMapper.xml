@@ -8,8 +8,8 @@
 	<!-- 권한코드는 삭제되었음 2020-07-15 -->
 	<insert id="insertShopInfo">
 		insert into m_shop_info(idNo, businessCode, bank,
-		bankAccount)
-		values(#{idNo}, #{businessCode}, #{bank}, #{bankAccount})
+		bankAccount, businessRegFile, thumbImg, backImg)
+		values(#{idNo}, #{businessCode}, #{bank}, #{bankAccount}, #{businessRegFile}, #{thumbImg}, #{backImg, jdbcType=VARCHAR})
 
 	</insert>
 
@@ -18,8 +18,8 @@
 		set
 		bank = #{bank},
 		bankAccount = #{bankAccount},
-		thumbImg = #{thumbImg},
-		backImg = #{backImg}
+		thumbImg = #{thumbImg, jdbcType=VARCHAR},
+		backImg = #{backImg, jdbcType=VARCHAR}
 		where idNo = #{idNo}
 	</update>
 

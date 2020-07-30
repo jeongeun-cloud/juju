@@ -13,7 +13,8 @@
 </head>
 <%@include file="./idCheck.jsp" %>
 <body>
-    <div class="admi_container">
+<%@include file="../includes/header.jsp" %>
+    <div class="admi_container" style="border:solid;">
         <div class="admi_tit">
             <h1>주주마켓 Admin</h1>
         </div>
@@ -74,22 +75,15 @@
                                         주문 수 
                                     </div>
                                     <div>
-                                        00건
+                                       <fmt:formatNumber type="number" maxFractionDigits="3" value="${todayOrderCnt}" />건
                                     </div>
                                 </div>
                             </div>   
                             <!-- today_box -->
                         </div>
                         <!-- today_total -->
-                        <div class="rate">
-                            <div class="yest_rate">
-                                어제 
-                            </div>
-                        </div>   
-                        <div class="rate"> 
-                            <div class="today_rate">
-                                오늘
-                            </div>
+                        <div>
+                <div id="dual_x_div" style="width: 80px; height: 180px;"></div>
                         </div>
 
                     </div>
@@ -188,10 +182,40 @@
 
                 </div>
             </div>
+           
+   
         </div>
         <!--admi_board  -->
     </div>
     <!-- admi_container -->
 </body>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawStuff);
 
+    function drawStuff() {
+      var data = new google.visualization.arrayToDataTable([
+        ['DAY', '판매량'],
+       	${tt}
+    
+      ]);
+
+      var options = {
+        width: 400,
+        chart: {
+          title: '오늘/어제 판매량',
+         
+        },
+        bars: 'horizontal', // Required for Material Bar Charts.
+        
+      };
+
+    var chart = new google.charts.Bar(document.getElementById('dual_x_div'));
+    chart.draw(data, options);
+  }
+    
+    
+    </script>
+    
 </html>

@@ -27,11 +27,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jujumarket.admin.domain.BannerVO;
+import com.jujumarket.admin.domain.ListItemVO;
 import com.jujumarket.admin.service.BannerService;
-import com.jujumarket.main.service.EventService;
+import com.jujumarket.shop.domain.ItemCriteria;
+import com.jujumarket.shop.domain.ItemPageDTO;
+import com.jujumarket.shop.service.RegisterItemService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Log4j
@@ -68,15 +72,19 @@ public class BannerContoller {
 	}
 	
 	@GetMapping("/seasonalMagazine")
-	public void seasonalMagazine(Model model) {
+	public void seasonalMagazine(ItemCriteria cri, Model model) {
 		log.info("eventBanner........");
+		
+		int total = service.getItemTotal(cri);
 		
 		String bannerType = "seasonal";
 		model.addAttribute("seasonal", service.getBanner(bannerType));
+		model.addAttribute("list", service.getItemList(cri));
+		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 	}
 	
 	// 파일 업로드 중복코드 메서드
-	public List<BannerVO> imgSave(MultipartFile[] uploadFile, String bannerType) {
+	public List<BannerVO> imgSave(MultipartFile[] uploadFile, String bannerType, String idNo) {
 		
 		List<BannerVO> list = new ArrayList<>();
 		String uploadFolder = servletContext.getRealPath("/resources/banner");
@@ -112,7 +120,7 @@ public class BannerContoller {
 				vo.setImgPath(uploadFolderPath);
 				vo.setBannerType(bannerType);
 				
-				vo.setIdNo("임시idNo");
+				vo.setIdNo(idNo);
 				service.register(vo);
 				
 				list.add(vo);
@@ -127,9 +135,9 @@ public class BannerContoller {
 	// 이벤트 배너
 	@PostMapping(value = "/eventBanner", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<BannerVO>> uploadBanner(MultipartFile[] uploadFile) {
+	public ResponseEntity<List<BannerVO>> uploadBanner(MultipartFile[] uploadFile, String idNo) {
 		
-		List<BannerVO> list = imgSave(uploadFile, "event");
+		List<BannerVO> list = imgSave(uploadFile, "event", idNo);
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -137,8 +145,8 @@ public class BannerContoller {
 	// 중간 광고 
 	@PostMapping(value = "/advertise", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<BannerVO>> advertise(MultipartFile[] uploadFile) {
-		List<BannerVO> list = imgSave(uploadFile, "advertise");
+	public ResponseEntity<List<BannerVO>> advertise(MultipartFile[] uploadFile, String idNo) {
+		List<BannerVO> list = imgSave(uploadFile, "advertise", idNo);
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -146,8 +154,10 @@ public class BannerContoller {
 	// 메인 슬라이드 배너
 	@PostMapping(value = "/mainBanner", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<BannerVO>> mainBanner(MultipartFile[] uploadFile) {
-		List<BannerVO> list = imgSave(uploadFile, "main");
+	public ResponseEntity<List<BannerVO>> mainBanner(MultipartFile[] uploadFile, String idNo) {
+		List<BannerVO> list = imgSave(uploadFile, "main", idNo);
+		
+		System.out.println(idNo + "여기 아이디");
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -155,8 +165,8 @@ public class BannerContoller {
 	// 제철 페이지
 	@PostMapping(value = "/seasonalMagazine", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<BannerVO>> seasonalMagazine(MultipartFile[] uploadFile) {
-		List<BannerVO> list = imgSave(uploadFile, "seasonal");
+	public ResponseEntity<List<BannerVO>> seasonalMagazine(MultipartFile[] uploadFile , String idNo) {
+		List<BannerVO> list = imgSave(uploadFile, "seasonal", idNo);
 		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
@@ -228,6 +238,19 @@ public class BannerContoller {
 		
 		service.remove(imgNo);
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+	}
+	
+	@PostMapping("/regSeason")
+	@ResponseBody
+	public ResponseEntity<String> regSeason(String[] itemCode) {
+		
+		for(int i=0; i<itemCode.length; i++) {
+			ListItemVO vo = service.getItem(itemCode[i]);
+	
+			service.regSeason(vo);
+		}
+		
+		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
 }

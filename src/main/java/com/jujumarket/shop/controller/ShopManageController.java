@@ -3,11 +3,16 @@ package com.jujumarket.shop.controller;
 import java.util.List;
 
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.shop.domain.ShopManageVO;
 import com.jujumarket.shop.domain.WholeStaVO;
 import com.jujumarket.shop.service.ShopManageService;
@@ -22,42 +27,81 @@ import lombok.extern.log4j.Log4j;
 public class ShopManageController {
 
 	private ShopManageService smservice;
-
+	
+	@GetMapping("/")
+	public String index(HttpSession session, Model model) {
+		
+		 ShopManageVO smvo = new ShopManageVO();
+		 
+		 MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+		  String idNo = member == null ? "" : member.getIdNo().trim(); 
+		
+		  Integer todayordercnt = smservice.todayOrderCnt(idNo);
+		  if(todayordercnt == null ) {  todayordercnt=0; }
+		  smvo.setTodayOrderCnt(todayordercnt);
+		
+		  model.addAttribute("todayOrderCnt", smvo.getTodayOrderCnt());
+		  
+		  //오늘 ,어제 주문량 비교 
+		  String compare="";
+			List<WholeStaVO> tt= smservice.getCompareSta(idNo);	
+			for(WholeStaVO t :tt) {
+				if(compare!="") {
+					compare += ",";
+					
+				}
+				compare +="['"+t.getDday()+"', "+t.getOrderT()+"]";
+				
+			}
+			model.addAttribute("tt", compare);
+			
+		  
+		return "shop/index";
+	}
+	
+	
 	@GetMapping("/sales")
-	public void todaytotal(Model model) {
+	public void todaytotal( HttpSession session, Model model) {
 
 		  ShopManageVO smvo = new ShopManageVO();
+		  
+		  //세션에서 ID가져오기	
+		  
+
+		  MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+		  String idNo = member == null ? "" : member.getIdNo().trim();   // 비어있을 때 null Exception 방지
+		
 		 //주문
-		  Integer todayordertotal= smservice.todayOrderTotal();
+		  Integer todayordertotal= smservice.todayOrderTotal(idNo);
 		  if(todayordertotal == null ) {  todayordertotal=0; }
 		  smvo.setTodayOrderTotal(todayordertotal);
 		  
-		  Integer prevordertotal=smservice.prevOrderTotal();
+		  Integer prevordertotal=smservice.prevOrderTotal(idNo);
 		  if(prevordertotal == null ) {  prevordertotal=0; }
 		  smvo.setPrevOrderTotal(prevordertotal);
 		  
-		  Integer todayordercnt = smservice.todayOrderCnt();
+		  Integer todayordercnt = smservice.todayOrderCnt(idNo);
 		  if(todayordercnt == null ) {  todayordercnt=0; }
 		  smvo.setTodayOrderCnt(todayordercnt);
 		  
-		  Integer prevordercnt= smservice.prevOrderCnt();
+		  Integer prevordercnt= smservice.prevOrderCnt(idNo);
 		  if(prevordercnt == null ) {  prevordercnt=0; }
 		  smvo.setPrevOrderCnt(prevordercnt);
 		 
 		  //환불
-		  Integer todayrefundtotal= smservice.todayRefundTotal();
+		  Integer todayrefundtotal= smservice.todayRefundTotal(idNo);
 		  if(todayrefundtotal == null ) {  todayrefundtotal=0; }
 		  smvo.setTodayRefundTotal(todayrefundtotal);
 		  
-		  Integer prevrefundtotal=smservice.prevRefundTotal();
+		  Integer prevrefundtotal=smservice.prevRefundTotal(idNo);
 		  if(prevrefundtotal == null ) {  prevrefundtotal=0; }
 		  smvo.setPrevRefundTotal(prevrefundtotal);
 		  
-		  Integer todayrefundcnt = smservice.todayRefundCnt();
+		  Integer todayrefundcnt = smservice.todayRefundCnt(idNo);
 		  if(todayrefundcnt == null ) {  todayrefundcnt=0; }
 		  smvo.setTodayRefundCnt(todayrefundcnt);
 		  
-		  Integer prevrefundcnt= smservice.prevRefundCnt();
+		  Integer prevrefundcnt= smservice.prevRefundCnt(idNo);
 		  if(prevrefundcnt == null ) {  prevrefundcnt=0; }
 		  smvo.setPrevRefundCnt(prevrefundcnt);
 		  
@@ -78,17 +122,18 @@ public class ShopManageController {
 	}
 	
 	@GetMapping("/stats")
-	public void shopStat(Model model) {
+	public void shopStat(HttpSession session2 ,Model model) {
 		
-		model.addAttribute("TodayProSta",smservice.getTodayProSta());
-//		model.addAttribute("DaySta",smservice.getDaySta());
-//		model.addAttribute("MonthSta",smservice.getMonthSta());
-//		model.addAttribute("YearSta",smservice.getYearSta());
-		  
+		WholeStaVO wsvo = new WholeStaVO();
+		MemberVO member = (MemberVO)session2.getAttribute("sessionMember");
+	    String idNo = member == null ? "" : member.getIdNo().trim();   // 비어있을 때 null Exception 방지
+	    	   
+		//오늘 판매량 top5
+		model.addAttribute("TodayProSta",smservice.getTodayProSta(idNo));
 		
 		//전체 상품 통계관리 
 		String result="";
-		List<WholeStaVO> rr= smservice.getWholeSta();
+		List<WholeStaVO> rr= smservice.getWholeSta(idNo);
 		
 		for(WholeStaVO key: rr) {
 			if(result!="") {
@@ -100,12 +145,10 @@ public class ShopManageController {
 			
 		}
 		model.addAttribute("WholeSta", result);
-		
-		
+	
 		//일자별 주문 금액 통계
 		String result2="";
-		List<WholeStaVO> dd= smservice.getDaySta();
-		
+		List<WholeStaVO> dd= smservice.getDaySta(idNo);	
 		for(WholeStaVO key2 :dd) {
 			if(result2!="") {
 				result2 += ",";
@@ -116,10 +159,9 @@ public class ShopManageController {
 		}
 		model.addAttribute("dd", result2);
 	
-		
 		 //월별 주문 금액 통계
 		String result3="";
-		List<WholeStaVO> mm= smservice.getMonthSta();
+		List<WholeStaVO> mm= smservice.getMonthSta(idNo);
 		
 		
 		for(WholeStaVO key3 :mm) {
@@ -134,7 +176,7 @@ public class ShopManageController {
 		 
 		//년별 주문 금액 통계
 		String result4="";
-		List<WholeStaVO> yy= smservice.getYearSta();
+		List<WholeStaVO> yy= smservice.getYearSta(idNo);
 		
 		
 		for(WholeStaVO key4 :yy) {
@@ -146,7 +188,7 @@ public class ShopManageController {
 			
 		}
 		model.addAttribute("yy", result4);
-		
+
 	}
 	
 	

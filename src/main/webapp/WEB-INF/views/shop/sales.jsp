@@ -86,6 +86,7 @@
     </style>
 </head>
 <body>
+<%@include file="../includes/header.jsp" %>
     <div class="manage_content">
         <div class="manage_wrap">
             <div class="side">

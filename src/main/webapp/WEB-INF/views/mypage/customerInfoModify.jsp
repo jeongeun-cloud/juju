@@ -51,7 +51,7 @@ a {
 		<h2>마이페이지</h2>
 		<div class="b">
 			<ul>
-				<li><a href="/mypage/customerInfoModify">회원수정</a></li>
+				<li><a href="/mypage/customerInfoModify">회원정보수정</a></li>
 				<li><a href="/mypage/modifyPwd">비밀번호 변경</a></li>
 				<li><a href="/mypage/memberDelete">회원탈퇴</a></li>
 			</ul>

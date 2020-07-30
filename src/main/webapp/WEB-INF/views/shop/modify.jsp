@@ -206,31 +206,31 @@
                                 <label><i class="fa fa-chevron-right"></i>메인 이미지</label>
                                 <input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg1" value="<c:out value="${item.itemImg1}"/>">
-                                <div class="select_img1"><img class='itemImg' src='/resources/upload/<c:out value="${sessionMember.idNo}"/>/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
+                                <div class="select_img1"><img class='itemImg' src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
                             </div>
                             <div class="container">
                                 <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
                                 <input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg2" value="<c:out value="${item.itemImg2}"/>">
-                                <div class="select_img2"><img class='itemImg' src='/resources/upload/<c:out value="${sessionMember.idNo}"/>/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
+                                <div class="select_img2"><img class='itemImg' src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
                             </div>
                             <div class="container">
                                 <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
                                 <input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg3" value="<c:out value="${item.itemImg3}"/>">
-                                <div class="select_img3"><img class='itemImg' src='/resources/upload/<c:out value="${sessionMember.idNo}"/>/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
+                                <div class="select_img3"><img class='itemImg' src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
                             </div>
                             <div class="container">
                                 <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
                                 <input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg4" value="<c:out value="${item.itemImg4}"/>">
-                                <div class="select_img4"><img class='itemImg' src='/resources/upload/<c:out value="${sessionMember.idNo}"/>/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
+                                <div class="select_img4"><img class='itemImg' src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
                             </div>
                             <div class="container">
                                 <label><i class="fa fa-chevron-right"></i>상품 상세 설명 이미지</label>
                                 <input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="imgDetail" value="<c:out value="${item.imgDetail}"/>">
-                                <div class="select_img5"><img class='itemImg' src='/resources/upload/<c:out value="${sessionMember.idNo}"/>/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
+                                <div class="select_img5"><img class='itemImg' src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
                             </div>
                     
                             <div class="modi_btn">

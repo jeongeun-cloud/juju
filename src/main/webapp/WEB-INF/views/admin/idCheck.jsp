@@ -10,10 +10,10 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 </head>
 <body>
-<input type="hidden" id="seller" value='<c:out value="${sessionMember.memCode}" />'>
+<input type="hidden" id="admin" value='<c:out value="${sessionMember.memCode}" />'>
 
 <script type="text/javascript" charset="UTF-8">
-	if($("#seller").val() != 'SELLER' || $("#seller").val() == '') {
+	if($("#admin").val() != 'ADMIN' || $("#seller").val() == '') {
 		alert("잘못된 접근입니다.");
 		location.href='/';
 	} 

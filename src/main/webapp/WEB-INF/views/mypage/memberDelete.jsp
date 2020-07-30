@@ -58,13 +58,14 @@ a {
 					<c:choose>
 <%-- 						<c:when test="${fn:substring(sessionMember, 0, 1) eq 'c'}"> --%>
                            <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
-							<li><a href="/mypage/customerInfoModify">개인 정보 수정</a></li>
+							<li><a href="/mypage/customerInfoModify">회원정보수정</a></li>
 						</c:when>
 <%-- 						<c:when test="${fn:substring(sessionMember, 0, 1) eq 's'}"> --%>
                            <c:when test="${sessionMember.memCode eq 'SELLER'}">
-							<li><a href="/mypage/sellerInfoModify">개인 정보 수정</a></li>
+							<li><a href="/mypage/sellerInfoModify">회원정보수정</a></li>
 						</c:when>
 					</c:choose>
+					<li><a href="/mypage/modifyPwd">비밀번호변경</a></li>
 					<li><a href="/mypage/memberDelete">회원탈퇴</a></li>
 				</ul>
 

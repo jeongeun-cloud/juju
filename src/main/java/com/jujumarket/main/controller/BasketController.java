@@ -63,6 +63,7 @@ public class BasketController {
       log.info("/item");
 
       model.addAttribute("product", itemservice.get(itemCode));
+      model.addAttribute("shopName", itemservice.getShop(itemCode));
    }
    
    @GetMapping("/basket")

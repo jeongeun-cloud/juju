@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jujumarket.admin.mapper.BannerMapper">
-
+	
+	<sql id="itemcriteria">
+      	<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<foreach item="type" collection="typeArr">
+            	<trim prefix="OR">
+               		<choose>
+	                  	<when test="type == 'N'.toString()">
+	                    	itemName like '%' || #{keyword} || '%'
+	                  	</when>
+	                  	<when test="type == 'C'.toString()">
+	                    	itemContent like '%' || #{keyword} || '%'
+	                  	</when>
+               		</choose>
+            	</trim>
+         	</foreach>
+      	</trim>
+   	</sql>
    
    <select id="getBanner" resultType="com.jujumarket.admin.domain.BannerVO">
       <![CDATA[
@@ -29,6 +45,51 @@
 	
 	<select id="read" resultType="com.jujumarket.admin.domain.BannerVO">
 		select * from t_img where imgNo = #{imgNo}
+	</select>
+	
+	<select id="getItemList" resultType="com.jujumarket.admin.domain.ListItemVO">
+		<![CDATA[
+	      select i.*, s.shopName
+	      from (select /*+INDEX_DESC(t_item pk_item) */
+				rownum rn, itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail, regDate, updateDate, classCode, idNo
+				from (select * from t_item order by regDate desc)
+				where
+      ]]>
+      
+      <include refid="itemcriteria"></include>
+      
+      <![CDATA[
+         rownum <= #{pageNum} * #{amount}
+        
+         	)i, m_shop s
+     	 where i.idno = s.idno
+		 and i.dispstat = '진열함' and i.salestat='판매중'
+     	 and rn > (#{pageNum} -1) * #{amount}
+      ]]>
+   </select>
+   
+   <select id="getItem" resultType="com.jujumarket.admin.domain.ListItemVO">
+      	select i.*, s.shopname
+		from t_item i, m_shop s
+		where i.idno = s.idno
+		and i.itemCode = #{itemCode}
+		and i.dispstat = '진열함' and i.salestat='판매중'
+   </select>
+   
+   <insert id="regSeason">
+		insert into t_season_item (itemCode, itemName, itemContent, price, itemChr, itemImg1, classCode, shopName, idNo) 
+		values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{itemChr}, #{itemImg1}, #{classCode}, #{shopName}, #{idNo})
+	</insert>
+	
+	<select id="getSeason" resultType="com.jujumarket.admin.domain.ListItemVO">
+		select * from t_season_item
+	</select>
+	
+	<select id="getItemTotal" resultType="int">
+		select count(*)
+		from t_item i, m_shop s
+		where i.idno = s.idno
+		and i.dispstat = '진열함' and i.salestat='판매중'
 	</select>
 
 </mapper>

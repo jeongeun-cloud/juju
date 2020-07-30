@@ -99,6 +99,7 @@
     </style>
 </head>
 <body>
+<%@include file="../includes/header.jsp" %>
     <div class="manage_content">
         <div class="manage_wrap">
             <div class="side">
@@ -121,6 +122,7 @@
             <!-- side -->
 
             <div class="manage_main">
+            
                 <div class="manage_tit">
                     <p><b>[통계 관리]</b></p>
                 </div>
@@ -286,7 +288,7 @@
          chart.draw(data4, google.charts.Bar.convertOptions(options));
    
        } 
-      
+       
       
       
     </script>
