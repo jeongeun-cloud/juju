@@ -25,7 +25,7 @@
 <body>
 
 
-           <form id='searchForm' action="/shop/shipping" method = 'get'>  
+           <form id='searchForm' action="/shop/searchorder" method = 'get'>  
 		          <div> 검색어
 		                <select name='type'>
 		                
@@ -47,9 +47,8 @@
 						      <br>
 						          <div>
 						              주문일<input type='date'>~<input type='date'>
-
-
-          </div>
+                                  </div></div>
+          .              </form>
       <br>
           <div> 주문상태
                 <input type="checkbox">전체
@@ -59,10 +58,11 @@
                 <input type="checkbox">배송완료
           </div>      
       <br>
-               <button class='btn btn-default'> 검색 </button>  
-		       <button type = 'reset'> 초기화 </button>  
-  </div>
-  </form>
+     
+ 	  
+              <button> 검색 </button>  
+              <button> 초기화 </button>  
+
             <div>
 
              	<input type="button" id="shippingBtn" value='배송처리'>
@@ -89,19 +89,15 @@
                      
                      <c:forEach items="${list}" var="list">
                
-                     <tr>
   
-                     <tr>
-  
-               <tr>
+               <tr id="test">
              
-	                 <form id ='shippingForm' role="form" action="/shop/shipping" method="post">
-                  <td><input id='checkbox' name='chk' type="checkbox"  value='<c:out value="${list.orderCode }"/>' ></td>             
-                  <td><fmt:formatDate pattern="yyyy/MM/dd" value="${list.orderDate }" /></td>
-            
-	                  <td><input type ='text' name='orderCode' id ='orderCode' value='<c:out value="${list.orderCode }"/>'></td>
+	             <form id ='shippingForm'  action="/shop/shipping" method="post">
+	                  <td><input id='checkbox' name='chk' type="checkbox"  value='<c:out value="${list.orderCode}"/>' ></td>             
+	                  <td><fmt:formatDate pattern="yyyy/MM/dd" value="${list.orderDate }" /></td>
+         			  <td><input type ='text' name='orderCode' id ='orderCode' value='<c:out value="${list.orderCode}"/>'></td>
 	               	  <td><input id ="shippingCode" name='shippingCode' type='text'></td>
-	                 </form>
+	             </form>       
             
                   <td><c:out value="${list.orderStat }" /></td>
                   <td><c:out value="${list.itemName }" /></td>   
@@ -113,6 +109,7 @@
                   <td><c:out value="${list.receivAddr }" /></td>
                   </tr> 
                </c:forEach>
+               
              </table>
              </div>  
              
@@ -141,12 +138,12 @@
             </ul>
          </div> <!-- 페이징 끝!! -->
          
-          <form id='actionForm' action="/shop/shipping" method='get'>
-            <input type=hidden'' name='pageNum' value = '${pageMaker.cri.pageNum}'>
-            <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
+         <form id='actionForm' action="/shop/shipping" method='get'>
+            <input type='' name='pageNum' value = '${pageMaker.cri.pageNum}'>
+            <input type='' name='amount' value = '${pageMaker.cri.amount}'>
        		<input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
             <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-              </form>
+          </form>
         <!-- paging form end--> 
            
 
@@ -158,7 +155,7 @@ $(document).ready(function(){
 	
 	
 		    //페이징처리
-		     $("#searchForm").find(".btn").on("click", function(e) {
+		    $(".paginate_button a").on("click", function(e) {
 		   
 		  	 e.preventDefault();
 		 	  var actionForm = $("#actionForm");
@@ -167,15 +164,14 @@ $(document).ready(function(){
 		      var ac =  actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		       console.log(ac);
 		       actionForm.submit();
-		       
-		       
+
 		    });
     
 		    //검색부분
 		    var searchForm = $("#searchForm");
 		    $("#searchForm button").on("click", function(e){
 		
-		  
+		   
 		            if(!searchForm.find("option:selected").val()){
 		               alert("검색종류를 선택하세요");
 		               return false;
@@ -192,47 +188,43 @@ $(document).ready(function(){
 		            searchForm.submit();  
 		  	  
 		    });
+	var shippingForm = $("#shippingForm");
 	
-	
-	
-	$("#shippingBtn").on("click", function(e) {
-		
-	    alert('dfdf');
+ 	$("#shippingBtn").on("click", function(e) {
+
+ 
+ 
 	    var checkRow = "";
+	    var shipRow = "";
 	    $("input[name='chk']:checked").each (function (){
 	       checkRow = checkRow + $(this).val()+"," ;
+           shipRow = shipRow + $(this).closest('tr')[0].children[3].children[0].value + ",";
+	       
 	    });
       checkRow = checkRow.substring(0,checkRow.lastIndexOf(",")); //맨끝 콤마 지우기
+      shipRow = shipRow.substring(0,shipRow.lastIndexOf(",")); //맨끝 콤마 지우기
       
       console.log("체크한애" + checkRow);
+      console.log("체크한애 ship" + shipRow);
       
-      var shipping = $("#shippingBtn").closest("#shippingCode").val()+",";
-      
-      
-      console.log(shipping);
+
+      shippingForm.submit();
 	});
-	
+
 	
 //송장입력
-var shippingBtn = $("#shippingBtn");
 
-var shippingForm = $("#shippingForm");
-
-$(document).on("click","button[id='shippingBtn']", function(e) {
-
+/* $("#shippingBtn").on("click", function(e) {
 
       var target = e.target;
       var shipping = $(target).parents().find("#orderCode").val() 
       var order = $(target).parents().find("#shippingCode").val();
       var check = $(target).parents().find("#checkbox").val();
       
-            
-	alert(target);
-	alert(shipping);
-	alert(order);
+      
+      
 
-
-	  /*  
+	  
 	   if(!modifyForm.find("#title").val()||modifyForm.find("#title").val().trim()==""||modifyForm.find("#title").val().length>30){
 		 alert("양식에 맞게 제목입력 입력해주세요(1~30자)");
 		 return false;
@@ -244,13 +236,10 @@ $(document).on("click","button[id='shippingBtn']", function(e) {
 	  		 return false;
 		 
 	 }
-	  */
-	 
+	  
 	
     });
-    
-
-
+     */
 });
 
 </script>

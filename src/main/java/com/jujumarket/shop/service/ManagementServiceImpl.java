@@ -58,5 +58,17 @@ public class ManagementServiceImpl implements ManagementService {
 	}
 
 
+	@Override
+	public List<ManagementVO> searcheck(String orderStat) {
+		
+		return mapper.getcheck(orderStat);
+	}
+
+
+
+
+	
+
+
 
 }

@@ -22,6 +22,7 @@ public interface ManagementMapper {
 		
 		public int getnotCount (ItemCriteria cri);
 		
-		public int getTotalCount (ItemCriteria cri);
+		public int getTotalCount (ItemCriteria cri);	
 		
+		public List<ManagementVO> getcheck(String orderStat);
 }
