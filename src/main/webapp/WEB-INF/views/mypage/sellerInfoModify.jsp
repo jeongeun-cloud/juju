@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +36,7 @@ div.sellerInfo {
 	left: 250px;
 	top: 70px;
 	width: 700px;
-	height: 500px;
+	height: 800px;
 	border: 1px solid black;
 }
 
@@ -43,19 +44,21 @@ a {
 	text-decoration: none;
 	color: black;
 }
+
+
 </style>
 </head>
 <body>
 
 	<form action="/mypage/sellerInfoModify" id="sellerInfoModify"
-		method="post">
+		method="post" enctype="multipart/form-data">
 
 		<div class="a">
 			<h2>마이페이지</h2>
 			<div class="b">
 				<ul>
-					<li><a href="/mypage/sellerInfoModify">회원수정</a></li>
-					<li><a href="/mypage/modifyPwd">비밀번호 변경</a></li>
+					<li><a href="/mypage/sellerInfoModify">회원정보수정</a></li>
+					<li><a href="/mypage/modifyPwd">비밀번호변경</a></li>
 					<li><a href="/mypage/memberDelete">회원탈퇴</a></li>
 				</ul>
 
@@ -71,26 +74,25 @@ a {
 					<tr>
 						<th>이메일 계정</th>
 						<td><input type="text" id="emailAccount" name="emailAccount"
-							value="${sellerInfo.emailAccount}" readonly="readonly"></td>
+							value="${sellerInfo.emailAccount}" readonly="readonly" placeholder="readonly"></td>
 
 					</tr>
 					<tr>
-						<th>대표자 이름(필수)</th>
+						<th>회원이름</th>
 						<td><input type="text" id="memName" name="memName"
-							value="${sellerInfo.memName}"></td>
+							value="${sellerInfo.memName}" placeholder="필수입력"></td>
 					</tr>
 					<tr>
-						<th>상점이름(필수)</th>
-						<td><input type="text" id="shopName" name="shopName"
-							value="${sellerInfo.shopName}"></td>
+						<th>상점이름</th>
+						<td><input type="text" id="shopName" name="shopName" value="${sellerInfo.shopName}" placeholder="필수입력" ></td>
 					</tr>
 					<tr>
-						<th>연락처1(필수)</th>
+						<th>연락처1</th>
 						<td><input type="text" id="contact1" name="contact1"
-							value="${sellerInfo.contact1}"></td>
+							value="${sellerInfo.contact1}"  placeholder="필수입력"></td>
 					</tr>
 					<tr>
-						<th>연락처2(선택)</th>
+						<th>연락처2</th>
 						<td><input type="text" id="contact2" name="contact2"
 							value="${sellerInfo.contact2}"></td>
 					</tr>
@@ -100,12 +102,12 @@ a {
 							value="${sellerInfo.memAddr}"></td>
 					</tr>
 					<tr>
-						<th>상점주소(필수)</th>
+						<th>상점주소</th>
 						<td><input type="text" id="shopAddr" name="shopAddr"
-							value="${sellerInfo.shopAddr}"></td>
+							value="${sellerInfo.shopAddr}"  placeholder="필수입력"></td>
 					</tr>
 					<tr>
-						<th>계좌번호(필수)</th>
+						<th>계좌번호</th>
 						<td><select id="bank" name="bank">
 								<option value="은행선택">은행선택</option>
 								<option value="신한은행">신한은행</option>
@@ -115,22 +117,25 @@ a {
 								<option value="카카오뱅크">카카오뱅크</option>
 						</select> <input type="hidden" id="bankTmp" value="${sellerInfo.bank}">
 							<input type="text" name="bankAccount" id="bankAccount"
-							value="${sellerInfo.bankAccount }"></td>
+							value="${sellerInfo.bankAccount }"  placeholder="필수입력"></td>
 					</tr>
 
 					<tr>
-						<th>썸네일 이미지</th>
-						<td><input type="text" id="thumbImg" name="thumbImg"
-							value="${sellerInfo.thumbImg}"></td>
+						<th>썸네일 변경<input type="file" style="color:transparent"  id="thumbImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg">
+						<td><img src='/resources/seller/<c:out value="${sellerInfo.businessCode}"/>/<c:out value="${sellerInfo.thumbImg}"/>'></td>
 					</tr>
 
 					<tr>
-						<th>배경 이미지</th>
-						<td><input type="text" id="backImg" name="backImg"
-							value="${sellerInfo.backImg}"></td>
+						<th>배경이미지 변경<input type="file" style="color:transparent" id="backImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" >
+						</th>
+						<td><img src='/resources/seller/<c:out value="${sellerInfo.businessCode}"/>/<c:out value="${sellerInfo.backImg}"/>'>
+						</td>
 					</tr>
 				</table>
 				<input type="hidden" id="idNo" name="idNo" value="${sessionMember.idNo}">
+				<input type="hidden" id="businessCode" name="businessCode" value="${sellerInfo.businessCode}">
+				<input type="hidden" id="thumbImg" name="thumbImg" value="${sellerInfo.thumbImg}">
+				<input type="hidden" id="backImg" name="backImg" value="${sellerInfo.backImg}">
 				<br>
 				<button type="submit" id="submitBtn">수정하기</button>
 
@@ -251,22 +256,13 @@ a {
 							;
 
 							function memAddrCheck() {
-								let regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+								
 
-								if (memAddr.val().trim() == ""
-										|| memAddr.val() == null) {
-									alert("상점주소를 입력해주세요.");
-									memAddr.focus();
-									return false;
-								} else if (memAddr.val().length > 50) {
+								if (memAddr.val().length > 50) {
 									alert("50자까지만 입력할 수 있습니다.")
 									memAddr.focus();
 									return false;
-								} else if (!regExp.test(memAddr.val())) {
-									alert("상점주소를 양식에 맞게 다시 입력하세요.");
-									memAddr.focus();
-									return false
-								} else {
+								}  else {
 									return true;
 								}
 
@@ -372,8 +368,29 @@ a {
 								} else {
 									return true;
 								}
-							}
-							;
+							};
+							
+							let inputFile = $("input[type='file']");
+							
+							console.log(inputFile);
+							
+							inputFile.attr("title", " ");
+							
+							inputFile.change(function(e){
+								
+								imgTarget = $(e.target);
+								
+								if(this.files){
+									let reader = new FileReader;
+
+					                reader.onload = function(data) {
+					                	imgTarget.parent().next().children().attr("src", data.target.result).width(300);
+					                 }
+					                 reader.readAsDataURL(this.files[0]);
+					             }
+								
+									});
+							
 
 						});
 	</script>

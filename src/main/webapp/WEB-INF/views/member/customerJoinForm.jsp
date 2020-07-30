@@ -13,24 +13,24 @@
 		<input type="text" id="emailAccount" name="emailAccount"> <button id="emailDuplicateCheckBtn">중복확인</button> <br>
 		<input type="hidden" id="duplicateCheck">
 		<input type="hidden" id="duplicateCheckResult" value="false">
-		이메일 인증: <button id="emailSendBtn">인증번호받기</button>  인증번호입력<input type="text" id="inputCode"> <button id="emailAuthBtn">인증하기</button>
+		<button id="emailSendBtn">인증번호받기</button> <input type="text" id="inputCode" placeholder="인증번호입력"> <button id="emailAuthBtn">인증하기</button>
 		<input type="hidden" id="tempCode">
 		<input type="hidden" id="authResult" value="false">
 		<br>
-		비밀번호(1q2w3e4r로 통일) : 
-		<input type="password" id="pwd" name="pwd">  <br>
-		비밀번호확인(1q2w3e4r로 통일) : 
+		비밀번호 : 
+		<input type="password" id="pwd" name="pwd" placeholder="6~12자 영문+숫자">  <br>
+		비밀번호확인 : 
 		<input type="password" id="pwdChk" name="pwdChk">  <br>
-		이름(필수):
+		이름:
 		<input type="text" id="memName" name="memName"> <br>
 		<!-- 회원코드
 		<input type="text" id="memCode" name="memCode">
 		 -->
-		 연락처(필수):
-		<input type="text" id="contact" name="contact"> <br>
-		주소(선택):
+		 연락처:
+		<input type="text" id="contact" name="contact" placeholder="XXX-XXXX-XXXX"> <br>
+		주소:
 		<input type="text" id="memAddr" name="memAddr"> <br>
-		우편번호(선택): 
+		우편번호: 
 		<input type="text" id="postCode" name="postCode">  <br>
  		<button type = "submit" id="submitBtn"  > 가입하기 </button> 
 	
@@ -61,7 +61,7 @@
 				if (!(emailAccountCheck())) {
 					return false;
 				} else if (duplicateCheckResult.val()=="false") {
-					alert("중복체크를 하지 않았습니다.");
+					alert("가입여부를 확인해주세요.");
 					return false;
 				}
 				
@@ -72,11 +72,11 @@
 				
 				//return true일때와 각 input항목 유효성검사, 정규식 처리 이후 가입하기 submit 되도록 처리하기 				
 				if(inputCode.val()==tempCode.val()){
-					alert("이메일 인증을 성공했습니다.");
+					alert("이메일 인증에 성공했습니다.");
 					authResult.val("true");
 					inputCode.val("");
 				} else {
-					alert("이메일 인증을 실패했습니다.");
+					alert("이메일 인증에 실패했습니다.");
 					inputCode.val("");
 				}
 			});
@@ -89,7 +89,7 @@
 				if (!(emailAccountCheck())) {
 					return false;
 				} else if (duplicateCheckResult.val()=="false") {
-					alert("중복체크를 하지 않았습니다.");
+					alert("가입여부를 확인해주세요.");
 					return false;
 				}
 				
@@ -97,6 +97,7 @@
 				
 				emailAuth(email)
 				.then(function(response){
+					alert("인증번호가 발송되었습니다");
 					console.log(response);
 					tempCode.val(response);
 				})
@@ -177,10 +178,10 @@
 			if (!(emailAccountCheck())) {
 				return false;
 			} else if (duplicateCheckResult.val()=="false") {
-				alert("중복체크가 안됐습니다.");
+				alert("가입 여부를 확인해주세요.");
 				return false;
 			} else if (authResult.val()=="false") {
-				alert("인증이 필요합니다.");
+				alert("이메일주소를 인증해주세요.");
 				return false;
 			} else if (!(pwdCheck())) {
 				return false;
@@ -203,7 +204,7 @@
 			let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			
 			if (emailAccount.val().trim() == "" || emailAccount.val() == null) {
-				alert("값을 입력해주세요.");
+				alert("이메일 주소를 입력해주세요.");
 				emailAccount.focus();
 				return false;
 			} else if (emailAccount.val().length > 30) {
@@ -227,7 +228,7 @@
 			let regExp = /^[A-Za-z0-9]{6,12}$/;
 			
 			if (pwd.val().trim() == "" || pwd.val() == null) {
-				alert("값을 입력해주세요.");
+				alert("비밀번호를 입력해주세요.");
 				pwd.focus();
 				return false;
 			} else if (pwd.val().length > 30) {
@@ -235,7 +236,7 @@
 				pwd.focus();
 				return false;
 			} else if (!regExp.test(pwd.val())) {
-				alert("비밀번호를 양식에 맞게 다시 입력하세요.");
+				alert("패스워드는 6~12자 사이의 문자+숫자 조합으로 입력해주세요.");
 				pwd.focus();
 				return false
 			} else {
@@ -247,7 +248,7 @@
 			let regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
 
 			if (memName.val().trim() == "" || memName.val() == null) {
-				alert("값을 입력해주세요.");
+				alert("이름을 입력해주세요.");
 				memName.focus();
 				return false;
 			} else if (memName.val().length > 30) {
@@ -255,7 +256,7 @@
 				memName.focus();
 				return false;
 			} else if (!regExp.test(memName.val())) {
-				alert("이름을 양식에 맞게 다시 입력하세요.");
+				alert("2~10자 사이의 문자열을 입력해주세요.");
 				memName.focus();
 				return false
 			} else {
@@ -268,7 +269,7 @@
 			let regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 
 			if (contact.val().trim() == "" || contact.val() == null) {
-				alert("값을 입력해주세요.");
+				alert("연락처를 입력해주세요.");
 				contact.focus();
 				return false;
 			} else if (contact.val().length > 13) {
@@ -276,7 +277,7 @@
 				contact.focus();
 				return false;
 			} else if (!regExp.test(contact.val())) {
-				alert("연락처를 양식에 맞게 다시 입력하세요.");
+				alert("연락처를 양식에 맞게 입력해주세요.(XXX-XXXX-XXXX)");
 				contact.focus();
 				return false
 			} else {
