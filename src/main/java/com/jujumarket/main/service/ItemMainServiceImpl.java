@@ -50,6 +50,13 @@ public class ItemMainServiceImpl implements ItemMainService{
 		log.info("getList..........");
 		return mapper.getList();
 	}
+
+	@Override
+	public String getShop(String itemCode) {
+		log.info("getShop..........");
+		
+		return mapper.getShop(itemCode);
+	}
 	
 	
 

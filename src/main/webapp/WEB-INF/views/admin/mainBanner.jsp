@@ -65,7 +65,7 @@
    	
    .banner_main .banner_tit{
        font-size: 30px;
-       margin-bottom:50px;
+       margin-bottom:20px;
 
    }
 	#activeImg img{
@@ -75,6 +75,7 @@
 	}
 </style>
 <body>
+<%@include file="./idCheck.jsp" %>
     <div class="banner_content">
         <div class="banner_wrap">
             <div class="side">
@@ -109,6 +110,7 @@
                 	</ul>
                 </div>
                 
+                <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
                	<label>현재 등록된 메인배너 이미지</label><br>
                 <div id="activeImg">
                 	<c:forEach items="${main }" var="main">
@@ -148,6 +150,7 @@
     			var formData = new FormData();
     			var inputFile = $("input[name='uploadFile']");
     			var files = inputFile[0].files;
+    			var idNo = $("#idNo").val();
     			
     			console.log(files);
     			
@@ -156,6 +159,7 @@
     					return false;
     				}
     				formData.append("uploadFile", files[i]);
+    				formData.append("idNo", idNo);
     			}
     			
     			$.ajax({
