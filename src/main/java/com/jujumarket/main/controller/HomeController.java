@@ -23,7 +23,7 @@ import com.jujumarket.main.service.ReviewService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
-import message.messageService;
+//import message.messageService;
 
 import net.sf.json.JSONArray;
 
@@ -41,8 +41,8 @@ public class HomeController {
 	
 	private MainIndexService mainservice;
 	private ReviewService reviewService;
-	@Autowired
-	private messageService mservice;
+//	@Autowired
+//	private messageService mservice;
 
 	private BannerService bannerService;
 

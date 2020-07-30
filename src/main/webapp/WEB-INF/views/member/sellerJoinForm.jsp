@@ -75,7 +75,7 @@ body {
 		도로명 주소: <input type="text" id="roadAddress" name="roadAddress" size="50" value="" /><br>
 		나머지 주소: <input type="text" id="memAddr" name="memAddr" size="50" value="" /> <br>
 		<button id="myBtn">상점 상세정보 입력하기 </button>
-		<br> 연락처1: <input type="text" id="contact1" name="contact1"  placeholder="XXX-XXXX-XXXX">
+		<br> 연락처1: <input type="text" id="contact1" name="contact1"  placeholder="XXX-XXXX-XXXX,필수">
 		<br> 연락처2: <input type="text" id="contact2" name="contact2" placeholder="XXX-XXXX-XXXX">
 		<br> 우편번호: <input type="text" id="postCode" name="postCode">
 		<br>
@@ -96,7 +96,7 @@ body {
 			<!-- 상점이름  -->
 			사업자 등록번호
 			<input type="text" id="businessCode" name="businessCode"  placeholder="필수입력"> <br> 
-			사업자등록증
+			사업자등록증(이미지, 필수)
 			<input type="file" id="businessRegFile" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
 			<img id="businessRegThumb" alt="" src=""><br>
 			사업장 소재지
@@ -117,7 +117,7 @@ body {
 					<option value="우리">우리은행</option>
 					<option value="카카오">카카오뱅크</option>
 			</select> <input type="text" name="bankAccount" id="bankAccount"  placeholder="필수입력"></td> <br>
-			상점이미지
+			상점이미지(필수)
 			<input type="file" id="thumbImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
 			<img id="thumbThumb"alt="" src=""><br>
 			배경이미지 
