@@ -386,12 +386,9 @@
       <form id="actionForm" action="/order/orderItemsForm" method="post">
       
          <input type="hidden" name="checkRow" id="checkRow" value="" >
-
          <input type="hidden" name="idNo" id="idNo" value="${sessionMember.idNo}" >
-
       
       </form>
-
 
     </div>
     
@@ -642,6 +639,7 @@ function getBasketList() {
 	
 	var id = document.getElementById("hiddenId").value;
    
+   var id = document.getElementById("hiddenId").value;
    
    return $.ajax({
       url: "/product/basket",

@@ -119,7 +119,8 @@ h4 {
   margin: 2rem 0;
   padding: 1rem 0 0 0; }
 
-.add-to-basket {
+.add-to-basket ,
+.add-to-alarm{
   position: relative;
   display: inline-block;
   background: #3e3e3f;
@@ -133,9 +134,11 @@ h4 {
   transform: translateZ(0);
   transition: color 0.3s ease;
   letter-spacing: 0.0625rem; }
-  .add-to-basket:hover::before {
+  .add-to-basket:hover::before,
+  .add-to-alarm:hover::before {
     transform: scaleX(1); }
-  .add-to-basket::before {
+  .add-to-basket::before ,
+  .add-to-alarm::before {
     position: absolute;
     content: "";
     z-index: -1;
@@ -479,7 +482,7 @@ margin-left: 15%;
      background-color: #f1f1f1;
    }
    
-   .btn {
+   .rBtn {
      background-color: #008CBA;
      border: none;
      color: white;
@@ -551,7 +554,7 @@ input[type=range] {
             <div class="column-xs-4 column-md-6">
               
               <ul>
-                <li class="nav-item"><a href="#">{상점명}</a></li>
+                <li class="nav-item"><a href="#"><c:out value="${shopName}"/></a></li>
               </ul>
             </div>
           </div>
@@ -618,7 +621,17 @@ input[type=range] {
               <div class="item-describe">
                 <p><c:out value="${product.itemContent}" default="itemContent"/></p>
               </div>
-              <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" >장바구니 담기</button>
+              <!-- 품절, 판매중지 인 상품 장바구니로 못넘어가게 하기 -->
+              <c:if test="${product.saleStat=='품절'||product.saleStat=='판매중지'}">
+              	<button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="alert('죄송합니다. 구매 불가한 상품입니다.')" >장바구니 담기</button>
+              </c:if>
+              <c:if test="${product.saleStat!='품절' && product.saleStat!='판매중지'}">
+              	<button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" >장바구니 담기</button>
+              </c:if>
+              <!-- 품절인 상황에만 입고 신청 알람받기 -->
+              <c:if test="${product.saleStat=='품절'}">
+             	 <button type="submit" class="add-to-alarm" >입고 신청 알람 받기</button>
+              </c:if>
             </div>
 
             <input type="hidden" value="${product.itemCode}" id="itemCode"/>
@@ -1315,7 +1328,6 @@ $(document).ready(function(){
 
 /* 리뷰 부분 시작 */
 
-   // 리뷰 남기기 모달 띄우기
       var modal = document.getElementById('review');
    
       // 모달 다른 부분 눌러서 끄기
@@ -1539,48 +1551,48 @@ $(document).ready(function(){
                  
                  str += "<div style='width:100%; overflow:hidden;'>";
                  str += "<div style='float: left; width: 20%; font-weight:bold;'>"+ userId +"</div>"; 
-                 str += "<input type='hidden' id='writer' value="+ list[i].idNo +">"; 
+                 
                  str += "<div style='float: left; width: 80%; font-weight:bold; text-align:right;'>"+ displayTime(list[i].regDate) +"</div>"; 
                  str += "<div style='float: left; width: 100%; font-size:14px; font-weight:bold; color:red;'>"+ stars[i] +"</div>"; 
                  str += "<div style='float: left; width: 20%;'><img class='resultImg' style='height:75px;' "+ path +" /></div>"; 
 
                  str += "<div style='width:80%; float:left'>"; 
-                  str += "<button class='collapsible'>"+ list[i].reviewTitle + "</button>";
+                 str += "<button class='collapsible'>"+ list[i].reviewTitle + "</button>";
                 str += "<div class='content'>";
+                str += "<input type='hidden' id='writer' value="+ list[i].idNo +">"; 
                 str += "<p style=''>"+ list[i].reviewContent +"</p>";
-                str += "<button id='removeBtn' data-oper='"+ list[i].reviewNo +"' class='btn' style='background-color: #f44336;'>삭제</button>";
-                str += "<button id='modifyBtn' data-oper='"+ list[i].reviewNo +"' class='btn'>수정</button>";
+                str += "<button id='removeBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn' style='background-color: #f44336;'>삭제</button>";
+                str += "<button id='modifyBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn'>수정</button>";
                 str += "</div>";
                 str += "</div>";
 
                 str += "</div>";
                 str += "<br><hr>"
-                
-                console.log(list[i].idNo + " 리스트 아이디");
-                
+
               }
             
-         var idNo = $("#writer").val();
-            var sessionId = $("#sessionId").val();
-            console.log(sessionId + " 세션 아이디");
-            console.log(idNo + " 글쓴 아이디");
-              if(idNo != sessionId) {
-                 $('.btn').css('visibility', 'hidden');
-              }else {
-                 $('.btn').css('visibility', 'visible');
-              }
-              
-            reviewList.html(str);
-              showReviewPage(reviewCnt); 
-              getScore();
+	        // 아이디 체크해서 맞을 경우만 버튼 보이기
+/* 	        var idNo = $("#writer").val();
+	        var sessionId = $("#sessionId").val();
+	        
+           	if(idNo != sessionId) {
+            	$('.rBtn').css('visibility', 'hidden');
+           	}else {
+         	  	$('.rBtn').css('visibility', 'visible');
+           	}
+ */           
+           	reviewList.html(str);
+            showReviewPage(reviewCnt); 
+            getScore();
 
               
-              // 리뷰 리스트 효과
+         // 리뷰 리스트 효과
          var coll = $(".collapsible");
              
               for (i = 0; i < coll.length; i++) {
                  coll[i].addEventListener("click", function() {
-                   this.classList.toggle("active");
+                       
+                    this.classList.toggle("active");
                     var content = this.nextElementSibling;
                     
                     if (content.style.maxHeight){

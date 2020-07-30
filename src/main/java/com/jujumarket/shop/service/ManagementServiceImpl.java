@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.ManagementVO;
 import com.jujumarket.shop.mapper.ManagementMapper;
 
@@ -20,32 +22,55 @@ public class ManagementServiceImpl implements ManagementService {
 	@Setter(onMethod_ = @Autowired)
 	private ManagementMapper mapper;
 
+	@Transactional
 	@Override
-	public boolean shippingupdate(ManagementVO vo) {
-		// TODO Auto-generated method stub
-		
-		return mapper.shippingupdate(vo) == 1;
+	public void shippingupdate(ManagementVO vo) {
+
+	   mapper.shippingupdate(vo);
+	   mapper.insertSelectKey(vo);
 	}
 
 	
 	@Override
-	public List<ManagementVO> searchordergetList() {
-		// TODO Auto-generated method stub
-		return mapper.searchordergetList();
+	public List<ManagementVO> searchordergetList(ItemCriteria cri) {
+		System.out.println(cri);
+		
+		return mapper.searchordergetListPaging(cri);
 	}
+	
+	@Override
+	public List<ManagementVO> shippinggetList(ItemCriteria cri) {
+		System.out.println(cri);
+		
+		return mapper.shippinggetListPaging(cri);
+	}
+
 
 	@Override
-	public List<ManagementVO> shippinggetList() {
-		// TODO Auto-generated method stub
-		 return mapper.shippinggetList();
+	public int getTotal(ItemCriteria cri) {
+		
+		return mapper.getTotalCount(cri);
 	}
 
 
 	@Override
-	public List<ManagementVO> pricegetList() {
+	public int getNotTotal(ItemCriteria cri) {
 		// TODO Auto-generated method stub
-		return mapper.pricegetList();
+		return mapper.getnotCount(cri);
 	}
 
+
+	@Override
+	public List<ManagementVO> searcheck(String orderStat) {
+		
+		return mapper.getcheck(orderStat);
+	}
+
+
+	@Override
+	public List<ManagementVO> searcheckAll(String orderStat) {
+
+		return mapper.getcheckAll(orderStat);
+	}
 
 }

@@ -65,7 +65,7 @@
    	
    .banner_main .banner_tit{
        font-size: 30px;
-       margin-bottom:50px;
+       margin-bottom:20px;
 
    }
 	#activeImg img{
@@ -75,6 +75,7 @@
 	}
 </style>
 <body>
+<%@include file="./idCheck.jsp" %>
     <div class="banner_content">
         <div class="banner_wrap">
             <div class="side">
@@ -98,7 +99,7 @@
                 <div class="banner_tit">
                     <p><b><i class="fa fa-list-alt"></i>중간 광고 등록</b></p>
                 </div>
-                <p style='opacity:0.75;'>이미지 규격 : </p>
+                <p style='opacity:0.75;'>이미지 규격 : 1000*200</p>
                 <div class="uploadDiv">
                 	<input type="file" name="uploadFile" multiple>
                 	<!-- <button id="uploadBtn">등록하기</button> -->
@@ -109,6 +110,7 @@
                 	</ul>
                 </div>
                 
+                <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
                	<label>현재 등록된 광고 이미지</label><br>
                 <div id="activeImg">
                 	<c:forEach items="${advertise }" var="advertise">
@@ -148,6 +150,7 @@
     			var formData = new FormData();
     			var inputFile = $("input[name='uploadFile']");
     			var files = inputFile[0].files;
+    			var idNo = $("#idNo").val();
     			
     			console.log(files);
     			
@@ -156,6 +159,7 @@
     					return false;
     				}
     				formData.append("uploadFile", files[i]);
+    				formData.append("idNo", idNo);
     			}
     			
     			$.ajax({

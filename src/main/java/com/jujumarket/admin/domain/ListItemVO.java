@@ -1,14 +1,11 @@
-
-package com.jujumarket.main.domain;
+package com.jujumarket.admin.domain;
 
 import java.sql.Timestamp;
 import lombok.Data;
 
 @Data
-public class BoardItemVO {
+public class ListItemVO {
 	
-	private int rank;
-	private int orderCnt;
 	private String itemCode;
 	private String itemName;
 	private String itemContent;
@@ -26,10 +23,8 @@ public class BoardItemVO {
 	private Timestamp regDate;
 	private Timestamp updateDate;
 	private String classCode;
-	private String idNo;	//idNo 
+	private String idNo;
+	private String shopName;
+
 	
-
-
-
-
 }

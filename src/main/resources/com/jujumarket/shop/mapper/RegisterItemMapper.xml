@@ -17,7 +17,6 @@
                </choose>
             </trim>
          </foreach>
-		
       </trim>
    </sql>
    
@@ -32,7 +31,7 @@
 	      select *
 	      from (select /*+INDEX_DESC(t_item pk_item) */
 				rownum rn, itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg1, itemImg2, itemImg3, itemImg4, imgDetail, regDate, updateDate, classCode, idNo
-				from (select * from t_item order by regDate desc)
+				from (select * from t_item where idNo = #{idNo} order by regDate desc)
 				where
       ]]>
       

@@ -5,21 +5,28 @@ import lombok.Data;
 @Data
 public class ShopManageVO {
 	
-	private String shopName;
-	private int todayOrderTotal;
-	private int prevOrderTotal;
-	private int todayOrderCnt;
-	private int prevOrderCnt;
-	private int todayRefundTotal;
-	private int prevRefundTotal;
-	private int todayRefundCnt;
-	private int prevRefundCnt;
+	private String shopId;
 	
-	public String getShopName() {
-		return shopName;
+	private Integer todayOrderTotal;
+	private Integer prevOrderTotal;
+	private Integer todayOrderCnt;
+	private Integer prevOrderCnt;
+	private Integer todayRefundTotal;
+	private Integer prevRefundTotal;
+	private Integer todayRefundCnt;
+	private Integer prevRefundCnt;
+	
+	
+	private String itemName;
+	private int orderCnt;
+	
+
+	
+	public String getShopIdNo() {
+		return shopId;
 	}
-	public void setShopName(String shopName) {
-		this.shopName= shopName;
+	public void setShopIdNo(String shopId) {
+		this.shopId=shopId;
 	}
 	
 //	오늘, 저번달 주문 총합
@@ -82,5 +89,7 @@ public class ShopManageVO {
 	public void setPrevRefundCnt(int prevRefundCnt) {
 		this.prevRefundCnt= prevRefundCnt;
 	}
+	
+	 
 
 }
