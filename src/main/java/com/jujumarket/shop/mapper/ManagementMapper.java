@@ -8,8 +8,7 @@ import com.jujumarket.shop.domain.ManagementVO;
 
 public interface ManagementMapper {
 		
-		public int shippingupdate(ManagementVO vo); //송장번호 입력은 수정으로 처리를 함
-		
+	
 		public List<ManagementVO> shippinggetList();
 		
 		public List<ManagementVO> searchordergetList();
@@ -25,4 +24,11 @@ public interface ManagementMapper {
 		public int getTotalCount (ItemCriteria cri);	
 		
 		public List<ManagementVO> getcheck(String orderStat);
+		
+		public List<ManagementVO> getcheckAll(String orderStat);
+		
+		public void insertSelectKey(ManagementVO vo);
+		
+		public int shippingupdate(ManagementVO vo); //송장번호 입력은 수정으로 처리를 함
+		
 }
