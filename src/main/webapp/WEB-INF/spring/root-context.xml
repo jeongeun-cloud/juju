@@ -66,8 +66,8 @@
 		base-package="com.jujumarket.admin.service"></context:component-scan>
 		
 		<!-- 알람 -->
-		<!-- <context:component-scan
-		base-package="message"></context:component-scan> -->
+		<context:component-scan
+		base-package="message"></context:component-scan>
 		<!-- 알람 -->
 		
 

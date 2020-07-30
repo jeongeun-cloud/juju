@@ -102,6 +102,7 @@
         }
         .txt_wrap .pro_flag_wrap{
             margin-left: 1px;
+            height:25px;
         }
         .pro_flag_wrap .flag{
             border: 1px solid darkgray;
@@ -450,7 +451,7 @@
                                          <a href="/product/item?itemCode=<c:out value='${board.itemCode}'/>" class="conts">
                                               <div class="pro_flag_wrap">
                                           
-                                            <c:if test="${board.itemChr!='default'}">
+                                            <c:if test="${board.itemChr!='기본'}">
                                                  <span class="flag"> <c:out value="${board.itemChr}" /></span>                                                                                
                                              </c:if>
                                              

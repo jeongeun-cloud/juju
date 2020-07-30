@@ -38,11 +38,11 @@ public class RegisterItemContoller {
 	private ServletContext servletContext;
 	private RegisterItemService service;
 	
-	@GetMapping("/")
-	public String index() {
-		
-		return "shop/index";
-	}
+//	@GetMapping("/")
+//	public String index() {
+//		
+//		return "shop/index";
+//	}
 	
 	@GetMapping("/idCheck")
 	public void idCheck() {
