@@ -18,7 +18,7 @@ public interface MemberSerivce {
 
 	public SellerVO getSellerInfoByIdNo(String idNo);
 
-	public boolean deleteCheck(String idNo, String pwd);
+	public boolean checkPwd(String idNo, String pwd);
 
 	public List<String> getEmailList(MemberVO member);
 

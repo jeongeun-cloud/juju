@@ -47,8 +47,9 @@
 	
 	<script>
     $(document).ready(function() {
+
     	
-        var result = $("#result").val();
+        let result = $("#result").val();
         alertResult(result);
         history.replaceState({},null,null)
         
@@ -58,6 +59,9 @@
            }
            alert(result);
         }
+        
+        
+        
         });
 	</script>
 </body>
