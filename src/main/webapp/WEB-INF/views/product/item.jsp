@@ -552,11 +552,17 @@ input[type=range] {
               <p id="highlight">JUJU MARKET</p>
             </div>
             <div class="column-xs-4 column-md-6">
-              
               <ul>
-                <li class="nav-item"><a href="#"><c:out value="${shopName}"/></a></li>
+                <li class="nav-item">
+                	<a class='move'>
+                		<c:out value="${shopName}"/>
+                	</a>
+                </li>
               </ul>
             </div>
+            <form id='actionForm' action="/product/store" method='get'>
+			    <input type='hidden' name='idNo' id="idNo" value='<c:out value="${product.idNo}"/>'>
+			</form> 
           </div>
         </div>
   
@@ -1907,11 +1913,18 @@ $(document).ready(function(){
         	
         	}
         }
-   
 
-     
 /* 리뷰 부분 끝 */
 
+/* 상점으로 이동하기 */
+      var actionForm = $("#actionForm");
+      $(".move").on("click", function(e) {
+         e.preventDefault();
+         
+         actionForm.submit();
+      });
+
+/* 상점으로 이동하기 끝 */
 </script>
 
 

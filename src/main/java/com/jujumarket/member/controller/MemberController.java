@@ -25,7 +25,7 @@ import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SellerVO;
 import com.jujumarket.member.service.CustomerService;
 import com.jujumarket.member.service.MailService;
-import com.jujumarket.member.service.MemberSerivce;
+import com.jujumarket.member.service.MemberService;
 import com.jujumarket.member.service.SellerService;
 
 import lombok.AllArgsConstructor;
@@ -37,7 +37,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class MemberController {
 	
-	private MemberSerivce memberService;
+	private MemberService memberService;
 	private CustomerService customerService;
 	private SellerService sellerService;
 	private MailService mailService;
