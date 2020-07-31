@@ -22,7 +22,8 @@
                   <when test="type == 'P'.toString()">
                     receivContact like '%' || #{keyword} || '%'    
                   </when>
-                  
+
+
                </choose>
             </trim>
          </foreach>
@@ -70,6 +71,8 @@ where rn > (#{pageNum} -1)* #{amount}
 </select>
 
 
+
+
 <select id = "shippinggetListPaging" resultType="com.jujumarket.shop.domain.ManagementVO" >
 <![CDATA[
 select s.ordercode, s.orderstat, s.totalprice, s.orderdate, 
@@ -84,6 +87,8 @@ i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
 
 from t_order_history h, t_order_info o, t_item i, t_delivery d
 where 
+
+
 ]]>
 <include refid="itemcriteria"></include>
 <![CDATA[
@@ -94,15 +99,17 @@ and h.itemCode = i.itemCode
 and h.baskId = d.baskId
 and h.baskid = o.baskid
 
-
-
+and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
+and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
 and rownum <= #{pageNum} * #{amount}
 ) s
 where rn > (#{pageNum} -1)* #{amount}
+
+
 ]]>
 </select>
-
 <!-- and shippingcode is NULL -->
+
 
 
 <update id="shippingupdate">
@@ -119,6 +126,9 @@ where orderCode = #{orderCode}
    select count(*) from t_delivery
    WHERE shippingCode is NULL
 </select>
+
+
+
 
 
 
@@ -165,6 +175,35 @@ and h.orderstat = 'orderStat'
 ]]>
 </select> -->
 
+<select id ="datedate"   resultType="com.jujumarket.shop.domain.ManagementVO" >
+
+
+<![CDATA[
+select h.itemCode,h.orderCode, h.orderstat, o.totalprice, o.orderdate, i.itemName,
+d.shippingCode, d.receivAddr, d.receivContact, d.receiver
+,o.itemNum,i.price 
+from t_order_history h, t_order_info o, t_item i, t_delivery d
+
+where h.ordercode = o.ordercode
+
+
+and d.ordercode = h.orderCode
+
+and o.itemCode = i.itemCode
+and h.itemCode = i.itemCode
+and h.baskId = d.baskId
+and h.baskid = o.baskid
+
+and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
+and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
+
+
+]]>
+
+
+
+
+</select>
 
 <select id = "getcheck" resultType="com.jujumarket.shop.domain.ManagementVO" >
 <![CDATA[

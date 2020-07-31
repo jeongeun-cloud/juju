@@ -73,4 +73,11 @@ public class ManagementServiceImpl implements ManagementService {
 		return mapper.getcheckAll(orderStat);
 	}
 
+
+	@Override
+	public List<ManagementVO> Shippingdate(ManagementVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.datedate(vo);
+	}
+
 }

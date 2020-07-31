@@ -23,6 +23,7 @@ public interface ManagementService {
 	
 	public List<ManagementVO> searcheckAll(String orderStat);
 
+	public List<ManagementVO> Shippingdate(ManagementVO vo);
 	
 	
 
