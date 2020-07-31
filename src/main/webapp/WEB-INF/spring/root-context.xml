@@ -64,11 +64,10 @@
 		base-package="com.jujumarket.admin.mapper" />
 	<context:component-scan
 		base-package="com.jujumarket.admin.service"></context:component-scan>
-		
-		<!-- 알람 -->
-		<context:component-scan
-		base-package="message"></context:component-scan>
-		<!-- 알람 -->
+
+		<!-- <context:component-scan
+		base-package="message"></context:component-scan> -->
+
 		
 
 	<!-- 메일 보내기 (SEND) -->
@@ -108,4 +107,3 @@
 
 
 </beans>
-

@@ -55,31 +55,29 @@ body {
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
-	<form action="/member/sellerJoinForm"  id="sellerJoinForm" method="post">
+	<form action="/member/sellerJoinForm"  id="sellerJoinForm" method="post" enctype="multipart/form-data">
 
-		이메일 계정(필수):
-		<input type="text" id="emailAccount" name="emailAccount"> <button id="emailDuplicateCheckBtn">중복확인</button> <br>
+		 이메일:
+		<input type="text" id="emailAccount" name="emailAccount"  placeholder="필수입력"> <button id="emailDuplicateCheckBtn">가입여부확인</button> <br>
 		<input type="hidden" id="duplicateCheck">
 		<input type="hidden" id="duplicateCheckResult" value="false">
 		이메일 인증: <button id="emailSendBtn">인증번호받기</button>  인증번호입력<input type="text" id="inputCode"> <button id="emailAuthBtn">인증하기</button>
 		<input type="hidden" id="tempCode">
 		<input type="hidden" id="authResult" value="false">
 		<br>
-		비밀번호(1q2w3e4r로 통일): <input type="password" id="pwd" name="pwd"> <br>
-		비밀번호확인(1q2w3e4r로 통일) : 
-		<input type="password" id="pwdChk" name="pwdChk">  <br>
-		상점이름(필수): <input type="text" id="shopName" name="shopName"> <br>
-		회원이름(필수): <input type="text" id="memName" name="memName"> <br>
-		회원주소:	<input type="text" id="postCode" name="postCode" size="5" value="" readonly="readonly"> 
+		비밀번호: <input type="password" id="pwd" name="pwd"> <br>
+		비밀번호확인 :<input type="password" id="pwdChk" name="pwdChk">  <br>
+		상점명: <input type="text" id="shopName" name="shopName"  placeholder="필수입력"> <br>
+		회원이름 <input type="text" id="memName" name="memName"  placeholder="필수입력"> <br>
+		주소:	<input type="text" id="postCode" name="postCode" size="5" value="" readonly="readonly"> 
 					<a href="javascript:execDaumPostcode()">우편번호검색</a> <br>
 		지번 주소: <input type="text" id="jibunAddress" name="jibunAddress" size="50" value="" /><br> 
 		도로명 주소: <input type="text" id="roadAddress" name="roadAddress" size="50" value="" /><br>
 		나머지 주소: <input type="text" id="memAddr" name="memAddr" size="50" value="" /> <br>
-		사업자등록 :
-		<button id="myBtn">사업자등록</button>
-		<br> 연락처1(필수): <input type="text" id="contact1" name="contact1">
-		<br> 연락처2(선택): <input type="text" id="contact2" name="contact2">
-		<br> 우편번호(선택): <input type="text" id="postCode" name="postCode">
+		<button id="myBtn">상점 상세정보 입력하기 </button>
+		<br> 연락처1: <input type="text" id="contact1" name="contact1"  placeholder="XXX-XXXX-XXXX,필수">
+		<br> 연락처2: <input type="text" id="contact2" name="contact2" placeholder="XXX-XXXX-XXXX">
+		<br> 우편번호: <input type="text" id="postCode" name="postCode">
 		<br>
 		<!-- t_member -->
 
@@ -91,15 +89,16 @@ body {
 
 		<div class="modal-content">
 			<span class="close">&times;</span> 
-			상점이름: 
-			<input type="text" class="shopNameModal" name="shopNameModal" readonly="readonly"> readonly <br> 
-			대표자이름(회원이름과 동일): 
-			<input type="text" id="memNameModal" name="memNameModal" readonly="readonly">readonly <br>
+			상점명: 
+			<input type="text" class="shopNameModal" name="shopNameModal" readonly="readonly"  placeholder="readonly"> <br> 
+			대표자: 
+			<input type="text" id="memNameModal" name="memNameModal" readonly="readonly"  placeholder="readonly"><br>
 			<!-- 상점이름  -->
-			사업자 등록번호 (필수)
-			<input type="text" id="businessCode" name="businessCode"> <br> 
-			사업자등록증 업로드하기
-			<input type="text" id="businessRegFile" name="businessRegFile" readonly = "readonly"> <br>
+			사업자 등록번호
+			<input type="text" id="businessCode" name="businessCode"  placeholder="필수입력"> <br> 
+			사업자등록증(이미지, 필수)
+			<input type="file" id="businessRegFile" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
+			<img id="businessRegThumb" alt="" src=""><br>
 			사업장 소재지
 			<br> 우편번호 <input type="text" id="shopPostCode" name="shopPostCode">
 			<a href="javascript:execDaumPostcode()">우편번호검색</a> <br>
@@ -107,9 +106,9 @@ body {
 			<input type="text" id="jibunAddress" name="jibunAddress"/><br> 
 			도로명 주소: 
 			<input type="text" id="roadAddress" name="roadAddress" /><br>  
-			나머지 주소(필수): 
-			<input type="text" id="shopAddr" name="shopAddr" /> <br>
-			<td>사업자 계좌번호(필수)</td>
+			상점주소: 
+			<input type="text" id="shopAddr" name="shopAddr"  placeholder="필수입력" /> <br>
+			<td>사업자 계좌번호</td>
 			<td><select id="bank" name="bank">
 					<option value="은행선택">은행선택</option>
 					<option value="신한">신한은행</option>
@@ -117,10 +116,13 @@ body {
 					<option value="기업">기업은행</option>
 					<option value="우리">우리은행</option>
 					<option value="카카오">카카오뱅크</option>
-			</select> <input type="text" name="bankAccount" id="bankAccount"></td> <br>
-			상점이미지(썸네일) 업로드하기
-			<input type="text" id="thumbImg" name="thumbImg" readonly = "readonly"> <br>
-		
+			</select> <input type="text" name="bankAccount" id="bankAccount"  placeholder="필수입력"></td> <br>
+			상점이미지(필수)
+			<input type="file" id="thumbImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
+			<img id="thumbThumb"alt="" src=""><br>
+			배경이미지 
+			<input type="file" id="backImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
+			<img id="backThumb" alt="" src=""><br>
 			<button id="sellerAuthBtn">확인</button>
 			<br>
 
@@ -135,7 +137,7 @@ body {
 		let modal = document.getElementById("myModal");
 		let btn = document.getElementById("myBtn");
 		let span = document.getElementsByClassName("close")[0];
-		let $sellerAuthBtn = $("#sellerAuthBtn");
+		let sellerAuthBtn = $("#sellerAuthBtn");
 
 		btn.onclick = function(e) {
 			e.preventDefault();
@@ -152,7 +154,7 @@ body {
 			}
 		}
 
-		$sellerAuthBtn.click(function(e) {
+		sellerAuthBtn.click(function(e) {
 			e.preventDefault();
 			modal.style.display = "none";
 		});
@@ -170,12 +172,14 @@ body {
 			let memName = $("#memName");
 			let memNameModal = $("#memNameModal");
 			let businessCode = $("#businessCode");
-			let businessRegFile = $("#businessRegFile");
 			let memAddr = $("#memAddr");
 			let shopAddr = $("#shopAddr");
 			let contact1 = $("#contact1");
 			let contact2 = $("#contact2");
 			let bankAccount = $("#bankAccount");
+			let businessRegFile = $("#businessRegFile");
+			let thumbImg = $("#thumbImg");
+			let backImg = $("#backImg");
 
 			let emailAuthBtn = $("#emailAuthBtn");
 			let inputCode = $("#inputCode");
@@ -186,13 +190,14 @@ body {
 			
 			
 			
+			
 			emailAuthBtn.click(function(e){
 				e.preventDefault();
 				
 				if (!(emailAccountCheck())) {
 					return false;
 				} else if (duplicateCheckResult.val()=="false") {
-					alert("중복체크를 하지 않았습니다.");
+					alert("가입여부를 확인해주세요.");
 					return false;
 				}
 				
@@ -203,11 +208,11 @@ body {
 				
 				//return true일때와 각 input항목 유효성검사, 정규식 처리 이후 가입하기 submit 되도록 처리하기 				
 				if(inputCode.val()==tempCode.val()){
-					alert("이메일 인증을 성공했습니다.");
+					alert("이메일 인증에 성공했습니다.");
 					authResult.val("true");
 					inputCode.val("");
 				} else {
-					alert("이메일 인증을 실패했습니다.");
+					alert("이메일 인증에 실패했습니다.");
 					inputCode.val("");
 				}
 			});
@@ -220,7 +225,7 @@ body {
 				if (!(emailAccountCheck())) {
 					return false;
 				} else if (duplicateCheckResult.val()=="false") {
-					alert("중복체크를 하지 않았습니다.");
+					alert("가입여부를 확인해주세요.");
 					return false;
 				}
 				
@@ -228,6 +233,7 @@ body {
 				
 				emailAuth(email)
 				.then(function(response){
+					alert("인증번호가 발송되었습니다");
 					console.log(response);
 					tempCode.val(response);
 				})
@@ -318,7 +324,15 @@ body {
 				return false;
 			} else if (!(businessCodeCheck())) {
 				return false;
-			}else {
+			} else if (businessRegFile.val()==null||businessRegFile.val()=="") {
+				alert("사업자 등록증을 업로드해주세요.");
+				modal.style.display = "block";
+				businessRegFile.focus();
+			} else if (thumbImg.val()==null||thumbImg.val()==""){
+				alert("썸네일을 업로드해주세요.");
+				modal.style.display = "block";
+				thumbImg.focus();
+			} else {
 				sellerJoinForm.submit();
 			}
 
@@ -361,7 +375,7 @@ body {
 				pwd.focus();
 				return false;
 			} else if (!regExp.test(pwd.val())) {
-				alert("비밀번호를 양식에 맞게 다시 입력하세요. (6~12자리의 문자+숫자)");
+				alert("패스워드는 6~12자 사이의 문자+숫자 조합으로 입력해주세요.");
 				pwd.focus();
 				return false
 			} else {
@@ -383,7 +397,7 @@ body {
 				businessCode.focus();
 				return false;
 			} else if (!regExp.test(businessCode.val())) {
-				alert("사업자등록번를 양식에 맞게 다시 입력하세요.(1~15자리의 숫자)");
+				alert("사업자등록번를 1~15자리의 숫자로 입력하세요.");
 				businessCode.focus();
 				return false
 			} else {
@@ -468,7 +482,7 @@ body {
 				contact1.focus();
 				return false;
 			} else if (!regExp.test(contact1.val())) {
-				alert("연락처1을 양식에 맞게 다시 입력하세요.(XXX-XXXX-XXXX)");
+				alert("연락처1을 양식에 맞게 입력해주세요.(XXX-XXXX-XXXX, 필수입력)");
 				contact1.focus();
 				return false
 			} else {
@@ -490,7 +504,7 @@ body {
 				shopAddr.focus();
 				return false;
 			} else if (!regExp.test(shopAddr.val())) {
-				alert("상점주소를 양식에 맞게 다시 입력하세요.");
+				alert("상점주소를 양식에 맞게 입력해주세요.");
 				shopAddr.focus();
 				return false
 			} else {
@@ -509,12 +523,16 @@ body {
 					
 							})
 					} 	
+		
+		
+		
+		
+		
+		
+		
+		
+		
 			
-			});
-		
-		
-		
-		
 	function execDaumPostcode() {
 		new daum.Postcode(
 				{
@@ -549,6 +567,29 @@ body {
 					}).open()
 
 		};
+		
+		let inputFile = $("input[type='file']");
+		
+		inputFile.change(function(e){
+			
+			imgTarget = $(e.target);
+			
+			if(this.files){
+				let reader = new FileReader;
+
+                reader.onload = function(data) {
+                    imgTarget.next().next().attr("src", data.target.result).width(100);
+                 }
+                 reader.readAsDataURL(this.files[0]);
+             }
+			
+				});
+			});
+		
+		
+		
+		
+		 
 	</script>
 </body>
 </html>

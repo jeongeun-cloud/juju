@@ -482,7 +482,7 @@ margin-left: 15%;
      background-color: #f1f1f1;
    }
    
-   .btn {
+   .rBtn {
      background-color: #008CBA;
      border: none;
      color: white;
@@ -554,7 +554,7 @@ input[type=range] {
             <div class="column-xs-4 column-md-6">
               
               <ul>
-                <li class="nav-item"><a href="#">{상점명}</a></li>
+                <li class="nav-item"><a href="#"><c:out value="${shopName}"/></a></li>
               </ul>
             </div>
           </div>
@@ -1328,7 +1328,6 @@ $(document).ready(function(){
 
 /* 리뷰 부분 시작 */
 
-   // 리뷰 남기기 모달 띄우기
       var modal = document.getElementById('review');
    
       // 모달 다른 부분 눌러서 끄기
@@ -1552,48 +1551,48 @@ $(document).ready(function(){
                  
                  str += "<div style='width:100%; overflow:hidden;'>";
                  str += "<div style='float: left; width: 20%; font-weight:bold;'>"+ userId +"</div>"; 
-                 str += "<input type='hidden' id='writer' value="+ list[i].idNo +">"; 
+                 
                  str += "<div style='float: left; width: 80%; font-weight:bold; text-align:right;'>"+ displayTime(list[i].regDate) +"</div>"; 
                  str += "<div style='float: left; width: 100%; font-size:14px; font-weight:bold; color:red;'>"+ stars[i] +"</div>"; 
                  str += "<div style='float: left; width: 20%;'><img class='resultImg' style='height:75px;' "+ path +" /></div>"; 
 
                  str += "<div style='width:80%; float:left'>"; 
-                  str += "<button class='collapsible'>"+ list[i].reviewTitle + "</button>";
+                 str += "<button class='collapsible'>"+ list[i].reviewTitle + "</button>";
                 str += "<div class='content'>";
+                str += "<input type='hidden' id='writer' value="+ list[i].idNo +">"; 
                 str += "<p style=''>"+ list[i].reviewContent +"</p>";
-                str += "<button id='removeBtn' data-oper='"+ list[i].reviewNo +"' class='btn' style='background-color: #f44336;'>삭제</button>";
-                str += "<button id='modifyBtn' data-oper='"+ list[i].reviewNo +"' class='btn'>수정</button>";
+                str += "<button id='removeBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn' style='background-color: #f44336;'>삭제</button>";
+                str += "<button id='modifyBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn'>수정</button>";
                 str += "</div>";
                 str += "</div>";
 
                 str += "</div>";
                 str += "<br><hr>"
-                
-                console.log(list[i].idNo + " 리스트 아이디");
-                
+
               }
             
-         var idNo = $("#writer").val();
-            var sessionId = $("#sessionId").val();
-            console.log(sessionId + " 세션 아이디");
-            console.log(idNo + " 글쓴 아이디");
-              if(idNo != sessionId) {
-                 $('.btn').css('visibility', 'hidden');
-              }else {
-                 $('.btn').css('visibility', 'visible');
-              }
-              
-            reviewList.html(str);
-              showReviewPage(reviewCnt); 
-              getScore();
+	        // 아이디 체크해서 맞을 경우만 버튼 보이기
+/* 	        var idNo = $("#writer").val();
+	        var sessionId = $("#sessionId").val();
+	        
+           	if(idNo != sessionId) {
+            	$('.rBtn').css('visibility', 'hidden');
+           	}else {
+         	  	$('.rBtn').css('visibility', 'visible');
+           	}
+ */           
+           	reviewList.html(str);
+            showReviewPage(reviewCnt); 
+            getScore();
 
               
-              // 리뷰 리스트 효과
+         // 리뷰 리스트 효과
          var coll = $(".collapsible");
              
               for (i = 0; i < coll.length; i++) {
                  coll[i].addEventListener("click", function() {
-                   this.classList.toggle("active");
+                       
+                    this.classList.toggle("active");
                     var content = this.nextElementSibling;
                     
                     if (content.style.maxHeight){

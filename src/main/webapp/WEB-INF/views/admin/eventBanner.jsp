@@ -65,7 +65,7 @@
    	
    .banner_main .banner_tit{
        font-size: 30px;
-       margin-bottom:50px;
+       margin-bottom:20px;
 
    }
 	#activeImg img{
@@ -75,24 +75,33 @@
 	}
 </style>
 <body>
+<%@include file="./idCheck.jsp" %>
     <div class="banner_content">
         <div class="banner_wrap">
-            <div class="side">
-                <div class="1nb_list">
-                    <div class="banner_side_tit">
-                        	배너관리
-                    </div>
-                    <div class="banner_side_menu">
-                        <ul class="banner_menu">
-                            <li><a href='/admin/mainBanner'><i class="fa fa-check" ></i>메인 배너</a></li>
-                            <li><a href='/admin/advertise'><i class="fa fa-check" ></i>중간 광고</a></li>
-                            <li><a href='/admin/seasonalMagazine'><i class="fa fa-check" ></i>제철 페이지</a></li>
-                            <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i>이벤트</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
+            <!-- side 시작 -->
+		   	<div class="side">
+		      <div class="1nb_list">
+		         <div class="banner_side_tit">관리자 페이지</div>
+		           <div class="banner_side_menu">
+		               <ul class="banner_menu">
+		                    <p><a href='/admin/index'><b>JUJU 현황</b></a></p>
+		                    <p><b>배너관리</b></p>
+			                    <li><a href='/admin/mainBanner'><i class="fa fa-check" ></i> 메인 배너</a></li>
+	                            <li><a href='/admin/advertise'><i class="fa fa-check" ></i> 중간 광고</a></li>
+	                            <li><a href='/admin/seasonalMagazine'><i class="fa fa-check" ></i> 제철 페이지</a></li>
+	                            <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i> 이벤트</a></li>
+		                    <br>
+		                    <p><b>회원관리</b></p>
+			                    <li><a href='#'><i class="fa fa-check" ></i> 회원수</a></li>
+			                    <li><a href='#'><i class="fa fa-check" ></i> 회원 현황</a></li>
+			                    <li><a href='#'><i class="fa fa-check" ></i> 상인 승인</a></li>
+			                    <li><a href='#'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
+		                </ul>
+		           </div>
+		     	</div>
+		     	<!-- 1nb_list -->
+		  	</div>
+			<!-- side 끝-->
 
             <div class="banner_main">
                 <div class="banner_tit">
@@ -109,6 +118,7 @@
                 	</ul>
                 </div>
                 
+                <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
                	<label>현재 등록된 이벤트 이미지</label><br>
                 <div id="activeImg">
                 	<c:forEach items="${event }" var="event">
@@ -148,6 +158,7 @@
     			var formData = new FormData();
     			var inputFile = $("input[name='uploadFile']");
     			var files = inputFile[0].files;
+    			var idNo = $("#idNo").val();
     			
     			console.log(files);
     			
@@ -156,6 +167,7 @@
     					return false;
     				}
     				formData.append("uploadFile", files[i]);
+    				formData.append("idNo", idNo);
     			}
     			
     			$.ajax({

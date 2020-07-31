@@ -9,7 +9,7 @@ import com.jujumarket.shop.domain.ManagementVO;
 
 public interface ManagementService {
 	
-	public boolean shippingupdate(ManagementVO vo); //송장번호수정
+	public void shippingupdate(ManagementVO vo); //송장번호수정
 	
 	public List<ManagementVO> searchordergetList(ItemCriteria cri);
 	
@@ -21,6 +21,8 @@ public interface ManagementService {
 	
 	public List<ManagementVO> searcheck(String orderStat);
 	
+	public List<ManagementVO> searcheckAll(String orderStat);
+
 	
 	
 

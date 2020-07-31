@@ -51,6 +51,13 @@ public class ItemMainServiceImpl implements ItemMainService{
 		log.info("getList..........");
 		return mapper.getList();
 	}
+
+	@Override
+	public String getShop(String itemCode) {
+		log.info("getShop..........");
+		
+		return mapper.getShop(itemCode);
+	}
 	
 	//알람서비스 신청 받기
 	@Override

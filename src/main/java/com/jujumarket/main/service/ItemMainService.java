@@ -17,11 +17,14 @@ public interface ItemMainService {
 	
 	public List<ItemMainVO> getList();
 	
+
 	//	알람 서비스
 	
 	public void applyAlarm(AlarmVO alarmvo);
 	
 	public void cancelAlarm(AlarmVO alarmvo);
-	
+
+	public String getShop(String itemCode);
+
 
 }

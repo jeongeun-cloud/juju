@@ -55,6 +55,14 @@ select * from t_item
 insert into t_alarm_history(itemCode, idNo )
 values(#{itemCode}, #{idNo})
 
+<select id="getShop" resultType="String">
+	select s.shopName
+	from m_shop s, t_item i
+	where i.idNo = s.idNo
+	and i.itemCode = #{itemCode}
+</select>
+
+
 </insert>
 
 <delete id="cancelAlarm">

@@ -89,7 +89,7 @@ body {
 </head>
 <body>
 
-	<h2>아이디(이메일 계정)/비밀번호 찾기</h2>
+	<h2>아이디/비밀번호 찾기</h2>
 
 	<div class="tab">
 
@@ -269,12 +269,12 @@ body {
 			
 			//return true일때와 각 input항목 유효성검사, 정규식 처리 이후 가입하기 submit 되도록 처리하기 				
 			if(inputCode.val()==tempCode.val()){
-				alert("이메일 인증을 성공했습니다.");
+				alert("이메일 인증에 성공했습니다.");
 				authResult.val("true");
 				inputCode.val("");
 				modal.style.display = "block";
 			} else {
-				alert("이메일 인증을 실패했습니다.");
+				alert("이메일 인증에 실패했습니다.");
 				inputCode.val("");
 			}
 		});
@@ -328,7 +328,7 @@ body {
 			let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			
 			if (emailAccount.val().trim() == "" || emailAccount.val() == null) {
-				alert("값을 입력해주세요.");
+				alert("이메일 주소를 입력해주세요.");
 				emailAccount.focus();
 				return false;
 			} else if (emailAccount.val().length > 30) {
@@ -336,7 +336,7 @@ body {
 				emailAccount.focus();
 				return false;
 			} else if (!regExp.test(emailAccount.val())) {
-				alert("이메일을 양식에 맞게 다시 입력하세요.");
+				alert("이메일 주소를 양식에 맞게 다시 입력하세요.");
 				emailAccount.focus();
 				return false
 			} else {

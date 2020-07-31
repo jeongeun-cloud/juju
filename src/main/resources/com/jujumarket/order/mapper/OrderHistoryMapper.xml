@@ -11,8 +11,8 @@
  		</select>
  		
  		<insert id="insert">
- 			insert into t_order_history(orderCode, itemCode, orderStat)
- 			values(#{orderCode}, #{itemCode}, #{orderStat})
+ 			insert into t_order_history(baskId, orderCode, itemCode, orderStat)
+ 			values(#{baskId}, #{orderCode}, #{itemCode}, 'ordered')
  		</insert>
  		
  		

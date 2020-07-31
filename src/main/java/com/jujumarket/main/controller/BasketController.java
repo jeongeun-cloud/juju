@@ -64,6 +64,7 @@ public class BasketController {
       log.info("/item");
 
       model.addAttribute("product", itemservice.get(itemCode));
+      model.addAttribute("shopName", itemservice.getShop(itemCode));
    }
 
    //알람 서비스 신청 받기

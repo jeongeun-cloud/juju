@@ -41,8 +41,10 @@ public class HomeController {
 	
 	private MainIndexService mainservice;
 	private ReviewService reviewService;
-	@Autowired
-	//private messageService mservice;
+
+
+//	@Autowired
+//	private messageService mservice;
 
 	private BannerService bannerService;
 

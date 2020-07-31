@@ -36,14 +36,12 @@ where]]>
 </select>
 
  <select id="prevOrderTotal" resultType="java.lang.Integer">
-
- 
+   
   select sum(o.totalPrice) as prevOrderTotal
 	from t_order_info o , t_item t
 	where o.itemCode= t.itemCode AND t.idNo= #{idNo} AND to_char(orderdate, 'yy/mm') = to_char(to_date(to_char(sysdate,'yy/mm'),'yy/mm')-1,'yy/mm')
 	group by t.idNo
-
-  
+   
 </select> 
 
 <select id="todayOrderCnt" resultType="java.lang.Integer">

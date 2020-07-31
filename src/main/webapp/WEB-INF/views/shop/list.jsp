@@ -292,9 +292,9 @@
                             <label class="regi_la">상품명</label>
                             <select name='type'>
                                 <option value="" <c:out value="${pageMaker.cri.type == null? 'selected':'' }" /> >--</option>
-                                <option value="N" <c:out value="${pageMaker.cri.type eq 'N'? 'selected':'' }" />>제목</option>
-                                <option value="C" <c:out value="${pageMaker.cri.type eq 'C'? 'selected':'' }" />>내용</option>
-                                <option value="NC" <c:out value="${pageMaker.cri.type eq 'NC'? 'selected':'' }" />>제목 or 내용</option>
+                                <option value="N" <c:out value="${pageMaker.cri.type eq 'N'? 'selected':'' }" />>상품명</option>
+                                <option value="C" <c:out value="${pageMaker.cri.type eq 'C'? 'selected':'' }" />>상품설명</option>
+                                <option value="NC" <c:out value="${pageMaker.cri.type eq 'NC'? 'selected':'' }" />>상품명 or 상품설명</option>
                             </select>
                             
                             <input type="text" name="keyword" value="${pageMaker.cri.keyword }">
