@@ -195,8 +195,9 @@ $(document).ready(function(){
       $("#radioBtn").on("click", function(e){
 
          var check = $("input:radio[name='orderStat']:checked").val();
-    	 alert(check);
          
+    	 alert(check);
+    	   
          $("#test").submit();
           /* $.ajax({
 				url : '/shop/searchorder',

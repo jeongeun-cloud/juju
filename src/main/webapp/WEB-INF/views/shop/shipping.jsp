@@ -65,54 +65,61 @@
 
             <div>
 
-             	<input type="button" id="shippingBtn" value='배송처리'>
+           <input type="button" id="shippingBtn" value='배송처리'>
             
               <table tit aria-setsize="500px">
                   <thead>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th>주문일</th>
-                        <th>주문번호</th>
-                        <th>송장번호</th>
-                        <th>주문상태</th>
-                        <th>상품명</th>
-                        <th>상품수량</th>
-                        <th>판매가</th>     
-                        <th>결제금액</th>
-                        <th>고객명</th>
-                        <th>연락처</th>
-                        <th>주소</th>
-
-                    </tr>
-                  </thead>
+                	  <tr>
+	                        <th><input type="checkbox"></th>
+	                        <th>주문일</th>
+	                        <th>주문번호</th>
+	                        <th>송장번호</th>
+	                        <th>주문상태</th>
+	                        <th>상품명</th>
+	                        <th>상품수량</th>
+	                        <th>판매가</th>     
+	                        <th>결제금액</th>
+	                        <th>고객명</th>
+	                        <th>연락처</th>
+	                        <th>주소</th>
+ 					   </tr>
+            	 </thead>
                   
                      
-                     <c:forEach items="${list}" var="list">
+              <c:forEach items="${list}" var="list">
                
   
-               <tr id="test">
-             
-	             <form id ='shippingForm'  action="/shop/shipping" method="post">
+              	   <tr id="test">
 	                  <td><input id='checkbox' name='chk' type="checkbox"  value='<c:out value="${list.orderCode}"/>' ></td>             
 	                  <td><fmt:formatDate pattern="yyyy/MM/dd" value="${list.orderDate }" /></td>
-         			  <td><input type ='text' name='orderCode' id ='orderCode' value='<c:out value="${list.orderCode}"/>'></td>
-	               	  <td><input id ="shippingCode" name='shippingCode' type='text'></td>
-	             </form>       
-            
-                  <td><c:out value="${list.orderStat }" /></td>
-                  <td><c:out value="${list.itemName }" /></td>   
-                  <td><c:out value="${list.itemNum }" /></td>  
-                  <td><c:out value="${list.price }" /></td>  
-                  <td><c:out value="${list.totalPrice}"/></td>
-                  <td><c:out value="${list.receiver }" /></td>  
-                  <td><c:out value="${list.receivContact }" /></td>  
-                  <td><c:out value="${list.receivAddr }" /></td>
-                  </tr> 
+         			  <td><input type ='text' id ='orderCode' value='<c:out value="${list.orderCode}"/>'></td>
+	               	  <td><input id ="shippingCode" type='text'></td>     
+	                  <td><c:out value="${list.orderStat }" /></td>
+	                  <td><c:out value="${list.itemName }" /></td>   
+	                  <td><c:out value="${list.itemNum }" /></td>  
+	                  <td><c:out value="${list.price }" /></td>  
+	                  <td><c:out value="${list.totalPrice}"/></td>
+	                  <td><c:out value="${list.receiver }" /></td>  
+	                  <td><c:out value="${list.receivContact }" /></td>  
+	                  <td><c:out value="${list.receivAddr }" /></td>
+	                  <td style='visibility:hidden;'><c:out value="${list.baskId }" /></td>
+	                  <td style='visibility:hidden;'><c:out value="${list.itemCode }" /></td>   
+	                                   
+	               </tr> 
                </c:forEach>
                
              </table>
              </div>  
              
+             
+             <!--송장처리 form -->
+	          <form id ='shippingForm'  action="/shop/shipping" method="post">
+			          <input id = 'orderval' type ='text' name = 'orderCode' value=''>
+			          <input id = 'shippingval'type ='text' name = 'shippingCode'value=''>		   
+			          <input id = 'baskval'type ='text' name = 'baskId'value=''>
+			          <input id = 'itemCodeal'type ='text' name = 'itemCode'value=''>
+
+	          </form>
              
             <!-- 페이징시작 -->
            <div class='pull-right'>
@@ -185,30 +192,50 @@ $(document).ready(function(){
 		            searchForm.find("input[name='pageNum']").val("1");
 		            e.preventDefault();
 		            
+		            
+		            
 		            searchForm.submit();  
 		  	  
 		    });
-	var shippingForm = $("#shippingForm");
+
 	
  	$("#shippingBtn").on("click", function(e) {
 
  
- 
-	    var checkRow = "";
-	    var shipRow = "";
-	    $("input[name='chk']:checked").each (function (){
-	       checkRow = checkRow + $(this).val()+"," ;
-           shipRow = shipRow + $(this).closest('tr')[0].children[3].children[0].value + ",";
-	       
-	    });
-      checkRow = checkRow.substring(0,checkRow.lastIndexOf(",")); //맨끝 콤마 지우기
-      shipRow = shipRow.substring(0,shipRow.lastIndexOf(",")); //맨끝 콤마 지우기
-      
-      console.log("체크한애" + checkRow);
-      console.log("체크한애 ship" + shipRow);
-      
+	 
+		    var checkRow = "";
+		    var shipRow = "";
+		    var statRow = "";
+		    var stemCodeRow = "";
+		    
+		    
+		    $("input[name='chk']:checked").each (function (){
+		       checkRow = checkRow + $(this).val()+"," ;
+	           shipRow = shipRow + $(this).closest('tr')[0].children[3].children[0].value + ",";
+	           statRow = statRow + $(this).closest('tr')[0].children[12].childNodes[0].nodeValue + ",";
+	           stemCodeRow = stemCodeRow + $(this).closest('tr')[0].children[13].childNodes[0].nodeValue+ ",";
 
-      shippingForm.submit();
+		       
+		    });
+		      checkRow = checkRow.substring(0,checkRow.lastIndexOf(",")); //맨끝 콤마 지우기
+		      shipRow = shipRow.substring(0,shipRow.lastIndexOf(",")); //맨끝 콤마 지우기
+		      
+		      console.log("체크한애" + checkRow);
+		      console.log("체크한애 ship" + shipRow);
+		      console.log("체크한애 statRow" + statRow);
+		     
+		      console.log("체크한애 ship" + stemCodeRow);
+	      
+	    
+		      
+			  var orderForm =  $("#shippingForm").find("#orderval").val(checkRow); 
+		      var shippingForm =  $("#shippingForm").find("#shippingval").val(shipRow);
+			  var baskval =  $("#shippingForm").find("#baskval").val(statRow);
+			  var itemCodeal =  $("#shippingForm").find("#itemCodeal").val(stemCodeRow);
+
+	
+		      $("#shippingForm").submit();
+
 	});
 
 	
@@ -216,7 +243,9 @@ $(document).ready(function(){
 
 /* $("#shippingBtn").on("click", function(e) {
 
-      var target = e.target;
+      var target = e.target;  
+      orderForm
+      shippingForm
       var shipping = $(target).parents().find("#orderCode").val() 
       var order = $(target).parents().find("#shippingCode").val();
       var check = $(target).parents().find("#checkbox").val();

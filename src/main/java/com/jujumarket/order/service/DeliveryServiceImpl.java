@@ -24,4 +24,9 @@ public class DeliveryServiceImpl implements DeliverySerivce{
 		
 	}
 
+	@Override
+	public void register(DeliveryVO delivery) {
+		deliveryMapper.insertSelectKey(delivery);
+	}
+
 }

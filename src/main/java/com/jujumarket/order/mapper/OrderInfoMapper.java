@@ -15,6 +15,7 @@ public interface OrderInfoMapper {
 	public int delete(String orderCode);
 	public int update(OrderInfoVO orderInfo);
 	public int insertorderCode(String orderCode);
+	public OrderInfoVO makeInfoAndHistory(String baskId);
 
 
 }
