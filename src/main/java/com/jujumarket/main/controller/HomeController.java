@@ -42,6 +42,7 @@ public class HomeController {
 	private MainIndexService mainservice;
 	private ReviewService reviewService;
 
+
 //	@Autowired
 //	private messageService mservice;
 
@@ -62,12 +63,11 @@ public class HomeController {
 		
 
 		model.addAttribute("mainReview", reviewService.mainReview());
-		
-		//mservice.sendAlarm();
-
 		model.addAttribute("mainReview", reviewService.mainReview());			// 메인 리뷰
 		model.addAttribute("advertise", bannerService.getBanner("advertise"));	// 중간 광고
 		model.addAttribute("mainImg", bannerService.getBanner("main"));			// 메인 슬라이더
+		
+		//mservice.sendAlarm();
 
 		
 		return "/main/index";

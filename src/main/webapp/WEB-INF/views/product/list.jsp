@@ -665,7 +665,7 @@ $(document).on("change", "select.mainCateg", function(){
        
       listSort(allData).then(function(response){
 
-       console.log(response);
+       //console.log(response);
        console.log("데이터 그리기 시작한다");
        listdraw(response);
          

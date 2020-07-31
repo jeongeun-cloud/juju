@@ -630,7 +630,7 @@ input[type=range] {
               </c:if>
               <!-- 품절인 상황에만 입고 신청 알람받기 -->
               <c:if test="${product.saleStat=='품절'}">
-             	 <button type="submit" class="add-to-alarm" >입고 신청 알람 받기</button>
+             		 <input type="button" onclick="applyAlarm()" value="입고 알람 받기" id="add-to-alarm" class="add-to-alarm"></input>
               </c:if>
             </div>
 
@@ -1860,8 +1860,55 @@ $(document).ready(function(){
            console.log("평균 별점 불러오기 에러입니다.");
         
         });
-   }
+        
+      
+        }
+      
+
+  	  /* 알림 신청 받기 */   
+        function applyAlarm(){
+        	  var idNo = document.getElementById("hiddenId").value;
+        	  var itemCode = document.getElementById("itemCode").value;
+        	 
+        	  var abtn=document.getElementById("add-to-alarm");
+
+        	  console.log("itemCode는"+itemCode);
+        	  console.log("세션에서 받아 들인id는?"+idNo);
+        	  
+        	  if(abtn.value=="입고 알람 받기"){
+        		  abtn.value="입고 알람 취소"
+	        	  return $.ajax({
+	        		  url:'/product/addalarm',
+	        		  type:"GET",
+	        		  data:{"itemCode":itemCode,"idNo":idNo},
+	        		  dataType: "text",
+	        		  success:function(result){
+	        			  console.log("알람통신 성공");	        			  
+	        			  alert("입고 알람 신청이 완료되었습니다.");
+	        		  },
+	        		  error:function(){console.log("알람통신 실패")}
+	        	  });
+	        
+        	  }
+        	  
+        	else{        		
+        		abtn.value="입고 알람 받기";   
+        		return $.ajax({
+	        		  url:'/product/cancelalarm',
+	        		  type:"GET",
+	        		  data:{"itemCode":itemCode,"idNo":idNo},
+	        		  dataType: "text",
+	        		  success:function(result){
+	        			  console.log("알람통신 성공");
+	        			  alert("입고 알람 취소가 완료되었습니다.");
+	        		  },
+	        		  error:function(){console.log("알람통신 실패")}
+	        	  });
+        	
+        	}
+        }
    
+
      
 /* 리뷰 부분 끝 */
 

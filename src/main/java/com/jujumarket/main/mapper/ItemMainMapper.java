@@ -2,7 +2,7 @@ package com.jujumarket.main.mapper;
 
 import java.util.List;
 
-
+import com.jujumarket.main.domain.AlarmVO;
 import com.jujumarket.main.domain.ItemMainVO;
 
 public interface ItemMainMapper {
@@ -20,6 +20,13 @@ public interface ItemMainMapper {
 	
 	public int update(ItemMainVO item);
 	
+
+	//알람 받기 서비스 
+	public void applyAlarm(AlarmVO alarmvo);
+	
+	public void cancelAlarm(AlarmVO alarmvo);
+
 	public String getShop(String itemCode);
+
 	
 }

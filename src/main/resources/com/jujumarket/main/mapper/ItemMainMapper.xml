@@ -50,6 +50,11 @@ select * from t_item
 </update>
 
 
+
+<insert id="applyAlarm">
+insert into t_alarm_history(itemCode, idNo )
+values(#{itemCode}, #{idNo})
+
 <select id="getShop" resultType="String">
 	select s.shopName
 	from m_shop s, t_item i
@@ -57,6 +62,13 @@ select * from t_item
 	and i.itemCode = #{itemCode}
 </select>
 
+
+</insert>
+
+<delete id="cancelAlarm">
+	delete from t_alarm_history
+	where  itemCode = #{itemCode} AND idNo=#{idNo}
+</delete>
 
 
 </mapper>
