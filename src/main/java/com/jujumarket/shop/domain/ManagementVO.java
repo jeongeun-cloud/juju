@@ -18,9 +18,13 @@ public class ManagementVO {
 	 private String receivContact;  //연락처
 	 private String itemCode; //상품코드
 	 private String receiver; //수취인명
+
 	 
 	 private String baskId; //바스켓아이디
 	 private Date prgDate;//진행시간
+	 
+	 private String date1; 
+	 private String date2; 
 
 	 private int itemNum; //상품수량
 	 private int totalPrice;  //결제금액

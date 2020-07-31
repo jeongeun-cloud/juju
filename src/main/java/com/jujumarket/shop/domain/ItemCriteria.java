@@ -17,6 +17,9 @@ public class ItemCriteria {
 	private String type;
     private String keyword;
     
+    private String date1; 
+	 private String date2; 
+    
     private String idNo;
 	
 	public ItemCriteria() {
