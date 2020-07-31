@@ -2,6 +2,7 @@ package com.jujumarket.main.mapper;
 
    import java.util.List;
 
+import com.jujumarket.main.domain.AlarmVO;
 import com.jujumarket.main.domain.BoardItemVO;
 import com.jujumarket.main.domain.CategoryVO;
 import com.jujumarket.main.domain.Criteria;
@@ -25,6 +26,8 @@ public interface BoardItemMapper {
    public List<BoardItemVO> bestProduct(String classCode);   
    
    public List<BoardItemVO> newProduct(String classCode);   
+   
+   
       
    }
 

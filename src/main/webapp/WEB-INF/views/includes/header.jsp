@@ -126,7 +126,7 @@ li {
                         </c:when>
 <%--                         <c:when test="${fn:substring(sessionMember, 0, 1) eq 'a'}"> --%>
                            <c:when test="${sessionMember.memCode eq 'ADMIN'}">
-                           <li><a href="#">관리자 홈</a></li>
+                           <li><a href="/admin/index">관리자 홈</a></li>
                         </c:when>
                      </c:choose>
                </ul>

@@ -6,6 +6,7 @@ import com.jujumarket.main.domain.BasketVO;
 import com.jujumarket.order.domain.OrderRequestVO;
 import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
+import com.jujumarket.order.domain.PaymentVO;
 
 public interface OrderMapper {
 
@@ -29,6 +30,9 @@ public interface OrderMapper {
    public String getRecentOrderCode(String idNo);
    
    public BasketVO getone(String baskId);
+   
+   public void paymentRegister(PaymentVO payment);
+   
 }
 
 

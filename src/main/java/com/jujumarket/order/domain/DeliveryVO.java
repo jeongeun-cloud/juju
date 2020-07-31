@@ -11,6 +11,7 @@ public class DeliveryVO {
 	private String receivAddr;
 	private String receivContact;
 	private String reqNote;
+	private String postCode;
 	private String orderCode;
 	// 아이템코드는 nullable
 	private String baskId;

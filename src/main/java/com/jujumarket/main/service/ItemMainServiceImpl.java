@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jujumarket.main.domain.AlarmVO;
 import com.jujumarket.main.domain.ItemMainVO;
 import com.jujumarket.main.mapper.ItemMainMapper;
 
@@ -58,6 +59,17 @@ public class ItemMainServiceImpl implements ItemMainService{
 		return mapper.getShop(itemCode);
 	}
 	
+	//알람서비스 신청 받기
+	@Override
+	public void applyAlarm(AlarmVO alarmvo) {
+		
+		mapper.applyAlarm(alarmvo);
+	}
+	
+	@Override
+	public void cancelAlarm(AlarmVO alarmvo) {
+		mapper.cancelAlarm(alarmvo);
+	}
 	
 
 }

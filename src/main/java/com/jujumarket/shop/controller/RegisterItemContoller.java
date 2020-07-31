@@ -8,6 +8,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jujumarket.main.domain.AlarmVO;
 import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.shop.domain.CategoryVO;
 import com.jujumarket.shop.domain.ItemCriteria;
@@ -27,6 +29,7 @@ import com.jujumarket.shop.service.RegisterItemService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
+//import message.messageService;
 import net.sf.json.JSONArray;
 
 @Controller
@@ -37,6 +40,8 @@ public class RegisterItemContoller {
 
 	private ServletContext servletContext;
 	private RegisterItemService service;
+//	@Autowired
+//	private messageService mservice;
 	
 //	@GetMapping("/")
 //	public String index() {
@@ -289,6 +294,11 @@ public class RegisterItemContoller {
 			}else {
 				log.info(vo.getItemChr() + "2");
 				vo.setSaleStat("판매중");
+				//품절-> 판매중으로 상태 변경할때 알람보내야 하는 사람들 LIST 가져오기
+				List<AlarmVO> alist= null;
+				alist=service.getAlarmList(vo.getItemCode());
+				System.out.println("알람을 받을 사람들 list:"+alist);
+				//model.addAttribute("category", JSONArray.fromObject(alist));
 			}
 			service.modify(vo);
 		}

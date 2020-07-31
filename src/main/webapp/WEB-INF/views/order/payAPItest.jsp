@@ -15,17 +15,26 @@
         IMP.init('imp44937256'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
         var msg;
         
+        var totalPay =  document.getElementById("totalPay");
+        var itemName =  document.getElementById("itemName");
+        var itemSpc =  document.getElementById("itemSpc");
+        var memName =  document.getElementById("memName");
+        var email =  document.getElementById("email");
+        var contact =  document.getElementById("contact");
+        var memAddr =  document.getElementById("memAddr");
+        var zipcode =  document.getElementById("zipcode");
+        
         IMP.request_pay({
             pg : 'kakaopay',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
-            name : '주주마켓',
-            amount : 1,
-            buyer_email : 'ddd',
-            buyer_name : 'ddd',
-            buyer_tel : '010-2222-2222',
-            buyer_addr : 'ddd',
-            buyer_postcode : '123-456',
+            name : itemName.value+" 등 "+itemSpc.value+"건",
+            amount : totalPay.value,
+            buyer_email : email.value,
+            buyer_name : memName.value,
+            buyer_tel : contact.value,
+            buyer_addr : memAddr.value,
+            buyer_postcode : zipcode.value,
             //m_redirect_url : 'http://www.naver.com'
         }, function(rsp) {
             if ( rsp.success ) {
@@ -54,10 +63,13 @@
                     }
                 });
                 // 성공시 진행할 것 
-                var orderResult = $("#orderResult");
-               	orderResult.submit();
+                //var orderResult = $("#orderResult");
+                // 이거의 역할이 뭐지? location.href 로 한 거랑 뭐가 달라? 
+               	//orderResult.submit();
                 
-               	// 장바구니에서 삭제하는 거 추가하기 
+                
+                paymentComplete();
+                
                	
             } else {
                 msg = '결제에 실패하였습니다.';
