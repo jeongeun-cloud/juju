@@ -78,7 +78,27 @@
         margin-left: 358px;
         text-align : center;
     }
- 
+    
+    li{
+        list-style: none;
+        float: left;
+    }
+    .page_num {
+	    display: inline-block;
+	    padding-left:70%;
+    }
+    
+    .page_num a{
+	    color: black;
+	    float: left;
+	    padding: 8px 16px;
+	    text-decoration: none;
+    }
+    .pagination a:hover:not(.active) {
+	    background-color: #f6dd90;
+	    border-radius: 50%;
+	}
+ 	
 </style>
 </head>
 <body>
@@ -114,7 +134,7 @@
 		    </div>
 		    
 		    <!-- 페이징 -->
-		    <%-- <div class='page_num'>
+		    <div class='page_num'>
 	            <ul class="pagination">
 	                <c:if test="${pageMaker.prev}">
 	                    <li class="paginate_button previous">
@@ -142,14 +162,22 @@
                 <input type='hidden' name='amount' id="amount" value='${pageMaker.cri.amount}'>
                 <input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>' >
                 <input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type }"/>' >
-            </form>  --%>
+            </form>
 		    
         </div>
 	</div>
 </div>
 
 <script>
-	
+	$(document).ready(function(){
+		var actionForm = $("#actionForm");
+		$(".paginate_button a").on("click", function(e) {
+		   e.preventDefault();
+		   
+		   actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		   actionForm.submit();
+		});
+	}
 </script>
 </body>
 </html>
