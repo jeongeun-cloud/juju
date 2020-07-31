@@ -26,7 +26,6 @@
 	    /* height: 2000px; */
 	    width: 1000px;
 	    margin: 0 auto;
-	   
 	}
 	
 	.event_tit{

@@ -6,7 +6,7 @@ import com.jujumarket.member.domain.CustomerVO;
 import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SellerVO;
 
-public interface MemberSerivce {
+public interface MemberService {
 	
 	public boolean loginCheck(String emailAccount, String pwd);
 
