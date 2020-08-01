@@ -189,6 +189,13 @@
     }
     
       
+      
+    #emptyDiv {
+    
+    height: 100px;
+    
+    }
+     
        
 
 
@@ -376,7 +383,7 @@
 
       <tr>
          <th>결제 방법</th>
-         <td>payment method</td>
+         <td>Kakao Pay</td>
       </tr>
       <tr>
          <th>결제금액</th>
@@ -405,6 +412,18 @@
 
    </div>
    <!-- end of containerOFAll -->
+
+
+
+	<!-- 여백용 div -->
+	<div id="emptyDiv">
+	
+	
+	</div>
+
+
+
+
 
 
 </body>

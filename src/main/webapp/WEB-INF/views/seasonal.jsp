@@ -125,6 +125,14 @@
 			float : left;
 			margin : 0 10px;
 		}
+		
+		.add_to_cart {
+			border: none;
+			background-color: transparent;
+		
+		}
+		
+		
 		/* 다담기 상품 끝 */
     </style>
 </head>
@@ -198,10 +206,12 @@
 		  		<div class="itemText">
 		  			<p><c:out value="${seasonItem.itemName}"/></p>
 		  			<p><fmt:formatNumber type="number" maxFractionDigits="3" value="${seasonItem.price}" />원</p>
+					<button class="add_to_cart" value="${seasonItem.itemCode}" onclick="addToBasketEvent(this.value)"></button>
 		  		</div>
 			</div>
+			
 	 	</c:forEach>
-		<button id="regBtn">다담기</button>
+		<button id="regBtn" onclick="allToBasket()">다담기</button>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -223,6 +233,22 @@
 				scrollTop: $(window).height()
 			}, 1200);
 		});
+	</script>
+	
+	<script>
+	
+		function allToBasket() {
+			var recipeItems = document.getElementsByClassName("add_to_cart");
+			
+			for(var i=0; i<recipeItems.length; i++) {
+				
+				recipeItems[i].click();
+			}
+			
+			
+		}
+	
+	
 	</script>
 
 </body>

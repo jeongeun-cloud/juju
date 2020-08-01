@@ -313,7 +313,7 @@
                                     <th>번호</th>
                                     <th>상품명</th>
                                     <th>판매 가격</th>
-                                    <th>할인 가격</th>
+                                    <th>정상 가격</th>
                                     <th>진열상태</th>
                                     <th>판매상태</th>
                                     <th>등록일</th>
@@ -408,7 +408,15 @@
 
     <script type="text/javascript">
       $(document).ready(function(){
-
+    	  
+    	  /*알람서비스 */
+    	  /* var ref = this.open('http://jujumarket-23.web.app/');
+          this.addEventListener('message', function (e) {
+              if (e.data.permission === "granted") { ref.close(); }
+              console.log(e.data.token);
+          });  */
+          /*알람서비스 */
+          
          // 모달 관련 js
          var result = '<c:out value="${result}"/>';
          

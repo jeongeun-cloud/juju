@@ -34,7 +34,10 @@
 //			FirebaseMessaging messaging = FirebaseMessaging.getInstance(firebaseBuilder());
 //
 //			Message message = Message.builder().setToken("eOcXdRt0UzNbFWNanuDDwz:APA91bHlW0EKSj856lc5g795DG4_wA6JPZyDZS0fC5LdjDzYot2yz1DcqPTniIIPBka-mPSQ89TKQBAFMbgGb-TYFqzku24yhtt66MXUEQLwzFN50E7HkYutei0GMVUT5QzHaLcSmE0h")
+
+
 //					.setNotification(new Notification("jujumarket", "안녕하세요 테스트입니다.")).build();
+
 //
 //			messaging.send(message);
 //

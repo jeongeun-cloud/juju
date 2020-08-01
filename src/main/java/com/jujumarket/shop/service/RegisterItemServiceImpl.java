@@ -14,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jujumarket.main.domain.AlarmVO;
 import com.jujumarket.shop.domain.CategoryVO;
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.RegisterItemVO;
@@ -173,6 +174,11 @@ public class RegisterItemServiceImpl implements RegisterItemService {
 		log.info("get total Reault");
 		
 		return mapper.getResultTotal(cri);
+	}
+	//알람받을 사람 list
+	@Override
+	public List<AlarmVO> getAlarmList(String itemCode) {
+		return mapper.getAlarmList(itemCode);
 	}
 
 }

@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+
    html{
       font-family: "쌍문동_타이포";
    }
@@ -28,29 +29,26 @@
 </head>
 
 
-
 <body>
-   <div class = "a" align="center">
-      <h1>주주마켓 로그인</h1>
-      
-      <form action="/member/login"  method="post">
-         <input type="text" name="emailAccount" id="emailAccount" placeholder="ID"><br>
-         <input type="password" name="pwd" id="pwd" placeholder="PASSWORD"><br><br>
-   
-         <input type="submit" value="로그인"><br> <br>
-         <a href="/member/findIdPwd">아이디/비밀번호 찾기</a><br>
-<!--          <button type="button">네이버 로그인</button><br>
-         <button type="button">페이스북 로그인</button><br>
-         <button type="button">카카오톡 로그인</button><br> -->
-<!--          <button type="button" onClick="location.href='/member/chooseMemberType'">회원가입</button> -->
 
- 
+	<div class = "a" align="center">
+		<h1>주주마켓 로그인</h1>
+		
+		<form action="/member/login"  method="post">
+			<input type="text" name="emailAccount" id="emailAccount" placeholder="ID"><br>
+			<input type="password" name="pwd" id="pwd" placeholder="PASSWORD"><br><br>
+	
+			<input type="submit" value="로그인"><br> <br>
+		</form>
+		
+		<a href="https://kauth.kakao.com/oauth/authorize?client_id=01b574850137dfee5c295348e0be136f&redirect_uri=http://localhost/member/kakaoLogin&response_type=code">
+			<img alt="" src="/resources/images/kakao-login-btn.png">
+		</a><br>
+		
+		<a href="/member/findIdPwd">아이디/비밀번호 찾기</a><br>
+		<input type="hidden" id="result" value="${result }">
+	</div>
 
-      <input type="hidden" id="result" value="${result }">
-   </div>
-   
-   
-   
    <script>
     $(document).ready(function() {
        

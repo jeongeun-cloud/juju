@@ -3,14 +3,16 @@ package com.jujumarket.order.service;
 import java.util.List;
 
 import com.jujumarket.main.domain.BasketVO;
+import com.jujumarket.order.domain.OrderInfoVO;
 import com.jujumarket.order.domain.OrderRequestVO;
 import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
+import com.jujumarket.order.domain.PaymentVO;
 
 public interface OrderService {
    
    
-   public String register(OrderRequestVO order);
+   public void register(OrderRequestVO order);
    
    public OrderVO get(String orderCode);
    
@@ -27,5 +29,13 @@ public interface OrderService {
    public String getRecentOrderCode(String idNo);
    
    public BasketVO getOne(String baskId);
+   
+   public void orderInfoRegister(OrderInfoVO orderInfo);
+   
+   public OrderInfoVO getMakeInfoAndHistory(String baskId);
+   
+   public void orderHistoryRegister(OrderInfoVO orderInfo);
 
+   public void paymentRegister(PaymentVO payment);
+   
 }
