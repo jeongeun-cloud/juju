@@ -20,13 +20,13 @@ public class SellerVO {
 	
 	//m_shop(NN)
 	private String shopName;
+	private String shopPostCode;
 	private String shopAddr;
 	private String contact1;
 
 	
 	//m_shop (nullable)
 	private String contact2;
-	private String shopPostCode;
 
 	//m_shop_info(NN)
 	private String businessCode;

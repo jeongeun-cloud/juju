@@ -1,5 +1,7 @@
 package com.jujumarket.board.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import com.jujumarket.board.domain.BoardFAQVO;
 import com.jujumarket.board.domain.Criteria;
 import com.jujumarket.board.domain.PageDTO;
 import com.jujumarket.board.service.BoardFAQService;
+import com.jujumarket.member.domain.MemberVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -86,13 +89,27 @@ public class BoardFAQController {
 	}
 
 	@GetMapping("/BoardFAQ/register")
-	public void faqregister() {
-
+	public String faqregister(HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+		if(member==null ) {
+			return "redirect:/community/BoardFAQ/list";
+		} else if (!member.getMemCode().equals("ADMIN")) {
+			return "redirect:/community/BoardFAQ/list";
+		} else {
+			return "/community/BoardFAQ/register";
+		}
 	}
 
 	@GetMapping("/notice/register")
-	public void noticeregister() {
-
+	public String noticeregister(HttpSession session) {
+		MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+		if(member==null ) {
+			return "redirect:/community/notice/list";
+		} else if (!member.getMemCode().equals("ADMIN")) {
+			return "redirect:/community/notice/list";
+		} else {
+			return "/community/notice/register";
+		}
 	}
 
 	@GetMapping({ "/BoardFAQ/get", "/BoardFAQ/modify" })

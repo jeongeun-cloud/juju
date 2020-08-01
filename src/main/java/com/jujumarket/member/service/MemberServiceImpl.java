@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Service
 @AllArgsConstructor
-public class MemberServiceImpl implements MemberSerivce {
+public class MemberServiceImpl implements MemberService {
 
    private MemberMapper memberMapper;
    private CustomerMapper customerMapper;
