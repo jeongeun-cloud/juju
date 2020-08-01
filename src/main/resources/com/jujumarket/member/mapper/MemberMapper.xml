@@ -11,8 +11,8 @@
          from dual
       </selectKey>
    
-      insert into t_member (idNo, pwd, emailAccount, memName, memCode) 
-      values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'CUSTOMER')
+      insert into t_member (idNo, pwd, emailAccount, memName, memCode, memAddr, postCode) 
+      values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'CUSTOMER',  #{memAddr, jdbcType=VARCHAR}, #{postCode, jdbcType=VARCHAR})
    </insert>
    
    <insert id="insertSeller">
@@ -22,8 +22,8 @@
          from dual
       </selectKey>
    
-      insert into t_member (idNo, pwd, emailAccount, memName, memCode) 
-      values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'SELLER')
+      insert into t_member (idNo, pwd, emailAccount, memName, memCode, memAddr, postCode) 
+      values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'SELLER', #{memAddr, jdbcType=VARCHAR}, #{postCode, jdbcType=VARCHAR})
    </insert>
 
 
@@ -80,7 +80,8 @@
       update t_member
       set 
       memName = #{memName},
-      memAddr = #{memAddr}
+      memAddr = #{memAddr, jdbcType=VARCHAR},
+      postCode = #{postCode, jdbcType=VARCHAR}
       where idNo = #{idNo}
    
    </update>

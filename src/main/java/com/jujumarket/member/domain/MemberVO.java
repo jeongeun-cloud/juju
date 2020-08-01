@@ -13,7 +13,7 @@ public class MemberVO {
 
 	//nullable
 	private String memAddr;
-	private String PostCode;
+	private String postCode;
 	
 	//m_customer
 	private String contact;
