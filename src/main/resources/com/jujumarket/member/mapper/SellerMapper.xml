@@ -5,9 +5,9 @@
 <mapper namespace="com.jujumarket.member.mapper.SellerMapper">
 
 	<insert id="insert">
-		insert into m_shop(idNo, shopName, shopAddr,
-		contact1)
-		values(#{idNo}, #{shopName}, #{shopAddr}, #{contact1})
+		insert into m_shop(idNo, shopName, shopAddr, shopPostCode,
+		contact1, contact2)
+		values(#{idNo}, #{shopName}, #{shopAddr, jdbcType=VARCHAR}, #{shopPostCode, jdbcType=VARCHAR}, #{contact1}, #{contact2, jdbcType=VARCHAR})
 
 	</insert>
 
@@ -41,7 +41,7 @@
 		tm.idNo, tm.emailAccount, tm.memName, tm.memAddr,
 		tm.postCode,
 		ms.shopName, ms.shopAddr, ms.contact1, ms.contact2,
-		ms.postCode,
+		ms.shopPostCode,
 		msi.businessCode,
 		msi.businessRegFile, msi.bank,
 		msi.bankAccount, msi.thumbImg,
@@ -60,11 +60,10 @@
 		update m_shop
 		set
 		shopName = #{shopName},
-		shopAddr =
-		#{shopAddr},
+		shopAddr = #{shopAddr, jdbcType=VARCHAR},
+		shopPostCode = #{shopPostCode, jdbcType=VARCHAR},
 		contact1 = #{contact1},
-		contact2
-		= #{contact2}
+		contact2 = #{contact2, jdbcType=VARCHAR}
 		where idNo =
 		#{idNo}
 	</update>

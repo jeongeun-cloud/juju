@@ -39,15 +39,18 @@ table, td, th {
 		                <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
 					    <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
 					    <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>               
-					    <button class='btn btn-default' id="searchBtn"> 검색 </button>  
+					    <button class='btn btn-default' id="searchBtn"> 검색 </button> 
+					    <button type = 'reset'> 초기화 </button> 
 						      <br>
-						          <div>
-						              주문일<input type='date'>~<input type='date'>
-		
-		
-		          </div>
-		      <br>
+		  
 		      </form> 
+		      
+		      <form id='dateForm' action='/shop/searchorder' method='POST' > 
+		      			주문일<input id='date1' name='date1' type='date'>~<input id='date2' name='date2' type='date'>
+		      			<button class='dateBtn' id="dateBtn"> 검색 </button> 
+		                <button type = 'reset'> 초기화 </button> 
+		      
+		      </form>
 		      
 		      	<form id="test" method="POST">
 		          <div > 주문상태
@@ -57,10 +60,10 @@ table, td, th {
 		                <input name='orderStat' type="radio" value = 'orderStat'>배송완료
 		                <button class='radioBtn' id="radioBtn"> 검색 </button>
 		          </div>  
-		          </form>    
+		        </form>    
 		      <br>
 		             
-		              <button type = 'reset'> 초기화 </button>  
+		                
 			
 		              <table tit aria-setsize="500px">
 		                  <thead>
@@ -82,9 +85,7 @@ table, td, th {
 		                      
 		                    </tr>
 		                  </thead>
-		                  
-		                  
-		                  
+         
 		              <c:forEach items="${list}" var="list">
 		        
 		                     <tr>
@@ -111,9 +112,7 @@ table, td, th {
 		                        
 		                    </tr> 
 		                  </c:forEach>
-		                  
-
-		                  </table>
+		               </table>
 		                  
 		                  <!-- 페이징 처리 시작 -->
 		                  
@@ -156,6 +155,18 @@ table, td, th {
 </body>
 <script type='text/javascript'>
 $(document).ready(function(){
+	
+	  var dateForm = $("#dateFrom");
+	  $("#dateForm").find("#dateBtn").on("click", function(e){
+		  
+		 var date1 = $("#date1").val();
+	     var date2 = $("#date2").val();
+		  
+
+		  console.log(date1);
+		  console.log(date2);
+		  alert(date2);
+	  });
 
 	
       //페이징처리

@@ -25,135 +25,128 @@
 <body>
 
 
-           <form id='searchForm' action="/shop/searchorder" method = 'get'>  
-		          <div> 검색어
-		                <select name='type'>
-		                
-							  <option value=""
-						      <c:out value="${pageMaker.cri.type ==null?'selected':''}"/>>--</option>
-						      <option value="O"
-						      <c:out value="${pageMaker.cri.type eq 'O'?'selected':''}"/>>주문번호</option>
-						      <option value="I"
-						      <c:out value="${pageMaker.cri.type eq 'I'?'selected':''}"/>>상품명</option>
-						      <option value="R"
-						      <c:out value="${pageMaker.cri.type eq 'R'?'selected':''}"/>>고객명</option>
-						      <option value="P"
-						      <c:out value="${pageMaker.cri.type eq 'P'?'selected':''}"/>>연락처</option>
- 						 </select>
-		                <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-					    <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
-					    <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>               
-					
-						      <br>
-						          <div>
-						              주문일<input type='date'>~<input type='date'>
-                                  </div></div>
-          .              </form>
-      <br>
-          <div> 주문상태
-                <input type="checkbox">전체
-                <input type="checkbox">상품준비중
-                <input type="checkbox">배송준비중
-                <input type="checkbox">배송중
-                <input type="checkbox">배송완료
-          </div>      
-      <br>
-     
- 	  
-              <button> 검색 </button>  
-              <button> 초기화 </button>  
+		           <form id='searchForm' action="/shop/shipping" method = 'get'>  
+				         
+				                    주문일<input id ='date1' name='date1' type='date'>~<input id ='date2'  name='date2' type='date'>
+				          <div> 검색어
+				                <select name='type'>
+				                
+									  <option value=""
+								      <c:out value="${pageMaker.cri.type ==null?'selected':''}"/>>--</option>
+								      <option value="O"
+								      <c:out value="${pageMaker.cri.type eq 'O'?'selected':''}"/>>주문번호</option>
+								      <option value="I"
+								      <c:out value="${pageMaker.cri.type eq 'I'?'selected':''}"/>>상품명</option>
+								      <option value="R"
+								      <c:out value="${pageMaker.cri.type eq 'R'?'selected':''}"/>>고객명</option>
+								      <option value="P"
+								      <c:out value="${pageMaker.cri.type eq 'P'?'selected':''}"/>>연락처</option>
+								</select>
+		 						<input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+							    <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
+							    <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
+							    <button class='btn btn-default' id="searchBtn"> 검색 </button> 
+		             			<button> 초기화 </button>  
+		                  </div>
+		          </form>
+		          
+           		 <br> 
 
-            <div>
 
-           <input type="button" id="shippingBtn" value='배송처리'>
-            
-              <table tit aria-setsize="500px">
-                  <thead>
-                	  <tr>
-	                        <th><input type="checkbox"></th>
-	                        <th>주문일</th>
-	                        <th>주문번호</th>
-	                        <th>송장번호</th>
-	                        <th>주문상태</th>
-	                        <th>상품명</th>
-	                        <th>상품수량</th>
-	                        <th>판매가</th>     
-	                        <th>결제금액</th>
-	                        <th>고객명</th>
-	                        <th>연락처</th>
-	                        <th>주소</th>
- 					   </tr>
-            	 </thead>
-                  
-                     
-              <c:forEach items="${list}" var="list">
-               
-  
-              	   <tr id="test">
-	                  <td><input id='checkbox' name='chk' type="checkbox"  value='<c:out value="${list.orderCode}"/>' ></td>             
-	                  <td><fmt:formatDate pattern="yyyy/MM/dd" value="${list.orderDate }" /></td>
-         			  <td><input type ='text' id ='orderCode' value='<c:out value="${list.orderCode}"/>'></td>
-	               	  <td><input id ="shippingCode" type='text'></td>     
-	                  <td><c:out value="${list.orderStat }" /></td>
-	                  <td><c:out value="${list.itemName }" /></td>   
-	                  <td><c:out value="${list.itemNum }" /></td>  
-	                  <td><c:out value="${list.price }" /></td>  
-	                  <td><c:out value="${list.totalPrice}"/></td>
-	                  <td><c:out value="${list.receiver }" /></td>  
-	                  <td><c:out value="${list.receivContact }" /></td>  
-	                  <td><c:out value="${list.receivAddr }" /></td>
-	                  <td style='visibility:hidden;'><c:out value="${list.baskId }" /></td>
-	                  <td style='visibility:hidden;'><c:out value="${list.itemCode }" /></td>   
-	                                   
-	               </tr> 
-               </c:forEach>
-               
-             </table>
-             </div>  
+        <div>
+
+		           <input type="button" id="shippingBtn" value='배송처리'>
+		            
+		              <table tit aria-setsize="500px" id ="hazy">
+		                  <thead>
+		                	  <tr>
+			                        <th><input id="checkAll" name ='checkAll'type="checkbox"></th>
+			                        <th>주문일</th>
+			                        <th>주문번호</th>
+			                        <th>송장번호</th>
+			                        <th>주문상태</th>
+			                        <th>상품명</th>
+			                        <th>상품수량</th>
+			                        <th>판매가</th>     
+			                        <th>결제금액</th>
+			                        <th>고객명</th>
+			                        <th>연락처</th>
+			                        <th>주소</th>
+		 					   </tr>
+		            	 </thead>
+		                  
+		                     
+		              <c:forEach items="${list}" var="list">
+		               
+		  
+		              	   <tr id="test" class ='test'>
+			                  <td><input id='checkbox' name='chk' type="checkbox"  value='<c:out value="${list.orderCode}"/>' ></td>             
+			                  <td><fmt:formatDate pattern="yyyy/MM/dd" value="${list.orderDate }" /></td>
+		         			  <td><input type ='text' id ='orderCode' value='<c:out value="${list.orderCode}"/>'></td>
+			               	  <td><input id ="shippingCode" type='text'></td>     
+			                  <td><c:out value="${list.orderStat }" /></td>
+			                  <td><c:out value="${list.itemName }" /></td>   
+			                  <td><c:out value="${list.itemNum }" /></td>  
+			                  <td><c:out value="${list.price }" /></td>  
+			                  <td><c:out value="${list.totalPrice}"/></td>
+			                  <td><c:out value="${list.receiver }" /></td>  
+			                  <td><c:out value="${list.receivContact }" /></td>  
+			                  <td><c:out value="${list.receivAddr }" /></td>
+			                  <td style='visibility:hidden;'><c:out value="${list.baskId }" /></td>
+			                  <td style='visibility:hidden;'><c:out value="${list.itemCode }" /></td>   
+			                                   
+			               </tr> 
+		               </c:forEach>
+		             </table>
+       
+         		</div>  
+ 
+               <div class='pull-right'>
+		               		<ul class="shippingpaging">
+		            <c:if test="${pageMaker.prev}">
+					              		<li class="paginate_button pervious">
+					           				<a href="${pageMaker.startPage -1}">Pervious</a>
+					           			</li>
+					              </c:if>		               
+					               <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+					               		<li class='paginate_button ${pageMaker.cri.pageNum == num? "active":""}'>
+					               			<a href="${num}">${num}</a>
+					               		</li>
+					               </c:forEach>
+					               <c:if test="${pageMaker.next}">
+					               		<li class="paginate_button next">
+					               <a href="${pageMaker.endPage +1}">Next</a>
+					               		</li>
+					               </c:if>
+		            
+		            		</ul>
+		         </div><!-- endPaging -->
              
              
              <!--송장처리 form -->
 	          <form id ='shippingForm'  action="/shop/shipping" method="post">
-			          <input id = 'orderval' type ='text' name = 'orderCode' value=''>
-			          <input id = 'shippingval'type ='text' name = 'shippingCode'value=''>		   
-			          <input id = 'baskval'type ='text' name = 'baskId'value=''>
-			          <input id = 'itemCodeal'type ='text' name = 'itemCode'value=''>
+			          <input type='hidden' id = 'orderval' type ='text' name = 'orderCode' value=''>
+			          <input  type='hidden' id = 'shippingval'type ='text' name = 'shippingCode'value=''>		   
+			          <input  type='hidden' id = 'baskval'type ='text' name = 'baskId'value=''>
+			          <input  type='hidden' id = 'itemCodeal'type ='text' name = 'itemCode'value=''>
+			          
+			       
 
 	          </form>
              
             <!-- 페이징시작 -->
-           <div class='pull-right'>
-             <ul class="searchpaging">
-            
-               <c:if test="${pageMaker.prev}">
-               <li class="paginate_button pervious">
-               <a href="${pageMaker.startPage -1}">Pervious</a>
-               </li>
-               </c:if>
-               
-               <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-               <li class='paginate_button ${pageMaker.cri.pageNum == num? "active":""}'>
-               <a href="${num}">${num}</a></li>
-               </c:forEach>
-               
-               <c:if test="${pageMaker.next}">
-               <li class="paginate_button next">
-               <a href="${pageMaker.endPage +1}">Next</a>
-               </li>
-               </c:if>
-            
-            </ul>
-         </div> <!-- 페이징 끝!! -->
+              
+		   
          
          <form id='actionForm' action="/shop/shipping" method='get'>
             <input type='' name='pageNum' value = '${pageMaker.cri.pageNum}'>
             <input type='' name='amount' value = '${pageMaker.cri.amount}'>
-       		<input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
-            <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+       		<input type='' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
+            <input  type='' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
           </form>
         <!-- paging form end--> 
            
-
+      
     
 
 <script type="text/javascript">
@@ -161,6 +154,86 @@
 $(document).ready(function(){
 	
 	
+	
+	//Date
+
+$(document).on("click","button[id='dateBtn']",function(e){
+  
+	  
+		 arlert ("시발?");
+	 var dd = $("#dateFrom").find("#date1").val();
+	    	 var dd2 = $("#dateFrom").find("#date2").val();
+	    
+	    	 console.log(dd);
+	    	 console.log(dd2);
+	    	 
+	    	 
+   });
+ 	$.fn.rowspan = function(colIdx, isStats) {
+		
+		
+		  return this.each(function(){
+		    var that;
+		    $('tr', this).each(function(row) {
+		      $('td:eq('+colIdx+')', this).filter(':visible').each(function(col) {
+
+		        if ($(this).html() == $(that).html()
+		                && (!isStats
+		                        || isStats && $(this).prev().html() == $(that).prev().html()
+		                )
+		        ) {
+		          rowspan = $(that).attr("rowspan") || 1;
+		          rowspan = Number(rowspan)+1;
+
+		          $(that).attr("rowspan",rowspan);
+
+		          $(this).hide();
+
+
+		        } else {
+		          that = this;
+		        }
+
+		        // set the that if not already set
+		        that = (that == null) ? this : that;
+		      });
+		    });
+		  });
+		};
+
+		$.fn.colspan = function(rowIdx) {
+		  return this.each(function(){
+
+		    var that;
+		    $('tr', this).filter(":eq("+rowIdx+")").each(function(row) {
+		      $(this).find('th').filter(':visible').each(function(col) {
+		        if ($(this).html() == $(that).html()) {
+		          colspan = $(that).attr("colSpan") || 1;
+		          colspan = Number(colspan)+1;
+
+		          $(that).attr("colSpan",colspan);
+		          $(this).hide(); // .remove();
+		        } else {
+		          that = this;
+		        }
+
+		        // set the that if not already set
+		        that = (that == null) ? this : that;
+
+		      });
+		    });
+		  });
+		}
+
+		$("#hazy").rowspan(0);
+		$("#hazy").rowspan(1);
+	
+		
+		$("table tbody tr:visible").each(function(row) {
+		  $('#hazy').colspan(row);
+		})
+
+
 		    //페이징처리
 		    $(".paginate_button a").on("click", function(e) {
 		   
@@ -173,12 +246,18 @@ $(document).ready(function(){
 		       actionForm.submit();
 
 		    });
-    
-		    //검색부분
-		    var searchForm = $("#searchForm");
-		    $("#searchForm button").on("click", function(e){
 		
-		   
+
+		    //검색부분!!!!
+		    var searchForm = $("#searchForm");
+		    $("#searchForm").find(".btn").on("click", function(e){
+		    	
+		    	    var a = $("#date1").val();
+		    	     var b = $("#date2").val();
+		    	
+		    	     console.log(a);
+		    	     console.log(b);
+
 		            if(!searchForm.find("option:selected").val()){
 		               alert("검색종류를 선택하세요");
 		               return false;
@@ -215,19 +294,12 @@ $(document).ready(function(){
 	           statRow = statRow + $(this).closest('tr')[0].children[12].childNodes[0].nodeValue + ",";
 	           stemCodeRow = stemCodeRow + $(this).closest('tr')[0].children[13].childNodes[0].nodeValue+ ",";
 
+	           
 		       
 		    });
 		      checkRow = checkRow.substring(0,checkRow.lastIndexOf(",")); //맨끝 콤마 지우기
 		      shipRow = shipRow.substring(0,shipRow.lastIndexOf(",")); //맨끝 콤마 지우기
-		      
-		      console.log("체크한애" + checkRow);
-		      console.log("체크한애 ship" + shipRow);
-		      console.log("체크한애 statRow" + statRow);
-		     
-		      console.log("체크한애 ship" + stemCodeRow);
-	      
-	    
-		      
+
 			  var orderForm =  $("#shippingForm").find("#orderval").val(checkRow); 
 		      var shippingForm =  $("#shippingForm").find("#shippingval").val(shipRow);
 			  var baskval =  $("#shippingForm").find("#baskval").val(statRow);
@@ -237,6 +309,19 @@ $(document).ready(function(){
 		      $("#shippingForm").submit();
 
 	});
+ 	
+ 	    //전체 체크처리	
+ 		$("#checkAll").click(function(){
+
+ 		      if( $("#checkAll").is(':checked') ){
+ 		        $("input[name=chk]").prop("checked", true);
+ 		      }else{
+ 		        $("input[name=chk]").prop("checked", false);
+ 		      }
+ 		});
+
+ 		
+ 	
 
 	
 //송장입력

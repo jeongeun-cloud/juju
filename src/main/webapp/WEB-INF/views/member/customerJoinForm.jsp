@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 	<form action ="/member/customerJoinForm" id="customerJoinForm" method = "post">
@@ -28,10 +30,17 @@
 		 -->
 		 연락처:
 		<input type="text" id="contact" name="contact" placeholder="XXX-XXXX-XXXX"> <br>
-		주소:
-		<input type="text" id="memAddr" name="memAddr"> <br>
-		우편번호: 
-		<input type="text" id="postCode" name="postCode">  <br>
+		
+		우편번호: <input type="text" id="postCode" name="postCode" size="5" value="" readonly="readonly"> 
+					<a href="javascript:execDaumPostcode()">우편번호검색</a> <br>
+		도로명 주소: <input type="text" id="roadAddr" name="roadAddr" size="50" value="" readonly="readonly"/><br>
+		나머지 주소: <input type="text" id="namujiAddr" name="namujiAddr"> <br>
+		<input type="hidden" id="memAddr" name="memAddr"><br>
+		<input type="hidden" id="jibunAddr" name="jibunAddr" size="50" value="" />
+ 		
+		
+		
+		
  		<button type = "submit" id="submitBtn"  > 가입하기 </button> 
 	
 	</form>
@@ -45,12 +54,12 @@
 			pwdChk = $("#pwdChk");
 			memName = $("#memName");
 			memAddr = $("#memAddr");
+			roadAddr = $("#roadAddr");
+			namujiAddr = $("#namujiAddr");
 			contact = $("#contact");
-			
 			emailAuthBtn = $("#emailAuthBtn");
 			inputCode = $("#inputCode");
 			authResult = $("#authResult");
-			
 			emailDuplicateCheckBtn = $("#emailDuplicateCheckBtn");
 			duplicateCheckResult = $("#duplicateCheckResult");
 			
@@ -93,7 +102,7 @@
 					return false;
 				}
 				
-				let email =  emailAccount.val();
+				var email =  emailAccount.val();
 				
 				emailAuth(email)
 				.then(function(response){
@@ -164,13 +173,16 @@
 					
 					
 				})
-			} 
+			}
 			
-		});
+			
+			
+			
+
 		
 		
-		let submitBtn = $("#submitBtn");
-		let customerJoinForm = $("#customerJoinForm");
+		submitBtn = $("#submitBtn");
+		customerJoinForm = $("#customerJoinForm");
 
 		submitBtn.click(function(e) {
 			e.preventDefault();
@@ -193,7 +205,16 @@
 				return false;
 			} else if (!(contactCheck())) {
 				return false;
+			} else if (!(memAddrCheck())) {
+				return false;
 			} else {
+				if (namujiAddr.val().trim() == "" || namujiAddr.val() == null
+						&& roadAddr.val() == "" || roadAddr.val() == null){
+					memAddr.val(null);
+				} else {
+					memAddr.val(roadAddr.val()+"/"+namujiAddr.val());
+				}
+
 				customerJoinForm.submit();
 			}
 
@@ -285,6 +306,67 @@
 			}
 			
 		};
+		
+		
+		function memAddrCheck(){
+
+			if (roadAddr.val() == "" || roadAddr.val() == null){
+				if (!(namujiAddr.val().trim() == "" || namujiAddr.val() == null)) {
+				alert("도로명 주소를 입력해주세요.");
+				roadAddr.focus();
+				return false;
+				} else {
+					return true;
+				}
+			} else if (namujiAddr.val().trim() == "" || namujiAddr.val() == null
+					&& !(roadAddr.val() == "" || roadAddr.val() == null)){
+				alert("나머지 주소를 입력해주세요.");
+				namujiAddr.focus();
+				return false;
+			} else if (namujiAddr.val().length > 30) {
+					alert("30자까지만 입력할 수 있습니다.")
+					namujiAddr.focus();
+					return false;
+			} else {
+				return true;
+			}
+			
+		};
+		});
+		
+		function execDaumPostcode() {
+			new daum.Postcode(
+					{
+							oncomplete : function(data) {
+
+								let fullRoadAddr = data.roadAddress;
+								let extraRoadAddr = '';
+
+								if (data.bname !== ''
+										&& /[동|로|가]$/g.test(data.bname)) {
+									extraRoadAddr += data.bname;
+								}
+								if (data.buildingName !== ''
+										&& data.apartment === 'Y') {
+									extraRoadAddr += (extraRoadAddr !== '' ? ', '
+											+ data.buildingName : data.buildingName);
+								}
+								if (extraRoadAddr !== '') {
+									extraRoadAddr = ' (' + extraRoadAddr + ')';
+								}
+								if (fullRoadAddr !== '') {
+									fullRoadAddr += extraRoadAddr;
+								}
+
+								document.getElementById('postCode').value = data.zonecode;
+								document.getElementById('roadAddr').value = fullRoadAddr;
+								document.getElementById('jibunAddr').value = data.jibunAddress;
+
+							}
+						}).open()
+
+			};
+
 		
 		
 		

@@ -1,6 +1,7 @@
 package com.jujumarket.shop.controller;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -36,74 +37,86 @@ public class ManagementController {
 	
 	
 	 @GetMapping("/searchorder") 
-	 public void searlist(ItemCriteria cri, Model model) {
+	 public void searlist(ItemCriteria cri,Model model) {
 		 log.info("searchorder list");
 //		 System.out.println(orderStat);
 		 
-//		 if(orderStat == null || orderStat == "" || orderStat == "all") {
+
 			 int total = service.getTotal(cri);
+
 		
 			 model.addAttribute("list", service.searchordergetList(cri));
 			 model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
-			 
-//		 }else {
-//			 
-//			 System.out.println(service.searcheck(orderStat));
-//			 model.addAttribute("list", service.searcheck(orderStat)); 
-//		 }
-	  
+  
 	  }
 	 
 	 
-//	 @GetMapping("/searcheck")
-//	 public String  searchcheck(String shippingcheck, Model model) {
-//		 
-//		 System.out.println(shippingcheck);
-//		 System.out.println(service.searcheck(shippingcheck));
-//		 		 
-//
-//
-//		 model.addAttribute("list", service.searcheck(shippingcheck)); 
-//		 
-//		 return "redirect:/shop/searchorder";
-//		 
-//	 }
-	 
+	 //라디오버튼 검색기능/날짜 검색기능
 	 @PostMapping("/searchorder")
-	 public void searchcheck(String orderStat, Model model) {
+	 public void searchcheck(String orderStat,String date1,String date2, ItemCriteria cri, Model model) {
 		 
-		  System.out.println(orderStat);
-		  
-		  if(orderStat.equals("all")){
+		 orderStat = orderStat == null?  "" : orderStat;
+		 date1 = date1 == null?  "" : date1;
+		 date2 = date2 == null?  "" : date2;
+		 
+		 int total = service.getTotal(cri);
+		 model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+		 
+		 System.out.println(orderStat);
+		 
+		 if(!orderStat.equals("")) {
+		 
+		 	if(orderStat.equals("all")) {
+				model.addAttribute("list", service.searcheckAll(orderStat));
+			}else {
+				model.addAttribute("list", service.searcheck(orderStat)); 
+			}
+		 }else {
+			 if(!(date1.equals("")) && !(date2.equals("")) ) {
+				 
+				 
+				 
+				 ManagementVO vo = new ManagementVO();
+				 
+				 vo.setDate1(date1);
+				 vo.setDate2(date2);
 			
-			model.addAttribute("list", service.searcheckAll(orderStat)); 
-			
-		  }else {
-			  model.addAttribute("list", service.searcheck(orderStat)); 
-		  }
+				 
+		 			model.addAttribute("list", service.Shippingdate(vo)); 
+		 			
+		 		}
+		 }
+		 	
+	 }
+	 
+	 
+	 //배송대기중 출력
+	 @GetMapping("/shipping")
+	 public void  shippinglist(ItemCriteria cri , Model model, String date1,String date2) {
+	 int total = service.getNotTotal(cri);
+
+	
+	   cri.setDate1(date1);
+	   cri.setDate2(date2);
+	   
+	   System.out.println(cri.getDate1());
+	   System.out.println(cri.getDate2());
+
+	 
+	 
+	  model.addAttribute("list", service.shippinggetList(cri));
+	  model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+	  
+	  
 	
 		 
-		
-	}
-	 
-	 
-	 @GetMapping("/shipping")
-	 public void  shippinglist(ItemCriteria cri , Model model) {
-	 
-	 int total = service.getNotTotal(cri);
-	 
-
-	 
-	  model.addAttribute("list", service.shippinggetList(cri)); 
-	  model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
-
-
 	 }
 	 
 	
 	 
+	 //송장 변경 및 배송 statas 변경
 	 @PostMapping("/shipping")
-		public void shippingupdate(String shippingCode,String orderCode,String baskId,String itemCode, Model model) {
+		public String shippingupdate(String shippingCode,String orderCode,String baskId,String itemCode, Model model) {
   
 		 System.out.println("들어옴2");
 		    ManagementVO vo = new ManagementVO();
@@ -124,10 +137,12 @@ public class ManagementController {
 				System.out.println(arritemCode[i]);
 				service.shippingupdate(vo);
 				  
-				model.addAttribute("shippingCode");
+				model.addAttribute("shippingCode");				
 
 		  	}	
+			 return "redirect:/shop/shipping";
 		}
+
 	 
 
 }

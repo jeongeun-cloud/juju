@@ -104,7 +104,7 @@ public class BasketController {
    @ResponseBody
    public ResponseEntity<?> basketlist(String id, Model model) {
       
-	   System.out.println("컨트롤러에 id 잘 들어오나"+id);
+//	   System.out.println("컨트롤러에 id 잘 들어오나"+id);
 	   
       log.info("listaaa");
       List<BasketVO> basket = null;

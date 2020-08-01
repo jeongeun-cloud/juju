@@ -14,18 +14,14 @@
 <title>Insert title here</title>
 <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>  <!-- 모달띄어줌 -->
 
-
 <style>
-
 body {
    font-family: Arial, Helvetica, sans-serif;
    color: #303030;
-
 }
 
 li {
    list-style: none;
-
 }
 
 .regi_menu a{
@@ -33,9 +29,6 @@ li {
    color: #303030;
    font-size: 17px;
 }
-
-
-
 
 table {
    border-collapse: collapse;
@@ -80,11 +73,6 @@ tr:hover {
    height: 35px;
 }
 
-
-
-
-
-
 /* 글쓰기, 검색 버튼 시작 */
 #regBtn,
 #searchBtn {
@@ -120,25 +108,17 @@ margin-right: 0%;
 
 }
 /* 글쓰기, 검색 버튼 끝 */
-
-
-
-
-
-
 /* 페이지 버튼 디자인 시작 */
 
 .pageBtns {
 	text-align: center;
 }
 
-
 .pageBtns a{
     color: black;
     float: left;
     padding: 8px 16px;
     text-decoration: none;
-   
 }
 
 .pagination1 a:hover:not(.active) {
@@ -146,12 +126,7 @@ margin-right: 0%;
     border-radius: 50%;
 }
 
-
 /* 페이지 버튼 디자인 끝 */
-
-
-
-
 /* 모달디자인 시작  */
 .close:hover,
 .close:focus {
@@ -173,7 +148,6 @@ margin-right: 0%;
   background-color: white;
   color: white;
 }
-
 
 #closeBtn {
   background-color: #ffc30b; 
@@ -203,8 +177,6 @@ margin-right: 0%;
 /* 모달 디자인 끝 */
 
 
-
-
 /* 사이드 메뉴 */
 .side{
           
@@ -225,30 +197,17 @@ margin-right: 0%;
       background-color: #ffc30b;
       font-size: 20px;
       font-weight: 900;
-            
 }
 
 .regi_menu {
 	margin-top:20px;
-
-
 }
 
-
 /* 사이드 메뉴 끝 */
-
-
-
 .col-lg-12 {
-
 	text-align: center;
     margin: 10px 0 30px 0;
 }
-
-
-
-
-        
 .regi_main{
    float:  right;
    width: 1000px;
@@ -260,38 +219,26 @@ margin-right: 0%;
    font-size: 30px;
    margin-bottom:50px;
    text-align: center;
-
 }
-
-
 
 .regi_content{
    width: 1300px;
    height: 1000px;
    margin:0 auto;
 }
-        
+
 .regi_wrap{
-                 
    position: relative;
    display: inline-block;
    padding-top: 30px;
 }
         
-
-
-
-
-
-
 </style>
 </head>
 <body>
 
-
 <div class="regi_content">
  <div class="regi_wrap">
-
 
 <!-- side 시작 -->
    <div class="side">
@@ -300,18 +247,27 @@ margin-right: 0%;
            <div class="regi_side_menu">
                <ul class="regi_menu">
                     <p><b>쇼핑 이용 정보</b></p>
-                    <li><a href='#'><i class="fa fa-check" ></i>주문내역</a></li>
-                    <li><a href='#'><i class="fa fa-check" ></i>장바구니</a></li>
+                    <li><a href='/mypage/myPerchaseList'><i class="fa fa-check" ></i>주문내역</a></li>
+                    <li><a href='/order/basketList'><i class="fa fa-check" ></i>장바구니</a></li>
                     <br>
                     <p><b>게시판 이용 내역</b></p>
                     <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
-                    <li><a href='#'><i class="fa fa-check" ></i>나의 상품평</a></li>
-                    <li><a href='#'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
-                    <br>
-                    <p><b>개인정보 수정</b></p>
-                    <li> <a href='#'><i class="fa fa-check" ></i>개인정보 수정</a></li>
-                    <li><a href='#'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
-                    <li><a href='#'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
+                    <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
+                    <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
+                    
+                   		 <c:choose>
+                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
+                              <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
+                           </c:when>
+                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
+                              <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
+                           </c:when>
+                        </c:choose>
+                    <c:if test="${!empty sessionMember}">
+                    <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
+                    <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
+                    </c:if>
+                    
 
                 </ul>
            </div>

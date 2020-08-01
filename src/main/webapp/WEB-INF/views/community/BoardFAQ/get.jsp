@@ -168,8 +168,10 @@
                                         <input type ="hidden" name= 'keyword' value='<c:out value="${cri.keyword}"/>'>  
                                     
                                         <div class="jaju_regbtn">
+                                        <c:if test="${sessionMember.memCode eq 'ADMIN' }">
                                         <button data-oper='modify' id="mBtn" class="btn btn-default">수정</button>
-                                        <button data-oper='remove' id="rBtn" type="submit" class="btn btn-default">삭제</button>            
+                                        <button data-oper='remove' id="rBtn" type="submit" class="btn btn-default">삭제</button>  
+                                        </c:if>          
                                         <button data-oper='list' id="lBtn" class="btn btn-info">리스트</button>
                                         </div>
                             </form>
@@ -180,7 +182,6 @@
                                 <input type="hidden"  name ='amount' value='<c:out value="${cri.amount}"/>'>  
                                 <input type ="hidden" name= 'type' value='<c:out value="${cri.type}"/>'>
                                 <input type ="hidden" name= 'keyword' value='<c:out value="${cri.keyword}"/>'>
-                            
                             </form>            
                     
                     </div><!--  panel body end -->

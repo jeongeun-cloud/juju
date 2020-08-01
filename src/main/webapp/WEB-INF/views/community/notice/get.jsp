@@ -249,9 +249,10 @@ margin-top : 20px;
 			    
 			    
 			    	<div class="btns">
-					
+					<c:if test="${sessionMember.memCode eq 'ADMIN' }">
 					<button data-oper='modify' class="btn btn-default" id="modifyBtn">수정</button>
 					<button data-oper='remove' type="submit" class="btn btn-default" id="deleteBtn">삭제</button>
+					</c:if>
                     <button data-oper='list' type="submit" class="btn btn-info" id="listBtn">리스트</button>
                     
 			    	</div>
