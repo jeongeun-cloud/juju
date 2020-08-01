@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.member.mapper.SocialMapper">
+    
+   <insert id="insertSocialMember">
+      <selectKey keyProperty="idNo" order="BEFORE" resultType="String">
+         select 'u'||lpad(seq_user.nextval,4,'0') from dual
+      </selectKey>
+      insert into t_member (idNo, emailAccount, memName, memCode) 
+      values (#{idNo}, #{emailAccount}, #{memName}, #{memCode})
+   </insert>
+   
+   <insert id="insertSocialCustomer">
+      insert into m_social (idNo, birth, socialType) 
+      values (#{idNo}, #{birth}, #{socialType})
+   </insert>
+
+   <select id ="socialEmailCheck" resultType="int">
+      select count(*)
+      from t_member
+      where emailAccount = #{emailAccount}
+   </select>
+   
+   <select id ="getSocialInfo" resultType="com.jujumarket.member.domain.SocialVO">
+      	select t.*, m.*
+		from t_member t, m_social m
+		where t.idNo = m.idNo
+		and emailAccount = #{emailAccount}
+   </select>
+  
+   
+</mapper>

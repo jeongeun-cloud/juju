@@ -93,12 +93,23 @@ li {
                      <li><a href="/member/login">로그인</a></li>
                      <li><a href="/member/chooseMemberType">회원가입</a></li>
                   </c:if>
-                  <c:if test="${!empty sessionMember}">
+                 <c:if test="${!empty sessionMember}">
+                     <!-- <li><a href="/member/logout">로그아웃</a></li> -->
                      <li><a>${sessionMember.memName} 님 안녕하세요!</a></li>
-                     <li><a href="/member/logout">로그아웃</a></li>
                   </c:if>
+
+                  <c:choose>
+	                  <c:when test="${sessionMember.memCode eq 'CUSTOMER' or sessionMember.memCode eq 'SELLER' or sessionMember.memCode eq 'JUNIOR'}">
+	                  	  <li><a href="/member/logout">로그아웃</a></li>
+	                  </c:when>
+	                  <c:when test="${sessionMember.memCode eq 'SOCIAL'}">
+	                  	  <li><a href="https://kauth.kakao.com/oauth/logout?client_id=01b574850137dfee5c295348e0be136f&logout_redirect_uri=http://localhost/member/kakaoLogout">로그아웃</a></li>
+	                  </c:when>
+				  </c:choose>
+
                   <li class="dropdown_sub"><a href="/mypage/myQna/list" class="subMemu">마이페이지</a>
 <%--                      <div class="subMemu-content">
+
                         <a href="#">쇼핑 이용 정보</a> <a href="#">게시판 이용내역</a>
                         <c:choose>
                            <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">

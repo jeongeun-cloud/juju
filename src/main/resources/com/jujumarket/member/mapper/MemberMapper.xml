@@ -23,7 +23,8 @@
       </selectKey>
    
       insert into t_member (idNo, pwd, emailAccount, memName, memCode, memAddr, postCode) 
-      values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'SELLER', #{memAddr, jdbcType=VARCHAR}, #{postCode, jdbcType=VARCHAR})
+      values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'JUNIOR', #{memAddr, jdbcType=VARCHAR}, #{postCode, jdbcType=VARCHAR})
+
    </insert>
 
 
