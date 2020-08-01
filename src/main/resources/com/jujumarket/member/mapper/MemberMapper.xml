@@ -23,7 +23,7 @@
       </selectKey>
    
       insert into t_member (idNo, pwd, emailAccount, memName, memCode) 
-      values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'SELLER')
+      values (#{idNo}, #{pwd}, #{emailAccount}, #{memName}, 'JUNIOR')
    </insert>
 
 
