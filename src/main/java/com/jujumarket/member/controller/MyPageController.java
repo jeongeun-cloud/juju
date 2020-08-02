@@ -1,26 +1,34 @@
 package com.jujumarket.member.controller;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.main.domain.PageDTO;
 import com.jujumarket.member.domain.MemberHistoryVO;
 import com.jujumarket.member.domain.MemberVO;
+import com.jujumarket.member.domain.MyPageVO;
 import com.jujumarket.member.service.CustomerService;
-import com.jujumarket.member.service.MailService;
 import com.jujumarket.member.service.MemberService;
+import com.jujumarket.member.service.MyPageService;
 import com.jujumarket.member.service.SellerService;
-import com.jujumarket.order.service.OrderService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -35,15 +43,12 @@ public class MyPageController {
    private CustomerService customerService;
    private SellerService sellerService;
    private ServletContext servletContext;
-//   private MailService mailService;
+   private MyPageService myPageService;
+   //   private MailService mailService;
 //   private OrderService orderService;
    
    @GetMapping("/myPerchaseList")
-   public String perchaseList(HttpSession session, Model model) {
-	   MemberVO member = (MemberVO)session.getAttribute("sessionMember");
-	   if(member == null) {
-		   return "redirect:/member/login";
-	   }
+   public String perchaseList(Model model) {
 //	   String idNo = member.getIdNo();
 //	   model.addAttribute("perchaseList", orderService.getPerchaseInfoByIdNo(idNo));
 	   return "/mypage/myPerchaseList";
@@ -60,14 +65,31 @@ public class MyPageController {
 	   return "/mypage/myPrdReply";
    }
    
+   @GetMapping(value = "/myReview/page/{pageNum}", produces=MediaType.APPLICATION_JSON_VALUE)
+   @ResponseBody
+   public ResponseEntity<?> myReview(HttpSession session, @PathVariable int pageNum){
+	   MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+	   Criteria cri = new Criteria(pageNum, 10);
+	   String idNo = member.getIdNo();
+	   List<MyPageVO> myReview = myPageService.getMyReviewListByIdNo(idNo, cri);
+	   return ResponseEntity.status(HttpStatus.OK).body(myReview);
+   }
+   
    @GetMapping("/myReview")
    public String myReview(HttpSession session, Model model) {
 	   MemberVO member = (MemberVO)session.getAttribute("sessionMember");
 	   if(member == null) {
 		   return "redirect:/member/login";
 	   }
-//	   String idNo = member.getIdNo();
-//	   model.addAttribute("perchaseList", orderService.getPerchaseInfoByIdNo(idNo));
+	   Criteria cri = new Criteria(1, 10);
+	   String idNo = member.getIdNo();
+	   List<MyPageVO> myReview = myPageService.getMyReviewListByIdNo(idNo, cri);
+	   model.addAttribute("myReviewList", myReview);
+	   
+	   
+	   int myReviewNum = myPageService.getMyReviewCountByIdNo(idNo, cri);
+			model.addAttribute("pageMaker", new PageDTO(cri, myReviewNum));
+	
 	   return "/mypage/myReview";
    }
 

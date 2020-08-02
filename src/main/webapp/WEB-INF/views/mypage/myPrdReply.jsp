@@ -277,6 +277,110 @@ margin-right: 0%;
   </div>
 <!-- side 끝-->
 
+<!-- regi_main 시작 -->      
+<div class="regi_main">
+      
+      
+
+
+
+      <div class="p2">
+   <!-- regi_tit 시작 -->
+    <div class="regi_tit">
+       <p><b>1:1문의</b></p>
+   </div>
+   <!-- regi_tit 끝 -->
+
+         
+         <table tit aria-setsize="500px">
+            <thead>
+               <tr>
+                  <th>번호</th>    
+                  <th>제목</th>   
+
+                  <th>내용</th> 
+                  <th>등록일</th>  
+               </tr>
+            </thead>
+            <!-- postingNo
+            title
+            replyBool
+                 regdata -->
+                 <!-- 페이징처리 -->
+                 
+            <c:forEach items="${qna}" var="myQna">
+               <tr>
+                  <td><c:out value="${myQna.postingNo }" /></td>
+
+                  <td><a class ='move' href='<c:out value="${myQna.postingNo}"/>'>
+                  <c:out value="${myQna.title }" /></a></td>
+      
+
+                 <td><c:out value="${myQna.content }" /></td>
+               
+                  <td><fmt:formatDate pattern="yyyy/MM/dd"
+                        value="${myQna.regDate }" /></td>
+                     
+
+               </tr>
+
+            </c:forEach>
+
+         </table>
+         
+         
+         
+         
+       <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>  
+         
+               
+      <!-- Paging -->
+         <div class='pageBtns'>
+            <ul class="pagination1">
+            
+               <c:if test="${pageMaker.prev}">
+               <li class="paginate_button1 pervious">
+               <a href="${pageMaker.startPage -1}">Pervious</a>
+               </li>
+               </c:if>
+               
+               <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+               <li class='paginate_button1 ${pageMaker.cri.pageNum == num? "active":""}'>
+               <a href="${num}">${num}</a></li>
+               </c:forEach>
+               
+               <c:if test="${pageMaker.next}">
+               <li class="paginate_button1 next">
+               <a href="${pageMaker.endPage +1}">Next</a>
+               </li>
+               </c:if>
+            
+            </ul>
+         </div><!-- endPaging -->
+         
+         <!-- paging form-->
+         <form id='actionForm' action="/mypage/myQna/list" method='get'>
+            <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
+            <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
+             <input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
+             <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+         </form><!-- paging form end-->
+
+         
+
+      </div>
+      <!-- p2-->
+      
+      
+      
+      
+      
+      
+</div>
+<!-- regi_main 끝 -->     
+
+
+
 </div>
 
 </div>
