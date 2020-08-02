@@ -33,6 +33,15 @@ public interface BoardQNAMapper {
 	public int getTotalCount(Criteria cri);
 	
 	public int getResultTotal(Criteria cri);
+	
+//	이거 4개 추가함~
+	
+	public List<BoardQNAVO> getListByIdNo(String idNo);
+	
+	public List<BoardQNAVO> getListWithPagingByIdNo(Criteria cri, String idNo);
 
+	public int getResultTotalByIdNo(Criteria cri, String idNo);
+
+	public String getIdNoByPostingNo(String postingNo);
 
 }

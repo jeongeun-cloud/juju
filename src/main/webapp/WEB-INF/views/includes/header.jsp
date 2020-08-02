@@ -110,7 +110,7 @@ li {
                   </c:if>
 
 
-                  <li class="dropdown_sub"><a href="/mypage/myQna/list" class="subMemu">마이페이지</a>
+                  <li class="dropdown_sub"><a href="/mypage/myPerchaseList" class="subMemu">마이페이지</a>
 <%--                      <div class="subMemu-content">
 
                         <a href="#">쇼핑 이용 정보</a> <a href="#">게시판 이용내역</a>

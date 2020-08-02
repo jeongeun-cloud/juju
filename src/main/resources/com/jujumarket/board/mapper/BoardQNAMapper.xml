@@ -32,9 +32,7 @@
 	</insert>
 	
 	<select id="read" resultType ="com.jujumarket.board.domain.BoardQNAVO">
-	
-	select * from t_board_QNA where postingNo = #{postingNo}
-	
+		select * from t_board_QNA where postingNo = #{postingNo}
 	</select>
 	
 	<delete id="delete">
@@ -118,6 +116,45 @@
    postingNo > '0' -->
    
       </select>
+      
+      <!-- idNo로 마이페이지 1:1 문의에 리스트 뿌려주는 쿼리 추가 0802 -->
+	<select id="getListByIdNo"
+		resultType="com.jujumarket.board.domain.BoardQNAVO">
+ 			 select * from T_Board_QNA	
+ 			 where idNo = #{idNo}
+ 			 
+ 	</select>
+ 	
+ 	<select id="getResultTotalByIdNo" resultType="int">
+      select count(*) 
+      from (select * from t_board_qna
+      where idNo = #{idNo})
+      where title like '%' || #{keyword} || '%' 
+      or content like '%' || #{keyword} || '%'
+      or idNo like '%' || #{keyword} || '%'
+      
+   </select>
+   
+   <select id="getListWithPagingByIdNo" resultType="com.jujumarket.board.domain.BoardQNAVO">
+      select postingNo,title,content,idNo,regDate
+       from(       
+      	 	select 
+       		rownum rn,postingNo,title,content,idNo,regDate
+       		from(
+       			select *from t_Board_QNA 
+       			where idNo = #{idNo}
+       			order by postingNo desc
+       			)
+       		);
+   
+   </select>
+   
+   <select id ="getIdNoByPostingNo" resultType="String">
+		select PostingNo
+		from t_board_qna
+		where idNo = #{idNo}
+   
+   </select>
   
 
 </mapper>
