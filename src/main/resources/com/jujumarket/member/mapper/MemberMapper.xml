@@ -77,6 +77,20 @@
    
    </select>
    
+   <select id="orderSellerInfo" resultType="com.jujumarket.order.domain.OrderMemberVO">
+      select m.*, s.contact1
+      from t_member m, m_shop s
+      where m.idNo = s.idNo
+      and m.idNo = #{idNo}
+   </select>
+   
+   <select id="orderSocialInfo" resultType="com.jujumarket.order.domain.OrderMemberVO">
+      select m.*, s.contact
+      from t_member m, m_social s
+      where m.idNo = s.idNo
+      and m.idNo = #{idNo} 
+   </select>
+   
    <update id="modifyMemberInfo">
       update t_member
       set 

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +23,16 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -173,7 +179,7 @@ public class SocialController {
 				// 전화번호는 주문 받으면서 받은 후에 update 해줘야 할듯!
 				socialVO.setMemName(nickname);
 				socialVO.setEmailAccount(kakaoEmail);
-				socialVO.setMemCode("SOCIAL");
+				socialVO.setMemCode("KAKAO");
 				socialVO.setBirth(birthday);
 				socialVO.setSocialType("kakao");
 				service.register(socialVO);
@@ -191,7 +197,7 @@ public class SocialController {
 	
 	//로그아웃 세션
 	@GetMapping("/kakaoLogout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session) throws IOException {
 		SocialController.kakaoLogout((String)session.getAttribute("accessToken"));
 	    session.removeAttribute("accessToken");
 		
@@ -200,7 +206,7 @@ public class SocialController {
 	}
 	
 	// 카카오 로그아웃
-	public static void kakaoLogout(String accessToken) {
+	public static void kakaoLogout(String accessToken) throws IOException {
 	    String reqURL = "https://kapi.kakao.com/v1/user/logout";
 	    try {
 	        URL url = new URL(reqURL);
@@ -224,5 +230,90 @@ public class SocialController {
 	        e.printStackTrace();
 	    }
 	}
+	
+	@GetMapping("/naverCallback")
+	public void naverCallback() {
+		
+	}
+	
+	@RequestMapping(value = "/naverLogin", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public ResponseEntity<String> naverLogin(String emailAccount, String memName, String birth, String naverToken, HttpSession session) {
+		System.out.println("네이버 컨트롤러!!!!");
+		// socialVO
+		SocialVO socialVO = new SocialVO();
+		
+		birth = birth == null? "" : birth;
+		
+		System.out.println(naverToken + "네이버 토큰 값");
+		System.out.println(emailAccount + "네이버 컨트롤러 이메일");
+		System.out.println(memName + "네이버 컨트롤러 이름");
+		System.out.println(birth + "네이버 컨트롤러 생일");
+		
+		// 이미 가입이 된 사람인지 체크
+		int result = service.socialEmailCheck(emailAccount);
+		if(result == 0) {
+			// 전화번호는 주문 받으면서 받은 후에 update 해줘야 할듯!
+			
+			socialVO.setEmailAccount(emailAccount);
+			socialVO.setMemName(memName);
+			socialVO.setMemCode("NAVER");
+			socialVO.setSocialType("naver");
+			socialVO.setBirth(birth);
+			service.register(socialVO);
+		}else {
+			socialVO = service.getSocialInfo(emailAccount);
+		}
+		
+		session.setAttribute("accessToken", naverToken);
+		session.setAttribute("sessionMember", socialVO);
+		
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/naverLogout")
+	public String naverLogout(HttpSession session, Model model) {
+		String accessToken = (String)session.getAttribute("accessToken");
+		System.out.println("naver accessToken 값 >>>>"+ accessToken);
+		
+		// 토큰 값 아예 삭제할 때 필요
+//		String deleteTokenUrl = SocialController.deleteToken(accessToken);
+//
+//		try {
+//			URL url = new URL(deleteTokenUrl);
+//			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//			conn.setRequestMethod("POST");
+//			
+//			int responseCode = conn.getResponseCode();
+//	        System.out.println("responseCode : " + responseCode);
+//	        
+//	        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//	        
+//	        String result = "";
+//	        String line = "";
+//	        
+//	        while ((line = br.readLine()) != null) {
+//	            result += line;
+//	        }
+//	        System.out.println(result);
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+		
+		session.removeAttribute("accessToken");
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
+	// 토큰 값 아예 삭제할 때 필요
+//	public static String deleteToken(String accessToken) {
+//    	String deleteUrl = "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=7Uw4MdMci9xWvrvnp_e8&client_secret=_8OKcfDMlg&access_token=" + accessToken + "&service_provider=NAVER";
+//    	
+//    	return deleteUrl;
+//    }
+
 
 }

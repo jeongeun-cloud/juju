@@ -8,6 +8,8 @@ public interface SocialMapper {
 	
 	public void insertSocialCustomer(SocialVO socialVO);
 	
+	public void insertSocialHistory(SocialVO socialVO);
+	
 	public int socialEmailCheck(String emailAccount);
 	
 	public SocialVO getSocialInfo(String emailAccount);
