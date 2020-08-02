@@ -21,7 +21,7 @@ public interface ManagementService {
 	
 	public List<ManagementVO> searcheck(String orderStat);
 	
-	public List<ManagementVO> searcheckAll(String orderStat);
+	public List<ManagementVO> searcheckAll(ItemCriteria cri);
 
 	public List<ManagementVO> Shippingdate(ManagementVO vo);
 	

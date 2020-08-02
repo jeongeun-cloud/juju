@@ -63,6 +63,11 @@ and h.itemCode = i.itemCode
 and h.baskId = d.baskId
 and h.baskid = o.baskid
 
+and h.orderStat = #{orderStat}
+
+and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
+and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
+
 and rownum <= #{pageNum} * #{amount}
 ) s
 where rn > (#{pageNum} -1)* #{amount}
@@ -127,12 +132,6 @@ where orderCode = #{orderCode}
    WHERE shippingCode is NULL
 </select>
 
-
-
-
-
-
-
 <!-- <select id="searchordergetList" resultType="com.jujumarket.shop.domain.ManagementVO" >	
 select h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
@@ -156,24 +155,6 @@ and h.baskid = o.baskid
 	insert into t_order_history (baskId,orderCode,orderStat,itemCode)
 	values (#{baskId},#{orderCode},'배송중',#{itemCode})
 	</insert>
-<!-- <select id="getcheck" resultType="com.jujumarket.shop.domain.ManagementVO">
-<![CDATA[
-select h.itemCode,h.ordercode, h.orderstat, o.totalprice, o.orderdate, i.itemName,
-d.shippingCode, d.receivAddr, d.receivContact, d.receiver
-,o.itemNum,i.price 
-from t_order_history h, t_order_info o, t_item i, t_delivery d
-
-where h.ordercode = o.ordercode
-and d.ordercode = h.orderCode
-
-and o.itemCode = i.itemCode
-and h.itemCode = i.itemCode
-and h.baskId = d.baskId
-and h.baskid = o.baskid
-and h.orderstat = 'orderStat'
-
-]]>
-</select> -->
 
 <select id ="datedate"   resultType="com.jujumarket.shop.domain.ManagementVO" >
 
@@ -195,61 +176,47 @@ and h.baskId = d.baskId
 and h.baskid = o.baskid
 
 and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
-and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
+and to_char(o.orderdate, 'yyyy-MM-dd') <= #{2020-07-26}
 
 
 ]]>
-
-
-
-
 </select>
 
-<select id = "getcheck" resultType="com.jujumarket.shop.domain.ManagementVO" >
-<![CDATA[
-select distinct h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
-i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
-,o.itemNum,i.price
-from t_order_history h, t_order_info o, t_item i, t_delivery d
 
-where h.ordercode = o.ordercode
-and d.ordercode = h.orderCode
-
-and o.itemCode = i.itemCode
-and h.itemCode = i.itemCode
-
-and h.orderStat = #{orderStat}
-]]>
-</select>
 <select id = "getcheckAll" resultType="com.jujumarket.shop.domain.ManagementVO" >
 <![CDATA[
-select distinct h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
+select s.orderCode, s.orderstat, s.totalprice, s.orderdate, 
+s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver
+,s.itemNum,s.price
+
+from
+   (
+   select /*+INDEX_DESC(t_order_history PK_T_ORDER_HISTORY) */
+     rownum rn,h.orderCode, h.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
 ,o.itemNum,i.price
+
 from t_order_history h, t_order_info o, t_item i, t_delivery d
-
-where h.ordercode = o.ordercode
-and d.ordercode = h.orderCode
-
+where
+]]>
+<include refid="itemcriteria"></include>
+<![CDATA[
+ h.orderCode = o.orderCode
+and d.orderCode = h.orderCode
 and o.itemCode = i.itemCode
 and h.itemCode = i.itemCode
+and h.baskId = d.baskId
+and h.baskid = o.baskid
 
+
+and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
+and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
+
+and rownum <= #{pageNum} * #{amount}
+) s
+where rn > (#{pageNum} -1)* #{amount}
 ]]>
 
-<!-- and h.baskId = d.baskId
-and h.baskid = o.baskid -->
-
 </select>
-
-
-<!-- <select id="read" resultType ="com.jujumarket.shop.mapper.ManagementVO">
-	
-	select orderCode,orderStat,itemCode,totalPay,orderDate,itemName
-   ,shippingCode,receivAddr,receivContact,receiver 
-    from t_item i,(select * from t_delivery d,t_order o,t_order_history h
-	where h.ordercode = 'abc1234')
-	where i.itemcode = 's0001p0002'
-
-	</select> -->
 
 </mapper>
