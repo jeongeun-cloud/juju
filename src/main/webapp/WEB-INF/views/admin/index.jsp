@@ -3,96 +3,196 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
-<style>
-	li{
-       list-style: none;
-       
-   	}
-   	body{
-       color: #303030;
-   	}
-   	a{
-       text-decoration: none;
-       color: #303030;
-       font-size: 17px;
-   	}
-	.admin_content{
-       width: 1300px;
-       height: 1000px;
-       margin:0 auto;
-       border: solid;
-   	}
-   	.admin_wrap{
-      position: relative;
-      display: inline-block;
-      padding-top: 30px;
-      background-color: cornsilk;
-   	}
-   
-   	.side{
-       width: 200px;
-       height: 500px;
-       background-color: white;
-       float: left;
-       margin-right: 90px;
-       border:solid;
-       
-   	}
-   	.admin_side_tit{
-       padding-top: 12px;
-       padding-bottom:12px ;
-       text-align: center;
-       width: 100%;
-       background-color: #ffc30b;
-       font-size: 20px;
-       font-weight: 900;
-   	}
-   	
-   .admin_main .admin_tit{
-       font-size: 30px;
-       margin-bottom:20px;
-   }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/resources/css/admin_main.css">
+    <title>Document</title>
+
 </head>
 <body>
+<%@include file="./idCheck.jsp" %>
+<%@include file="../includes/header.jsp" %>
+    <div class="admi_container">
+        <div cass="admi_tit">
+            <h1>주주마켓 Admin</h1>
+        </div>
+        
+        <div class="admi_manager">
+           
 
-	<div class="admin_content">
-        <div class="admin_wrap">
-        	<!-- side 시작 -->
-		   	<div class="side">
-		      <div class="1nb_list">
-		         <div class="admin_side_tit">관리자 페이지</div>
-		           <div class="admin_side_menu">
-		               <ul class="admin_menu">
-		                    <p><a href='/admin/index'><b>JUJU 현황</b></a></p>
-		                    <p><b>배너관리</b></p>
-			                    <li><a href='/admin/mainBanner'><i class="fa fa-check" ></i> 메인 배너</a></li>
-	                            <li><a href='/admin/advertise'><i class="fa fa-check" ></i> 중간 광고</a></li>
-	                            <li><a href='/admin/seasonalMagazine'><i class="fa fa-check" ></i> 제철 페이지</a></li>
-	                            <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i> 이벤트</a></li>
-		                    <br>
-		                    <p><b>회원관리</b></p>
-			                    <li><a href='#'><i class="fa fa-check" ></i> 회원수</a></li>
-			                    <li><a href='#'><i class="fa fa-check" ></i> 회원 현황</a></li>
-			                    <li><a href='#'><i class="fa fa-check" ></i> 상인 승인</a></li>
-			                    <li><a href='#'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
-		                </ul>
-		           </div>
-		     	</div>
-		     	<!-- 1nb_list -->
-		  	</div>
-			<!-- side 끝-->
- 
-		</div>
-	</div>
+            <div class="quick_wrap">
+                <div class="quick_m">
+                    <div class="quick_find">
+                        <div class="quick_tit">
+                            <p><b>빠르게 찾기</b></p>
+                        </div>
+                        <p>관리자 ID</p>
+                        <input class="quick_btn" type="button" value="배너관리" onClick="location.href='/admin/mainBanner'">
+                        <input class="quick_btn" type="button" value="회원현황" onClick="location.href='/admin/memberStat'">
+                        <input class="quick_btn" type="button" value="상인관리" onClick="location.href='#'">
+                    </div>
+                </div>
 
+                <div class="quick_m">    
+                    <div class="today_sta">
+                        <div class="quick_tit">
+                            <p><b>Today 현황[오늘 날짜]</b></p>
+                        </div>
+
+                        <div class="today_total">
+                            <div class="today_box">
+                                <div class="pro_regi_sta">
+                                    <div class="today_tit">
+                                        총 회원 수
+                                    </div>
+                                    <div>
+                                       <fmt:formatNumber type="number" maxFractionDigits="3" value="${iT}" />건
+                                    </div>
+                                </div>
+                            </div>   
+                            <!-- today_box -->
+                            
+                            <div class="today_box">
+                                <div class="pro_pay_sta">
+                                    <div class="today_tit">
+                                         가입 수[오늘]   
+                                    </div>
+                                    <div>
+                                         <fmt:formatNumber type="number" maxFractionDigits="3" value="${iTodayT}" />건
+                                    </div>
+                                </div>
+                            </div>   
+                            <!-- today_box -->
+
+                            <div class="today_box">
+                                <div class="pro_order_sta">
+                                    <div class="today_tit">
+                                         총 탈퇴 수  
+                                    </div>
+                                    <div>
+                                        <fmt:formatNumber type="number" maxFractionDigits="3" value="${iWithdrawT}" />건
+                                    </div>
+                                </div>
+                            </div>   
+                            <!-- today_box -->
+
+                            <div class="today_box">
+                                <div class="pro_order_sta">
+                                    <div class="today_tit">
+                                         탈퇴  수[오늘] 
+                                    </div>
+                                    <div>
+                                         <fmt:formatNumber type="number" maxFractionDigits="3" value="${iTodayWithdrawT}" />건
+                                    </div>
+                                </div>
+                            </div>   
+                            <!-- today_box -->
+                        </div>
+                       
+
+                    </div>
+                </div>   
+
+                <div class="quick_m">    
+                    <div class="today_do">
+                        <div class="quick_tit">
+                            <p><b>미처리 현황</b></p>
+                        </div>
+
+                        <div class="today_do_li">
+                            <div class="today_box">
+                                <div class="pro_regi_sta">
+                                    <div class="today_tit">
+                                        불량 신고 
+                                    </div>
+                                    <div>
+                                        00건
+                                    </div>
+                                </div>
+                            </div>   
+
+                            <div class="today_box">
+                                <div class="pro_regi_sta">
+                                    <div class="today_tit">
+                                        가입/승인 신청 
+                                    </div>
+                                    <div>
+                                        00건
+                                    </div>
+                                </div>
+                            </div>   
+
+                            <div class="today_box">
+                                <div class="pro_regi_sta">
+                                    <div class="today_tit">
+                                       1:1 문의 
+                                    </div>
+                                    <div>
+                                        00건
+                                    </div>
+                                </div>
+                            </div>   
+
+                            <div class="today_box">
+                                <div class="pro_regi_sta">
+                                    <div class="today_tit">
+                                        상인 문의 
+                                    </div>
+                                    <div>
+                                        00건
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>  
+                        <!-- today_do_li -->
+                        
+                    </div>
+                    <!-- today_do -->
+                </div>   
+                <!-- quick_m -->
+
+            </div>
+            <!-- quick_wrap -->
+
+        </div>
+        <!-- admi_manager -->
+
+        <div class="admi_board">
+            <div class="quick_b">
+                <div class="admi_notice">
+                    <div class="board_tit">
+                        <p><b>-주주마켓 공지사항</b></p>
+                    </div>
+                    <div class="board_notice_content">
+                        <div class="board_btn">
+                            <input type="button" value="더 보기">
+                        </div>
+                        내용
+                    </div>
+
+                </div>
+            </div>    
+            <div class="quick_b">
+                <div class="admi_faq">
+                    <div class="board_tit">
+                        <p><b>-주주마켓 FAQ</b></p>
+                    </div>
+                    <div class="board_faq_content">
+                        <div class="board_btn">
+                            <input type="button" value="더 보기">
+                        </div>
+                        내용
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--admi_board  -->
+    </div>
+    <!-- admi_container -->
+   	
 </body>
 </html>
