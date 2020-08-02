@@ -75,7 +75,8 @@
 	}
 </style>
 <body>
-<%@include file="./idCheck.jsp" %>
+    <%@include file="./idCheck.jsp" %>
+    <%@include file="../includes/header.jsp" %>
     <div class="banner_content">
         <div class="banner_wrap">
             <!-- side 시작 -->
@@ -92,10 +93,10 @@
 	                            <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i> 이벤트</a></li>
 		                    <br>
 		                    <p><b>회원관리</b></p>
-			                    <li><a href='#'><i class="fa fa-check" ></i> 회원수</a></li>
-			                    <li><a href='#'><i class="fa fa-check" ></i> 회원 현황</a></li>
+			                   
+			                    <li><a href='/admin/memberStat'><i class="fa fa-check" ></i> 회원 현황</a></li>
 			                    <li><a href='#'><i class="fa fa-check" ></i> 상인 승인</a></li>
-			                    <li><a href='#'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
+			                    <li><a href='/admin/withdraw'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
 		                </ul>
 		           </div>
 		     	</div>

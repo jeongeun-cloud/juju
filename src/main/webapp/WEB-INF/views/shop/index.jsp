@@ -16,7 +16,7 @@
 <%@include file="../includes/header.jsp" %>
     <div class="admi_container" style="border:solid;">
         <div class="admi_tit">
-            <h1>주주마켓 Admin</h1>
+            <h1>주주마켓 Seller</h1>
         </div>
         
         <div class="admi_manager">
