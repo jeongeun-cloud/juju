@@ -1,7 +1,6 @@
 package com.jujumarket.member.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -19,8 +18,9 @@ import com.jujumarket.member.domain.MemberHistoryVO;
 import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.service.CustomerService;
 import com.jujumarket.member.service.MailService;
-import com.jujumarket.member.service.MemberSerivce;
+import com.jujumarket.member.service.MemberService;
 import com.jujumarket.member.service.SellerService;
+import com.jujumarket.order.service.OrderService;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -31,12 +31,47 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class MyPageController {
 
-   private MemberSerivce memberService;
+   private MemberService memberService;
    private CustomerService customerService;
    private SellerService sellerService;
    private ServletContext servletContext;
-   private MailService mailService;
+//   private MailService mailService;
+//   private OrderService orderService;
+   
+   @GetMapping("/myPerchaseList")
+   public String perchaseList(HttpSession session, Model model) {
+	   MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+	   if(member == null) {
+		   return "redirect:/member/login";
+	   }
+//	   String idNo = member.getIdNo();
+//	   model.addAttribute("perchaseList", orderService.getPerchaseInfoByIdNo(idNo));
+	   return "/mypage/myPerchaseList";
+   }
+   
+   @GetMapping("/myPrdReply")
+   public String myPrdReply(HttpSession session, Model model) {
+	   MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+	   if(member == null) {
+		   return "redirect:/member/login";
+	   }
+//	   String idNo = member.getIdNo();
+//	   model.addAttribute("perchaseList", orderService.getPerchaseInfoByIdNo(idNo));
+	   return "/mypage/myPrdReply";
+   }
+   
+   @GetMapping("/myReview")
+   public String myReview(HttpSession session, Model model) {
+	   MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+	   if(member == null) {
+		   return "redirect:/member/login";
+	   }
+//	   String idNo = member.getIdNo();
+//	   model.addAttribute("perchaseList", orderService.getPerchaseInfoByIdNo(idNo));
+	   return "/mypage/myReview";
+   }
 
+   
    @GetMapping("/customerInfoModify")
    public String customerInfoModify(HttpSession session, Model model) {
       MemberVO member = (MemberVO) session.getAttribute("sessionMember");

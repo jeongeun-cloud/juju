@@ -1,6 +1,8 @@
 package com.jujumarket.shop.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -29,81 +31,82 @@ import lombok.extern.log4j.Log4j;
 public class ManagementController {
 	private ManagementService service;
 
-	
-	/*
-	 * /searchorder /shipping
-	 */
+	//searchorder /shipping
+
 	
 	
 	 @GetMapping("/searchorder") 
-	 public void searlist(ItemCriteria cri, Model model) {
-		 log.info("searchorder list");
-//		 System.out.println(orderStat);
-		 
-//		 if(orderStat == null || orderStat == "" || orderStat == "all") {
-			 int total = service.getTotal(cri);
+	 public void searlist(ItemCriteria cri,String date1,String date2,Model model,String orderStat) {
 		
-			 model.addAttribute("list", service.searchordergetList(cri));
-			 model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
-			 
-//		 }else {
-//			 
-//			 System.out.println(service.searcheck(orderStat));
-//			 model.addAttribute("list", service.searcheck(orderStat)); 
-//		 }
-	  
-	  }
-	 
-	 
-//	 @GetMapping("/searcheck")
-//	 public String  searchcheck(String shippingcheck, Model model) {
-//		 
-//		 System.out.println(shippingcheck);
-//		 System.out.println(service.searcheck(shippingcheck));
-//		 		 
-//
-//
-//		 model.addAttribute("list", service.searcheck(shippingcheck)); 
-//		 
-//		 return "redirect:/shop/searchorder";
-//		 
-//	 }
-	 
-	 @PostMapping("/searchorder")
-	 public void searchcheck(String orderStat, Model model) {
+		   orderStat = orderStat == null?  "" : orderStat;
 		 
-		  System.out.println(orderStat);
-		  
-		  if(orderStat.equals("all")){
-			
-			model.addAttribute("list", service.searcheckAll(orderStat)); 
-			
-		  }else {
-			  model.addAttribute("list", service.searcheck(orderStat)); 
-		  }
+		   SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
+		   Date time = new Date();
+		   String time1 = format1.format(time);
+		
+		   date1 = date1 == null?"2020-07-01": date1;
+		   date2 = date2 == null?time1: date2;
+		   cri.setDate1(date1);
+		   cri.setDate2(date2);
+		   cri.setOrderStat(orderStat);
+		   
+		   int total = service.getTotal(cri);
+
+		   
+		   if(!orderStat.equals("")) {
+				 
+				 	if(orderStat.equals("all")) {
+						model.addAttribute("list", service.searcheckAll(cri));
+					}else {
+						 model.addAttribute("list", service.searchordergetList(cri));
+				    }  
+		   
+		   
+		   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+  
+	       }
+	 }
+	
+	 
+	 //배송대기중 출력
+	 @GetMapping("/shipping")
+	 public void  shippinglist(ItemCriteria cri , Model model, String date1,String date2) {
+	 int total = service.getNotTotal(cri);
+
+	 
+	   SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+			 
+	   Date time = new Date();
+	   
+	   String time1 = format1.format(time);
+	   
+  
+	   
+	   date1 = date1 == null?"2020-07-01": date1;
+	   date2 = date2 == null?time1: date2;
+	   
+	  cri.setDate1(date1);
+	  cri.setDate2(date2);
+	   
+	  System.out.println("datessdatess" + time1);
+	   System.out.println(cri.getDate1());
+	   System.out.println(cri.getDate2());
+
+	 
+	 
+	  model.addAttribute("list", service.shippinggetList(cri));
+	  model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+	  
+	  
 	
 		 
-		
-	}
-	 
-	 
-	 @GetMapping("/shipping")
-	 public void  shippinglist(ItemCriteria cri , Model model) {
-	 
-	 int total = service.getNotTotal(cri);
-	 
-
-	 
-	  model.addAttribute("list", service.shippinggetList(cri)); 
-	  model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
-
-
 	 }
 	 
 	
 	 
+	 //송장 변경 및 배송 statas 변경
 	 @PostMapping("/shipping")
-		public void shippingupdate(String shippingCode,String orderCode,String baskId,String itemCode, Model model) {
+		public String shippingupdate(String shippingCode,String orderCode,String baskId,String itemCode, Model model) {
   
 		 System.out.println("들어옴2");
 		    ManagementVO vo = new ManagementVO();
@@ -124,10 +127,12 @@ public class ManagementController {
 				System.out.println(arritemCode[i]);
 				service.shippingupdate(vo);
 				  
-				model.addAttribute("shippingCode");
+				model.addAttribute("shippingCode");				
 
 		  	}	
+			 return "redirect:/shop/shipping";
 		}
+
 	 
 
 }

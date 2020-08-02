@@ -1,6 +1,11 @@
 package com.jujumarket.member.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +30,7 @@ import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SellerVO;
 import com.jujumarket.member.service.CustomerService;
 import com.jujumarket.member.service.MailService;
-import com.jujumarket.member.service.MemberSerivce;
+import com.jujumarket.member.service.MemberService;
 import com.jujumarket.member.service.SellerService;
 
 import lombok.AllArgsConstructor;
@@ -37,7 +42,7 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class MemberController {
 	
-	private MemberSerivce memberService;
+	private MemberService memberService;
 	private CustomerService customerService;
 	private SellerService sellerService;
 	private MailService mailService;
@@ -169,9 +174,11 @@ public class MemberController {
 	//로그아웃 세션
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
+		
 		session.invalidate();
 		return "redirect:/";
 	}
+
 	
 	@GetMapping("/findIdPwd")
 	public void findIdPwd( ) {

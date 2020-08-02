@@ -4,6 +4,7 @@ import com.jujumarket.member.domain.CustomerVO;
 import com.jujumarket.member.domain.MemberVO;
 //import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SellerVO;
+import com.jujumarket.member.domain.SocialVO;
 import com.jujumarket.order.domain.OrderMemberVO;
 
 public interface MemberMapper {
@@ -11,6 +12,7 @@ public interface MemberMapper {
 	public void insertCustomer(CustomerVO customer);
 
 	public void insertSeller(SellerVO seller);
+	
 	//세션정보에 id넣기
 	public String getIdNoByEmailAccount(String emailAccount);
 	//비밀번호 받아서 회원정보 삭제
@@ -25,6 +27,8 @@ public interface MemberMapper {
 	public int deleteMember(String idNo);
 	//주문자정보확인
 	public OrderMemberVO orderMemberInfo(String idNo);
+	public OrderMemberVO orderSellerInfo(String idNo);
+	public OrderMemberVO orderSocialInfo(String idNo);
 
 	public int updatePwd(MemberVO member);
 

@@ -48,9 +48,6 @@ body {
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-	crossorigin="anonymous"></script>
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
@@ -69,15 +66,14 @@ body {
 		비밀번호확인 :<input type="password" id="pwdChk" name="pwdChk">  <br>
 		상점명: <input type="text" id="shopName" name="shopName"  placeholder="필수입력"> <br>
 		회원이름 <input type="text" id="memName" name="memName"  placeholder="필수입력"> <br>
-		주소:	<input type="text" id="postCode" name="postCode" size="5" value="" readonly="readonly"> 
-					<a href="javascript:execDaumPostcode()">우편번호검색</a> <br>
-		지번 주소: <input type="text" id="jibunAddress" name="jibunAddress" size="50" value="" /><br> 
-		도로명 주소: <input type="text" id="roadAddress" name="roadAddress" size="50" value="" /><br>
-		나머지 주소: <input type="text" id="memAddr" name="memAddr" size="50" value="" /> <br>
-		<button id="myBtn">상점 상세정보 입력하기 </button>
-		<br> 연락처1: <input type="text" id="contact1" name="contact1"  placeholder="XXX-XXXX-XXXX,필수">
+ 		연락처1: <input type="text" id="contact1" name="contact1"  placeholder="XXX-XXXX-XXXX,필수">
 		<br> 연락처2: <input type="text" id="contact2" name="contact2" placeholder="XXX-XXXX-XXXX">
-		<br> 우편번호: <input type="text" id="postCode" name="postCode">
+		<br>우편번호: <input type="text" id="postCode" name="postCode" size="5" value="" readonly="readonly"> 
+					<a id="memApi" href="">우편번호검색</a> <br>
+		도로명 주소: <input type="text" id="roadAddr" name="roadAddr" size="50" value="" readonly="readonly"/><br>
+		나머지 주소: <input type="text" id="namujiAddr" name="namujiAddr">
+		<input type="hidden" id="memAddr" name="memAddr">
+		<br><button id="myBtn">상점 상세정보 입력하기 </button><br>
 		<br>
 		<!-- t_member -->
 
@@ -90,7 +86,7 @@ body {
 		<div class="modal-content">
 			<span class="close">&times;</span> 
 			상점명: 
-			<input type="text" class="shopNameModal" name="shopNameModal" readonly="readonly"  placeholder="readonly"> <br> 
+			<input type="text" id="shopNameModal" name="shopNameModal" readonly="readonly"  placeholder="readonly"> <br> 
 			대표자: 
 			<input type="text" id="memNameModal" name="memNameModal" readonly="readonly"  placeholder="readonly"><br>
 			<!-- 상점이름  -->
@@ -101,21 +97,20 @@ body {
 			<img id="businessRegThumb" alt="" src=""><br>
 			사업장 소재지
 			<br> 우편번호 <input type="text" id="shopPostCode" name="shopPostCode">
-			<a href="javascript:execDaumPostcode()">우편번호검색</a> <br>
-			지번 주소: 
-			<input type="text" id="jibunAddress" name="jibunAddress"/><br> 
+			<a id="shopApi" href="">우편번호검색</a> <br>
 			도로명 주소: 
-			<input type="text" id="roadAddress" name="roadAddress" /><br>  
+			<input type="text" id="shopRoadAddr" name="shopRoadAddr" readonly="readonly"/><br>  
 			상점주소: 
-			<input type="text" id="shopAddr" name="shopAddr"  placeholder="필수입력" /> <br>
+			<input type="text" id="shopNamujiAddr" name="shopNamujiAddr"  placeholder="필수입력" /> <br>
+			<input type="hidden" id="shopAddr" name="shopAddr"  placeholder="필수입력" />
 			<td>사업자 계좌번호</td>
 			<td><select id="bank" name="bank">
 					<option value="은행선택">은행선택</option>
-					<option value="신한">신한은행</option>
-					<option value="국민">국민은행</option>
-					<option value="기업">기업은행</option>
-					<option value="우리">우리은행</option>
-					<option value="카카오">카카오뱅크</option>
+					<option value="신한은행">신한은행</option>
+					<option value="국민은행">국민은행</option>
+					<option value="기업은행">기업은행</option>
+					<option value="우리은행">우리은행</option>
+					<option value="카카오뱅크">카카오뱅크</option>
 			</select> <input type="text" name="bankAccount" id="bankAccount"  placeholder="필수입력"></td> <br>
 			상점이미지(필수)
 			<input type="file" id="thumbImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
@@ -134,14 +129,25 @@ body {
 
 
 	<script>
-		let modal = document.getElementById("myModal");
-		let btn = document.getElementById("myBtn");
-		let span = document.getElementsByClassName("close")[0];
-		let sellerAuthBtn = $("#sellerAuthBtn");
+
+		
+	$(document).ready(function(){
+		modal = document.getElementById("myModal");
+		btn = document.getElementById("myBtn");
+		span = document.getElementsByClassName("close")[0];
+		sellerAuthBtn = $("#sellerAuthBtn");
+		aTags = $("a");
+		aTags.on().click(function(e){
+			e.preventDefault();
+			let targetId = $(e.target).prop("id");
+			execDaumPostcode(targetId);
+		})
 
 		btn.onclick = function(e) {
 			e.preventDefault();
 			modal.style.display = "block";
+			memNameModal.val(memName.val());
+			shopNameModal.val(shopName.val());
 		}
 
 		span.onclick = function() {
@@ -158,35 +164,37 @@ body {
 			e.preventDefault();
 			modal.style.display = "none";
 		});
-
-		
-		$(document).ready(function(){
 			
-			let emailSendBtn = $("#emailSendBtn");
-			let emailAccount = $("#emailAccount");
-			let tempCode = $("#tempCode");
-			let pwd = $("#pwd");
-			let pwdChk = $("#pwdChk");
-			let shopName = $("#shopName");
-			let shopNameModal = $("#shopNameModal");
-			let memName = $("#memName");
-			let memNameModal = $("#memNameModal");
-			let businessCode = $("#businessCode");
-			let memAddr = $("#memAddr");
-			let shopAddr = $("#shopAddr");
-			let contact1 = $("#contact1");
-			let contact2 = $("#contact2");
-			let bankAccount = $("#bankAccount");
-			let businessRegFile = $("#businessRegFile");
-			let thumbImg = $("#thumbImg");
-			let backImg = $("#backImg");
+			emailSendBtn = $("#emailSendBtn");
+			emailAccount = $("#emailAccount");
+			tempCode = $("#tempCode");
+			pwd = $("#pwd");
+			pwdChk = $("#pwdChk");
+			shopName = $("#shopName");
+			shopNameModal = $("#shopNameModal");
+			memName = $("#memName");
+			memNameModal = $("#memNameModal");
+			businessCode = $("#businessCode");
+			memAddr = $("#memAddr");
+			roadAddr = $("#roadAddr");
+			namujiAddr = $("#namujiAddr");
+			shopAddr = $("#shopAddr");
+			shopRoadAddr = $("#shopRoadAddr");
+			shopNamujiAddr = $("#shopNamujiAddr");
+			contact1 = $("#contact1");
+			contact2 = $("#contact2");
+			bankAccount = $("#bankAccount");
+			businessRegFile = $("#businessRegFile");
+			thumbImg = $("#thumbImg");
+			backImg = $("#backImg");
+			
 
-			let emailAuthBtn = $("#emailAuthBtn");
-			let inputCode = $("#inputCode");
-			let authResult = $("#authResult");
+			emailAuthBtn = $("#emailAuthBtn");
+			inputCode = $("#inputCode");
+			authResult = $("#authResult");
 
-			let emailDuplicateCheckBtn = $("#emailDuplicateCheckBtn");
-			let duplicateCheckResult = $("#duplicateCheckResult");
+			emailDuplicateCheckBtn = $("#emailDuplicateCheckBtn");
+			duplicateCheckResult = $("#duplicateCheckResult");
 			
 			
 			
@@ -294,8 +302,8 @@ body {
 			
 			
 			
-			let submitBtn = $("#submitBtn");
-			let sellerJoinForm = $("#sellerJoinForm");
+			submitBtn = $("#submitBtn");
+			sellerJoinForm = $("#sellerJoinForm");
 		
 			submitBtn.click(function(e) {
 			e.preventDefault();
@@ -314,13 +322,13 @@ body {
 				alert("비밀번호확인은 비밀번호와 같아야 합니다.");
 				pwdChk.focus();
 				return false;
-			} else if (!(memNameCheck())) {
-				return false;
 			} else if (!(shopNameCheck())) {
+				return false;
+			} else if (!(memNameCheck())) {
 				return false;
 			} else if (!(contact1Check())) {
 				return false;
-			}  else if (!(bankAccountCheck())) {
+			} else if (!(memAddrCheck())) {
 				return false;
 			} else if (!(businessCodeCheck())) {
 				return false;
@@ -328,11 +336,24 @@ body {
 				alert("사업자 등록증을 업로드해주세요.");
 				modal.style.display = "block";
 				businessRegFile.focus();
+				return false;
+			} else if (!(shopAddrCheck())) {
+				return false;
+			} else if (!(bankAccountCheck())) {
+				return false;
 			} else if (thumbImg.val()==null||thumbImg.val()==""){
 				alert("썸네일을 업로드해주세요.");
 				modal.style.display = "block";
 				thumbImg.focus();
+				return false;
 			} else {
+				if (namujiAddr.val().trim() == "" || namujiAddr.val() == null
+						&& roadAddr.val() == "" || roadAddr.val() == null){
+					memAddr.val(null);
+				} else {
+					memAddr.val(roadAddr.val()+"/"+namujiAddr.val());
+				}
+				shopAddr.val(shopRoadAddr.val()+"/"+shopNamujiAddr.val());
 				sellerJoinForm.submit();
 			}
 
@@ -492,27 +513,50 @@ body {
 		};
 		
 		
-		function shopAddrCheck(){
-			let regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+		function memAddrCheck(){
 
-			if (shopAddr.val().trim() == "" || shopAddr.val() == null) {
-				alert("상점주소를 입력해주세요.");
-				shopAddr.focus();
+			if (roadAddr.val() == "" || roadAddr.val() == null){
+				if (!(namujiAddr.val().trim() == "" || namujiAddr.val() == null)) {
+				alert("도로명 주소를 입력해주세요.");
+				roadAddr.focus();
 				return false;
-			} else if (shopAddr.val().length > 50) {
-				alert("50자까지만 입력할 수 있습니다.")
-				shopAddr.focus();
+				} else {
+					return true;
+				}
+			} else if (namujiAddr.val().trim() == "" || namujiAddr.val() == null
+					&& !(roadAddr.val() == "" || roadAddr.val() == null)){
+				alert("나머지 주소를 입력해주세요.");
+				namujiAddr.focus();
 				return false;
-			} else if (!regExp.test(shopAddr.val())) {
-				alert("상점주소를 양식에 맞게 입력해주세요.");
-				shopAddr.focus();
-				return false
+			} else if (namujiAddr.val().length > 30) {
+					alert("30자까지만 입력할 수 있습니다.")
+					namujiAddr.focus();
+					return false;
 			} else {
 				return true;
 			}
 			
 		};
+		
+		function shopAddrCheck(){
+
+			if (shopRoadAddr.val() == "" || shopRoadAddr.val() == null) {
+				alert("도로명 주소를 입력해주세요.");
+				shopRoadAddr.focus();
+				return false;
+			} else if (shopNamujiAddr.val().trim() == "" || shopNamujiAddr.val() == null){
+				alert("나머지 주소를 입력해주세요.");
+				shopNamujiAddr.focus();
+				return false;
+			} else if (shopNamujiAddr.val().length > 30) {
+				alert("30자까지만 입력할 수 있습니다.")
+				shopNamujiAddr.focus();
+				return false;
+			} else {
+				return true;
+			}
 			
+		};
 		function duplicateCheck(emailAccount){
 				return $.ajax({
 					type : 'POST',
@@ -524,18 +568,39 @@ body {
 							})
 					} 	
 		
+		inputFile = $("input[type='file']");
 		
-		
-		
-		
-		
-		
-		
-		
+		inputFile.change(function(e){
 			
-	function execDaumPostcode() {
+			imgTarget = $(e.target);
+			
+			if(this.files){
+				let reader = new FileReader;
+
+                reader.onload = function(data) {
+                    imgTarget.next().next().attr("src", data.target.result).width(100);
+                 }
+                 reader.readAsDataURL(this.files[0]);
+             }
+			
+				});
+		
+		
+			});
+	
+	function execDaumPostcode(targetId) {
+		let postCode = "";
+		let roadAddr = "";
+		if(targetId=="memApi"){
+			postCode = "postCode";
+			roadAddr = "roadAddr";
+		} else if (targetId=="shopApi") {
+			postCode = "shopPostCode";
+			roadAddr = "shopRoadAddr";
+		}
 		new daum.Postcode(
 				{
+					
 						oncomplete : function(data) {
 
 							let fullRoadAddr = data.roadAddress;
@@ -557,34 +622,13 @@ body {
 								fullRoadAddr += extraRoadAddr;
 							}
 
-							document.getElementById('postCode').value = data.zonecode;
-							document.getElementById('shopPostCode').value = data.zonecode;
-
-							document.getElementById('roadAddress').value = fullRoadAddr;
-							document.getElementById('jibunAddress').value = data.jibunAddress;
+							document.getElementById(postCode).value = data.zonecode;
+							document.getElementById(roadAddr).value = fullRoadAddr;
 
 						}
 					}).open()
 
 		};
-		
-		let inputFile = $("input[type='file']");
-		
-		inputFile.change(function(e){
-			
-			imgTarget = $(e.target);
-			
-			if(this.files){
-				let reader = new FileReader;
-
-                reader.onload = function(data) {
-                    imgTarget.next().next().attr("src", data.target.result).width(100);
-                 }
-                 reader.readAsDataURL(this.files[0]);
-             }
-			
-				});
-			});
 		
 		
 		

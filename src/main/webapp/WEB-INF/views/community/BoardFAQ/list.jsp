@@ -356,7 +356,9 @@
                 </form><!-- paging form end-->
 
                 <div class="jaju_regBtn">
+                <c:if test="${sessionMember.memCode eq 'ADMIN'}">
                 <button id='regBtn' type="button"  class="btn btn-xs pull-right">글쓰기</button>
+                </c:if>
                 </div>
                 
             </div>

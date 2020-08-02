@@ -1,69 +1,362 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
+   pageEncoding="UTF-8"%>
+<%@include file="./../includes/header.jsp" %>
+<%@include file="./../includes/menuBar.jsp" %>
 
-<meta charset="UTF-8">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"
-	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-	crossorigin="anonymous"></script>
+<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>  <!-- 모달띄어줌 -->
+
+
 <style>
+
+body {
+   font-family: Arial, Helvetica, sans-serif;
+   color: #303030;
+
+}
+
+li {
+   list-style: none;
+
+}
+
+.regi_menu a{
+   text-decoration: none;
+   color: #303030;
+   font-size: 17px;
+}
+
+
+
+
+table {
+   border-collapse: collapse;
+   width: 100%;
+}
+
+
+/* 배치 */
+th, td {
+   padding: 8px;
+   text-align: left;
+   border-bottom: 1px solid #ddd;
+}
+
+th {
+   background-color: black; 
+   color: white;
+   text-align: left;
+}
+
+tr:hover {
+   background-color: #f5f5f5;
+}
+
+.check {
+   width: 5%;
+   height: 30px;
+   left: 30%;
+}
+
+.text {
+   width: 50%;
+   height: 25px;
+}
+
+.serch {
+   margin-left: 200px;
+   margin-bottom: 10px;
+}
+
+.sb {
+   height: 35px;
+}
+
+
+
+
+
+
+/* 글쓰기, 검색 버튼 시작 */
+#regBtn,
+#searchBtn {
+  background-color: #ffc30b; 
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+
+#regBtn:hover,
+#searchBtn:hover {
+  background-color: white; 
+  color: #ffc30b; 
+  border: 2px solid #ffc30b;
+}
+#regBtn:focus,
+#searchBtn:focus { 
+    outline: none; 
+}
+
+
+#regBtn {
+
+margin-right: 0%;
+
+}
+/* 글쓰기, 검색 버튼 끝 */
+
+
+
+
+
+
+/* 페이지 버튼 디자인 시작 */
+
+.pageBtns {
+	text-align: center;
+}
+
+
+.pageBtns a{
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+   
+}
+
+.pagination1 a:hover:not(.active) {
+    background-color: #f6dd90;
+    border-radius: 50%;
+}
+
+
+/* 페이지 버튼 디자인 끝 */
+
+
+
+
+/* 모달디자인 시작  */
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: white;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: white;
+  color: white;
+}
+
+
+#closeBtn {
+  background-color: #ffc30b; 
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+#closeBtn:hover {
+  background-color: white; 
+  color: #ffc30b; 
+  border: 2px solid #ffc30b;
+
+}
+
+#closeBtn:focus {
+    outline: none; 
+
+}
+/* 모달 디자인 끝 */
+
+
+
+
+/* 사이드 메뉴 */
+.side{
+          
+     width: 200px;
+     height: 500px;
+     background-color: white;
+     float: left;
+     margin-right: 90px;
+     border:solid #ffc30b ;
+            
+}
+
+ .regi_side_tit{
+      padding-top: 12px;
+      padding-bottom:12px ;
+      text-align: center;
+      width: 100%;
+      background-color: #ffc30b;
+      font-size: 20px;
+      font-weight: 900;
+            
+}
+
+.regi_menu {
+	margin-top:20px;
+
+
+}
+
+
+/* 사이드 메뉴 끝 */
+
+
+
+.col-lg-12 {
+
+	text-align: center;
+    margin: 10px 0 30px 0;
+}
+
+
+
+
+        
+.regi_main{
+   float:  right;
+   width: 1000px;
+   height: 1000px;
+   background-color: white;
+} 
+
+.regi_main .regi_tit{
+   font-size: 30px;
+   margin-bottom:50px;
+   text-align: center;
+
+}
+
+
+
+.regi_content{
+   width: 1300px;
+   height: 1000px;
+   margin:0 auto;
+}
+        
+.regi_wrap{
+                 
+   position: relative;
+   display: inline-block;
+   padding-top: 30px;
+}
+        
+
+
+
 h2 {
-	position: absolute;
-	left: 20px;
+   position: absolute;
+   left: 20px;
 }
 
 div.a {
-	position: relative;
-	height: 600px;
-	/* border: 3px solid red; */
+   position: relative;
+   height: 600px;
+   /* border: 3px solid red; */
 }
 
-div.b {
-	position: absolute;
-	left: 20px;
-	top: 70px;
-	width: 200px;
-	height: 500px;
-	border: 1px solid black;
-}
 
 div.sellerInfo {
-	position: absolute;
-	left: 250px;
-	top: 70px;
-	width: 700px;
-	height: 800px;
-	border: 1px solid black;
+   position: absolute;
+   left: 250px;
+   top: 70px;
+   width: 700px;
+   height: 1000px;
+   border: 1px solid black;
 }
 
 a {
-	text-decoration: none;
-	color: black;
+   text-decoration: none;
+   color: black;
 }
-
-
 </style>
 </head>
 <body>
 
+<div class="regi_content">
+ <div class="regi_wrap">
+
+
+<!-- side 시작 -->
+   <div class="side">
+      <div class="1nb_list">
+         <div class="regi_side_tit">마이페이지</div>
+           <div class="regi_side_menu">
+               <ul class="regi_menu">
+                    <p><b>쇼핑 이용 정보</b></p>
+                    <li><a href='/mypage/myPerchaseList'><i class="fa fa-check" ></i>주문내역</a></li>
+                    <li><a href='/order/basketList'><i class="fa fa-check" ></i>장바구니</a></li>
+                    <br>
+                    <p><b>게시판 이용 내역</b></p>
+                    <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
+                    <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
+                    <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
+                    
+                   		 <c:choose>
+                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
+                              <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
+                           </c:when>
+                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
+                              <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
+                           </c:when>
+                        </c:choose>
+                    <c:if test="${!empty sessionMember}">
+                    <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
+                    <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
+                    </c:if>
+                    
+
+                </ul>
+           </div>
+     </div>
+     <!-- 1nb_list -->
+  </div>
+<!-- side 끝-->
+
+
+			<div class="sellerInfo">
 	<form action="/mypage/sellerInfoModify" id="sellerInfoModify"
 		method="post" enctype="multipart/form-data">
-
-		<div class="a">
-			<h2>마이페이지</h2>
-			<div class="b">
-				<ul>
-					<li><a href="/mypage/sellerInfoModify">회원정보수정</a></li>
-					<li><a href="/mypage/modifyPwd">비밀번호변경</a></li>
-					<li><a href="/mypage/memberDelete">회원탈퇴</a></li>
-				</ul>
-
-			</div>
-			<div class="sellerInfo">
 
 				<table border="1" cellpadding="0" cellspacing="0">
 					<colgroup>
@@ -98,13 +391,21 @@ a {
 					</tr>
 					<tr>
 						<th>주소</th>
-						<td><input type="text" id="memAddr" name="memAddr"
-							value="${sellerInfo.memAddr}"></td>
+						<td>우편번호: <input type="text" id="postCode" name="postCode" size="5" value="${sellerInfo.postCode}" readonly="readonly"> 
+					<a class="daumApi" id="memApi" href="">우편번호검색</a> <br>
+					도로명 주소: <input type="text" id="roadAddr" name="roadAddr" size="50" readonly="readonly"/><br>
+					나머지 주소: <input type="text" id="namujiAddr" name="namujiAddr"> <br>
+					<input type="hidden" id="memAddr" name="memAddr" value="${sellerInfo.memAddr}"><br>
+					<input type="hidden" id="jibunAddr" name="jibunAddr" size="50" value="" /></td>
 					</tr>
 					<tr>
 						<th>상점주소</th>
-						<td><input type="text" id="shopAddr" name="shopAddr"
-							value="${sellerInfo.shopAddr}"  placeholder="필수입력"></td>
+						<td>우편번호: <input type="text" id="shopPostCode" name="shopPostCode" size="5" value="${sellerInfo.shopPostCode}" readonly="readonly"> 
+						<a class="daumApi" id="shopApi" href="">우편번호검색</a> <br>
+						도로명 주소: <input type="text" id="shopRoadAddr" name="shopRoadAddr" size="50" readonly="readonly"/><br>
+						나머지 주소: <input type="text" id="shopNamujiAddr" name="shopNamujiAddr"> <br>
+						<input type="hidden" id="shopAddr" name="shopAddr" value="${sellerInfo.shopAddr}"><br>
+						<input type="hidden" id="jibunAddr" name="jibunAddr" size="50" value="" /></td>
 					</tr>
 					<tr>
 						<th>계좌번호</th>
@@ -128,7 +429,14 @@ a {
 					<tr>
 						<th>배경이미지 변경<input type="file" style="color:transparent" id="backImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" >
 						</th>
-						<td><img src='/resources/seller/<c:out value="${sellerInfo.businessCode}"/>/<c:out value="${sellerInfo.backImg}"/>'>
+						
+						<td>
+						<c:if test="${!empty sellerInfo.backImg}">
+						<img src='/resources/seller/<c:out value="${sellerInfo.businessCode}"/>/<c:out value="${sellerInfo.backImg}"/>'>
+						</c:if>
+						<c:if test="${empty sellerInfo.backImg}">
+						<img src=''>
+						</c:if>
 						</td>
 					</tr>
 				</table>
@@ -139,48 +447,69 @@ a {
 				<br>
 				<button type="submit" id="submitBtn">수정하기</button>
 
+	</form>
 			</div>
 
 		</div>
-	</form>
 	<input type="hidden" id="result" name="result" value="${result}">
+</div>
 
 	<script>
 		$(document)
 				.ready(
 						function() {
 
-							let sellerInfoModify = $("#sellerInfoModify");
+							sellerInfoModify = $("#sellerInfoModify");
 
-							let memName = $("#memName");
-							let shopName = $("#shopName");
-							let memAddr = $("#memAddr");
-							let shopAddr = $("#shopAddr");
-							let contact1 = $("#contact1");
-							let contact2 = $("#contact2");
-							let bankAccount = $("#bankAccount");
-							let bank = $("#bank");
-							let bankTmp = $("#bankTmp");
+							memName = $("#memName");
+							shopName = $("#shopName");
+							memAddr = $("#memAddr");
+							roadAddr = $("#roadAddr");
+							namujiAddr = $("#namujiAddr");
+							shopAddr = $("#shopAddr");
+							shopRoadAddr = $("#shopRoadAddr");
+							shopNamujiAddr = $("#shopNamujiAddr");
+							contact1 = $("#contact1");
+							contact2 = $("#contact2");
+							bankAccount = $("#bankAccount");
+							bank = $("#bank");
+							bankTmp = $("#bankTmp");
+							
+							addrs = memAddr.val().split("/");
+							roadAddr.val(addrs[0]);
+							namujiAddr.val(addrs[1]);
+							
+							shopAddrs = shopAddr.val().split("/");
+							shopRoadAddr.val(shopAddrs[0]);
+							shopNamujiAddr.val(shopAddrs[1]);
 
-							let option = bank.find("option");
+							option = bank.find("option");
+							
+							aTags = $(".daumApi");
+							aTags.on().click(function(e){
+								e.preventDefault();
+								let targetId = $(e.target).prop("id");
+								execDaumPostcode(targetId);
+							})
 
-							for (let i = 0; i < option.length; i++) {
-								let bankName = $(option[i]);
+							for (var i = 0; i < option.length; i++) {
+								var bankName = $(option[i]);
+								console.log(bankName);
 								if (bankName.val() == bankTmp.val()) {
 									bankName.prop("selected", "true");
 								}
 							}
 
-							let submitBtn = $("#submitBtn");
+							submitBtn = $("#submitBtn");
 
 							submitBtn.click(function(e) {
 								e.preventDefault();
 
-								if (!(memNameCheck())) {
+								if (!(memAddrCheck())) {
+									return false;
+								} else if (!(memNameCheck())) {
 									return false;
 								} else if (!(shopNameCheck())) {
-									return false;
-								} else if (!(memAddrCheck())) {
 									return false;
 								} else if (!(shopAddrCheck())) {
 									return false;
@@ -193,12 +522,19 @@ a {
 								} else if (!(bankAccountCheck())) {
 									return false;
 								} else {
+									if (namujiAddr.val().trim() == "" || namujiAddr.val() == null
+											&& roadAddr.val() == "" || roadAddr.val() == null){
+										memAddr.val(null);
+									} else {
+										memAddr.val(roadAddr.val()+"/"+namujiAddr.val());
+									}
+									shopAddr.val(shopRoadAddr.val()+"/"+shopNamujiAddr.val());
 									sellerInfoModify.submit();
 								}
 
 							});
 
-							let result = $("#result").val();
+							result = $("#result").val();
 							alertResult(result);
 							history.replaceState({}, null, null)
 
@@ -210,7 +546,7 @@ a {
 							}
 
 							function memNameCheck() {
-								let regExp = /^[가-힣]{1,5}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
+								let regExp = /^[가-힣a-zA-Z]+$/;
 
 								if (memName.val().trim() == ""
 										|| memName.val() == null) {
@@ -233,7 +569,8 @@ a {
 							;
 
 							function shopNameCheck() {
-								let regExp = /^[가-힣]{1,10}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
+								let regExp =/^[가-힣a-zA-Z]+$/;
+								
 
 								if (shopName.val().trim() == ""
 										|| shopName.val() == null) {
@@ -255,42 +592,52 @@ a {
 							}
 							;
 
-							function memAddrCheck() {
-								
+							function memAddrCheck(){
 
-								if (memAddr.val().length > 50) {
-									alert("50자까지만 입력할 수 있습니다.")
-									memAddr.focus();
+								if (roadAddr.val() == "" || roadAddr.val() == null){
+									if (!(namujiAddr.val().trim() == "" || namujiAddr.val() == null)) {
+									alert("도로명 주소를 입력해주세요.");
+									roadAddr.focus();
 									return false;
-								}  else {
-									return true;
-								}
-
-							}
-							;
-
-							function shopAddrCheck() {
-								let regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
-
-								if (shopAddr.val().trim() == ""
-										|| shopAddr.val() == null) {
-									alert("상점주소를 입력해주세요.");
-									shopAddr.focus();
+									} else {
+										return true;
+									}
+								} else if (namujiAddr.val().trim() == "" || namujiAddr.val() == null
+										&& !(roadAddr.val() == "" || roadAddr.val() == null)){
+									alert("회원의 나머지 주소를 입력해주세요.");
+									namujiAddr.focus();
 									return false;
-								} else if (shopAddr.val().length > 50) {
-									alert("50자까지만 입력할 수 있습니다.")
-									shopAddr.focus();
-									return false;
-								} else if (!regExp.test(shopAddr.val())) {
-									alert("상점주소를 양식에 맞게 다시 입력하세요.");
-									shopAddr.focus();
-									return false
+								} else if (namujiAddr.val().length > 30) {
+										alert("30자까지만 입력할 수 있습니다.")
+										namujiAddr.focus();
+										return false;
 								} else {
 									return true;
 								}
+								
+							};
 
-							}
-							;
+							function shopAddrCheck(){
+
+								if (shopRoadAddr.val() == "" || shopRoadAddr.val() == null) {
+									alert("상점주소는 낫널입니다 더미를 지워주세요");
+									shopRoadAddr.focus();
+									return false;
+								} else if (shopNamujiAddr.val().trim() == "" || shopNamujiAddr.val() == null){
+									alert("상점의 나머지 주소를 입력해주세요.");
+									shopNamujiAddr.focus();
+									return false;
+								} else if (shopNamujiAddr.val().length > 30) {
+									alert("30자까지만 입력할 수 있습니다.")
+									shopNamujiAddr.focus();
+									return false;
+								} else {
+									return true;
+								}
+								
+							};
+							
+							
 							function contact1Check() {
 								let regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 
@@ -393,6 +740,51 @@ a {
 							
 
 						});
+		
+		
+		
+		function execDaumPostcode(targetId) {
+			let postCode = "";
+			let roadAddr = "";
+			if(targetId=="memApi"){
+				postCode = "postCode";
+				roadAddr = "roadAddr";
+			} else if (targetId=="shopApi") {
+				postCode = "shopPostCode";
+				roadAddr = "shopRoadAddr";
+			}
+			new daum.Postcode(
+					{
+						
+							oncomplete : function(data) {
+
+								let fullRoadAddr = data.roadAddress;
+								let extraRoadAddr = '';
+
+								if (data.bname !== ''
+										&& /[동|로|가]$/g.test(data.bname)) {
+									extraRoadAddr += data.bname;
+								}
+								if (data.buildingName !== ''
+										&& data.apartment === 'Y') {
+									extraRoadAddr += (extraRoadAddr !== '' ? ', '
+											+ data.buildingName : data.buildingName);
+								}
+								if (extraRoadAddr !== '') {
+									extraRoadAddr = ' (' + extraRoadAddr + ')';
+								}
+								if (fullRoadAddr !== '') {
+									fullRoadAddr += extraRoadAddr;
+								}
+
+								document.getElementById(postCode).value = data.zonecode;
+								document.getElementById(roadAddr).value = fullRoadAddr;
+
+							}
+						}).open()
+
+			};
+			
 	</script>
 </body>
 </html>

@@ -44,6 +44,7 @@ public class HomeController {
 
 
 //	@Autowired
+
 //	private messageService mservice;
 
 	private BannerService bannerService;

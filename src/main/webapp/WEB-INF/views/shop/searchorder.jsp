@@ -22,7 +22,8 @@ table, td, th {
  		<body>
   
 		      <form id='searchForm' action="/shop/searchorder" method = 'get'>  
-		          <div> 검색어
+		           	      주문일<input id ='date1' name='date1' type='date'>~<input id ='date2'  name='date2' type='date'>
+				        <div> 검색어
 		                <select name='type'>
 		                
 							  <option value=""
@@ -39,17 +40,12 @@ table, td, th {
 		                <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
 					    <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
 					    <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>               
-					    <button class='btn btn-default' id="searchBtn"> 검색 </button>  
+					    <button class='btn btn-default' id="searchBtn"> 검색 </button> 
+					    <button type = 'reset'> 초기화 </button> 
 						      <br>
-						          <div>
-						              주문일<input type='date'>~<input type='date'>
-		
-		
-		          </div>
-		      <br>
-		      </form> 
-		      
-		      	<form id="test" method="POST">
+		  
+		    
+		      	
 		          <div > 주문상태
 		                <input name='orderStat' type="radio" value = 'all' checked>전체
 		                <input name='orderStat' type="radio" value = '상품준비중'>상품준비중
@@ -57,10 +53,10 @@ table, td, th {
 		                <input name='orderStat' type="radio" value = 'orderStat'>배송완료
 		                <button class='radioBtn' id="radioBtn"> 검색 </button>
 		          </div>  
-		          </form>    
+		        </form>    
 		      <br>
 		             
-		              <button type = 'reset'> 초기화 </button>  
+		                
 			
 		              <table tit aria-setsize="500px">
 		                  <thead>
@@ -82,9 +78,7 @@ table, td, th {
 		                      
 		                    </tr>
 		                  </thead>
-		                  
-		                  
-		                  
+         
 		              <c:forEach items="${list}" var="list">
 		        
 		                     <tr>
@@ -111,9 +105,7 @@ table, td, th {
 		                        
 		                    </tr> 
 		                  </c:forEach>
-		                  
-
-		                  </table>
+		               </table>
 		                  
 		                  <!-- 페이징 처리 시작 -->
 		                  
@@ -157,6 +149,7 @@ table, td, th {
 <script type='text/javascript'>
 $(document).ready(function(){
 
+
 	
       //페이징처리
       $(".paginate_button a").on("click", function(e) {
@@ -173,6 +166,10 @@ $(document).ready(function(){
       //검색부분
       var searchForm = $("#searchForm");
       $("#searchForm").find(".btn").on("click", function(e){
+    	  
+    	  var check = $("input:radio[name='orderStat']:checked").val();
+          
+     	   alert(check);
   
     
               if(!searchForm.find("option:selected").val()){
@@ -190,25 +187,6 @@ $(document).ready(function(){
               
               searchForm.submit();  
     	  
-      });
-      
-      $("#radioBtn").on("click", function(e){
-
-         var check = $("input:radio[name='orderStat']:checked").val();
-         
-    	 alert(check);
-    	   
-         $("#test").submit();
-          /* $.ajax({
-				url : '/shop/searchorder',
-				data : {orderStat : check},
-				dataType : 'text',
-				type : 'POST',
-				success : function(result) {
-					alert("ㅂ뀜");
-				}
-			});  */	// $.ajax
-
       });
 	
 });

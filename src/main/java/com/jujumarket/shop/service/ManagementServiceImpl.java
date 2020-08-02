@@ -68,9 +68,16 @@ public class ManagementServiceImpl implements ManagementService {
 
 
 	@Override
-	public List<ManagementVO> searcheckAll(String orderStat) {
+	public List<ManagementVO> searcheckAll(ItemCriteria cri) {
 
-		return mapper.getcheckAll(orderStat);
+		return mapper.getcheckAll(cri);
+	}
+
+
+	@Override
+	public List<ManagementVO> Shippingdate(ManagementVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.datedate(vo);
 	}
 
 }
