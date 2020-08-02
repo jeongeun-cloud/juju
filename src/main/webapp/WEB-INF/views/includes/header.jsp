@@ -96,16 +96,19 @@ li {
                  <c:if test="${!empty sessionMember}">
                      <!-- <li><a href="/member/logout">로그아웃</a></li> -->
                      <li><a>${sessionMember.memName} 님 안녕하세요!</a></li>
+	                 <c:choose>
+		                <c:when test="${sessionMember.memCode eq 'KAKAO'}">
+		                	<li><a href="https://kauth.kakao.com/oauth/logout?client_id=01b574850137dfee5c295348e0be136f&logout_redirect_uri=http://localhost/member/kakaoLogout">로그아웃</a></li>
+		                </c:when>
+		                <c:when test="${sessionMember.memCode eq 'NAVER'}">
+		                	<li><a href="/member/naverLogout">로그아웃</a></li>
+		                </c:when>
+		                <c:otherwise>
+		                	<li><a href="/member/logout">로그아웃</a></li>
+		             	</c:otherwise>
+					 </c:choose>
                   </c:if>
 
-                  <c:choose>
-	                  <c:when test="${sessionMember.memCode eq 'CUSTOMER' or sessionMember.memCode eq 'SELLER' or sessionMember.memCode eq 'JUNIOR'}">
-	                  	  <li><a href="/member/logout">로그아웃</a></li>
-	                  </c:when>
-	                  <c:when test="${sessionMember.memCode eq 'SOCIAL'}">
-	                  	  <li><a href="https://kauth.kakao.com/oauth/logout?client_id=01b574850137dfee5c295348e0be136f&logout_redirect_uri=http://localhost/member/kakaoLogout">로그아웃</a></li>
-	                  </c:when>
-				  </c:choose>
 
                   <li class="dropdown_sub"><a href="/mypage/myQna/list" class="subMemu">마이페이지</a>
 <%--                      <div class="subMemu-content">

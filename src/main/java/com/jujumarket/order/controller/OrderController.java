@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jujumarket.main.domain.BasketVO;
 import com.jujumarket.order.domain.DeliveryVO;
+import com.jujumarket.order.domain.MemberVO;
 import com.jujumarket.order.domain.OrderInfoVO;
 import com.jujumarket.order.domain.OrderMemberVO;
 import com.jujumarket.order.domain.OrderRequestVO;
@@ -53,13 +54,31 @@ public class OrderController {
 		if (session.getAttribute("sessionMember") == null) {
 			return "redirect:/member/login";
 		}
+
+
 		//System.out.println("test1");
 		// model에 orderList를 담아 주문서(orderItemsForm.jsp)에 출력
 		model.addAttribute("orderList", orderService.getOrderResponse(idNo));
 		
 		//System.out.println("test2");
 		// model에 memberInfo를 담아 주문서(orderItemsForm.jsp)에 출력
-		model.addAttribute("memberInfo", orderMemberService.getOrderMemberInfo(idNo));
+		// 0802 주정은 수정
+		MemberVO vo = (MemberVO) session.getAttribute("sessionMember");
+		String memCode = vo.getMemCode();
+		if(memCode.equals("CUSTOMER")) {
+			
+			// model에 memberInfo를 담아 주문서(orderItemsForm.jsp)에 출력
+			model.addAttribute("memberInfo", orderMemberService.getOrderMemberInfo(idNo));
+			// idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
+			String orderCode = orderService.getRecentOrderCode(idNo);
+			if (orderCode != null) {
+				//model.addAttribute("recentDelivery", deliveryService.get(orderCode));
+			}
+		} else if(memCode.equals("SELLER") || memCode.equals("JUNIOR")) {
+			model.addAttribute("memberInfo", orderMemberService.getOrderSellerInfo(idNo));
+		} else {
+			model.addAttribute("memberInfo", orderMemberService.getOrderSocialInfo(idNo));
+		}
 		
 		//System.out.println("test3");
 		// idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
@@ -71,6 +90,7 @@ public class OrderController {
 		if (orderCode != null) {
 			model.addAttribute("recentDelivery", deliveryService.get(orderCode));
 		}
+
 		return "order/orderItemsForm";
 	}
 
@@ -92,7 +112,16 @@ public class OrderController {
 		
 		List<OrderResponseVO> itemList = orderService.showOrderList(orderCode);
 		String idNo = order.getIdNo();
-		OrderMemberVO orderMember = orderMemberService.getOrderMemberInfo(idNo);
+		
+		// 0802 주정은 수정
+		OrderMemberVO orderMember = new OrderMemberVO();
+		if(idNo.substring(0, 1).equals("c")) {
+			orderMember = orderMemberService.getOrderMemberInfo(idNo);
+		}else if(idNo.substring(0, 1).equals("s")) {
+			orderMember = orderMemberService.getOrderSellerInfo(idNo);
+		}else {
+			orderMember = orderMemberService.getOrderSocialInfo(idNo);
+		}
 //      List<OrderResponseVO> itemList = orderService.getOrderResponse(idNo);
 		// 주문번호로 배송정보를 가져오기
 		DeliveryVO delivery = deliveryService.get(orderCode);
@@ -182,9 +211,20 @@ public class OrderController {
 		// model에 orderList를 담아 주문서(orderItemsForm.jsp)에 출력
 		model.addAttribute("orderList", orderService.getOrderResponse(idNo));
 		System.out.println(idNo);
-		System.out.println(orderMemberService.getOrderMemberInfo(idNo).toString());
+		
+		// 0802 주정은 수정
 		// model에 memberInfo를 담아 주문서(orderItemsForm.jsp)에 출력
-		model.addAttribute("memberInfo", orderMemberService.getOrderMemberInfo(idNo));
+		OrderMemberVO orderMember = new OrderMemberVO();
+		if(idNo.substring(0, 1).equals("c")) {
+			orderMember = orderMemberService.getOrderMemberInfo(idNo);
+			System.out.println(orderMemberService.getOrderMemberInfo(idNo).toString());
+		}else if(idNo.substring(0, 1).equals("s")) {
+			orderMember = orderMemberService.getOrderSellerInfo(idNo);
+		}else {
+			orderMember = orderMemberService.getOrderSocialInfo(idNo);
+		}
+		model.addAttribute("memberInfo", orderMember);
+		
 		// idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
 		String orderCode = orderService.getRecentOrderCode(idNo);
 		if (orderCode != null) {
