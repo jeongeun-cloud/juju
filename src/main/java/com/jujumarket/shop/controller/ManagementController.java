@@ -1,6 +1,7 @@
 package com.jujumarket.shop.controller;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,75 +31,64 @@ import lombok.extern.log4j.Log4j;
 public class ManagementController {
 	private ManagementService service;
 
-	
-	/*
-	 * /searchorder /shipping
-	 */
+	//searchorder /shipping
+
 	
 	
 	 @GetMapping("/searchorder") 
-	 public void searlist(ItemCriteria cri,Model model) {
-		 log.info("searchorder list");
-//		 System.out.println(orderStat);
-		 
-
-			 int total = service.getTotal(cri);
-
+	 public void searlist(ItemCriteria cri,String date1,String date2,Model model,String orderStat) {
 		
-			 model.addAttribute("list", service.searchordergetList(cri));
-			 model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+		   orderStat = orderStat == null?  "" : orderStat;
+		 
+		   SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
+		   Date time = new Date();
+		   String time1 = format1.format(time);
+		
+		   date1 = date1 == null?"2020-07-01": date1;
+		   date2 = date2 == null?time1: date2;
+		   cri.setDate1(date1);
+		   cri.setDate2(date2);
+		   cri.setOrderStat(orderStat);
+		   
+		   int total = service.getTotal(cri);
+
+		   
+		   if(!orderStat.equals("")) {
+				 
+				 	if(orderStat.equals("all")) {
+						model.addAttribute("list", service.searcheckAll(cri));
+					}else {
+						 model.addAttribute("list", service.searchordergetList(cri));
+				    }  
+		   
+		   
+		   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
   
-	  }
-	 
-	 
-	 //라디오버튼 검색기능/날짜 검색기능
-	 @PostMapping("/searchorder")
-	 public void searchcheck(String orderStat,String date1,String date2, ItemCriteria cri, Model model) {
-		 
-		 orderStat = orderStat == null?  "" : orderStat;
-		 date1 = date1 == null?  "" : date1;
-		 date2 = date2 == null?  "" : date2;
-		 
-		 int total = service.getTotal(cri);
-		 model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
-		 
-		 System.out.println(orderStat);
-		 
-		 if(!orderStat.equals("")) {
-		 
-		 	if(orderStat.equals("all")) {
-				model.addAttribute("list", service.searcheckAll(orderStat));
-			}else {
-				model.addAttribute("list", service.searcheck(orderStat)); 
-			}
-		 }else {
-			 if(!(date1.equals("")) && !(date2.equals("")) ) {
-				 
-				 
-				 
-				 ManagementVO vo = new ManagementVO();
-				 
-				 vo.setDate1(date1);
-				 vo.setDate2(date2);
-			
-				 
-		 			model.addAttribute("list", service.Shippingdate(vo)); 
-		 			
-		 		}
-		 }
-		 	
+	       }
 	 }
-	 
+	
 	 
 	 //배송대기중 출력
 	 @GetMapping("/shipping")
 	 public void  shippinglist(ItemCriteria cri , Model model, String date1,String date2) {
 	 int total = service.getNotTotal(cri);
 
-	
-	   cri.setDate1(date1);
-	   cri.setDate2(date2);
+	 
+	   SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+			 
+	   Date time = new Date();
 	   
+	   String time1 = format1.format(time);
+	   
+  
+	   
+	   date1 = date1 == null?"2020-07-01": date1;
+	   date2 = date2 == null?time1: date2;
+	   
+	  cri.setDate1(date1);
+	  cri.setDate2(date2);
+	   
+	  System.out.println("datessdatess" + time1);
 	   System.out.println(cri.getDate1());
 	   System.out.println(cri.getDate2());
 

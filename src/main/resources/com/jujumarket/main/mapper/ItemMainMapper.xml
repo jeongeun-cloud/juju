@@ -12,41 +12,41 @@ select * from t_item
 
 <!-- 이 부분 수정해야함 - 아이템 이미지 1,2,3,4 넣어야함 -->
 <insert id="insert">
-	insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, idNo)
-	values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat}, #{itemChr}, #{itemImg}, #{classCode}, #{idNo})
+   insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, idNo)
+   values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat}, #{itemChr}, #{itemImg}, #{classCode}, #{idNo})
 </insert>
 
 
 <!-- 이 부분 수정해야함 - 아이템 이미지 1,2,3,4 넣어야함 -->
 <insert id="insertSelectKey">
-	insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, idNo)
-	values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat}, #{itemChr}, #{itemImg}, #{classCode}, #{idNo})
+   insert into t_item (itemCode, itemName, itemContent, price, normPrice, stock, dispStat, saleStat, itemChr, itemImg, classCode, idNo)
+   values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{stock}, #{dispStat}, #{saleStat}, #{itemChr}, #{itemImg}, #{classCode}, #{idNo})
 </insert>
 
 
 
 <select id="get" resultType="com.jujumarket.main.domain.ItemMainVO">
-	select * from t_item where itemCode = #{itemCode}
+   select * from t_item where itemCode = #{itemCode}
 </select>
 
 <delete id="delete">
-	delete from t_item where itemCode = #{itemCode}
+   delete from t_item where itemCode = #{itemCode}
 </delete>
 
 <update id="update">
-	update t_item
-	set	itemName=#{itemName},
-	itemContent=#{itemContent},
-	price=#{price},
-	normPrice=#{normPrice},
-	stock=#{stock},
-	dispStat=#{dispStat},
-	saleStat=#{saleStat},
-	itemChr=#{itemChr},
-	itemImg=#{itemImg},
-	classCode=#{classCode},
-	idNo=#{idNo}
-	where itemCode=#{itemCode}
+   update t_item
+   set   itemName=#{itemName},
+   itemContent=#{itemContent},
+   price=#{price},
+   normPrice=#{normPrice},
+   stock=#{stock},
+   dispStat=#{dispStat},
+   saleStat=#{saleStat},
+   itemChr=#{itemChr},
+   itemImg=#{itemImg},
+   classCode=#{classCode},
+   idNo=#{idNo}
+   where itemCode=#{itemCode}
 </update>
 
 
@@ -55,19 +55,18 @@ select * from t_item
 insert into t_alarm_history(itemCode, idNo )
 values(#{itemCode}, #{idNo})
 
-<select id="getShop" resultType="String">
-	select s.shopName
-	from m_shop s, t_item i
-	where i.idNo = s.idNo
-	and i.itemCode = #{itemCode}
-</select>
-
-
 </insert>
 
+<select id="getShop" resultType="String">
+   select s.shopName
+   from m_shop s, t_item i
+   where i.idNo = s.idNo
+   and i.itemCode = #{itemCode}
+</select>
+
 <delete id="cancelAlarm">
-	delete from t_alarm_history
-	where  itemCode = #{itemCode} AND idNo=#{idNo}
+   delete from t_alarm_history
+   where  itemCode = #{itemCode} AND idNo=#{idNo}
 </delete>
 
 
