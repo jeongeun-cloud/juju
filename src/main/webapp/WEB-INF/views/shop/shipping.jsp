@@ -159,16 +159,6 @@ $(document).ready(function(){
 
 $(document).on("click","button[id='dateBtn']",function(e){
   
-	  
-		 arlert ("시발?");
-	 var dd = $("#dateFrom").find("#date1").val();
-	    	 var dd2 = $("#dateFrom").find("#date2").val();
-	    
-	    	 console.log(dd);
-	    	 console.log(dd2);
-	    	 
-	    	 
-   });
  	$.fn.rowspan = function(colIdx, isStats) {
 		
 		
@@ -252,12 +242,7 @@ $(document).on("click","button[id='dateBtn']",function(e){
 		    var searchForm = $("#searchForm");
 		    $("#searchForm").find(".btn").on("click", function(e){
 		    	
-		    	    var a = $("#date1").val();
-		    	     var b = $("#date2").val();
 		    	
-		    	     console.log(a);
-		    	     console.log(b);
-
 		            if(!searchForm.find("option:selected").val()){
 		               alert("검색종류를 선택하세요");
 		               return false;

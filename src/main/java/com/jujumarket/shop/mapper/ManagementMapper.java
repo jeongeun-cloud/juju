@@ -24,7 +24,7 @@ public interface ManagementMapper {
 		
 		public List<ManagementVO> getcheck(String orderStat);
 		
-		public List<ManagementVO> getcheckAll(String orderStat);
+		public List<ManagementVO> getcheckAll(ItemCriteria cri);
 		
 		public void insertSelectKey(ManagementVO vo);
 		

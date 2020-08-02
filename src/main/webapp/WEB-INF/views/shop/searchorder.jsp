@@ -22,7 +22,8 @@ table, td, th {
  		<body>
   
 		      <form id='searchForm' action="/shop/searchorder" method = 'get'>  
-		          <div> 검색어
+		           	      주문일<input id ='date1' name='date1' type='date'>~<input id ='date2'  name='date2' type='date'>
+				        <div> 검색어
 		                <select name='type'>
 		                
 							  <option value=""
@@ -43,16 +44,8 @@ table, td, th {
 					    <button type = 'reset'> 초기화 </button> 
 						      <br>
 		  
-		      </form> 
-		      
-		      <form id='dateForm' action='/shop/searchorder' method='POST' > 
-		      			주문일<input id='date1' name='date1' type='date'>~<input id='date2' name='date2' type='date'>
-		      			<button class='dateBtn' id="dateBtn"> 검색 </button> 
-		                <button type = 'reset'> 초기화 </button> 
-		      
-		      </form>
-		      
-		      	<form id="test" method="POST">
+		    
+		      	
 		          <div > 주문상태
 		                <input name='orderStat' type="radio" value = 'all' checked>전체
 		                <input name='orderStat' type="radio" value = '상품준비중'>상품준비중
@@ -155,18 +148,7 @@ table, td, th {
 </body>
 <script type='text/javascript'>
 $(document).ready(function(){
-	
-	  var dateForm = $("#dateFrom");
-	  $("#dateForm").find("#dateBtn").on("click", function(e){
-		  
-		 var date1 = $("#date1").val();
-	     var date2 = $("#date2").val();
-		  
 
-		  console.log(date1);
-		  console.log(date2);
-		  alert(date2);
-	  });
 
 	
       //페이징처리
@@ -184,6 +166,10 @@ $(document).ready(function(){
       //검색부분
       var searchForm = $("#searchForm");
       $("#searchForm").find(".btn").on("click", function(e){
+    	  
+    	  var check = $("input:radio[name='orderStat']:checked").val();
+          
+     	   alert(check);
   
     
               if(!searchForm.find("option:selected").val()){
@@ -201,25 +187,6 @@ $(document).ready(function(){
               
               searchForm.submit();  
     	  
-      });
-      
-      $("#radioBtn").on("click", function(e){
-
-         var check = $("input:radio[name='orderStat']:checked").val();
-         
-    	 alert(check);
-    	   
-         $("#test").submit();
-          /* $.ajax({
-				url : '/shop/searchorder',
-				data : {orderStat : check},
-				dataType : 'text',
-				type : 'POST',
-				success : function(result) {
-					alert("ㅂ뀜");
-				}
-			});  */	// $.ajax
-
       });
 	
 });
