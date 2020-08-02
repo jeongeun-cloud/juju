@@ -415,6 +415,7 @@
             </tbody>
          </table>
          <input type="hidden" class="memberInfo" id="memAddr" value="${memberInfo.memAddr }">
+         <input type="hidden" class="memberZipCode" id="memZipCode" value="${memberInfo.postCode }">
          
          
           <!-- 라인 -->
@@ -447,6 +448,7 @@
          <input type="hidden" class="recentDeliveryInfo" id="recentReceiver" value = "${recentDelivery.receiver}">
          <input type="hidden" class="recentDeliveryInfo" id="recentReceivContact" value = "${recentDelivery.receivContact}">
          <input type="hidden" class="recentDeliveryInfo" id="recentReceivAddr" value="${recentDelivery.receivAddr}">
+         <input type="hidden" class="recentDeliveryInfo" id="recentReceivZipcode" value="${recentDelivery.postCode}">
       
        <!-- 라인 -->
         <hr style="border:solid 1px lightgray;">
@@ -477,16 +479,14 @@
                   
                   
                   <div style="padding-bottom: 10px; display:block;">
-                  <input type="text" id="zipcode" name="zipcode" size="5" value="" readonly="readonly"> 
+                      우 편 번 호 : <input type="text" id="zipcode" name="zipcode" size="5" value="" readonly="readonly"> 
                   <a href="javascript:execDaumPostcode()">우편번호검색</a> <br>
                   
                   </div>
                   
-                        지번 주소: <input type="text" id="jibunAddress" name="jibunAddress"
-                           size="50" value="" /><br> <br> 도로명 주소: <input
-                           type="text" id="roadAddress" name="roadAddress" size="50"
-                           value="" /><br> <br> 나머지 주소: <input type="text"
-                           id="receivAddr" name="receivAddr" size="50" value="" />
+                        도로명 주소: <input type="text" id="roadAddress" name="roadAddress" size="50" value="" /><br> <br> 
+                        나머지 주소: <input type="text" id="receivAddr" name="receivAddr" size="50" value="" />
+                        <input type="hidden" id="jibunAddress" name="jibunAddress" size="50" value="" /><br> <br> 
                      </td>
                </tr>
                <tr class="dot_line">
@@ -576,40 +576,36 @@ var idNo = document.getElementById("idNo")
 
 
 
+	
+	var sameAsMem = $("#sameAsMem");
+	var recentDelivery = $("#recentDelivery");
+	var orderResult = $("#orderResult");
 
-/* 그냥 baskId 잘 받아져 오는지 크롬 콘솔에서 확인하는 테스트용 onload 임(지워도 됨) 시작 */
-window.onload = function() {
-	/* 
-	var selectedBasketList = document.getElementById("selectedBasketList").value;
+	var memName = $("#memName");
+	var contact = $("#contact");
+	var memAddr = $("#memAddr");
+	var memZipCode = $("#memZipCode");
 	
-	// 왜 selectedBasketList.length 가 22 지  = 왜냐면 문자가 하나하나 들어오기 때문인듯 : [baskId105, baskId107] 이런 식으로 
+	var addrs = [];
+	addrs = memAddr.val().split("   ");
 	
-	
-	console.log(selectedBasketList);
-	
-	var end = selectedBasketList.length; 
-	
-	console.log(end);
-	
-	// 맨 앞이랑 맨 뒤에 있는 [ ] 이거 제거해주기 
-	selectedBasketList = selectedBasketList.substring(1,selectedBasketList.length-1);
-	
-	// 이제 baskId105, baskId107 이렇게 나온다 
-	console.log(selectedBasketList);
-	
-	basketIDArr = selectedBasketList.split(", ");
-	
-	for(var i=0; i<basketIDArr.length; i++) {
-		
-		console.log("잘나오나"+basketIDArr[i]); // 분리되서 잘 나온다 
-		
-		
-	}
-	 */
+	var receiver = $("#receiver");
+	var receivContact = $("#receivContact");
+	var zipcode = $("#zipcode");
+	var roadAddress = $("#roadAddress");
+	var receivAddr = $("#receivAddr");
+	var reqNote = $("#reqNote");
 	
 	
-}
-/* 그냥 baskId 잘 받아져 오는지 크롬 콘솔에서 확인하는 테스트용 onload 임(지워도 됨) 끝 */
+	var recentReceiver = $("#recentReceiver");
+	var recentReceivContact = $("#recentReceivContact");
+	var recentReceivAddr = $("#recentReceivAddr");
+	var recentReceivZipcode = $("#recentReceivZipcode");
+	
+	var raddrs = [];
+	raddrs = recentReceivAddr.val().split("   ");
+
+
 
 
 
@@ -620,7 +616,6 @@ function paymentComplete() {
 	var selectedBasketList = document.getElementById("selectedBasketList");
 	
 	selectedBasketList = selectedBasketList.value;
-	
 	
 	console.log("selectedBasketList : " + selectedBasketList);
 	// [BasketVO(baskId=baskId218, itemNum=1, idNo=c0002, itemCode=abcd0013, itemName=빠삐용 시금치, itemImg1=babbi.jpg, price=1300, normPrice=1500), BasketVO(baskId=baskId219, itemNum=1, idNo=c0002, itemCode=abcd0013, itemName=빠삐용 시금치, itemImg1=babbi.jpg, price=1300, normPrice=1500)]
@@ -640,7 +635,6 @@ function paymentComplete() {
 	
 	// 이제 baskIdArr 에는 ["baskId217", "baskId218", "baskId219"] 이렇게 배열로 담김! 
 	console.log(baskIdArr);
-	
 	
 	// t_order 테이블에 주문내용 insert 한다 
 	orderTableInsert()
@@ -666,13 +660,11 @@ function paymentComplete() {
 		
 	}).then(function(){
 		
-		
-		
 		setTimeout(function(){
 			
 			for(var i=0; i<baskIdArr.length; i++) {
 				
-				// 주문한 제품은 t_basket 테이블에서 delete - 얘가 자꾸 오류나넹.. 뭔가 순서 없이 먼저 실행되는듯? 
+				// 주문한 제품은 t_basket 테이블에서 delete 
 				deletefromBasket(baskIdArr[i]);
 			}
 			
@@ -686,46 +678,30 @@ function paymentComplete() {
 		// orderResult 페이지로 넘어가기 
 		location.href = "/order/orderResult" + "?orderCode=" + orderCode;
 		
-		// orderResult 페이지에서는 DB에서 목록 가져오면 될듯 (c 태그로)
 		}, 3);
 	})
 	
 	
-	
-	
 }
 
 
 
 
-/* 장바구니 에서 ajax 로 지우기 funciton 시작 */
-function deletefromBasket(baskId) {
-   
-   return $.ajax({
-      url: "/product/remove",
-      type: "delete",
-      data: baskId,
-      error : function(){console.log("통신실패")},
-      success : function(){console.log("통신성공")}
-      
-      });
-   
-}
-/* 장바구니 에서 ajax 로 지우기 funciton 끝 */
+
 
    
 // t_delivery 테이블에 insert 하는 function 시작
 function deliveryTableInsert(baskId) {
 	
 	var deliveryData = {
-			receiver: "수령인",
-			receivAddr: "수령인주소",
-			receivContact: "연락처",
-			reqNote: "메모",
-			postCode: "dd",
-			orderCode: orderCode,
-			baskId: baskId,
-			
+	         receiver: receiver.val(),
+	         receivAddr: roadAddress.val() + "   " + receivAddr.val(),
+	         receivContact: contact.val(),
+	         reqNote: reqNote.val(),
+	         postCode: zipcode.val(),
+	         orderCode: orderCode,
+	         baskId: baskId,
+	         
 	}
 	
 	return $.ajax({
@@ -753,16 +729,18 @@ function paymentTableInsert() {
 		orderCode : orderCode,
 		jujuName : "주주마켓",
 		jujuContact : "02-222-2222",
-		jujuAddr : "종로 A2",
+		jujuAddr : "종로 비트캠프 A2",
 		jujuCeo : "주정은",
-		subTotal : 1000,
-		tax : 100, 
-		vat : 1100,
-		totalPay : 1100,
-		card : 1100,
+		subTotal : totalPay.value,
+		tax : totalPay.value*10/11, 
+		vat : totalPay.value/11,
+		totalPay : totalPay.value,
+		card : totalPay.value,
+		
+		// 테스트 결제라서 일단 데이터 박아두겠음 
 		cardCompany: "(주)카카오페이",
 		cardNum : "1111-1111-1111-1111",
-		approvalNum : "okok1234",
+		approvalNum : "12345678",
 		monthlyPay: "일시불"
 			
 	}
@@ -860,7 +838,7 @@ function orderTableInsert() {
 		totalPay: totalPay.value,
 		totalSum: totalSum.value,
 		totalDiscount: totalDiscount.value,
-		receivAddr: "서울시",
+		receivAddr: roadAddress.val() + "   " + receivAddr.val(),
 		deliCharge : 2500,
 		isMember: "Y",
 		idNo : idNo.value
@@ -882,6 +860,23 @@ function orderTableInsert() {
 }
 //t_order 테이블에 insert 하는 function 끝
 
+
+
+
+/* 장바구니 에서 ajax 로 지우기 funciton 시작 */
+function deletefromBasket(baskId) {
+   
+   return $.ajax({
+      url: "/product/remove",
+      type: "delete",
+      data: baskId,
+      error : function(){console.log("통신실패")},
+      success : function(){console.log("통신성공")}
+      
+      });
+   
+}
+/* 장바구니 에서 ajax 로 지우기 funciton 끝 */
 
 
 
@@ -946,53 +941,43 @@ window.onload = function() {
 };
 
 function init() {
-
-	var sameAsMem = $("#sameAsMem");
-	var recentDelivery = $("#recentDelivery");
-	var orderResult = $("#orderResult");
-
-	var memName = $("#memName");
-	var contact = $("#contact");
-	var memAddr = $("#memAddr");
 	
-	var receiver = $("#receiver");
-	var receivContact = $("#receivContact");
-	var receivAddr = $("#receivAddr");
-	var reqNote = $("#reqNote");
-	
-	var recentReceiver = $("#recentReceiver");
-	var recentReceivContact = $("#recentReceivContact");
-	var recentReceivAddr = $("#recentReceivAddr");
-
 	//회원정보에 저장된 배송지정보 check
 	sameAsMem.change(function() {       
-		
-		console.log("작동되나 이거");
 		
 		if (sameAsMem.is(":checked")) {
 			receiver.val(memName.val());
 			receivContact.val(contact.val());
-			receivAddr.val(memAddr.val());
+			roadAddress.val(addrs[0]); // 도로명 주소
+			receivAddr.val(addrs[1]); // 상세 주소
+			zipcode.val(memZipCode.val());
 			recentDelivery.prop("checked", false);
 		} else {
 			receiver.val("");
 			receivContact.val("");
-			receivAddr.val("");
+			roadAddress.val(""); // 도로명 주소
+			receivAddr.val(""); // 상세 주소 
+			zipcode.val("");
 		}
 
 	});
 	//최근배송지정보 check
 	recentDelivery.change(function(){
 		
+		
 		if (recentDelivery.is(":checked")) {
 			receiver.val(recentReceiver.val());
 			receivContact.val(recentReceivContact.val());
-			receivAddr.val(recentReceivAddr.val());
+			roadAddress.val(raddrs[0]); // 도로명 주소
+			receivAddr.val(raddrs[1]); // 상세 주소
+			zipcode.val(recentReceivZipcode.val());
 			sameAsMem.prop("checked", false);
 		} else {
 			receiver.val("");
 			receivContact.val("");
-			receivAddr.val("");
+			roadAddress.val(""); // 도로명 주소
+			receivAddr.val(""); // 상세 주소
+			zipcode.val("");
 		}
 		
 		
@@ -1055,16 +1040,16 @@ function init() {
 		var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 
 		if (receivContact.val().trim() == "" || receivContact.val() == null) {
-			alert("[배송지-연락처]값을 입력하시오.")
+			alert("[연락처]값을 입력하시오.")
 			receivContact.focus();
 			return false;
 		} else if (receivContact.val().length > 13) {
-			alert("[배송지-연락처]13자까지만 입력할 수 있습니다.")
+			alert("[연락처]13자까지만 입력할 수 있습니다.")
 			receivContact.focus();
 			return false;
 			// 수령인 연락처 입력값 유효성 check
 		} else if (!regExp.test(receivContact.val())) {
-			alert("[배송지-연락처]숫자,- 만 입력할 수 있습니다.");
+			alert("[연락처]숫자,- 만 입력할 수 있습니다.");
 			receivContact.focus();
 			return false
 		} else {
@@ -1075,10 +1060,17 @@ function init() {
 	
 	//[배송지](receivAddr)유효성check
 	function receivAddrCheck() {
-
-		if (receivAddr.val().trim() == "" || receivAddr.val() == null) {
-			alert("[배송지]값을 입력해주세요.");
+		if (zipcode.val().trim() == "" || zipcode.val() == null) {
+			alert("[우편번호]값을 입력해주세요.");
+			zipcode.focus();
+			return false;
+		} else if (receivAddr.val().trim() == "" || receivAddr.val() == null) {
+			alert("[나머지주소]값을 입력해주세요.");
 			receivAddr.focus();
+			return false;
+		} else if (roadAddress.val().trim() == "" || roadAddress.val() == null) {
+			alert("[도로명주소]값을 입력해주세요.");
+			roadAddress.focus();
 			return false;
 		} else if (receivAddr.val().length > 40) {
 			alert("[배송지]40자까지만 입력할 수 있습니다.");
