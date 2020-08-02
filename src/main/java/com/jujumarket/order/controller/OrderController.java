@@ -53,14 +53,23 @@ public class OrderController {
 		if (session.getAttribute("sessionMember") == null) {
 			return "redirect:/member/login";
 		}
+		//System.out.println("test1");
 		// model에 orderList를 담아 주문서(orderItemsForm.jsp)에 출력
 		model.addAttribute("orderList", orderService.getOrderResponse(idNo));
+		
+		//System.out.println("test2");
 		// model에 memberInfo를 담아 주문서(orderItemsForm.jsp)에 출력
 		model.addAttribute("memberInfo", orderMemberService.getOrderMemberInfo(idNo));
+		
+		//System.out.println("test3");
 		// idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
 		String orderCode = orderService.getRecentOrderCode(idNo);
+		//System.out.println("test4");
+		
+		System.out.println("orderCode 비었어? " + orderCode);
+		
 		if (orderCode != null) {
-			//model.addAttribute("recentDelivery", deliveryService.get(orderCode));
+			model.addAttribute("recentDelivery", deliveryService.get(orderCode));
 		}
 		return "order/orderItemsForm";
 	}
@@ -74,16 +83,12 @@ public class OrderController {
 	@GetMapping("/orderResult")
 	public String orderResult(@RequestParam("orderCode") String orderCode, Model model, HttpSession session) {
 		log.info("/orderResult");
-		System.out.println("orderResult 들어왔음1");
 		if (session.getAttribute("sessionMember") == null) {
 			return "redirect:/member/login";
 		}
-		System.out.println("orderResult 들어왔음2" + orderCode);
 		OrderVO order = orderService.get(orderCode);
-		System.out.println("orderResult 들어왔음3");
 		
 		System.out.println("OrderController 에서 orderResult 메서드의 order.toString()" + order.toString());
-		System.out.println("orderResult 들어왔음4");
 		
 		List<OrderResponseVO> itemList = orderService.showOrderList(orderCode);
 		String idNo = order.getIdNo();
@@ -154,8 +159,13 @@ public class OrderController {
 //   }
 
 	@PostMapping("/orderItemsForm")
-	public void sendChkRow(@RequestParam("idNo") String idNo, String[] checkRow, Model model) {
+	public void sendChkRow(@RequestParam("idNo") String idNo, String[] checkRow, Model model, HttpSession session) {
 
+		if (session.getAttribute("sessionMember") == null) {
+			//return "redirect:/member/login";
+		}
+		
+		
 		List<BasketVO> list = new ArrayList<>();
 		for (int i = 0; i < checkRow.length; i++) {
 			list.add(orderService.getOne(checkRow[i]));
@@ -178,7 +188,14 @@ public class OrderController {
 		// idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
 		String orderCode = orderService.getRecentOrderCode(idNo);
 		if (orderCode != null) {
-			//model.addAttribute("recentDelivery", deliveryService.get(orderCode));
+			
+			DeliveryVO delivery = deliveryService.get(orderCode);
+			
+			if(delivery != null) {
+				
+				model.addAttribute("recentDelivery", delivery);
+			}
+			
 		}
 
 	}
@@ -199,7 +216,7 @@ public class OrderController {
 	@ResponseBody
 	public void orderInsert(@RequestBody OrderRequestVO order) {
 		
-		//System.out.println("OrderController의 orderInsert 메서드의 order.toString() : "+order.toString());
+		System.out.println("OrderController의 orderInsert 메서드의 order.toString() : "+order.toString());
 		
 		orderService.register(order);
 		

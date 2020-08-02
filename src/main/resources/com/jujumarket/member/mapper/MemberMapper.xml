@@ -37,9 +37,9 @@
   
   <!-- 세션에 VO 받아오기 -->
    <select id="getMemberInfo" resultType="com.jujumarket.member.domain.MemberVO">
-   		select idNo, emailAccount, memName, memCode
-   		from t_member
-   		where emailAccount = #{emailAccount}
+         select idNo, emailAccount, memName, memCode
+         from t_member
+         where emailAccount = #{emailAccount}
    
    </select>
    
@@ -69,7 +69,7 @@
       <!-- orderItemsForm.jsp에 뿌려주기 위한 회원정보들을 MemberVO, CustomerVO에서 각각 받아 OrderMemberVO를 만듦 -->
    <select id="orderMemberInfo" resultType="com.jujumarket.order.domain.OrderMemberVO">
    
-      select tm.memname, tm.memaddr, mc.contact, tm.emailAccount, tm.idNo
+      select tm.memname, tm.memaddr, mc.contact, tm.emailAccount, tm.idNo, tm.postCode
       from t_member tm, m_customer mc
       where tm.idNo = mc.idNo
       and tm.idNo = #{idNo} 
