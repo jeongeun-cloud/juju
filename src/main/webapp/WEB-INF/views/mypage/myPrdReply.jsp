@@ -5,6 +5,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head> 
@@ -13,7 +14,7 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Insert title here</title>
 <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>  <!-- 모달띄어줌 -->
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <style>
 
 body {
@@ -241,6 +242,7 @@ margin-right: 0%;
 <div class="regi_content">
  <div class="regi_wrap">
 
+
 <!-- side 시작 -->
    <div class="side">
       <div class="1nb_list">
@@ -253,9 +255,9 @@ margin-right: 0%;
                     <br>
                     <p><b>게시판 이용 내역</b></p>
                     <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
-                     <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
-                    <li><a href='myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
-                    
+                    <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
+                    <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
+                                        
                    		 <c:choose>
                            <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
                               <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
@@ -263,7 +265,11 @@ margin-right: 0%;
                            <c:when test="${sessionMember.memCode eq 'SELLER'}">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
+                           <c:when test="${sessionMember.memCode eq 'JUNIOR'}">
+                              <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
+                           </c:when>
                         </c:choose>
+                   		 
                     <c:if test="${!empty sessionMember}">
                     <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
                     <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
@@ -287,7 +293,7 @@ margin-right: 0%;
       <div class="p2">
    <!-- regi_tit 시작 -->
     <div class="regi_tit">
-       <p><b>1:1문의</b></p>
+       <p><b>나의 상품문의</b></p>
    </div>
    <!-- regi_tit 끝 -->
 
@@ -295,10 +301,8 @@ margin-right: 0%;
          <table tit aria-setsize="500px">
             <thead>
                <tr>
-                  <th>번호</th>    
-                  <th>제목</th>   
-
-                  <th>내용</th> 
+                  <th>상품명</th>    
+                  <th>댓글</th>   
                   <th>등록일</th>  
                </tr>
             </thead>
@@ -307,31 +311,19 @@ margin-right: 0%;
             replyBool
                  regdata -->
                  <!-- 페이징처리 -->
-                 
-            <c:forEach items="${qna}" var="myQna">
+            <tbody id="myPrdReplyTable">                 
+            <c:forEach items="${myPrdReplyList}" var="myPrdReply">
                <tr>
-                  <td><c:out value="${myQna.postingNo }" /></td>
-
-                  <td><a class ='move' href='<c:out value="${myQna.postingNo}"/>'>
-                  <c:out value="${myQna.title }" /></a></td>
-      
-
-                 <td><c:out value="${myQna.content }" /></td>
-               
-                  <td><fmt:formatDate pattern="yyyy/MM/dd"
-                        value="${myQna.regDate }" /></td>
-                     
+                 <td><a href="/product/item?itemCode=${myPrdReply.itemCode}"><c:out value="${myPrdReply.itemName}" /></a></td>              
+                 <td><c:out value="${myPrdReply.replyContent}" /></td>              
+                 <td><fmt:formatDate pattern="yyyy/MM/dd" value="${myPrdReply.regDate }" /></td>              
 
                </tr>
 
             </c:forEach>
+            </tbody>
 
          </table>
-         
-         
-         
-         
-       <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>  
          
                
       <!-- Paging -->
@@ -340,13 +332,13 @@ margin-right: 0%;
             
                <c:if test="${pageMaker.prev}">
                <li class="paginate_button1 pervious">
-               <a href="${pageMaker.startPage -1}">Pervious</a>
+               <a href="${pageMaker.startPage -1}">Previous</a>
                </li>
                </c:if>
                
                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
                <li class='paginate_button1 ${pageMaker.cri.pageNum == num? "active":""}'>
-               <a href="${num}">${num}</a></li>
+               <a class="paging" href="/mypage/myPrdReply/page/${num}">${num}</a></li>
                </c:forEach>
                
                <c:if test="${pageMaker.next}">
@@ -357,32 +349,74 @@ margin-right: 0%;
             
             </ul>
          </div><!-- endPaging -->
-         
-         <!-- paging form-->
-         <form id='actionForm' action="/mypage/myQna/list" method='get'>
-            <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
-            <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
-             <input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
-             <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-         </form><!-- paging form end-->
-
-         
-
       </div>
       <!-- p2-->
-      
-      
-      
-      
-      
-      
 </div>
 <!-- regi_main 끝 -->     
 
-
-
 </div>
 
 </div>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	var pageTags = $(".paging");
+	var myPrdReplyTable = $("#myPrdReplyTable");
+	
+	pageTags.on().click(function(e){
+		e.preventDefault();
+		var pageNum = e.target.innerText;
+		console.log(pageNum);
+		getListByPage(pageNum)
+		.then(function(response){
+			console.log(response);
+			drawmyPrdReplyList(response);
+		})
+		.catch(function(error){
+			console.log(error);
+		});
+		
+	});
+	
+	function drawmyPrdReplyList(myPrdReplyList){
+		myPrdReplyTable.html("");
+		var frag = document.createDocumentFragment();
+		for(var i = 0; i<myPrdReplyList.length; i++){
+			var str = "";
+			var myPrdReply = myPrdReplyList[i];
+			var tr = document.createElement("tr");
+		
+			str += "<td><a href='/product/item?itemCode="+myPrdReply.itemCode+"'>"+myPrdReply.itemName+"</a></td>";
+	        str += '<td>'+myPrdReply.replyContent+'</td>';
+	       
+	        var regDate = myPrdReply.regDate;
+	        var date = new Date(regDate);
+	        str += '<td>'+formatDate(date)+'</td>';
+	        tr.innerHTML = str;
+	        frag.appendChild(tr);
+		}
+		myPrdReplyTable.append($(frag));
+	}
+	
+	/* 	ajax 방식으로 페이징 처리 */
+	function getListByPage(pageNum) {
+		return $.ajax({
+			type: "GET",
+			url: "/mypage/myPrdReply/page/"+pageNum,
+			contentType : "application/json; charset=UTF-8"
+		});
+	}
+	
+	/* 연/월/일만 가져오는 함수 */
+	function formatDate(date) { 
+		var d = new Date(date), month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear(); 
+		if (month.length < 2) month = '0' + month; 
+		if (day.length < 2) day = '0' + day; 
+		return [year, month, day].join('/'); }
+
+	
+});
+</script>
 </body>
 </html>

@@ -27,11 +27,16 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageMapper.getMyReviewCountByIdNo(idNo, cri);
 	}
 
+	@Override
+	public List<MyPageVO> getMyPrdReplyListByIdNo(String idNo, Criteria cri) {
+		return myPageMapper.getMyPrdReplyListByIdNo(idNo, cri);
+	}
 
-	
-	
+	@Override
+	public int getMyPrdReplyCountByIdNo(String idNo, Criteria cri) {
+		return myPageMapper.getMyPrdReplyCountByIdNo(idNo, cri);
+	}
 
-	
-	
+
 
 }

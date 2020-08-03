@@ -39,214 +39,231 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class MyPageController {
 
-   private MemberService memberService;
-   private CustomerService customerService;
-   private SellerService sellerService;
-   private ServletContext servletContext;
-   private MyPageService myPageService;
-   //   private MailService mailService;
-//   private OrderService orderService;
-   
-   @GetMapping("/myPerchaseList")
-   public String perchaseList(Model model) {
-//	   String idNo = member.getIdNo();
-//	   model.addAttribute("perchaseList", orderService.getPerchaseInfoByIdNo(idNo));
-	   return "/mypage/myPerchaseList";
-   }
-   
-   @GetMapping("/myPrdReply")
-   public String myPrdReply(HttpSession session, Model model) {
-	   MemberVO member = (MemberVO)session.getAttribute("sessionMember");
-	   if(member == null) {
-		   return "redirect:/member/login";
-	   }
-//	   String idNo = member.getIdNo();
-//	   model.addAttribute("perchaseList", orderService.getPerchaseInfoByIdNo(idNo));
-	   return "/mypage/myPrdReply";
-   }
-   
-   @GetMapping(value = "/myReview/page/{pageNum}", produces=MediaType.APPLICATION_JSON_VALUE)
-   @ResponseBody
-   public ResponseEntity<?> myReview(HttpSession session, @PathVariable int pageNum){
-	   MemberVO member = (MemberVO)session.getAttribute("sessionMember");
-	   Criteria cri = new Criteria(pageNum, 10);
-	   String idNo = member.getIdNo();
-	   List<MyPageVO> myReview = myPageService.getMyReviewListByIdNo(idNo, cri);
-	   return ResponseEntity.status(HttpStatus.OK).body(myReview);
-   }
-   
-   @GetMapping("/myReview")
-   public String myReview(HttpSession session, Model model) {
-	   MemberVO member = (MemberVO)session.getAttribute("sessionMember");
-	   if(member == null) {
-		   return "redirect:/member/login";
-	   }
-	   Criteria cri = new Criteria(1, 10);
-	   String idNo = member.getIdNo();
-	   List<MyPageVO> myReview = myPageService.getMyReviewListByIdNo(idNo, cri);
-	   model.addAttribute("myReviewList", myReview);
-	   
-	   
-	   int myReviewNum = myPageService.getMyReviewCountByIdNo(idNo, cri);
-			model.addAttribute("pageMaker", new PageDTO(cri, myReviewNum));
+	private MemberService memberService;
+	private CustomerService customerService;
+	private SellerService sellerService;
+	private ServletContext servletContext;
+	private MyPageService myPageService;
+
 	
-	   return "/mypage/myReview";
-   }
+	
+	//나의 주문(구매)내역 
+	@GetMapping("/myPerchaseList")
+	public String perchaseList(Model model) {
+		return "/mypage/myPerchaseList";
+	}
+	
+	
+	//나의 상품문의 
+	@GetMapping("/myPrdReply")
+	public String myPrdReply(HttpSession session, Model model) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		Criteria cri = new Criteria(1, 10);
+		String idNo = member.getIdNo();
+		List<MyPageVO> myPrdReply = myPageService.getMyPrdReplyListByIdNo(idNo, cri);
+		model.addAttribute("myPrdReplyList", myPrdReply);
 
-   
-   @GetMapping("/customerInfoModify")
-   public String customerInfoModify(HttpSession session, Model model) {
-      MemberVO member = (MemberVO) session.getAttribute("sessionMember");
-      if (member == null) {
-         return "redirect:/member/login";
-      }
-      String idNo = member.getIdNo();
-      if (idNo.substring(0, 1).equals("c")) {
-         model.addAttribute("customerInfo", memberService.getCustomerInfoByIdNo(idNo));
-         return "/mypage/customerInfoModify";
-      } else {
-         return "redirect:/";
-      }
-   }
+		int myPrdReplyNum = myPageService.getMyPrdReplyCountByIdNo(idNo, cri);
+		model.addAttribute("pageMaker", new PageDTO(cri, myPrdReplyNum));
 
-   @GetMapping("/sellerInfoModify")
-   public String sellerInfoModify(HttpSession session, Model model) {
-      MemberVO member = (MemberVO) session.getAttribute("sessionMember");
-      if (member == null) {
-         return "redirect:/member/login";
-      }
-      String idNo = member.getIdNo();
-      if (idNo.substring(0, 1).equals("s")) {
-         model.addAttribute("sellerInfo", memberService.getSellerInfoByIdNo(idNo));
-         return "/mypage/sellerInfoModify";
-      } else {
-         return "redirect:/";
-      }
+		return "/mypage/myPrdReply";
+	}
+	
+	//나의 상품문의목록 페이징 REST방식으로 처리 
+	@GetMapping(value = "/myPrdReply/page/{pageNum}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> myPrdReply(HttpSession session, @PathVariable int pageNum) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		Criteria cri = new Criteria(pageNum, 10);
+		String idNo = member.getIdNo();
+		List<MyPageVO> myPrdReply = myPageService.getMyPrdReplyListByIdNo(idNo, cri);
+		return ResponseEntity.status(HttpStatus.OK).body(myPrdReply);
+	}
+	
+	//나의 상품평(리뷰)
+	@GetMapping("/myReview")
+	public String myReview(HttpSession session, Model model) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		Criteria cri = new Criteria(1, 10);
+		String idNo = member.getIdNo();
+		List<MyPageVO> myReview = myPageService.getMyReviewListByIdNo(idNo, cri);
+		model.addAttribute("myReviewList", myReview);
 
-   }
+		int myReviewNum = myPageService.getMyReviewCountByIdNo(idNo, cri);
+		model.addAttribute("pageMaker", new PageDTO(cri, myReviewNum));
 
-   @PostMapping("/customerInfoModify")
-   public String customerInfoModify(MemberVO member, RedirectAttributes rttr) {
-      if (customerService.modifyCustomerInfo(member)) {
-         rttr.addFlashAttribute("result", "회원정보를 수정했습니다.");
-      }
-      return "redirect:/mypage/customerInfoModify";
+		return "/mypage/myReview";
+	}
 
-   }
+	//나의 상품평(리뷰)목록 페이징 REST방식으로 처리 
+	@GetMapping(value = "/myReview/page/{pageNum}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> myReview(HttpSession session, @PathVariable int pageNum) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		Criteria cri = new Criteria(pageNum, 10);
+		String idNo = member.getIdNo();
+		List<MyPageVO> myReview = myPageService.getMyReviewListByIdNo(idNo, cri);
+		return ResponseEntity.status(HttpStatus.OK).body(myReview);
+	}
 
-   @PostMapping("/sellerInfoModify")
-   public String sellerInfoModify(MemberVO member, RedirectAttributes rttr, MultipartFile[] uploadFile) {
-      String uploadFolder = servletContext.getRealPath("/resources/seller");
-      File uploadPath = new File(uploadFolder, member.getBusinessCode());
-      System.out.println("upload path : " + uploadPath);
-      log.info("upload path : " + uploadPath);
+	@GetMapping("/customerInfoModify")
+	public String customerInfoModify(HttpSession session, Model model) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		String idNo = member.getIdNo();
+		if (idNo.substring(0, 1).equals("c")) {
+			model.addAttribute("customerInfo", memberService.getCustomerInfoByIdNo(idNo));
+			return "/mypage/customerInfoModify";
+		} else {
+			return "redirect:/";
+		}
+	}
 
-      // 사업자등록번호를 이름으로 하는 이미지 저장폴더 생성
-      if (uploadPath.exists() == false) {
-         uploadPath.mkdir();
-      }
+	@GetMapping("/sellerInfoModify")
+	public String sellerInfoModify(HttpSession session, Model model) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		String idNo = member.getIdNo();
+		if (idNo.substring(0, 1).equals("s")) {
+			model.addAttribute("sellerInfo", memberService.getSellerInfoByIdNo(idNo));
+			return "/mypage/sellerInfoModify";
+		} else {
+			return "redirect:/";
+		}
 
-      int i = 0;
-      for (MultipartFile multi : uploadFile) {
+	}
 
-         String uploadFilename = multi.getOriginalFilename();
+	@PostMapping("/customerInfoModify")
+	public String customerInfoModify(MemberVO member, RedirectAttributes rttr) {
+		if (customerService.modifyCustomerInfo(member)) {
+			rttr.addFlashAttribute("result", "회원정보를 수정했습니다.");
+		}
+		return "redirect:/mypage/customerInfoModify";
 
-         if (uploadFilename.equals("")) {
-            i++;
-            continue;
-         }
+	}
 
-         // IE has file path
-         uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
+	@PostMapping("/sellerInfoModify")
+	public String sellerInfoModify(MemberVO member, RedirectAttributes rttr, MultipartFile[] uploadFile) {
+		String uploadFolder = servletContext.getRealPath("/resources/seller");
+		File uploadPath = new File(uploadFolder, member.getBusinessCode());
+		System.out.println("upload path : " + uploadPath);
+		log.info("upload path : " + uploadPath);
 
-         UUID uuid = UUID.randomUUID();
-         uploadFilename = uuid.toString() + "_" + uploadFilename;
+		// 사업자등록번호를 이름으로 하는 이미지 저장폴더 생성
+		if (uploadPath.exists() == false) {
+			uploadPath.mkdir();
+		}
 
-         try {
-            // 이미지 파일 path에 올리기
-            File saveFile = new File(uploadPath, uploadFilename);
-            multi.transferTo(saveFile);
+		int i = 0;
+		for (MultipartFile multi : uploadFile) {
 
-         } catch (Exception e) {
-            log.error(e.getMessage());
-         } // end catch
+			String uploadFilename = multi.getOriginalFilename();
 
-         if (i == 0)
-            member.setThumbImg(uploadFilename);
-         else if (i == 1)
-            member.setBackImg(uploadFilename);
+			if (uploadFilename.equals("")) {
+				i++;
+				continue;
+			}
 
-         i++;
-      }
-//         sellerService.modifySellerInfo(member);
-      if (sellerService.modifySellerInfo(member)) {
-         rttr.addFlashAttribute("result", "회원정보를 수정했습니다.");
-      }
-      return "redirect:/mypage/sellerInfoModify";
+			// IE has file path
+			uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
 
-   }
+			UUID uuid = UUID.randomUUID();
+			uploadFilename = uuid.toString() + "_" + uploadFilename;
 
-   @GetMapping("/modifyPwd")
-   public String modifyPwd(HttpSession session) {
-      Object member = session.getAttribute("sessionMember");
-      if (member == null) {
-         return "redirect:/";
-      }
-      return "/mypage/modifyPwd";
-   }
+			try {
+				// 이미지 파일 path에 올리기
+				File saveFile = new File(uploadPath, uploadFilename);
+				multi.transferTo(saveFile);
 
-   @PostMapping("/modifyPwd")
-   public String modifyPwd(String pwd, String newPwd, HttpSession session, RedirectAttributes rttr) {
-      
-      MemberVO member = (MemberVO)session.getAttribute("sessionMember");
-      String idNo = member.getIdNo();
-      
-      if(memberService.checkPwd(idNo, pwd)) {
-         member.setPwd(newPwd);
-         memberService.updatePwd(member);
-         session.invalidate();
-         rttr.addFlashAttribute("result", "비밀번호가 변경되었습니다. 다시 로그인해주세요.");
-         return "redirect:/member/login";
-      }
+			} catch (Exception e) {
+				log.error(e.getMessage());
+			} // end catch
 
-      rttr.addFlashAttribute("result", "비밀번호가 일치하지 않습니다.");
-      return "redirect:/mypage/modifyPwd";
-   }
+			if (i == 0)
+				member.setThumbImg(uploadFilename);
+			else if (i == 1)
+				member.setBackImg(uploadFilename);
 
-   @GetMapping("/memberDelete")
-   public String memberDelete(HttpSession session) {
-      Object member = session.getAttribute("sessionMember");
-      if (member == null) {
-         return "redirect:/";
-      }
-      return "/mypage/memberDelete";
-   }
+			i++;
+		}
+		if (sellerService.modifySellerInfo(member)) {
+			rttr.addFlashAttribute("result", "회원정보를 수정했습니다.");
+		}
+		return "redirect:/mypage/sellerInfoModify";
 
-   @PostMapping("/memberDelete")
-   public String memberDelete(MemberHistoryVO memberHistory, HttpSession session, RedirectAttributes rttr) {
-      MemberVO member = (MemberVO)session.getAttribute("sessionMember");
-      String idNo = member.getIdNo();
+	}
+
+	@GetMapping("/modifyPwd")
+	public String modifyPwd(HttpSession session) {
+		Object member = session.getAttribute("sessionMember");
+		if (member == null) {
+			return "redirect:/";
+		}
+		return "/mypage/modifyPwd";
+	}
+
+	@PostMapping("/modifyPwd")
+	public String modifyPwd(String pwd, String newPwd, HttpSession session, RedirectAttributes rttr) {
+
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		String idNo = member.getIdNo();
+
+		if (memberService.checkPwd(idNo, pwd)) {
+			member.setPwd(newPwd);
+			memberService.updatePwd(member);
+			session.invalidate();
+			rttr.addFlashAttribute("result", "비밀번호가 변경되었습니다. 다시 로그인해주세요.");
+			return "redirect:/member/login";
+		}
+
+		rttr.addFlashAttribute("result", "비밀번호가 일치하지 않습니다.");
+		return "redirect:/mypage/modifyPwd";
+	}
+
+	@GetMapping("/memberDelete")
+	public String memberDelete(HttpSession session) {
+		Object member = session.getAttribute("sessionMember");
+		if (member == null) {
+			return "redirect:/";
+		}
+		return "/mypage/memberDelete";
+	}
+
+	@PostMapping("/memberDelete")
+	public String memberDelete(MemberHistoryVO memberHistory, HttpSession session, RedirectAttributes rttr) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		String idNo = member.getIdNo();
 //      session에서 받아온 idNo를 memberHistory에 저장
-      memberHistory.setIdNo(idNo);
-      if (memberService.checkPwd(idNo, memberHistory.getPwd())) {
-         if (idNo.substring(0, 1).equals("c")) {
-            customerService.deleteMember(memberHistory);
-            return "redirect:/mypage/memberDeleteComplete";
+		memberHistory.setIdNo(idNo);
+		if (memberService.checkPwd(idNo, memberHistory.getPwd())) {
+			if (idNo.substring(0, 1).equals("c")) {
+				customerService.deleteMember(memberHistory);
+				return "redirect:/mypage/memberDeleteComplete";
 
-         } else if (idNo.substring(0, 1).equals("s")) {
-            sellerService.deleteMember(memberHistory);
-            return "redirect:/mypage/memberDeleteComplete";
-         }
+			} else if (idNo.substring(0, 1).equals("s")) {
+				sellerService.deleteMember(memberHistory);
+				return "redirect:/mypage/memberDeleteComplete";
+			}
 
-      }
-      rttr.addFlashAttribute("result", "비밀번호가 일치하지않습니다.");
-      return "redirect:/mypage/memberDelete";
-   }
+		}
+		rttr.addFlashAttribute("result", "비밀번호가 일치하지않습니다.");
+		return "redirect:/mypage/memberDelete";
+	}
 
-   @GetMapping("/memberDeleteComplete")
-   public void memberDeleteComplete(HttpSession session) {
-      session.invalidate();
+	@GetMapping("/memberDeleteComplete")
+	public void memberDeleteComplete(HttpSession session) {
+		session.invalidate();
 
-   }
+	}
 
 }
