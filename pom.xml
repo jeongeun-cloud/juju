@@ -149,7 +149,12 @@
          <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
          <version>1.16</version>
       </dependency>
-
+      <!-- firebase -->
+      <dependency>
+         <groupId>com.google.firebase</groupId>
+         <artifactId>firebase-admin</artifactId>
+         <version>6.8.1</version>
+      </dependency>
       <!-- lombok 추가 -->
       <dependency>
          <groupId>org.projectlombok</groupId>
