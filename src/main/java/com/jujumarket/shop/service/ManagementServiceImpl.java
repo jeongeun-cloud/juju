@@ -80,4 +80,19 @@ public class ManagementServiceImpl implements ManagementService {
 		return mapper.datedate(vo);
 	}
 
+
+	@Override
+	public List<ManagementVO> refundList(ItemCriteria cri) {
+		// TODO Auto-generated method stub
+		return mapper.refundListPaging(cri);
+	}
+
+
+	@Override
+	public void refundupdate(ManagementVO vo) {
+		
+		mapper.refundinsertSelectKey(vo);
+		
+	}
+
 }
