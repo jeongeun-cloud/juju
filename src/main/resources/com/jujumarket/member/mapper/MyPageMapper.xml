@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.member.mapper.MyPageMapper">
+
+	<select id="getMyReviewListByIdNo" resultType="com.jujumarket.member.domain.MyPageVO">
+      <![CDATA[
+ 
+			select R.reviewNo, R.idNo, R.itemCode, R.reviewImg, I.itemName, R.reviewTitle, R.reviewContent, R.regDate
+			from (select /*+INDEX(t_review idx_review) */
+			rownum rn, reviewNo, reviewTitle, reviewContent, reviewImg, score, regDate, updateDate, orderCode, itemCode, idNo
+			from t_review
+			where idNo = #{idNo}
+				and reviewNo > 0
+				and rownum <= #{cri.pageNum} * #{cri.amount}
+			) R, t_item I
+		    where R.itemCode = I.itemCode
+            and R.rn > (#{cri.pageNum}-1) * #{cri.amount}
+            order by R.regDate desc
+
+      ]]>
+
+	</select>
+
+
+
+
+	<select id="getMyReviewCountByIdNo" resultType="int">
+	   		select count(reviewNo) from t_review where idNo = #{idNo}
+	</select>
+
+	<select id="getMyPrdQnAListByIdNo"
+		resultType="com.jujumarket.member.domain.MyPageVO">
+ <![CDATA[
+            
+        select rownum rn, A.replyNo, SUBSTR(A.replyCode,0,2)sub, A.itemCode, A.idNo,  B.itemName, A.replyContent, A.regDate
+        from (
+           select * from t_prdQNA  order by SUBSTR(replyCode,0,2) desc, regdate asc
+              )  A, t_item B
+        where A.itemCode = B.itemCode 
+        and A.replyNo >0
+        and rownum <= #{cri.pageNum} * #{cri.amount}
+        and rownum > (#{cri.pageNum}-1) * #{cri.amount}
+        and A.idno = {#idNo}
+        
+	]]>
+	</select>
+
+
+	<select id="getMyPrdQnACountByIdNo" resultType="int">
+		select count(replyNo) from t_prdQNA where idNo = #{idNo}
+	</select>
+
+
+
+</mapper>

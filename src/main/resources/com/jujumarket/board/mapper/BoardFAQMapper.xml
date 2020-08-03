@@ -166,8 +166,34 @@
    
    postingNo > '1'
    
-      </select>
-  
+   </select>
+   
+   <!--관리자,상인 페이지의  공지사항 끌고 오기   -->
+   <select id="getnotice" resultType="com.jujumarket.board.domain.BoardFAQVO">
+  <![CDATA[
+   
+   select  postingNo, title , regDate
+	from t_board_faq
+	where boardType = '2' and
+	 ]]>
+	<![CDATA[
+    rownum < 6 
+	order by regDate desc
+     ]]>
+   </select>
+  <!--자묻질 끌고 오기  -->
+  <select id="getfaq" resultType="com.jujumarket.board.domain.BoardFAQVO">
+  <![CDATA[
+   
+   select  postingNo, title , regDate
+	from t_board_faq
+	where boardType = '1' and
+	 ]]>
+	<![CDATA[
+    rownum < 6 
+	order by regDate desc
+     ]]>
+   </select>
 
    
 </mapper>

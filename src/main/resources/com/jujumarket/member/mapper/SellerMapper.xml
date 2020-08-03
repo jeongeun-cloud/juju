@@ -11,13 +11,11 @@
 
 	</insert>
 
-
 	<insert id="insertJoinInfo">
 		insert into m_history (historyNo, idNo, condition, memCode)
 		values (seq_history.nextval, #{idNo}, '주니어상인', 'JUNIOR')
 	</insert>
 
-	<!-- 얘는 memCode도 받아와야 하는게 아닌지? 0801 주정은 -->
 	<insert id="insertDeleteInfo">
 		insert into m_history(historyNo, idNo, condition, memCode, reason)
 		values(seq_history.nextval, #{idNo}, '탈퇴', 'SELLER', #{reason})

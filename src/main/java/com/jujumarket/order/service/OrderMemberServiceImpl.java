@@ -18,4 +18,14 @@ public class OrderMemberServiceImpl implements OrderMemberService{
 		public OrderMemberVO getOrderMemberInfo(String idNo) {
 			return memberMapper.orderMemberInfo(idNo);
 		}
+		
+		@Override
+		public OrderMemberVO getOrderSellerInfo(String idNo) {
+			return memberMapper.orderSellerInfo(idNo);
+		}
+		
+		@Override
+		public OrderMemberVO getOrderSocialInfo(String idNo) {
+			return memberMapper.orderSocialInfo(idNo);
+		}
 }

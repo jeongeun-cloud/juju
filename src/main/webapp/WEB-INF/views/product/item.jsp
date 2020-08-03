@@ -796,7 +796,8 @@ input[type=range] {
               
                <div class="form-grop">
                <label>id</label>
-               <input class ="form-control" id ="idNoBtn"  name='idNo' value='idNo' readonly="readonly"></div>
+               <!--  -->
+               <input class ="form-control" id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
                <div class="form-grop">
           <!--      <label>replyDepth</label>
                 <input class ="form-control" id ="replyDepth"  name='replyDepth' value='1' readonly="readonly"></div> -->
@@ -1073,9 +1074,10 @@ $(document).ready(function(){
       
               var replyRegister = $("#replyTextarea").val()
              var replyNo = $("#replyNo").val()
+             var sessionId = $("#sessionId");
    
                       prdreplyService.replyadd(
-                         {idNo:'idNo', replyContent:replyRegister,       
+                         {idNo: sessionId.val() , replyContent:replyRegister,       
                           itemCode:$("#itemCode").val(),replyDepth:1,
                          replyCount:$("#replyCount").val(), replyCode:01 ,  
                          replyNo : replyNo

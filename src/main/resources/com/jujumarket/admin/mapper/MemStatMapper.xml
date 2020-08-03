@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.admin.mapper.MemStatMapper">
+
+<!--총 일반 회원 수  -->
+<select id="getCusNum" resultType="java.lang.Integer">
+select count(memCode) customerNum
+from t_member 
+where memCode='CUSTOMER'
+group by memCode
+</select>
+
+<select id="getSellNum" resultType="java.lang.Integer">
+select  count(memCode) sellerNum
+from t_member 
+where memCode='SELLER'
+group by memCode
+</select>
+
+<select id="getWithdraw" resultType="com.jujumarket.admin.domain.MemStatVO">
+select rownum withdrawNum , a.*
+from(
+select idNo as  withdrawIdNo, reason as withdrawReason, to_char(condiupdatedate, 'yy/mm/dd') as withdrawDay
+from m_history
+where condition='탈퇴'
+order by withdrawDay desc)a
+</select>
+
+<select id="getWithdrawTotal" resultType="int">
+select count(*) total
+from m_history
+where condition='탈퇴'
+
+</select>
+<!--가입   -->
+<select id="getMemSta" resultType="com.jujumarket.admin.domain.MemStatVO">
+<![CDATA[select  to_char(mon.day,'dd')regiday, nvl(cnt.regiMem ,0) regiMem
+from
+(SELECT day + LEVEL - 1 as day
+FROM (SELECT TO_DATE(#{day}, 'yymm') day FROM dual)
+CONNECT BY LEVEL]]> 
+<![CDATA[ < = TO_CHAR(LAST_DAY(day), 'dd')) mon,
+(select count(to_char(condiupdatedate, 'yy/mm/dd')) as regiMem ,to_char(condiupdatedate, 'yy/mm/dd') day
+from m_history
+where memCode='CUSTOMER' and condition = '일반고객'
+group by to_char(condiupdatedate, 'yy/mm/dd')) cnt
+where mon.day = cnt.day(+)
+order by mon.day
+]]> 
+
+</select>
+<!--탈퇴  -->
+<select id="getWithdrawSta" resultType="com.jujumarket.admin.domain.MemStatVO">
+<![CDATA[
+select to_char(mon.day,'dd')withday, nvl(cnt.withMem ,0) withMem
+from
+(SELECT day + LEVEL - 1 as day
+FROM (SELECT TO_DATE(#{day}, 'yymm') day FROM dual)
+CONNECT BY LEVEL ]]> 
+<![CDATA[ < = TO_CHAR(LAST_DAY(day), 'dd')) mon,
+(select count(to_char(condiupdatedate, 'yy/mm/dd')) as withMem ,to_char(condiupdatedate, 'yy/mm/dd') day
+from m_history
+where memCode='CUSTOMER' and condition = '탈퇴'
+group by to_char(condiupdatedate, 'yy/mm/dd')) cnt
+where mon.day = cnt.day(+)
+order by mon.day
+]]> 
+
+</select>
+<!-- 총회원 -->
+<select id="TotalMem" resultType="java.lang.Integer">
+select count(*) iT
+from m_history
+where condition='일반고객'
+</select>
+
+<!--오늘 가입 회원  -->
+<select id="TodayTotalMem" resultType="java.lang.Integer">
+select count(*) iTodayT
+from m_history
+where condition='일반고객' AND to_char(condiupdatedate, 'yy/mm/dd') = to_char(sysdate)
+</select>
+
+<!-- 총탈퇴회원 -->
+<select id="WithdrawTotal" resultType="java.lang.Integer">
+select count(*) iWithdrawT
+from m_history
+where condition='탈퇴'
+</select>
+
+<!--오늘 탈퇴 회원  -->
+<select id="TodayWithdrawTotal" resultType="java.lang.Integer">
+select count(*) iTodayWithdrawT
+from m_history
+where condition='탈퇴' AND to_char(condiupdatedate, 'yy/mm/dd') = to_char(sysdate)
+</select>
+</mapper>

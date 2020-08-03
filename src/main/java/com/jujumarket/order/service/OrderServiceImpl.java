@@ -132,8 +132,5 @@ public class OrderServiceImpl implements OrderService {
 		orderMapper.paymentRegister(payment);
 	}
 	
-	
-	
-	
 
 }

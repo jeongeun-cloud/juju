@@ -122,8 +122,7 @@
       #{tax}, #{vat}, #{totalPay}, #{card}, #{cardCompany}, #{cardNum}, #{approvalNum}, #{monthlyPay})
    
    </insert>
-   
-   
+
    
 
 </mapper>

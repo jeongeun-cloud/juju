@@ -16,6 +16,11 @@
       insert into m_social (idNo, birth, socialType) 
       values (#{idNo}, #{birth}, #{socialType})
    </insert>
+   
+   <insert id="insertSocialHistory">
+		insert into m_history (historyNo, idNo, condition, memCode)
+		values (seq_history.nextval, #{idNo}, '가입', #{memCode})
+	</insert>
 
    <select id ="socialEmailCheck" resultType="int">
       select count(*)

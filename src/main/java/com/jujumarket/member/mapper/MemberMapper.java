@@ -27,6 +27,8 @@ public interface MemberMapper {
 	public int deleteMember(String idNo);
 	//주문자정보확인
 	public OrderMemberVO orderMemberInfo(String idNo);
+	public OrderMemberVO orderSellerInfo(String idNo);
+	public OrderMemberVO orderSocialInfo(String idNo);
 
 	public int updatePwd(MemberVO member);
 

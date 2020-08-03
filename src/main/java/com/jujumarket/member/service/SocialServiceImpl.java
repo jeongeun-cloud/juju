@@ -23,6 +23,7 @@ public class SocialServiceImpl implements SocialService{
 		
 		mapper.insertSocialMember(socialVO);
 		mapper.insertSocialCustomer(socialVO);
+		mapper.insertSocialHistory(socialVO);
 	}
 
 	@Override
