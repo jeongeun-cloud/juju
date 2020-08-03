@@ -27,4 +27,6 @@ public interface BannerMapper {
 	public List<ListItemVO> getSeason();
 
 	public int getItemTotal(ItemCriteria cri);
+	
+	public void deleSeason(String itemCode);
 }

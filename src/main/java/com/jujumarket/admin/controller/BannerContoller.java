@@ -78,6 +78,7 @@ public class BannerContoller {
 		int total = service.getItemTotal(cri);
 		
 		String bannerType = "seasonal";
+		model.addAttribute("seasonItemResult", service.getSeason());
 		model.addAttribute("seasonal", service.getBanner(bannerType));
 		model.addAttribute("list", service.getItemList(cri));
 		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
@@ -248,6 +249,18 @@ public class BannerContoller {
 			ListItemVO vo = service.getItem(itemCode[i]);
 	
 			service.regSeason(vo);
+		}
+		
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
+	@PostMapping("/deleSeason")
+	@ResponseBody
+	public ResponseEntity<String> deleSeason(String[] itemCode) {
+		
+		for(int i=0; i<itemCode.length; i++) {
+			
+			service.deleSeason(itemCode[i]);
 		}
 		
 		return new ResponseEntity<String>("success", HttpStatus.OK);

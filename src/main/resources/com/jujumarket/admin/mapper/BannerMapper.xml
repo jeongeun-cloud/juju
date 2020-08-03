@@ -77,8 +77,8 @@
    </select>
    
    <insert id="regSeason">
-		insert into t_season_item (itemCode, itemName, itemContent, price, itemChr, itemImg1, classCode, shopName, idNo) 
-		values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{itemChr}, #{itemImg1}, #{classCode}, #{shopName}, #{idNo})
+		insert into t_season_item (itemCode, itemName, itemContent, price, normPrice, itemChr, itemImg1, classCode, shopName, idNo) 
+		values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{itemChr}, #{itemImg1}, #{classCode}, #{shopName}, #{idNo})
 	</insert>
 	
 	<select id="getSeason" resultType="com.jujumarket.admin.domain.ListItemVO">
@@ -91,5 +91,9 @@
 		where i.idno = s.idno
 		and i.dispstat = '진열함' and i.salestat='판매중'
 	</select>
+	
+	<delete id="deleSeason">
+		delete from t_season_item where itemCode = #{itemCode}
+	</delete>
 
 </mapper>
