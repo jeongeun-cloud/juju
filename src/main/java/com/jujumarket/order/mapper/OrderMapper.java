@@ -3,6 +3,7 @@ package com.jujumarket.order.mapper;
 import java.util.List;
 
 import com.jujumarket.main.domain.BasketVO;
+import com.jujumarket.order.domain.OrderMemberVO;
 import com.jujumarket.order.domain.OrderRequestVO;
 import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
@@ -32,6 +33,9 @@ public interface OrderMapper {
    public BasketVO getone(String baskId);
    
    public void paymentRegister(PaymentVO payment);
+   
+   public void guestMemberInsert(OrderMemberVO orderMember);
+   public void guestCustomerInsert(OrderMemberVO orderMember);
    
 }
 

@@ -35,7 +35,7 @@
     .quick_tit{
         text-align: center;
         font-size: 17px;
-        background-color:#ffc30b ;
+        background-color:#8CC152 ;
     }
     .today_sta{
         
@@ -73,7 +73,7 @@
         text-align: center;
         padding-top: 10px;
         padding-bottom: 5px;      
-        background-color: #f6dd90;
+        background-color: #d0e1d2;
     }
     .today_total{
        margin:50px 30px 40px 80px;
@@ -116,12 +116,11 @@
         
     }
     .board_btn{
-        float: right;
-        right: 10px;
-        display: block;
+        width:100%;
+        margin-left:530px;
         margin-bottom: 10px;
     }
-    .
+    
     
 
 

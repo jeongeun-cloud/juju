@@ -8,80 +8,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-signin-client_id" content="1016742526674-9mv9dhnqj72e92mf8im4tn5gp0ob7p1l.apps.googleusercontent.com">
 <title>Document</title>
 <style>
-#head {
-   min-width: 1000px;
-   border: 1px;
-   height: 200px;
-}
-li {
-   /* 앞에 점 없앰 */
-   list-style: none;
-   color: black;
-}
-.head_logo {
-   /* 가운데 정렬 */
-   display: flex;
-   justify-content: center;
-   padding-bottom: 20px;
-}
-.head_util {
-   font-size: 15px;
-   margin-top: 15px;
-}
-.util_wrap ul {
-   list-style-type: none;
-   margin: 0;
-   padding: 0;
-   overflow: hidden;
-   /* background-color: #333; */
-   display: flex;
-   justify-content: flex-end;
-   padding-right: 60px;
-}
-.util_wrap ul li {
-   float: left;
-}
-.util_wrap li a, .subMemu {
-   display: inline-block;
-   color: black;
-   text-align: center;
-   padding: 14px 16px;
-   text-decoration: none;
-}
-.util_wrap li a:hover, .dropdown_sub:hover .subMemu {
-   color: #ffc30b;
-}
-.util_wrap li.dropdown_sub {
-   display: inline-block;
-}
-.dropdown_sub .subMemu-content {
-   display: none;
-   position: absolute;
-   background-color: #f6dd90;
-   border-radius: 30px;
-   min-width: 130px;
-   width: 150px;
-   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-   z-index: 99;
-   font-size: 15px;
-}
-.dropdown_sub .subMemu-content a {
-   color: black;
-   padding: 12px 16px;
-   text-decoration: none;
-   display: block;
-   text-align: left;
-}
-.subMemu-content a:hover {
-   background-color: white;
-   border-radius: 10px;
-}
-.dropdown_sub:hover .subMemu-content {
-   display: block;
-}
+	#head {
+	   min-width: 1000px;
+	   border: 1px;
+	   height: 200px;
+	}
+	li {
+	   /* 앞에 점 없앰 */
+	   list-style: none;
+	   color: black;
+	}
+	.head_logo {
+	   /* 가운데 정렬 */
+	   display: flex;
+	   justify-content: center;
+	   padding-bottom: 20px;
+	}
+	.head_util {
+	   font-size: 15px;
+	   margin-top: 15px;
+	}
+	.util_wrap ul {
+	   list-style-type: none;
+	   margin: 0;
+	   padding: 0;
+	   overflow: hidden;
+	   /* background-color: #333; */
+	   display: flex;
+	   justify-content: flex-end;
+	   padding-right: 60px;
+	}
+	.util_wrap ul li {
+	   float: left;
+	}
+	.util_wrap li a, .subMemu {
+	   display: inline-block;
+	   color: black;
+	   text-align: center;
+	   padding: 14px 16px;
+	   text-decoration: none;
+	}
+	.util_wrap li a:hover, .dropdown_sub:hover .subMemu {
+	   color: #ffc30b;
+	}
+	.util_wrap li.dropdown_sub {
+	   display: inline-block;
+	}
+	.dropdown_sub .subMemu-content {
+	   display: none;
+	   position: absolute;
+	   background-color: #f6dd90;
+	   border-radius: 30px;
+	   min-width: 130px;
+	   width: 150px;
+	   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	   z-index: 99;
+	   font-size: 15px;
+	}
+	.dropdown_sub .subMemu-content a {
+	   color: black;
+	   padding: 12px 16px;
+	   text-decoration: none;
+	   display: block;
+	   text-align: left;
+	}
+	.subMemu-content a:hover {
+	   background-color: white;
+	   border-radius: 10px;
+	}
+	.dropdown_sub:hover .subMemu-content {
+	   display: block;
+	}
 </style>
+
+   <script>
+	   	function signOut() {
+	   		if(!gapi.auth2){
+	   		    gapi.load('auth2', function() {
+	   		        gapi.auth2.init();
+	   		    });
+	   		 }
+	   		
+	   		
+		    var auth2 = gapi.auth2.getAuthInstance();
+		    auth2.signOut().then(function () {
+		      	console.log('User signed out.');
+		    	auth2.disconnect();
+
+		    	$.ajax({
+					url : '/member/googleLogout',
+					type : 'GET',
+					success : function() {
+						location.reload();
+					}
+				});
+		    });
+		    
+		    
+		}
+	   	
+	    function onLoad() {
+	    	gapi.load('auth2', function() {
+	            gapi.auth2.init();
+	        });
+	      }
+
+   </script>
+   <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </head>
 <body>
    <header id="head">
@@ -102,6 +138,9 @@ li {
 		                </c:when>
 		                <c:when test="${sessionMember.memCode eq 'NAVER'}">
 		                	<li><a href="/member/naverLogout">로그아웃</a></li>
+		                </c:when>
+		                <c:when test="${sessionMember.memCode eq 'GOOGLE'}">
+		                	<li><a href="#" onclick="signOut();">로그아웃</a></li>
 		                </c:when>
 		                <c:otherwise>
 		                	<li><a href="/member/logout">로그아웃</a></li>
@@ -154,5 +193,6 @@ li {
       </div>
 
    </header>
+
 </body>
 </html>

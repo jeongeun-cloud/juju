@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +28,7 @@ import com.jujumarket.main.domain.Criteria;
 import com.jujumarket.main.domain.ReviewPageDTO;
 import com.jujumarket.main.domain.ReviewVO;
 import com.jujumarket.main.service.ReviewService;
+import com.jujumarket.member.domain.SocialVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -172,6 +174,16 @@ public class ReviewController {
 		log.info("get : " + reviewNo);
 		
 		return new ResponseEntity<>(service.get(reviewNo), HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/orderCheck", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public ResponseEntity<String> orderCheck(String idNo) {
+		
+		// 테이블 수정 후 작업
+		
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+		
 	}
 
 

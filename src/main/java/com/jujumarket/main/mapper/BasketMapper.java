@@ -20,6 +20,8 @@ public interface BasketMapper {
 	  public int delete(String baskId);
 	  
 	  public int update(BasketVO basket);
+
+	  public String makeGuestId();
 	 
 	
 

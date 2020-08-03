@@ -25,4 +25,6 @@ public interface BannerService {
 	public List<ListItemVO> getSeason();
 	
 	public int getItemTotal(ItemCriteria cri);
+	
+	public void deleSeason(String itemCode);
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jujumarket.main.domain.BasketVO;
 import com.jujumarket.order.domain.OrderInfoVO;
+import com.jujumarket.order.domain.OrderMemberVO;
 import com.jujumarket.order.domain.OrderRequestVO;
 import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
@@ -37,6 +38,8 @@ public interface OrderService {
    public void orderHistoryRegister(OrderInfoVO orderInfo);
 
    public void paymentRegister(PaymentVO payment);
+
+   public void guestInsert(OrderMemberVO orderMember);
    
    
 }

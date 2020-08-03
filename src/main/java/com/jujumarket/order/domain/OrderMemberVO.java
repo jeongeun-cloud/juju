@@ -10,5 +10,6 @@ public class OrderMemberVO {
 	private String emailAccount;
 	private String idNo;
 	private String postCode;
+	private String memCode;
 
 }

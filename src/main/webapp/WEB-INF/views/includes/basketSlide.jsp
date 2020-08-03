@@ -22,10 +22,6 @@
             top: 0px;
             
             z-index: 999;
-            
-            /* 반응 없음 */
-            /* overflow: scroll; */
-            /* overflow: auto; */
         }
 
         #basketNav {
@@ -49,10 +45,6 @@
             align-items: center;
             transition : 0.800s ease;
             z-index: 1;
-            
-            /* 반응 없음 */
-            /* overflow: auto; */
-            
         }
 
         .basket-toggle-collapse {
@@ -176,20 +168,13 @@
         <br>장바구니
 
         <ul class="basketList" id="basketList">
-        
-        
         <!-- 장바구니 리스트 영역 시작 -->
          
           
         <!-- 장바구니 리스트 영역 끝 -->
-        
-        
-        
         </ul>
         
-        
-        
-        <button onclick="location.href='/order/basketList'">장바구니 가기</button>
+        <button onclick="wannaNonMemberOrder()">장바구니 가기</button>
 
 
     </nav>
@@ -216,10 +201,9 @@ var id = document.getElementById("hiddenId").value;
 
 
 
-
    // 브라우저 열리자마자 장바구니 리스트 가져오기 시작
    $(document).ready(
-            
+		   
              getBasketList()
             
             .then(function(response){ 
@@ -231,7 +215,7 @@ var id = document.getElementById("hiddenId").value;
                
                }) 
          
-   )
+   );
    // 브라우저 열리자마자 장바구니 리스트 가져오기 끝
          
          
@@ -240,6 +224,22 @@ var id = document.getElementById("hiddenId").value;
    var basketMax = 30;
 
 
+   
+   // 회원인지 비회원인지 확인
+   function wannaNonMemberOrder() {
+	   
+	   if(id=="") {
+		   
+		   location.href='/member/login';
+		   
+	   }else {
+		   
+		   location.href='/order/basketList';
+		   
+	   }
+	   
+   }
+   
 
 
    // 장바구니 담기 onclick 이벤트 시작
@@ -274,7 +274,6 @@ var id = document.getElementById("hiddenId").value;
     function insert2Basket(itemCode) {
       
       var id = document.getElementById("hiddenId").value;
-       
       
       var $num = $("#input-view");
       
@@ -334,7 +333,7 @@ var id = document.getElementById("hiddenId").value;
    function getBasketList(id) {
       
        var id = document.getElementById("hiddenId").value;
-      
+       
       return $.ajax({
          url: "/product/basket",
          type: "GET",
@@ -363,18 +362,13 @@ var id = document.getElementById("hiddenId").value;
       
       console.log("결과 : " + jsonData)
       
-      for(var i=0; i<jsonData.length; i++) {
+      for(var i=0; i<jsonData.length-1; i++) {
          
          $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
          
          // 이게 삭제 버튼 있는 버전 
          $basketList.append("<div id='basketContent'><button id='dltBtn' value=\""+jsonData[i].baskId+"\" onclick='dltEvent(this.value)'><img id='dltBtnImg' src='/resources/images/deleteBasketBtn.png'></button><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
 
-         
-         
-         
-         
-         
       }
       
       $("#basketList").append("<div id='endOfBasket'>end of basket</div>");
@@ -388,11 +382,6 @@ var id = document.getElementById("hiddenId").value;
       $("#basketList").css("text-align","left");
       $("#basketList").css("font-size","13px");
       $("#basketList").css("font-weight","bold");
-      
-      
-      //$("#dltBtn").css("width","10px");
-      //$("#dltBtnImg").css("width","10px");
-      
       
    }
    //html 구조 안에다가 장바구니 내용 넣기 function 끝
@@ -466,13 +455,6 @@ function deletefromBasket(baskId) {
 /* 장바구니 에서 ajax 로 지우기 funciton 끝 */
 
    
-   
-   
-   
-   
-   
-   
-   
 
 
 /* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 시작 */
@@ -495,20 +477,6 @@ function deletefromBasket(baskId) {
           }
       }
    /* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 끝 */
-
-
-   
-
-   
-
-
-
-
-
-
-
-
-
 
 
 
