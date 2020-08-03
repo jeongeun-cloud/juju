@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,6 +110,7 @@
                 <div class="banner_tit">
                     <p><b><i class="fa fa-list-alt"></i>중간 광고 등록</b></p>
                 </div>
+                <p>광고 이미지는 최대 2개까지 가능합니다.</p><br>
                 <p style='opacity:0.75;'>이미지 규격 : 1000*200</p>
                 <div class="uploadDiv">
                 	<input type="file" name="uploadFile" multiple>
@@ -122,7 +125,9 @@
                 <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
                	<label>현재 등록된 광고 이미지</label><br>
                 <div id="activeImg">
+                	<input type="hidden" id="imgLen" value='<c:out value="${fn:length(advertise)}"/>'>
                 	<c:forEach items="${advertise }" var="advertise">
+                	<%-- <p>${fn:length(advertise) }</p> --%>
 		           		<img class="banner" alt="" src='/resources/banner/<c:out value="${advertise.imgPath}"/>/<c:out value="${advertise.uuid}"/>_<c:out value="${advertise.imgName}"/>' >
 		           		<button id='removeBtn' data-oper='<c:out value="${advertise.imgNo}"/>'>삭제</button>
 		           	</c:forEach>
@@ -150,12 +155,17 @@
     				alert("해당 종류의 파일은 업로드 할 수 없습니다.");
     				return false;
     			}
+    			if($("#imgLen").val() >= 2) {
+    				alert("2개 이상의 광고를 등록할 수 없습니다. 먼저 삭제 한 후 시도해주세요.");
+    				return false;
+    			}
     			return true;
     		}
     		
     		var cloneObj = $(".uploadDiv").clone();
     		
     		$("input[type='file']").change(function(e) {
+
     			var formData = new FormData();
     			var inputFile = $("input[name='uploadFile']");
     			var files = inputFile[0].files;
@@ -167,6 +177,7 @@
     				if(!checkExtension(files[i].name, files[i].size)) {
     					return false;
     				}
+    				
     				formData.append("uploadFile", files[i]);
     				formData.append("idNo", idNo);
     			}
