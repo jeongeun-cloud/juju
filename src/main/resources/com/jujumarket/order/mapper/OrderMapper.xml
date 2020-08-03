@@ -15,11 +15,11 @@
    <insert id="insert">
       insert into t_order(orderCode, totalPay, totalSum,
       totalDiscount,receivAddr,
-      deliCharge, isMember, idNo)
+      deliCharge, isMember, idNo, nonMemPwd)
       values(#{orderCode},
       #{totalPay}, #{totalSum}, #{totalDiscount},
       #{receivAddr}, #{deliCharge},
-      #{isMember}, #{idNo})
+      #{isMember}, #{idNo}, #{nonMemPwd})
    </insert>
 
    <!-- replace함수써서 주문번호 PK 만들어놓은건데 ctrl + shift + F 누르면 안됨 공백이 빠짐! -->
@@ -123,6 +123,14 @@
    
    </insert>
 
+   <insert id="guestMemberInsert">
+   	  insert into t_member (idNo, emailAccount, memName, memCode)
+	  values(#{idNo}, #{emailAccount}, #{memName}, #{memCode})
+   </insert>
+   
+   <insert id="guestCustomerInsert">
+   	  insert into m_customer (idNo, contact) values (#{idNo}, #{contact})
+   </insert>
    
 
 </mapper>

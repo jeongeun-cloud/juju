@@ -49,6 +49,12 @@
 		
 		<!-- 네이버로 로그인 -->
 		<div id="naverIdLogin"></div>
+		
+		<!-- 0803 채련수정 시작 -->
+		<div>
+		<button onclick="location.href='/order/basketList'">비회원 주문</button>
+		</div>
+		<!-- 0803 채련수정 끝-->
 				
 		<a href="/member/findIdPwd">아이디/비밀번호 찾기</a><br>
 		<input type="hidden" id="result" value="${result }">

@@ -51,14 +51,10 @@ public class OrderController {
 	@GetMapping("/orderItemsForm")
 	public String orderItemsForm(@RequestParam("idNo") String idNo, Model model, HttpSession session) {
 		log.info("orderList");
-		if (session.getAttribute("sessionMember") == null) {
-			return "redirect:/member/login";
-		}
-
 
 		//System.out.println("test1");
 		// model에 orderList를 담아 주문서(orderItemsForm.jsp)에 출력
-		model.addAttribute("orderList", orderService.getOrderResponse(idNo));
+		//model.addAttribute("orderList", orderService.getOrderResponse(idNo));
 		
 		//System.out.println("test2");
 		// model에 memberInfo를 담아 주문서(orderItemsForm.jsp)에 출력
@@ -103,9 +99,6 @@ public class OrderController {
 	@GetMapping("/orderResult")
 	public String orderResult(@RequestParam("orderCode") String orderCode, Model model, HttpSession session) {
 		log.info("/orderResult");
-		if (session.getAttribute("sessionMember") == null) {
-			return "redirect:/member/login";
-		}
 		OrderVO order = orderService.get(orderCode);
 		
 		System.out.println("OrderController 에서 orderResult 메서드의 order.toString()" + order.toString());
@@ -115,7 +108,7 @@ public class OrderController {
 		
 		// 0802 주정은 수정
 		OrderMemberVO orderMember = new OrderMemberVO();
-		if(idNo.substring(0, 1).equals("c")) {
+		if(idNo.substring(0, 1).equals("c") || idNo.substring(0, 1).equals("g")) {
 			orderMember = orderMemberService.getOrderMemberInfo(idNo);
 		}else if(idNo.substring(0, 1).equals("s")) {
 			orderMember = orderMemberService.getOrderSellerInfo(idNo);
@@ -190,10 +183,6 @@ public class OrderController {
 	@PostMapping("/orderItemsForm")
 	public void sendChkRow(@RequestParam("idNo") String idNo, String[] checkRow, Model model, HttpSession session) {
 
-		if (session.getAttribute("sessionMember") == null) {
-			//return "redirect:/member/login";
-		}
-		
 		
 		List<BasketVO> list = new ArrayList<>();
 		for (int i = 0; i < checkRow.length; i++) {
@@ -201,6 +190,9 @@ public class OrderController {
 		}
 
 		model.addAttribute("list", list);
+		
+		// 비회원일 경우를 대비해서 idNo를 컨트롤러에서 실어보낸다 
+		model.addAttribute("controllerIdNo", idNo);
 
 		// [baskId105, baskId107]
 		System.out.println("orderController 에서 Arrays.toString(checkRow) : " + Arrays.toString(checkRow));
@@ -209,15 +201,15 @@ public class OrderController {
 
 		log.info("orderList");
 		// model에 orderList를 담아 주문서(orderItemsForm.jsp)에 출력
-		model.addAttribute("orderList", orderService.getOrderResponse(idNo));
+		//model.addAttribute("orderList", orderService.getOrderResponse(idNo));
 		System.out.println(idNo);
 		
 		// 0802 주정은 수정
 		// model에 memberInfo를 담아 주문서(orderItemsForm.jsp)에 출력
 		OrderMemberVO orderMember = new OrderMemberVO();
-		if(idNo.substring(0, 1).equals("c")) {
+		if(idNo.substring(0, 1).equals("c") || idNo.substring(0, 1).equals("g") ) {
 			orderMember = orderMemberService.getOrderMemberInfo(idNo);
-			System.out.println(orderMemberService.getOrderMemberInfo(idNo).toString());
+			//System.out.println(orderMemberService.getOrderMemberInfo(idNo).toString());
 		}else if(idNo.substring(0, 1).equals("s")) {
 			orderMember = orderMemberService.getOrderSellerInfo(idNo);
 		}else {
@@ -271,7 +263,7 @@ public class OrderController {
 		
 		OrderInfoVO fullvo = orderService.getMakeInfoAndHistory(notfullVO.getBaskId());
 		
-		System.out.println("fullvo : " + fullvo.toString());
+		//System.out.println("fullvo : " + fullvo.toString());
 		
 		fullvo.setOrderCode(notfullVO.getOrderCode());
 		fullvo.setDisAmount((fullvo.getNormPrice()-fullvo.getPrice())*fullvo.getItemNum());
@@ -301,6 +293,12 @@ public class OrderController {
 		
 	}
 	
+	
+	@PostMapping("/gusetInsert")
+	@ResponseBody
+	public void gusetInsert(@RequestBody OrderMemberVO orderMember) {
+		orderService.guestInsert(orderMember);
+	}
 	
 	
 	
