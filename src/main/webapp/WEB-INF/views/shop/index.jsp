@@ -160,37 +160,113 @@
                         <p><b>-주주마켓 공지사항</b></p>
                     </div>
                     <div class="board_notice_content">
-                        <div class="board_btn">
-                            <input type="button" value="더 보기">
+                         <div class="board_btn">
+                            <input type="button" value="더 보기" onClick="location.href='/community/notice/list'">
                         </div>
-                        내용
+                      	  <div>
+		                      <table tit aria-setsize="500px">
+					            <thead>
+					               <tr>
+					                  <th>번호</th>
+					                  <th>글 제목</th>
+					                  <th>등록일</th>
+					               </tr>
+					            </thead>
+					                 
+					             
+					            <c:forEach items="${noticelist}" var="notice">
+					               <tr>
+					                  <td><c:out value="${notice.postingNo }" /></td>
+					
+					                  <td><a class ='move' href='<c:out value="${notice.postingNo}"/>'>
+					                  <c:out value="${notice.title }" /></a></td>
+					         
+					                  <td><fmt:formatDate pattern="yyyy/MM/dd" value="${notice.regDate }" /></td>
+					
+					               </tr>
+					
+					            </c:forEach>
+					
+					         </table>
+			         	</div>
                     </div>
 
                 </div>
             </div>    
-            <div class="quick_b">
+
+           <div class="quick_b">
                 <div class="admi_faq">
                     <div class="board_tit">
                         <p><b>-주주마켓 FAQ</b></p>
                     </div>
                     <div class="board_faq_content">
                         <div class="board_btn">
-                            <input type="button" value="더 보기">
+                            <input type="button" value="더 보기" onClick="location.href='/community/BoardFAQ/list'">
                         </div>
-                        내용
+                        <div>
+		                         <table tit aria-setsize="500px">
+		                        
+		                        <thead>                     
+		                       
+		                            <tr>
+		                                <th>번호</th>
+		                                <th>글 제목</th>		                             
+		                                <th>등록일</th>
+		
+		                            </tr>
+		                        </thead>
+		
+		                            <c:forEach items="${faqlist}" var="faq">
+		                                <tr>
+		                                
+		                                    <td><c:out value="${faq.postingNo }" /></td>
+		                                    
+		                                    <td><a class ='move2' href='<c:out value="${faq.postingNo}"/>'>
+		                                    <c:out value="${faq.title }" /></a></td>		                                
+		                                    <td><fmt:formatDate pattern="yyyy/MM/dd" value="${faq.regDate }" /></td>
+		
+		                                </tr>
+		                            </c:forEach>
+		                        </table>
+                        
+                        </div>
+                     
                     </div>
 
                 </div>
             </div>
-           
-   
+            
         </div>
-        <!--admi_board  -->
+         <form id='faqForm' action="/community/BoardFAQ/list" method='get'></form>
+        <form id='noticeForm' action="/community/notice/list" method='get'></form>
     </div>
     <!-- admi_container -->
 </body>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+    
+    
+    var noticeForm = $("#noticeForm");
+    $(".move").on("click",function(e){
+        
+
+        e.preventDefault();
+        noticeForm.append("<input type='hidden' name='postingNo' value = '" + $(this).attr("href") + "'>");
+        noticeForm.attr("action", "/community/notice/get");
+        noticeForm.submit();
+
+     });
+    var faqForm = $("#faqForm");
+    $(".move2").on("click",function(e){
+        
+
+        e.preventDefault();
+        faqForm.append("<input type='hidden' name='postingNo' value = '" + $(this).attr("href") + "'>");
+        faqForm.attr("action", "/community/BoardFAQ/get");
+        faqForm.submit();
+        
+     });
+    
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawStuff);
 

@@ -43,7 +43,7 @@ public class HomeController {
 	private ReviewService reviewService;
 
 
-//	@Autowired
+	@Autowired
 
 //	private messageService mservice;
 
