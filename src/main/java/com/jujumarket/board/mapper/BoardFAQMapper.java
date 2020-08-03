@@ -34,6 +34,9 @@ public interface BoardFAQMapper {
 
 	public int getnoticeTotalCount(Criteria cri);
 	
+	//관리자,상인 페이지의  공지사항 끌고 오기 
+	public List<BoardFAQVO> getnotice();
 	
+	public List<BoardFAQVO> getfaq();
 	
 }

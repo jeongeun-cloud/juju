@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.jujumarket.board.service.BoardFAQService;
 import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.shop.domain.ShopManageVO;
 import com.jujumarket.shop.domain.WholeStaVO;
@@ -27,9 +28,12 @@ import lombok.extern.log4j.Log4j;
 public class ShopManageController {
 
 	private ShopManageService smservice;
+	private BoardFAQService fservice;
 	
 	@GetMapping("/")
 	public String index(HttpSession session, Model model) {
+		
+		
 		
 		 ShopManageVO smvo = new ShopManageVO();
 		 
@@ -54,6 +58,10 @@ public class ShopManageController {
 				
 			}
 			model.addAttribute("tt", compare);
+			
+		//공지사항
+		model.addAttribute("noticelist",fservice.getnotice());
+		model.addAttribute("faqlist",fservice.getfaq());	
 			
 		  
 		return "shop/index";

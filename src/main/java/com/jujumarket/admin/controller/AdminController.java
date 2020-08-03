@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jujumarket.admin.domain.MemStatVO;
 import com.jujumarket.admin.service.MemStatService;
+import com.jujumarket.board.service.BoardFAQService;
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.ItemPageDTO;
 
@@ -23,6 +24,7 @@ import lombok.extern.log4j.Log4j;
 public class AdminController {
 	
 	private MemStatService msservice;
+	private BoardFAQService fservice;
 	
 	
 	@GetMapping("/index")
@@ -53,14 +55,17 @@ public class AdminController {
 		vo.setITodayWithdrawT(iTodayWithdrawT);
 		model.addAttribute("iTodayWithdrawT", vo.getITodayWithdrawT());
 		
-			
+		//notice
+	
+		model.addAttribute("noticelist",fservice.getnotice());
+		model.addAttribute("faqlist",fservice.getfaq());
 		
 	}
 	//회원현황
 	@GetMapping("/memberStat")
 	public void minfo(@RequestParam(value="searchDay", defaultValue="202008") String day , Model model) {
 		
-		System.out.println("searchDay는"+day);
+		//System.out.println("searchDay는"+day);
 		
 		MemStatVO vo = new MemStatVO();
 		//일반회원
@@ -90,7 +95,7 @@ public class AdminController {
 			}
 			result +="["+key.getRegiday()+", "+key.getRegiMem()+"]";
 		}
-		System.out.println("이번달 고객 가입수"+result);
+		//System.out.println("이번달 고객 가입수"+result);
 		model.addAttribute("MemStat",result);
 		
 		//탈퇴한 회원 통계
@@ -104,7 +109,7 @@ public class AdminController {
 			}
 			result2 +="["+key2.getWithday()+", "+key2.getWithMem()+"]";
 		}
-		System.out.println("이번달 탈퇴 가입수"+result2);
+		//System.out.println("이번달 탈퇴 가입수"+result2);
 		model.addAttribute("WithdrawSta",result2);
 		
 	}
