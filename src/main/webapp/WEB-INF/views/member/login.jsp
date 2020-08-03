@@ -54,11 +54,19 @@
 		<!-- 네이버로 로그인 -->
 		<div id="naverIdLogin"></div>
 		
+
+		<!-- 0803 채련수정 시작 -->
+		<div>
+		<button onclick="location.href='/order/basketList'">비회원 주문</button>
+		</div>
+		<!-- 0803 채련수정 끝-->
+
 		<!-- 구글 로그인 -->
 		<!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
 		<!-- <img alt="" style="height:55px;" src="/resources/images/google-login-btn.png"> -->
 		<div class="g-signin2" data-onsuccess="onSignIn">
 		</div><br>
+
 				
 		<a href="/member/findIdPwd">아이디/비밀번호 찾기</a><br>
 		<input type="hidden" id="result" value="${result }">
