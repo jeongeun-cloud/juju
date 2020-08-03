@@ -13,5 +13,9 @@ public interface MyPageMapper {
 
 	public int getMyReviewCountByIdNo(@Param("idNo") String idNo, @Param("cri") Criteria cri);
 
+	public List<MyPageVO> getMyPrdReplyListByIdNo(@Param("idNo") String idNo, @Param("cri") Criteria cri);
+
+	public int getMyPrdReplyCountByIdNo(@Param("idNo") String idNo, @Param("cri") Criteria cri);
+
 
 }
