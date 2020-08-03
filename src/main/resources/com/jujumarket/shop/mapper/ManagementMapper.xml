@@ -124,7 +124,12 @@ where orderCode = #{orderCode}
 </update>
 
 <select id="getTotalCount" resultType="int">
-   select count(*) from t_delivery
+<![CDATA[
+   select count(*) from t_delivery d ,t_order_info o 
+   where d.baskId = o.baskid
+   and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
+   and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
+   ]]>
 </select>
 
 <select id="getnotCount" resultType="int">
@@ -154,10 +159,9 @@ and h.baskid = o.baskid
 	</selectKey>
 	insert into t_order_history (baskId,orderCode,orderStat,itemCode)
 	values (#{baskId},#{orderCode},'배송중',#{itemCode})
-	</insert>
+</insert>
 
 <select id ="datedate"   resultType="com.jujumarket.shop.domain.ManagementVO" >
-
 
 <![CDATA[
 select h.itemCode,h.orderCode, h.orderstat, o.totalprice, o.orderdate, i.itemName,
@@ -166,8 +170,6 @@ d.shippingCode, d.receivAddr, d.receivContact, d.receiver
 from t_order_history h, t_order_info o, t_item i, t_delivery d
 
 where h.ordercode = o.ordercode
-
-
 and d.ordercode = h.orderCode
 
 and o.itemCode = i.itemCode
@@ -176,7 +178,7 @@ and h.baskId = d.baskId
 and h.baskid = o.baskid
 
 and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
-and to_char(o.orderdate, 'yyyy-MM-dd') <= #{2020-07-26}
+and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
 
 
 ]]>
@@ -218,5 +220,52 @@ where rn > (#{pageNum} -1)* #{amount}
 ]]>
 
 </select>
+
+
+
+<select id = "refundListPaging" resultType="com.jujumarket.shop.domain.ManagementVO" >
+<![CDATA[
+select distinct  s.orderCode, s.orderstat, s.totalprice, s.orderdate, 
+s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver
+,s.itemNum,s.price,s.baskId,s.prgDate,s.itemCode
+
+from
+   (
+   select /*+INDEX_DESC(t_order_history PK_T_ORDER_HISTORY) */
+     rownum rn,h.orderCode, h.orderstat, o.totalprice, o.orderdate, 
+i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
+,o.itemNum,i.price,h.baskId,h.prgDate,h.itemCode
+
+from t_order_history h, t_order_info o, t_item i, t_delivery d
+where
+]]>
+<include refid="itemcriteria"></include>
+<![CDATA[
+ h.orderCode = o.orderCode
+and d.orderCode = h.orderCode
+and o.itemCode = i.itemCode
+and h.itemCode = i.itemCode
+
+
+and h.orderStat = #{orderStat}
+
+and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
+and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
+
+and rownum <= #{pageNum} * #{amount}
+) s
+where rn > (#{pageNum} -1)* #{amount}
+]]>
+
+</select>
+
+
+<insert id = "refundinsertSelectKey">
+	<selectKey keyProperty="baskId" order="BEFORE" resultType="String">
+	select SEQ_BASKET.nextval from dual
+	</selectKey>
+	insert into t_order_history (baskId,orderCode,orderStat,itemCode)
+	values (#{baskId},#{orderCode},'취소처리완료',#{itemCode})
+</insert>
 
 </mapper>
