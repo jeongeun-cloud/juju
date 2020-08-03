@@ -21,7 +21,7 @@ table, td, th {
 </style>
  		<body>
   
-		      <form id='searchForm' action="/shop/searchorder" method = 'get'>  
+		      <form id='searchForm' action="/shop/refund" method = 'get'>  
 		          <div> 검색어
 		                <select name='type'>
 		                
@@ -46,10 +46,8 @@ table, td, th {
 
 		
 		          <div > 주문상태
-		                <input name='orderStat' type="radio" value = 'all' checked>전체
-		                <input name='orderStat' type="radio" value = '상품준비중'>상품준비중
-		                <input name='orderStat' type="radio" value = '배송중'>배송중
-		                <input name='orderStat' type="radio" value = 'orderStat'>배송완료
+		                 <input name='orderStat' type="radio" value = '취소처리요청'>취소처리요청
+		                 <input name='orderStat' type="radio" value = '취소처리완료'>취소처리완료
 		                
 		      			
 		      			 <button class='btn btn-default' id="searchBtn"> 검색 </button> 
@@ -58,21 +56,21 @@ table, td, th {
 		          </div>  
 		        </form>    
 		      <br>
+		      
 		             
-		                
+		             <input type="button" id="refundBtn" value='완료처리'>
 			
 		              <table tit aria-setsize="500px">
 		                  <thead>
 		                    <tr>
-		                        <th><input type="checkbox"></th>
+		                        <th><input id="checkAll" name ='checkAll'type="checkbox"></th>
 		                        <th>주문일</th>
 		                        <th>주문번호</th>
 		                        <th>송장번호</th>
-		                         <th>주문상태</th>
+		                        <th>주문상태</th>
 		                        <th>상품명</th>
 		                        <th>상품수량</th>
 		                        <th>판매가</th>
-		                        
 		                        <th>결제금액</th>
 		                        <th>고객명</th>
 		                        <th>연락처</th>
@@ -81,30 +79,27 @@ table, td, th {
 		                      
 		                    </tr>
 		                  </thead>
+		                  
+		                  
          
 		              <c:forEach items="${list}" var="list">
 		        
-		                     <tr>
-		    
-		               <tr>
-		               
-		                  <td><input type="checkbox"></td>
-		                  <td><fmt:formatDate pattern="yyyy/MM/dd"
+		                   <tr id="test" class ='test'> 
+		                   <td><input id='checkbox' name='chk' type="checkbox"  value='<c:out value="${list.orderCode}"/>' ></td>
+		                   <td><fmt:formatDate pattern="yyyy/MM/dd"
 		                        value="${list.orderDate }" /></td>
-		                  <td><c:out value="${list.orderCode }" /></td>
-		                  <td><c:out value="${list.shippingCode }" /></td>
+		                   <td><c:out value="${list.orderCode }" /></td>
+		                   <td><c:out value="${list.shippingCode }" /></td>
 		                   <td><c:out value="${list.orderStat }" /></td>
-		                  
-		                    <td><c:out value="${list.itemName }" /></td>   
-		                     <td><c:out value="${list.itemNum }" /></td>  
-		                     <td><c:out value="${list.price }" /></td>  
-		                     
-		         
-		                    
-							<td><c:out value="${list.totalPrice}"/></td>
-		                      <td><c:out value="${list.receiver }" /></td>  
-		                        <td><c:out value="${list.receivContact }" /></td>  
+		                   <td><c:out value="${list.itemName }" /></td>   
+		                   <td><c:out value="${list.itemNum }" /></td>  
+		                   <td><c:out value="${list.price }" /></td>  
+						   <td><c:out value="${list.totalPrice}"/></td>
+		                   <td><c:out value="${list.receiver }" /></td>  
+		                   <td><c:out value="${list.receivContact }" /></td>  
 		                   <td><c:out value="${list.receivAddr }" /></td>
+		                   <td style='visibility:hidden;'><c:out value="${list.baskId }" /></td>
+			               <td style='visibility:hidden;'><c:out value="${list.itemCode }" /></td>   
 		                        
 		                    </tr> 
 		                  </c:forEach>
@@ -135,9 +130,21 @@ table, td, th {
 		            		</ul>
 		         </div><!-- endPaging -->
 		         
+		         
+		         <form id ='refundForm'  action="/shop/refund" method="post">
+			          <input type='' id = 'orderval' type ='text' name = 'orderCode' value=''>
+			 		  <input  type='' id = 'statval'type ='text' name = 'orderStat'value=''>
+			          <input  type='' id = 'baskval'type ='text' name = 'baskId'value=''>
+			          <input  type='' id = 'itemCodeval'type ='text' name = 'itemCode'value=''>
+			          <input type='' name='pageNum' value = '${pageMaker.cri.pageNum}'>
+			          <input type='' name='amount' value = '${pageMaker.cri.amount}'>
+			       	  <input type='' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
+			          <input  type='' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+	          </form>
+		         
 		       <!-- paging form-->
 		       
-		         <form id='actionForm' action="/shop/searchorder" method='get'>
+		         <form id='actionForm' action="/shop/refund" method='get'>
 		            <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
 		            <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
 		         	<input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
@@ -196,24 +203,51 @@ $(document).ready(function(){
     	  
       });
       
-      $("#radioBtn").on("click", function(e){
+      
+    //전체 체크처리	
+		$("#checkAll").click(function(){
 
-         var check = $("input:radio[name='orderStat']:checked").val();
-         
-    	 alert(check);
-    	   
-         $("#test").submit();
-          /* $.ajax({
-				url : '/shop/searchorder',
-				data : {orderStat : check},
-				dataType : 'text',
-				type : 'POST',
-				success : function(result) {
-					alert("ㅂ뀜");
-				}
-			});  */	// $.ajax
+		      if( $("#checkAll").is(':checked') ){
+		        $("input[name=chk]").prop("checked", true);
+		      }else{
+		        $("input[name=chk]").prop("checked", false);
+		      }
+		});
+    
+       //상태변경처리
+		$("#refundBtn").on("click", function(e) {
 
-      });
+		
+		    var checkRow = "";
+		    var statRow = "";
+		    var baskRow = "";
+		    var itemRow = "";
+		    
+		    
+		    $("input[name='chk']:checked").each (function (){
+		       checkRow = checkRow + $(this).val()+"," ; //주문번호
+		       statRow = statRow + $(this).closest('tr')[0].children[4].childNodes[0].nodeValue+ ","; //주문상태
+	           baskRow = baskRow + $(this).closest('tr')[0].children[12].childNodes[0].nodeValue + ","; //바스크아이디
+ 		       itemRow = itemRow + $(this).closest('tr')[0].children[13].childNodes[0].nodeValue + ","; //아이템코드
+
+	           
+		       
+		    });
+		      checkRow = checkRow.substring(0,checkRow.lastIndexOf(",")); //맨끝 콤마 지우기
+		      statRow = statRow.substring(0,statRow.lastIndexOf(",")); //맨끝 콤마 지우기
+		      baskRow = baskRow.substring(0,baskRow.lastIndexOf(",")); //맨끝 콤마 지우기
+		      itemRow = itemRow.substring(0,itemRow.lastIndexOf(",")); //맨끝 콤마 지우기
+
+			  var orderForm =  $("#refundForm").find("#orderval").val(checkRow); //주문번호
+			  var statval =  $("#refundForm").find("#statval").val(statRow); //주문상태
+		      var baskval =  $("#refundForm").find("#baskval").val(baskRow); //바스크아이디
+		      var itemCodeal =  $("#refundForm").find("#itemCodeval").val(itemRow);
+
+	
+		      $("#refundForm").submit();
+
+	});
+      
 	
 });
 </script>

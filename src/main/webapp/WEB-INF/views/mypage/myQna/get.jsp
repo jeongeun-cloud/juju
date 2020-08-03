@@ -250,7 +250,7 @@ li {
      
                
             <div class="from-group">
-                  <label>작성자</label><input class="form-control" name='idNo'
+                  <label>작성자</label><input type="hidden" class="form-control" name='idNo'
                      value='<c:out value="${BoardQNA.idNo}"/>'readonly="readonly">
             </div>
                

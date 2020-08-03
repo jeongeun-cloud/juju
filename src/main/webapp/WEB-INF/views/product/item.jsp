@@ -796,7 +796,8 @@ input[type=range] {
               
                <div class="form-grop">
                <label>id</label>
-               <input class ="form-control" id ="idNoBtn"  name='idNo' value='idNo' readonly="readonly"></div>
+               <!--  -->
+               <input class ="form-control" id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
                <div class="form-grop">
           <!--      <label>replyDepth</label>
                 <input class ="form-control" id ="replyDepth"  name='replyDepth' value='1' readonly="readonly"></div> -->
@@ -1073,9 +1074,10 @@ $(document).ready(function(){
       
               var replyRegister = $("#replyTextarea").val()
              var replyNo = $("#replyNo").val()
+             var sessionId = $("#sessionId");
    
                       prdreplyService.replyadd(
-                         {idNo:'idNo', replyContent:replyRegister,       
+                         {idNo: sessionId.val() , replyContent:replyRegister,       
                           itemCode:$("#itemCode").val(),replyDepth:1,
                          replyCount:$("#replyCount").val(), replyCode:01 ,  
                          replyNo : replyNo
@@ -1368,13 +1370,37 @@ $(document).ready(function(){
    
       // 주문 한 사람인지 비교
       function orderCheck() {
+        var sessionId = $("#sessionId").val();
+    	
+        $.ajax({
+              url : '/review/orderCheck',
+              data : {idNo : sessionId},
+              type : 'POST',
+              success : function(result) {
+                 if(result == 'success') {
+                	 document.getElementById('review').style.display='block';
+                     
+                     // 버튼 및 내용 초기화
+                     $("#reviewBtn").show();
+                     $("#updateBtn").hide();
+                     $("#reviewTitle").val("");
+                     $("#reviewContent").val("");
+                     $("#reviewImg").val("");
+                     $("#score").val("0");
+                     $("#reviewNo").val("");
+                     $("#star_grade a").parent().children("a").removeClass("on");
+                 }else {
+                	alert("상품 후기는 상품을 구매하시고 배송완료된 회원 분만 한달 내 작성 가능합니다.");
+         	     	return false;
+                 }
+              }
+       	 });
+    	  
          
-         // 주문 번호 생기면 추가
-         var sessionId = $("#sessionId").val();
-      if($("#sessionId").val() == '') {
-           alert("상품 후기는 상품을 구매하시고 배송완료된 회원 분만 한달 내 작성 가능합니다.");
-         return false;
-      }
+	     /* if($("#sessionId").val() == '') {
+	       	alert("상품 후기는 상품을 구매하시고 배송완료된 회원 분만 한달 내 작성 가능합니다.");
+	     	return false;
+	     }
          document.getElementById('review').style.display='block';
       
          // 버튼 및 내용 초기화
@@ -1385,7 +1411,7 @@ $(document).ready(function(){
          $("#reviewImg").val("");
          $("#score").val("0");
          $("#reviewNo").val("");
-         $("#star_grade a").parent().children("a").removeClass("on");
+         $("#star_grade a").parent().children("a").removeClass("on"); */
       }
       
       // 이미지 체크

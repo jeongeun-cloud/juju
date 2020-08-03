@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.member.mapper.MyPageMapper">
+
+	<select id="getMyReviewListByIdNo" resultType="com.jujumarket.member.domain.MyPageVO">
+      <![CDATA[
+ 
+        select * 
+        from(
+            select rownum rn, R.reviewNo, R.idNo, R.itemCode, R.reviewImg, I.itemName, R.reviewTitle, R.reviewContent, R.regDate
+			from (
+				 select reviewNo, reviewTitle, reviewContent, reviewImg, score, regDate, updateDate, orderCode, itemCode, idNo
+				 from t_review
+				 where idNo = #{idNo}
+            	 order by regDate desc
+            	 ) R, t_item I
+		     where R.itemCode = I.itemCode
+		     )
+         where rn <= #{cri.pageNum} * #{cri.amount}
+         and rn > (#{cri.pageNum}-1) * #{cri.amount}
+
+      ]]>
+
+	</select>
+
+
+
+
+	<select id="getMyReviewCountByIdNo" resultType="int">
+	   		select count(reviewNo) from t_review where idNo = #{idNo}
+	</select>
+
+
+	<!-- 나의 상품문의  t_prdQna 테이블 -->
+	<select id="getMyPrdReplyListByIdNo"
+		resultType="com.jujumarket.member.domain.MyPageVO">
+ <![CDATA[
+            
+ 	 	select * 
+  		from(
+  			select rownum rn, A.replyNo, A.sub, A.itemCode, A.idNo, A.replyContent, A.regDate, B.itemName
+  			from(
+  				select replyNo, SUBSTR(replyCode,0,2)sub, itemCode, idNo, replyContent, regDate 
+    			from t_prdQna		 
+    			where idNo = #{idNo}
+    			order by regDate desc
+    			) A, t_item B
+    		where
+    		A.itemCode = B.itemCode 
+    		)
+    	where rn <= #{cri.pageNum} * #{cri.amount}
+    	and rn > (#{cri.pageNum}-1) * #{cri.amount}
+        
+	]]>
+	</select>
+
+
+	<!-- 나의 상품문의  t_prdQna 테이블 -->
+	<select id="getMyPrdReplyCountByIdNo" resultType="int">
+		select count(replyNo) from t_prdQNA where idNo = #{idNo}
+	</select>
+
+
+
+</mapper>

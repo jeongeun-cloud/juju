@@ -10,26 +10,32 @@ import com.jujumarket.shop.domain.ManagementVO;
 public interface ManagementMapper {
 		
 	
-		public List<ManagementVO> shippinggetList();
+		public List<ManagementVO> shippinggetList(); //옛날꺼
 		
-		public List<ManagementVO> searchordergetList();
+		public List<ManagementVO> searchordergetList(); //옛날꺼
 		
-		public List<ManagementVO> shippinggetListPaging(ItemCriteria cri);
+		public List<ManagementVO> shippinggetListPaging(ItemCriteria cri); //배송처리
 		
-		public List<ManagementVO> searchordergetListPaging(ItemCriteria cri);
+		public List<ManagementVO> searchordergetListPaging(ItemCriteria cri); //전체보기
 		
-		public int getnotCount (ItemCriteria cri);
+		public int getnotCount (ItemCriteria cri); //전체 total 아직 미완
 		
-		public int getTotalCount (ItemCriteria cri);	
+		public int getTotalCount (ItemCriteria cri); //배송처리 total	
 		
-		public List<ManagementVO> getcheck(String orderStat);
+		public List<ManagementVO> getcheck(String orderStat);//착크박스 처리였나 ?...
 		
-		public List<ManagementVO> getcheckAll(ItemCriteria cri);
+		public List<ManagementVO> getcheckAll(ItemCriteria cri); //전체보기 orderStat
 		
-		public void insertSelectKey(ManagementVO vo);
+		public void insertSelectKey(ManagementVO vo); //송장수정
 		
 		public int shippingupdate(ManagementVO vo); //송장번호 입력은 수정으로 처리를 함
 		
-        public List<ManagementVO> datedate(ManagementVO vo);
+        public List<ManagementVO> datedate(ManagementVO vo);//날짜처리
+
+        public List<ManagementVO> refundListPaging(ItemCriteria cri); //취소환불
+        
+        public void refundinsertSelectKey(ManagementVO vo); //송장수정
+        
+        
 		
 }

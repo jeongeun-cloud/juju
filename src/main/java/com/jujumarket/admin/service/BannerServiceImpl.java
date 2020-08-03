@@ -85,4 +85,11 @@ public class BannerServiceImpl implements BannerService {
 		return mapper.getItemTotal(cri);
 	}
 
+	@Override
+	public void deleSeason(String itemCode) {
+		log.info("deleSeason......");
+		
+		mapper.deleSeason(itemCode);
+	}
+
 }

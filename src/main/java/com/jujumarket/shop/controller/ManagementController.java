@@ -36,7 +36,8 @@ public class ManagementController {
 	
 	
 	 @GetMapping("/searchorder") 
-	 public void searlist(ItemCriteria cri,String date1,String date2,Model model,String orderStat) {
+	 public void searlist(ItemCriteria cri,String date1,String date2,Model model,String orderStat
+			              ) {
 		
 		   orderStat = orderStat == null?  "" : orderStat;
 		 
@@ -52,6 +53,7 @@ public class ManagementController {
 		   
 		   int total = service.getTotal(cri);
 
+		   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 		   
 		   if(!orderStat.equals("")) {
 				 
@@ -60,47 +62,14 @@ public class ManagementController {
 					}else {
 						 model.addAttribute("list", service.searchordergetList(cri));
 				    }  
-		   
-		   
-		   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+	
+		  
   
 	       }
 	 }
 	
 	 
-	 //배송대기중 출력
-	 @GetMapping("/shipping")
-	 public void  shippinglist(ItemCriteria cri , Model model, String date1,String date2) {
-	 int total = service.getNotTotal(cri);
-
-	 
-	   SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
-			 
-	   Date time = new Date();
-	   
-	   String time1 = format1.format(time);
-	   
-  
-	   
-	   date1 = date1 == null?"2020-07-01": date1;
-	   date2 = date2 == null?time1: date2;
-	   
-	  cri.setDate1(date1);
-	  cri.setDate2(date2);
-	   
-	  System.out.println("datessdatess" + time1);
-	   System.out.println(cri.getDate1());
-	   System.out.println(cri.getDate2());
-
-	 
-	 
-	  model.addAttribute("list", service.shippinggetList(cri));
-	  model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
-	  
-	  
 	
-		 
-	 }
 	 
 	
 	 
@@ -123,8 +92,7 @@ public class ManagementController {
 				vo.setItemCode(arritemCode[i]);
 				
 				
-				System.out.println(arrbaskId[i]);
-				System.out.println(arritemCode[i]);
+			
 				service.shippingupdate(vo);
 				  
 				model.addAttribute("shippingCode");				
@@ -134,5 +102,94 @@ public class ManagementController {
 		}
 
 	 
+	 
+	 //배송대기중 출력
+	 @GetMapping("/shipping")
+	 public void  shippinglist(ItemCriteria cri , Model model, String date1,String date2) {
+	 int total = service.getNotTotal(cri);
 
+	 
+	   SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+	   Date time = new Date();
+	   String time1 = format1.format(time);
+	   
+	   date1 = date1 == null?"2020-07-01": date1;
+	   date2 = date2 == null?time1: date2;
+	   
+	   cri.setDate1(date1);
+	   cri.setDate2(date2);
+
+	   System.out.println("맥크리shiping"+cri);
+	   
+	   model.addAttribute("list", service.shippinggetList(cri));
+	   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+	 
+	 }
+	 
+	//취소요청주문	또는 취소처리주문
+	 @GetMapping("/refund") 
+	 public void refundlist(ItemCriteria cri,String date1,String date2,Model model,String orderStat) {
+		
+		   orderStat = orderStat == null? "취소처리요청": orderStat;
+		 
+		   SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
+		   Date time = new Date();
+		   String time1 = format1.format(time);
+		
+		   date1 = date1 == null?"2020-07-01": date1;
+		   date2 = date2 == null?time1: date2;
+		   cri.setDate1(date1);
+		   cri.setDate2(date2);
+		   cri.setOrderStat(orderStat);
+		   
+		   System.out.println(cri.toString());
+		   System.out.println("맥크리"+cri);
+		   
+		   
+		   int total = service.getTotal(cri);
+
+		   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+		   
+		   if(!orderStat.equals("")) {
+				 
+				 model.addAttribute("list", service.refundList(cri));
+	       }
+	 	}
+	 
+	 @PostMapping("/refund")
+	 public String refundStatus(String orderCode,String orderStat,String baskId ,String itemCode,Model model) {
+		
+//		 System.out.println("들어옴");
+//		 System.out.println(orderCode);
+//		 System.out.println(orderStat);
+//		 System.out.println(baskId);
+//		 System.out.println(itemCode);
+		 
+		 ManagementVO vo = new ManagementVO();
+		  
+			String[] arrOrder = orderCode.toString().split(",");
+			String[] arrShipping = orderStat.toString().split(",");
+			String[] arrbaskId = baskId.toString().split(",");
+			String[] arritemCode = itemCode.toString().split(",");
+		 
+		 
+			for (int i=0; i<arrOrder.length; i++) {
+				vo.setOrderCode(arrOrder[i]);
+				vo.setShippingCode(arrShipping[i]);
+				vo.setBaskId(arrbaskId[i]);
+				vo.setItemCode(arritemCode[i]);
+				
+				
+				System.out.println(arrbaskId[i]);
+				System.out.println(arritemCode[i]);
+				
+				
+			service.refundupdate(vo);
+				  
+				model.addAttribute("refundCode");				
+
+		  	}	
+			 return "redirect:/shop/refund";
+		}
+	 
 }

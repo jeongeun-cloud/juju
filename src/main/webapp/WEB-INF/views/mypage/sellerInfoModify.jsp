@@ -332,6 +332,7 @@ a {
                     <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
                     <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
                     
+                                        
                    		 <c:choose>
                            <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
                               <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
@@ -339,7 +340,11 @@ a {
                            <c:when test="${sessionMember.memCode eq 'SELLER'}">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
+                           <c:when test="${sessionMember.memCode eq 'JUNIOR'}">
+                              <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
+                           </c:when>
                         </c:choose>
+                        
                     <c:if test="${!empty sessionMember}">
                     <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
                     <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>

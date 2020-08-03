@@ -238,7 +238,7 @@ margin: auto;
   
 
                   <div class="form-group1">
-                     <label>작성자</label><input class="form-control" name='idNo' value='운영자'>
+                   <input type="hidden" class="form-control" name='idNo' value='${sessionMember.idNo}'>
                   </div>
 
 				  <div class="btns">

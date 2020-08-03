@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,7 +100,7 @@
        margin-bottom:20px;
    }
    
-   #regBtn{
+   #regBtn, #deleBtn{
         float:right;
         margin-right: 30px;
         margin-top : 5px;
@@ -116,7 +117,7 @@
         font-weight: 900;
     }
 
-    #regBtn:hover{
+    #regBtn:hover, #deleBtn:hover{
 	    background-color: white; 
 	    color: #ffc30b; 
 	    border: 2px solid #ffc30b;
@@ -161,6 +162,7 @@
 </style>
 <body>
 <%@include file="./idCheck.jsp" %>
+<%@include file="../includes/header.jsp" %>
     <div class="banner_content">
         <div class="banner_wrap">
         
@@ -178,10 +180,10 @@
 	                            <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i> 이벤트</a></li>
 		                    <br>
 		                    <p><b>회원관리</b></p>
-			                    <li><a href='#'><i class="fa fa-check" ></i> 회원수</a></li>
-			                    <li><a href='#'><i class="fa fa-check" ></i> 회원 현황</a></li>
+			                   
+			                    <li><a href='/admin/memberStat'><i class="fa fa-check" ></i> 회원 현황</a></li>
 			                    <li><a href='#'><i class="fa fa-check" ></i> 상인 승인</a></li>
-			                    <li><a href='#'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
+			                    <li><a href='/admin/withdraw'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
 		                </ul>
 		           </div>
 		     	</div>
@@ -214,6 +216,9 @@
 	            </form>
 	        </div>
 	        
+		        <!-- 등록전 상품 갯수 -->
+                <input type="hidden" id="itemLen" value='<c:out value="${fn:length(list)}"/>'><br>
+            
                 <div class="seosonal_table">
                     <table tit aria-setsize="500px">
                         <thead>
@@ -221,7 +226,7 @@
                                 <th><input type="checkbox" name="chkAll" id="chkAll"></th>
                                 <th>상품명</th>
                                 <th>판매 가격</th>
-                                <th>할인 가격</th>
+                                <th>정상 가격</th>
                                 <th>상점 명</th>
                             </tr>
                         </thead>
@@ -272,6 +277,42 @@
                     <input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type }"/>' >
                 </form>
                 
+                
+                <div class="banner_tit">
+	            	<button id="deleBtn">다담기 상품에서 제거</button>
+	            	<p><b><i class="fa fa-list-alt"></i>다담기로 등록된 상품</b></p>
+            	</div>
+            	
+                <!-- 등록 된 상품 개수 -->
+                <input type="hidden" id="resultLen" value='<c:out value="${fn:length(seasonItemResult)}"/>'>
+                <div class="seosonal_table">
+                    <table tit aria-setsize="500px">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" name="chkAllSeason" id="chkAllSeason"></th>
+                                <th>상품명</th>
+                                <th>판매 가격</th>
+                                <th>정상 가격</th>
+                                <th>상점 명</th>
+                            </tr>
+                        </thead>
+                        
+                        <c:forEach items="${seasonItemResult }" var="seasonItemResult">
+                            <tr>
+                                <td><input type="checkbox" name="chkSeason" value='<c:out value="${seasonItemResult.itemCode }" />'></td>
+                                <td>
+                                    <a class='move' href='#'>
+                                        <c:out value="${seasonItemResult.itemName }" />
+                                    </a>
+                                </td>
+                                <td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${seasonItemResult.price}" />원</td>
+                                <td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${seasonItemResult.normPrice}" />원</td>
+                                <td><c:out value="${seasonItemResult.shopName }" /></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </div>
+                
                 <div class="banner_tit" style='margin-top:50px;'>
                     <p><b><i class="fa fa-list-alt"></i>제철 페이지 매거진 등록</b></p>
                 </div>
@@ -285,7 +326,7 @@
                 	
                 	</ul>
                 </div>
-                
+
                 <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
                	<label>현재 등록된 매거진</label><br>
                 <div id="activeImg">
@@ -426,7 +467,7 @@
     	        }
     		});
     		
-    		// 전체 선택
+    		// 상품 고르기 전체 선택
             $("#chkAll").click(function(){
                  //클릭되었으면
                  if($("#chkAll").prop("checked")){
@@ -439,8 +480,12 @@
                  }
              });
     		
-    		// 선택된 애 처리
+    		// 선택된 애 다담기 상품으로 등록
     		$("#regBtn").on("click", function(){
+    			if($("#resultLen").val() >= 10) {
+    				alert("다담기 상품은 10개까지 등록 가능합니다.");
+    				return false;
+    			}
          
 	        	var checkRow = "";
 	         	$("input[name='chk']:checked").each (function (){
@@ -460,9 +505,48 @@
     				dataType : 'text',
     				type : 'POST',
     				success : function(result) {
-    					alert('등록 되었습니다.');
-    					$("input[name=chk]").prop("checked",false);
-    					$("input[name=chkAll]").prop("checked",false);
+    					alert('정상적으로 등록 되었습니다.');
+    					location.reload();
+    				}
+    			});	// $.ajax
+    		});
+    		
+    		// 이미 등록된 상품 전체 선택
+            $("#chkAllSeason").click(function(){
+                 //클릭되었으면
+                 if($("#chkAllSeason").prop("checked")){
+                     //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+                     $("input[name=chkSeason]").prop("checked",true);
+                     //클릭이 안되있으면
+                 }else{
+                     //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+                     $("input[name=chkSeason]").prop("checked",false);
+                 }
+             });
+    		
+    		// 선택된 애 다담기 삭제 처리
+    		$("#deleBtn").on("click", function(){
+         
+	        	var checkRow = "";
+	         	$("input[name='chkSeason']:checked").each (function (){
+	            	checkRow = checkRow + $(this).val()+"," ;
+	         	});
+	           	checkRow = checkRow.substring(0,checkRow.lastIndexOf(",")); //맨끝 콤마 지우기
+	       
+	           	if(checkRow == ''){
+	             	alert("제거할 상품을 선택하세요.");
+	             	return false;
+	           	}
+	           	console.log("선택한 아이템 코드 => " + checkRow);
+           
+	            	$.ajax({
+    				url : '/admin/deleSeason',
+    				data : {itemCode : checkRow},
+    				dataType : 'text',
+    				type : 'POST',
+    				success : function(result) {
+    					alert('정상적으로 제거 되었습니다.');
+    					location.reload();
     				}
     			});	// $.ajax
     		});

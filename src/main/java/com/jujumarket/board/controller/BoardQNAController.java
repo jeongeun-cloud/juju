@@ -1,5 +1,7 @@
 package com.jujumarket.board.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import com.jujumarket.board.domain.BoardQNAVO;
 import com.jujumarket.board.domain.Criteria;
 import com.jujumarket.board.domain.PageDTO;
 import com.jujumarket.board.service.BoardQNAService;
+import com.jujumarket.member.domain.MemberVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -25,7 +28,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardQNAController {
 
 	private BoardQNAService service;
-	
+
 	/*
 	 * @GetMapping("/myQna/list") public void list(Model model) {
 	 * 
@@ -33,7 +36,6 @@ public class BoardQNAController {
 	 * 
 	 * }
 	 */
-
 
 	@PostMapping("/myQna/register")
 	public String register(BoardQNAVO qna, RedirectAttributes rttr) {
@@ -47,51 +49,52 @@ public class BoardQNAController {
 
 	}
 
+	@GetMapping("/myQna/list")
+	public String list(Criteria cri, Model model, HttpSession session) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		if (member == null) {
+			return "redirect:/member/login";
 
-	
-	  @GetMapping("/myQna/list") 
-	  public void list(Criteria cri, Model model) {
-		    
-	  log.info("qna" + cri);
-	  
-	  
-	  model.addAttribute("qna", service.getList(cri));
-	  
-	  int total = service.getTotal(cri);
+		}
+		String idNo = member.getIdNo();
 
-	  
-	  if(cri.getKeyword() != null && cri.getKeyword()!="") {
-		  
-		  int resultTotal = service.getResultTotal(cri);
+		log.info("qna" + cri);
+		model.addAttribute("qna", service.getListByIdNo(idNo));
+		int total = service.getTotal(cri);
+		if (cri.getKeyword() != null && cri.getKeyword() != "") {
+			int resultTotal = service.getResultTotalByIdNo(cri, idNo);
+			System.out.println("resultTotal" + resultTotal);
+			model.addAttribute("pageMaker", new PageDTO(cri, resultTotal));
+		} else {
+			System.out.println("total" + total);
+			model.addAttribute("pageMaker", new PageDTO(cri, total));
+		}
 
-		  
-		  System.out.println("resultTotal"+resultTotal);
-		  model.addAttribute("pageMaker", new PageDTO(cri,resultTotal));
-		  
-	  }else {
-	  
-	 
-		  System.out.println("total"+total);
-		  model.addAttribute("pageMaker", new PageDTO(cri,total));
-		  }
-	  }
-	 
-
+		return "/mypage/myQna/list";
+	}
 
 	@GetMapping("/myQna/register")
 	public void register() {
 
 	}
 
-
 	@GetMapping({ "/myQna/get", "/myQna/modify" })
-	public void get(@RequestParam("postingNo") String postingNo, @ModelAttribute("cri") Criteria cri, Model model) {
+	public String get(@RequestParam("postingNo") String postingNo, @ModelAttribute("cri") Criteria cri, Model model,
+			HttpSession session, RedirectAttributes rttr) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
 
-		log.info("/myQna/get or /myQna/modify");
+		if (member == null) {
+			rttr.addFlashAttribute("result", "로그인 후 이용 가능합니다.");
+			return "redirect:/mypage/myPerchaseList";
+		} else if (!member.getIdNo().equals(service.getIdNoByPostingNo(postingNo))) {
+			rttr.addFlashAttribute("result", "회원님이 작성한 1:1문의가 아닙니다.");
+			return "redirect:/mypage/myPerchaseList";
 
-		model.addAttribute("BoardQNA", service.get(postingNo));
-		
-
+		} else {
+			log.info("/myQna/get or /myQna/modify");
+			model.addAttribute("BoardQNA", service.get(postingNo));
+			return "mypage/myQna/get";
+		}
 	}
 
 	@PostMapping("/myQna/modify")
@@ -102,20 +105,19 @@ public class BoardQNAController {
 			rttr.addFlashAttribute("result", "success");
 		}
 
-		return "redirect:/mypage/myQna/list"+ cri.getListLink();
+		return "redirect:/mypage/myQna/list" + cri.getListLink();
 	}
 
 	@PostMapping("/myQna/remove")
-	public String remove(@RequestParam("postingNo") String postingNo,
-			@ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
-		
+	public String remove(@RequestParam("postingNo") String postingNo, @ModelAttribute("cri") Criteria cri,
+			RedirectAttributes rttr) {
+
 		log.info("remove....." + postingNo);
 		if (service.remove(postingNo)) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		
+
 		return "redirect:/mypage/myQna/list" + cri.getListLink();
 	}
 
 }
-

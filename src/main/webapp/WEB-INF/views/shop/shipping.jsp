@@ -79,7 +79,7 @@
 		              <c:forEach items="${list}" var="list">
 		               
 		  
-		              	   <tr id="test" class ='test'>
+		              	      <tr id="test" class ='test'>
 			                  <td><input id='checkbox' name='chk' type="checkbox"  value='<c:out value="${list.orderCode}"/>' ></td>             
 			                  <td><fmt:formatDate pattern="yyyy/MM/dd" value="${list.orderDate }" /></td>
 		         			  <td><input type ='text' id ='orderCode' value='<c:out value="${list.orderCode}"/>'></td>
@@ -129,9 +129,10 @@
 			          <input  type='hidden' id = 'shippingval'type ='text' name = 'shippingCode'value=''>		   
 			          <input  type='hidden' id = 'baskval'type ='text' name = 'baskId'value=''>
 			          <input  type='hidden' id = 'itemCodeal'type ='text' name = 'itemCode'value=''>
-			          
-			       
-
+			          <input type='' name='pageNum' value = '${pageMaker.cri.pageNum}'>
+			          <input type='' name='amount' value = '${pageMaker.cri.amount}'>
+			       	  <input type='' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
+			          <input  type='' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
 	          </form>
              
             <!-- 페이징시작 -->
@@ -143,6 +144,9 @@
             <input type='' name='amount' value = '${pageMaker.cri.amount}'>
        		<input type='' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
             <input  type='' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+            <input  type='' name='date1' value = '<c:out value="${pageMaker.cri.date1}"/>'>
+		    <input  type='' name='date2' value = '<c:out value="${pageMaker.cri.date2}"/>'>
+		 
           </form>
         <!-- paging form end--> 
            
@@ -152,76 +156,6 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
-	
-	
-	//Date
-
-$(document).on("click","button[id='dateBtn']",function(e){
-  
- 	$.fn.rowspan = function(colIdx, isStats) {
-		
-		
-		  return this.each(function(){
-		    var that;
-		    $('tr', this).each(function(row) {
-		      $('td:eq('+colIdx+')', this).filter(':visible').each(function(col) {
-
-		        if ($(this).html() == $(that).html()
-		                && (!isStats
-		                        || isStats && $(this).prev().html() == $(that).prev().html()
-		                )
-		        ) {
-		          rowspan = $(that).attr("rowspan") || 1;
-		          rowspan = Number(rowspan)+1;
-
-		          $(that).attr("rowspan",rowspan);
-
-		          $(this).hide();
-
-
-		        } else {
-		          that = this;
-		        }
-
-		        // set the that if not already set
-		        that = (that == null) ? this : that;
-		      });
-		    });
-		  });
-		};
-
-		$.fn.colspan = function(rowIdx) {
-		  return this.each(function(){
-
-		    var that;
-		    $('tr', this).filter(":eq("+rowIdx+")").each(function(row) {
-		      $(this).find('th').filter(':visible').each(function(col) {
-		        if ($(this).html() == $(that).html()) {
-		          colspan = $(that).attr("colSpan") || 1;
-		          colspan = Number(colspan)+1;
-
-		          $(that).attr("colSpan",colspan);
-		          $(this).hide(); // .remove();
-		        } else {
-		          that = this;
-		        }
-
-		        // set the that if not already set
-		        that = (that == null) ? this : that;
-
-		      });
-		    });
-		  });
-		}
-
-		$("#hazy").rowspan(0);
-		$("#hazy").rowspan(1);
-	
-		
-		$("table tbody tr:visible").each(function(row) {
-		  $('#hazy').colspan(row);
-		})
 
 
 		    //페이징처리
@@ -305,40 +239,7 @@ $(document).on("click","button[id='dateBtn']",function(e){
  		      }
  		});
 
- 		
- 	
 
-	
-//송장입력
-
-/* $("#shippingBtn").on("click", function(e) {
-
-      var target = e.target;  
-      orderForm
-      shippingForm
-      var shipping = $(target).parents().find("#orderCode").val() 
-      var order = $(target).parents().find("#shippingCode").val();
-      var check = $(target).parents().find("#checkbox").val();
-      
-      
-      
-
-	  
-	   if(!modifyForm.find("#title").val()||modifyForm.find("#title").val().trim()==""||modifyForm.find("#title").val().length>30){
-		 alert("양식에 맞게 제목입력 입력해주세요(1~30자)");
-		 return false;
-		 
-	 }
-		 
-		 if(!modifyForm.find("#content").val()||modifyForm.find("#content").val().trim()==""||modifyForm.find("#content").val().length>600){
-	  		 alert("양식에 맞게 내용입력 입력해주세요(1~600자)");
-	  		 return false;
-		 
-	 }
-	  
-	
-    });
-     */
 });
 
 </script>

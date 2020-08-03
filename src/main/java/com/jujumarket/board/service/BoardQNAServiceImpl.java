@@ -9,7 +9,6 @@ import com.jujumarket.board.domain.BoardQNAVO;
 import com.jujumarket.board.domain.Criteria;
 import com.jujumarket.board.mapper.BoardQNAMapper;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -21,7 +20,7 @@ public class BoardQNAServiceImpl implements BoardQNAService {
 
 	@Setter(onMethod_ = @Autowired)
 	private BoardQNAMapper mapper;
-	
+
 	@Override
 	public void register(BoardQNAVO qna) {
 
@@ -52,7 +51,6 @@ public class BoardQNAServiceImpl implements BoardQNAService {
 		return mapper.delete(postingNo) == 1;
 	}
 
-
 	@Override
 	public int getTotal(Criteria cri) {
 		log.info("get total count");
@@ -68,18 +66,37 @@ public class BoardQNAServiceImpl implements BoardQNAService {
 
 	@Override
 	public List<BoardQNAVO> qna() {
-		
+
 		log.info("get FAQ......");
-		
+
 		return mapper.qna();
 	}
-
 
 	@Override
 	public int getResultTotal(Criteria cri) {
 		return mapper.getResultTotal(cri);
 	}
-	
+
+//	이거 3개 추가함~
+	@Override
+	public List<BoardQNAVO> getListByIdNo(String idNo) {
+		return mapper.getListByIdNo(idNo);
 	}
-	
-	
+
+	@Override
+	public List<BoardQNAVO> getListWithPagingByIdNo(Criteria cri, String idNo) {
+		return mapper.getListWithPagingByIdNo(cri, idNo);
+	}
+
+	@Override
+	public int getResultTotalByIdNo(Criteria cri, String idNo) {
+		return mapper.getResultTotalByIdNo(cri, idNo);
+
+	}
+
+	@Override
+	public String getIdNoByPostingNo(String postingNo) {
+		return mapper.getIdNoByPostingNo(postingNo);
+	}
+
+}
