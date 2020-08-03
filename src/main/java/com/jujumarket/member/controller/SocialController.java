@@ -161,14 +161,14 @@ public class SocialController {
 			System.out.println("missing,,,,,,,ㅠ");
 		} else {
 			String nickname = properties.path("nickname").asText();
-			String thumbnailImage = properties.path("thumbnail_image").asText();
-			String profileImage = properties.path("profile_image").asText();
+			// String thumbnailImage = properties.path("thumbnail_image").asText();
+			// String profileImage = properties.path("profile_image").asText();
 			String kakaoEmail = kakao_account.path("email").asText();
 			String birthday = kakao_account.path("birthday").asText();
 
 			System.out.println("nickname : " + nickname);
-			System.out.println("thumbnailImage : " + thumbnailImage);
-			System.out.println("profileImage : " + profileImage);
+			// System.out.println("thumbnailImage : " + thumbnailImage);
+			// System.out.println("profileImage : " + profileImage);
 			System.out.println("kakaoEmail : " + kakaoEmail);
 			System.out.println("birthday : " + birthday);	
 			
@@ -239,16 +239,16 @@ public class SocialController {
 	@RequestMapping(value = "/naverLogin", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public ResponseEntity<String> naverLogin(String emailAccount, String memName, String birth, String naverToken, HttpSession session) {
-		System.out.println("네이버 컨트롤러!!!!");
+		System.out.println("네이버 로그인 컨트롤러!!!!");
 		// socialVO
 		SocialVO socialVO = new SocialVO();
 		
 		birth = birth == null? "" : birth;
 		
-		System.out.println(naverToken + "네이버 토큰 값");
-		System.out.println(emailAccount + "네이버 컨트롤러 이메일");
-		System.out.println(memName + "네이버 컨트롤러 이름");
-		System.out.println(birth + "네이버 컨트롤러 생일");
+		System.out.println(naverToken + " 네이버 토큰 값");
+		System.out.println(emailAccount + " 네이버 컨트롤러 이메일");
+		System.out.println(memName + " 네이버 컨트롤러 이름");
+		System.out.println(birth + " 네이버 컨트롤러 생일");
 		
 		// 이미 가입이 된 사람인지 체크
 		int result = service.socialEmailCheck(emailAccount);
@@ -275,7 +275,7 @@ public class SocialController {
 	@GetMapping("/naverLogout")
 	public String naverLogout(HttpSession session, Model model) {
 		String accessToken = (String)session.getAttribute("accessToken");
-		System.out.println("naver accessToken 값 >>>>"+ accessToken);
+		System.out.println("naver 로그아웃 >>>>"+ accessToken);
 		
 		// 토큰 값 아예 삭제할 때 필요
 //		String deleteTokenUrl = SocialController.deleteToken(accessToken);
@@ -315,5 +315,48 @@ public class SocialController {
 //    	return deleteUrl;
 //    }
 
+	
+	@RequestMapping(value = "/googleLogin", method = { RequestMethod.GET, RequestMethod.POST })
+	@ResponseBody
+	public ResponseEntity<String> googleLogin(String emailAccount, String memName, String googleToken, HttpSession session) {
+		System.out.println("구글 로그인 컨트롤러!!!!");
+		// socialVO
+		SocialVO socialVO = new SocialVO();
+		
+		System.out.println(googleToken + " 구글 토큰 값");
+		System.out.println(emailAccount + " 구글 컨트롤러 이메일");
+		System.out.println(memName + " 구글 컨트롤러 이름");
+		
+		// 이미 가입이 된 사람인지 체크
+		int result = service.socialEmailCheck(emailAccount);
+		if(result == 0) {
+			// 전화번호는 주문 받으면서 받은 후에 update 해줘야 할듯!
+			socialVO.setEmailAccount(emailAccount);
+			socialVO.setMemName(memName);
+			socialVO.setMemCode("GOOGLE");
+			socialVO.setSocialType("google");
+			socialVO.setBirth("");
+			service.register(socialVO);
+		}else {
+			socialVO = service.getSocialInfo(emailAccount);
+		}
+		
+		session.setAttribute("accessToken", googleToken);
+		session.setAttribute("sessionMember", socialVO);
+		
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/googleLogout")
+	public String googleLogout(HttpSession session, Model model) {
+		String accessToken = (String)session.getAttribute("accessToken");
+		System.out.println("구글 로그아웃 >>>>"+ accessToken);
+		
+		session.removeAttribute("accessToken");
+		session.invalidate();
+		
+		return "redirect:/";
+	}
 
 }
