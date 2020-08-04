@@ -154,11 +154,11 @@ and h.baskid = o.baskid
 
 
 <insert id = "insertSelectKey">
-	<selectKey keyProperty="baskId" order="BEFORE" resultType="String">
-	select SEQ_BASKET.nextval from dual
+	<selectKey keyProperty="historyNo" order="BEFORE" resultType="String">
+	select seq_h_num.nextval from dual
 	</selectKey>
-	insert into t_order_history (baskId,orderCode,orderStat,itemCode)
-	values (#{baskId},#{orderCode},'배송중',#{itemCode})
+	insert into t_order_history (historyNo,baskId,orderCode,orderStat,itemCode)
+	values (#{historyNo},#{baskId},#{orderCode},'배송중',#{itemCode})
 </insert>
 
 <select id ="datedate"   resultType="com.jujumarket.shop.domain.ManagementVO" >
@@ -261,11 +261,11 @@ where rn > (#{pageNum} -1)* #{amount}
 
 
 <insert id = "refundinsertSelectKey">
-	<selectKey keyProperty="baskId" order="BEFORE" resultType="String">
-	select SEQ_BASKET.nextval from dual
+	<selectKey keyProperty="historyNo" order="BEFORE" resultType="String">
+	select seq_h_num.nextval from dual
 	</selectKey>
-	insert into t_order_history (baskId,orderCode,orderStat,itemCode)
-	values (#{baskId},#{orderCode},'취소처리완료',#{itemCode})
+	insert into t_order_history (historyNo,baskId,orderCode,orderStat,itemCode)
+	values (#(historyNo),#{baskId},#{orderCode},'취소처리완료',#{itemCode})
 </insert>
 
 </mapper>

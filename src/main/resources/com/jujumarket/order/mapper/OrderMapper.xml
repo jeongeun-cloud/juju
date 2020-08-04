@@ -15,11 +15,11 @@
    <insert id="insert">
       insert into t_order(orderCode, totalPay, totalSum,
       totalDiscount,receivAddr,
-      deliCharge, isMember, idNo, nonMemPwd)
+      deliCharge, isMember, idNo, nonMemPwd, orderStat)
       values(#{orderCode},
       #{totalPay}, #{totalSum}, #{totalDiscount},
       #{receivAddr}, #{deliCharge},
-      #{isMember}, #{idNo}, #{nonMemPwd})
+      #{isMember}, #{idNo}, #{nonMemPwd}, '주문완료')
    </insert>
 
    <!-- replace함수써서 주문번호 PK 만들어놓은건데 ctrl + shift + F 누르면 안됨 공백이 빠짐! -->

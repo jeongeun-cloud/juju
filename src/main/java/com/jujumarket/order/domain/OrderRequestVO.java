@@ -38,6 +38,7 @@ public class OrderRequestVO {
 	private String receivAddr;
 	private String reqNote;
 	
+	private String historyNo;
 	
 	
 	

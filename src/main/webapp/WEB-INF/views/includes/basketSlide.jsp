@@ -203,7 +203,7 @@ var id = document.getElementById("hiddenId").value;
 
    // 브라우저 열리자마자 장바구니 리스트 가져오기 시작
    $(document).ready(
-		   
+         
              getBasketList()
             
             .then(function(response){ 
@@ -227,17 +227,17 @@ var id = document.getElementById("hiddenId").value;
    
    // 회원인지 비회원인지 확인
    function wannaNonMemberOrder() {
-	   
-	   if(id=="") {
-		   
-		   location.href='/member/login';
-		   
-	   }else {
-		   
-		   location.href='/order/basketList';
-		   
-	   }
-	   
+      
+      if(id=="") {
+         
+         location.href='/member/login';
+         
+      }else {
+         
+         location.href='/order/basketList';
+         
+      }
+      
    }
    
 
@@ -366,9 +366,8 @@ var id = document.getElementById("hiddenId").value;
          
          $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
          
-         // 이게 삭제 버튼 있는 버전 
          $basketList.append("<div id='basketContent'><button id='dltBtn' value=\""+jsonData[i].baskId+"\" onclick='dltEvent(this.value)'><img id='dltBtnImg' src='/resources/images/deleteBasketBtn.png'></button><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
-
+	
       }
       
       $("#basketList").append("<div id='endOfBasket'>end of basket</div>");
