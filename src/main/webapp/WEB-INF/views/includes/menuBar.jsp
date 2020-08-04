@@ -78,7 +78,7 @@
     #defaultmenu {
       
         min-width: 1080px;
-        width:1300px;
+        
     }
     #defaultmenu > ul{
 
@@ -121,63 +121,10 @@
         font-weight: bold;
        
     }
-/* 검색바 */
-    .search_bar{
-    position: absolute;
-    top: 50%;
-    right: 10%;
-    transform: translate(-50%,-50%);
-    transition: all 1s;
-    width: 50px;
-    height: 50px;
-    /* background: #5d8f6b; */
-    box-sizing: border-box;
-    border-radius: 25px;
-    border: 4px solid #A3B6C5;
-    padding: 5px;
-}
-
-.search_content{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;;
-    height: 42.5px;
-    line-height: 30px;
-    outline: 0;
-    border: 0;
-    display: none;
-    font-size: 1em;
-    border-radius: 20px;
-    padding: 0 20px;
-}
-
-.fa{
-    box-sizing: border-box;
-    padding: 10px;
-    width: 42.5px;
-    height: 42.5px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-radius: 50%;
-    color: white;
-    text-align: center;
-    font-size: 1.2em;
-    transition: all 1s;
-}
-
-
-
-.search_bar:hover .search_content{
-    display: block;
-}
-
-.search_bar:hover .fa{
-    background: #A3B6C5;
-    color: white;
-}
-
+	.menu_b{
+	width:800px;
+	margin: 0 auto;
+	}
 
     
     </style>
@@ -191,109 +138,104 @@
       
 
         <div id="defaultmenu" class="navbar-collapse collapse">
-           
-            <ul class="nav navbar-nav"> 
-               <div class="navbar-header">
-                         <a class="navbar-brand" href="/">JUJU MARKET</a>
-               </div>
-        
-                <!-- 전체 카테고리  -->
-                <li class="dropdown whole_menu_category"  style="padding-left: 10px;"><a href="#" data-toggle="dropdown" class="dropdown-toggle">▲전체카테고리<b class="caret"></b></a>
-                    <ul class="dropdown-menu fullwidth">
-                        <!-- 대분류 /중분류-->
-                        <li class="whole_menu-content withdesc">
-                            <div class="row_m" style="display: flex;">
-                                <div class="col-sm-3">
-                                    <h3 class="title"><a href="/product/list?classCode=Sea">수산물</a></h3>
-                                    <ul>
-                                        <li><a data-description="고등어/갈치" href="/product/list?classCode=SeaS01">생선류</a></li>
-                                        <li><a data-description="꽃게" href="/product/list?classCode=SeaS02">갑각류</a></li>
-                                        <li><a data-description="설명" href="/product/list?classCode=SeaS03">해조류</a></li>
-                                        <li><a data-description="설명" href="/product/list?classCode=SeaS04">건어물</a></li>
-                                        <li><a data-description="설명" href="/product/list?classCode=SeaS05">조개류</a></li>
-                                        <li><a href="#">수산가공품</a></li>
-                                    </ul>
-                                </div>
-    
-                                <div class="col-sm-3">
-                                    <h3 class="title"><a href="/product/list?classCode=Meat">축산/정육</a></h3>
-                                    <ul>
-                                        <li><a data-description="설명" href="/product/list?classCode=MeatM01">소고기</a></li>
-                                        <li><a data-description="설명" href="/product/list?classCode=MeatM02">돼지고기</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=MeatM03">닭고기</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=MeatM04">기타정육</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=MeatM05">가공육</a></li>
-                                    </ul>
-                                </div>
-    
-                                <div class="col-sm-3">
-                                    <h3 class="title"><a href="/product/list?classCode=Veggie">채소</a></h3>
-                                    <ul>
-                                        <li><a data-description="디테일" href="/product/list?classCode=VeggieV01">각종나물</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=VeggieV02">뿌리채소</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=VeggieV03">열매채소</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=VeggieV04">잎채소</a></li>
-                                    </ul>
-                                </div>
-    
-                                <div class="col-sm-3">
-                                    <h3 class="title"><a href="/product/list?classCode=Fruit">과일</a></h3>
-                                    <ul>
-                                        <li><a data-description="디테일" href="/product/list?classCode=FruitF01">국내산과일</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=FruitF02">수입산과일</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=FruitF03">냉동과일</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=FruitF04">건과일</a></li>
-                                    </ul>
-                                </div>
-    
-                                <div class="col-sm-3">
-                                    <h3 class="title"><a href="/product/list?classCode=Retort">간편식</a></h3>
-                                    <ul>
-                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR01">젓갈류</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR02">양념류</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR03">반찬류</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR04">간식류</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR05">건강식품</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR06">혼밥족 반찬</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR07">견과류</a></li>
-                                    </ul>
-                                </div>
-    
-                                <div class="col-sm-3">
-                                    <h3 class="title"><a href="/product/list?classCode=Grain">곡류</a></h3>
-                                    <ul>
-                                        <li><a data-description="디테일" href="/product/list?classCode=GrainG01">쌀</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=GrainG02">잡곡류</a></li>
-                                        <li><a data-description="디테일" href="/product/list?classCode=GrainG03">건식</a></li>
-                                    </ul>
-                                </div>  
-                         
-                           
-                            </div>
-                             <!--end row  -->
-                        </li>
-                    </ul>
-                </li>
-                <!-- end dropdown whole_menu 전체 카테고리-->
-    
-                <!-- 나머지 각 meunu bar -->
-              
-                <li class="dropdown_each_menu" ><a href="/seasonal" data-toggle="dropdown" class="dropdown-toggle">딱 요게 제철</a>
-                </li>
-                <li class="dropdown_each_menu"><a href="/bob" data-toggle="dropdown" class="dropdown-toggle">베스트 오브 베스트</a>
-                </li>
-                <li class="dropdown_each_menu"><a href="/event" data-toggle="dropdown" class="dropdown-toggle">이벤트 </a>    
-                </li>
-                
-                <!-- end 나머지 각 menu bar -->
-            </ul><!-- end nav navbar-nav -->
-            <!-- <form class="search_bar" action="">
-                <input class="search_content" type="search">
-                <i class="fa fa-search"></i>
-              </form> -->
-            
+	         <div class=menu_b>
+	            <ul class="nav navbar-nav"> 
+	        
+	                <!-- 전체 카테고리  -->
+	                <li class="dropdown whole_menu_category"  style="padding-left: 10px;"><a href="#" data-toggle="dropdown" class="dropdown-toggle">▲전체카테고리<b class="caret"></b></a>
+	                    <ul class="dropdown-menu fullwidth">
+	                        <!-- 대분류 /중분류-->
+	                        <li class="whole_menu-content withdesc">
+	                            <div class="row_m" style="display: flex;">
+	                                <div class="col-sm-3">
+	                                    <h3 class="title"><a href="/product/list?classCode=Sea">수산물</a></h3>
+	                                    <ul>
+	                                        <li><a data-description="고등어/갈치" href="/product/list?classCode=SeaS01">생선류</a></li>
+	                                        <li><a data-description="꽃게" href="/product/list?classCode=SeaS02">갑각류</a></li>
+	                                        <li><a data-description="설명" href="/product/list?classCode=SeaS03">해조류</a></li>
+	                                        <li><a data-description="설명" href="/product/list?classCode=SeaS04">건어물</a></li>
+	                                        <li><a data-description="설명" href="/product/list?classCode=SeaS05">조개류</a></li>
+	                                        <li><a href="#">수산가공품</a></li>
+	                                    </ul>
+	                                </div>
+	    
+	                                <div class="col-sm-3">
+	                                    <h3 class="title"><a href="/product/list?classCode=Meat">축산/정육</a></h3>
+	                                    <ul>
+	                                        <li><a data-description="설명" href="/product/list?classCode=MeatM01">소고기</a></li>
+	                                        <li><a data-description="설명" href="/product/list?classCode=MeatM02">돼지고기</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=MeatM03">닭고기</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=MeatM04">기타정육</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=MeatM05">가공육</a></li>
+	                                    </ul>
+	                                </div>
+	    
+	                                <div class="col-sm-3">
+	                                    <h3 class="title"><a href="/product/list?classCode=Veggie">채소</a></h3>
+	                                    <ul>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=VeggieV01">각종나물</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=VeggieV02">뿌리채소</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=VeggieV03">열매채소</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=VeggieV04">잎채소</a></li>
+	                                    </ul>
+	                                </div>
+	    
+	                                <div class="col-sm-3">
+	                                    <h3 class="title"><a href="/product/list?classCode=Fruit">과일</a></h3>
+	                                    <ul>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=FruitF01">국내산과일</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=FruitF02">수입산과일</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=FruitF03">냉동과일</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=FruitF04">건과일</a></li>
+	                                    </ul>
+	                                </div>
+	    
+	                                <div class="col-sm-3">
+	                                    <h3 class="title"><a href="/product/list?classCode=Retort">간편식</a></h3>
+	                                    <ul>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR01">젓갈류</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR02">양념류</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR03">반찬류</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR04">간식류</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR05">건강식품</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR06">혼밥족 반찬</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=RetortR07">견과류</a></li>
+	                                    </ul>
+	                                </div>
+	    
+	                                <div class="col-sm-3">
+	                                    <h3 class="title"><a href="/product/list?classCode=Grain">곡류</a></h3>
+	                                    <ul>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=GrainG01">쌀</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=GrainG02">잡곡류</a></li>
+	                                        <li><a data-description="디테일" href="/product/list?classCode=GrainG03">건식</a></li>
+	                                    </ul>
+	                                </div>  
+	                         
+	                           
+	                            </div>
+	                             <!--end row  -->
+	                        </li>
+	                    </ul>
+	                </li>
+	                <!-- end dropdown whole_menu 전체 카테고리-->
+	    
+	                <!-- 나머지 각 meunu bar -->
+	              
+	                <li class="dropdown_each_menu" ><a href="/seasonal" data-toggle="dropdown" class="dropdown-toggle">딱 요게 제철</a>
+	                </li>
+	                <li class="dropdown_each_menu"><a href="/bob" data-toggle="dropdown" class="dropdown-toggle">베스트 오브 베스트</a>
+	                </li>
+	                <li class="dropdown_each_menu"><a href="/event" data-toggle="dropdown" class="dropdown-toggle">이벤트 </a>    
+	                </li>
+	                
+	                <!-- end 나머지 각 menu bar -->
+	            </ul><!-- end nav navbar-nav -->
+          	
+            </div>
+            <!--menu_b  -->
         </div>
-            </nav>
+     </nav>
 
            
            

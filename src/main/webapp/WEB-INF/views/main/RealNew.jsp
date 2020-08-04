@@ -50,6 +50,7 @@
         }
         .txt_wrap .pro_flag_wrap{
             margin-left: 1px;
+            height:25px;
         }
         .pro_flag_wrap .flag{
             border: 1px solid darkgray;
@@ -145,8 +146,12 @@
 							                <div class="txt_wrap">
 							                	 <a href="/product/item?itemCode=<c:out value='${realnew.itemCode}'/>" class="conts">
 							                        <div class="pro_flag_wrap">
-							                            <span class="flag"> <c:out value="${realnew.itemChr}" /></span>
-							                        </div>
+                                          
+		                                            <c:if test="${realnew.itemChr!='default'}">
+		                                                 <span class="flag"> <c:out value="${realnew.itemChr}" /></span>                                                                                
+		                                             </c:if>
+		                                             
+		                                           </div>
 							                        <!-- END pro_flag_wrap -->
 							                        <div class=tit_info>
 							                            <span class="info_itemName"> <c:out value="${realnew.itemName}" /> </span>
