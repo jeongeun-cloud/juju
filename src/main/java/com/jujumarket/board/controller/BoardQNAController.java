@@ -83,7 +83,7 @@ public class BoardQNAController {
 			HttpSession session, RedirectAttributes rttr) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
 
-		if (member == null) {
+		if (member == null || !member.getIdNo().equals(service.getIdNoByPostingNo(postingNo))) {
 			rttr.addFlashAttribute("result", "로그인 후 이용 가능합니다.");
 			return "redirect:/mypage/myPerchaseList";
 		} else if (!member.getIdNo().equals(service.getIdNoByPostingNo(postingNo))) {
