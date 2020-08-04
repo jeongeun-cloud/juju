@@ -16,6 +16,9 @@ public class OrderVO {
 	private Timestamp orderDate;
 	private String isMember;
 	private String idNo;
+	private String nonMemPwd;
+	private String orderStat;
+	
 	
 }
 
