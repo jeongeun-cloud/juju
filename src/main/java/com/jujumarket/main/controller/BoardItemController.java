@@ -77,7 +77,7 @@ public class BoardItemController {
       
       List<BoardItemVO> list = service.listSort(vo);
       
-      System.out.println("controller결과값:"+list);
+      System.out.println("sort후 결과값:"+list);
       
       return ResponseEntity.status(HttpStatus.OK).body(list);
       /* return ResponseEntity.status(HttpStatus.OK).body(list.toString()); */

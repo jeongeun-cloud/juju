@@ -5,10 +5,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +17,15 @@
 <meta name="author" content="">
 
 <style>
-
+	.txt_wrap a:hover{
+		color:black;
+		text-decoration : none;
+	 }
+	.panel-heading h3{
+	 color:gray;
+	 text-align:center;
+	
+	}
    .product_container{
    width:1300px;
    height:100%;
@@ -157,7 +161,7 @@
             color: black;
             font-size: 13px;
             line-height: 21px;
-            text-decoration: line-through;
+            
             vertical-align: middle;
         }
         .pro_module .cart_btn{
@@ -170,7 +174,7 @@
             min-height: 600px;
         }  
         #so_Content{
-        margin: 90px -42px 92px 70px;      
+        margin: 90px -42px 92px 63px;      
         width:270px;
         height:500px;
         border: solid;
@@ -222,7 +226,7 @@
      padding-left:6px;
      font-size:13px;
      line-height:21px;
-     text-decoration:line-through;
+     
      vertical-align:middle;
      margin-top:8px;
      }
@@ -234,7 +238,8 @@
      margin-left:70px;}
      /*품절 된 상황  */
 
-       .soldout{
+       .soldout,
+       #soldout{
            text-align:center;
            width:100%;
            bottom: 50px; 
@@ -246,6 +251,7 @@
            
 
        }
+       
 
      
       
@@ -270,7 +276,7 @@
          <div class="panel-heading">
          
 
-            <h1 style="color:orange"><c:out value="${path}"/></h1>
+            <h3><c:out value="${path}"/></h3>
          
             <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>"> 
 
@@ -449,9 +455,9 @@
                                      <!-- END img_wrap -->
                                      <div class="txt_wrap">
                                          <a href="/product/item?itemCode=<c:out value='${board.itemCode}'/>" class="conts">
-                                              <div class="pro_flag_wrap">
+                                           <div class="pro_flag_wrap">
                                           
-                                            <c:if test="${board.itemChr!='기본'}">
+                                            <c:if test="${board.itemChr!='default'}">
                                                  <span class="flag"> <c:out value="${board.itemChr}" /></span>                                                                                
                                              </c:if>
                                              
@@ -662,12 +668,14 @@ $(document).on("change", "select.mainCateg", function(){
    function listdraw(response){
       
    var $whole_list = $(".whole_list");
+  
 
       console.log(response);
       
       console.log("데이터 개수"+response.length);
       
       $whole_list.empty();
+     
       console.log("테이블 초기화 성공");
       
       
@@ -675,15 +683,33 @@ $(document).on("change", "select.mainCateg", function(){
       
    for(var i=0; i<response.length; i++){
          console.log("table그리기 시작한다!!!!");
-         
       
-      $whole_list.append("<div id='so_Content'>"+"<div id='so_img'>"+response[i].itemImg1+"</div>"+
+         
+
+   $whole_list.append("<div id='so_Content'>"+"<a href='item?itemCode="+response[i].itemCode+"'/>"+
+		   "<div id='so_img'>"+response[i].itemImg1+"</a></div>"+
             "<div id='so_flag'>"+response[i].itemChr+"</div>"+
             "<div id='so_itemName'>"+response[i].itemName+"</div>"+
             "<div id='so_idNo'>"+response[i].idNo+"</div>"+
             "<div id='so_price'>"+response[i].price+"원</div>"+
             "<div id='so_norPrice'>"+response[i].normPrice+"원</div>"+
-            "<div id='so_cart'>"+"<button class='so_add_cart'>add to cart</button>"+"</div></div>");
+            "<div id='so_cart'>"+"<button class='so_add_cart'>add to cart</button>"+"</div></div>"); 
+      
+      
+ 		  console.log("aa"+response[i].saleStat);
+   
+   
+		if(response[i].saleStat=='품절'){
+       	  
+       	  $("#so_img").css("background-color", "black");
+       	  $("#so_img").css("opacity", "0.2");
+       	  
+       	  $("#so_img").append("<div id='soldout'>"+"<p>품절</p>"+"</div>"); 
+       	 
+       	  
+         		}
+      
+     
       }
          
    }
