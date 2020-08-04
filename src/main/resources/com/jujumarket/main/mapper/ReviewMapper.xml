@@ -79,4 +79,11 @@
 		]]>
 	</select>
 	
+	<select id="getOrderStat" resultType="com.jujumarket.order.domain.OrderRequestVO">
+		select o.*, i.itemCode 
+		from t_order o, t_order_info i
+		where o.orderCode = i.orderCode
+		and o.idNo = #{idNo}
+	</select>
+	
 </mapper>

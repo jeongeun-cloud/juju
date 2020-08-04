@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.jujumarket.main.domain.Criteria;
 import com.jujumarket.main.domain.ReviewVO;
+import com.jujumarket.order.domain.OrderRequestVO;
 
 public interface ReviewMapper {
 	
@@ -26,5 +27,7 @@ public interface ReviewMapper {
 	public int getCountByItemCode(String itemCode);
 	
 	public List<ReviewVO> getMainReview();
+	
+	public List<OrderRequestVO> getOrderStat(String idNo);
 
 }
