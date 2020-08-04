@@ -612,7 +612,7 @@ input[type=range] {
                  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             
-            <input value="1" min="1" size="2" id="input-view" name="number" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
+            <input value="1" min="1" size="2" id="input-view" name="number" readonly="readonly" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
             <div class="up-down">
               <button id="numup"><i class="fas fa-plus"></i></button>
               <button id="numdown"><i class="fas fa-minus"></i></button>
