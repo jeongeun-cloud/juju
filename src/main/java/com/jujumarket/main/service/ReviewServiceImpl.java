@@ -9,6 +9,7 @@ import com.jujumarket.main.domain.ReviewVO;
 import com.jujumarket.main.domain.Criteria;
 import com.jujumarket.main.domain.ReviewPageDTO;
 import com.jujumarket.main.mapper.ReviewMapper;
+import com.jujumarket.order.domain.OrderRequestVO;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -69,6 +70,12 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<ReviewVO> mainReview() {
 		log.info("main Review....");
 		return mapper.getMainReview();
+	}
+
+	@Override
+	public List<OrderRequestVO> getOrderStat(String idNo) {
+		log.info("getOrderStat.....");
+		return mapper.getOrderStat(idNo);
 	}
 
 //	@Override
