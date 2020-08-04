@@ -15,7 +15,6 @@
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <title>Insert title here</title>
-<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>  <!-- 모달띄어줌 -->
 
 
 <style>
@@ -316,7 +315,6 @@ a {
 <div class="regi_content">
  <div class="regi_wrap">
 
-
 <!-- side 시작 -->
    <div class="side">
       <div class="1nb_list">
@@ -327,30 +325,47 @@ a {
                     <li><a href='/mypage/myPerchaseList'><i class="fa fa-check" ></i>주문내역</a></li>
                     <li><a href='/order/basketList'><i class="fa fa-check" ></i>장바구니</a></li>
                     <br>
+                    <c:if test="${!empty sessionMember}">
                     <p><b>게시판 이용 내역</b></p>
                     <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
                     <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
                     <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
                     
-                                        
                    		 <c:choose>
-                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
+                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'  
+                           				&& sessionMember.memCode ne 'GOOGLE'
+                           				&& sessionMember.memCode ne 'KAKAO'
+                           				&& sessionMember.memCode ne 'NAVER' }">
                               <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
-                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
+                           <c:when test="${sessionMember.memCode eq 'SELLER'
+                           				&& sessionMember.memCode ne 'GOOGLE'
+                           				&& sessionMember.memCode ne 'KAKAO'
+                           				&& sessionMember.memCode ne 'NAVER' }">
+                           }">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
-                           <c:when test="${sessionMember.memCode eq 'JUNIOR'}">
+                           <c:when test="${sessionMember.memCode eq 'JUNIOR'
+                           				&& sessionMember.memCode ne 'GOOGLE'                           			
+                           				&& sessionMember.memCode ne 'KAKAO'
+                           				&& sessionMember.memCode ne 'NAVER' 
+                           }">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
                         </c:choose>
-                        
-                    <c:if test="${!empty sessionMember}">
+                        <c:choose>
+  						<c:when test="${(sessionMember.memCode eq 'CUSTOMER'
+                           				|| sessionMember.memCode eq 'JUNIOR'                           			
+                           				|| sessionMember.memCode eq 'SELLER')                           			
+                           				&& (sessionMember.memCode ne 'GOOGLE'                           			
+                           				|| sessionMember.memCode ne 'KAKAO'
+                           				|| sessionMember.memCode ne 'NAVER')   
+                           				}">
                     <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
                     <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
+                        </c:when>
+                        </c:choose>
                     </c:if>
-                    
-
                 </ul>
            </div>
      </div>
@@ -468,6 +483,7 @@ a {
 
 							memName = $("#memName");
 							shopName = $("#shopName");
+							shopName = $("#shopName");
 							memAddr = $("#memAddr");
 							roadAddr = $("#roadAddr");
 							namujiAddr = $("#namujiAddr");
@@ -534,6 +550,7 @@ a {
 										memAddr.val(roadAddr.val()+"/"+namujiAddr.val());
 									}
 									shopAddr.val(shopRoadAddr.val()+"/"+shopNamujiAddr.val());
+		                     		shopName.val($.trim(shopName.val()));
 									sellerInfoModify.submit();
 								}
 
@@ -574,7 +591,7 @@ a {
 							;
 
 							function shopNameCheck() {
-								let regExp =/^[가-힣a-zA-Z]+$/;
+								let regExp =/^[가-힣a-zA-Z\s]+$/;
 								
 
 								if (shopName.val().trim() == ""

@@ -83,13 +83,12 @@ public class BoardQNAController {
 			HttpSession session, RedirectAttributes rttr) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
 
-		if (member == null || !member.getIdNo().equals(service.getIdNoByPostingNo(postingNo))) {
+		if (member == null) {
 			rttr.addFlashAttribute("result", "로그인 후 이용 가능합니다.");
 			return "redirect:/mypage/myPerchaseList";
 		} else if (!member.getIdNo().equals(service.getIdNoByPostingNo(postingNo))) {
 			rttr.addFlashAttribute("result", "회원님이 작성한 1:1문의가 아닙니다.");
 			return "redirect:/mypage/myPerchaseList";
-
 		} else {
 			log.info("/myQna/get or /myQna/modify");
 			model.addAttribute("BoardQNA", service.get(postingNo));

@@ -150,7 +150,7 @@
    </select>
    
    <select id ="getIdNoByPostingNo" resultType="String">
-		select PostingNo
+		select postingNo
 		from t_board_qna
 		where idNo = #{idNo}
    
