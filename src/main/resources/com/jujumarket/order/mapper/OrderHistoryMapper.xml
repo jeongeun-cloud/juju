@@ -11,14 +11,14 @@
  		</select>
  		
  		<insert id="insert">
- 			insert into t_order_history(baskId, orderCode, itemCode, orderStat)
- 			values(#{baskId}, #{orderCode}, #{itemCode}, 'ordered')
+ 			insert into t_order_history(baskId, orderCode, itemCode, orderStat, historyNo)
+ 			values(#{baskId}, #{orderCode}, #{itemCode}, '주문완료', seq_h_num.nextval)
  		</insert>
  		
  		
  		<insert id="insertSelectKey">
-		 	insert into t_order_history(orderCode, itemCode, baskId)
- 			values(#{orderCode}, #{itemCode}, #{baskId})
+		 	insert into t_order_history(baskId, orderCode, itemCode, orderStat, historyNo)
+ 			values(#{baskId}, #{orderCode}, #{itemCode}, '주문완료', seq_h_num.nextval)
  		</insert>
  		
 <!--  		<insert id="insertSelectKey">

@@ -11,6 +11,10 @@ public interface MyPageService {
 
 	public int getMyReviewCountByIdNo(String idNo, Criteria cri);
 
+	public List<MyPageVO> getMyPrdReplyListByIdNo(String idNo, Criteria cri);
+
+	public int getMyPrdReplyCountByIdNo(String idNo, Criteria cri);
+
 
 
 }

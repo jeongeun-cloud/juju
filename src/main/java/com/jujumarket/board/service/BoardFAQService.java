@@ -33,6 +33,13 @@ public interface BoardFAQService {
 	public List<BoardFAQVO> notice();	// 공지사항
 	
 	
+	//관리자,상인 페이지의  공지사항 끌고 오기 
+
+	public List<BoardFAQVO> getnotice();
+	
+	public List<BoardFAQVO> getfaq();
+	
+	
 	
    
 

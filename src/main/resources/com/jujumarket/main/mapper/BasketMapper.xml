@@ -59,4 +59,11 @@ ORDER BY baskId
 	where baskId = #{baskId}
 </update>
 
+<select id="makeGuestId" resultType="String">
+	select 'g'||lpad(seq_customer.nextval,4,'0') from dual
+</select>
+
+
+
+
 </mapper>

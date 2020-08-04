@@ -11,6 +11,10 @@ public interface ManagementService {
 	
 	public void shippingupdate(ManagementVO vo); //송장번호수정
 	
+	public void refundupdate(ManagementVO vo); //송장번호수정
+	
+	
+	
 	public List<ManagementVO> searchordergetList(ItemCriteria cri);
 	
 	public List<ManagementVO> shippinggetList(ItemCriteria cri);
@@ -24,6 +28,8 @@ public interface ManagementService {
 	public List<ManagementVO> searcheckAll(ItemCriteria cri);
 
 	public List<ManagementVO> Shippingdate(ManagementVO vo);
+
+	public List<ManagementVO> refundList(ItemCriteria cri);
 	
 	
 

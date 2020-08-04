@@ -129,13 +129,13 @@
    <script type="text/javascript">
   
    /*알람  */
-	/*  window.onload = function () {
+	/*   window.onload = function () {
        var ref = this.open('http://jujumarket-23.web.app/');
        this.addEventListener('message', function (e) {
            if (e.data.permission === "granted") { ref.close(); }
            console.log('토큰값'+e.data.token);
        });
-   }   */
+   }    */
    /* 알람*/
         // top_banner_wrap 기능
         // 밑에 동그라미(순서)가 같이 움직이는 기능 

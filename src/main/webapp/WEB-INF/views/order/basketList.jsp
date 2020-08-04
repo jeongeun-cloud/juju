@@ -405,14 +405,6 @@
 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
 <script>
 
 var chkBoxes = document.getElementsByName("chkBox");
@@ -639,8 +631,6 @@ function getBasketList() {
 	
 	var id = document.getElementById("hiddenId").value;
    
-   var id = document.getElementById("hiddenId").value;
-   
    return $.ajax({
       url: "/product/basket",
       type: "GET",
@@ -661,17 +651,20 @@ function getBasketList() {
 function draw(jsonData) { 
    
    var $tableBody = $("#tableBody");
+   var $countBox = $("#countBox");
    
    $tableBody.empty();
    
    console.log("그리기 전 결과 확인: " + jsonData);
    
-   for(var i=0; i<jsonData.length; i++) {
+   for(var i=0; i<jsonData.length-1 ; i++) {
       
       $tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id=\""+jsonData[i].baskId+"\"  checked='checked' value=\""+jsonData[i].price*jsonData[i].itemNum+"\" onclick='onechkEvt(this)'></td><td><img id='thumbnailImg' src=\""+jsonData[i].itemImg1+"\"></td><td>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원</td><td>"+jsonData[i].itemNum+"개</td><td>"+jsonData[i].price*jsonData[i].itemNum+"원</td></tr>");
       
    }
    
+   		// json 마지막에 비회원 id 담음
+      $countBox.append("<div><input type='hidden' id='guestId' value=\""+jsonData[jsonData.length-1].idNo+"\"></div>");
    
 }
 //html 구조 안에다가 장바구니 내용 넣기 function 끝
@@ -731,6 +724,8 @@ function deletefromBasket(baskId) {
 
 // 선택 상품 주문 onclick 이벤트 시작 
 function orderSelected() {
+	
+	guestChk();
    
    var checkRow = [];
    
@@ -769,6 +764,8 @@ function orderSelected() {
 
 // 전체 상품 주문 onclick 이벤트 시작 
 function orderAll() {
+	
+	guestChk();
    
    var checkRow = [];
    
@@ -777,8 +774,6 @@ function orderAll() {
       checkRow.push(chkBoxes[i].id);
     }
    
-   
-
 	// POST 방식으로 선택된 baskId 를 넘긴다 
 	var chkRow = document.getElementById("checkRow");
 
@@ -791,8 +786,18 @@ function orderAll() {
 
 
 
-
-
+// idNo 비었으면 guest id 로 만들어주는 function 시작(비회원 주문용)
+function guestChk() {
+	
+	var idNo = document.getElementById("idNo").value;
+	var guestId = document.getElementById("guestId").value;
+	
+	if(idNo==null || idNo==""){
+		document.getElementById("idNo").value = guestId;
+	}
+		
+}
+// idNo 비었으면 guest id 로 만들어주는 function 끝(비회원 주문용)
 
 
 

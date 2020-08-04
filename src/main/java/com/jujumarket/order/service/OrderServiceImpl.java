@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jujumarket.main.domain.BasketVO;
 import com.jujumarket.order.domain.OrderInfoVO;
+import com.jujumarket.order.domain.OrderMemberVO;
 import com.jujumarket.order.domain.OrderRequestVO;
 import com.jujumarket.order.domain.OrderResponseVO;
 import com.jujumarket.order.domain.OrderVO;
@@ -130,6 +131,13 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void paymentRegister(PaymentVO payment) {
 		orderMapper.paymentRegister(payment);
+	}
+
+	@Override
+	public void guestInsert(OrderMemberVO orderMember) {
+		orderMapper.guestMemberInsert(orderMember);
+		orderMapper.guestCustomerInsert(orderMember);
+		
 	}
 	
 

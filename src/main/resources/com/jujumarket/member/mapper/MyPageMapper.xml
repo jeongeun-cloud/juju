@@ -7,17 +7,19 @@
 	<select id="getMyReviewListByIdNo" resultType="com.jujumarket.member.domain.MyPageVO">
       <![CDATA[
  
-			select R.reviewNo, R.idNo, R.itemCode, R.reviewImg, I.itemName, R.reviewTitle, R.reviewContent, R.regDate
-			from (select /*+INDEX(t_review idx_review) */
-			rownum rn, reviewNo, reviewTitle, reviewContent, reviewImg, score, regDate, updateDate, orderCode, itemCode, idNo
-			from t_review
-			where idNo = #{idNo}
-				and reviewNo > 0
-				and rownum <= #{cri.pageNum} * #{cri.amount}
-			) R, t_item I
-		    where R.itemCode = I.itemCode
-            and R.rn > (#{cri.pageNum}-1) * #{cri.amount}
-            order by R.regDate desc
+        select * 
+        from(
+            select rownum rn, R.reviewNo, R.idNo, R.itemCode, R.reviewImg, I.itemName, R.reviewTitle, R.reviewContent, R.regDate
+			from (
+				 select reviewNo, reviewTitle, reviewContent, reviewImg, score, regDate, updateDate, orderCode, itemCode, idNo
+				 from t_review
+				 where idNo = #{idNo}
+            	 order by regDate desc
+            	 ) R, t_item I
+		     where R.itemCode = I.itemCode
+		     )
+         where rn <= #{cri.pageNum} * #{cri.amount}
+         and rn > (#{cri.pageNum}-1) * #{cri.amount}
 
       ]]>
 
@@ -30,25 +32,33 @@
 	   		select count(reviewNo) from t_review where idNo = #{idNo}
 	</select>
 
-	<select id="getMyPrdQnAListByIdNo"
+
+	<!-- 나의 상품문의  t_prdQna 테이블 -->
+	<select id="getMyPrdReplyListByIdNo"
 		resultType="com.jujumarket.member.domain.MyPageVO">
  <![CDATA[
             
-        select rownum rn, A.replyNo, SUBSTR(A.replyCode,0,2)sub, A.itemCode, A.idNo,  B.itemName, A.replyContent, A.regDate
-        from (
-           select * from t_prdQNA  order by SUBSTR(replyCode,0,2) desc, regdate asc
-              )  A, t_item B
-        where A.itemCode = B.itemCode 
-        and A.replyNo >0
-        and rownum <= #{cri.pageNum} * #{cri.amount}
-        and rownum > (#{cri.pageNum}-1) * #{cri.amount}
-        and A.idno = {#idNo}
+ 	 	select * 
+  		from(
+  			select rownum rn, A.replyNo, A.sub, A.itemCode, A.idNo, A.replyContent, A.regDate, B.itemName
+  			from(
+  				select replyNo, SUBSTR(replyCode,0,2)sub, itemCode, idNo, replyContent, regDate 
+    			from t_prdQna		 
+    			where idNo = #{idNo}
+    			order by regDate desc
+    			) A, t_item B
+    		where
+    		A.itemCode = B.itemCode 
+    		)
+    	where rn <= #{cri.pageNum} * #{cri.amount}
+    	and rn > (#{cri.pageNum}-1) * #{cri.amount}
         
 	]]>
 	</select>
 
 
-	<select id="getMyPrdQnACountByIdNo" resultType="int">
+	<!-- 나의 상품문의  t_prdQna 테이블 -->
+	<select id="getMyPrdReplyCountByIdNo" resultType="int">
 		select count(replyNo) from t_prdQNA where idNo = #{idNo}
 	</select>
 

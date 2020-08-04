@@ -6,9 +6,11 @@ import lombok.Data;
 
 @Data
 public class OrderHistoryVO {
+	private String baskId;
 	private String orderCode;
 	private String itemCode;
-	private Timestamp prgDate;
 	private String orderStat;
+	private Timestamp prgDate;
+	private String historyNo;
 	
 }

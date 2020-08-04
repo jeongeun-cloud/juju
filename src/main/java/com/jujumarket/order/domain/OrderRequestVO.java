@@ -14,6 +14,7 @@ public class OrderRequestVO {
 	//private Timestamp orderDate;
 	private String isMember;
 	private String idNo;
+	private String nonMemPwd;
 	//t_order_info
 	private String itemCode;
 	private String baskId;
@@ -37,6 +38,7 @@ public class OrderRequestVO {
 	private String receivAddr;
 	private String reqNote;
 	
+	private String historyNo;
 	
 	
 	

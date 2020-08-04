@@ -50,6 +50,11 @@ public class BasketServiceImpl implements BasketService {
 		log.info("getList.........");
 		return mapper.getList(id);
 	}
+
+	@Override
+	public String makeGuestId() {
+		return mapper.makeGuestId();
+	}
 	
 	
 

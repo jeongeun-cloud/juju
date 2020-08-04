@@ -261,15 +261,9 @@ table img {
                     <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
                      <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
                     <li><a href='myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
-                    
-                   		 <c:choose>
-                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
-                              <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
-                           </c:when>
-                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
-                              <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
-                           </c:when>
-                        </c:choose>
+               
+               
+               
                     <c:if test="${!empty sessionMember}">
                     <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
                     <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
@@ -469,7 +463,8 @@ table img {
 			}
 			myReviewTable.append($(frag));
 		}
-			
+		
+		/* 	ajax 방식으로 페이징 처리 */
 		function getListByPage(pageNum) {
 			return $.ajax({
 				type: "GET",
@@ -478,7 +473,12 @@ table img {
 			});
 		}
 		
-		function formatDate(date) { var d = new Date(date), month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear(); if (month.length < 2) month = '0' + month; if (day.length < 2) day = '0' + day; return [year, month, day].join('/'); }
+		/* 연/월/일만 가져오는 함수 */
+		function formatDate(date) { 
+			var d = new Date(date), month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear(); 
+			if (month.length < 2) month = '0' + month; 
+			if (day.length < 2) day = '0' + day; 
+			return [year, month, day].join('/'); }
 
 		
 	});
