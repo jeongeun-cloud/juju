@@ -174,7 +174,7 @@
         <!-- 장바구니 리스트 영역 끝 -->
         </ul>
         
-        <button onclick="wannaNonMemberOrder()">장바구니 가기</button>
+        <button onclick="location.href='/order/basketList'">장바구니 가기</button>
 
 
     </nav>
@@ -225,20 +225,6 @@ var id = document.getElementById("hiddenId").value;
 
 
    
-   // 회원인지 비회원인지 확인
-   function wannaNonMemberOrder() {
-      
-      if(id=="") {
-         
-         location.href='/member/login';
-         
-      }else {
-         
-         location.href='/order/basketList';
-         
-      }
-      
-   }
    
 
 
@@ -366,7 +352,7 @@ var id = document.getElementById("hiddenId").value;
          
          $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
          
-         $basketList.append("<div id='basketContent'><button id='dltBtn' value=\""+jsonData[i].baskId+"\" onclick='dltEvent(this.value)'><img id='dltBtnImg' src='/resources/images/deleteBasketBtn.png'></button><h5>"+jsonData[i].itemName+"<br>"+jsonData[i].price+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
+         $basketList.append("<div id='basketContent'><button id='dltBtn' value=\""+jsonData[i].baskId+"\" onclick='dltEvent(this.value)'><img id='dltBtnImg' src='/resources/images/deleteBasketBtn.png'></button><h5>"+jsonData[i].itemName+"<br>"+addCommas(jsonData[i].price)+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
 	
       }
       
@@ -478,6 +464,17 @@ function deletefromBasket(baskId) {
    /* 장바구니 누르면 펼쳐졌다 닫혔다 하는 기능 끝 */
 
 
+   
+    //3자리 단위마다 콤마 생성
+    function addCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+   
+   
+   
+   
+   
+   
 
 </script>
 
