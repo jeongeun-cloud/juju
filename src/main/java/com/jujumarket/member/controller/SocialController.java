@@ -166,16 +166,19 @@ public class SocialController {
 			String kakaoEmail = kakao_account.path("email").asText();
 			String birthday = kakao_account.path("birthday").asText();
 
-			System.out.println("nickname : " + nickname);
+			System.out.println("kakao nickname : " + nickname);
 			// System.out.println("thumbnailImage : " + thumbnailImage);
 			// System.out.println("profileImage : " + profileImage);
-			System.out.println("kakaoEmail : " + kakaoEmail);
-			System.out.println("birthday : " + birthday);	
+			System.out.println("kakao Email : " + kakaoEmail);
+			System.out.println("kakao birthday : " + birthday);	
 			
+			// 카카오 이메일이 null일 경우 닉네임을 이메일로 써준다
+			kakaoEmail = kakaoEmail == ""? "kakao@"+nickname : kakaoEmail;
 			
 			// 이미 가입이 된 사람인지 체크
 			int result = service.socialEmailCheck(kakaoEmail);
 			if(result == 0) {
+				
 				// 전화번호는 주문 받으면서 받은 후에 update 해줘야 할듯!
 				socialVO.setMemName(nickname);
 				socialVO.setEmailAccount(kakaoEmail);
