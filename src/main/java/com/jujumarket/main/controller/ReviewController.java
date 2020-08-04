@@ -29,6 +29,7 @@ import com.jujumarket.main.domain.ReviewPageDTO;
 import com.jujumarket.main.domain.ReviewVO;
 import com.jujumarket.main.service.ReviewService;
 import com.jujumarket.member.domain.SocialVO;
+import com.jujumarket.order.domain.OrderRequestVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -178,11 +179,28 @@ public class ReviewController {
 	
 	@RequestMapping(value = "/orderCheck", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public ResponseEntity<String> orderCheck(String idNo) {
+	public ResponseEntity<String> orderCheck(String idNo, String itemCode) {
 		
-		// 테이블 수정 후 작업
+		String result = "";
+		List<OrderRequestVO> list = service.getOrderStat(idNo);
+		System.out.println("리스트" + list.toString());
 		
-		return new ResponseEntity<String>("success", HttpStatus.OK);
+		for(int i=0; i<list.size(); i++) {
+			OrderRequestVO vo = list.get(i);
+			
+			System.out.println(vo.toString());
+			
+			if(vo.getItemCode().equals(itemCode) && vo.getOrderStat().equals("배송완료")) {
+				result = "success";
+				break;
+			}else {
+				result = "reject";
+			}
+		}
+		
+		System.out.println("리뷰 남기기 상태 "+ result + "!!!!!!!!!!!!");
+		
+		return new ResponseEntity<String>(result, HttpStatus.OK);
 		
 	}
 

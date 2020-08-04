@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri ="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file = "../includes/header.jsp" %>
 <%@ include file = "../includes/menuBar.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -250,7 +251,7 @@
    
     #basketItemImg {
     
-    	width: 200px;
+       width: 200px;
     
     }
     
@@ -350,17 +351,17 @@
                
                   <td><img id="basketItemImg" src="<c:out value="${basketL.itemImg1}"/>"></td>
                   <td><c:out value="${basketL.itemName}"></c:out></td>
-                  <td><c:out value="${basketL.normPrice}"></c:out></td>
+                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${basketL.normPrice}" /></td>
                   <td><c:out value="${basketL.itemNum}"></c:out></td>
-                  <td><c:out value="${basketL.normPrice - basketL.price}"></c:out></td>
-                  <td><c:out value="${basketL.price * basketL.itemNum}"></c:out></td>
+                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${basketL.normPrice - basketL.price}" /></td>
+                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${basketL.price * basketL.itemNum}" /></td>
                </tr>
                
                
                
             <!-- 가져다 쓰기 위한 hidden input 태그들  -->
-      		<input type="hidden" id="itemName" value="${basketL.itemName}">
-      		<input type="hidden" id="itemSpc" value="<c:out value='${fn:length(list)}'></c:out>">
+            <input type="hidden" id="itemName" value="${basketL.itemName}">
+            <input type="hidden" id="itemSpc" value="<c:out value='${fn:length(list)}'></c:out>">
                
                
             </c:forEach>
@@ -384,7 +385,7 @@
       <table width=80% class="list_view">
          <tbody>
             <td class="fixed join">최종 결제금액</td>
-            <td class="fixed join">${totalPay}</td>
+            <td class="fixed join"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay}" /></td>
 
          </tbody>
       </table>
@@ -393,14 +394,14 @@
       <input type="hidden" name="totalSum" id="totalSum" value="${totalSum}"> 
       <input type="hidden" name="totalDiscount" id="totalDiscount" value="${totalDiscount}">
       
-	 
+    
     </div> 
     <!-- end of div basketTableContainer -->
 
 
 
 
-	<div id="cAndP">
+   <div id="cAndP">
 
       <div id="customerInfo">
          
@@ -439,56 +440,56 @@
         <hr style="border:solid 0.5px rgb(238,238,238);">
          
       </div><!-- end of customerInfo div -->
-	
+   
 
 
-	<!-- 비회원 상태일때만 보이는 div 시작 -->
-	<c:if test="${empty sessionMember}">
-		 <div id="nonMemPwd">
-	         
-	
-	         <h3 style="font-weight: bold;">주문 비밀번호</h3>
-	         
-	         <!-- 라인 -->
-	        <hr style="border:solid 1px lightgray;">
-	         
-	         <table style="margin-left:30px;">
-	            <tbody>
-	               <tr class="dot_line">
-	                  <td>비밀번호</td>
-	                  <td><input type="password" class="nonMemPwdInput" id="pwd" name="nonMemPw"  value="" size="40" placeholder="6~12자 영문+숫자" /></td>
-	               </tr>
-	               <tr class="dot_line">
-	                  <td>비밀번호 재입력</td>
-	                  <td><input type="password" class="nonMemPwdInput" id="pwdChk" name="nonMemPw"  value="" size="40" placeholder="6~12자 영문+숫자"  /></td>
-	               </tr>
-	
-	            </tbody>
-	         </table>
-	          <!-- 라인 -->
-	        <hr style="border:solid 0.5px rgb(238,238,238);">
-	         
-	      </div><!-- end of nonMemPwd div -->
+   <!-- 비회원 상태일때만 보이는 div 시작 -->
+   <c:if test="${empty sessionMember}">
+       <div id="nonMemPwd">
+            
+   
+            <h3 style="font-weight: bold;">주문 비밀번호</h3>
+            
+            <!-- 라인 -->
+           <hr style="border:solid 1px lightgray;">
+            
+            <table style="margin-left:30px;">
+               <tbody>
+                  <tr class="dot_line">
+                     <td>비밀번호</td>
+                     <td><input type="password" class="nonMemPwdInput" id="pwd" name="nonMemPw"  value="" size="40" placeholder="6~12자 영문+숫자" /></td>
+                  </tr>
+                  <tr class="dot_line">
+                     <td>비밀번호 재입력</td>
+                     <td><input type="password" class="nonMemPwdInput" id="pwdChk" name="nonMemPw"  value="" size="40" placeholder="6~12자 영문+숫자"  /></td>
+                  </tr>
+   
+               </tbody>
+            </table>
+             <!-- 라인 -->
+           <hr style="border:solid 0.5px rgb(238,238,238);">
+            
+         </div><!-- end of nonMemPwd div -->
       </c:if>
-	<!-- 비회원 상태일때만 보이는 div 끝 -->
+   <!-- 비회원 상태일때만 보이는 div 끝 -->
       
       
-	</div>
-	
+   </div>
+   
 
 
 
-	<!-- 비회원 상태일때만 보이는 div 시작 -->
-	<c:if test="${empty sessionMember}">
-		<input type="hidden" id="isMember" value="N">
-	</c:if>
-	<!-- 비회원 상태일때만 보이는 div 끝 -->
+   <!-- 비회원 상태일때만 보이는 div 시작 -->
+   <c:if test="${empty sessionMember}">
+      <input type="hidden" id="isMember" value="N">
+   </c:if>
+   <!-- 비회원 상태일때만 보이는 div 끝 -->
 
-	<!-- 로그인 상태일때만 보이는 div 시작 -->
-	<c:if test="${!empty sessionMember}">
-		<input type="hidden" id="isMember" value="Y">
-	</c:if>
-	<!-- 로그인 상태일때만 보이는 div 끝 -->
+   <!-- 로그인 상태일때만 보이는 div 시작 -->
+   <c:if test="${!empty sessionMember}">
+      <input type="hidden" id="isMember" value="Y">
+   </c:if>
+   <!-- 로그인 상태일때만 보이는 div 끝 -->
 
 
 
@@ -503,10 +504,10 @@
       
       <!-- 로그인 상태일때만 보이는 div 시작 -->
       <c:if test="${!empty sessionMember}">
-	      <div style="margin-left: 80%; width: 50%;">
-		      <input type="checkbox" id="sameAsMem"> 회원정보와 동일&nbsp;&nbsp;&nbsp;&nbsp;
-		      <input type="checkbox" id="recentDelivery"> 최근배송지
-	      </div>
+         <div style="margin-left: 80%; width: 50%;">
+            <input type="checkbox" id="sameAsMem"> 회원정보와 동일&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" id="recentDelivery"> 최근배송지
+         </div>
       </c:if>
       <!-- 로그인 상태일때만 보이는 div 끝 -->
       
@@ -583,11 +584,11 @@
 
 
 
-	<!-- 여백용 div -->
-	<div id="emptyDiv">
-	
-	
-	</div>
+   <!-- 여백용 div -->
+   <div id="emptyDiv">
+   
+   
+   </div>
 
 
 
@@ -613,121 +614,121 @@ var isMember = document.getElementById("isMember");
 var controllerIdNo = document.getElementById("controllerIdNo");
 
 
-	
-	var sameAsMem = $("#sameAsMem");
-	var recentDelivery = $("#recentDelivery");
-	var orderResult = $("#orderResult");
+   
+   var sameAsMem = $("#sameAsMem");
+   var recentDelivery = $("#recentDelivery");
+   var orderResult = $("#orderResult");
 
-	var memName = $("#memName");
-	var contact = $("#contact");
-	var email = $("#email");
-	var memAddr = $("#memAddr");
-	var memZipCode = $("#memZipCode");
-	
-	var addrs = [];
-	addrs = memAddr.val().split("/");
-	
-	var receiver = $("#receiver");
-	var receivContact = $("#receivContact");
-	var zipcode = $("#zipcode");
-	var roadAddress = $("#roadAddress");
-	var receivAddr = $("#receivAddr");
-	var reqNote = $("#reqNote");
-	
-	
-	var recentReceiver = $("#recentReceiver");
-	var recentReceivContact = $("#recentReceivContact");
-	var recentReceivAddr = $("#recentReceivAddr");
-	var recentReceivZipcode = $("#recentReceivZipcode");
-	
-	var raddrs = [];
-	raddrs = recentReceivAddr.val().split("/");
+   var memName = $("#memName");
+   var contact = $("#contact");
+   var email = $("#email");
+   var memAddr = $("#memAddr");
+   var memZipCode = $("#memZipCode");
+   
+   var addrs = [];
+   addrs = memAddr.val().split("/");
+   
+   var receiver = $("#receiver");
+   var receivContact = $("#receivContact");
+   var zipcode = $("#zipcode");
+   var roadAddress = $("#roadAddress");
+   var receivAddr = $("#receivAddr");
+   var reqNote = $("#reqNote");
+   
+   
+   var recentReceiver = $("#recentReceiver");
+   var recentReceivContact = $("#recentReceivContact");
+   var recentReceivAddr = $("#recentReceivAddr");
+   var recentReceivZipcode = $("#recentReceivZipcode");
+   
+   var raddrs = [];
+   raddrs = recentReceivAddr.val().split("/");
 
-	var pwd = $("#pwd");
-	var pwdChk = $("#pwdChk");
+   var pwd = $("#pwd");
+   var pwdChk = $("#pwdChk");
 
-	
+   
 
 
 function paymentComplete() {
-	
-	
-	
-	// 만약 비회원이면 t_member, m_customer 에 먼저 회원정보 넣어준다 + 첫주문이어야함 (안그럼 pk중복됨)
-	if(idNo.value.substring(0,1)=="g") {
-		guestInsert();
-	}
-	
-	
-	var selectedBasketList = document.getElementById("selectedBasketList");
-	
-	selectedBasketList = selectedBasketList.value;
-	
-	console.log("selectedBasketList : " + selectedBasketList);
-	// [BasketVO(baskId=baskId218, itemNum=1, idNo=c0002, itemCode=abcd0013, itemName=빠삐용 시금치, itemImg1=babbi.jpg, price=1300, normPrice=1500), BasketVO(baskId=baskId219, itemNum=1, idNo=c0002, itemCode=abcd0013, itemName=빠삐용 시금치, itemImg1=babbi.jpg, price=1300, normPrice=1500)]
-	// 이런 문자열로 들어온다
-	
-	var baskIdArr = [];
-	
-	var bArr = selectedBasketList.split("baskId=");
-	
-	for(var i=1; i<bArr.length; i++) {
-		
-		// 이제 i는 1일때부터 첫 문장은 다 baskId 임 
-		console.log(bArr[i]);
-		cArr = bArr[i].split(",");
-		baskIdArr.push(cArr[0]);
-	}
-	
-	// 이제 baskIdArr 에는 ["baskId217", "baskId218", "baskId219"] 이렇게 배열로 담김! 
-	console.log(baskIdArr);
-	
-	// t_order 테이블에 주문내용 insert 한다 
-	orderTableInsert()
-	
-	// t_order 테이블에 insert 성공했으면 
-	.then(function(){
-		
-		for(var i=0; i<baskIdArr.length; i++) {
-			
-			console.log(baskIdArr[i]);
-			
-			// t_order_info, t_order_history 테이블에 baskId 별로 insert 한다 
-			orderInfoTableInsert(baskIdArr[i]);
-			// t_delivery 테이블 insert (배송코드 null 인 상태로)
-			deliveryTableInsert(baskIdArr[i]);
-		}
-		
-	// t_order_info, t_order_history, t_delivery 테이블에 insert 성공했으면 	
-	}).then(function(){
-		
-		// t_payment 테이블에 insert 
-		paymentTableInsert();
-		
-	}).then(function(){
-		
-		setTimeout(function(){
-			
-			for(var i=0; i<baskIdArr.length; i++) {
-				
-				// 주문한 제품은 t_basket 테이블에서 delete 
-				deletefromBasket(baskIdArr[i]);
-			}
-			
-		}, 1);
-		
-		
-	}).then(function(){
-		
-		setTimeout(function(){
-	
-		// orderResult 페이지로 넘어가기 
-		location.href = "/order/orderResult" + "?orderCode=" + orderCode;
-		
-		}, 3);
-	})
-	
-	
+   
+   
+   
+   // 만약 비회원이면 t_member, m_customer 에 먼저 회원정보 넣어준다 + 첫주문이어야함 (안그럼 pk중복됨)
+   if(idNo.value.substring(0,1)=="g") {
+      guestInsert();
+   }
+   
+   
+   var selectedBasketList = document.getElementById("selectedBasketList");
+   
+   selectedBasketList = selectedBasketList.value;
+   
+   console.log("selectedBasketList : " + selectedBasketList);
+   // [BasketVO(baskId=baskId218, itemNum=1, idNo=c0002, itemCode=abcd0013, itemName=빠삐용 시금치, itemImg1=babbi.jpg, price=1300, normPrice=1500), BasketVO(baskId=baskId219, itemNum=1, idNo=c0002, itemCode=abcd0013, itemName=빠삐용 시금치, itemImg1=babbi.jpg, price=1300, normPrice=1500)]
+   // 이런 문자열로 들어온다
+   
+   var baskIdArr = [];
+   
+   var bArr = selectedBasketList.split("baskId=");
+   
+   for(var i=1; i<bArr.length; i++) {
+      
+      // 이제 i는 1일때부터 첫 문장은 다 baskId 임 
+      console.log(bArr[i]);
+      cArr = bArr[i].split(",");
+      baskIdArr.push(cArr[0]);
+   }
+   
+   // 이제 baskIdArr 에는 ["baskId217", "baskId218", "baskId219"] 이렇게 배열로 담김! 
+   console.log(baskIdArr);
+   
+   // t_order 테이블에 주문내용 insert 한다 
+   orderTableInsert()
+   
+   // t_order 테이블에 insert 성공했으면 
+   .then(function(){
+      
+      for(var i=0; i<baskIdArr.length; i++) {
+         
+         console.log(baskIdArr[i]);
+         
+         // t_order_info, t_order_history 테이블에 baskId 별로 insert 한다 
+         orderInfoTableInsert(baskIdArr[i]);
+         // t_delivery 테이블 insert (배송코드 null 인 상태로)
+         deliveryTableInsert(baskIdArr[i]);
+      }
+      
+   // t_order_info, t_order_history, t_delivery 테이블에 insert 성공했으면    
+   }).then(function(){
+      
+      // t_payment 테이블에 insert 
+      paymentTableInsert();
+      
+   }).then(function(){
+      
+      setTimeout(function(){
+         
+         for(var i=0; i<baskIdArr.length; i++) {
+            
+            // 주문한 제품은 t_basket 테이블에서 delete 
+            deletefromBasket(baskIdArr[i]);
+         }
+         
+      }, 1);
+      
+      
+   }).then(function(){
+      
+      setTimeout(function(){
+   
+      // orderResult 페이지로 넘어가기 
+      location.href = "/order/orderResult" + "?orderCode=" + orderCode;
+      
+      }, 3);
+   })
+   
+   
 }
 
 
@@ -735,24 +736,24 @@ function paymentComplete() {
 
 
 function guestInsert() {
-	
-	var guestData = {
-			memName : memName.val(),
-			contact : contact.val(),
-			emailAccount : email.val(),
-			idNo : controllerIdNo.value,
-			memCode : "GUEST"
-	}
-	
-	return $.ajax({
-		url: "/order/gusetInsert",
-		type: "POST",
-		data: JSON.stringify(guestData),
-		contentType: "application/json",
-		error : function(){console.log("guestInsert 통신실패")},
-	    success : function(){console.log("guestInsert 통신성공")}
-	}); 
-	
+   
+   var guestData = {
+         memName : memName.val(),
+         contact : contact.val(),
+         emailAccount : email.val(),
+         idNo : controllerIdNo.value,
+         memCode : "GUEST"
+   }
+   
+   return $.ajax({
+      url: "/order/gusetInsert",
+      type: "POST",
+      data: JSON.stringify(guestData),
+      contentType: "application/json",
+      error : function(){console.log("guestInsert 통신실패")},
+       success : function(){console.log("guestInsert 통신성공")}
+   }); 
+   
 }
 
 
@@ -761,30 +762,30 @@ function guestInsert() {
    
 // t_delivery 테이블에 insert 하는 function 시작
 function deliveryTableInsert(baskId) {
-	
-	var deliveryData = {
-	         receiver: receiver.val(),
-	         receivAddr: roadAddress.val() + "/" + receivAddr.val(),
-	         receivContact: contact.val(),
-	         reqNote: reqNote.val(),
-	         postCode: zipcode.val(),
-	         orderCode: orderCode,
-	         baskId: baskId,
-	         
-	}
-	
-	return $.ajax({
-		url: "/order/deliveryTableInsert",
-		type: "POST",
-		data: JSON.stringify(deliveryData),
-		contentType: "application/json",
-		error : function(){console.log("deliveryTableInsert 통신실패")},
-	    success : function(){console.log("deliveryTableInsert 통신성공")}
-	}); 
-	
-	
-	
-	
+   
+   var deliveryData = {
+            receiver: receiver.val(),
+            receivAddr: roadAddress.val() + "/" + receivAddr.val(),
+            receivContact: contact.val(),
+            reqNote: reqNote.val(),
+            postCode: zipcode.val(),
+            orderCode: orderCode,
+            baskId: baskId,
+            
+   }
+   
+   return $.ajax({
+      url: "/order/deliveryTableInsert",
+      type: "POST",
+      data: JSON.stringify(deliveryData),
+      contentType: "application/json",
+      error : function(){console.log("deliveryTableInsert 통신실패")},
+       success : function(){console.log("deliveryTableInsert 통신성공")}
+   }); 
+   
+   
+   
+   
 }
 // t_delivery 테이블에 insert 하는 function 끝 
 
@@ -793,62 +794,62 @@ function deliveryTableInsert(baskId) {
 
 // t_payment 테이블에 insert 하는 function 시작
 function paymentTableInsert() {
-	
-	var paymentData = {
-		orderCode : orderCode,
-		jujuName : "주주마켓",
-		jujuContact : "02-222-2222",
-		jujuAddr : "종로 비트캠프 A2",
-		jujuCeo : "주정은",
-		subTotal : totalPay.value,
-		tax : totalPay.value*10/11, 
-		vat : totalPay.value/11,
-		totalPay : totalPay.value,
-		card : totalPay.value,
-		
-		// 테스트 결제라서 일단 데이터 박아두겠음 
-		cardCompany: "(주)카카오페이",
-		cardNum : "1111-1111-1111-1111",
-		approvalNum : "12345678",
-		monthlyPay: "일시불"
-			
-	}
-	
-	
-	return $.ajax({
-		url: "/order/paymentTableInsert",
-		type: "POST",
-		data: JSON.stringify(paymentData),
-		contentType: "application/json",
-		error : function(){console.log("paymentTableInsert 통신실패")},
-	    success : function(){console.log("paymentTableInsert 통신성공")}
-	}); 
-	
-	
-	
+   
+   var paymentData = {
+      orderCode : orderCode,
+      jujuName : "주주마켓",
+      jujuContact : "02-222-2222",
+      jujuAddr : "종로 비트캠프 A2",
+      jujuCeo : "주정은",
+      subTotal : totalPay.value,
+      tax : totalPay.value*10/11, 
+      vat : totalPay.value/11,
+      totalPay : totalPay.value,
+      card : totalPay.value,
+      
+      // 테스트 결제라서 일단 데이터 박아두겠음 
+      cardCompany: "(주)카카오페이",
+      cardNum : "1111-1111-1111-1111",
+      approvalNum : "12345678",
+      monthlyPay: "일시불"
+         
+   }
+   
+   
+   return $.ajax({
+      url: "/order/paymentTableInsert",
+      type: "POST",
+      data: JSON.stringify(paymentData),
+      contentType: "application/json",
+      error : function(){console.log("paymentTableInsert 통신실패")},
+       success : function(){console.log("paymentTableInsert 통신성공")}
+   }); 
+   
+   
+   
 }
 // t_payment 테이블에 insert 하는 function 끝 
 
 
 // t_order_info, t_order_history 테이블에 insert 하는 function 시작
 function orderInfoTableInsert(baskId) {
-	
-	console.log("orderInfoTableInsert에서 baskId 잘 받아지냐 " + baskId);
-	
-	var orderInfoData = {
-		baskId : baskId,
-		orderCode : orderCode
-	}
-	
-	return $.ajax({
-		url: "/order/orderInfoInsert",
-		type: "POST",
-		data: JSON.stringify(orderInfoData),
-		contentType: "application/json",
-		error : function(){console.log("orderInfoTableInsert 통신실패")},
-	    success : function(){console.log("orderInfoTableInsert 통신성공")}
-	}); 
-	
+   
+   console.log("orderInfoTableInsert에서 baskId 잘 받아지냐 " + baskId);
+   
+   var orderInfoData = {
+      baskId : baskId,
+      orderCode : orderCode
+   }
+   
+   return $.ajax({
+      url: "/order/orderInfoInsert",
+      type: "POST",
+      data: JSON.stringify(orderInfoData),
+      contentType: "application/json",
+      error : function(){console.log("orderInfoTableInsert 통신실패")},
+       success : function(){console.log("orderInfoTableInsert 통신성공")}
+   }); 
+   
 }
 // t_order_info, t_order_history 테이블에 insert 하는 function 끝 
 
@@ -857,91 +858,91 @@ function orderInfoTableInsert(baskId) {
 
 // t_order 테이블에 insert 하는 function 시작
 function orderTableInsert() {
-	
-	// orderCode 만들기 작업 (현재 날짜, 시간 timestamp 찍기)
-	
-	var date = new Date();
-	
-	var year = new String(date.getFullYear());
-	var month = new String(date.getMonth()+1); //1월이 0으로 되어서 1 더해줌
-	var day = new String(date.getDate());
-	var hour = new String(date.getHours());
-	var minute = new String(date.getMinutes());
-	var second = new String(date.getSeconds());
-	
-	// 년도 두 자리수로 자르기 
-	year = year.substring(2);
-	
-	// 월이 한자리수일 경우 두 자리수로 만들어 주기
-	if(month.length == 1) {
-		month = "0" + month;
-	}
-	
-	// 날짜가 한자리수일 경우 두 자리수로 만들어 주기
-	if(day.length == 1) {
-		day = "0" + day;
-	}
-	
-	// 시간이 한자리수일 경우 두 자리수로 만들어 주기
-	if(hour.length == 1) {
-		hour = "0" + hour;
-	}
+   
+   // orderCode 만들기 작업 (현재 날짜, 시간 timestamp 찍기)
+   
+   var date = new Date();
+   
+   var year = new String(date.getFullYear());
+   var month = new String(date.getMonth()+1); //1월이 0으로 되어서 1 더해줌
+   var day = new String(date.getDate());
+   var hour = new String(date.getHours());
+   var minute = new String(date.getMinutes());
+   var second = new String(date.getSeconds());
+   
+   // 년도 두 자리수로 자르기 
+   year = year.substring(2);
+   
+   // 월이 한자리수일 경우 두 자리수로 만들어 주기
+   if(month.length == 1) {
+      month = "0" + month;
+   }
+   
+   // 날짜가 한자리수일 경우 두 자리수로 만들어 주기
+   if(day.length == 1) {
+      day = "0" + day;
+   }
+   
+   // 시간이 한자리수일 경우 두 자리수로 만들어 주기
+   if(hour.length == 1) {
+      hour = "0" + hour;
+   }
 
-	// 분이 한자리수일 경우 두 자리수로 만들어 주기
-	if(minute.length == 1) {
-		minute = "0" + minute;
-	}
+   // 분이 한자리수일 경우 두 자리수로 만들어 주기
+   if(minute.length == 1) {
+      minute = "0" + minute;
+   }
 
-	// 초가 한자리수일 경우 두 자리수로 만들어 주기
-	if(second.length == 1) {
-		second = "0" + second;
-	}
-	
-	
-	orderCode = year + "" + month + "" + day + "" + hour + "" + minute + "" + second;
-	
-	console.log("orderCode: "+orderCode);
-	console.log("isMember.value: "+isMember.value);
-	
-	
-	// 비회원이라서 idNo가 "" 일 경우 컨트롤러에서 받은 아이디로 세팅해준다
-	if(idNo.value=="") {
-		idNo.value = controllerIdNo.value;
-	}
-	
-	var nonMemPwd = "";
-	
-	if(pwd.val()==undefined) {
-		nonMemPwd = "";
-	}else {
-		nonMemPwd = pwd.val();
-	}
-	
-	
-	var orderData = {
-		orderCode: orderCode,
-		totalPay: totalPay.value,
-		totalSum: totalSum.value,
-		totalDiscount: totalDiscount.value,
-		receivAddr: roadAddress.val() + "/" + receivAddr.val(),
-		deliCharge : 2500,
-		isMember: isMember.value,
-		idNo : idNo.value,
-		nonMemPwd : nonMemPwd
-	};
-	
-	
-	return $.ajax({
-		url: "/order/orderInsert",
-		type: "POST",
-		data: JSON.stringify(orderData),
-		contentType: "application/json",
-		error : function(){console.log("orderTableInsert 통신실패")},
-	    success : function(){console.log("orderTableInsert 통신성공")}
-		
-	});
-	
-	
+   // 초가 한자리수일 경우 두 자리수로 만들어 주기
+   if(second.length == 1) {
+      second = "0" + second;
+   }
+   
+   
+   orderCode = year + "" + month + "" + day + "" + hour + "" + minute + "" + second;
+   
+   console.log("orderCode: "+orderCode);
+   console.log("isMember.value: "+isMember.value);
+   
+   
+   // 비회원이라서 idNo가 "" 일 경우 컨트롤러에서 받은 아이디로 세팅해준다
+   if(idNo.value=="") {
+      idNo.value = controllerIdNo.value;
+   }
+   
+   var nonMemPwd = "";
+   
+   if(pwd.val()==undefined) {
+      nonMemPwd = "";
+   }else {
+      nonMemPwd = pwd.val();
+   }
+   
+   
+   var orderData = {
+      orderCode: orderCode,
+      totalPay: totalPay.value,
+      totalSum: totalSum.value,
+      totalDiscount: totalDiscount.value,
+      receivAddr: roadAddress.val() + "/" + receivAddr.val(),
+      deliCharge : 2500,
+      isMember: isMember.value,
+      idNo : idNo.value,
+      nonMemPwd : nonMemPwd
+   };
+   
+   
+   return $.ajax({
+      url: "/order/orderInsert",
+      type: "POST",
+      data: JSON.stringify(orderData),
+      contentType: "application/json",
+      error : function(){console.log("orderTableInsert 통신실패")},
+       success : function(){console.log("orderTableInsert 통신성공")}
+      
+   });
+   
+   
 }
 //t_order 테이블에 insert 하는 function 끝
 
@@ -968,342 +969,348 @@ function deletefromBasket(baskId) {
 
 /* 장바구니 ajax 로 불러오기 시작 (하나씩)*/
 function getOneBasket(baskId) {
-	
-	return $.ajax({
-		url: "/order/getSelectedBasket",
-	    type: "GET",
-	    data: { "baskId":baskId},
-	    dataType: "text",
-	    error : function(){console.log("통신실패")},
-	    success : function(){console.log("통신성공")}
-		
-	});
-	
-	
+   
+   return $.ajax({
+      url: "/order/getSelectedBasket",
+       type: "GET",
+       data: { "baskId":baskId},
+       dataType: "text",
+       error : function(){console.log("통신실패")},
+       success : function(){console.log("통신성공")}
+      
+   });
+   
+   
 }
 /* 장바구니 ajax 로 불러오기 끝 (하나씩)*/
 
 
 
+//3자리 단위마다 콤마 생성
+function addCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+   
 
 
 
 
 //주소 다음카카오 API에서 받아오기
 function execDaumPostcode() {
-	new daum.Postcode({
-		oncomplete : function(data) {
+   new daum.Postcode({
+      oncomplete : function(data) {
 
-			var fullRoadAddr = data.roadAddress;
-			var extraRoadAddr = '';
+         var fullRoadAddr = data.roadAddress;
+         var extraRoadAddr = '';
 
-			if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-				extraRoadAddr += data.bname;
-			}
-			if (data.buildingName !== '' && data.apartment === 'Y') {
-				extraRoadAddr += (extraRoadAddr !== '' ? ', '
-						+ data.buildingName : data.buildingName);
-			}
-			if (extraRoadAddr !== '') {
-				extraRoadAddr = ' (' + extraRoadAddr + ')';
-			}
-			if (fullRoadAddr !== '') {
-				fullRoadAddr += extraRoadAddr;
-			}
+         if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+            extraRoadAddr += data.bname;
+         }
+         if (data.buildingName !== '' && data.apartment === 'Y') {
+            extraRoadAddr += (extraRoadAddr !== '' ? ', '
+                  + data.buildingName : data.buildingName);
+         }
+         if (extraRoadAddr !== '') {
+            extraRoadAddr = ' (' + extraRoadAddr + ')';
+         }
+         if (fullRoadAddr !== '') {
+            fullRoadAddr += extraRoadAddr;
+         }
 
-			document.getElementById('zipcode').value = data.zonecode;
-	
-			document.getElementById('roadAddress').value = fullRoadAddr;
-			document.getElementById('jibunAddress').value = data.jibunAddress;
+         document.getElementById('zipcode').value = data.zonecode;
+   
+         document.getElementById('roadAddress').value = fullRoadAddr;
+         document.getElementById('jibunAddress').value = data.jibunAddress;
 
-		}
-	}).open()
+      }
+   }).open()
 
 };
 
 window.onload = function() {
-	init();
+   init();
 };
 
 function init() {
-	
-	//회원정보에 저장된 배송지정보 check
-	sameAsMem.change(function() {       
-		
-		if (sameAsMem.is(":checked")) {
-			receiver.val(memName.val());
-			receivContact.val(contact.val());
-			roadAddress.val(addrs[0]); // 도로명 주소
-			receivAddr.val(addrs[1]); // 상세 주소
-			zipcode.val(memZipCode.val());
-			recentDelivery.prop("checked", false);
-		} else {
-			receiver.val("");
-			receivContact.val("");
-			roadAddress.val(""); // 도로명 주소
-			receivAddr.val(""); // 상세 주소 
-			zipcode.val("");
-		}
+   
+   //회원정보에 저장된 배송지정보 check
+   sameAsMem.change(function() {       
+      
+      if (sameAsMem.is(":checked")) {
+         receiver.val(memName.val());
+         receivContact.val(contact.val());
+         roadAddress.val(addrs[0]); // 도로명 주소
+         receivAddr.val(addrs[1]); // 상세 주소
+         zipcode.val(memZipCode.val());
+         recentDelivery.prop("checked", false);
+      } else {
+         receiver.val("");
+         receivContact.val("");
+         roadAddress.val(""); // 도로명 주소
+         receivAddr.val(""); // 상세 주소 
+         zipcode.val("");
+      }
 
-	});
-	//최근배송지정보 check
-	recentDelivery.change(function(){
-		
-		
-		if (recentDelivery.is(":checked")) {
-			receiver.val(recentReceiver.val());
-			receivContact.val(recentReceivContact.val());
-			roadAddress.val(raddrs[0]); // 도로명 주소
-			receivAddr.val(raddrs[1]); // 상세 주소
-			zipcode.val(recentReceivZipcode.val());
-			sameAsMem.prop("checked", false);
-		} else {
-			receiver.val("");
-			receivContact.val("");
-			roadAddress.val(""); // 도로명 주소
-			receivAddr.val(""); // 상세 주소
-			zipcode.val("");
-		}
-		
-		
-	});
-	
+   });
+   //최근배송지정보 check
+   recentDelivery.change(function(){
+      
+      
+      if (recentDelivery.is(":checked")) {
+         receiver.val(recentReceiver.val());
+         receivContact.val(recentReceivContact.val());
+         roadAddress.val(raddrs[0]); // 도로명 주소
+         receivAddr.val(raddrs[1]); // 상세 주소
+         zipcode.val(recentReceivZipcode.val());
+         sameAsMem.prop("checked", false);
+      } else {
+         receiver.val("");
+         receivContact.val("");
+         roadAddress.val(""); // 도로명 주소
+         receivAddr.val(""); // 상세 주소
+         zipcode.val("");
+      }
+      
+      
+   });
+   
 
-	//결제하기 버튼. 모든 유효성 check를 통과해야 넘어감 
-	var submitBtn = $("#submitBtn");
+   //결제하기 버튼. 모든 유효성 check를 통과해야 넘어감 
+   var submitBtn = $("#submitBtn");
 
-	submitBtn.click(function(e) {
-		e.preventDefault();
+   submitBtn.click(function(e) {
+      e.preventDefault();
 
-		if (!(ordererCheck())) {
-			return false;
-		}else if (!(ordererContactCheck())) {
-			return false;
-		}else if (!(ordererEmailCheck())) {
-			return false;
-			
-		//비회원에만 해당됨
-		}else if (idNo.value="") {
-			
-			if(!(pwdCheck())){
-				return false;
-			}else if(!(pwdChk.val()===pwd.val())){
-				alert("비밀번호가 일치하지 않습니다.");
-				pwdChk.focus();
-				return false;
-			}
-			
-		}else if (!(receiverCheck())) {
-			return false;
-		} else if (!(receivContactCheck())) {
-			return false;
-		} else if (!(receivAddrCheck())) {
-			return false;
-		} else if (!(reqNoteCheck())) {
-			return false;
-		} else {
-			// 유효성 테스트 다 통과했으면 결제 서비스 시작
-			paymentSystem();
-			
-		}
+      if (!(ordererCheck())) {
+         return false;
+      }else if (!(ordererContactCheck())) {
+         return false;
+      }else if (!(ordererEmailCheck())) {
+         return false;
+      }else if (!(receiverCheck())) {
+         return false;
+      } else if (!(receivContactCheck())) {
+         return false;
+      } else if (!(receivAddrCheck())) {
+         return false;
+      } else if (!(reqNoteCheck())) {
+         return false;
+     
+        // 비회원 주문일때만 진행
+      } else if (idNo.value=="") {
+    	  if(!(pwdCheck())){
+              return false;
+           }else if(!(pwdChk.val()===pwd.val())){
+              alert("비밀번호가 일치하지 않습니다.");
+              pwdChk.focus();
+              return false;
+           }else {
+        	// 유효성 테스트 다 통과했으면 결제 서비스 시작
+               paymentSystem();
+           }
+      } else {
+         // 유효성 테스트 다 통과했으면 결제 서비스 시작
+         paymentSystem();
+         
+      }
 
-	});
-	
-	
-	
-	
-	// [주문자 정보 - 이름] 유효성 check
-	function ordererCheck(){
-		var pattern_num = /[0-9]/; // 숫자
-		var pattern_eng = /[a-zA-Z]/; // 영어
-		var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
-		var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글
+   });
+   
+   
+   
+   
+   // [주문자 정보 - 이름] 유효성 check
+   function ordererCheck(){
+      var pattern_num = /[0-9]/; // 숫자
+      var pattern_eng = /[a-zA-Z]/; // 영어
+      var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+      var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글
 
-		if (memName.val().trim() == "" || memName.val() == null) {
-			alert("[주문자 이름]을 입력하시오.")
-			memName.focus();
-			return false;
-		} else if (memName.val().length > 10) {
-			alert("[주문자 이름]10자까지만 입력할 수 있습니다. ")
-			memName.focus();
-			return false;
-		} else if ((pattern_num.test(memName.val()))
-				|| (pattern_spc.test(memName.val()))) {
-			alert("[주문자 이름]숫자나 특수문자를 입력할 수 없습니다.")
-			memName.focus();
-			return false;
-		} else {
-			return true;
-		}
-	};
-	
-	
-	// [주문자 정보 - 연락처] 유효성 check
-	function ordererContactCheck(){
-		//휴대폰번호 정규식
-		var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+      if (memName.val().trim() == "" || memName.val() == null) {
+         alert("[주문자 이름]을 입력하시오.")
+         memName.focus();
+         return false;
+      } else if (memName.val().length > 10) {
+         alert("[주문자 이름]10자까지만 입력할 수 있습니다. ")
+         memName.focus();
+         return false;
+      } else if ((pattern_num.test(memName.val()))
+            || (pattern_spc.test(memName.val()))) {
+         alert("[주문자 이름]숫자나 특수문자를 입력할 수 없습니다.")
+         memName.focus();
+         return false;
+      } else {
+         return true;
+      }
+   };
+   
+   
+   // [주문자 정보 - 연락처] 유효성 check
+   function ordererContactCheck(){
+      //휴대폰번호 정규식
+      var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 
-		if (contact.val().trim() == "" || contact.val() == null) {
-			alert("[주문자 연락처]를 입력하시오.")
-			contact.focus();
-			return false;
-		} else if (contact.val().length > 13) {
-			alert("[주문자 연락처]13자까지만 입력할 수 있습니다.")
-			contact.focus();
-			return false;
-			// 수령인 연락처 입력값 유효성 check
-		} else if (!regExp.test(contact.val())) {
-			alert("[주문자 연락처]숫자,- 만 입력할 수 있습니다.");
-			contact.focus();
-			return false
-		} else {
-			return true;
-		}
-	};
-	
-	// [주문자 정보 - 이메일] 유효성 check
-	function ordererEmailCheck(){
-		let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		
-		if (email.val().trim() == "" || email.val() == null) {
-			alert("이메일 주소를 입력해주세요.");
-			email.focus();
-			return false;
-		} else if (email.val().length > 30) {
-			alert("30자까지만 입력할 수 있습니다.")
-			email.focus();
-			return false;
-		} else if (!regExp.test(email.val())) {
-			alert("이메일을 양식에 맞게 다시 입력하세요.");
-			email.focus();
-			return false
-		} else {
-			return true;
-		}
-	};
-	
-	
-	
-	
-	// [주문 비밀번호] 입력값 유효성 check
-	function pwdCheck() {
-		
-		let regExp = /^[A-Za-z0-9]{6,12}$/;
-		
-		if (pwd.val().trim() == "" || pwd.val() == null) {
-			alert("비밀번호를 입력해주세요.");
-			pwd.focus();
-			return false;
-		} else if (pwd.val().length > 30) {
-			alert("30자까지만 입력할 수 있습니다.")
-			pwd.focus();
-			return false;
-		} else if (!regExp.test(pwd.val())) {
-			alert("패스워드는 6~12자 사이의 문자+숫자 조합으로 입력해주세요.");
-			pwd.focus();
-			return false
-		} else {
-			return true;
-		}
-		
-		
-	};
-	
-	
-	
-	
-	
-	
-	
-	
+      if (contact.val().trim() == "" || contact.val() == null) {
+         alert("[주문자 연락처]를 입력하시오.")
+         contact.focus();
+         return false;
+      } else if (contact.val().length > 13) {
+         alert("[주문자 연락처]13자까지만 입력할 수 있습니다.")
+         contact.focus();
+         return false;
+         // 수령인 연락처 입력값 유효성 check
+      } else if (!regExp.test(contact.val())) {
+         alert("[주문자 연락처]숫자,- 만 입력할 수 있습니다.");
+         contact.focus();
+         return false
+      } else {
+         return true;
+      }
+   };
+   
+   // [주문자 정보 - 이메일] 유효성 check
+   function ordererEmailCheck(){
+      let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      
+      if (email.val().trim() == "" || email.val() == null) {
+         alert("이메일 주소를 입력해주세요.");
+         email.focus();
+         return false;
+      } else if (email.val().length > 30) {
+         alert("30자까지만 입력할 수 있습니다.")
+         email.focus();
+         return false;
+      } else if (!regExp.test(email.val())) {
+         alert("이메일을 양식에 맞게 다시 입력하세요.");
+         email.focus();
+         return false
+      } else {
+         return true;
+      }
+   };
+   
+   
+   
+   
+   // [주문 비밀번호] 입력값 유효성 check
+   function pwdCheck() {
+      
+	   let regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+      
+      if (pwd.val().trim() == "" || pwd.val() == null) {
+         alert("비밀번호를 입력해주세요.");
+         pwd.focus();
+         return false;
+      } else if (pwd.val().length > 30) {
+         alert("30자까지만 입력할 수 있습니다.")
+         pwd.focus();
+         return false;
+      } else if (!regExp.test(pwd.val())) {
+         alert("패스워드는 6~12자 사이의 문자+숫자 조합으로 입력해주세요.");
+         pwd.focus();
+         return false
+      } else {
+         return true;
+      }
+      
+      
+   };
+   
+   
+   
+   
+   
+   
+   
+   
 
-	// [배송지 정보 - 수령인](receiver) 입력값 유효성 check
-	function receiverCheck() {
+   // [배송지 정보 - 수령인](receiver) 입력값 유효성 check
+   function receiverCheck() {
 
-		var pattern_num = /[0-9]/; // 숫자
-		var pattern_eng = /[a-zA-Z]/; // 영어
-		var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
-		var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글
+      var pattern_num = /[0-9]/; // 숫자
+      var pattern_eng = /[a-zA-Z]/; // 영어
+      var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/; // 특수문자
+      var pattern_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글
 
-		if (receiver.val().trim() == "" || receiver.val() == null) {
-			alert("[수령인]을 입력하시오.")
-			receiver.focus();
-			return false;
-		} else if (receiver.val().length > 10) {
-			alert("[수령인]10자까지만 입력할 수 있습니다. ")
-			receiver.focus();
-			return false;
-		} else if ((pattern_num.test(receiver.val()))
-				|| (pattern_spc.test(receiver.val()))) {
-			alert("[수령인]숫자나 특수문자를 입력할 수 없습니다.")
-			receiver.focus();
-			return false;
-		} else {
-			return true;
-		}
-	};
+      if (receiver.val().trim() == "" || receiver.val() == null) {
+         alert("[수령인]을 입력하시오.")
+         receiver.focus();
+         return false;
+      } else if (receiver.val().length > 10) {
+         alert("[수령인]10자까지만 입력할 수 있습니다. ")
+         receiver.focus();
+         return false;
+      } else if ((pattern_num.test(receiver.val()))
+            || (pattern_spc.test(receiver.val()))) {
+         alert("[수령인]숫자나 특수문자를 입력할 수 없습니다.")
+         receiver.focus();
+         return false;
+      } else {
+         return true;
+      }
+   };
 
-	// [배송지 정보 -연락처](receivContact)유효성 check
-	function receivContactCheck() {
-		//휴대폰번호 정규식
-		var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+   // [배송지 정보 -연락처](receivContact)유효성 check
+   function receivContactCheck() {
+      //휴대폰번호 정규식
+      var regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
 
-		if (receivContact.val().trim() == "" || receivContact.val() == null) {
-			alert("[수령인 연락처]를 입력하시오.")
-			receivContact.focus();
-			return false;
-		} else if (receivContact.val().length > 13) {
-			alert("[수령인 연락처]13자까지만 입력할 수 있습니다.")
-			receivContact.focus();
-			return false;
-			// 수령인 연락처 입력값 유효성 check
-		} else if (!regExp.test(receivContact.val())) {
-			alert("[수령인 연락처]숫자,- 만 입력할 수 있습니다.");
-			receivContact.focus();
-			return false
-		} else {
-			return true;
-		}
-	};
+      if (receivContact.val().trim() == "" || receivContact.val() == null) {
+         alert("[수령인 연락처]를 입력하시오.")
+         receivContact.focus();
+         return false;
+      } else if (receivContact.val().length > 13) {
+         alert("[수령인 연락처]13자까지만 입력할 수 있습니다.")
+         receivContact.focus();
+         return false;
+         // 수령인 연락처 입력값 유효성 check
+      } else if (!regExp.test(receivContact.val())) {
+         alert("[수령인 연락처]숫자,- 만 입력할 수 있습니다.");
+         receivContact.focus();
+         return false
+      } else {
+         return true;
+      }
+   };
 
-	
-	//[배송지 정보 - 주소](receivAddr)유효성check
-	function receivAddrCheck() {
-		if (zipcode.val().trim() == "" || zipcode.val() == null) {
-			alert("[우편번호]를 입력해주세요.");
-			zipcode.focus();
-			return false;
-		} else if (receivAddr.val().trim() == "" || receivAddr.val() == null) {
-			alert("[나머지주소]를 입력해주세요.");
-			receivAddr.focus();
-			return false;
-		} else if (roadAddress.val().trim() == "" || roadAddress.val() == null) {
-			alert("[도로명주소]를 입력해주세요.");
-			roadAddress.focus();
-			return false;
-		} else if (receivAddr.val().length > 40) {
-			alert("[배송지]40자까지만 입력할 수 있습니다.");
-			receivAddr.focus();
-			return false;
-		} else {
-			return true;
-		}
-	};
-	
-	//[배송지 정보 - 배송메시지] 유효성 check
-	function reqNoteCheck() {
+   
+   //[배송지 정보 - 주소](receivAddr)유효성check
+   function receivAddrCheck() {
+      if (zipcode.val().trim() == "" || zipcode.val() == null) {
+         alert("[우편번호]를 입력해주세요.");
+         zipcode.focus();
+         return false;
+      } else if (receivAddr.val().trim() == "" || receivAddr.val() == null) {
+         alert("[나머지주소]를 입력해주세요.");
+         receivAddr.focus();
+         return false;
+      } else if (roadAddress.val().trim() == "" || roadAddress.val() == null) {
+         alert("[도로명주소]를 입력해주세요.");
+         roadAddress.focus();
+         return false;
+      } else if (receivAddr.val().length > 40) {
+         alert("[배송지]40자까지만 입력할 수 있습니다.");
+         receivAddr.focus();
+         return false;
+      } else {
+         return true;
+      }
+   };
+   
+   //[배송지 정보 - 배송메시지] 유효성 check
+   function reqNoteCheck() {
 
-		 if (reqNote.val().length > 30) {
-			alert("[배송메시지]30자까지만 입력할 수 있습니다.");
-			reqNote.focus();
-			return false;
-		} else {
-			return true;
-		}
+       if (reqNote.val().length > 30) {
+         alert("[배송메시지]30자까지만 입력할 수 있습니다.");
+         reqNote.focus();
+         return false;
+      } else {
+         return true;
+      }
 
-	};
-	
-	
+   };
+   
+   
 
 }
 

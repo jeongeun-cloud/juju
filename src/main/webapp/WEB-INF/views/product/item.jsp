@@ -1371,10 +1371,11 @@ $(document).ready(function(){
       // 주문 한 사람인지 비교
       function orderCheck() {
         var sessionId = $("#sessionId").val();
+        var itemCode = $("#itemCode").val();
     	
         $.ajax({
               url : '/review/orderCheck',
-              data : {idNo : sessionId},
+              data : {idNo : sessionId, itemCode : itemCode},
               type : 'POST',
               success : function(result) {
                  if(result == 'success') {
@@ -1390,7 +1391,7 @@ $(document).ready(function(){
                      $("#reviewNo").val("");
                      $("#star_grade a").parent().children("a").removeClass("on");
                  }else {
-                	alert("상품 후기는 상품을 구매하시고 배송완료된 회원 분만 한달 내 작성 가능합니다.");
+                	alert("상품 후기는 상품을 구매하시고 배송완료된 회원 분만 작성 가능합니다.");
          	     	return false;
                  }
               }

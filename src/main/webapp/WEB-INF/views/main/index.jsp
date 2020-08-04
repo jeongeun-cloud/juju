@@ -216,11 +216,16 @@
         </c:forEach>
         
         var str = '/resources/banner/';
-        var url1 = str + advertise[0].imgPath + "/" + advertise[0].uuid + "_" + advertise[0].imgName;
-        var url2 = str + advertise[1].imgPath + "/" + advertise[1].uuid + "_" + advertise[1].imgName;
+        if(advertise.length == 1) {
+	        var url1 = str + advertise[0].imgPath + "/" + advertise[0].uuid + "_" + advertise[0].imgName;
+	        $("#ad_img_1").attr("src", url1);
+        }else {
+	        var url1 = str + advertise[0].imgPath + "/" + advertise[0].uuid + "_" + advertise[0].imgName;
+	        var url2 = str + advertise[1].imgPath + "/" + advertise[1].uuid + "_" + advertise[1].imgName;
+	        $("#ad_img_1").attr("src", url1);
+	        $("#ad_img_2").attr("src", url2);
+        }
         
-        $("#ad_img_1").attr("src", url1);
-        $("#ad_img_2").attr("src", url2);
         
         /* 중간 광고 끝 */
         
