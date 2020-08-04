@@ -1,5 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri ="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -284,10 +285,10 @@
                <tr cellpadding="40" align=center>
                   <td><img id="basketItemImg" src="<c:out value="${item.itemImg1}"/>"></td>
                   <td><c:out value="${item.itemName}"></c:out></td>
-                  <td><c:out value="${item.normPrice}"></c:out></td>
+                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" /></td>
                   <td><c:out value="${item.itemNum}"></c:out></td>
-                  <td><c:out value="${item.normPrice - item.price}"></c:out></td>
-                  <td><c:out value="${item.totalPrice}"></c:out></td>
+                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice - item.price}" /></td>
+                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.totalPrice}" /></td>
                </tr>
             </c:forEach>
 
@@ -387,7 +388,7 @@
       </tr>
       <tr>
          <th>결제금액</th>
-         <td>${order.totalPay}</td>
+         <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${order.totalPay}" /></td>
       </tr>
 
    </table>
@@ -397,10 +398,29 @@
 
 
      <div class="btns">
-            <button type="submit" class="button1">주문내역/배송조회 확인</button>
-            <button type="submit" class="button2">쇼핑 계속하기</button>
-            <button type="submit" class="button3">메인으로 가기</button>
-            <button type="submit" class="button4">로그아웃</button>
+            <button type="submit" class="button1" onclick="location.href='/mypage/myPerchaseList'">주문내역/배송조회 확인</button>
+            <button type="submit" class="button2" onclick="location.href='/bob'">쇼핑 계속하기</button>
+            <button type="submit" class="button3" onclick="location.href='/'">메인으로 가기</button>
+            
+            <!-- 회원 주문일때만 로그아웃 만들기 -->
+            <c:if test="${!empty sessionMember}">
+            
+	            <c:choose>
+		            <c:when test="${sessionMember.memCode eq 'KAKAO'}">
+		            	<button type="submit" class="button4" onclick="location.href='https://kauth.kakao.com/oauth/logout?client_id=01b574850137dfee5c295348e0be136f&logout_redirect_uri=http://localhost/member/kakaoLogout'">로그아웃</button>
+		            </c:when>
+	            	<c:when test="${sessionMember.memCode eq 'NAVER'}">
+		            	<button type="submit" class="button4" onclick="location.href='/member/naverLogout'">로그아웃</button>
+	            	</c:when>
+	            	<c:when test="${sessionMember.memCode eq 'GOOGLE'}">
+		            	<button type="submit" class="button4" onclick="googleLogout()">로그아웃</button>
+			        </c:when>
+			        <c:otherwise>
+		            	<button type="submit" class="button4" onclick="location.href='/member/logout'">로그아웃</button>
+			        </c:otherwise>
+	            </c:choose>
+            
+            </c:if>
     </div>
    
    </div>
@@ -422,6 +442,20 @@
 	</div>
 
 
+
+
+<script>
+
+function googleLogout() {
+	
+	signOut();
+	
+	location.href="/"
+	
+}
+
+
+</script>
 
 
 
