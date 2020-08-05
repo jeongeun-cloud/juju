@@ -7,9 +7,9 @@ import lombok.Data;
 @Data
 public class QnaVO {
 
-	private int no;
+	private int rn;
 	private String title;
-	private String regDate;
+	private Date regDate;
 	private String idNo;
 	private String emailAccount;
 	private String postingNo;

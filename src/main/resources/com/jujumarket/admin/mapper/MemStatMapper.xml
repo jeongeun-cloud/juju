@@ -20,12 +20,15 @@ group by memCode
 </select>
 
 <select id="getWithdraw" resultType="com.jujumarket.admin.domain.MemStatVO">
-select rownum withdrawNum , a.*
+  <![CDATA[
+  select  a.*
 from(
-select idNo as  withdrawIdNo, reason as withdrawReason, to_char(condiupdatedate, 'yy/mm/dd') as withdrawDay
+select rownum rn, idNo as  withdrawIdNo, reason as withdrawReason, to_char(condiupdatedate, 'yy/mm/dd') as withdrawDay
 from m_history
-where condition='탈퇴'
-order by withdrawDay desc)a
+where condition='탈퇴' and rownum <= #{pageNum} * #{amount}
+)a
+where rn > (#{pageNum} -1) * #{amount}
+]]>
 </select>
 
 <select id="getWithdrawTotal" resultType="int">

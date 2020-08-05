@@ -145,7 +145,7 @@
        			where idNo = #{idNo}
        			order by postingNo desc
        			)
-       		);
+       		)
    
    </select>
    

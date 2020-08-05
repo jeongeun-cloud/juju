@@ -168,7 +168,7 @@
                             
                             <c:forEach items="${withdraw }" var="w">
                                 <tr>
-                                	<td><c:out value="${w.withdrawNum}" /></td>
+                                	<td><c:out value="${w.rn}" /></td>
                                     <td><c:out value="${w.withdrawIdNo}" /></td>
                                     <td><c:out value="${w.withdrawReason}" /></td>
                                     <td><c:out value="${w.withdrawDay}" /></td>

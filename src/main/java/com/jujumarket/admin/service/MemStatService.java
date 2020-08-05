@@ -19,7 +19,7 @@ public interface MemStatService {
 	
 	public Integer getSellNum();
 	
-	public List<MemStatVO> getWithdraw();
+	public List<MemStatVO> getWithdraw(ItemCriteria cri);
 	
 	public int getWithdrawTotal(ItemCriteria cri);
 	

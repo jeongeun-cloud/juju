@@ -168,12 +168,12 @@
                             
                             <c:forEach items="${qna}" var="q">
                                 <tr>
-                                	<td><c:out value="${q.no}" /></td>
+                                	<td><c:out value="${q.rn}" /></td>
                                     <td><a class='move' href='<c:out value="${q.postingNo}"/>'>
                                     <c:out value="${q.title }"/></a></td>
                                     <td><c:out value="${q.idNo}" /></td>
                                     <td><c:out value="${q.emailAccount}" /></td>
-                                    <td><c:out value="${q.regDate}" /></td>
+                                    <td><fmt:formatDate pattern="yyyy/MM/dd" value="${q.regDate}" /></td>
                                     
                                     
                                 </tr>
@@ -181,8 +181,31 @@
                             </table>
                            
                         </div> 
+                        <div class='page_num'>
+                            <ul class="pagination">
+                                <c:if test="${pageMaker.prev}">
+                                    <li class="paginate_button previous">
+                                        <a href="${pageMaker.startPage -1}">&laquo;</a>
+                                    </li>
+                                </c:if>
+        
+                                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                                    <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                                        <a href="${num}">${num}</a>
+                                    </li>
+                                </c:forEach>
+        
+                                <c:if test="${pageMaker.next}">
+                                    <li class="paginate_button next">
+                                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
+                                    </li>
+                                </c:if>
+                            </ul> 
+                        </div>
                         <!-- qnaList_table 끝 -->
                     <form id='qnaForm' action="/admin/QnaList" method='get'>
+                     <input type='hidden' name='pageNum' id="pageNum" value='${pageMaker.cri.pageNum}'>
+                     <input type='hidden' name='amount' id="amount" value='${pageMaker.cri.amount}'>
       		 	 	</form>      
                         
              </div>
@@ -192,6 +215,20 @@
 </div>
 <!--qnaList_content  -->
 <script type="text/javascript">
+
+$(document).ready(function() {
+    
+    // 페이지 이동 
+    var qnaForm = $("#qnaForm");
+    $(".paginate_button a").on("click", function(e) {
+    	e.preventDefault();
+         
+    	qnaForm.find("input[name='pageNum']").val($(this).attr("href"));
+    	qnaForm.submit();
+    });
+
+
+});
 
 var qnaForm = $("#qnaForm");
 $(".move").on("click",function(e){

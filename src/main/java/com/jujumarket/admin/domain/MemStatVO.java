@@ -11,7 +11,7 @@ public class MemStatVO {
 	private int iTodayWithdrawT;
 
 	//탈퇴
-	private int withdrawNum;
+	private int rn;
 	private String withdrawIdNo;
 	private String withdrawReason;
 	private String withdrawDay;
