@@ -174,7 +174,7 @@
                                         
                                                <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
 
-                                                     <img src="/resources/images/default1.png" alt="메인 이미지">
+                                                      <img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
                                                </a>
                                 
                                                   </div>    
@@ -186,7 +186,8 @@
                                         
                                                 <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts" style="opacity:0.2;">
 
-                                                    <img src="/resources/images/default1.png" alt="메인 이미지">
+                                               <img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
+
                                                </a>
                                                   <div class="soldout">
                                                          <p>품절</p>
@@ -200,7 +201,8 @@
 	                                        
 	                                              	  <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts" style="opacity:0.2;">
 	
-	                                                     <img src="/resources/images/default1.png" alt="메인 이미지">
+	                     							 <img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
+
 	                                             	  </a>
 	                                               		    <div class="soldout">
 	                                                         <p>판매 중지</p>
@@ -281,7 +283,8 @@
                                         
                                                <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
 
-                                                     <img src="/resources/images/default1.png" alt="메인 이미지">
+                   							<img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
+
                                                </a>
                                 
                                                   </div>    
@@ -293,7 +296,7 @@
                                         
                                                 <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts" style="opacity:0.2;">
 
-                                                    <img src="/resources/images/default1.png" alt="메인 이미지">
+                                                   <img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
                                                </a>
                                                   <div class="soldout">
                                                          <p>품절</p>
@@ -307,7 +310,7 @@
 	                                        
 	                                              	  <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts" style="opacity:0.2;">
 	
-	                                                     <img src="/resources/images/default1.png" alt="메인 이미지">
+	                                                     <img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
 	                                             	  </a>
 	                                               		    <div class="soldout">
 	                                                         <p>판매 중지</p>

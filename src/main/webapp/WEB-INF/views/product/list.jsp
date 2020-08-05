@@ -185,7 +185,7 @@
         height:300px;
         position:relative;
         overflow:hidden;
-        background-color:pink;
+        background-color:black;
     } 
     .so_flag{
     margin-top:16px;
@@ -415,7 +415,7 @@
                                         
                                                <a href="/product/item?itemCode=<c:out value='${board.itemCode}'/>" class="conts">
 
-                                                   <img src="/resources/images/default.png" alt="메인 이미지">
+                                                   <img class="active" src="/resources/upload/<c:out value="${board.idNo}"/>/<c:out value="${board.itemImg1}"/>">
                                                </a>
                                 
                                                   </div>    
@@ -427,7 +427,7 @@
                                         
                                                 <a href="/product/item?itemCode=<c:out value='${board.itemCode}'/>" class="conts" style="opacity:0.2;">
 
-                                                   <img src="/resources/images/default.png" alt="메인 이미지">
+                                                    <img class="active" src="/resources/upload/<c:out value="${board.idNo}"/>/<c:out value="${board.itemImg1}"/>">
                                                </a>
                                                   <div class="soldout">
                                                          <p>품절</p>
@@ -441,7 +441,7 @@
 	                                        
 	                                              	  <a href="/product/item?itemCode=<c:out value='${board.itemCode}'/>" class="conts" style="opacity:0.2;">
 	
-	                                                   <img src="/resources/images/default.png" alt="메인 이미지">
+	                                                    <img class="active" src="/resources/upload/<c:out value="${board.idNo}"/>/<c:out value="${board.itemImg1}"/>">
 	                                             	  </a>
 	                                               		    <div class="soldout">
 	                                                         <p>판매 중지</p>
@@ -688,10 +688,10 @@ $(document).on("change", "select.mainCateg", function(){
          
          console.log(response[i]);
       
-         
+        
 
    $whole_list.append("<div id='so_Content'>"+"<a href='item?itemCode="+response[i].itemCode+"'/>"+
-		   "<div id='so_img"+i+"' class='so_img'>"+response[i].itemImg1+"</a></div>"+
+		   "<div id='so_img"+i+"' class='so_img'> <img src=\"/resources/upload/"+response[i].idNo+"/"+response[i].itemImg1+"\"/></a></div>"+
             "<div id='so_flag"+i+"' class='so_flag'>"+response[i].itemChr+"</div>"+
             "<div id='so_itemName'>"+response[i].itemName+"</div>"+
             "<div id='so_idNo'>"+response[i].idNo+"</div>"+
@@ -699,15 +699,14 @@ $(document).on("change", "select.mainCateg", function(){
             "<div id='so_norPrice'>"+response[i].normPrice+"원</div>"+
             "<div id='so_cart'>"+"<button class='so_add_cart'>add to cart</button>"+"</div></div>"); 
       
-      
- 		  console.log("aa"+response[i].saleStat);
-   
-   
+ 
 		//품절일때 
 		if(response[i].saleStat=='품절'){
 			
+			 
 	     	  $("#so_img"+i).css("background-color", "black");
-	     	  $("#so_img"+i).css("opacity", "0.2");
+	     	  $("#so_img"+i).css("opacity", "0.2"); 
+	         
 	     	  
 	     	  $("#so_img"+i).append("<div id='soldout'>"+"<p>품절</p>"+"</div>"); 
 	     	 
@@ -718,7 +717,7 @@ $(document).on("change", "select.mainCateg", function(){
 			
 	     	  $("#so_img"+i).css("background-color", "black");
 	     	  $("#so_img"+i).css("opacity", "0.2");
-	     	  
+	         
 	     	  $("#so_img"+i).append("<div id='soldout'>"+"<p>판매 중지</p>"+"</div>"); 
 	     	 
 	     	  
