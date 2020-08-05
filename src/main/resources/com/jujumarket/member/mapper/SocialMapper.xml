@@ -28,7 +28,7 @@
       where emailAccount = #{emailAccount}
    </select>
    
-   <select id ="getSocialInfo" resultType="com.jujumarket.member.domain.SocialVO">
+   <select id ="getSocialInfo" resultType="com.jujumarket.member.domain.MemberVO">
       	select t.*, m.*
 		from t_member t, m_social m
 		where t.idNo = m.idNo
