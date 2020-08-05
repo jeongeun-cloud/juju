@@ -78,6 +78,7 @@ public class BannerContoller {
 		int total = service.getItemTotal(cri);
 		
 		String bannerType = "seasonal";
+		model.addAttribute("column", service.getColumn());
 		model.addAttribute("seasonItemResult", service.getSeason());
 		model.addAttribute("seasonal", service.getBanner(bannerType));
 		model.addAttribute("list", service.getItemList(cri));
@@ -267,9 +268,53 @@ public class BannerContoller {
 	
 	// 제철 칼럼 등록
 	@PostMapping("/addColumn")
-	public void addColumn(ColumnVO vo, MultipartFile[] uploadFile) {
+	public String addColumn(ColumnVO vo, MultipartFile[] addImg) {
+		
+		String uploadFolder = servletContext.getRealPath("/resources/banner");
+		
+		String uploadFolderPath = File.separator + "column";
+		
+		System.out.println("add Coulumn 저장 경로 >>> " + uploadFolder);
+	    // 폴더 생성
+	    File uploadPath = new File(uploadFolder, uploadFolderPath);
+	    log.info("upload path : " + uploadPath);
+	      
+	    if(uploadPath.exists() == false) {
+	       uploadPath.mkdir();      // 각 상점마다 자신의 폴더를 가짐
+	    }
+
+	      int i = 0;
+	      for(MultipartFile multi : addImg) {
+	         
+	         String uploadFilename = multi.getOriginalFilename();
+	         
+		     // IE has file path
+	         uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
+		         
+	         UUID uuid = UUID.randomUUID();
+	         uploadFilename = uuid.toString() + "_" + uploadFilename;
+	
+	         try {
+	            // 이미지 파일 path에 올리기
+	            File saveFile = new File(uploadPath, uploadFilename);
+	            multi.transferTo(saveFile);
+		            
+	         } catch (Exception e) {
+	            log.error(e.getMessage());
+	         } // end catch
+	         
+	         if(i==0) vo.setImg1(uploadFilename);
+	         else if(i==1) {
+	        	 vo.setImg2(uploadFilename); 
+	        	 break;
+	         }
+	         i++;
+	      } // end for
 		
 		System.out.println(vo.toString());
+		service.addColumn(vo);
+		
+		return "redirect:/admin/seasonalMagazine";
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.jujumarket.admin.mapper;
 import java.util.List;
 
 import com.jujumarket.admin.domain.BannerVO;
+import com.jujumarket.admin.domain.ColumnVO;
 import com.jujumarket.admin.domain.ListItemVO;
 import com.jujumarket.shop.domain.ItemCriteria;
 
@@ -29,4 +30,8 @@ public interface BannerMapper {
 	public int getItemTotal(ItemCriteria cri);
 	
 	public void deleSeason(String itemCode);
+	
+	public void addColumn(ColumnVO vo);
+	
+	public List<ColumnVO> getColumn();
 }

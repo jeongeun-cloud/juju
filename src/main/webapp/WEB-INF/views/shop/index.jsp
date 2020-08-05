@@ -54,7 +54,7 @@
                                         상품 등록 수 
                                     </div>
                                     <div>
-                                        00건
+                                        <c:out value="${itemTotal.total }" />
                                     </div>
                                 </div>
                             </div>   
