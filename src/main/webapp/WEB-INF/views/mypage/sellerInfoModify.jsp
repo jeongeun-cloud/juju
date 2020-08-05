@@ -550,7 +550,6 @@ a {
 										memAddr.val(roadAddr.val()+"/"+namujiAddr.val());
 									}
 									shopAddr.val(shopRoadAddr.val()+"/"+shopNamujiAddr.val());
-		                     		shopName.val($.trim(shopName.val()));
 									sellerInfoModify.submit();
 								}
 

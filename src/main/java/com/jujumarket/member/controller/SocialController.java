@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,7 +37,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SocialVO;
 import com.jujumarket.member.service.SocialService;
 
@@ -342,27 +343,13 @@ public class SocialController {
 		}else {
 			socialVO = service.getSocialInfo(emailAccount);
 		}
-
-		
-		// 추가한 부분(socialVO => memberVO)
-		MemberVO memberVO = new MemberVO();
-		
-		memberVO.setIdNo(socialVO.getIdNo());
-		memberVO.setEmailAccount(socialVO.getEmailAccount());
-		memberVO.setMemName(socialVO.getMemName());
-		memberVO.setMemCode(socialVO.getMemCode());
-		memberVO.setContact(socialVO.getContact());
-		memberVO.setBirth(socialVO.getBirth());
-		memberVO.setSocialType(socialVO.getSocialType());
-		
 		
 		session.setAttribute("accessToken", googleToken);
-		session.setAttribute("sessionMember", memberVO);
+		session.setAttribute("sessionMember", socialVO);
 		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
 		
 	}
-	
 	
 	@GetMapping("/googleLogout")
 	public String googleLogout(HttpSession session, Model model) {
