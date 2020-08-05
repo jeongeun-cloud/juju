@@ -29,10 +29,13 @@
                         <div class="quick_tit">
                             <p><b>빠르게 찾기</b></p>
                         </div>
+                        
                         <p>관리자 ID</p>
                         <input class="quick_btn" type="button" value="배너관리" onClick="location.href='/admin/mainBanner'">
                         <input class="quick_btn" type="button" value="회원현황" onClick="location.href='/admin/memberStat'">
                         <input class="quick_btn" type="button" value="상인관리" onClick="location.href='#'">
+                        <input class="quick_btn" type="button" value="1:1문의" onClick="location.href='/admin/QnaList'">
+                       
                     </div>
                 </div>
 

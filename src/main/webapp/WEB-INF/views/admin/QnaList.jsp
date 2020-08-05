@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +10,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 <link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
-<title>withdraw member</title>
+<title>get QNA list</title>
 <style>
  	li{
        list-style: none;
@@ -47,7 +47,7 @@
         background-color: #f5f5f5;
     }
     
-    .withdraw_table{
+    .qnaList_table{
         margin-bottom: 20px;
     }
     
@@ -55,13 +55,13 @@
         height: 30px;
         left: 30%;
     }
-   	.withdraw_content{
+   	.qnaList_content{
        width: 1300px;
        height: 1000px;
        margin:0 auto;
        border: solid;
    	}
-   	.withdraw_wrap{
+   	.qnaList_wrap{
       position: relative;
       display: inline-block;
       padding-top: 30px;
@@ -77,13 +77,13 @@
        border:solid;
        
    	}
-   	.withdraw_main{
+   	.qnaList_main{
        float:  right;
        width: 1000px;
        height: 1000px;
        background-color: white;
    	} 
-   	.withdraw_side_tit{
+   	.qnaList_side_tit{
        padding-top: 12px;
        padding-bottom:12px ;
        text-align: center;
@@ -93,7 +93,7 @@
        font-weight: 900;
    	}
    	
-   .withdraw_main .withdraw_tit{
+   .qnaList_main .qnaList_tit{
        font-size: 30px;
        margin-bottom:20px;
    }
@@ -118,17 +118,17 @@
 </head>
 <body>
 
-    <%@include file="./idCheck.jsp" %>
-    <%@include file="../includes/header.jsp" %>
-    <div class="withdraw_content">
-        <div class="withdraw_wrap">
+ <%@include file="./idCheck.jsp" %>
+ <%@include file="../includes/header.jsp" %>
+<div class="qnaList_content">
+        <div class="qnaList_wrap">
         
             <!-- side 시작 -->
             <div class="side">
             <div class="1nb_list">
-                <div class="withdraw_side_tit">관리자 페이지</div>
-                <div class="withdraw_side_menu">
-                    <ul class="withdraw_menu">
+                <div class="qnaList_side_tit">관리자 페이지</div>
+                <div class="qnaList_side_menu">
+                    <ul class="qnaList_menu">
                             <p><a href='/admin/index'><b>JUJU 현황</b></a></p>
                             <p><b>배너관리</b></p>
                                 <li><a href='/admin/mainBanner'><i class="fa fa-check" ></i> 메인 배너</a></li>
@@ -149,86 +149,61 @@
             </div>
             <!-- side 끝-->
                      
-                <div class="withdraw_main">
-                    <div class="withdraw_tit">
-                        <p><b><i class="fa fa-list-alt"></i>탈퇴 회원 list</b></p>
+                <div class="qnaList_main">
+                    <div class="qnaList_tit">
+                        <p><b><i class="fa fa-list-alt"></i>QNA List</b></p>
                     </div>   
-                     	
-                        <div class="withdraw_table">
+					<div class="qnaList_table">
                             <table aria-setsize="500px">
                             <thead>
                                 <tr>
                                     <th>번호</th>
-                                    <th>회원 id</th>
-                                    <th>탈퇴 이유</th>
-                                    <th>탈퇴 날짜</th>
+                                    <th>제목</th>
+                                    <th>회원id</th>
+                                    <th>회원 email</th>
+                                    <th>작성 날짜</th>
                                 
                                 </tr>
                             </thead>
                             
-                            <c:forEach items="${withdraw }" var="w">
+                            <c:forEach items="${qna}" var="q">
                                 <tr>
-                                	<td><c:out value="${w.withdrawNum}" /></td>
-                                    <td><c:out value="${w.withdrawIdNo}" /></td>
-                                    <td><c:out value="${w.withdrawReason}" /></td>
-                                    <td><c:out value="${w.withdrawDay}" /></td>
+                                	<td><c:out value="${q.no}" /></td>
+                                    <td><a class='move' href='<c:out value="${q.postingNo}"/>'>
+                                    <c:out value="${q.title }"/></a></td>
+                                    <td><c:out value="${q.idNo}" /></td>
+                                    <td><c:out value="${q.emailAccount}" /></td>
+                                    <td><c:out value="${q.regDate}" /></td>
                                     
                                     
                                 </tr>
                             </c:forEach>
                             </table>
-                             <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
-                            <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+                           
                         </div> 
-                        <!--withdraw_table  -->
-                        <div class='page_num'>
-                            <ul class="pagination">
-                                <c:if test="${pageMaker.prev}">
-                                    <li class="paginate_button previous">
-                                        <a href="${pageMaker.startPage -1}">&laquo;</a>
-                                    </li>
-                                </c:if>
-        
-                                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                                    <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
-                                        <a href="${num}">${num}</a>
-                                    </li>
-                                </c:forEach>
-        
-                                <c:if test="${pageMaker.next}">
-                                    <li class="paginate_button next">
-                                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
-                                    </li>
-                                </c:if>
-                            </ul> 
-                        </div>
-
-                        <form id='actionForm' action="/admin/withdraw" method='get'>
-                            <input type='hidden' name='pageNum' id="pageNum" value='${pageMaker.cri.pageNum}'>
-                            <input type='hidden' name='amount' id="amount" value='${pageMaker.cri.amount}'>
+                        <!-- qnaList_table 끝 -->
+                    <form id='qnaForm' action="/admin/QnaList" method='get'>
+      		 	 	</form>      
                         
-                        </form>
-                        
-                </div>    
-                <!-- withdraw_main -->
-        </div> 
-        <!--banner_wrap  -->
-    </div>  
-    <!--banner_content  -->
-    <script type="text/javascript">
-    	$(document).ready(function() {
-        
-            // 페이지 이동 
-            var actionForm = $("#actionForm");
-    	    $(".paginate_button a").on("click", function(e) {
-    	    	e.preventDefault();
-    	         
-    	        actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-    	        actionForm.submit();
-    	    });
+             </div>
+             <!--qnaList_main  -->
+       </div>
+       <!--qnaList_wrap  -->
+</div>
+<!--qnaList_content  -->
+<script type="text/javascript">
 
+var qnaForm = $("#qnaForm");
+$(".move").on("click",function(e){
+    
 
-        });
-    </script>    
+    e.preventDefault();
+    qnaForm.append("<input type='hidden' name='postingNo' value = '" + $(this).attr("href") + "'>");
+    qnaForm.attr("action", "/mypage/myQna/get");
+    qnaForm.submit();
+
+ });
+
+</script>
 </body>
 </html>
