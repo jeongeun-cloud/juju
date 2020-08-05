@@ -38,4 +38,8 @@ public class MemberVO {
 		
 	//m_shop_info(nullable)
 	private String backImg;
+	
+	// m_social
+	private String birth;
+	private String socialType;
 }

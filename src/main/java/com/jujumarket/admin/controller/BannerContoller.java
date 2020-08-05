@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jujumarket.admin.domain.BannerVO;
+import com.jujumarket.admin.domain.ColumnVO;
 import com.jujumarket.admin.domain.ListItemVO;
 import com.jujumarket.admin.service.BannerService;
 import com.jujumarket.shop.domain.ItemCriteria;
@@ -262,6 +263,13 @@ public class BannerContoller {
 		}
 		
 		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
+	// 제철 칼럼 등록
+	@PostMapping("/addColumn")
+	public void addColumn(ColumnVO vo, MultipartFile[] uploadFile) {
+		
+		System.out.println(vo.toString());
 	}
 	
 }

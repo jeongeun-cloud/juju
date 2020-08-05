@@ -604,7 +604,7 @@ input[type=range] {
 
             <div class="column-xs-12 column-md-5">
               <h1><c:out value="${product.itemName}" default="itemName"/></h1>
-              <h2><fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" />원 -> <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.normPrice}" />원</h2>
+              <h2><fmt:formatNumber type="number" maxFractionDigits="3" value="${product.normPrice}" />원 -> <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" />원</h2>
               <h5> 적립 포인트 : 120 포인트 </h5>
               
               <!-- 수량 증감 부분 시작 -->
