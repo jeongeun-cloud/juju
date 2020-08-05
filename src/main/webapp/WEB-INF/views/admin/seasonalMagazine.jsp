@@ -125,8 +125,8 @@
     }
    
 	#activeImg img{
-		height : 170px;
-		width : 700px;
+		height : 330px;
+		width : 500px;
 		padding-bottom : 30px;
 	}
 	
@@ -194,7 +194,7 @@
             <div class="banner_main">
             <div class="banner_tit">
             	<button id="regBtn">다담기 상품으로 등록</button>
-            	<p><b><i class="fa fa-list-alt"></i>상품 고르기</b></p>
+            	<p><b><i class="fa fa-list-alt"></i> 상품 고르기</b></p>
             </div>
             
             <div class="search_bar">
@@ -280,7 +280,7 @@
                 
                 <div class="banner_tit">
 	            	<button id="deleBtn">다담기 상품에서 제거</button>
-	            	<p><b><i class="fa fa-list-alt"></i>다담기로 등록된 상품</b></p>
+	            	<p><b><i class="fa fa-list-alt"></i> 다담기로 등록된 상품</b></p>
             	</div>
             	
                 <!-- 등록 된 상품 개수 -->
@@ -314,9 +314,13 @@
                 </div>
                 
                 <div class="banner_tit" style='margin-top:50px;'>
-                    <p><b><i class="fa fa-list-alt"></i>제철 페이지 매거진 등록</b></p>
+                    <p><b><i class="fa fa-list-alt"></i> 제철 이미지 컬럼쓰기</b></p>
                 </div>
-                <p style='opacity:0.75;'>이미지 규격 : </p>
+                
+                <div class="banner_tit" style='margin-top:50px;'>
+                    <p><b><i class="fa fa-list-alt"></i> 제철 이미지 갤러리</b></p>
+                </div>
+                <p style='opacity:0.75;'>이미지 권장 규격 : 500 * 330</p>
                 <div class="uploadDiv">
                 	<input type="file" name="uploadFile" multiple>
                 	<!-- <button id="uploadBtn">등록하기</button> -->
@@ -328,8 +332,9 @@
                 </div>
 
                 <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
-               	<label>현재 등록된 매거진</label><br>
+               	<label>현재 등록된 제철 이미지 갤러리</label><br>
                 <div id="activeImg">
+                	<input type="hidden" id="imgLen" value='<c:out value="${fn:length(seasonal)}"/>'>
                 	<c:forEach items="${seasonal }" var="seasonal">
 		           		<img class="banner" alt="" src='/resources/banner/<c:out value="${seasonal.imgPath}"/>/<c:out value="${seasonal.uuid}"/>_<c:out value="${seasonal.imgName}"/>' >
 		           		<button id='removeBtn' data-oper='<c:out value="${seasonal.imgNo}"/>'>삭제</button>
@@ -344,6 +349,9 @@
 
     <script type="text/javascript">
     	$(document).ready(function() {
+    		
+    		var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG|JPG)$");
+    		var maxSize = 5242880;
     		
     		// 파일 타입 체크
     		function checkExtension(fileName, fileSize) {
@@ -374,6 +382,10 @@
     				if(!checkExtension(files[i].name, files[i].size)) {
     					return false;
     				}
+    				if($("#imgLen").val() >= 6) {
+        				alert("6개 이상의 제철 갤러리 이미지를 등록할 수 없습니다. 먼저 삭제 한 후 시도해주세요.");
+        				return false;
+        			}
     				formData.append("uploadFile", files[i]);
     				formData.append("idNo", idNo);
     			}

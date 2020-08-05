@@ -141,16 +141,14 @@
 <%@include file="includes/menuBar.jsp" %> 
 <%@include file="./includes/basketSlide.jsp" %>
 	<div id="activeImg">
-	  	<c:forEach items="${seasonal }" var="seasonal">
-	  		<div class="txt1">
-	  			<p>최고의 품질, 가격, 신선도</p>
-	  			<p>최고의 품질, 가격, 신선도</p>
-	  			<p>최고의 품질, 가격, 신선도</p>
-	  			<p>최고의 품질, 가격, 신선도</p>
-	  			<p>최고의 품질, 가격, 신선도</p>
-	  		</div>
-	 		<img class="banner" alt="" src='/resources/banner/<c:out value="${seasonal.imgPath}"/>/<c:out value="${seasonal.uuid}"/>_<c:out value="${seasonal.imgName}"/>' >
-	 	</c:forEach>
+  		<div class="txt1">
+  			<p>최고의 품질, 가격, 신선도</p>
+  			<p>최고의 품질, 가격, 신선도</p>
+  			<p>최고의 품질, 가격, 신선도</p>
+  			<p>최고의 품질, 가격, 신선도</p>
+  			<p>최고의 품질, 가격, 신선도</p>
+  		</div>
+  		<img class="banner" src="/resources/images/seasonal_bg2.jpg">
     </div>
     
 	<div class="seasonal_pro">
@@ -172,24 +170,24 @@
 		<div id="wrapper">
 	        <div class="grid">
 	            <div class="big">
-	                <img alt="" src="https://steptohealth.co.kr/wp-content/uploads/2018/05/rice-featured.jpg">
+	                <img id="gallery0" alt="" src="">
 	            </div>
 	            <div class="mini">
-	                <img alt="" src="https://steptohealth.co.kr/wp-content/uploads/2018/05/rice-featured.jpg">
+	                <img id="gallery1" alt="" src="">
 	            </div>
 	            <div class="mini" style="margin-left:18px;">
-	                <img alt="" src="https://steptohealth.co.kr/wp-content/uploads/2018/05/rice-featured.jpg">
+	                <img id="gallery2" alt="" src="">
 	            </div>
 	        </div>
 	        <div class="grid">
 	            <div class="mini">
-	                <img alt="" src="https://steptohealth.co.kr/wp-content/uploads/2018/05/rice-featured.jpg">
+	                <img id="gallery3" alt="" src="">
 	            </div>
 	            <div class="mini" style="margin-left:18px;">
-	                <img alt="" src="https://steptohealth.co.kr/wp-content/uploads/2018/05/rice-featured.jpg">
+	                <img id="gallery4" alt="" src="">
 	            </div>
 	            <div class="big">
-	                <img alt="" src="https://steptohealth.co.kr/wp-content/uploads/2018/05/rice-featured.jpg">
+	                <img id="gallery5" alt="" src="">
 	            </div>
 	        </div>
     	</div>
@@ -213,7 +211,9 @@
 	 	</c:forEach>
 		<button id="regBtn" onclick="allToBasket()">다담기</button>
 	</div>
-
+	  	<%-- <c:forEach items="${seasonal }" var="seasonal"> --%>
+	 		<%-- <img class="banner" alt="" src='/resources/banner/<c:out value="${seasonal.imgPath}"/>/<c:out value="${seasonal.uuid}"/>_<c:out value="${seasonal.imgName}"/>' > --%>
+	 	<%-- </c:forEach> --%>
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
 	
@@ -237,6 +237,34 @@
 	
 	<script>
 	
+		$(document).ready(function() {
+			var seasonal = new Array();
+	        
+	        <c:forEach items = "${seasonal}" var="seasonal">
+	        	var json = new Object();
+	        	json.uuid = "${seasonal.uuid}";
+	        	json.imgPath = "${seasonal.imgPath}";
+	        	json.imgName = "${seasonal.imgName}";
+	        	seasonal.push(json);
+	        </c:forEach>
+	        
+	        for(var i=0; i<seasonal.length; i++) {
+		        var str = '/resources/banner/';
+	        	str += seasonal[i].imgPath + "/" + seasonal[i].uuid + "_" + seasonal[i].imgName;
+	        	$("#gallery"+i).attr("src", str);
+	        }
+	        /* if(advertise.length == 1) {
+		        var url1 = str + advertise[0].imgPath + "/" + advertise[0].uuid + "_" + advertise[0].imgName;
+		        $("#ad_img_1").attr("src", url1);
+	        }else {
+		        var url1 = str + advertise[0].imgPath + "/" + advertise[0].uuid + "_" + advertise[0].imgName;
+		        var url2 = str + advertise[1].imgPath + "/" + advertise[1].uuid + "_" + advertise[1].imgName;
+		        $("#ad_img_1").attr("src", url1);
+		        $("#ad_img_2").attr("src", url2);
+	        } */
+		});
+	
+		// 다담기 기능
 		function allToBasket() {
 			var recipeItems = document.getElementsByClassName("add_to_cart");
 			

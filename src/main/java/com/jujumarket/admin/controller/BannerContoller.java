@@ -45,7 +45,7 @@ public class BannerContoller {
 	private ServletContext servletContext;
 	private BannerService service;
 
-	// 諛곕꼫 愿�由� 寃� 留ㅽ븨
+	// 배너 관리 겟 매핑
 	@GetMapping("/eventBanner")
 	public void eventBanner(Model model) {
 		log.info("eventBanner........");
@@ -83,13 +83,13 @@ public class BannerContoller {
 		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 	}
 	
-	// �뙆�씪 �뾽濡쒕뱶 以묐났肄붾뱶 硫붿꽌�뱶
+	// 파일 업로드 중복코드 메서드
 	public List<BannerVO> imgSave(MultipartFile[] uploadFile, String bannerType, String idNo) {
 		
 		List<BannerVO> list = new ArrayList<>();
 		String uploadFolder = servletContext.getRealPath("/resources/banner");
 		
-		System.out.println("�뾽濡쒕뱶 寃쎈줈 " + uploadFolder);
+		System.out.println("업로드 경로 " + uploadFolder);
 		
 		String uploadFolderPath = File.separator + bannerType;
 		
@@ -132,7 +132,7 @@ public class BannerContoller {
 		return list;
 	}
 	
-	// �씠踰ㅽ듃 諛곕꼫
+	// 이벤트 배너
 	@PostMapping(value = "/eventBanner", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<BannerVO>> uploadBanner(MultipartFile[] uploadFile, String idNo) {
@@ -142,7 +142,7 @@ public class BannerContoller {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	// 以묎컙 愿묎퀬 
+	// 중간 광고  
 	@PostMapping(value = "/advertise", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<BannerVO>> advertise(MultipartFile[] uploadFile, String idNo) {
@@ -151,18 +151,16 @@ public class BannerContoller {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	// 硫붿씤 �뒳�씪�씠�뱶 諛곕꼫
+	// 메인 슬라이드 배너
 	@PostMapping(value = "/mainBanner", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<BannerVO>> mainBanner(MultipartFile[] uploadFile, String idNo) {
 		List<BannerVO> list = imgSave(uploadFile, "main", idNo);
 		
-		System.out.println(idNo + "�뿬湲� �븘�씠�뵒");
-		
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	// �젣泥� �럹�씠吏�
+	// 제철 페이지
 	@PostMapping(value = "/seasonalMagazine", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<BannerVO>> seasonalMagazine(MultipartFile[] uploadFile , String idNo) {
@@ -171,7 +169,7 @@ public class BannerContoller {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
-	// �삱由� �썑 蹂댁씠湲� 
+	// 올린 후 보이기
 	@GetMapping("/display")
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String imgName) {
@@ -189,7 +187,7 @@ public class BannerContoller {
 		return result;
 	}
 	
-	// �뙆�씪 �궘�젣 以묐났肄붾뱶 硫붿꽌�뱶
+	// 파일 삭제 중복코드 메서드
 	public boolean removeImg(String fileName) {
 		File file;
 		String filePath = servletContext.getRealPath("/resources/banner");
@@ -204,7 +202,8 @@ public class BannerContoller {
 		}
 		return true;
 	}
-	// �삱由� �썑 �궘�젣
+	
+	// 올린 후 삭제
 	@PostMapping("/deleteFile")
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(String fileName, String type, String bannerType, String imgNo) {
@@ -220,7 +219,7 @@ public class BannerContoller {
 		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 	
-	// �씠誘� �삱�씪媛� 諛곕꼫 �궘�젣
+	// 이미 올라간 배너 삭제
 	@PostMapping("/remove")
 	@ResponseBody
 	public ResponseEntity<String> remove(String imgNo) {
