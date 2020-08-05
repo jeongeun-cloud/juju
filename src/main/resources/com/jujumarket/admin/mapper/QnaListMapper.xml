@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <select id="getQnaList" resultType="com.jujumarket.admin.domain.QnaVO">
 select rownum no , a.*
-from(select q.title,q.content,to_char(q.regDate,'yy/mm/dd'),q.idNo , t.emailAccount
+from(select q.title,q.content,to_char(q.regDate,'yy/mm/dd') regDate ,q.idNo , t.emailAccount,q.postingNo
 from t_board_qna q, t_member t
 where q.idno=t.idno
 order by regDate desc

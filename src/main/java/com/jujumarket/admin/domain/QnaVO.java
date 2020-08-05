@@ -12,4 +12,5 @@ public class QnaVO {
 	private String regDate;
 	private String idNo;
 	private String emailAccount;
+	private String postingNo;
 }
