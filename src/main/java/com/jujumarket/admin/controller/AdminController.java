@@ -121,15 +121,18 @@ public class AdminController {
 		
 		int total = msservice.getWithdrawTotal(cri);
 		
-		model.addAttribute("withdraw", msservice.getWithdraw());
+		model.addAttribute("withdraw", msservice.getWithdraw(cri));
 		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 	}
 
 	//1:1문의 게시판 모아보기
 	@GetMapping("/QnaList")
-	public void qnalist(Model model) {
+	public void qnalist(ItemCriteria cri, Model model) {
 		
-		model.addAttribute("qna",qservice.getQnaList());
+		int total = qservice.QnalistTotal(cri);
+		
+		model.addAttribute("qna",qservice.getQnaList(cri));
+		model.addAttribute("pageMaker", new ItemPageDTO(cri,total));
 	}
 	
 }

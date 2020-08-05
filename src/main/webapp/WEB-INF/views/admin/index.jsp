@@ -8,8 +8,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   	<link rel="stylesheet" href="/resources/css/admin_index.css">
     <title>admin index</title>
+    <style>
+    
+    .admi_container{
+        width: 1300px;
+        height: 100%;
+        margin: 0 auto;
+        /* border: solid; */
+    }
+    .admi_manager{
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        /* border: solid; */
+        margin-bottom: 80px;
+        
+    }
+    .admi_btn_wrap{
+        margin-top: 10px;
+       margin-bottom: 20px;
+
+    }
+    .quick_wrap{
+        margin-top:20px;
+        
+    }
+    .quick_m{
+        float: left;
+        margin: 10px 20px 20px 10px;
+    }
+    .quick_find{
+        
+        border: solid ;
+        width: 380px;
+        height: 350px;
+    } 
+    .quick_tit{
+        text-align: center;
+        font-size: 17px;
+        background-color:#8CC152 ;
+    }
+    .today_sta{
+        
+        border:solid ;
+        width: 430px;
+        height: 350px;
+    }
+    .today_do{
+        
+        border:solid ; 
+        width: 380px;
+        height:350px;
+
+    }
+    .quick_btn{
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        margin-right: 20px;
+        margin-left: 50px;
+        margin-top: 20px;
+        
+    }
+    .today_box{
+        float: left;
+        width: 120px;
+        height: 80px;
+        border:solid;
+        margin: 10px 5px 10px 10px;
+        text-align: center;
+    }
+    .today_tit{
+        width: 100%;
+        height: 25px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 5px;      
+        background-color: #d0e1d2;
+    }
+    .today_total{
+       margin:50px 30px 40px 80px;
+        
+    }
+    .rate{
+        height: 50px;
+        border:solid red;
+        margin: 30px 0 10px 0;
+    }
+    .today_do_li{
+        margin: 50px 10px 0 50px ;
+    }
+    .admi_board{
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        /* border: solid blue; */
+        height: 450px;
+
+        
+    }
+    .quick_b{
+        float: left;
+        margin: 10px 20px 20px 20px;
+    }
+    .admi_notice{
+        border:solid ; 
+        width: 600px;
+        height:400px;
+    }
+    .admi_faq{
+        border:solid ; 
+        width: 600px;
+        height:400px;
+    }
+    .board_tit {    
+        width: 100%;
+        font-size: 20px;
+        
+    }
+    .board_btn{
+        width:100%;
+        margin-left:530px;
+        margin-bottom: 10px;
+    }
+  
+    </style>
 
 </head>
 <body>

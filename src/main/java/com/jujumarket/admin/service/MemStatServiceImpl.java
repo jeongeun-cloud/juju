@@ -34,8 +34,8 @@ public class MemStatServiceImpl implements MemStatService {
 	}
 	//탈퇴
 	@Override
-	public List<MemStatVO> getWithdraw() {
-		return mapper.getWithdraw();
+	public List<MemStatVO> getWithdraw(ItemCriteria cri) {
+		return mapper.getWithdraw(cri);
 	}
 	
 	@Override

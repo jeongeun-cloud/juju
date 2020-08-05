@@ -22,7 +22,7 @@ public interface MemStatMapper {
 	public Integer getSellNum();
 	
 	//탈퇴
-	public List<MemStatVO> getWithdraw();
+	public List<MemStatVO> getWithdraw(ItemCriteria cri);
 	
 	public int getWithdrawTotal(ItemCriteria cri);
 	

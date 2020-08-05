@@ -78,24 +78,21 @@ public class BoardQNAController {
 
    }
 
+
    @GetMapping({ "/myQna/get", "/myQna/modify" })
    public String get(@RequestParam("postingNo") String postingNo, @ModelAttribute("cri") Criteria cri, Model model,
          HttpSession session, RedirectAttributes rttr) {
       MemberVO member = (MemberVO) session.getAttribute("sessionMember");
-//      String memCode = member.getMemCode(); 
 
       if (member == null) {
          rttr.addFlashAttribute("result", "로그인 후 이용 가능합니다.");
          return "redirect:/mypage/myQna/list";
-      } else if (member.getMemCode().equals("ADMIN")) {
-         return "redirect:/mypage/myQna/get";
-      } else if (!member.getIdNo().equals(service.getIdNoByPostingNo(postingNo))) {
-         rttr.addFlashAttribute("result", "회원님이 작성한 1:1문의가 아닙니다.");
-         return "redirect:/mypage/myQna/list";
-      } else {
-         log.info("/myQna/get or /myQna/modify");
+      } else if ((member.getMemCode().equals("ADMIN"))||(member.getIdNo().equals(service.getIdNoByPostingNo(postingNo)))) {
          model.addAttribute("BoardQNA", service.get(postingNo));
-         return "mypage/myQna/get";
+         model.addAttribute("qna", service.get(postingNo));
+         return "/mypage/myQna/get";
+      } else{
+         return "/mypage/myQna/list";
       }
    }
 
