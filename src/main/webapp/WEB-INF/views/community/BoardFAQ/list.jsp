@@ -230,6 +230,7 @@
             </div>
             <!-- 1nb_list -->
         </div>
+        
         <!-- side -->
 
         <div class="jaju_main">

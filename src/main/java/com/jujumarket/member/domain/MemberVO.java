@@ -42,4 +42,5 @@ public class MemberVO {
 	// m_social
 	private String birth;
 	private String socialType;
+
 }

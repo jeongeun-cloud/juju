@@ -384,9 +384,10 @@ body {
 		
 		
 		function pwdCheck(){
-			
-			let regExp = /^[A-Za-z0-9]{6,12}$/;
-			
+
+			let regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+
+
 			if (pwd.val().trim() == "" || pwd.val() == null) {
 				alert("비밀번호를 입력해주세요.");
 				pwd.focus();

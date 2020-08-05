@@ -180,14 +180,14 @@
         border: solid;
         float:left;
         }   
-        #so_img{
+        .so_img{
         width:100%;
         height:300px;
         position:relative;
         overflow:hidden;
         background-color:pink;
     } 
-    #so_flag{
+    .so_flag{
     margin-top:16px;
     margin-left:1px;
     width:55px;
@@ -247,9 +247,7 @@
            font-weight: bold; 
            position: absolute; 
            color: white;
-           
-           
-
+        
        }
        
 
@@ -438,18 +436,18 @@
                                                    </c:if>
                                                    
                                                    <!--판매 중지일때  -->
-                                                   <c:if test="${board.saleStat=='판매중지'}">
-                                            <div class="pro_img_wrap">
-                                        
-                                                <a href="/product/item?itemCode=<c:out value='${board.itemCode}'/>" class="conts" style="opacity:0.2;">
-
-                                                   <img src="/resources/images/default.png" alt="메인 이미지">
-                                               </a>
-                                                  <div class="soldout">
-                                                         <p>판매 중지</p>
-                                                         </div>
-                                                  </div>    
-                                                   </c:if>
+                                            <c:if test="${board.saleStat=='판매중지'}">
+	                                           	 <div class="pro_img_wrap">
+	                                        
+	                                              	  <a href="/product/item?itemCode=<c:out value='${board.itemCode}'/>" class="conts" style="opacity:0.2;">
+	
+	                                                   <img src="/resources/images/default.png" alt="메인 이미지">
+	                                             	  </a>
+	                                               		    <div class="soldout">
+	                                                         <p>판매 중지</p>
+	                                                         </div>
+	                                                  </div>    
+                                              </c:if>
                                               
                                     
                                      <!-- END img_wrap -->
@@ -481,7 +479,12 @@
                                              </div>
                                               </a>
                                          <div class="cart_btn">
-                                             <button type="button" class="add_to_cart"  value="${board.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button>
+                                               <c:if test="${board.saleStat=='품절'||board.saleStat=='판매중지'}">
+							                       <button type="button" class="add_to_cart" value="${board.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')">add to cart</button>
+							                    </c:if>
+							                    <c:if test="${board.saleStat!='품절'&& board.saleStat!='판매중지'}">
+							            	 <button type="button" class="add_to_cart" value="${board.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button> 
+							            	 </c:if>
                                          </div>
                                      </div>
                                      <!-- END txt_wrap -->
@@ -678,17 +681,18 @@ $(document).on("change", "select.mainCateg", function(){
      
       console.log("테이블 초기화 성공");
       
-      
-   
+
       
    for(var i=0; i<response.length; i++){
          console.log("table그리기 시작한다!!!!");
+         
+         console.log(response[i]);
       
          
 
    $whole_list.append("<div id='so_Content'>"+"<a href='item?itemCode="+response[i].itemCode+"'/>"+
-		   "<div id='so_img'>"+response[i].itemImg1+"</a></div>"+
-            "<div id='so_flag'>"+response[i].itemChr+"</div>"+
+		   "<div id='so_img"+i+"' class='so_img'>"+response[i].itemImg1+"</a></div>"+
+            "<div id='so_flag"+i+"' class='so_flag'>"+response[i].itemChr+"</div>"+
             "<div id='so_itemName'>"+response[i].itemName+"</div>"+
             "<div id='so_idNo'>"+response[i].idNo+"</div>"+
             "<div id='so_price'>"+response[i].price+"원</div>"+
@@ -699,18 +703,37 @@ $(document).on("change", "select.mainCateg", function(){
  		  console.log("aa"+response[i].saleStat);
    
    
+		//품절일때 
 		if(response[i].saleStat=='품절'){
-       	  
-       	  $("#so_img").css("background-color", "black");
-       	  $("#so_img").css("opacity", "0.2");
-       	  
-       	  $("#so_img").append("<div id='soldout'>"+"<p>품절</p>"+"</div>"); 
-       	 
-       	  
-         		}
+			
+	     	  $("#so_img"+i).css("background-color", "black");
+	     	  $("#so_img"+i).css("opacity", "0.2");
+	     	  
+	     	  $("#so_img"+i).append("<div id='soldout'>"+"<p>품절</p>"+"</div>"); 
+	     	 
+	     	  
+	       }
+		//판매중지 일때 
+		if(response[i].saleStat=='판매중지'){
+			
+	     	  $("#so_img"+i).css("background-color", "black");
+	     	  $("#so_img"+i).css("opacity", "0.2");
+	     	  
+	     	  $("#so_img"+i).append("<div id='soldout'>"+"<p>판매 중지</p>"+"</div>"); 
+	     	 
+	     	  
+	       }
+		//아이템이 기본설정일때 
+		if(response[i].itemChr=='default'){
+			$("#so_flag"+i).css("background-color","white");
+			$("#so_flag"+i).css("color","white");
+			
+		}
+		
       
      
       }
+   
          
    }
       

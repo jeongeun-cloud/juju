@@ -13,7 +13,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Insert title here</title>
-<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>  <!-- 모달띄어줌 -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <style>
 
@@ -242,7 +241,6 @@ margin-right: 0%;
 <div class="regi_content">
  <div class="regi_wrap">
 
-
 <!-- side 시작 -->
    <div class="side">
       <div class="1nb_list">
@@ -253,36 +251,53 @@ margin-right: 0%;
                     <li><a href='/mypage/myPerchaseList'><i class="fa fa-check" ></i>주문내역</a></li>
                     <li><a href='/order/basketList'><i class="fa fa-check" ></i>장바구니</a></li>
                     <br>
+                    <c:if test="${!empty sessionMember}">
                     <p><b>게시판 이용 내역</b></p>
                     <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
                     <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
                     <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
-                                        
+                    
                    		 <c:choose>
-                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
+                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'  
+                           				&& sessionMember.memCode ne 'GOOGLE'
+                           				&& sessionMember.memCode ne 'KAKAO'
+                           				&& sessionMember.memCode ne 'NAVER' }">
                               <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
-                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
+                           <c:when test="${sessionMember.memCode eq 'SELLER'
+                           				&& sessionMember.memCode ne 'GOOGLE'
+                           				&& sessionMember.memCode ne 'KAKAO'
+                           				&& sessionMember.memCode ne 'NAVER' }">
+                           }">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
-                           <c:when test="${sessionMember.memCode eq 'JUNIOR'}">
+                           <c:when test="${sessionMember.memCode eq 'JUNIOR'
+                           				&& sessionMember.memCode ne 'GOOGLE'                           			
+                           				&& sessionMember.memCode ne 'KAKAO'
+                           				&& sessionMember.memCode ne 'NAVER' 
+                           }">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
                         </c:choose>
-                   		 
-                    <c:if test="${!empty sessionMember}">
+                        <c:choose>
+  						<c:when test="${(sessionMember.memCode eq 'CUSTOMER'
+                           				|| sessionMember.memCode eq 'JUNIOR'                           			
+                           				|| sessionMember.memCode eq 'SELLER')                           			
+                           				&& (sessionMember.memCode ne 'GOOGLE'                           			
+                           				|| sessionMember.memCode ne 'KAKAO'
+                           				|| sessionMember.memCode ne 'NAVER')   
+                           				}">
                     <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
                     <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
+                        </c:when>
+                        </c:choose>
                     </c:if>
-                    
-
                 </ul>
            </div>
      </div>
      <!-- 1nb_list -->
   </div>
 <!-- side 끝-->
-
 <!-- regi_main 시작 -->      
 <div class="regi_main">
       

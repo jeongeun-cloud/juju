@@ -201,6 +201,7 @@
 			                    <li><a href='/admin/memberStat'><i class="fa fa-check" ></i> 회원 현황</a></li>
 			                    <li><a href='#'><i class="fa fa-check" ></i> 상인 승인</a></li>
 			                    <li><a href='/admin/withdraw'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
+			                     <li><a href='/admin/QnaList'><i class="fa fa-check" ></i> 1:1 문의</a></li>
 		                </ul>
 		           </div>
 		     	</div>
