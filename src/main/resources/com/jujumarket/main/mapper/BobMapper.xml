@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
  <![CDATA[
  select t.*
  from (
-    select itemCode , itemName, itemContent, price, normPrice,itemImg1,itemChr,classCode, idNo ,regDate,
+    select itemCode , itemName, itemContent, price, normPrice,itemImg1,itemChr,classCode, idNo ,regDate,saleStat,
     (select count(itemCode)from t_order_history  where t_item.itemCode=t_order_history.itemCode) orderCount
     from t_item 
     order by orderCount DESC
@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
  <![CDATA[
 select rl.*
 from(
-	select r.itemCode, t.itemChr, t.itemName, t.price, t.normPrice
+	select r.itemCode, t.itemChr, t.itemName, t.price, t.normPrice,t.saleStat
 	from (
 	select  itemcode ,avg(score) reviewAvg , count(itemCode) reviewCnt
 	from t_review

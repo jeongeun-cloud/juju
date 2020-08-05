@@ -54,7 +54,7 @@
         .pro_img_wrap{
             width: 100%;
             height: 300px;
-            background-color: tomato;
+            background-color: black;
             position: relative;
             overflow: hidden;
         }
@@ -134,7 +134,16 @@
             margin: 80px 0 0 25px;
             min-height: 600px;
         } 
+           .soldout{
+           text-align:center;
+           width:100%;
+           bottom: 50px; 
+           font-size: 3.5em;
+           font-weight: bold; 
+           position: absolute; 
+           color: white;
         
+       }
         
         
     </style>
@@ -160,11 +169,44 @@
 							        <ul class="pro_list_ul">
 							            <li class="pro_list_li">
 							                <div class="pro_module">
-							                <div class="pro_img_wrap">
-							                    <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
-							                        <img src="/resources/images/default1.png" alt="메인 이미지">
-							                    </a>
-							                </div>
+							                  <c:if test="${bob.saleStat=='판매중'}">
+                                            <div class="pro_img_wrap">
+                                        
+                                               <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
+
+                                                     <img src="/resources/images/default1.png" alt="메인 이미지">
+                                               </a>
+                                
+                                                  </div>    
+                                                   </c:if>
+                                                   
+                                            <!-- 품절일때  -->
+                                            <c:if test="${bob.saleStat=='품절'}">
+                                            <div class="pro_img_wrap">
+                                        
+                                                <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts" style="opacity:0.2;">
+
+                                                    <img src="/resources/images/default1.png" alt="메인 이미지">
+                                               </a>
+                                                  <div class="soldout">
+                                                         <p>품절</p>
+                                                         </div>
+                                                  </div>    
+                                                   </c:if>
+                                                   
+                                                   <!--판매 중지일때  -->
+                                            <c:if test="${bob.saleStat=='판매중지'}">
+	                                           	 <div class="pro_img_wrap">
+	                                        
+	                                              	  <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts" style="opacity:0.2;">
+	
+	                                                     <img src="/resources/images/default1.png" alt="메인 이미지">
+	                                             	  </a>
+	                                               		    <div class="soldout">
+	                                                         <p>판매 중지</p>
+	                                                         </div>
+	                                                  </div>    
+                                              </c:if>
 							                <!-- END img_wrap -->
 							                <div class="txt_wrap">
 							                	 <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
@@ -194,7 +236,12 @@
 							                        </div>
 							                  		 </a>
 							                    <div class="cart_btn">
-							                        <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button>
+							                    <c:if test="${bob.saleStat=='품절'||bob.saleStat=='판매중지'}">
+							                       <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')">add to cart</button>
+							                    </c:if>
+							                    <c:if test="${bob.saleStat!='품절'&& bob.saleStat!='판매중지'}">
+							            	 <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button> 
+							            	 </c:if>
 							                    </div>
 							                </div>
 							                <!-- END txt_wrap -->
@@ -229,17 +276,50 @@
 							        <ul class="pro_list_ul">
 							            <li class="pro_list_li">
 							                <div class="pro_module">
-							                <div class="pro_img_wrap">
-							                    <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
-							                        <img src="/resources/images/default1.png" alt="메인 이미지">
-							                    </a>
-							                </div>
+							               <c:if test="${bob.saleStat=='판매중'}">
+                                            <div class="pro_img_wrap">
+                                        
+                                               <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
+
+                                                     <img src="/resources/images/default1.png" alt="메인 이미지">
+                                               </a>
+                                
+                                                  </div>    
+                                                   </c:if>
+                                                   
+                                            <!-- 품절일때  -->
+                                            <c:if test="${bob.saleStat=='품절'}">
+                                            <div class="pro_img_wrap">
+                                        
+                                                <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts" style="opacity:0.2;">
+
+                                                    <img src="/resources/images/default1.png" alt="메인 이미지">
+                                               </a>
+                                                  <div class="soldout">
+                                                         <p>품절</p>
+                                                         </div>
+                                                  </div>    
+                                                   </c:if>
+                                                   
+                                                   <!--판매 중지일때  -->
+                                            <c:if test="${bob.saleStat=='판매중지'}">
+	                                           	 <div class="pro_img_wrap">
+	                                        
+	                                              	  <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts" style="opacity:0.2;">
+	
+	                                                     <img src="/resources/images/default1.png" alt="메인 이미지">
+	                                             	  </a>
+	                                               		    <div class="soldout">
+	                                                         <p>판매 중지</p>
+	                                                         </div>
+	                                                  </div>    
+                                              </c:if>
 							                <!-- END img_wrap -->
 							                <div class="txt_wrap">
 							                	 <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
 							                        <div class="pro_flag_wrap">
                                           
-			                                            <c:if test="${bob.itemChr!='기본'}">
+			                                            <c:if test="${bob.itemChr!='default'}">
 			                                                 <span class="flag"> <c:out value="${bob.itemChr}" /></span>                                                                                
 			                                             </c:if>
 		                                             
@@ -263,7 +343,12 @@
 							                        </div>
 							                  		 </a>
 							                    <div class="cart_btn">
-							                        <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button>
+							                       <c:if test="${bob.saleStat=='품절'||bob.saleStat=='판매중지'}">
+							                       <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')">add to cart</button>
+							                    </c:if>
+							                    <c:if test="${bob.saleStat!='품절'&& bob.saleStat!='판매중지'}">
+							            	 <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button> 
+							            	 </c:if>
 							                    </div>
 							                </div>
 							                <!-- END txt_wrap -->
