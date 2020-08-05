@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.admin.mapper.QnaListMapper">
+
+<select id="getQnaList" resultType="com.jujumarket.admin.domain.QnaVO">
+select rownum no , a.*
+from(select q.title,q.content,to_char(q.regDate,'yy/mm/dd'),q.idNo , t.emailAccount
+from t_board_qna q, t_member t
+where q.idno=t.idno
+order by regDate desc
+)a 
+
+</select>
+
+</mapper>
