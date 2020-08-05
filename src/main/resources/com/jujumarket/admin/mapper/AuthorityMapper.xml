@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.admin.mapper.AuthorityMapper">
+   
+<select id = "authorityList" resultType="com.jujumarket.admin.domain.AuthorityVO" > 
+    select m.emailAccount,m.memName,m.memCode,m.idNo ,s.shopName ,s.contact1 from t_member m,m_shop s
+    where m.idno = s.idno
+    and m.memCode = 'JUNIOR'
+</select>
+
+<select id = "getauthority" resultType="com.jujumarket.admin.domain.AuthorityVO" > 
+
+    select m.emailAccount,o.businessRegFile,o.businessCode,s.shopName,s.contact1,s.shopAddr,s.idNo
+    from m_shop s ,t_member m , m_shop_info o
+    where s.idNo =m.idNo
+    and s.idNo = o.idNo
+    and m.emailAccount = #{emailAccount}
+    
+</select>
+
+<insert id ="authorityinsert">
+insert into m_history (historyNo,idNo,condition,memCode)
+
+   values (seq_history.nextval,#{idNo},'상인','SELLER')
+
+</insert>
+
+<update id="authorityupdate">
+update t_member set 
+memCode = 'SELLER'
+where idNo = #{idNo}
+</update>
+
+
+
+</mapper>

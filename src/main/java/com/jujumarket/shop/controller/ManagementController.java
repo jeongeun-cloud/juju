@@ -33,8 +33,6 @@ public class ManagementController {
 
 	//searchorder /shipping
 
-	
-	
 	 @GetMapping("/searchorder") 
 	 public void searlist(ItemCriteria cri,String date1,String date2,Model model,String orderStat
 			              ) {
@@ -54,6 +52,7 @@ public class ManagementController {
 		   int total = service.getTotal(cri);
 
 		   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+		   model.addAttribute("list", service.searcheckAll(cri));
 		   
 		   if(!orderStat.equals("")) {
 				 
@@ -68,7 +67,28 @@ public class ManagementController {
 	       }
 	 }
 	
+	 //배송대기중 출력
+	 @GetMapping("/shipping")
+	 public void  shippinglist(ItemCriteria cri , Model model, String date1,String date2) {
+	 int total = service.getNotTotal(cri);
+
 	 
+	   SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+	   Date time = new Date();
+	   String time1 = format1.format(time);
+	   
+	   date1 = date1 == null?"2020-07-01": date1;
+	   date2 = date2 == null?time1: date2;
+	   
+	   cri.setDate1(date1);
+	   cri.setDate2(date2);
+
+	   System.out.println("맥크리shiping"+cri);
+	   
+	   model.addAttribute("list", service.shippinggetList(cri));
+	   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+	 
+	 }
 	
 	 
 	
@@ -103,34 +123,13 @@ public class ManagementController {
 
 	 
 	 
-	 //배송대기중 출력
-	 @GetMapping("/shipping")
-	 public void  shippinglist(ItemCriteria cri , Model model, String date1,String date2) {
-	 int total = service.getNotTotal(cri);
-
+	
 	 
-	   SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
-	   Date time = new Date();
-	   String time1 = format1.format(time);
-	   
-	   date1 = date1 == null?"2020-07-01": date1;
-	   date2 = date2 == null?time1: date2;
-	   
-	   cri.setDate1(date1);
-	   cri.setDate2(date2);
-
-	   System.out.println("맥크리shiping"+cri);
-	   
-	   model.addAttribute("list", service.shippinggetList(cri));
-	   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
-	 
-	 }
-	 
-	//취소요청주문	또는 취소처리주문
+	//취소요청주문	또는 취소처리주문 확인
 	 @GetMapping("/refund") 
 	 public void refundlist(ItemCriteria cri,String date1,String date2,Model model,String orderStat) {
 		
-		   orderStat = orderStat == null? "취소처리요청": orderStat;
+		   orderStat = orderStat == null? "환불처리요청": orderStat;
 		 
 		   SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
 		   Date time = new Date();
@@ -150,6 +149,8 @@ public class ManagementController {
 
 		   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 		   
+		   
+		   
 		   if(!orderStat.equals("")) {
 				 
 				 model.addAttribute("list", service.refundList(cri));
@@ -167,21 +168,18 @@ public class ManagementController {
 		 
 		 ManagementVO vo = new ManagementVO();
 		  
-			String[] arrOrder = orderCode.toString().split(",");
-			String[] arrShipping = orderStat.toString().split(",");
+			String[] arrorderCode = orderCode.toString().split(",");
+			String[] arrorderStat = orderStat.toString().split(",");
 			String[] arrbaskId = baskId.toString().split(",");
 			String[] arritemCode = itemCode.toString().split(",");
 		 
 		 
-			for (int i=0; i<arrOrder.length; i++) {
-				vo.setOrderCode(arrOrder[i]);
-				vo.setShippingCode(arrShipping[i]);
+			for (int i=0; i<arrorderCode.length; i++) {
+				vo.setOrderCode(arrorderCode[i]);
+				vo.setOrderStat(arrorderStat[i]);
 				vo.setBaskId(arrbaskId[i]);
 				vo.setItemCode(arritemCode[i]);
 				
-				
-				System.out.println(arrbaskId[i]);
-				System.out.println(arritemCode[i]);
 				
 				
 			service.refundupdate(vo);
