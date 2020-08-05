@@ -169,7 +169,8 @@
                             <c:forEach items="${qna}" var="q">
                                 <tr>
                                 	<td><c:out value="${q.no}" /></td>
-                                    <td><c:out value="${q.title}" /></td>
+                                    <td><a class='move' href='<c:out value="${q.postingNo}"/>'>
+                                    <c:out value="${q.title }"/></a></td>
                                     <td><c:out value="${q.idNo}" /></td>
                                     <td><c:out value="${q.emailAccount}" /></td>
                                     <td><c:out value="${q.regDate}" /></td>
@@ -181,11 +182,28 @@
                            
                         </div> 
                         <!-- qnaList_table 끝 -->
+                    <form id='qnaForm' action="/admin/QnaList" method='get'>
+      		 	 	</form>      
+                        
              </div>
              <!--qnaList_main  -->
        </div>
        <!--qnaList_wrap  -->
 </div>
 <!--qnaList_content  -->
+<script type="text/javascript">
+
+var qnaForm = $("#qnaForm");
+$(".move").on("click",function(e){
+    
+
+    e.preventDefault();
+    qnaForm.append("<input type='hidden' name='postingNo' value = '" + $(this).attr("href") + "'>");
+    qnaForm.attr("action", "/mypage/myQna/get");
+    qnaForm.submit();
+
+ });
+
+</script>
 </body>
 </html>
