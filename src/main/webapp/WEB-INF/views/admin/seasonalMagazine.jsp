@@ -49,6 +49,12 @@
         background-color: #f5f5f5;
     }
     
+    textarea {
+    	width:900px;
+    	height : 300px;
+    	resize : none;
+    }
+    
     .seasonal_table{
         margin-bottom: 20px;
     }
@@ -59,7 +65,7 @@
     }
    	.banner_content{
        width: 1300px;
-       height: 1000px;
+       height: 3000px;
        margin:0 auto;
        border: solid;
    	}
@@ -100,7 +106,7 @@
        margin-bottom:20px;
    }
    
-   #regBtn, #deleBtn{
+   #regBtn, #deleBtn, #addColumnBtn{
         float:right;
         margin-right: 30px;
         margin-top : 5px;
@@ -123,11 +129,22 @@
 	    border: 2px solid #ffc30b;
 	    outline: none; 
     }
+    
+    .gallery {
+    	float:left;
+    	padding-bottom : 30px;
+    	padding-right : 33px;
+    	text-align : center;
+    }
+    
+    .select_img1, .select_img2 {
+    	margin : 10px;
+    }
    
 	#activeImg img{
-		height : 330px;
-		width : 500px;
-		padding-bottom : 30px;
+		height : 200px;
+		width : 300px;
+		margin-bottom : 10px;
 	}
 	
 	.page_num {
@@ -317,10 +334,24 @@
                 <div class="banner_tit" style='margin-top:50px;'>
                     <p><b><i class="fa fa-list-alt"></i> 제철 이미지 컬럼쓰기</b></p>
                 </div>
+                <form id="season_column" action="/admin/addColumn" method="POST" enctype="multipart/form-data">
+	                <div style="text-align:center;">
+	               		<p>첫 번째 컬럼 내용쓰기</p>
+		                    <input type="file" id="img1" name="img1"><br>
+		                    <div class="select_img1"><img src="" /></div>
+		                    <textarea name="column1"></textarea><br>
+	               		<p>두 번째 컬럼 내용쓰기</p>
+		                    <input type="file" id="img2" name="img2"><br>
+		                    <div class="select_img2"><img src="" /></div>
+		                    <textarea name="column2"></textarea>
+	                	<button id="addColumnBtn" style="float:none;">등록하기</button>
+	                </div>
+	            </form>
                 
                 <div class="banner_tit" style='margin-top:50px;'>
                     <p><b><i class="fa fa-list-alt"></i> 제철 이미지 갤러리</b></p>
                 </div>
+                <p>제철 갤러리 이미지는 최대 6개까지 가능합니다.</p><br>
                 <p style='opacity:0.75;'>이미지 권장 규격 : 500 * 330</p>
                 <div class="uploadDiv">
                 	<input type="file" name="uploadFile" multiple>
@@ -337,8 +368,10 @@
                 <div id="activeImg">
                 	<input type="hidden" id="imgLen" value='<c:out value="${fn:length(seasonal)}"/>'>
                 	<c:forEach items="${seasonal }" var="seasonal">
-		           		<img class="banner" alt="" src='/resources/banner/<c:out value="${seasonal.imgPath}"/>/<c:out value="${seasonal.uuid}"/>_<c:out value="${seasonal.imgName}"/>' >
-		           		<button id='removeBtn' data-oper='<c:out value="${seasonal.imgNo}"/>'>삭제</button>
+                		<div class="gallery">
+			           		<img class="banner" alt="" src='/resources/banner/<c:out value="${seasonal.imgPath}"/>/<c:out value="${seasonal.uuid}"/>_<c:out value="${seasonal.imgName}"/>' ><br>
+			           		<button id='removeBtn' data-oper='<c:out value="${seasonal.imgNo}"/>'>삭제</button>
+			           	</div>
 		           	</c:forEach>
                 </div>
              </div>
@@ -368,10 +401,97 @@
     			return true;
     		}
     		
+    		// 이미지 체크
+    	    for(let i=1; i<=2; i++) {
+    	    	$("#img"+i).change(function(){   
+    	        	var imgFile = $('#img'+i).val();
+    	            var fileSize = document.getElementById("img"+i).files[0].size;
+    	            
+    	            if(!checkExtension(imgFile, fileSize)) {
+    	            	$('#img'+i).val("");
+    	               	return false;
+    	            }
+    	            
+    	            // 사진 보이기
+    	            if(this.files && this.files[0]) {
+     	            	var reader = new FileReader;
+
+     	               	reader.onload = function(data) {
+     	               		$(".select_img"+i+" img").attr("src", data.target.result).width(300).height(200);
+     	                }
+     	                reader.readAsDataURL(this.files[0]);
+     	            }
+    	    	});
+    	    }
+
+    		
+    	    // 제철 칼럼 등록
+    		$("#addColumnBtn").on("click", function(e) {
+    			alert("눌렸다!");
+	   	        /* if(!$('#mainCateg > option:selected').val()) {
+    	        	alert("대분류가 선택되지 않았습니다.");
+    	           	$('#mainCateg').focus();
+    	           	return false;
+   		        }else if(!$('#midCateg > option:selected').val()) {
+    	           	alert("중분류가 선택되지 않았습니다.");
+    	           	$('#midCateg').focus();
+    	           	return false;
+    	        }else if($('#itemName').val()=='' || $('#itemName').val().trim() == '') {
+    	          	alert('상품명이 입력되지 않았습니다.');
+    	          	$('#itemName').focus();
+    	          	return false;
+    	        }else if($('#itemContent').val()=='' || $('#itemContent').val().trim() == ''){
+    	            alert('상품 상세 정보가 입력되지 않았습니다.');
+    	            $('#itemContent').focus();
+    	            return false;
+    	        }else if($('#price').val()=='' || removeComma($('#price').val()) < 1000 || removeComma($('#price').val()) > 1000000){
+    	            alert('유효하지 않은 판매가 입니다.');
+    	            $('#price').focus();
+    	            return false;
+    	        }else if($('#normPrice').val()=='' || removeComma($('#normPrice').val()) < 1000 || removeComma($('#normPrice').val()) > 1000000){
+    	            alert('유효하지 않은 정상가 입니다.');
+    	            $('#normPrice').focus();
+    	            return false;
+    	        }else if($('#stock').val()==''){
+    	            alert('재고가 입력되지 않았습니다.');
+    	            $('#stock').focus();
+    	            return false;
+    	        }else if($("#itemImg1").val() == "") {
+    	            alert("메인 이미지가 첨부되어 있지 않습니다.");
+    	            $("#itemImg1").focus();
+    	            return false;
+    	        }else if($("#itemImg2").val()=="" || $("#itemImg3").val() == "" || $("#itemImg4").val()=="") {
+    	            alert("서브 이미지는 모두 첨부 되어야 합니다.");
+    	            return false;
+    	        }else if($("#itemImg5").val() == "") {
+    	            alert("상품 상세 이미지가 첨부되어 있지 않습니다.");
+    	            $("#itemImg5").focus();
+    	            return false;
+    	        }else if($("input[type=checkbox][name=itemChr]")[0].checked == true || $("input[type=checkbox][name=itemChr]")[1].checked == true) {
+    	            $("input[type=checkbox][name=itemChr]")[2].checked = false;
+    	        } */
+
+    	         
+    	        //$("#season_column").submit();
+    	         /* 
+    	         $.ajax({
+    	            url : '/shop/register',
+    	            processData : false,
+    	            contentType : false,
+    	            data : formData,
+    	            type : 'POST',
+    	            //dataType:'json',
+    	            success : function(result) {
+    	               console.log(result);
+    	               
+    	            }
+    	         }); */ // $.ajax
+    	      });
+    		
     		var cloneObj = $(".uploadDiv").clone();
     		
     		// 파일 선택하고 업로드
-    		$("input[type='file']").change(function(e) {
+    		$("input[name='uploadFile']").change(function(e) {
     			var formData = new FormData();
     			var inputFile = $("input[name='uploadFile']");
     			var files = inputFile[0].files;
