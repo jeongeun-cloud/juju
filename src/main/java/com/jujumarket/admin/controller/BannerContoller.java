@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jujumarket.admin.domain.BannerVO;
 import com.jujumarket.admin.domain.ColumnVO;
@@ -77,10 +78,17 @@ public class BannerContoller {
 		
 		int total = service.getItemTotal(cri);
 		
-		String bannerType = "seasonal";
-		model.addAttribute("column", service.getColumn());
+		List<ColumnVO> list = service.getColumn();
+		for(int i=0; i<list.size(); i++) {
+			ColumnVO column = list.get(i);
+			column.setColumn1(column.getColumn1().replace("\r\n", "<br>"));
+			column.setColumn2(column.getColumn2().replace("\r\n", "<br>"));
+		}
+		
+		model.addAttribute("column", list);
+		
 		model.addAttribute("seasonItemResult", service.getSeason());
-		model.addAttribute("seasonal", service.getBanner(bannerType));
+		model.addAttribute("seasonal", service.getBanner("seasonal"));
 		model.addAttribute("list", service.getItemList(cri));
 		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 	}
@@ -268,7 +276,7 @@ public class BannerContoller {
 	
 	// 제철 칼럼 등록
 	@PostMapping("/addColumn")
-	public String addColumn(ColumnVO vo, MultipartFile[] addImg) {
+	public String addColumn(ColumnVO vo, MultipartFile[] addImg, RedirectAttributes rttr) {
 		
 		String uploadFolder = servletContext.getRealPath("/resources/banner");
 		
@@ -282,38 +290,62 @@ public class BannerContoller {
 	    if(uploadPath.exists() == false) {
 	       uploadPath.mkdir();      // 각 상점마다 자신의 폴더를 가짐
 	    }
+	    
+	    Boolean flag = true;
+	    
+	    int i = 0;
+	    for(MultipartFile multi : addImg) {
+	         
+	    	String uploadFilename = multi.getOriginalFilename();
+	    	
+	    	System.out.println(uploadFilename);
 
-	      int i = 0;
-	      for(MultipartFile multi : addImg) {
-	         
-	         String uploadFilename = multi.getOriginalFilename();
-	         
-		     // IE has file path
-	         uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
-		         
-	         UUID uuid = UUID.randomUUID();
-	         uploadFilename = uuid.toString() + "_" + uploadFilename;
-	
-	         try {
-	            // 이미지 파일 path에 올리기
-	            File saveFile = new File(uploadPath, uploadFilename);
-	            multi.transferTo(saveFile);
-		            
-	         } catch (Exception e) {
-	            log.error(e.getMessage());
-	         } // end catch
-	         
-	         if(i==0) vo.setImg1(uploadFilename);
-	         else if(i==1) {
-	        	 vo.setImg2(uploadFilename); 
-	        	 break;
-	         }
-	         i++;
-	      } // end for
+	    	if(vo.getType().equals("modify")) {
+	    		flag = (!uploadFilename.equals(""));
+	    	}
+	        
+	    	if(flag) {
+	    		uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
+	    		
+	    		UUID uuid = UUID.randomUUID();
+	    		uploadFilename = uuid.toString() + "_" + uploadFilename;
+	    		
+	    		try {
+	    			// 이미지 파일 path에 올리기
+	    			File saveFile = new File(uploadPath, uploadFilename);
+	    			multi.transferTo(saveFile);
+	    			
+	    		} catch (Exception e) {
+	    			log.error(e.getMessage());
+	    		} // end catch
+	    		
+	    		if(i==0) vo.setImg1(uploadFilename);
+	    		else if(i==1) {
+	    			vo.setImg2(uploadFilename); 
+	    			break;
+	    		}
+	    	}
+	    	i++;
+	    } // end for
 		
-		System.out.println(vo.toString());
-		service.addColumn(vo);
+		if(vo.getType().equals("register")) {
+			service.addColumn(vo);
+		}else if(vo.getType().equals("modify")) {
+			
+			List<ColumnVO> list = service.getColumn();
+			ColumnVO col = list.get(0);
+			
+			if(vo.getImg1() == null) {
+				vo.setImg1(col.getImg1());
+			}
+			if(vo.getImg2() == null) {
+				vo.setImg2(col.getImg2());
+			}
+			
+			service.modifyColumn(vo);
+		}
 		
+		rttr.addFlashAttribute("result", "success");
 		return "redirect:/admin/seasonalMagazine";
 	}
 	

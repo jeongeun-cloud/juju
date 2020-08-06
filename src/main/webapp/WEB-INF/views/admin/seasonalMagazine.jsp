@@ -122,7 +122,6 @@
         cursor: pointer;
         font-weight: 900;
     }
-
     #regBtn:hover, #deleBtn:hover, #addColumnBtn:hover, #modifyColumnBtn:hover{
 	    background-color: white; 
 	    color: #ffc30b; 
@@ -141,11 +140,11 @@
     	margin : 10px;
     }
     
-    .select_img1 img, .select_img2 img {
+/*     .select_img1 img, .select_img2 img {
     	width : 300px;
     	height: 200px;
     	margin : 10px;
-    }
+    } */
    
 	#activeImg img{
 		height : 200px;
@@ -344,24 +343,23 @@
                 <input type="hidden" id="columnLen" value='<c:out value="${fn:length(column)}"/>'>
                 <form id="addColumn" action="/admin/addColumn" method="POST" enctype="multipart/form-data">
 	                <input type="hidden" name="idNo" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
-	                <c:forEach items="${column }" var="column">
-		                <div style="text-align:center;">
+		                <div id="colDiv" style="text-align:center;">
 		               		<p>첫 번째 컬럼 내용쓰기</p>
-			                    <input type="file" id="img1" name="addImg"><br>
-			                    <div class="select_img1">
-			                    	<img src="/resources/banner/column/<c:out value="${column.img1}"/>" />
-			                    </div>
-			                    <textarea id="column1" name="column1"><c:out value="${column.column1}"/></textarea><br>
+		                    <input type="file" id="img1" name="addImg"><br>
+		                    <div class="select_img1">
+		                    	<img src="" />
+		                    </div>
+		                    <textarea id="column1" name="column1"></textarea><br>
 		               		<p>두 번째 컬럼 내용쓰기</p>
-			                    <input type="file" id="img2" name="addImg"><br>
-			                    <div class="select_img2">
-			                    	<img src="/resources/banner/column/<c:out value="${column.img2}"/>" />
-			                    </div>
-			                    <textarea id="column2" name="column2"><c:out value="${column.column2}"/></textarea>
+		                    <input type="file" id="img2" name="addImg"><br>
+		                    <div class="select_img2">
+		                    	<img src="" />
+		                    </div>
+		                    <textarea id="column2" name="column2"></textarea>
+		                    <input type="hidden" name="type" id="type" value="">
 		                	<button id="addColumnBtn" style="float:none;">등록하기</button>
 		                	<button id="modifyColumnBtn" style="float:none; display:none;">수정하기</button>
 		                </div>
-		           	</c:forEach>
 	            </form>
                 
                 <div class="banner_tit" style='margin-top:50px;'>
@@ -431,7 +429,6 @@
     	            // 사진 보이기
     	            if(this.files && this.files[0]) {
      	            	var reader = new FileReader;
-
      	               	reader.onload = function(data) {
      	               		$(".select_img"+i+" img").attr("src", data.target.result).width(300).height(200);
      	                }
@@ -439,27 +436,47 @@
      	            }
     	    	});
     	    }
-
     		
     	    // 제철 칼럼 등록
     		$("#addColumnBtn").on("click", function(e) {
     			// 유효성 체크 안함
-    	         
+    			$("#type").val("register");
     	        $("#addColumn").submit();
     	    });
     	    
     	    var colLen = $("#columnLen").val();
     	    if(colLen != 0) {
+	    	    // 제철 칼럼 버튼 보이기
     	    	$("#addColumnBtn").css("display","none");
     	    	$("#modifyColumnBtn").css("display","");
+    	    	
+	    	    // 제철 칼럼 내용 가져오기
+	    	    var src = "/resources/banner/column/";
+	    	    var src1 = src + "${column[0].img1 }";
+	    	    var src2 = src + "${column[0].img2 }";
+	    	    
+	    	    $("#column1").html("${column[0].column1 }".replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+	    	    $("#column2").html("${column[0].column2 }".replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+	    	   	$(".select_img1 img").attr("src", src1).width(300).height(200);
+	    	   	$(".select_img2 img").attr("src", src2).width(300).height(200);
     	    }
+    	    
     		
     	    // 제철 칼럼 수정
     		$("#modifyColumnBtn").on("click", function(e) {
     			// 유효성 체크 안함
-    	         alert("눌렸다!")
-    	        /* $("#addColumn").submit(); */
+    			$("#type").val("modify");
+    			
+    			alert($("#type").val());
+
+    	        $("#addColumn").submit();
     	    });
+    	    
+    	    // 제철 칼럼에 대한 alert
+    	    var result = '<c:out value="${result}"/>';
+    	    if(result.length > 0) {
+    	    	alert("칼럼이 제대로 등록되었습니다.");
+    	    }
     		
     		var cloneObj = $(".uploadDiv").clone();
     		

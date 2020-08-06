@@ -104,5 +104,11 @@
 	<select id="getColumn" resultType="com.jujumarket.admin.domain.ColumnVO">
 		select * from t_board_seasonal
 	</select>
+	
+	<update id="modifyColumn">
+		update t_board_seasonal
+		set img1 = #{img1}, column1 = #{column1}, img2 = #{img2}, 
+		column2 = #{column2}, idNo = #{idNo}, updateDate = systimestamp
+	</update>
 
 </mapper>

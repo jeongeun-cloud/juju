@@ -107,4 +107,11 @@ public class BannerServiceImpl implements BannerService {
 		return mapper.getColumn();
 	}
 
+	@Override
+	public void modifyColumn(ColumnVO vo) {
+		log.info("modifyColumn......");
+		
+		mapper.modifyColumn(vo);
+	}
+
 }

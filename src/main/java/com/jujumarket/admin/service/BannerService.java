@@ -32,4 +32,6 @@ public interface BannerService {
 	public void addColumn(ColumnVO vo);
 	
 	public List<ColumnVO> getColumn();
+	
+	public void modifyColumn(ColumnVO vo);
 }
