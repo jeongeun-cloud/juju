@@ -72,31 +72,32 @@ public class MemberController {
 	}
 	
 	
-	//일반고객폼
+	//회원가입(일반회원)
 	@GetMapping("/customerJoinForm") 
 	public void customerJoinForm() {
 	}
 	
 	
-	//일반고객 가입 정보 POST방식 DB INSERT
+	//일반고객 회원가입 정보 추가
 	@PostMapping("/customerJoinForm")
 	public String customerJoinForm(CustomerVO customer) {
 		customerService.register(customer);
 		return "redirect:/member/customerJoinComplete";
 	}
-
+	
+	//회원가입 완료 
 	@GetMapping("/customerJoinComplete")
 	public void customerJoinComplete() {
 		
 	}
 	
-	//상인회원가입폼 
+	//회원가입(상인)
 	@GetMapping("/sellerJoinForm")
 	public void sellerJoinForm() {
 		
 	}
 	
-	//상인(판매자) 가입정보 POST방식 DB INSERT
+	//상인 회원가입 정보 추가(이미지 파일업로드)
 	@PostMapping("/sellerJoinForm")
 	public String sellerJoinForm(SellerVO seller, MultipartFile[] uploadFile) {
 		
@@ -112,9 +113,7 @@ public class MemberController {
 
 	      int i = 0;
 	      for(MultipartFile multi : uploadFile) {
-	         
 	         String uploadFilename = multi.getOriginalFilename();
-	         
 	         if(uploadFilename.equals("")) {
 	        	 break;
 	         }
@@ -143,12 +142,13 @@ public class MemberController {
 		return "redirect:/member/sellerJoinComplete";
 	}
 	
+	//상인 회원가입완료
 	@GetMapping("/sellerJoinComplete")
 	public void sellerJoinComplete() {
 		
 	}
 	
-	//주주마켓 로그인 페이지
+	//로그인 
 	@GetMapping("/login")
 	public void login() {
 		
@@ -161,7 +161,6 @@ public class MemberController {
 		
 		if(memberService.loginCheck(emailAccount, pwd)) {
 			MemberVO member = memberService.getMemberInfo(emailAccount);
-//			String idNo = memberService.getIdNoByEmail(emailAccount);
 			session.setAttribute("sessionMember", member);
 			return "redirect:/";
 			
@@ -171,7 +170,7 @@ public class MemberController {
 		}
 	}
 	
-	//로그아웃 세션
+	//로그아웃 
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		
@@ -179,12 +178,13 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	
+	//아이디, 비밀번호 찾기
 	@GetMapping("/findIdPwd")
 	public void findIdPwd( ) {
 		
 	}
 	
+	//아이디, 비밀번호 찾기 tab선택시 페이지 새로고침 되지 않도록 ajax로 구현
 	@ResponseBody
 	@PostMapping(value="/findId", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> findId(@RequestBody MemberVO member){
@@ -193,14 +193,14 @@ public class MemberController {
 		return ResponseEntity.status(HttpStatus.OK).body(emailList);
 	}
 	
-
+	//변경된 패스워드 저장 
 	@PostMapping("/findIdPwd")
 	public String findIdPwd(MemberVO member, RedirectAttributes rttr) {
 		if(memberService.updatePwd(member)) {
-			rttr.addFlashAttribute("result", "비밀번호를 변경했습니다. 바뀐 비밀번호로 로그인 해주세요.");
+			rttr.addFlashAttribute("result", "변경된 비밀번호로 로그인 해주세요.");
 			return "redirect:/member/login";
 		}else {
-			rttr.addFlashAttribute("result", "변경안됨");
+			rttr.addFlashAttribute("result", "비밀번호가 변경되지 않았습니다. ");
 			return "redirect:/member/findIdPwd";
 			
 			

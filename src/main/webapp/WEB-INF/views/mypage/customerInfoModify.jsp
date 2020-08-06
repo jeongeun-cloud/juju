@@ -316,6 +316,7 @@ a {
  <div class="regi_wrap">
 
 
+
 <!-- side 시작 -->
    <div class="side">
       <div class="1nb_list">
@@ -326,7 +327,14 @@ a {
                     <li><a href='/mypage/myPerchaseList'><i class="fa fa-check" ></i>주문내역</a></li>
                     <li><a href='/order/basketList'><i class="fa fa-check" ></i>장바구니</a></li>
                     <br>
-                    <c:if test="${!empty sessionMember}">
+                    <c:if test="${sessionMember.memCode eq 'CUSTOMER'
+                    			||sessionMember.memCode eq 'JUNIOR'
+                    			||sessionMember.memCode eq 'SELLER'
+                    			||sessionMember.memCode eq 'ADMIN'
+                    			||sessionMember.memCode eq 'GOOGLE'
+                    			||sessionMember.memCode eq 'KAKAO'
+                    			||sessionMember.memCode eq 'NAVER'
+                    }">
                     <p><b>게시판 이용 내역</b></p>
                     <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
                     <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
@@ -343,7 +351,6 @@ a {
                            				&& sessionMember.memCode ne 'GOOGLE'
                            				&& sessionMember.memCode ne 'KAKAO'
                            				&& sessionMember.memCode ne 'NAVER' }">
-                           }">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
                            <c:when test="${sessionMember.memCode eq 'JUNIOR'
@@ -373,6 +380,9 @@ a {
      <!-- 1nb_list -->
   </div>
 <!-- side 끝-->
+
+
+
 		
 		<div class="customerInfo">
 <form action="customerInfoModify" id="customerInfoModify" method="POST">

@@ -246,6 +246,9 @@ table img {
 <div class="regi_content">
  <div class="regi_wrap">
 
+
+
+
 <!-- side 시작 -->
    <div class="side">
       <div class="1nb_list">
@@ -280,7 +283,6 @@ table img {
                            				&& sessionMember.memCode ne 'GOOGLE'
                            				&& sessionMember.memCode ne 'KAKAO'
                            				&& sessionMember.memCode ne 'NAVER' }">
-                           }">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
                            <c:when test="${sessionMember.memCode eq 'JUNIOR'
@@ -310,6 +312,10 @@ table img {
      <!-- 1nb_list -->
   </div>
 <!-- side 끝-->
+
+
+
+
 
 
 <!-- regi_main 시작 -->      

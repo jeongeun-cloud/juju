@@ -25,6 +25,7 @@ import com.jujumarket.main.domain.PageDTO;
 import com.jujumarket.member.domain.MemberHistoryVO;
 import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.MyPageVO;
+import com.jujumarket.member.domain.MyPerchaseVO;
 import com.jujumarket.member.service.CustomerService;
 import com.jujumarket.member.service.MemberService;
 import com.jujumarket.member.service.MyPageService;
@@ -45,16 +46,38 @@ public class MyPageController {
 	private ServletContext servletContext;
 	private MyPageService myPageService;
 
-	
-	
-	//나의 주문(구매)내역 
+	// 나의 주문내역
+	// 처음엔는 get방식으로 페이지 전체 로드
 	@GetMapping("/myPerchaseList")
-	public String perchaseList(Model model) {
+	public String myPerchase(HttpSession session, Model model) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		if (member == null) {
+			return "redirect:/member/login";
+		}
+		Criteria cri = new Criteria(1, 10);
+		String idNo = member.getIdNo();
+		List<MyPerchaseVO> myPerchase = myPageService.getMyPerchaseListByIdNo(idNo, cri);
+		model.addAttribute("myPerchaseList", myPerchase);
+
+		int myPerchaseNum = myPageService.getMyPerchaseCountByIdNo(idNo, cri);
+		model.addAttribute("pageMaker", new PageDTO(cri, myPerchaseNum));
+
 		return "/mypage/myPerchaseList";
 	}
-	
-	
-	//나의 상품문의 
+
+	// 페이지 이동할 때에는 header, menubar, sidebar 고정, 안에서만 그려주기
+	@GetMapping(value = "/myPerchase/page/{pageNum}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> myPerchase(HttpSession session, @PathVariable int pageNum) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		Criteria cri = new Criteria(pageNum, 10);
+		String idNo = member.getIdNo();
+		List<MyPerchaseVO> myPerchase = myPageService.getMyPerchaseListByIdNo(idNo, cri);
+		return ResponseEntity.status(HttpStatus.OK).body(myPerchase);
+	}
+
+	// 나의 상품문의
+	// 처음엔는 get방식으로 페이지 전체 로드
 	@GetMapping("/myPrdReply")
 	public String myPrdReply(HttpSession session, Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
@@ -71,8 +94,8 @@ public class MyPageController {
 
 		return "/mypage/myPrdReply";
 	}
-	
-	//나의 상품문의목록 페이징 REST방식으로 처리 
+
+	// 페이지 이동할 때에는 header, menubar, sidebar 고정, 안에서만 그려주기
 	@GetMapping(value = "/myPrdReply/page/{pageNum}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<?> myPrdReply(HttpSession session, @PathVariable int pageNum) {
@@ -82,8 +105,9 @@ public class MyPageController {
 		List<MyPageVO> myPrdReply = myPageService.getMyPrdReplyListByIdNo(idNo, cri);
 		return ResponseEntity.status(HttpStatus.OK).body(myPrdReply);
 	}
-	
-	//나의 상품평(리뷰)
+
+	// 나의 상품평(t_review)
+	// 처음엔는 get방식으로 페이지 전체 로드
 	@GetMapping("/myReview")
 	public String myReview(HttpSession session, Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
@@ -101,7 +125,7 @@ public class MyPageController {
 		return "/mypage/myReview";
 	}
 
-	//나의 상품평(리뷰)목록 페이징 REST방식으로 처리 
+	// 페이지 이동할 때에는 header, menubar, sidebar 고정, 안에서만 그려주기
 	@GetMapping(value = "/myReview/page/{pageNum}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<?> myReview(HttpSession session, @PathVariable int pageNum) {
@@ -112,6 +136,7 @@ public class MyPageController {
 		return ResponseEntity.status(HttpStatus.OK).body(myReview);
 	}
 
+	// 회원정보수정(일반고객)
 	@GetMapping("/customerInfoModify")
 	public String customerInfoModify(HttpSession session, Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
@@ -127,6 +152,17 @@ public class MyPageController {
 		}
 	}
 
+	// 회원정보수정(일반고객)
+	@PostMapping("/customerInfoModify")
+	public String customerInfoModify(MemberVO member, RedirectAttributes rttr) {
+		if (customerService.modifyCustomerInfo(member)) {
+			rttr.addFlashAttribute("result", "회원정보를 수정했습니다.");
+		}
+		return "redirect:/mypage/customerInfoModify";
+
+	}
+
+	// 회원정보수정(상인)
 	@GetMapping("/sellerInfoModify")
 	public String sellerInfoModify(HttpSession session, Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
@@ -143,15 +179,7 @@ public class MyPageController {
 
 	}
 
-	@PostMapping("/customerInfoModify")
-	public String customerInfoModify(MemberVO member, RedirectAttributes rttr) {
-		if (customerService.modifyCustomerInfo(member)) {
-			rttr.addFlashAttribute("result", "회원정보를 수정했습니다.");
-		}
-		return "redirect:/mypage/customerInfoModify";
-
-	}
-
+	// 회원정보수정(상인)
 	@PostMapping("/sellerInfoModify")
 	public String sellerInfoModify(MemberVO member, RedirectAttributes rttr, MultipartFile[] uploadFile) {
 		String uploadFolder = servletContext.getRealPath("/resources/seller");
@@ -166,9 +194,7 @@ public class MyPageController {
 
 		int i = 0;
 		for (MultipartFile multi : uploadFile) {
-
 			String uploadFilename = multi.getOriginalFilename();
-
 			if (uploadFilename.equals("")) {
 				i++;
 				continue;
@@ -176,7 +202,6 @@ public class MyPageController {
 
 			// IE has file path
 			uploadFilename = uploadFilename.substring(uploadFilename.lastIndexOf("\\") + 1);
-
 			UUID uuid = UUID.randomUUID();
 			uploadFilename = uuid.toString() + "_" + uploadFilename;
 
@@ -203,6 +228,7 @@ public class MyPageController {
 
 	}
 
+	//비밀번호 변경
 	@GetMapping("/modifyPwd")
 	public String modifyPwd(HttpSession session) {
 		Object member = session.getAttribute("sessionMember");
@@ -212,6 +238,7 @@ public class MyPageController {
 		return "/mypage/modifyPwd";
 	}
 
+	//비밀번호 변경
 	@PostMapping("/modifyPwd")
 	public String modifyPwd(String pwd, String newPwd, HttpSession session, RedirectAttributes rttr) {
 
@@ -230,6 +257,7 @@ public class MyPageController {
 		return "redirect:/mypage/modifyPwd";
 	}
 
+	// 회원탈퇴
 	@GetMapping("/memberDelete")
 	public String memberDelete(HttpSession session) {
 		Object member = session.getAttribute("sessionMember");
@@ -239,11 +267,11 @@ public class MyPageController {
 		return "/mypage/memberDelete";
 	}
 
+	// 회원탈퇴
 	@PostMapping("/memberDelete")
 	public String memberDelete(MemberHistoryVO memberHistory, HttpSession session, RedirectAttributes rttr) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
 		String idNo = member.getIdNo();
-//      session에서 받아온 idNo를 memberHistory에 저장
 		memberHistory.setIdNo(idNo);
 		if (memberService.checkPwd(idNo, memberHistory.getPwd())) {
 			if (idNo.substring(0, 1).equals("c")) {
@@ -259,7 +287,8 @@ public class MyPageController {
 		rttr.addFlashAttribute("result", "비밀번호가 일치하지않습니다.");
 		return "redirect:/mypage/memberDelete";
 	}
-
+	
+	//회원탈퇴완료 
 	@GetMapping("/memberDeleteComplete")
 	public void memberDeleteComplete(HttpSession session) {
 		session.invalidate();

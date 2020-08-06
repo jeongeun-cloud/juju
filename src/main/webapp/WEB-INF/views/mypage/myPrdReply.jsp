@@ -241,6 +241,7 @@ margin-right: 0%;
 <div class="regi_content">
  <div class="regi_wrap">
 
+
 <!-- side 시작 -->
    <div class="side">
       <div class="1nb_list">
@@ -251,7 +252,14 @@ margin-right: 0%;
                     <li><a href='/mypage/myPerchaseList'><i class="fa fa-check" ></i>주문내역</a></li>
                     <li><a href='/order/basketList'><i class="fa fa-check" ></i>장바구니</a></li>
                     <br>
-                    <c:if test="${!empty sessionMember}">
+                    <c:if test="${sessionMember.memCode eq 'CUSTOMER'
+                    			||sessionMember.memCode eq 'JUNIOR'
+                    			||sessionMember.memCode eq 'SELLER'
+                    			||sessionMember.memCode eq 'ADMIN'
+                    			||sessionMember.memCode eq 'GOOGLE'
+                    			||sessionMember.memCode eq 'KAKAO'
+                    			||sessionMember.memCode eq 'NAVER'
+                    }">
                     <p><b>게시판 이용 내역</b></p>
                     <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
                     <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
@@ -268,7 +276,6 @@ margin-right: 0%;
                            				&& sessionMember.memCode ne 'GOOGLE'
                            				&& sessionMember.memCode ne 'KAKAO'
                            				&& sessionMember.memCode ne 'NAVER' }">
-                           }">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
                            <c:when test="${sessionMember.memCode eq 'JUNIOR'
@@ -298,6 +305,9 @@ margin-right: 0%;
      <!-- 1nb_list -->
   </div>
 <!-- side 끝-->
+
+
+
 <!-- regi_main 시작 -->      
 <div class="regi_main">
       
@@ -394,25 +404,26 @@ $(document).ready(function(){
 		
 	});
 	
-	function drawmyPrdReplyList(myPrdReplyList){
-		myPrdReplyTable.html("");
-		var frag = document.createDocumentFragment();
-		for(var i = 0; i<myPrdReplyList.length; i++){
-			var str = "";
-			var myPrdReply = myPrdReplyList[i];
-			var tr = document.createElement("tr");
+	
+	
+	var pageTags = $(".paging");
+	var myPrdReplyTable = $("#myPrdReplyTable");
+	
+	pageTags.on().click(function(e){
+		e.preventDefault();
+		var pageNum = e.target.innerText;
+		console.log(pageNum);
+		getListByPage(pageNum)
+		.then(function(response){
+			console.log(response);
+			drawmyPrdReplyList(response);
+		})
+		.catch(function(error){
+			console.log(error);
+		});
 		
-			str += "<td><a href='/product/item?itemCode="+myPrdReply.itemCode+"'>"+myPrdReply.itemName+"</a></td>";
-	        str += '<td>'+myPrdReply.replyContent+'</td>';
-	       
-	        var regDate = myPrdReply.regDate;
-	        var date = new Date(regDate);
-	        str += '<td>'+formatDate(date)+'</td>';
-	        tr.innerHTML = str;
-	        frag.appendChild(tr);
-		}
-		myPrdReplyTable.append($(frag));
-	}
+	});
+	
 	
 	/* 	ajax 방식으로 페이징 처리 */
 	function getListByPage(pageNum) {
