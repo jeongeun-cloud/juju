@@ -183,7 +183,7 @@
     }
 </style>
 <body>
-<%-- <%@include file="./idCheck.jsp" %> --%>
+<%@include file="./idCheck.jsp" %>
 <%@include file="../includes/header.jsp" %>
     <div class="banner_content">
         <div class="banner_wrap">
@@ -466,9 +466,6 @@
     		$("#modifyColumnBtn").on("click", function(e) {
     			// 유효성 체크 안함
     			$("#type").val("modify");
-    			
-    			alert($("#type").val());
-
     	        $("#addColumn").submit();
     	    });
     	    
