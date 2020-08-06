@@ -30,5 +30,8 @@ public interface MemStatMapper {
 	
 	public List<MemStatVO> getWithdrawSta(String day);
 	
-	
+	//1:1문의 고객
+	public int cNum();
+	//1:1문의 상인
+	public int sNum();
 }

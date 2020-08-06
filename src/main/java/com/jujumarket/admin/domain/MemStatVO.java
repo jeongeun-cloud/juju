@@ -27,6 +27,10 @@ public class MemStatVO {
 	private String withday;
 	private int withMem;
 	
+	//1:1문의 회원 수 (오늘)
+	private int cNum;
+	private int sNum;
+	
 	
 	public int getCustomerNum() {
 		return customerNum;

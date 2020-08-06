@@ -21,6 +21,13 @@ public class ShopManageServiceImpl implements ShopManageService {
 	@Setter(onMethod_ = @Autowired)
 	private ShopManageMapper mapper;
 	
+	//shop 이름가져오기
+	@Override
+	public String getShopName(String idNo) {
+		return mapper.getShopName(idNo);
+	
+	}
+	
 	@Override
 	public List<WholeStaVO> getCompareSta(String idNo) {
 		return mapper.getCompareSta(idNo);

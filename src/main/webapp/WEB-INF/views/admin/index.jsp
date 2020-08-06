@@ -25,11 +25,7 @@
         margin-bottom: 80px;
         
     }
-    .admi_btn_wrap{
-        margin-top: 10px;
-       margin-bottom: 20px;
 
-    }
     .quick_wrap{
         margin-top:20px;
         
@@ -40,24 +36,24 @@
     }
     .quick_find{
         
-        border: solid ;
+        border: 2px solid #ddd  ;
         width: 380px;
         height: 350px;
     } 
     .quick_tit{
         text-align: center;
         font-size: 17px;
-        background-color:#8CC152 ;
+        background-color:#80c080 ;
     }
     .today_sta{
         
-        border:solid ;
+        border:2px solid #ddd;
         width: 430px;
         height: 350px;
     }
     .today_do{
         
-        border:solid ; 
+        border:2px solid #ddd ; 
         width: 380px;
         height:350px;
 
@@ -69,6 +65,10 @@
         margin-right: 20px;
         margin-left: 50px;
         margin-top: 20px;
+        background-color:#b3d9b3;
+        color:white;
+        font-weight:900;
+        border:#80c080;
         
     }
     .today_box{
@@ -85,17 +85,13 @@
         text-align: center;
         padding-top: 10px;
         padding-bottom: 5px;      
-        background-color: #d0e1d2;
+        background-color: #b3d9b3;
     }
     .today_total{
        margin:50px 30px 40px 80px;
         
     }
-    .rate{
-        height: 50px;
-        border:solid red;
-        margin: 30px 0 10px 0;
-    }
+ 
     .today_do_li{
         margin: 50px 10px 0 50px ;
     }
@@ -113,12 +109,12 @@
         margin: 10px 20px 20px 20px;
     }
     .admi_notice{
-        border:solid ; 
+        border:2px solid #ddd ; 
         width: 600px;
         height:400px;
     }
     .admi_faq{
-        border:solid ; 
+        border:2px solid #ddd ; 
         width: 600px;
         height:400px;
     }
@@ -131,6 +127,34 @@
         width:100%;
         margin-left:530px;
         margin-bottom: 10px;
+    }
+     /*테이블  */
+    	table {
+		border-collapse: collapse;
+		width: 95%;
+		margin-left:18px;
+		
+	}
+    th, td {
+        padding: 5px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #b3d9b3;
+        color: black;
+        text-align: left;
+        height: 30px;
+        text-align:center;
+    }
+    
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+    
+    .index_table{
+        margin-top: 20px;
     }
   
     </style>
@@ -154,7 +178,7 @@
                             <p><b>빠르게 찾기</b></p>
                         </div>
                         
-                        <p>관리자 ID</p>
+                        
                         <input class="quick_btn" type="button" value="배너관리" onClick="location.href='/admin/mainBanner'">
                         <input class="quick_btn" type="button" value="회원현황" onClick="location.href='/admin/memberStat'">
                         <input class="quick_btn" type="button" value="상인관리" onClick="location.href='#'">
@@ -255,10 +279,10 @@
                             <div class="today_box">
                                 <div class="pro_regi_sta">
                                     <div class="today_tit">
-                                       1:1 문의 
+                                       고객 문의[오늘] 
                                     </div>
                                     <div>
-                                        00건
+                                        <fmt:formatNumber type="number" maxFractionDigits="3" value="${cNum}" />건
                                     </div>
                                 </div>
                             </div>   
@@ -266,10 +290,10 @@
                             <div class="today_box">
                                 <div class="pro_regi_sta">
                                     <div class="today_tit">
-                                        상인 문의 
+                                        상인 문의 [오늘]
                                     </div>
                                     <div>
-                                        00건
+                                        <fmt:formatNumber type="number" maxFractionDigits="3" value="${sNum}" />건
                                     </div>
                                 </div>
                             </div> 
@@ -297,7 +321,7 @@
                         <div class="board_btn">
                             <input type="button" value="더 보기" onClick="location.href='/community/notice/list'">
                         </div>
-                      	  <div>
+                      	  <div class="index_table">
 		                      <table tit aria-setsize="500px">
 					            <thead>
 					               <tr>
