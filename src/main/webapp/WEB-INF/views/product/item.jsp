@@ -784,47 +784,36 @@ input[type=range] {
         
         
      <!-- 상품 문의 댓글 영역 -->
-         <div class = "reply-main">
+         <div class = "reply-main"  id = "regiBtn">
                <h4 class="reply-title" id="replytitle">댓글쓰기</h4>
-         
-            
-              <div id = "regiBtn">
-               <div class="form-grop regiBtn">
-               <label>replyContent</label>
-               <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
-
+         	   <div id = "" class=''>
+              		 <div class="form-grop regiBtn">
+              			 	<label>replyContent</label>
+               				<textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
+									 <div class="form-grop"><label>id</label>
+								     <input class ="form-control" id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
+             					     <div class="form-grop">
+            	 					  <label>replyDepth</label>
+									  <input class ="form-control" id ="replyDepth"  name='replyDepth' value='0' readonly="readonly"></div> 
+									  <label>replyCount</label>
+									  <input class ="form-control" id ="replyCount"  name='replyCount' value='1' readonly="readonly"></div>
+									  <div class="form-grop">
+									 <label>replyCode</label>
+									 <input class ="form-control" id ="replyCode"  name='replyCode' value='1' readonly="readonly"></div>
+									 <div  style='display:none' class="form-grop">
+									 <label>itemCode</label>
+									 <input class ="form-control" id ="itemCode"  name='itemCode' value='itemCode' readonly="readonly"></div>
+           							 <div class="panel-heading"><i class="fa fa-comments fa-fw"></i>Reply
+									 <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 입력하기</button></div>
               
-               <div class="form-grop">
-               <label>id</label>
-               <!--  -->
-               <input class ="form-control" id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
-               <div class="form-grop">
-          <!--      <label>replyDepth</label>
-                <input class ="form-control" id ="replyDepth"  name='replyDepth' value='1' readonly="readonly"></div> -->
-                <div class="form-grop">
-                 <label>replyCount</label>
-                <input class ="form-control" id ="replyCount"  name='replyCount' value='1' readonly="readonly"></div>
-               <div class="form-grop">
-         <!--        <label>replyCode</label>
-                <input class ="form-control" id ="replyCode"  name='replyCode' value='1' readonly="readonly"></div> -->
-                <div class="form-grop">
-                 <label>itemCode</label>
-                <input class ="form-control" id ="itemCode"  name='itemCode' value='itemCode' readonly="readonly"></div>
-            
-    
-               
-         <!--       <div class="form-grop">
-               <label>replyDate</label>
-               <input class ="form-control" name='regDate' value=''></div> -->
-               
-              
-                <div class="panel-heading">
-               <i class="fa fa-comments fa-fw"></i>Reply
-               <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 입력하기</button>
+    								   <!--       <div class="form-grop">
+										  <label>replyDate</label>
+										  <input class ="form-control" name='regDate' value=''></div> -->								              
+										                
                </div> <!-- /,panel-heading -->
-               </div><!-- regiBtn -->
+   <!--             </div>regiBtn
    
-             </div>  <!-- reply-main end -->
+             </div>  reply-main end -->
    
          
                <div id ="list">   
@@ -952,23 +941,25 @@ $(document).ready(function(){
             for(var i = 0, len =list.length || 0; i <len; i++){
             
            var replyDepth = list[i].replyDepth;
+           
+           console.log("d여기다아아ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ아아");
            console.log(replyDepth);
             str += "<ul><li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
 
                  if(replyDepth==0){
                      str += "<div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
                      str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
-                     str += "<div><textarea class='text' id='text' rows='5'>"+list[i].replyContent+"</textArea>";
-                     str += "<div><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
+                     str += "<div><pre class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
+                     str += "<div ><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
                      str += '<button id="replybtn" class ="replybtn" >답글달기</button> <br></div></div></div>'; 
                
                  }else{
       
               
                     str += "<div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
-                      str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
-                      str += "<div>"+'&nbsp; >Re:'+"<textarea class='text' id='text' rows='5'>"+list[i].replyContent+"</textArea>";
-                      str += "<div><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
+                    str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
+                    str += "<div>"+'&nbsp&nbsp; >>>답글:'+"<pre class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
+                    str += "<div><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
                    /*    str += '<button id="replybtn" class ="replybtn" >답글달기</button> <br></div></div></div>';  */
                      
                     
@@ -996,17 +987,25 @@ $(document).ready(function(){
                
               //문의 입력  start
                var regiBtn = $("#regiBtn")
-                
-               
+  
                $("#regiBtn").on("click","button[id='addReplyBtn']",function(e){
+            	   
+               
                if($("#replyContentBtn").val() == ''||$("#replyContentBtn").val().trim()==""||$("#replyContentBtn").val().length>600){
                      
                     alert("댓글양식에 맞게 입력해주세요(1~600자)");
                     return false;
                       
                }
+               console.log("#idNoBtn");
+    		   console.log("#replyContentBtn");
+    		   console.log("#replyDepth");
+    		   console.log("여기야야양ㄻㅇㄴㄹㅇㄴㄻㄴㄹㅇㄴ");
+    		   
       
                prdreplyService.add(
+            		   
+            		  
                     {idNo:$("#idNoBtn").val(), replyContent:$("#replyContentBtn").val(),  itemCode:$("#itemCode").val(),
                     replyDepth:$("#replyDepth").val(), replyCount:$("#replyCount").val(), replyCode:$("#replyCode").val(),
                     },
@@ -1030,7 +1029,7 @@ $(document).ready(function(){
              $(document).on("click","button[id='replybtn']", function(e) {
                
                
-                  var replybtn = $("#replybtn")
+                   var replybtn = $("#replybtn")
                    var target = e.target; 
                    var replyLi = $(target).closest("li");
                    var replyNodata = replyLi.data("replyno");
@@ -1039,14 +1038,19 @@ $(document).ready(function(){
 
                    $(".replyDiv").remove();
                    $(".commentEditDiv").remove();
+                 
 
                  
-                      var replyDiv = document.createElement("div");
-                     replyDiv.setAttribute("class", "replyDiv");
+                    var replyDiv = document.createElement("div");
+                    replyDiv.setAttribute("class", "replyDiv");
                   
                     var textArea = document.createElement("textarea");
                     textArea.setAttribute("id", "replyTextarea");
                     textArea.setAttribute("placeholder", "댓글을 입력해주세요");
+                    textArea.setAttribute("style", "width:100%; height:100px;");           
+                    /* textArea.setAttribute("style", "height:1000px;");   */         
+                    textArea.setAttribute("resize", "none");
+                    
                     
                     var replyNo = document.createElement("input");
                     replyNo.setAttribute("id","replyNo");
@@ -1072,7 +1076,7 @@ $(document).ready(function(){
                // 대댓글 등록버튼 이벤트
           $(document).on("click","button[class='reCommentRegBtn']", function(e){
       
-              var replyRegister = $("#replyTextarea").val()
+             var replyRegister = $("#replyTextarea").val()
              var replyNo = $("#replyNo").val()
              var sessionId = $("#sessionId");
    
@@ -1127,9 +1131,6 @@ $(document).ready(function(){
         
       $(document).on("click","button[id='delete']", function(e) {
                
-       console.log("삭제ddd");
-              
-            
           var target = e.target;
           
           console.log(target);
@@ -1166,60 +1167,82 @@ $(document).ready(function(){
  
           //문의글 수정, 댓글수정
           $(document).on("click","button[id='modify']",function(e){
-                
+        	  if(e.preventDefault()){
+       		   e.preventDefault();
+       	   }else{
+       		   e.returnValue = false;
+       	   }
+       	  
+        	  $("#text").css("display","block");
+
+        	    $(".replyDiv").remove();
                var target = e.target;
-               var replyLi = $(target).closest("li");
+               var replyLi = $(this).closest("li");
                var replyNo = replyLi.data("replyno");
-               var itemCode = replyLi.data("itemCode");         
-               var replyContent =  $(target).parent().parent().parent().find("#text").val();
-             
+               var replyContent = replyLi.data("text");        
                
-              
+               console.log("1번입니다" +replyContent);
+           
+
+          
                //대댓글의경우 replyContent null, parent() 한개더 줘서 replyContetn 값을 줌
-               if(replyContent==null){
-                  
-                  var replyContent =  $(target).parent().parent().parent().parent().find("#text").val();
-                  $(target).parent().parent().parent().parent().find("#text").hide();
-                  
-               }else{
-               
-                  $(target).parent().parent().parent().find("#text").hide();
-                  $(target).parent().parent().parent().find("#replybtn").hide();
-               }
-               
-               
-/*                var replyDiv = document.createElement("div");
+
+                  $(target).parent().parent().parent().parent().find("#text").css("display","none");
+                  $(target).parent().parent().parent().find("#text").css("display","none");
+                  $(target).parent().parent().parent().find("#replybtn").css("display","none");
+             
+               //수정하기 텍스트 구현
+               var replyDiv = document.createElement("div");
                replyDiv.setAttribute("class", "replyDiv");
 
                var textArea = document.createElement("textarea");
                textArea.setAttribute("id", "replyTextarea");
-               textArea.setAttribute("placeholder", "댓글을 입력해주세요");
+               textArea.setAttribute("style", "width:100%; height:100px;");     
+               $(textArea).html(replyContent);     
 
-               var replyNo = document.createElement("input");
+  /*              var replyNo = document.createElement("text");
                replyNo.setAttribute("id","replyNo");
-               replyNo.setAttribute("type","hidden");
-              replyNo.setAttribute("value",replyNodata);
+               replyNo.setAttribute("visibility","hidden");
+               textArea.setAttribute("resize", "none"); */
+               
+               
+               var upBtn = document.createElement("input");      
+               upBtn.setAttribute("id","upBtn");
+               upBtn.setAttribute("type","button");
+               upBtn.setAttribute("value","수정완료");
+            
+           
+               /*replyNo.setAttribute("value",replyNodata);  */
 
 
         
                replyDiv.appendChild(textArea);
-               replyDiv.appendChild(replyNo);
+               replyDiv.appendChild(upBtn);
+   /*          replyDiv.appendChild(replyNo); */
+       /*         replyDiv.appendChild(replyNo); */
 
        
                
                $(target).parent().parent().after(replyDiv);
+       
                
-                */
-               
-           
-                if(replyContent==''||replyContent.trim()==''||replyContent.length>600){
+               $(document).on("click","input[id='upBtn']",function(e){
+	
+            	   console.log("aaaa"+replyNo);
+            	   console.log("bbb"+itemCode);
+            	   console.log("ccc"+textArea.value);
+            	   replyContent = textArea.value;
+            	   
+            
+           /*      if(replyContent==''||replyContent.trim()==''||replyContent.length>600){
                    
                    alert("댓글은 1~600자에 맞게 입력해주세요")
                    return false;
-                }
+                } */
           
                 prdreplyService.update({
                       
+                	
                       replyNo  : replyNo,    
                       itemCode : itemCode,
                       replyContent : replyContent
@@ -1230,7 +1253,11 @@ $(document).ready(function(){
                      alert("수정 완료 ........")
                      showList(pageNum);
                   
+                     
                 });
+                
+                
+               });
                   
           });//문의글 수정, 댓글수정 end
             

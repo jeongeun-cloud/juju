@@ -36,7 +36,7 @@
                         </div>
                         <p>관리자 ID</p>
                         <input class="quick_btn" type="button" value="상품등록" onClick="location.href='/shop/list'">
-                        <input class="quick_btn" type="button" value="주문조회">
+                        <input class="quick_btn" type="button" value="주문조회" onClick="location.href='/shop/searchorder'">
                         <input class="quick_btn" type="button" value="통계관리">
                     </div>
                 </div>
