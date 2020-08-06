@@ -6,12 +6,14 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <select id="getQnaList" resultType="com.jujumarket.admin.domain.QnaVO">
 <![CDATA[select  a.*
-from(select rownum rn, q.title,q.content, regDate ,q.idNo , t.emailAccount,q.postingNo
+from(select rownum rn , b.*
+     from
+        (select q.title,q.content, regDate ,q.idNo , t.emailAccount,q.postingNo
 		from t_board_qna q, t_member t
-		where q.idno=t.idno and 
-		rownum <= #{pageNum} * #{amount}
-	
-		)a  
+		where q.idno=t.idno 
+		order by regDate desc)b
+	where rownum <= #{pageNum} * #{amount}
+			)a
 where rn > (#{pageNum} -1) * #{amount}
 
       ]]>

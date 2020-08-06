@@ -39,6 +39,16 @@ public class ShopManageController {
 		 
 		 MemberVO member = (MemberVO)session.getAttribute("sessionMember");
 		  String idNo = member == null ? "" : member.getIdNo().trim(); 
+		  
+		  
+		
+		  String shopName=smservice.getShopName(idNo);
+		  
+		  model.addAttribute("shopName", shopName);
+		  
+		  
+		  smvo.setShopId(idNo);
+		  model.addAttribute("shopId", idNo);
 		
 		  Integer todayordercnt = smservice.todayOrderCnt(idNo);
 		  if(todayordercnt == null ) {  todayordercnt=0; }

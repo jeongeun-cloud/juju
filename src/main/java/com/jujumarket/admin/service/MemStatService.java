@@ -19,6 +19,7 @@ public interface MemStatService {
 	
 	public Integer getSellNum();
 	
+	
 	public List<MemStatVO> getWithdraw(ItemCriteria cri);
 	
 	public int getWithdrawTotal(ItemCriteria cri);
@@ -27,5 +28,9 @@ public interface MemStatService {
 	
 	public List<MemStatVO> getWithdrawSta(String day);
 	
+	//1:1문의 고객
+	public int cNum();
+	//1:1문의 상인
+	public int sNum();
 
 }
