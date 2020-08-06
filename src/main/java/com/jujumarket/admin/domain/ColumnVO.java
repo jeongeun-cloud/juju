@@ -14,5 +14,7 @@ public class ColumnVO {
 	private Timestamp regDate;
 	private Timestamp updateDate;
 	private String idNo;
+	
+	private String type;
 
 }
