@@ -132,11 +132,23 @@
 								    <option value="12">12</option>
 								</select>
               		     
-              		  
-              		     <input type="text" name="searchDay" id="searchDay">
-	              		 <input type="submit" name="submit">
-	              		  <div id="MemStat"></div>       
-	              		  <div id="WithdrawSta"></div>     
+              		  	
+              		     <input type="hidden" name="searchDay" id="searchDay">
+	              		 <input type="submit" name="submit" id="submit">
+	              		 <p>(년도 와 월 을 함께 선택해주세요)</p><br>
+	              		  
+	              		  <h2>[Day:<c:out value="${year}"/>/<c:out value="${month}"/>] 회원 현황</h2>
+	              		  
+	              		  <div id="MemStat_cont">
+	              		  <p>[회원가입 수]</p>
+	              		  <div id="MemStat"></div>
+	              		  </div>
+	              		  
+	              		  <div id= "WithdrawSta_cont">
+	              		  <p>[탈퇴회원 수]</p>
+	              		  <div id="WithdrawSta"></div> 
+	              		  </div>
+	              		      
 	              		 </div>  
 	              		 </form>
 	              		  
@@ -155,9 +167,23 @@
 		$("#searchDay").val(searchDay);
 		$("#searchDayform").submit();
 		
+		
+		
 	});
     
-   
+   $("#submit").on("click",function(e){
+	   if(!$('.year> option:selected').val()){
+			alert("년도를 선택해주세요");
+			$('.year').focus();
+		}
+	   if(!$('.month> option:selected').val()){
+			alert("월을 선택해주세요");
+			$('month').focus();
+			return false;
+		}
+	   
+	   
+   })
     
     //회원가입
     google.charts.load('current', {packages: ['corechart', 'line']});

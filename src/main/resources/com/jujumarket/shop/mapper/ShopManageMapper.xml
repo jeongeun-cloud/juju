@@ -4,6 +4,13 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jujumarket.shop.mapper.ShopManageMapper">
 
+<!--shopName  -->
+<select id="getShopName" resultType="String">
+  select shopName
+  from m_shop 
+  where idNo=#{idNo} 
+
+</select>
 
 <!--어제 오늘 주문량 비교  -->
 <select id="getCompareSta" resultType="com.jujumarket.shop.domain.WholeStaVO">

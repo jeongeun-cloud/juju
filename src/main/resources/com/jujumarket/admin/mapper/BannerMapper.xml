@@ -76,7 +76,7 @@
 		and i.dispstat = '진열함' and i.salestat='판매중'
    </select>
    
-   <insert id="regSeason">
+   	<insert id="regSeason">
 		insert into t_season_item (itemCode, itemName, itemContent, price, normPrice, itemChr, itemImg1, classCode, shopName, idNo) 
 		values (#{itemCode}, #{itemName}, #{itemContent}, #{price}, #{normPrice}, #{itemChr}, #{itemImg1}, #{classCode}, #{shopName}, #{idNo})
 	</insert>
@@ -95,5 +95,20 @@
 	<delete id="deleSeason">
 		delete from t_season_item where itemCode = #{itemCode}
 	</delete>
+	
+	<insert id="addColumn">
+		insert into t_board_seasonal (img1, column1, img2, column2, idNo) 
+		values (#{img1}, #{column1}, #{img2}, #{column2}, #{idNo})
+	</insert>
+	
+	<select id="getColumn" resultType="com.jujumarket.admin.domain.ColumnVO">
+		select * from t_board_seasonal
+	</select>
+	
+	<update id="modifyColumn">
+		update t_board_seasonal
+		set img1 = #{img1}, column1 = #{column1}, img2 = #{img2}, 
+		column2 = #{column2}, idNo = #{idNo}, updateDate = systimestamp
+	</update>
 
 </mapper>

@@ -24,6 +24,8 @@ public interface RegisterItemMapper {
 	
 	public int update(RegisterItemVO register);
 	
+	public int updateSeason(RegisterItemVO register);
+	
 	public List<CategoryVO> category();
 	
 	public int getTotalCount(ItemCriteria cri);

@@ -98,6 +98,13 @@
 		where itemCode = #{itemCode}
 	</update>
 	
+	<update id="updateSeason">
+		update t_season_item
+		set itemName = #{itemName}, itemContent = #{itemContent}, price = #{price}, 
+		normPrice = #{normPrice}, itemImg1 = #{itemImg1}
+		where itemCode = #{itemCode}
+	</update>
+	
 	<select id="getTotalCount" resultType="int">
 		select count(*) from t_item where idNo = #{idNo}
 	</select>

@@ -37,7 +37,7 @@
         .pro_img_wrap{
             width: 100%;
             height: 300px;
-            background-color: tomato;
+            background-color: black;
             position: relative;
             overflow: hidden;
         }
@@ -118,7 +118,16 @@
             min-height: 550px;
         } 
         
+            .soldout{
+           text-align:center;
+           width:100%;
+           bottom: 50px; 
+           font-size: 3.5em;
+           font-weight: bold; 
+           position: absolute; 
+           color: white;
         
+       }
         
         
         
@@ -137,11 +146,45 @@
 							        <ul class="pro_list_ul">
 							            <li class="pro_list_li">
 							                <div class="pro_module">
-							                <div class="pro_img_wrap">
-							                   <a href="/product/item?itemCode=<c:out value='${realnew.itemCode}'/>" class="conts">
-							                        <img src="/resources/images/default1.png" alt="메인 이미지">
-							                    </a>
-							                </div>
+							                 <c:if test="${realnew.saleStat=='판매중'}">
+                                            <div class="pro_img_wrap">
+                                        
+                                               <a href="/product/item?itemCode=<c:out value='${realnew.itemCode}'/>" class="conts">
+
+                   							<img class="active" src="/resources/upload/<c:out value="${realnew.idNo}"/>/<c:out value="${realnew.itemImg1}"/>">
+
+                                               </a>
+                                
+                                                  </div>    
+                                                   </c:if>
+                                                   
+                                            <!-- 품절일때  -->
+                                            <c:if test="${realnew.saleStat=='품절'}">
+                                            <div class="pro_img_wrap">
+                                        
+                                                <a href="/product/item?itemCode=<c:out value='${realnew.itemCode}'/>" class="conts" style="opacity:0.2;">
+
+                                                   <img class="active" src="/resources/upload/<c:out value="${realnew.idNo}"/>/<c:out value="${realnew.itemImg1}"/>">
+                                               </a>
+                                                  <div class="soldout">
+                                                         <p>품절</p>
+                                                         </div>
+                                                  </div>    
+                                                   </c:if>
+                                                   
+                                                   <!--판매 중지일때  -->
+                                            <c:if test="${bob.saleStat=='판매중지'}">
+	                                           	 <div class="pro_img_wrap">
+	                                        
+	                                              	  <a href="/product/item?itemCode=<c:out value='${realnew.itemCode}'/>" class="conts" style="opacity:0.2;">
+	
+	                                                     <img class="active" src="/resources/upload/<c:out value="${realnew.idNo}"/>/<c:out value="${realnew.itemImg1}"/>">
+	                                             	  </a>
+	                                               		    <div class="soldout">
+	                                                         <p>판매 중지</p>
+	                                                         </div>
+	                                                  </div>    
+                                              </c:if>
 							                <!-- END img_wrap -->
 							                <div class="txt_wrap">
 							                	 <a href="/product/item?itemCode=<c:out value='${realnew.itemCode}'/>" class="conts">
@@ -171,7 +214,12 @@
 							                        </div>
 							                  		 </a>
 							                    <div class="cart_btn">
-							                        <button type="button" class="add_to_cart" value="${realnew.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button>
+							                       <c:if test="${realnew.saleStat=='품절'||realnew.saleStat=='판매중지'}">
+							                       <button type="button" class="add_to_cart" value="${realnew.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')">add to cart</button>
+							                    </c:if>
+							                    <c:if test="${realnew.saleStat!='품절'&& realnew.saleStat!='판매중지'}">
+							            	 <button type="button" class="add_to_cart" value="${realnew.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button> 
+							            	 </c:if>
 							                    </div>
 							                </div>
 							                <!-- END txt_wrap -->

@@ -1423,23 +1423,6 @@ $(document).ready(function(){
                  }
               }
        	 });
-    	  
-         
-	     /* if($("#sessionId").val() == '') {
-	       	alert("상품 후기는 상품을 구매하시고 배송완료된 회원 분만 한달 내 작성 가능합니다.");
-	     	return false;
-	     }
-         document.getElementById('review').style.display='block';
-      
-         // 버튼 및 내용 초기화
-         $("#reviewBtn").show();
-         $("#updateBtn").hide();
-         $("#reviewTitle").val("");
-         $("#reviewContent").val("");
-         $("#reviewImg").val("");
-         $("#score").val("0");
-         $("#reviewNo").val("");
-         $("#star_grade a").parent().children("a").removeClass("on"); */
       }
       
       // 이미지 체크
@@ -1619,7 +1602,7 @@ $(document).ready(function(){
                  str += "<div style='width:80%; float:left'>"; 
                  str += "<button class='collapsible'>"+ list[i].reviewTitle + "</button>";
                 str += "<div class='content'>";
-                str += "<input type='hidden' id='writer' value="+ list[i].idNo +">"; 
+                str += "<input type='hidden' id='writer"+i+"' value="+ list[i].idNo +">"; 
                 str += "<p style=''>"+ list[i].reviewContent +"</p>";
                 str += "<button id='removeBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn' style='background-color: #f44336;'>삭제</button>";
                 str += "<button id='modifyBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn'>수정</button>";
@@ -1628,19 +1611,19 @@ $(document).ready(function(){
 
                 str += "</div>";
                 str += "<br><hr>"
-
+				
               }
             
-	        // 아이디 체크해서 맞을 경우만 버튼 보이기
+      		// 아이디 체크해서 맞을 경우만 버튼 보이기
 /* 	        var idNo = $("#writer").val();
 	        var sessionId = $("#sessionId").val();
 	        
-           	if(idNo != sessionId) {
-            	$('.rBtn').css('visibility', 'hidden');
-           	}else {
-         	  	$('.rBtn').css('visibility', 'visible');
-           	}
- */           
+        	if(idNo != sessionId) {
+         		$('.rBtn').css('visibility', 'hidden');
+        	}else {
+      	  		$('.rBtn').css('visibility', 'visible');
+        	}
+ */
            	reviewList.html(str);
             showReviewPage(reviewCnt); 
             getScore();
@@ -1655,6 +1638,21 @@ $(document).ready(function(){
                     this.classList.toggle("active");
                     var content = this.nextElementSibling;
                     
+					console.log(this.nextElementSibling.children[2]);
+					console.log(content.children[3]);
+					var btn = content.children[3];
+                    // 아이디 체크해서 버튼 숨기기
+					var writer = content.children[0].value;
+                    var sessionId = $("#sessionId").val();
+                    
+                    if(writer != sessionId) {
+                    	$(content.children[2]).css('visibility', 'hidden');
+                    	$(content.children[3]).css('visibility', 'hidden');
+                   	}else {
+                    	$(content.children[2]).css('visibility', 'visible');
+                    	$(content.children[3]).css('visibility', 'visible');
+                   	}
+                    	
                     if (content.style.maxHeight){
                          content.style.maxHeight = null;
                     } else {
@@ -1746,12 +1744,6 @@ $(document).ready(function(){
      
     // 삭제 기능
    $("#reviewDiv").on("click","button[id='removeBtn']", function(e){
-   		var idNo = $("#writer").val();
-        var sessionId = $("#sessionId").val();
-      	if(idNo != sessionId) {
-           	alert("당사자만 삭제할 수 있습니다.");
-         	return false;
-      	}
       
         var target = e.target;
         var dataFormat = $(target).closest("button");
@@ -1780,14 +1772,7 @@ $(document).ready(function(){
       // 수정할 내용 불러오기
       $("#reviewDiv").on("click","button[id='modifyBtn']",function(e){
          
-         // 1. 모달 띄우기 (당사자에게만 보일거지만 그래도 한 번 더 구별 해주기)
-         var idNo = $("#writer").val();
-        var sessionId = $("#sessionId").val();
-      if(idNo != sessionId) {
-           alert("당사자만 수정할 수 있습니다.");
-         return false;
-      }
-      
+         // 1. 모달 띄우기
          document.getElementById('review').style.display='block';
       
          // 2. 모달에 값 넣어진 채로(reviewNo 로 하나만 get해와야 할듯)

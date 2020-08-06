@@ -106,7 +106,7 @@
        margin-bottom:20px;
    }
    
-   #regBtn, #deleBtn, #addColumnBtn{
+   #regBtn, #deleBtn, #addColumnBtn, #modifyColumnBtn{
         float:right;
         margin-right: 30px;
         margin-top : 5px;
@@ -122,8 +122,7 @@
         cursor: pointer;
         font-weight: 900;
     }
-
-    #regBtn:hover, #deleBtn:hover{
+    #regBtn:hover, #deleBtn:hover, #addColumnBtn:hover, #modifyColumnBtn:hover{
 	    background-color: white; 
 	    color: #ffc30b; 
 	    border: 2px solid #ffc30b;
@@ -140,6 +139,12 @@
     .select_img1, .select_img2 {
     	margin : 10px;
     }
+    
+/*     .select_img1 img, .select_img2 img {
+    	width : 300px;
+    	height: 200px;
+    	margin : 10px;
+    } */
    
 	#activeImg img{
 		height : 200px;
@@ -334,18 +339,27 @@
                 <div class="banner_tit" style='margin-top:50px;'>
                     <p><b><i class="fa fa-list-alt"></i> 제철 이미지 컬럼쓰기</b></p>
                 </div>
-                <form id="season_column" action="/admin/addColumn" method="POST" enctype="multipart/form-data">
-	                <div style="text-align:center;">
-	               		<p>첫 번째 컬럼 내용쓰기</p>
-		                    <input type="file" id="img1" name="img1"><br>
-		                    <div class="select_img1"><img src="" /></div>
-		                    <textarea name="column1"></textarea><br>
-	               		<p>두 번째 컬럼 내용쓰기</p>
-		                    <input type="file" id="img2" name="img2"><br>
-		                    <div class="select_img2"><img src="" /></div>
-		                    <textarea name="column2"></textarea>
-	                	<button id="addColumnBtn" style="float:none;">등록하기</button>
-	                </div>
+                
+                <input type="hidden" id="columnLen" value='<c:out value="${fn:length(column)}"/>'>
+                <form id="addColumn" action="/admin/addColumn" method="POST" enctype="multipart/form-data">
+	                <input type="hidden" name="idNo" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
+		                <div id="colDiv" style="text-align:center;">
+		               		<p>첫 번째 컬럼 내용쓰기</p>
+		                    <input type="file" id="img1" name="addImg"><br>
+		                    <div class="select_img1">
+		                    	<img src="" />
+		                    </div>
+		                    <textarea id="column1" name="column1"></textarea><br>
+		               		<p>두 번째 컬럼 내용쓰기</p>
+		                    <input type="file" id="img2" name="addImg"><br>
+		                    <div class="select_img2">
+		                    	<img src="" />
+		                    </div>
+		                    <textarea id="column2" name="column2"></textarea>
+		                    <input type="hidden" name="type" id="type" value="">
+		                	<button id="addColumnBtn" style="float:none;">등록하기</button>
+		                	<button id="modifyColumnBtn" style="float:none; display:none;">수정하기</button>
+		                </div>
 	            </form>
                 
                 <div class="banner_tit" style='margin-top:50px;'>
@@ -415,7 +429,6 @@
     	            // 사진 보이기
     	            if(this.files && this.files[0]) {
      	            	var reader = new FileReader;
-
      	               	reader.onload = function(data) {
      	               		$(".select_img"+i+" img").attr("src", data.target.result).width(300).height(200);
      	                }
@@ -423,70 +436,44 @@
      	            }
     	    	});
     	    }
-
     		
     	    // 제철 칼럼 등록
     		$("#addColumnBtn").on("click", function(e) {
-    			alert("눌렸다!");
-	   	        /* if(!$('#mainCateg > option:selected').val()) {
-    	        	alert("대분류가 선택되지 않았습니다.");
-    	           	$('#mainCateg').focus();
-    	           	return false;
-   		        }else if(!$('#midCateg > option:selected').val()) {
-    	           	alert("중분류가 선택되지 않았습니다.");
-    	           	$('#midCateg').focus();
-    	           	return false;
-    	        }else if($('#itemName').val()=='' || $('#itemName').val().trim() == '') {
-    	          	alert('상품명이 입력되지 않았습니다.');
-    	          	$('#itemName').focus();
-    	          	return false;
-    	        }else if($('#itemContent').val()=='' || $('#itemContent').val().trim() == ''){
-    	            alert('상품 상세 정보가 입력되지 않았습니다.');
-    	            $('#itemContent').focus();
-    	            return false;
-    	        }else if($('#price').val()=='' || removeComma($('#price').val()) < 1000 || removeComma($('#price').val()) > 1000000){
-    	            alert('유효하지 않은 판매가 입니다.');
-    	            $('#price').focus();
-    	            return false;
-    	        }else if($('#normPrice').val()=='' || removeComma($('#normPrice').val()) < 1000 || removeComma($('#normPrice').val()) > 1000000){
-    	            alert('유효하지 않은 정상가 입니다.');
-    	            $('#normPrice').focus();
-    	            return false;
-    	        }else if($('#stock').val()==''){
-    	            alert('재고가 입력되지 않았습니다.');
-    	            $('#stock').focus();
-    	            return false;
-    	        }else if($("#itemImg1").val() == "") {
-    	            alert("메인 이미지가 첨부되어 있지 않습니다.");
-    	            $("#itemImg1").focus();
-    	            return false;
-    	        }else if($("#itemImg2").val()=="" || $("#itemImg3").val() == "" || $("#itemImg4").val()=="") {
-    	            alert("서브 이미지는 모두 첨부 되어야 합니다.");
-    	            return false;
-    	        }else if($("#itemImg5").val() == "") {
-    	            alert("상품 상세 이미지가 첨부되어 있지 않습니다.");
-    	            $("#itemImg5").focus();
-    	            return false;
-    	        }else if($("input[type=checkbox][name=itemChr]")[0].checked == true || $("input[type=checkbox][name=itemChr]")[1].checked == true) {
-    	            $("input[type=checkbox][name=itemChr]")[2].checked = false;
-    	        } */
-
-    	         
-    	        //$("#season_column").submit();
-    	         /* 
-    	         $.ajax({
-    	            url : '/shop/register',
-    	            processData : false,
-    	            contentType : false,
-    	            data : formData,
-    	            type : 'POST',
-    	            //dataType:'json',
-    	            success : function(result) {
-    	               console.log(result);
-    	               
-    	            }
-    	         }); */ // $.ajax
-    	      });
+    			// 유효성 체크 안함
+    			$("#type").val("register");
+    	        $("#addColumn").submit();
+    	    });
+    	    
+    	    var colLen = $("#columnLen").val();
+    	    if(colLen != 0) {
+	    	    // 제철 칼럼 버튼 보이기
+    	    	$("#addColumnBtn").css("display","none");
+    	    	$("#modifyColumnBtn").css("display","");
+    	    	
+	    	    // 제철 칼럼 내용 가져오기
+	    	    var src = "/resources/banner/column/";
+	    	    var src1 = src + "${column[0].img1 }";
+	    	    var src2 = src + "${column[0].img2 }";
+	    	    
+	    	    $("#column1").html("${column[0].column1 }".replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+	    	    $("#column2").html("${column[0].column2 }".replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+	    	   	$(".select_img1 img").attr("src", src1).width(300).height(200);
+	    	   	$(".select_img2 img").attr("src", src2).width(300).height(200);
+    	    }
+    	    
+    		
+    	    // 제철 칼럼 수정
+    		$("#modifyColumnBtn").on("click", function(e) {
+    			// 유효성 체크 안함
+    			$("#type").val("modify");
+    	        $("#addColumn").submit();
+    	    });
+    	    
+    	    // 제철 칼럼에 대한 alert
+    	    var result = '<c:out value="${result}"/>';
+    	    if(result.length > 0) {
+    	    	alert("칼럼이 제대로 등록되었습니다.");
+    	    }
     		
     		var cloneObj = $(".uploadDiv").clone();
     		

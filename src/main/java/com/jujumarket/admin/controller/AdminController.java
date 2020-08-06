@@ -62,12 +62,26 @@ public class AdminController {
 		model.addAttribute("noticelist",fservice.getnotice());
 		model.addAttribute("faqlist",fservice.getfaq());
 		
+		//오늘 1:1 문의 한 고객,상인 num
+		int cNum =msservice.cNum();
+		vo.setCNum(cNum);
+		model.addAttribute("cNum", vo.getCNum());
+		
+		int sNum =msservice.sNum();
+		vo.setSNum(sNum);
+		model.addAttribute("sNum", vo.getSNum());
+		
 	}
 	//회원현황
 	@GetMapping("/memberStat")
 	public void minfo(@RequestParam(value="searchDay", defaultValue="202008") String day , Model model) {
 		
 		//System.out.println("searchDay는"+day);
+		String year= day.substring(0, 4);
+		String month=day.substring(4,6);
+		
+		model.addAttribute("year",year);
+		model.addAttribute("month",month);
 		
 		MemStatVO vo = new MemStatVO();
 		//일반회원
