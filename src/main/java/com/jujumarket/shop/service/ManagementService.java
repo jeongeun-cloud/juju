@@ -14,7 +14,6 @@ public interface ManagementService {
 	public void refundupdate(ManagementVO vo); //송장번호수정
 	
 	
-	
 	public List<ManagementVO> searchordergetList(ItemCriteria cri);
 	
 	public List<ManagementVO> shippinggetList(ItemCriteria cri);

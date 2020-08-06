@@ -37,6 +37,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SocialVO;
 import com.jujumarket.member.service.SocialService;
 
@@ -139,7 +140,8 @@ public class SocialController {
 		System.out.println("카카오 code : " + code);
 		
 		// socialVO
-		SocialVO socialVO = new SocialVO();
+		//SocialVO socialVO = new SocialVO();
+		MemberVO socialVO = new MemberVO();
 		
 		JsonNode jsonToken = SocialController.getAccessToken(code);
 
@@ -244,7 +246,8 @@ public class SocialController {
 	public ResponseEntity<String> naverLogin(String emailAccount, String memName, String birth, String naverToken, HttpSession session) {
 		System.out.println("네이버 로그인 컨트롤러!!!!");
 		// socialVO
-		SocialVO socialVO = new SocialVO();
+		//SocialVO socialVO = new SocialVO();
+		MemberVO socialVO = new MemberVO();
 		
 		birth = birth == null? "" : birth;
 		
@@ -324,7 +327,8 @@ public class SocialController {
 	public ResponseEntity<String> googleLogin(String emailAccount, String memName, String googleToken, HttpSession session) {
 		System.out.println("구글 로그인 컨트롤러!!!!");
 		// socialVO
-		SocialVO socialVO = new SocialVO();
+		//SocialVO socialVO = new SocialVO();
+		MemberVO socialVO = new MemberVO();
 		
 		System.out.println(googleToken + " 구글 토큰 값");
 		System.out.println(emailAccount + " 구글 컨트롤러 이메일");

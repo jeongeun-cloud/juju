@@ -34,8 +34,8 @@ public class MemStatServiceImpl implements MemStatService {
 	}
 	//탈퇴
 	@Override
-	public List<MemStatVO> getWithdraw() {
-		return mapper.getWithdraw();
+	public List<MemStatVO> getWithdraw(ItemCriteria cri) {
+		return mapper.getWithdraw(cri);
 	}
 	
 	@Override
@@ -69,5 +69,14 @@ public class MemStatServiceImpl implements MemStatService {
 	@Override
 	public Integer TodayWithdrawTotal() {
 		return mapper. TodayWithdrawTotal();
+	}
+	//1:1 문의
+	@Override
+	public int cNum() {
+		return mapper.cNum();
+	}
+	@Override
+	public int sNum() {
+		return mapper.sNum();
 	}
 }

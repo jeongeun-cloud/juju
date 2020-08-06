@@ -183,11 +183,6 @@ margin-top : 20px;
 
 
 
-
-
-
-
-
 <!-- regi_main 시작 -->      
 <div class="regi_main">
    
@@ -201,15 +196,9 @@ margin-top : 20px;
 
 
 
-
-
-
-
-
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading"><c:out value="${BoardFAQ.content}"/></div>
 				<div class="panel-body">
 
                    <form id = "actionForm" role="form" method="post">
@@ -225,22 +214,6 @@ margin-top : 20px;
 						<textarea class="form-control" rows="10" name='content'
 						readonly="readonly"><c:out value="${BoardFAQ.content}"/></textarea>
 				</div>
-
-
-				<div class="from-group">
-						<label>게시글타입</label><input class="form-control" name='boardType'
-							value='<c:out value="${BoardFAQ.boardType}"/>'readonly="readonly">
-				</div>
-					
-				<div class="from-group">
-						<label>작성자</label><input class="form-control" name='idNo'
-							value='<c:out value="${BoardFAQ.idNo}"/>'readonly="readonly">
-				</div>
-					
-				<div  class="from-group">
-						<label>글번호</label><input class="form-control" name='postingNo'
-							value='<c:out value="${BoardFAQ.postingNo}"/>'readonly="readonly">
-			    </div>
 			    
 			           <input type="hidden"  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
 	                    <input type="hidden" name ='amount' value='<c:out value="${cri.amount}"/>'>  

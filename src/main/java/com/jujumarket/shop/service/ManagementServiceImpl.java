@@ -14,7 +14,6 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
-@Log4j
 @Service
 @AllArgsConstructor
 public class ManagementServiceImpl implements ManagementService {
@@ -28,6 +27,7 @@ public class ManagementServiceImpl implements ManagementService {
 
 	   mapper.shippingupdate(vo);
 	   mapper.insertSelectKey(vo);
+	   mapper.shippStatupdate(vo);
 	}
 
 	
@@ -86,12 +86,14 @@ public class ManagementServiceImpl implements ManagementService {
 		// TODO Auto-generated method stub
 		return mapper.refundListPaging(cri);
 	}
-
-
+	
+	
 	@Override
-	public void refundupdate(ManagementVO vo) {
+	@Transactional
+    public void refundupdate(ManagementVO vo) {
 		
 		mapper.refundinsertSelectKey(vo);
+		mapper.refundupdate(vo);
 		
 	}
 

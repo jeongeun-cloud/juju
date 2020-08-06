@@ -30,11 +30,15 @@ public interface ManagementMapper {
 		
 		public int shippingupdate(ManagementVO vo); //송장번호 입력은 수정으로 처리를 함
 		
+		public int shippStatupdate(ManagementVO vo); //송장번호 입력은 수정으로 처리를 함
+		
         public List<ManagementVO> datedate(ManagementVO vo);//날짜처리
 
         public List<ManagementVO> refundListPaging(ItemCriteria cri); //취소환불
         
-        public void refundinsertSelectKey(ManagementVO vo); //송장수정
+        public void refundinsertSelectKey(ManagementVO vo); //취소요청 상태변경
+        
+        public void refundupdate(ManagementVO vo); //송장수정
         
         
 		

@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 public class BoardFAQVO {
 	
+	private String rowNum;
 	private String postingNo;
 	private String title;
 	private String content;

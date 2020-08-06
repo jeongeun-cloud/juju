@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jujumarket.board.service.BoardFAQService;
 import com.jujumarket.member.domain.MemberVO;
+import com.jujumarket.shop.domain.ItemCriteria;
+import com.jujumarket.shop.domain.ItemPageDTO;
 import com.jujumarket.shop.domain.ShopManageVO;
 import com.jujumarket.shop.domain.WholeStaVO;
+import com.jujumarket.shop.service.RegisterItemService;
 import com.jujumarket.shop.service.ShopManageService;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +32,7 @@ public class ShopManageController {
 
 	private ShopManageService smservice;
 	private BoardFAQService fservice;
+	private RegisterItemService itemService;
 	
 	@GetMapping("/")
 	public String index(HttpSession session, Model model) {
@@ -39,6 +43,16 @@ public class ShopManageController {
 		 
 		 MemberVO member = (MemberVO)session.getAttribute("sessionMember");
 		  String idNo = member == null ? "" : member.getIdNo().trim(); 
+		  
+		  
+		
+		  String shopName=smservice.getShopName(idNo);
+		  
+		  model.addAttribute("shopName", shopName);
+		  
+		  
+		  smvo.setShopId(idNo);
+		  model.addAttribute("shopId", idNo);
 		
 		  Integer todayordercnt = smservice.todayOrderCnt(idNo);
 		  if(todayordercnt == null ) {  todayordercnt=0; }
@@ -62,6 +76,12 @@ public class ShopManageController {
 		//공지사항
 		model.addAttribute("noticelist",fservice.getnotice());
 		model.addAttribute("faqlist",fservice.getfaq());	
+		
+		// 상품 아이템 갯수 출력
+		ItemCriteria cri = new ItemCriteria();
+		cri.setIdNo(idNo);
+		int total = itemService.getTotal(cri);
+		model.addAttribute("itemTotal", new ItemPageDTO(cri, total));
 			
 		  
 		return "shop/index";

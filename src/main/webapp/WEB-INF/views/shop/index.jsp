@@ -5,10 +5,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/resources/css/shop_index.css">
-    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>shop index</title>
+    <style>
+     .admi_container{
+        width: 1300px;
+        height: 100%;
+        margin: 0 auto;
+        /* border: solid; */
+    }
+    .admi_manager{
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        /* border: solid; */
+        margin-bottom: 80px;
+        
+    }
+ 
+    .quick_wrap{
+        margin-top:20px;
+        
+    }
+    .quick_m{
+        float: left;
+        margin: 10px 20px 20px 10px;
+    }
+    .quick_find{
+        
+        border: 2px solid #ddd ;
+        width: 380px;
+        height: 350px;
+    } 
+    .quick_tit{
+        text-align: center;
+        font-size: 17px;
+        background-color:#ffc30b ;
+    }
+    .today_sta{
+        
+        border:2px solid #ddd ;
+        width: 430px;
+        height: 350px;
+    }
+    .today_do{
+        
+        border:2px solid #ddd ; 
+        width: 380px;
+        height:350px;
+
+    }
+    .quick_btn{
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        margin-right: 20px;
+        margin-left: 50px;
+        margin-top: 20px;
+        background-color:#f6dd90;
+        color:white;
+        font-weight:900;
+        border:#ffc30b;
+        
+    }
+    .today_box{
+        float: left;
+        width: 120px;
+        height: 80px;
+        border:solid;
+        margin: 10px 5px 10px 10px;
+        text-align: center;
+    }
+    .today_tit{
+        width: 100%;
+        height: 25px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 5px;      
+        background-color: #f6dd90;
+    }
+    .today_total{
+        height: 100px;
+        
+    }
+    .rate{
+        height: 50px;
+        border:solid red;
+        margin: 30px 0 10px 0;
+    }
+    .today_do_li{
+        margin: 50px 10px 0 50px ;
+    }
+    .admi_board{
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        /* border: solid blue; */
+        height: 450px;
+
+        
+    }
+    .quick_b{
+        float: left;
+        margin: 10px 20px 20px 20px;
+    }
+    .admi_notice{
+        border:2px solid #ddd ; 
+        width: 600px;
+        height:400px;
+    }
+    .admi_faq{
+        border:2px solid #ddd ; 
+        width: 600px;
+        height:400px;
+    }
+    .board_tit {    
+        width: 100%;
+        font-size: 20px;
+        
+    }
+    .board_btn{
+         width:100%;
+        margin-left:530px;
+        margin-bottom: 10px;
+    }
+    /*테이블  */
+    	table {
+		border-collapse: collapse;
+		width: 95%;
+		margin-left:18px;
+		
+	}
+    th, td {
+        padding: 5px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #ffc30b;
+        color: black;
+        text-align: left;
+        height: 30px;
+        text-align:center;
+    }
+    
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+    
+    .index_table{
+        margin-top: 20px;
+    }
+    
+    </style>
+    
+  
+
 
 </head>
 <%@include file="./idCheck.jsp" %>
@@ -16,14 +173,11 @@
 <%@include file="../includes/header.jsp" %>
     <div class="admi_container" style="border:solid;">
         <div class="admi_tit">
-            <h1>주주마켓 Seller</h1>
+            <h1>주주마켓 SHOP:'<c:out value="${shopName}"/>'님 반갑습니다.</h1>
         </div>
         
         <div class="admi_manager">
-            <div class="admi_btn_wrap">
-                <input type="button" value="상품관리" >
-                <input type="button" value="주문관리" onClick="location.href='/shop/sales'">
-            </div>
+           
 
             <div class="quick_wrap">
                 <div class="quick_m">
@@ -31,10 +185,12 @@
                         <div class="quick_tit">
                             <p><b>빠르게 찾기</b></p>
                         </div>
-                        <p>관리자 ID</p>
+                       
                         <input class="quick_btn" type="button" value="상품등록" onClick="location.href='/shop/list'">
-                        <input class="quick_btn" type="button" value="주문조회">
-                        <input class="quick_btn" type="button" value="통계관리">
+                        <input class="quick_btn" type="button" value="주문조회" onClick="location.href='/shop/searchorder'">
+                        <input class="quick_btn" type="button" value="통계관리" onClick="location.href='/shop/stats'">
+                        <input class="quick_btn" type="button" value="주문관리" onClick="location.href='/shop/sales'">
+
                     </div>
                 </div>
 
@@ -51,7 +207,7 @@
                                         상품 등록 수 
                                     </div>
                                     <div>
-                                        00건
+                                        <c:out value="${itemTotal.total }" />
                                     </div>
                                 </div>
                             </div>   
@@ -163,7 +319,7 @@
                          <div class="board_btn">
                             <input type="button" value="더 보기" onClick="location.href='/community/notice/list'">
                         </div>
-                      	  <div>
+                      	  <div class="index_table">
 		                      <table tit aria-setsize="500px">
 					            <thead>
 					               <tr>
@@ -203,7 +359,7 @@
                         <div class="board_btn">
                             <input type="button" value="더 보기" onClick="location.href='/community/BoardFAQ/list'">
                         </div>
-                        <div>
+                        <div class="index_table">
 		                         <table tit aria-setsize="500px">
 		                        
 		                        <thead>                     

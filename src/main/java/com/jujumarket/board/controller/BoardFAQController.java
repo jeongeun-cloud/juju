@@ -1,5 +1,8 @@
 package com.jujumarket.board.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -58,32 +61,46 @@ public class BoardFAQController {
 	@GetMapping("/BoardFAQ/list")
 	public void faqlist(Criteria cri, Model model) {
 
-		log.info("faq " + cri);
-		
-	
-		model.addAttribute("faq", service.getList(cri));
-		
+		List<BoardFAQVO> list = service.getList(cri);
 		int total = service.getTotal(cri);
-		log.info("total:dddddddd " + total);
+		
+		for(int i=0 ,j = total; i<list.size(); i++ ,j--) {
+			
+			BoardFAQVO vo = list.get(i);
+			
+			vo.setRowNum((j)+"");
+		}
+			
+		model.addAttribute("faq", list);//service.getList(cri);
+		
+		
+		
+		
+		
 		
 		model.addAttribute("pageMaker", new PageDTO(cri,total));
 	}
 
 	
 	
-	
 	@GetMapping("/notice/list")
 	public void noticelist(Criteria cri,Model model) {
-		log.info("notice");
 
-		model.addAttribute("notice", service.noticegetList(cri));
 
-		int total = service.getnoticeTotal(cri);
-		log.info("total:dddddddd " + total);
-		log.info("total: " + total);
+         List<BoardFAQVO> list = service.noticegetList(cri);
+         
+   
+     	int total = service.getnoticeTotal(cri);
+		for(int i=0 ,j = total; i<list.size(); i++ ,j--) {
+			
+			BoardFAQVO vo = list.get(i);
+			
+			vo.setRowNum((j)+"");
+		}
 		
 		
-		System.out.println("total"+total);
+		model.addAttribute("notice", list);
+	
 		model.addAttribute("pageMaker", new PageDTO(cri,total));
 		
 	}

@@ -7,6 +7,8 @@ import com.jujumarket.shop.domain.WholeStaVO;
 
 public interface ShopManageService {
 	
+	public String getShopName(String idNo);
+	
 	public List<WholeStaVO>getCompareSta(String idNo);
 	
 	public Integer todayOrderTotal(String idNo);
