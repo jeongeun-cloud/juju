@@ -353,6 +353,7 @@ body {
 				} else {
 					memAddr.val(roadAddr.val()+"/"+namujiAddr.val());
 				}
+				shopName.val($.trim(shopName.val()));
 				shopAddr.val(shopRoadAddr.val()+"/"+shopNamujiAddr.val());
 				sellerJoinForm.submit();
 			}
@@ -450,7 +451,7 @@ body {
 		
 		
 		function shopNameCheck(){
-			let regExp = /^[가-힣]{1,10}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
+			let regExp =/^[가-힣a-zA-Z\s]+$/;
 
 			if (shopName.val().trim() == "" || shopName.val() == null) {
 				alert("상점이름을 입력해주세요.");

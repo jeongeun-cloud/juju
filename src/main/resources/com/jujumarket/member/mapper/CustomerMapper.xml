@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jujumarket.member.mapper.CustomerMapper">
 
+	<!-- 상인 회원가입 -->
 	<insert id="insert">
 		insert into m_customer(idNo, contact)
 		values(#{idNo},
@@ -11,7 +12,7 @@
 
 	</insert>
 
-
+	<!-- 일반고객 회원가입정보 히스토리에 추가 -->
 	<insert id="insertJoinInfo">
 		insert into m_history (historyNo, idNo, condition, memCode)
 		values
@@ -19,11 +20,13 @@
 
 	</insert>
 
+	<!-- 일반고객 회원탈퇴정보 히스토리에 추가 -->
 	<insert id="insertDeleteInfo">
 		insert into m_history(historyNo, idNo, condition, memCode, reason)
 		values(seq_history.nextval, #{idNo}, '탈퇴', 'CUSTOMER', #{reason})
 	</insert>
 	
+	<!-- 아이디찾기(일반고객) -->
 	<select id="getEmailList" resultType="String">
 		select tm.emailAccount
 		from t_member tm, m_customer mc
@@ -33,7 +36,7 @@
 	
 	</select>
 
-
+	<!-- 일반고객 회원정보수정시 이전 회원정보 보여주기 -->
 	<select id="getCustomerInfoByIdNo"
 		resultType="com.jujumarket.member.domain.CustomerVO">
 		select tm.idNo, tm.emailAccount, tm.memName, tm.memAddr,
@@ -46,6 +49,7 @@
 
 	</select>
 
+	<!-- 일반고객 회원정보 수정 -->
 	<update id="modifyCustomerInfo">
 		update m_customer
 		set
@@ -54,6 +58,7 @@
 		#{idNo}
 	</update>
 
+	<!-- 일반고객 회원탈퇴 -->
 	<delete id="deleteCustomer">
 		delete m_customer
 		where idNo = #{idNo}

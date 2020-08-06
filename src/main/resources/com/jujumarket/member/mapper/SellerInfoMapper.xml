@@ -13,6 +13,7 @@
 
 	</insert>
 
+	<!-- 상인 회원정보 수정 -->
 	<update id="modifySellerInfo">
 		update m_shop_info
 		set
@@ -23,7 +24,7 @@
 		where idNo = #{idNo}
 	</update>
 
-
+	<!-- 상인 회원탈퇴  -->
 	<delete id="deleteSellerInfo">
 		delete m_shop_info
 		where idNo = #{idNo}
