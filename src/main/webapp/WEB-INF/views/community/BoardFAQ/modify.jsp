@@ -150,17 +150,17 @@
                         </div>
     
     
-                        <div class="from-group">
+                        <div style='display:none' class="from-group">
                             <label>게시글타입</label><input class="form-control" name='boardType'
                                 value='<c:out value="${BoardFAQ.boardType}"/>'readonly="readonly">
                         </div>
                         
-                        <div class="from-group">
+                        <div style='display:none' class="from-group">
                             <label>작성자</label><input class="form-control" name='idNo'
                                 value='<c:out value="${BoardFAQ.idNo}"/>'readonly="readonly">
                         </div>
                         
-                        <div class="from-group">
+                        <div  style='display:none' class="from-group">
                             <label>글번호</label><input class="form-control" name='postingNo'
                                 value='<c:out value="${BoardFAQ.postingNo}"/>'readonly="readonly">
                         </div>

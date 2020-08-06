@@ -141,13 +141,15 @@
                        <textarea class="form-control" id= 'content' rows="10" name='content' placeholder ='내용은 1~600자에 맞게 입력해주세요'></textarea>
                    </div>
 
-                   <div class="form-group">
-                       <label>게시글타입</label>
-                       <textarea class="form-control" name='boardType'  readonly ="readonly">1</textarea>
-                   </div>
 
                    <div class="form-group">
                        <label>작성자</label><input class="form-control" readonly ="readonly" name='idNo' value='운영자'>
+                   </div>
+                   
+                   
+                   <div style = 'display:none'class="form-group">
+                       <label>게시글타입</label>
+                       <textarea class="form-control" name='boardType'  readonly ="readonly">1</textarea>
                    </div>
 
                    <div class="jaju_regbtn">

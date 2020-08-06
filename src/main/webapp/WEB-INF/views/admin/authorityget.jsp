@@ -10,6 +10,16 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>상인 정보</title>
 </head>
+
+<style>
+  table {
+    border-collapse: collapse;
+  }
+  
+  table, td, th {
+    border: 1px solid black;
+  }
+  </style>
 <body>
 
 
@@ -35,9 +45,9 @@
 		                          <tr id="catal" class ='catal'>
 		                          <td>사업자 주소지</td>
 		                          <td><c:out value="${list.shopAddr }" /></td>
-		                          <td><c:out value="${list.idNo }" /></td>
+		                          <td style='visibility:hidden;'><c:out value="${list.idNo }"/></td>
 		                          
-		                          <!--   <td style='visibility:hidden;'><c:out value="${list.idNo }" /></td> -->
+		                          
 		                          
 		                   </c:forEach>
 		                  

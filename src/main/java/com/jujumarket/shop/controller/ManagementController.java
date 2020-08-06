@@ -122,9 +122,6 @@ public class ManagementController {
 		}
 
 	 
-	 
-	
-	 
 	//취소요청주문	또는 취소처리주문 확인
 	 @GetMapping("/refund") 
 	 public void refundlist(ItemCriteria cri,String date1,String date2,Model model,String orderStat) {
@@ -159,12 +156,6 @@ public class ManagementController {
 	 
 	 @PostMapping("/refund")
 	 public String refundStatus(String orderCode,String orderStat,String baskId ,String itemCode,Model model) {
-		
-//		 System.out.println("들어옴");
-//		 System.out.println(orderCode);
-//		 System.out.println(orderStat);
-//		 System.out.println(baskId);
-//		 System.out.println(itemCode);
 		 
 		 ManagementVO vo = new ManagementVO();
 		  
