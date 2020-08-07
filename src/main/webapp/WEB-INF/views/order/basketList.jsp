@@ -420,6 +420,11 @@ $(document).ready(
             console.log(response);  
             // 2. 새로 그린다 
            draw(response);
+            
+           // 3. 가격 계산
+           priceInit();
+            
+            
             }) 
             
       
@@ -454,22 +459,25 @@ $(document).ready(
 
 
 
-/* 페이지 로딩 되자마자 가격을 모두 더한 계산 값으로 입력하는 function 시작 */
-window.onload = function() {
-   
-   //가격 default 는 모두 더한 계산 값으로 입력한다 
-   for(var i=0; i<chkBoxes.length; i++) {
 
-        var price = chkBoxes[i].value * 1;
-        
-        totalPrice += price;
-
-    }
+// 가격 계산하는 function 시작 
+function priceInit() {
    
-   setTotalPrice(totalPrice);
+   var chkBoxes = document.getElementsByName("chkBox");
+   
+      //가격 default 는 모두 더한 계산 값으로 입력한다 
+      for(var i=0; i<chkBoxes.length; i++) {
+
+           var price = chkBoxes[i].value * 1;
+           
+           totalPrice += price;
+
+       }
+      
+      setTotalPrice(totalPrice);
    
 }
-/* 페이지 로딩 되자마자 가격을 모두 더한 계산 값으로 입력하는 function 끝 */
+// 가격 계산하는 function 끝 
 
 
 
@@ -566,10 +574,10 @@ function isAllCheck() {
 // 가격 설정하는 function 시작 
 function setTotalPrice(totalPrice) {
    
-	//totalPrice*1
+   //totalPrice*1
    document.getElementById("tPrice").innerHTML = addCommas(totalPrice*1);
    
-	//totalPrice*1 + 2500
+   //totalPrice*1 + 2500
    document.getElementById("realTotalPrice").innerHTML = addCommas(totalPrice*1 + 2500);
    
    
@@ -624,8 +632,8 @@ function allchkEvt(e) {
 
 /* 장바구니 리스트 ajax 로 불러오기 시작 */
 function getBasketList() {
-	
-	var id = document.getElementById("idNo").value;
+   
+   var id = document.getElementById("idNo").value;
    
    return $.ajax({
       url: "/product/basket",
@@ -659,7 +667,7 @@ function draw(jsonData) {
       
    }
    
-   		// json 마지막에 비회원 id 담음
+         // json 마지막에 비회원 id 담음
       $countBox.append("<div><input type='hidden' id='guestId' value=\""+jsonData[jsonData.length-1].idNo+"\"></div>");
    
 }
@@ -720,11 +728,11 @@ function deletefromBasket(baskId) {
 
 // 선택 상품 주문 onclick 이벤트 시작 
 function orderSelected() {
-	
-	var idNo = document.getElementById("idNo").value;
-	
-	
-	guestChk();
+   
+   var idNo = document.getElementById("idNo").value;
+   
+   
+   guestChk();
    
    var checkRow = [];
    
@@ -751,8 +759,8 @@ function orderSelected() {
    chkRow.value = checkRow;
 
    //if(비회원이면){
-		// 로그인페이지로 이동하는데 이동할 url, idNo, chkRow 데리고 간다   
-	//}
+      // 로그인페이지로 이동하는데 이동할 url, idNo, chkRow 데리고 간다   
+   //}
    
    var actionForm = $("#actionForm");
    actionForm.submit();
@@ -768,8 +776,8 @@ function orderSelected() {
 
 // 전체 상품 주문 onclick 이벤트 시작 
 function orderAll() {
-	
-	guestChk();
+   
+   guestChk();
    
    var checkRow = [];
    
@@ -780,13 +788,13 @@ function orderAll() {
    
    // 장바구니에 상품이 없을때
    if(checkRow.length==0) {
-	   alert("장바구니가 비었습니다.");
+      alert("장바구니가 비었습니다.");
        return false;
    }
    
    
-	// POST 방식으로 선택된 baskId 를 넘긴다 
-	var chkRow = document.getElementById("checkRow");
+   // POST 방식으로 선택된 baskId 를 넘긴다 
+   var chkRow = document.getElementById("checkRow");
 
    chkRow.value = checkRow;
    var actionForm = $("#actionForm");
@@ -799,14 +807,14 @@ function orderAll() {
 
 // idNo 비었으면 guest id 로 만들어주는 function 시작(비회원 주문용)
 function guestChk() {
-	
-	var idNo = document.getElementById("idNo").value;
-	var guestId = document.getElementById("guestId").value;
-	
-	if(idNo==null || idNo==""){
-		document.getElementById("idNo").value = guestId;
-	}
-		
+   
+   var idNo = document.getElementById("idNo").value;
+   var guestId = document.getElementById("guestId").value;
+   
+   if(idNo==null || idNo==""){
+      document.getElementById("idNo").value = guestId;
+   }
+      
 }
 // idNo 비었으면 guest id 로 만들어주는 function 끝(비회원 주문용)
 
@@ -818,6 +826,9 @@ function addCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
    
+
+
+
 
 
 
