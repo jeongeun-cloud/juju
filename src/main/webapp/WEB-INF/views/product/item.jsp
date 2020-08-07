@@ -634,10 +634,7 @@ input[type=range] {
               <c:if test="${product.saleStat!='품절' && product.saleStat!='판매중지'}">
               	<button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" >장바구니 담기</button>
               </c:if>
-              <!-- 품절인 상황에만 입고 신청 알람받기 -->
-              <c:if test="${product.saleStat=='품절'}">
-             		 <input type="button" onclick="applyAlarm()" value="입고 알람 받기" id="add-to-alarm" class="add-to-alarm"></input>
-              </c:if>
+             
             </div>
 
             <input type="hidden" value="${product.itemCode}" id="itemCode"/>
