@@ -100,4 +100,10 @@ select * from
 		O.idNo = #{idNo}
 	</select>
 
+	<!-- 나의 단골 리스트 보기  -->
+	<select id="getMyDangol" resultType="com.jujumarket.member.domain.DangolVO">
+	select rownum rn, d.shopName , s.idNo as shopidNo, d.memidNo
+  	from m_dangol d, m_shop s
+  	where memidno=#{memidNo} AND d.shopName=s.shopName
+	</select>
 </mapper>

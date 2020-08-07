@@ -294,5 +294,18 @@ public class MyPageController {
 		session.invalidate();
 
 	}
+	//나의 단골 리스트 보기 
+	@GetMapping("/myDangol")
+	public void myDangol(HttpSession session,Model model) {
+		MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+		String memidNo = member == null ? "" : member.getIdNo().trim();
+		
+		
+		
+		model.addAttribute("myDangol", myPageService.getMyDangol(memidNo));
+		
+		
+		
+	}
 
 }

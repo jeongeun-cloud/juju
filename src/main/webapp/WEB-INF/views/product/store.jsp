@@ -117,6 +117,15 @@
 		    </div>
 		    <div id="shop">
 		    	<p><c:out value="${seller.shopName}"/></p>
+		    	
+		    	<!--단골 되기 버튼  -->
+		    	<c:if test="${memidNo ne '' }">
+		    	<input type="button" value="<c:out value="${checkDangol}"/>" id="Dangol" class="Dangol" onclick="dangol();"></input>
+		    	</c:if>
+		    	<c:if test="${memidNo eq '' }">
+		    	로그인 하시면 단골 등록 하실 수 있습니다.
+		    	</c:if>
+		    	단골 수 : <c:out value="${totalDangol }"/>
 		    </div>
 		
 		    <div id="itemContainer">
@@ -166,6 +175,10 @@
 		    
         </div>
 	</div>
+	<!--shopId  -->
+	<input type="hidden" id="hiddenShopId"  value="${seller.shopName}"/>
+	
+ 	 
 </div>
 
 <script>
@@ -177,7 +190,58 @@
 		   actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		   actionForm.submit();
 		});
-	}
+
+	});
+		//단골 신청 ,취소
+		function dangol(){
+			var shopName = document.getElementById("hiddenShopId").value;
+			
+			
+			var dangolBtn= document.getElementById("Dangol");
+		
+			
+			
+			if(dangolBtn.value=='단골되기'){
+				dangolBtn.value='단골취소'
+				return $.ajax({
+					url:'/product/store/addDangol',
+					type:"GET",
+					data:{"shopName":shopName},
+					dataType:"text",
+					success:function(result){
+						console.log("알람통신 성공");
+						alert("단골신청이 완료되었습니다.")
+					},
+					error:function(){console.log("알람통신 실패")}
+				});
+			}
+			else {
+				dangolBtn.value='단골되기';
+				
+				
+				console.log("가게"+shopName);
+				return $.ajax({
+					url:'/product/store/cancelDangol',
+					type:"GET",
+					data:{"shopName":shopName},
+					dataType:"text",
+					success:function(result){
+						console.log("알람통신 성공");
+						alert("단골 취소가 완료되었습니다.")
+					},
+					error:function(){console.log("알람통신 실패")}
+				});
+				
+			}
+				
+				
+		}
+		
+		
+	
+	
+	
+
 </script>
 </body>
 </html>
