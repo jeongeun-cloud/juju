@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.admin.mapper.MemberManageMapper">
+
+	<select id="getAllMember" resultType="com.jujumarket.admin.domain.MemberManageVO">
+		select * from t_member
+	</select>
+	
+	<select id="getRegDate" resultType="com.jujumarket.admin.domain.MemberManageVO">
+		select h.condiUpdateDate from t_member m, m_history h
+		where m.idNo = h.idNo
+		and condition = '가입'
+	</select>
+
+</mapper>
