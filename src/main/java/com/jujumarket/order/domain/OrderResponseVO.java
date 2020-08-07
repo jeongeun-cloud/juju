@@ -15,5 +15,6 @@ public class OrderResponseVO {
 	private String itemCode;
 	private String baskId;
 	
+	private String sellerId;
 	
 }

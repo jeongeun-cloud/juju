@@ -655,7 +655,7 @@ function draw(jsonData) {
    
    for(var i=0; i<jsonData.length-1 ; i++) {
       
-      $tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id=\""+jsonData[i].baskId+"\"  checked='checked' value=\""+jsonData[i].price*jsonData[i].itemNum+"\" onclick='onechkEvt(this)'></td><td><img id='thumbnailImg' src=\""+jsonData[i].itemImg1+"\"></td><td>"+jsonData[i].itemName+"<br>"+addCommas(jsonData[i].price)+"원</td><td>"+jsonData[i].itemNum+"개</td><td>"+addCommas(jsonData[i].price*jsonData[i].itemNum)+"원</td></tr>");
+      $tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id=\""+jsonData[i].baskId+"\"  checked='checked' value=\""+jsonData[i].price*jsonData[i].itemNum+"\" onclick='onechkEvt(this)'></td><td><img id='thumbnailImg' src='/resources/upload/"+jsonData[i].sellerId+"/"+jsonData[i].itemImg1+"'></td><td>"+jsonData[i].itemName+"<br>"+addCommas(jsonData[i].price)+"원</td><td>"+jsonData[i].itemNum+"개</td><td>"+addCommas(jsonData[i].price*jsonData[i].itemNum)+"원</td></tr>");
       
    }
    
