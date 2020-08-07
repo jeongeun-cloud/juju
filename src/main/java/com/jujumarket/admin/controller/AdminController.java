@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jujumarket.admin.domain.MemStatVO;
 import com.jujumarket.admin.service.MemStatService;
+import com.jujumarket.admin.service.MemberManageService;
 import com.jujumarket.admin.service.QnaListService;
 import com.jujumarket.board.service.BoardFAQService;
 import com.jujumarket.shop.domain.ItemCriteria;
@@ -27,6 +28,7 @@ public class AdminController {
 	private MemStatService msservice;
 	private BoardFAQService fservice;
 	private QnaListService qservice;
+	private MemberManageService mmservice;
 	
 	
 	@GetMapping("/index")
@@ -147,6 +149,13 @@ public class AdminController {
 		
 		model.addAttribute("qna",qservice.getQnaList(cri));
 		model.addAttribute("pageMaker", new ItemPageDTO(cri,total));
+	}
+	
+	@GetMapping("/memberManage")
+	public void memberManage(Model model) {
+		
+		model.addAttribute("regDate", mmservice.getRegDate());
+		model.addAttribute("allMember", mmservice.getAllMember());
 	}
 	
 }
