@@ -230,6 +230,8 @@ margin: auto;
                            				}">
                     <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
                     <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
+                     <p><b>단골 상점 </b></p>
+                    <li> <a href='/mypage/myDangol'><i class="fa fa-check" ></i>상점 바로가기</a></li>
                         </c:when>
                         </c:choose>
                     </c:if>

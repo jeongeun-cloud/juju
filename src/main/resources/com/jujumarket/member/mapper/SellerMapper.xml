@@ -59,7 +59,39 @@
 		where idNo = #{idNo}
 	</delete>
 
-
-
+	<!-- 단골 추기  -->
+	<insert id="addDangol">
+	insert into m_dangol
+	values(SEQ_dangolNO.nextval,#{memidNo},#{shopName})
+	</insert>
+	
+	<!-- 단골 취소 -->
+	<delete id="cancelDangol">
+	delete from m_dangol
+	where memidNo=#{memidNo} AND shopName=#{shopName}
+	</delete>
+	
+	<!--단골 리스트  -->
+	<select id="getDangol" resultType="com.jujumarket.member.domain.DangolVO">
+	select rownum rn,d.memidNo, d.shopName,t.emailaccount
+    from m_dangol d, t_member t
+    where shopName=#{shopName} AND d.memidNo=t.idNo
+    </select>
+    
+    <!--단골 신청했는지 안했는지 확인하기  -->
+    <select id="checkDangol" resultType="int">
+    select count(*)
+	from m_dangol
+    where shopName=#{shopName} AND memidNo=#{memidNo}
+    </select>
+    
+    <!--총 단골 수   -->
+    <select id="totalDangol" resultType="java.lang.Integer">
+     select count(shopName)
+ 	 from m_dangol
+     where shopName= #{shopName}
+ 	 group by (shopName)
+    </select>
+	
 
 </mapper>

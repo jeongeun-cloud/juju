@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.jujumarket.member.domain.CustomerVO;
+import com.jujumarket.member.domain.DangolVO;
 import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SellerVO;
 //import com.jujumarket.member.domain.MemberVO;
@@ -92,6 +93,33 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO getMemberInfo(String emailAccount) {
 		return memberMapper.getMemberInfo(emailAccount);
+	}
+	
+	//단골 되기
+	@Override
+	public void addDangol(DangolVO vo) {
+		 sellerMapper.addDangol(vo);
+	}
+	//단골 취소
+	@Override
+	public void cancelDangol(DangolVO vo) {
+		sellerMapper.cancelDangol(vo);
+		
+	}
+	//단골 리스트
+	@Override
+	public List<DangolVO> getDangol(String shopName) {
+		return sellerMapper.getDangol(shopName);
+	}
+	
+	@Override
+	public int checkDangol(DangolVO vo) {
+		return sellerMapper.checkDangol(vo);
+	}
+	//총 단골 수 
+	@Override
+	public Integer totalDangol(String shopName) {
+		return sellerMapper.totalDangol(shopName);
 	}
 
 }

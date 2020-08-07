@@ -189,7 +189,7 @@
                         <input class="quick_btn" type="button" value="상품등록" onClick="location.href='/shop/list'">
                         <input class="quick_btn" type="button" value="주문조회" onClick="location.href='/shop/searchorder'">
                         <input class="quick_btn" type="button" value="통계관리" onClick="location.href='/shop/stats'">
-                        <input class="quick_btn" type="button" value="주문관리" onClick="location.href='/shop/sales'">
+                        <input class="quick_btn" type="button" value="단골관리" onClick="location.href='/shop/dangol'">
 
                     </div>
                 </div>
