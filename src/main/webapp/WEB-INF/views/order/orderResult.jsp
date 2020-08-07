@@ -283,7 +283,7 @@
 
             <c:forEach var="item" items="${itemList}">
                <tr cellpadding="40" align=center>
-                  <td><img id="basketItemImg" src="<c:out value="${item.itemImg1}"/>"></td>
+                  <td><img id="basketItemImg" src="/resources/upload/<c:out value="${item.sellerId}"/>/<c:out value="${item.itemImg1}"/>"></td>
                   <td><c:out value="${item.itemName}"></c:out></td>
                   <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" /></td>
                   <td><c:out value="${item.itemNum}"></c:out></td>

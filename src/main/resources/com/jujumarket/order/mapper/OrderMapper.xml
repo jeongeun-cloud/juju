@@ -42,12 +42,12 @@
 
    <select id="getone" resultType="com.jujumarket.main.domain.BasketVO">
       <![CDATA[
-      SELECT *
-      FROM t_basket b
-      LEFT JOIN t_item i
-      ON b.itemcode = i.itemcode
-      WHERE b.baskId = #{baskId}
-      ORDER BY baskId
+		SELECT b.baskId, b.itemNum, b.idNo, b.itemCode, i.itemName, i.itemImg1, i.price, i.normPrice, i.idno sellerId
+		FROM t_basket b
+		LEFT JOIN t_item i
+		ON b.itemcode = i.itemcode
+		WHERE b.baskId = #{baskId}
+		ORDER BY baskId
       ]]>
    </select>
 
@@ -69,7 +69,7 @@
 
    <select id="showOrderList"
       resultType="com.jujumarket.order.domain.OrderResponseVO">
-      select item.itemImg1, item.itemCode, item.itemName,
+      select item.itemImg1, item.itemCode, item.itemName, item.idNo sellerId,
       item.normPrice, oi.itemNum, oi.disAmount, oi.totalPrice
       from t_item
       item, t_order_info oi

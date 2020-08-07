@@ -21,12 +21,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <select id="getList" resultType="com.jujumarket.main.domain.BasketVO">
 <![CDATA[
-SELECT *
+
+SELECT b.baskId, b.itemNum, b.idNo, b.itemCode, i.itemName, i.itemImg1, i.price, i.normPrice, i.idno sellerId
 FROM t_basket b
 LEFT JOIN t_item i
 ON b.itemcode = i.itemcode
 WHERE b.idNo = #{id}
 ORDER BY baskId
+
 ]]>
 </select>
 
