@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>shop manage sales</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
          li{
             list-style: none;

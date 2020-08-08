@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jujumarket.admin.domain.BannerVO;
+import com.jujumarket.admin.domain.ColumnVO;
 import com.jujumarket.admin.domain.ListItemVO;
 import com.jujumarket.admin.mapper.BannerMapper;
 import com.jujumarket.shop.domain.ItemCriteria;
@@ -90,6 +91,27 @@ public class BannerServiceImpl implements BannerService {
 		log.info("deleSeason......");
 		
 		mapper.deleSeason(itemCode);
+	}
+
+	@Override
+	public void addColumn(ColumnVO vo) {
+		log.info("addColumn......");
+		
+		mapper.addColumn(vo);
+	}
+
+	@Override
+	public List<ColumnVO> getColumn() {
+		log.info("getColumn......");
+		
+		return mapper.getColumn();
+	}
+
+	@Override
+	public void modifyColumn(ColumnVO vo) {
+		log.info("modifyColumn......");
+		
+		mapper.modifyColumn(vo);
 	}
 
 }

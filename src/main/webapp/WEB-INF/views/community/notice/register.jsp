@@ -204,24 +204,26 @@ margin-top : 20px;
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">Board Register</div>
+				<div class="panel-heading">공지사항 작성</div>
 				<div class="panel-body">
 					<form id = 'registerForm' role="form" action="/community/notice/register" method="post">
 						<div class="from-group">
-							<label>Title</label><input  id= 'title' class="form-control" name='title' placeholder ='제목은 1~30자에 맞게 입력해주세요'>
+							<label>제목</label><input  id= 'title' class="form-control" name='title' placeholder ='제목은 1~30자에 맞게 입력해주세요'>
 						</div>
 						<div class="form-group">
 							<label>내용</label>
 							<textarea class="form-control" id='content' rows="10" name='content'  placeholder ='내용은 1~600자에 맞게 입력해주세요'></textarea>
 						</div>
 
-						<div class="form-group">
-							<label>게시글타입</label>
-							<textarea class="form-control" name='boardType'  readonly ="readonly" >2</textarea>
-						</div>
+					
 
 						<div class="form-group">
 							<label>작성자</label><input class="form-control"  readonly ="readonly" name='idNo' value='운영자'>
+						</div>
+						
+						<div style='display:none' class="form-group">
+							<label>게시글타입</label>
+							<textarea class="form-control" name='boardType'  readonly ="readonly" >2</textarea>
 						</div>
 
 

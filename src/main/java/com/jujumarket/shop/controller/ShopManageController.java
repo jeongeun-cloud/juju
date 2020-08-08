@@ -13,9 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jujumarket.board.service.BoardFAQService;
+import com.jujumarket.member.domain.DangolVO;
 import com.jujumarket.member.domain.MemberVO;
+import com.jujumarket.member.service.MemberService;
+import com.jujumarket.shop.domain.ItemCriteria;
+import com.jujumarket.shop.domain.ItemPageDTO;
 import com.jujumarket.shop.domain.ShopManageVO;
 import com.jujumarket.shop.domain.WholeStaVO;
+import com.jujumarket.shop.service.RegisterItemService;
 import com.jujumarket.shop.service.ShopManageService;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +34,8 @@ public class ShopManageController {
 
 	private ShopManageService smservice;
 	private BoardFAQService fservice;
+	private RegisterItemService itemService;
+	private MemberService mservice;
 	
 	@GetMapping("/")
 	public String index(HttpSession session, Model model) {
@@ -39,6 +46,16 @@ public class ShopManageController {
 		 
 		 MemberVO member = (MemberVO)session.getAttribute("sessionMember");
 		  String idNo = member == null ? "" : member.getIdNo().trim(); 
+		  
+		  
+		
+		  String shopName=smservice.getShopName(idNo);
+		  
+		  model.addAttribute("shopName", shopName);
+		  
+		  
+		  smvo.setShopId(idNo);
+		  model.addAttribute("shopId", idNo);
 		
 		  Integer todayordercnt = smservice.todayOrderCnt(idNo);
 		  if(todayordercnt == null ) {  todayordercnt=0; }
@@ -62,6 +79,12 @@ public class ShopManageController {
 		//공지사항
 		model.addAttribute("noticelist",fservice.getnotice());
 		model.addAttribute("faqlist",fservice.getfaq());	
+		
+		// 상품 아이템 갯수 출력
+		ItemCriteria cri = new ItemCriteria();
+		cri.setIdNo(idNo);
+		int total = itemService.getTotal(cri);
+		model.addAttribute("itemTotal", new ItemPageDTO(cri, total));
 			
 		  
 		return "shop/index";
@@ -197,6 +220,26 @@ public class ShopManageController {
 		}
 		model.addAttribute("yy", result4);
 
+	}
+	//상인 페이지에서 단골 회원 list 끌고 오기
+	@GetMapping("/dangol")
+	public void dangolList(HttpSession session,Model model) {
+		
+		MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+	    String shopidNo = member == null ? "" : member.getIdNo().trim();
+	    
+	    String shopName=smservice.getShopName(shopidNo);
+	    
+	    model.addAttribute("shopName", shopName);
+	    
+	    model.addAttribute("dangolList",mservice.getDangol(shopName));
+	    
+	    Integer total=mservice.totalDangol(shopName);
+		if(total==null) {total=0;}
+		model.addAttribute("totalDangol",total );
+	    
+	    
+		
 	}
 	
 	

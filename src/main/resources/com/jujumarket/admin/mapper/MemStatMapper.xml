@@ -20,12 +20,18 @@ group by memCode
 </select>
 
 <select id="getWithdraw" resultType="com.jujumarket.admin.domain.MemStatVO">
-select rownum withdrawNum , a.*
+  <![CDATA[
+select  a.*
 from(
-select idNo as  withdrawIdNo, reason as withdrawReason, to_char(condiupdatedate, 'yy/mm/dd') as withdrawDay
-from m_history
-where condition='탈퇴'
-order by withdrawDay desc)a
+select rownum rn, b.*
+    from (select idNo as  withdrawIdNo, reason as withdrawReason, to_char(condiupdatedate, 'yy/mm/dd') as withdrawDay
+          from m_history
+          where condition='탈퇴'
+          order by withdrawDay desc)b
+ 	where rownum <= #{pageNum} * #{amount}
+)a
+where rn > (#{pageNum} -1) * #{amount}
+]]>
 </select>
 
 <select id="getWithdrawTotal" resultType="int">
@@ -95,5 +101,20 @@ where condition='탈퇴'
 select count(*) iTodayWithdrawT
 from m_history
 where condition='탈퇴' AND to_char(condiupdatedate, 'yy/mm/dd') = to_char(sysdate)
+</select>
+
+<!--오늘 1:1 고객  -->
+<select id="cNum" resultType="int">
+select count(*)cNum
+from t_board_qna q, t_member m
+where q.idNo=m.idNo and m.memCode='CUSTOMER' 
+and  to_char(updateDate, 'yy/mm/dd')=to_char(sysdate)
+</select>
+<!--오늘 1:1 상인  -->
+<select id="sNum" resultType="int">
+select count(*)sNum
+from t_board_qna q, t_member m
+where q.idNo=m.idNo and m.memCode='SELLER'
+and  to_char(updateDate, 'yy/mm/dd')=to_char(sysdate)
 </select>
 </mapper>

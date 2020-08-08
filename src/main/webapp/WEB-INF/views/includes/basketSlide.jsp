@@ -349,8 +349,8 @@ var id = document.getElementById("hiddenId").value;
       console.log("결과 : " + jsonData)
       
       for(var i=0; i<jsonData.length-1; i++) {
-         
-         $basketList.append("<div id='basketImg'><img src=\""+jsonData[i].itemImg1+"\" style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
+
+         $basketList.append("<div id='basketImg'><img src='/resources/upload/"+jsonData[i].sellerId+"/"+jsonData[i].itemImg1+"' style= \"width:100px; border: 3px; float:left; margin-left: 10px; margin-top:10px; margin-bottom:30px; \" /></div>");
          
          $basketList.append("<div id='basketContent'><button id='dltBtn' value=\""+jsonData[i].baskId+"\" onclick='dltEvent(this.value)'><img id='dltBtnImg' src='/resources/images/deleteBasketBtn.png'></button><h5>"+jsonData[i].itemName+"<br>"+addCommas(jsonData[i].price)+"원<br>"+jsonData[i].itemNum+"개<br>"+jsonData[i].baskId+"<br></h5></div>");
 	

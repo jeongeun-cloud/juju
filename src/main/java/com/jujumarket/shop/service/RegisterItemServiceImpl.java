@@ -13,8 +13,9 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.jujumarket.main.domain.AlarmVO;
+
 import com.jujumarket.shop.domain.CategoryVO;
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.RegisterItemVO;
@@ -57,10 +58,13 @@ public class RegisterItemServiceImpl implements RegisterItemService {
 		return mapper.read(itemCode);
 	}
 
+	@Transactional
 	@Override
 	public boolean modify(RegisterItemVO register) {
 		log.info("modify........" + register);
-		return mapper.update(register) == 1;
+		
+		return mapper.updateSeason(register) == 1 &&
+		mapper.update(register) == 1;
 	}
 
 	@Override
@@ -175,10 +179,5 @@ public class RegisterItemServiceImpl implements RegisterItemService {
 		
 		return mapper.getResultTotal(cri);
 	}
-	//알람받을 사람 list
-	@Override
-	public List<AlarmVO> getAlarmList(String itemCode) {
-		return mapper.getAlarmList(itemCode);
-	}
-
+	
 }

@@ -12,7 +12,6 @@
 </head>
 
 
-
 <style>
   table {
     border-collapse: collapse;
@@ -23,7 +22,9 @@
   }
   </style>
 <body>
-
+                  
+    <input class="quick_btn" type="button" value="전체주문보기" onClick="location.href='/shop/searchorder'">
+    <input class="quick_btn" type="button" value="송창처리" onClick="location.href='/shop/shipping'">
 
 		           <form id='searchForm' action="/shop/shipping" method = 'get'>  
 				         

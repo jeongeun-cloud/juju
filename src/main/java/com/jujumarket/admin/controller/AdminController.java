@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jujumarket.admin.domain.MemStatVO;
 import com.jujumarket.admin.service.MemStatService;
+import com.jujumarket.admin.service.MemberManageService;
 import com.jujumarket.admin.service.QnaListService;
 import com.jujumarket.board.service.BoardFAQService;
 import com.jujumarket.shop.domain.ItemCriteria;
@@ -27,6 +28,7 @@ public class AdminController {
 	private MemStatService msservice;
 	private BoardFAQService fservice;
 	private QnaListService qservice;
+	private MemberManageService mmservice;
 	
 	
 	@GetMapping("/index")
@@ -62,12 +64,26 @@ public class AdminController {
 		model.addAttribute("noticelist",fservice.getnotice());
 		model.addAttribute("faqlist",fservice.getfaq());
 		
+		//오늘 1:1 문의 한 고객,상인 num
+		int cNum =msservice.cNum();
+		vo.setCNum(cNum);
+		model.addAttribute("cNum", vo.getCNum());
+		
+		int sNum =msservice.sNum();
+		vo.setSNum(sNum);
+		model.addAttribute("sNum", vo.getSNum());
+		
 	}
 	//회원현황
 	@GetMapping("/memberStat")
 	public void minfo(@RequestParam(value="searchDay", defaultValue="202008") String day , Model model) {
 		
 		//System.out.println("searchDay는"+day);
+		String year= day.substring(0, 4);
+		String month=day.substring(4,6);
+		
+		model.addAttribute("year",year);
+		model.addAttribute("month",month);
 		
 		MemStatVO vo = new MemStatVO();
 		//일반회원
@@ -121,15 +137,25 @@ public class AdminController {
 		
 		int total = msservice.getWithdrawTotal(cri);
 		
-		model.addAttribute("withdraw", msservice.getWithdraw());
+		model.addAttribute("withdraw", msservice.getWithdraw(cri));
 		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 	}
 
 	//1:1문의 게시판 모아보기
 	@GetMapping("/QnaList")
-	public void qnalist(Model model) {
+	public void qnalist(ItemCriteria cri, Model model) {
 		
-		model.addAttribute("qna",qservice.getQnaList());
+		int total = qservice.QnalistTotal(cri);
+		
+		model.addAttribute("qna",qservice.getQnaList(cri));
+		model.addAttribute("pageMaker", new ItemPageDTO(cri,total));
+	}
+	
+	@GetMapping("/memberManage")
+	public void memberManage(Model model) {
+		
+		model.addAttribute("regDate", mmservice.getRegDate());
+		model.addAttribute("allMember", mmservice.getAllMember());
 	}
 	
 }

@@ -350,14 +350,8 @@ margin-top: 10px;
       <option value="C"
       <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>
       <option value="I"
-      <c:out value="${pageMaker.cri.type eq 'I'?'selected':''}"/>>아이다</option>
-      <option value="TC"
       <c:out value="${pageMaker.cri.type eq 'TC'?'selected':''}"/>>제목 or 내용</option>
-      <option value="TI"
-      <c:out value="${pageMaker.cri.type eq 'TI'?'selected':''}"/>>제목 or 아이디</option>
-      <option value="TCI"
-      <c:out value="${pageMaker.cri.type eq 'TIC'?'selected':''}"/>>제목 or 내용 or 아이디</option>
-      
+
       </select>
       
       <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
@@ -376,7 +370,6 @@ margin-top: 10px;
                   <th>글 제목</th>
                   <th>글 내용</th>
 
-                  <th>글 타입</th>
                   <th>등록일</th>
                </tr>
             </thead>
@@ -384,14 +377,14 @@ margin-top: 10px;
              
             <c:forEach items="${notice}" var="notice">
                <tr>
-                  <td><c:out value="${notice.postingNo }" /></td>
+                  <td><c:out value="${notice.rowNum+1-((pageMaker.cri.pageNum-1)*10)}" /></td>
 
                         <td><a class ='move' href='<c:out value="${notice.postingNo}"/>'>
                   <c:out value="${notice.title }" /></a></td>
          
 
                   <td><c:out value="${notice.content }" /></td>
-                  <td><c:out value="${notice.boardType }" /></td>
+  
                   <td><fmt:formatDate pattern="yyyy/MM/dd"
                         value="${notice.regDate }" /></td>
 
@@ -524,7 +517,7 @@ margin-top: 10px;
                });
          
                     
-            $(".paginate_button a").on("click", function(e){
+            $(".paginate_button1 a").on("click", function(e){
               
            
                e.preventDefault();

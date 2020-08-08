@@ -5,13 +5,23 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.jujumarket.admin.mapper.QnaListMapper">
 
 <select id="getQnaList" resultType="com.jujumarket.admin.domain.QnaVO">
-select rownum no , a.*
-from(select q.title,q.content,to_char(q.regDate,'yy/mm/dd') regDate ,q.idNo , t.emailAccount,q.postingNo
-from t_board_qna q, t_member t
-where q.idno=t.idno
-order by regDate desc
-)a 
+<![CDATA[select  a.*
+from(select rownum rn , b.*
+     from
+        (select q.title,q.content, regDate ,q.idNo , t.emailAccount,q.postingNo
+		from t_board_qna q, t_member t
+		where q.idno=t.idno 
+		order by regDate desc)b
+	where rownum <= #{pageNum} * #{amount}
+			)a
+where rn > (#{pageNum} -1) * #{amount}
 
+      ]]>
+</select>
+
+<select id="QnalistTotal" resultType="int">
+select count(*) total
+from t_board_qna
 </select>
 
 </mapper>

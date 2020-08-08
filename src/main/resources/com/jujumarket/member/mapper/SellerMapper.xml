@@ -4,62 +4,107 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jujumarket.member.mapper.SellerMapper">
 
-	<!-- 상인고객 회원가입 -->
-	<insert id="insert">
-		insert into m_shop(idNo, shopName, shopAddr, shopPostCode, contact1, contact2)
-		values(#{idNo}, #{shopName}, #{shopAddr, jdbcType=VARCHAR}, #{shopPostCode, jdbcType=VARCHAR}, #{contact1}, #{contact2, jdbcType=VARCHAR})
-	</insert>
+   <insert id="insert">
+      insert into m_shop(idNo, shopName, shopAddr, shopPostCode,
+      contact1, contact2)
+      values(#{idNo}, #{shopName}, #{shopAddr, jdbcType=VARCHAR}, #{shopPostCode, jdbcType=VARCHAR}, #{contact1}, #{contact2, jdbcType=VARCHAR})
 
-	<!-- 상인고객 회원가입정보 히스토리에 추가 -->
-	<insert id="insertJoinInfo">
-		insert into m_history (historyNo, idNo, condition, memCode)
-		values (seq_history.nextval, #{idNo}, '주니어상인', 'JUNIOR')
-	</insert>
+   </insert>
 
-	<!-- 상인고객 회원탈퇴정보 히스토리에 추가 -->
-	<insert id="insertDeleteInfo">
-		insert into m_history(historyNo, idNo, condition, memCode, reason)
-		values(seq_history.nextval, #{idNo}, '탈퇴', 'SELLER', #{reason})
+   <insert id="insertJoinInfo">
+      insert into m_history (historyNo, idNo, condition, memCode)
+      values (seq_history.nextval, #{idNo}, '주니어상인', 'JUNIOR')
+   </insert>
+
+   <insert id="insertDeleteInfo">
+      insert into m_history(historyNo, idNo, condition, memCode, reason)
+      values(seq_history.nextval, #{idNo}, '탈퇴', 'SELLER', #{reason})
+   </insert>
+   
+   <select id="getEmailList" resultType="String">
+      select tm.emailAccount
+      from t_member tm, m_shop ms
+      where tm.idNo = ms.idNo 
+      and tm.memName = #{memName}
+      and ms.contact1 = #{contact1}
+   
+   </select>
+
+
+
+
+   <select id="getSellerInfoByIdNo"
+      resultType="com.jujumarket.member.domain.SellerVO">
+      select
+      tm.idNo, tm.emailAccount, tm.memName, tm.memAddr,
+      tm.postCode,
+      ms.shopName, ms.shopAddr, ms.contact1, ms.contact2,
+      ms.shopPostCode,
+      msi.businessCode,
+      msi.businessRegFile, msi.bank,
+      msi.bankAccount, msi.thumbImg,
+      msi.backImg
+      from t_member tm, m_shop ms,
+      m_shop_info msi
+      where tm.idNo =
+      ms.idNo
+      and ms.idNo = msi.idNo
+      and tm.idNo
+      = #{idNo}
+
+   </select>
+
+   <update id="modifySellerInfo">
+      update m_shop
+      set
+      shopName = #{shopName},
+      shopAddr = #{shopAddr, jdbcType=VARCHAR},
+      shopPostCode = #{shopPostCode, jdbcType=VARCHAR},
+      contact1 = #{contact1},
+      contact2 = #{contact2, jdbcType=VARCHAR}
+      where idNo =
+      #{idNo}
+   </update>
+
+   <delete id="deleteSeller">
+      delete m_shop
+      where idNo = #{idNo}
+
+   </delete>
+
+	<!-- 단골 추기  -->
+	<insert id="addDangol">
+	insert into m_dangol
+	values(SEQ_dangolNO.nextval,#{memidNo},#{shopName})
 	</insert>
 	
-	<!-- 아이디찾기(상인고객) -->
-	<select id="getEmailList" resultType="String">
-		select TM.emailAccount
-		from t_member TM, m_shop MS
-		where TM.idNo = MS.idNo 
-		and TM.memName = #{memName}
-		and MS.contact1 = #{contact1}
-	
-	</select>
-
-	<!-- 상인 회원정보 수정화면 @GetMapping시 필요-->
-	<select id="getSellerInfoByIdNo"
-		resultType="com.jujumarket.member.domain.SellerVO">
-		select TM.idNo, TM.emailAccount, TM.memName, TM.memAddr, TM.postCode, MS.shopName, 
-		MS.shopAddr, MS.contact1, MS.contact2, MS.shopPostCode, MSI.businessCode, MSI.businessRegFile, 
-		MSI.bank, MSI.bankAccount, MSI.thumbImg, MSI.backImg
-		from t_member TM, m_shop MS, m_shop_info MSI
-		where TM.idNo = MS.idNo
-		and MS.idNo = MSI.idNo
-		and TM.idNo = #{idNo}
-
-	</select>
-
-	<!-- 상인 회원정보 수정 -->
-	<update id="modifySellerInfo">
-		update m_shop
-		set	shopName = #{shopName},	shopAddr = #{shopAddr, jdbcType=VARCHAR}, shopPostCode = #{shopPostCode, jdbcType=VARCHAR},
-		contact1 = #{contact1}, contact2 = #{contact2, jdbcType=VARCHAR}
-		where idNo = #{idNo}
-	</update>
-
-	<!-- 상인 회원탈퇴 -->
-	<delete id="deleteSeller">
-		delete m_shop
-		where idNo = #{idNo}
+	<!-- 단골 취소 -->
+	<delete id="cancelDangol">
+	delete from m_dangol
+	where memidNo=#{memidNo} AND shopName=#{shopName}
 	</delete>
-
-
-
+	
+	<!--단골 리스트  -->
+	<select id="getDangol" resultType="com.jujumarket.member.domain.DangolVO">
+	select rownum rn,d.memidNo, d.shopName,t.emailaccount
+    from m_dangol d, t_member t
+    where shopName=#{shopName} AND d.memidNo=t.idNo
+    </select>
+    
+    <!--단골 신청했는지 안했는지 확인하기  -->
+    <select id="checkDangol" resultType="int">
+    select count(*)
+	from m_dangol
+    where shopName=#{shopName} AND memidNo=#{memidNo}
+    </select>
+    
+    <!--총 단골 수   -->
+    <select id="totalDangol" resultType="java.lang.Integer">
+     select count(shopName)
+ 	 from m_dangol
+     where shopName= #{shopName}
+ 	 group by (shopName)
+    </select>
+	
 
 </mapper>

@@ -20,6 +20,9 @@ table, td, th {
 }
 </style>
  		<body>
+ 		
+ 		    <input class="quick_btn" type="button" value="전체주문보기" onClick="location.href='/shop/searchorder'">
+   			 <input class="quick_btn" type="button" value="송창처리" onClick="location.href='/shop/shipping'">
   
 		      <form id='searchForm' action="/shop/searchorder" method = 'get'>  
 		          <div> 검색어
@@ -47,7 +50,7 @@ table, td, th {
 		
 		          <div > 주문상태
 		                <input name='orderStat' type="radio" value = 'all' checked>전체
-		                <input name='orderStat' type="radio" value = '상품준비중'>상품준비중
+		                <input name='orderStat' type="radio" value = '주문완료'>주문완료
 		                <input name='orderStat' type="radio" value = '배송중'>배송중
 		                <input name='orderStat' type="radio" value = 'orderStat'>배송완료
 		                
@@ -179,7 +182,7 @@ $(document).ready(function(){
     	  
   
     
-              if(!searchForm.find("option:selected").val()){
+        /*       if(!searchForm.find("option:selected").val()){
                  alert("검색종류를 선택하세요");
                  return false;
                  
@@ -188,7 +191,7 @@ $(document).ready(function(){
                  alert("검색어 입력하세요");
                  return false;
      
-              }
+              } */
               searchForm.find("input[name='pageNum']").val("1");
              
               

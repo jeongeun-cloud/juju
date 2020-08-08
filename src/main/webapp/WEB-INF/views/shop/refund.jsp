@@ -46,8 +46,8 @@ table, td, th {
 
 		
 		          <div > 주문상태
-		                 <input name='orderStat' type="radio" value = '취소처리요청'>취소처리요청
-		                 <input name='orderStat' type="radio" value = '취소처리완료'>취소처리완료
+		                 <input name='orderStat' type="radio" value = '환불처리요청'>환불처리요청
+		                 <input name='orderStat' type="radio" value = '환불처리완료'>환불처리완료
 		                
 		      			
 		      			 <button class='btn btn-default' id="searchBtn"> 검색 </button> 

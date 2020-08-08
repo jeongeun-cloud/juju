@@ -87,7 +87,7 @@
                                 <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i> 이벤트</a></li>
                             <br>
                             <p><b>회원관리</b></p>
-                                
+                                <li><a href='/admin/memberManage'><i class="fa fa-check" ></i> 회원 관리</a></li>
                                 <li><a href='/admin/memberStat'><i class="fa fa-check" ></i> 회원 현황</a></li>
                                 <li><a href='#'><i class="fa fa-check" ></i> 상인 승인</a></li>
                                 <li><a href='/admin/withdraw'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
@@ -132,11 +132,23 @@
 								    <option value="12">12</option>
 								</select>
               		     
-              		  
-              		     <input type="text" name="searchDay" id="searchDay">
-	              		 <input type="submit" name="submit">
-	              		  <div id="MemStat"></div>       
-	              		  <div id="WithdrawSta"></div>     
+              		  	
+              		     <input type="hidden" name="searchDay" id="searchDay">
+	              		 <input type="submit" name="submit" id="submit">
+	              		 <p>(년도 와 월 을 함께 선택해주세요)</p><br>
+	              		  
+	              		  <h2>[Day:<c:out value="${year}"/>/<c:out value="${month}"/>] 회원 현황</h2>
+	              		  
+	              		  <div id="MemStat_cont">
+	              		  <p>[회원가입 수]</p>
+	              		  <div id="MemStat"></div>
+	              		  </div>
+	              		  
+	              		  <div id= "WithdrawSta_cont">
+	              		  <p>[탈퇴회원 수]</p>
+	              		  <div id="WithdrawSta"></div> 
+	              		  </div>
+	              		      
 	              		 </div>  
 	              		 </form>
 	              		  
@@ -155,9 +167,23 @@
 		$("#searchDay").val(searchDay);
 		$("#searchDayform").submit();
 		
+		
+		
 	});
     
-   
+   $("#submit").on("click",function(e){
+	   if(!$('.year> option:selected').val()){
+			alert("년도를 선택해주세요");
+			$('.year').focus();
+		}
+	   if(!$('.month> option:selected').val()){
+			alert("월을 선택해주세요");
+			$('month').focus();
+			return false;
+		}
+	   
+	   
+   })
     
     //회원가입
     google.charts.load('current', {packages: ['corechart', 'line']});

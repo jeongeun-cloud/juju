@@ -6,8 +6,8 @@
 
   <sql id="itemcriteria">
       <trim prefix="(" suffix=") AND" prefixOverrides="OR">
-		
-		<foreach item="type" collection="typeArr">
+      
+      <foreach item="type" collection="typeArr">
             <trim prefix="OR">
                <choose>
                   <when test="type == 'O'.toString()">
@@ -27,15 +27,15 @@
                </choose>
             </trim>
          </foreach>
-		
+      
       </trim>
    </sql>
 
 
 
 <!-- <select id="getList" resultType="com.jujumarket.shop.domain.ManagementVO">
-	
-		 select * from t_delivery 
+   
+       select * from t_delivery 
 </select> -->
 
 <select id = "searchordergetListPaging" resultType="com.jujumarket.shop.domain.ManagementVO" >
@@ -103,7 +103,7 @@ and o.itemCode = i.itemCode
 and h.itemCode = i.itemCode
 and h.baskId = d.baskId
 and h.baskid = o.baskid
-
+and shippingcode is NULL
 and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
 and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
 and rownum <= #{pageNum} * #{amount}
@@ -113,15 +113,19 @@ where rn > (#{pageNum} -1)* #{amount}
 
 ]]>
 </select>
-<!-- and shippingcode is NULL -->
-
-
 
 <update id="shippingupdate">
 update t_delivery set 
 shippingCode = #{shippingCode}
 where orderCode = #{orderCode}
 </update>
+
+<update id = "shippStatupdate">
+   update t_order set
+   orderStat = '배송중'
+   where orderCode = #{orderCode}
+</update>
+
 
 <select id="getTotalCount" resultType="int">
 <![CDATA[
@@ -137,7 +141,7 @@ where orderCode = #{orderCode}
    WHERE shippingCode is NULL
 </select>
 
-<!-- <select id="searchordergetList" resultType="com.jujumarket.shop.domain.ManagementVO" >	
+<!-- <select id="searchordergetList" resultType="com.jujumarket.shop.domain.ManagementVO" >   
 select h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
 ,o.itemNum,i.price
@@ -154,11 +158,8 @@ and h.baskid = o.baskid
 
 
 <insert id = "insertSelectKey">
-	<selectKey keyProperty="historyNo" order="BEFORE" resultType="String">
-	select seq_h_num.nextval from dual
-	</selectKey>
-	insert into t_order_history (historyNo,baskId,orderCode,orderStat,itemCode)
-	values (#{historyNo},#{baskId},#{orderCode},'배송중',#{itemCode})
+   insert into t_order_history (historyNo,baskId,orderCode,orderStat,itemCode)
+   values (seq_h_num.nextval,#{baskId},#{orderCode},'배송중',#{itemCode})
 </insert>
 
 <select id ="datedate"   resultType="com.jujumarket.shop.domain.ManagementVO" >
@@ -187,30 +188,26 @@ and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
 
 <select id = "getcheckAll" resultType="com.jujumarket.shop.domain.ManagementVO" >
 <![CDATA[
-select s.orderCode, s.orderstat, s.totalprice, s.orderdate, 
+select   s.orderCode, s.orderstat, s.totalprice, s.orderdate, 
 s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver
 ,s.itemNum,s.price
 
 from
    (
-   select /*+INDEX_DESC(t_order_history PK_T_ORDER_HISTORY) */
-     rownum rn,h.orderCode, h.orderstat, o.totalprice, o.orderdate, 
+   select /*+INDEX_DESC(t_order_orderCode PK_T_ORDER) */
+     rownum rn,r.orderCode, r.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
 ,o.itemNum,i.price
 
-from t_order_history h, t_order_info o, t_item i, t_delivery d
+from  t_order_info o, t_item i, t_delivery d,t_order r
 where
 ]]>
 <include refid="itemcriteria"></include>
 <![CDATA[
- h.orderCode = o.orderCode
-and d.orderCode = h.orderCode
+r.orderCode = o.orderCode
+and d.orderCode = r.orderCode
 and o.itemCode = i.itemCode
-and h.itemCode = i.itemCode
-and h.baskId = d.baskId
-and h.baskid = o.baskid
-
-
+and o.baskid = d.baskId
 and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
 and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
 
@@ -222,32 +219,31 @@ where rn > (#{pageNum} -1)* #{amount}
 </select>
 
 
-
 <select id = "refundListPaging" resultType="com.jujumarket.shop.domain.ManagementVO" >
 <![CDATA[
-select distinct  s.orderCode, s.orderstat, s.totalprice, s.orderdate, 
+select   s.orderCode, s.orderstat, s.totalprice, s.orderdate, 
 s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver
-,s.itemNum,s.price,s.baskId,s.prgDate,s.itemCode
+,s.itemNum,s.price,s.baskId,s.itemCode
 
 from
    (
-   select /*+INDEX_DESC(t_order_history PK_T_ORDER_HISTORY) */
-     rownum rn,h.orderCode, h.orderstat, o.totalprice, o.orderdate, 
+   select /*+INDEX_DESC(t_order PK_T_ORDER) */
+     rownum rn,r.orderCode, r.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
-,o.itemNum,i.price,h.baskId,h.prgDate,h.itemCode
+,o.itemNum,i.price,d.baskId,i.itemCode
 
-from t_order_history h, t_order_info o, t_item i, t_delivery d
+from t_order_info o, t_item i, t_delivery d,t_order r
 where
 ]]>
 <include refid="itemcriteria"></include>
 <![CDATA[
- h.orderCode = o.orderCode
-and d.orderCode = h.orderCode
+r.orderCode = o.orderCode
+and d.orderCode = r.orderCode
 and o.itemCode = i.itemCode
-and h.itemCode = i.itemCode
+and d.baskId = o.baskId
+and r.orderStat = #{orderStat}
 
 
-and h.orderStat = #{orderStat}
 
 and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
 and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
@@ -261,11 +257,16 @@ where rn > (#{pageNum} -1)* #{amount}
 
 
 <insert id = "refundinsertSelectKey">
-	<selectKey keyProperty="historyNo" order="BEFORE" resultType="String">
-	select seq_h_num.nextval from dual
-	</selectKey>
-	insert into t_order_history (historyNo,baskId,orderCode,orderStat,itemCode)
-	values (#(historyNo),#{baskId},#{orderCode},'취소처리완료',#{itemCode})
+
+   insert into t_order_history (historyNo,baskId,orderCode,orderStat,itemCode)
+   values (seq_h_num.nextval,#{baskId},#{orderCode},'환불처리완료',#{itemCode})
 </insert>
+
+<update id = "refundupdate">
+   update t_order set
+   orderStat = '환불처리완료'
+   where orderCode = #{orderCode}
+</update>
+
 
 </mapper>

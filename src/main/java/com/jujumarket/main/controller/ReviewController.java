@@ -181,24 +181,18 @@ public class ReviewController {
 	@ResponseBody
 	public ResponseEntity<String> orderCheck(String idNo, String itemCode) {
 		
-		String result = "";
+		String result = "reject";
 		List<OrderRequestVO> list = service.getOrderStat(idNo);
-		System.out.println("리스트" + list.toString());
 		
 		for(int i=0; i<list.size(); i++) {
 			OrderRequestVO vo = list.get(i);
 			
-			System.out.println(vo.toString());
-			
 			if(vo.getItemCode().equals(itemCode) && vo.getOrderStat().equals("배송완료")) {
 				result = "success";
-				break;
-			}else {
-				result = "reject";
 			}
 		}
 		
-		System.out.println("리뷰 남기기 상태 "+ result + "!!!!!!!!!!!!");
+		System.out.println("리뷰 남기기 가능한 사람인지 "+ result + "!!!!!!!!!!!!");
 		
 		return new ResponseEntity<String>(result, HttpStatus.OK);
 		

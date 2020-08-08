@@ -49,6 +49,12 @@
         background-color: #f5f5f5;
     }
     
+    textarea {
+    	width:900px;
+    	height : 300px;
+    	resize : none;
+    }
+    
     .seasonal_table{
         margin-bottom: 20px;
     }
@@ -59,7 +65,7 @@
     }
    	.banner_content{
        width: 1300px;
-       height: 1000px;
+       height: 3000px;
        margin:0 auto;
        border: solid;
    	}
@@ -100,7 +106,7 @@
        margin-bottom:20px;
    }
    
-   #regBtn, #deleBtn{
+   #regBtn, #deleBtn, #addColumnBtn, #modifyColumnBtn{
         float:right;
         margin-right: 30px;
         margin-top : 5px;
@@ -116,18 +122,34 @@
         cursor: pointer;
         font-weight: 900;
     }
-
-    #regBtn:hover, #deleBtn:hover{
+    #regBtn:hover, #deleBtn:hover, #addColumnBtn:hover, #modifyColumnBtn:hover{
 	    background-color: white; 
 	    color: #ffc30b; 
 	    border: 2px solid #ffc30b;
 	    outline: none; 
     }
+    
+    .gallery {
+    	float:left;
+    	padding-bottom : 30px;
+    	padding-right : 33px;
+    	text-align : center;
+    }
+    
+    .select_img1, .select_img2 {
+    	margin : 10px;
+    }
+    
+/*     .select_img1 img, .select_img2 img {
+    	width : 300px;
+    	height: 200px;
+    	margin : 10px;
+    } */
    
 	#activeImg img{
-		height : 330px;
-		width : 500px;
-		padding-bottom : 30px;
+		height : 200px;
+		width : 300px;
+		margin-bottom : 10px;
 	}
 	
 	.page_num {
@@ -180,7 +202,7 @@
 	                            <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i> 이벤트</a></li>
 		                    <br>
 		                    <p><b>회원관리</b></p>
-			                   
+			                   	<li><a href='/admin/memberManage'><i class="fa fa-check" ></i> 회원 관리</a></li>
 			                    <li><a href='/admin/memberStat'><i class="fa fa-check" ></i> 회원 현황</a></li>
 			                    <li><a href='#'><i class="fa fa-check" ></i> 상인 승인</a></li>
 			                    <li><a href='/admin/withdraw'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
@@ -318,9 +340,32 @@
                     <p><b><i class="fa fa-list-alt"></i> 제철 이미지 컬럼쓰기</b></p>
                 </div>
                 
+                <input type="hidden" id="columnLen" value='<c:out value="${fn:length(column)}"/>'>
+                <form id="addColumn" action="/admin/addColumn" method="POST" enctype="multipart/form-data">
+	                <input type="hidden" name="idNo" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
+		                <div id="colDiv" style="text-align:center;">
+		               		<p>첫 번째 컬럼 내용쓰기</p>
+		                    <input type="file" id="img1" name="addImg"><br>
+		                    <div class="select_img1">
+		                    	<img src="" />
+		                    </div>
+		                    <textarea id="column1" name="column1"></textarea><br>
+		               		<p>두 번째 컬럼 내용쓰기</p>
+		                    <input type="file" id="img2" name="addImg"><br>
+		                    <div class="select_img2">
+		                    	<img src="" />
+		                    </div>
+		                    <textarea id="column2" name="column2"></textarea>
+		                    <input type="hidden" name="type" id="type" value="">
+		                	<button id="addColumnBtn" style="float:none;">등록하기</button>
+		                	<button id="modifyColumnBtn" style="float:none; display:none;">수정하기</button>
+		                </div>
+	            </form>
+                
                 <div class="banner_tit" style='margin-top:50px;'>
                     <p><b><i class="fa fa-list-alt"></i> 제철 이미지 갤러리</b></p>
                 </div>
+                <p>제철 갤러리 이미지는 최대 6개까지 가능합니다.</p><br>
                 <p style='opacity:0.75;'>이미지 권장 규격 : 500 * 330</p>
                 <div class="uploadDiv">
                 	<input type="file" name="uploadFile" multiple>
@@ -337,8 +382,10 @@
                 <div id="activeImg">
                 	<input type="hidden" id="imgLen" value='<c:out value="${fn:length(seasonal)}"/>'>
                 	<c:forEach items="${seasonal }" var="seasonal">
-		           		<img class="banner" alt="" src='/resources/banner/<c:out value="${seasonal.imgPath}"/>/<c:out value="${seasonal.uuid}"/>_<c:out value="${seasonal.imgName}"/>' >
-		           		<button id='removeBtn' data-oper='<c:out value="${seasonal.imgNo}"/>'>삭제</button>
+                		<div class="gallery">
+			           		<img class="banner" alt="" src='/resources/banner/<c:out value="${seasonal.imgPath}"/>/<c:out value="${seasonal.uuid}"/>_<c:out value="${seasonal.imgName}"/>' ><br>
+			           		<button id='removeBtn' data-oper='<c:out value="${seasonal.imgNo}"/>'>삭제</button>
+			           	</div>
 		           	</c:forEach>
                 </div>
              </div>
@@ -368,10 +415,70 @@
     			return true;
     		}
     		
+    		// 이미지 체크
+    	    for(let i=1; i<=2; i++) {
+    	    	$("#img"+i).change(function(){   
+    	        	var imgFile = $('#img'+i).val();
+    	            var fileSize = document.getElementById("img"+i).files[0].size;
+    	            
+    	            if(!checkExtension(imgFile, fileSize)) {
+    	            	$('#img'+i).val("");
+    	               	return false;
+    	            }
+    	            
+    	            // 사진 보이기
+    	            if(this.files && this.files[0]) {
+     	            	var reader = new FileReader;
+     	               	reader.onload = function(data) {
+     	               		$(".select_img"+i+" img").attr("src", data.target.result).width(300).height(200);
+     	                }
+     	                reader.readAsDataURL(this.files[0]);
+     	            }
+    	    	});
+    	    }
+    		
+    	    // 제철 칼럼 등록
+    		$("#addColumnBtn").on("click", function(e) {
+    			// 유효성 체크 안함
+    			$("#type").val("register");
+    	        $("#addColumn").submit();
+    	    });
+    	    
+    	    var colLen = $("#columnLen").val();
+    	    if(colLen != 0) {
+	    	    // 제철 칼럼 버튼 보이기
+    	    	$("#addColumnBtn").css("display","none");
+    	    	$("#modifyColumnBtn").css("display","");
+    	    	
+	    	    // 제철 칼럼 내용 가져오기
+	    	    var src = "/resources/banner/column/";
+	    	    var src1 = src + "${column[0].img1 }";
+	    	    var src2 = src + "${column[0].img2 }";
+	    	    
+	    	    $("#column1").html("${column[0].column1 }".replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+	    	    $("#column2").html("${column[0].column2 }".replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+	    	   	$(".select_img1 img").attr("src", src1).width(300).height(200);
+	    	   	$(".select_img2 img").attr("src", src2).width(300).height(200);
+    	    }
+    	    
+    		
+    	    // 제철 칼럼 수정
+    		$("#modifyColumnBtn").on("click", function(e) {
+    			// 유효성 체크 안함
+    			$("#type").val("modify");
+    	        $("#addColumn").submit();
+    	    });
+    	    
+    	    // 제철 칼럼에 대한 alert
+    	    var result = '<c:out value="${result}"/>';
+    	    if(result.length > 0) {
+    	    	alert("칼럼이 제대로 등록되었습니다.");
+    	    }
+    		
     		var cloneObj = $(".uploadDiv").clone();
     		
     		// 파일 선택하고 업로드
-    		$("input[type='file']").change(function(e) {
+    		$("input[name='uploadFile']").change(function(e) {
     			var formData = new FormData();
     			var inputFile = $("input[name='uploadFile']");
     			var files = inputFile[0].files;

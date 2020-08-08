@@ -349,7 +349,7 @@
                      value="${totalDiscount + ((basketL.normPrice - basketL.price) * basketL.itemNum)}" />
                <tr cellpadding=40 align=center>
                
-                  <td><img id="basketItemImg" src="<c:out value="${basketL.itemImg1}"/>"></td>
+                  <td><img id="basketItemImg" src="/resources/upload/<c:out value="${basketL.sellerId}"/>/<c:out value="${basketL.itemImg1}"/>"></td>
                   <td><c:out value="${basketL.itemName}"></c:out></td>
                   <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${basketL.normPrice}" /></td>
                   <td><c:out value="${basketL.itemNum}"></c:out></td>

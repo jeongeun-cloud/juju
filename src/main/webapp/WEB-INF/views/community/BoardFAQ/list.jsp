@@ -3,6 +3,7 @@
 <%@include file="../../includes/menuBar.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html lang ="en">
@@ -247,15 +248,10 @@
                         <option value="T"
                         <c:out value="${pageMaker.cri.type eq 'T'?'selected':''}"/>>제목</option>
                         <option value="C"
-                        <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>
-                        <option value="I"
-                        <c:out value="${pageMaker.cri.type eq 'I'?'selected':''}"/>>아이디</option>
+                        <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>            
                         <option value="TC"
                         <c:out value="${pageMaker.cri.type eq 'TC'?'selected':''}"/>>제목 or 내용</option>
-                        <option value="TI"
-                        <c:out value="${pageMaker.cri.type eq 'TI'?'selected':''}"/>>제목 or 아이디</option>
-                        <option value="TCI"
-                        <c:out value="${pageMaker.cri.type eq 'TIC'?'selected':''}"/>>제목 or 내용 or 아이디</option>
+           
                         
                         </select>
                         
@@ -268,7 +264,6 @@
                 </div>
                 <!-- 검색창 끝 -->
                 <div class="jaju_table">
-                    
                     <table tit aria-setsize="500px">
                         
                         <thead>                     
@@ -278,24 +273,26 @@
                                 <th>글 제목</th>
                                 <th>글 내용</th>
 
-                                <th>글 타입</th>
-                                <th>아이디</th>
+                             
+                   
                                 <th>등록일</th>
 
                             </tr>
                         </thead>
-
+ 							
                             <c:forEach items="${faq}" var="faq">
                                 <tr>
                                 
-                                    <td><c:out value="${faq.postingNo }" /></td>
-                                    
-                                    <td><a class ='move' href='<c:out value="${faq.postingNo}"/>'>
+                                  <!--   <td><c:out value="${faq.postingNo }" /></td> -->
+                         
+                                   
+                                   <td><c:out value="${faq.rowNum-((pageMaker.cri.pageNum-1)*10)}"/></td>
+                   
+									<td><a class ='move' href='<c:out value="${faq.postingNo}"/>'>
                                     <c:out value="${faq.title }" /></a></td>
                                 
                                     <td><c:out value="${faq.content }" /></td>
-                                    <td><c:out value="${faq.boardType }" /></td>
-                                    <td><c:out value="${faq.idNo }" /></td>
+                
                                     <td><fmt:formatDate pattern="yyyy/MM/dd"
                                             value="${faq.regDate }" /></td>
 
@@ -372,7 +369,8 @@
       <script type="text/javascript">
       var actionForm = $("#actionForm");
          $(document).ready(function() {
-      
+        	 
+   
 
             var result = '<c:out value="${result}"/>';
 

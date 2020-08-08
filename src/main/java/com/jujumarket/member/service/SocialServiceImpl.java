@@ -3,6 +3,7 @@ package com.jujumarket.member.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SocialVO;
 import com.jujumarket.member.mapper.SocialMapper;
 
@@ -18,7 +19,7 @@ public class SocialServiceImpl implements SocialService{
 	
 	@Transactional
 	@Override
-	public void register(SocialVO socialVO) {
+	public void register(MemberVO socialVO) {
 		log.info("register social account.....");
 		
 		mapper.insertSocialMember(socialVO);
@@ -34,7 +35,7 @@ public class SocialServiceImpl implements SocialService{
 	}
 
 	@Override
-	public SocialVO getSocialInfo(String emailAccount) {
+	public MemberVO getSocialInfo(String emailAccount) {
 		log.info("getSocialInfo....");
 		
 		return mapper.getSocialInfo(emailAccount);

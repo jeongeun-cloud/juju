@@ -137,7 +137,7 @@
                                 <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i> 이벤트</a></li>
                             <br>
                             <p><b>회원관리</b></p>
-                            
+                            	<li><a href='/admin/memberManage'><i class="fa fa-check" ></i> 회원 관리</a></li>
                                 <li><a href='/admin/memberStat'><i class="fa fa-check" ></i> 회원 현황</a></li>
                                 <li><a href='#'><i class="fa fa-check" ></i> 상인 승인</a></li>
                                 <li><a href='/admin/withdraw'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
@@ -168,7 +168,7 @@
                             
                             <c:forEach items="${withdraw }" var="w">
                                 <tr>
-                                	<td><c:out value="${w.withdrawNum}" /></td>
+                                	<td><c:out value="${w.rn}" /></td>
                                     <td><c:out value="${w.withdrawIdNo}" /></td>
                                     <td><c:out value="${w.withdrawReason}" /></td>
                                     <td><c:out value="${w.withdrawDay}" /></td>

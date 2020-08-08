@@ -24,6 +24,8 @@ public class ItemCriteria {
     private String idNo;
 	
 	public ItemCriteria() {
+		
+		
 		this(1,10);
 	}
 	

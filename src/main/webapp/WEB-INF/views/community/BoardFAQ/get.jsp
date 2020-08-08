@@ -128,9 +128,7 @@
             </div>
             
                 <div class="jaju_panel">
-                   <!-- to동환, 내용을 또 나타나게 한 이유는?? -->
-                    <div class="panel-heading"><c:out value="${BoardFAQ.content}"/></div>
-                    <!-- to동환, 내용을 또 나타나게 한 이유는?? -->
+           
                         <div class="jaju_form">
                             <form id = "actionForm" method="post">
 
@@ -147,20 +145,6 @@
                                     </div>
 
 
-                                    <div class="from-group">
-                                        <label>게시글타입</label><input class="form-control" name='boardType'
-                                            value='<c:out value="${BoardFAQ.boardType}"/>'readonly="readonly">
-                                    </div>
-                                    
-                                    <div class="from-group">
-                                        <label>작성자</label><input class="form-control" name='idNo'
-                                            value='<c:out value="${BoardFAQ.idNo}"/>'readonly="readonly">
-                                    </div>
-                                    
-                                    <div class="from-group">
-                                        <label>글번호</label><input class="form-control" name='postingNo' id="postingNo"
-                                            value='<c:out value="${BoardFAQ.postingNo}"/>'readonly="readonly">
-                                    </div>
                                     
                                         <input type="hidden"  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
                                         <input type="hidden" name ='amount' value='<c:out value="${cri.amount}"/>'>  
