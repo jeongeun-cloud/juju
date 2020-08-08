@@ -384,9 +384,14 @@
       
       <table width=80% class="list_view">
          <tbody>
+            <td class="fixed join">배송비</td>
+            <td class="fixed join"><fmt:formatNumber type="number" maxFractionDigits="3" value="2500" /></td>
+         </tbody>
+      </table>
+      <table width=80% class="list_view">
+         <tbody>
             <td class="fixed join">최종 결제금액</td>
-            <td class="fixed join"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay}" /></td>
-
+            <td class="fixed join"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay+2500}" /></td>
          </tbody>
       </table>
       <!-- 가져다 쓰기 위한 hidden input 태그들  -->

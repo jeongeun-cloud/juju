@@ -24,12 +24,15 @@
         var memAddr =  document.getElementById("memAddr");
         var zipcode =  document.getElementById("zipcode");
         
+        var payPrice = totalPay.value*1 + 2500;
+        
+        
         IMP.request_pay({
             pg : 'kakaopay',
             pay_method : 'card',
             merchant_uid : 'merchant_' + new Date().getTime(),
             name : itemName.value+" 등 "+itemSpc.value+"건",
-            amount : totalPay.value,
+            amount : payPrice,
             buyer_email : email.value,
             buyer_name : memName.value,
             buyer_tel : contact.value,
