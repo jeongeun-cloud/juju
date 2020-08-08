@@ -423,8 +423,7 @@ $(document).ready(
             
            // 3. 가격 계산
            priceInit();
-            
-            
+           
             }) 
             
       
@@ -467,10 +466,16 @@ function priceInit() {
    
       //가격 default 는 모두 더한 계산 값으로 입력한다 
       for(var i=0; i<chkBoxes.length; i++) {
+    	  
+    	  
+    	  if(chkBoxes[i].checked == true) {
+    		  
+	           var price = chkBoxes[i].value * 1;
+	           
+	           totalPrice += price;
+    		  
+    	  }
 
-           var price = chkBoxes[i].value * 1;
-           
-           totalPrice += price;
 
        }
       
@@ -679,6 +684,38 @@ function draw(jsonData) {
 
 
 
+// html 구조 안에다가 장바구니 내용 넣기 function 시작(체크 안되어 있는 채로 그리기-선택삭제용)
+function unchkdraw(jsonData) { 
+   
+   var $tableBody = $("#tableBody");
+   var $countBox = $("#countBox");
+   
+   $tableBody.empty();
+   
+   console.log("그리기 전 결과 확인: " + jsonData);
+   
+   for(var i=0; i<jsonData.length-1 ; i++) {
+      
+      $tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id=\""+jsonData[i].baskId+"\"  value=\""+jsonData[i].price*jsonData[i].itemNum+"\" onclick='onechkEvt(this)'></td><td><img id='thumbnailImg' src='/resources/upload/"+jsonData[i].sellerId+"/"+jsonData[i].itemImg1+"'></td><td>"+jsonData[i].itemName+"<br>"+addCommas(jsonData[i].price)+"원</td><td>"+jsonData[i].itemNum+"개</td><td>"+addCommas(jsonData[i].price*jsonData[i].itemNum)+"원</td></tr>");
+      
+   }
+   
+         // json 마지막에 비회원 id 담음
+      $countBox.append("<div><input type='hidden' id='guestId' value=\""+jsonData[jsonData.length-1].idNo+"\"></div>");
+   
+}
+//html 구조 안에다가 장바구니 내용 넣기 function 끝(체크 안되어 있는 채로 그리기-선택삭제용)
+
+ 
+
+
+
+
+
+
+
+
+
 // 선택 삭제 function 시작
 function chosenDlt() {
    
@@ -694,8 +731,11 @@ function chosenDlt() {
                
                console.log("getBasketList 결과는?")
                console.log(response);
-               draw(response);
+               // 체크 안되어 있는 채로 그리고 
+               unchkdraw(response);
                
+               // 가격은 0으로 세팅
+               setTotalPrice(0);
             })
       }
 

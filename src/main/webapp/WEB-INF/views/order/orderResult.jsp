@@ -287,15 +287,17 @@
                   <td><c:out value="${item.itemName}"></c:out></td>
                   <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" /></td>
                   <td><c:out value="${item.itemNum}"></c:out></td>
-                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice - item.price}" /></td>
+                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.disAmount}" /></td>
                   <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.totalPrice}" /></td>
                </tr>
+               
             </c:forEach>
 
          </tbody>
       </table>
    </form>
-   
+	배송비 2500
+	총금액    ${order.totalPay+2500}
    
    </div>
    
@@ -388,7 +390,7 @@
       </tr>
       <tr>
          <th>결제금액</th>
-         <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${order.totalPay}" /></td>
+         <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${order.totalPay+2500}" /></td>
       </tr>
 
    </table>
