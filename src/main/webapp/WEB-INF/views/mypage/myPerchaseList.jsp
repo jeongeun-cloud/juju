@@ -266,8 +266,6 @@ table img {
                     <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
                     <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
                     
-                    
-                    
                    		 <c:choose>
                            <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
                               <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
@@ -335,7 +333,7 @@ table img {
                	 <td class="imgTd" rowspan="3"><img src="/resources/upload/<c:out value="${myPerchase.idNo}"/>/<c:out value="${myPerchase.itemImg1}"/>"></td>
                  <td><label>카테고리:&nbsp;</label><c:out value="${myPerchase.fullPath}" /></td>  
                  <td rowspan="3"><label>수량</label><br><br><br><c:out value="${myPerchase.itemNum}" /></td>
-                 <td rowspan="3"><label>가격</label><br><br><br><c:out value="${myPerchase.totalPrice}" /></td>
+                 <td rowspan="3"><label>가격</label><br><br><br><fmt:formatNumber value="${myPerchase.totalPrice }" pattern="#,###"/>원</td>
                  <td rowspan="3"><label>주문상태</label><br><br><br><c:out value="${myPerchase.orderStat}" /></td>
                </tr>  
                <tr>
@@ -429,7 +427,7 @@ $(document).ready(function(){
 			str += '<tr><td class="imgTd" rowspan="3"><img src="/resources/upload/'+myPerchase.idNo+'/'+myPerchase.itemImg1+'"></td>';
 			str += '<td><label>카테고리:&nbsp;</label>'+myPerchase.fullPath+'</td>';
 			str += '<td rowspan="3"><label>수량</label><br><br><br>'+myPerchase.itemNum+'</td>';
-			str += '<td rowspan="3"><label>가격</label><br><br><br>'+myPerchase.totalPrice+'</td>';
+			str += '<td rowspan="3"><label>가격</label><br><br><br>'+addCommas(myPerchase.totalPrice)+'원'+'</td>';
 			str += '<td rowspan="3"><label>주문상태</label><br><br><br>'+myPerchase.orderStat+'</td></tr>';
 			str += '<tr><td><label>상품명:&nbsp;</label>'+myPerchase.itemName+'</td></tr>';
 			str += '<tr><td><label>상점명:&nbsp;</label>'+myPerchase.shopName+'</td></tr>';
@@ -446,6 +444,10 @@ $(document).ready(function(){
 		if (minute.length < 2) minute = '0' + minute; 
 		if (second.length < 2) second = '0' + second; 
 		return [year, month, day].join('/') + " " + [hour, minute, second].join(':'); }
+	
+    function addCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 	
 });
 </script>
