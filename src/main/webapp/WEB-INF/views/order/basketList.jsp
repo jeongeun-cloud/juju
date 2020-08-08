@@ -278,7 +278,7 @@
             <thead id="tableHead">
                 <tr>
                 
-                    <th colspan="5" id="tableTitle" style="text-align: center">장바구니 내역</th>
+                    <th colspan="6" id="tableTitle" style="text-align: center">장바구니 내역</th>
                 </tr>
             </thead>
             <tbody  id="tableBody">
@@ -322,7 +322,7 @@
                 <br>
                 <br>
 
-                <h5>총 주문금액</h5>
+                <h5>총 금액</h5>
                                 
                 <h3 id="tPrice">0</h3>
             </div>
@@ -337,9 +337,9 @@
                 <br>
                 <br>
 
-                <h5 id="dcPrice">할인금액</h5>
+                <h5 >할인금액</h5>
                                 
-                <h3>0</h3>
+                <h3 id="dcPrice">0</h3>
             </div>
 
             <div class="countBoxDiv" id="mathSymbol">
@@ -404,8 +404,11 @@ var chkBoxes = document.getElementsByName("chkBox");
 
 var allChkBox = document.getElementById("chkAll");
 
+// 총금액
 var totalPrice = 0;
 
+// 할인 금액
+var dPrice = 0;
 
 
 /*  브라우저가 열리자마자 하는 basket DB 관련 작업 시작 */
@@ -470,9 +473,11 @@ function priceInit() {
     	  
     	  if(chkBoxes[i].checked == true) {
     		  
-	           var price = chkBoxes[i].value * 1;
+	           var price = chkBoxes[i].value.split(",")[0] * 1;
+	           var dc = chkBoxes[i].value.split(",")[1] * 1;
 	           
 	           totalPrice += price;
+	           dPrice += dc;
     		  
     	  }
 
@@ -480,6 +485,7 @@ function priceInit() {
        }
       
       setTotalPrice(totalPrice);
+      setdPrice(dPrice);
    
 }
 // 가격 계산하는 function 끝 
@@ -520,15 +526,20 @@ function onechkEvt(e) {
 //   + 계산하는 function 시작 
 function plus(e) {
    
-   var price = e.value;
+   var pArr = e.value.split(",");
    
     // String 을 int 로 바꾸기 
-    price *= 1;
+    var price = pArr[0]*1;
     totalPrice *= 1;
+    
+    var dc = pArr[1]*1;
+    dPrice *= 1;
 
     totalPrice += price;
+    dPrice += dc;
     
     setTotalPrice(totalPrice);
+    setdPrice(dPrice);
    
 }
 //   + 계산하는 function 끝 
@@ -539,15 +550,21 @@ function plus(e) {
 // 체크를 해제하고 - 계산하는 function 시작
 function minus(e) {
    
-   var price = e.value;
-
+	var pArr = e.value.split(",");
+	   
     // String 을 int 로 바꾸기 
-    price *= 1;
+    var price = pArr[0]*1;
     totalPrice *= 1;
+    
+    var dc = pArr[1]*1;
+    dPrice *= 1;
 
     totalPrice -= price;
+    dPrice -= dc;
     
     setTotalPrice(totalPrice);
+    setdPrice(dPrice);
+   
    
 }
 // 체크를 해제하고 - 계산하는 function 끝 
@@ -583,7 +600,18 @@ function setTotalPrice(totalPrice) {
    document.getElementById("tPrice").innerHTML = addCommas(totalPrice*1);
    
    //totalPrice*1 + 2500
-   document.getElementById("realTotalPrice").innerHTML = addCommas(totalPrice*1 + 2500);
+   document.getElementById("realTotalPrice").innerHTML = addCommas(totalPrice*1 -dPrice + 2500);
+   
+   
+}
+// 가격 설정하는 function 끝 
+
+
+// 가격 설정하는 function 시작 
+function setdPrice(dPrice) {
+   
+   //totalPrice*1
+   document.getElementById("dcPrice").innerHTML = addCommas(dPrice*1);
    
    
 }
@@ -667,8 +695,15 @@ function draw(jsonData) {
    console.log("그리기 전 결과 확인: " + jsonData);
    
    for(var i=0; i<jsonData.length-1 ; i++) {
+	   
+	   var pArr = [];
+	   
+	   pArr.push(jsonData[i].normPrice*jsonData[i].itemNum);
+	   pArr.push(jsonData[i].disAmount*jsonData[i].itemNum);
+	   
+	   
       
-      $tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id=\""+jsonData[i].baskId+"\"  checked='checked' value=\""+jsonData[i].price*jsonData[i].itemNum+"\" onclick='onechkEvt(this)'></td><td><img id='thumbnailImg' src='/resources/upload/"+jsonData[i].sellerId+"/"+jsonData[i].itemImg1+"'></td><td>"+jsonData[i].itemName+"<br>"+addCommas(jsonData[i].price)+"원</td><td>"+jsonData[i].itemNum+"개</td><td>"+addCommas(jsonData[i].price*jsonData[i].itemNum)+"원</td></tr>");
+      $tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id=\""+jsonData[i].baskId+"\"  checked='checked' value=\""+pArr+"\" onclick='onechkEvt(this)'></td><td><img id='thumbnailImg' src='/resources/upload/"+jsonData[i].sellerId+"/"+jsonData[i].itemImg1+"'></td><td>"+jsonData[i].itemName+"<br>단가 "+addCommas(jsonData[i].normPrice)+"원<br>"+jsonData[i].itemNum+"개</td><td>"+addCommas(jsonData[i].normPrice*jsonData[i].itemNum)+"원</td><td>"+addCommas(jsonData[i].disAmount*jsonData[i].itemNum)+"원 할인</td><td>"+addCommas(jsonData[i].price*jsonData[i].itemNum)+"원</td></tr>");
       
    }
    
@@ -695,9 +730,14 @@ function unchkdraw(jsonData) {
    console.log("그리기 전 결과 확인: " + jsonData);
    
    for(var i=0; i<jsonData.length-1 ; i++) {
+	   
+	var pArr = [];
+	   
+	   pArr.push(jsonData[i].normPrice*jsonData[i].itemNum);
+	   pArr.push(jsonData[i].disAmount*jsonData[i].itemNum);
       
-      $tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id=\""+jsonData[i].baskId+"\"  value=\""+jsonData[i].price*jsonData[i].itemNum+"\" onclick='onechkEvt(this)'></td><td><img id='thumbnailImg' src='/resources/upload/"+jsonData[i].sellerId+"/"+jsonData[i].itemImg1+"'></td><td>"+jsonData[i].itemName+"<br>"+addCommas(jsonData[i].price)+"원</td><td>"+jsonData[i].itemNum+"개</td><td>"+addCommas(jsonData[i].price*jsonData[i].itemNum)+"원</td></tr>");
-      
+	   $tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id=\""+jsonData[i].baskId+"\"  value=\""+pArr+"\" onclick='onechkEvt(this)'></td><td><img id='thumbnailImg' src='/resources/upload/"+jsonData[i].sellerId+"/"+jsonData[i].itemImg1+"'></td><td>"+jsonData[i].itemName+"<br>"+addCommas(jsonData[i].normPrice)+"원</td><td>"+addCommas(jsonData[i].disAmount*jsonData[i].itemNum)+"원 할인</td><td>"+jsonData[i].itemNum+"개</td><td>"+addCommas(jsonData[i].price*jsonData[i].itemNum)+"원</td></tr>");
+	      
    }
    
          // json 마지막에 비회원 id 담음
@@ -725,18 +765,29 @@ function chosenDlt() {
          // DB에서 지운다 
          deletefromBasket(chkBoxes[i].id);
          
-         getBasketList()
+         // DB에서 안 지워지고 getBasketList() 가 시작되는 거 방지
+         setTimeout(function(){
+        	 
+	         getBasketList()
+	         
+	         .then(function(response){
+	               
+	               console.log("getBasketList 결과는?")
+	               console.log(response);
+	               // 체크 안되어 있는 채로 그리고 
+	               unchkdraw(response);
+	               
+	               // 가격은 0으로 세팅
+	               totalPrice = 0;
+	               dPrice = 0;
+	               
+	               setdPrice(dPrice);
+	               setTotalPrice(totalPrice);
+	            })
+        	 
+         }, 100);
          
-         .then(function(response){
-               
-               console.log("getBasketList 결과는?")
-               console.log(response);
-               // 체크 안되어 있는 채로 그리고 
-               unchkdraw(response);
-               
-               // 가격은 0으로 세팅
-               setTotalPrice(0);
-            })
+         
       }
 
     } 
@@ -770,6 +821,10 @@ function deletefromBasket(baskId) {
 function orderSelected() {
    
    var idNo = document.getElementById("idNo").value;
+   
+   if(idNo=="") {
+	   alert("비회원 주문으로 진행합니다");
+   }
    
    
    guestChk();
@@ -816,6 +871,12 @@ function orderSelected() {
 
 // 전체 상품 주문 onclick 이벤트 시작 
 function orderAll() {
+	
+	var idNo = document.getElementById("idNo").value;
+	
+	 if(idNo=="") {
+		   alert("비회원 주문으로 진행합니다");
+	   }
    
    guestChk();
    
