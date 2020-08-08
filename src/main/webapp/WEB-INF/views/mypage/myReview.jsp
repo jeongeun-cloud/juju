@@ -247,8 +247,6 @@ table img {
  <div class="regi_wrap">
 
 
-
-
 <!-- side 시작 -->
    <div class="side">
       <div class="1nb_list">
@@ -259,37 +257,22 @@ table img {
                     <li><a href='/mypage/myPerchaseList'><i class="fa fa-check" ></i>주문내역</a></li>
                     <li><a href='/order/basketList'><i class="fa fa-check" ></i>장바구니</a></li>
                     <br>
-                    <c:if test="${sessionMember.memCode eq 'CUSTOMER'
-                    			||sessionMember.memCode eq 'JUNIOR'
-                    			||sessionMember.memCode eq 'SELLER'
-                    			||sessionMember.memCode eq 'ADMIN'
-                    			||sessionMember.memCode eq 'GOOGLE'
-                    			||sessionMember.memCode eq 'KAKAO'
-                    			||sessionMember.memCode eq 'NAVER'
-                    }">
+                    <c:if test="${!empty sessionMember}">
                     <p><b>게시판 이용 내역</b></p>
                     <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
                     <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
                     <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
                     
+                    
+                    
                    		 <c:choose>
-                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'  
-                           				&& sessionMember.memCode ne 'GOOGLE'
-                           				&& sessionMember.memCode ne 'KAKAO'
-                           				&& sessionMember.memCode ne 'NAVER' }">
+                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
                               <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
-                           <c:when test="${sessionMember.memCode eq 'SELLER'
-                           				&& sessionMember.memCode ne 'GOOGLE'
-                           				&& sessionMember.memCode ne 'KAKAO'
-                           				&& sessionMember.memCode ne 'NAVER' }">
+                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
-                           <c:when test="${sessionMember.memCode eq 'JUNIOR'
-                           				&& sessionMember.memCode ne 'GOOGLE'                           			
-                           				&& sessionMember.memCode ne 'KAKAO'
-                           				&& sessionMember.memCode ne 'NAVER' 
-                           }">
+                           <c:when test="${sessionMember.memCode eq 'JUNIOR'}">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
                         </c:choose>
@@ -297,9 +280,6 @@ table img {
   						<c:when test="${(sessionMember.memCode eq 'CUSTOMER'
                            				|| sessionMember.memCode eq 'JUNIOR'                           			
                            				|| sessionMember.memCode eq 'SELLER')                           			
-                           				&& (sessionMember.memCode ne 'GOOGLE'                           			
-                           				|| sessionMember.memCode ne 'KAKAO'
-                           				|| sessionMember.memCode ne 'NAVER')   
                            				}">
                     <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
                     <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
@@ -315,11 +295,6 @@ table img {
      <!-- 1nb_list -->
   </div>
 <!-- side 끝-->
-
-
-
-
-
 
 <!-- regi_main 시작 -->      
 <div class="regi_main">
@@ -479,34 +454,40 @@ table img {
 		
 		function drawMyReviewList(myReviewList){
 			myReviewTable.html("");
-			var frag = document.createDocumentFragment();
 			for(var i = 0; i<myReviewList.length; i++){
 				var str = "";
 				var myReview = myReviewList[i];
 				var tr = document.createElement("tr");
+				//리뷰이미지 없을 경우 기본 이미지로 넣어줌
 				if(myReview.reviewImg==null || myReview.reviewImg==""){
 					str += "<td><img src='/resources/review/myReviewDefault.png'></td>";
 				} else {
 					str += "<td><img src='/resources/review/"+myReview.itemCode+"/"+myReview.reviewImg+"'></td>";
 				}
+				//리뷰 상품명 클릭시 해당 상품 페이지로 이동
 				str += "<td><a href='/product/item?itemCode="+myReview.itemCode+"'>"+myReview.itemName+"</a></td>";
 		        str += '<td>'+myReview.reviewTitle+'</td>';
-		        if(myReview.reviewContent != null) {
+		        
+		        if(myReview.reviewContent != null) { 
+		        	//리뷰 내용이 20자 이상이면
 		        	if(myReview.reviewContent.length > 20) {
+		        		//20자 + ...으로 보여지게 
 		 		        str += '<td>'+myReview.reviewContent.substring(0,20)+' . . .</td>';
 		 		        } else {
+		 		        //20자 미만이면 전부 보여주기
 		        			str += '<td>'+myReview.reviewContent+'</td>';
 		        		}		
 		        } else {
+		        	//리뷰 내용이 없을 때 빈 문자열 처리
 		        	str += '<td></td>';
 		        }
+		        //timestamp를 연/월/일 형태로 바꾸기 
 		        var regDate = myReview.regDate;
 		        var date = new Date(regDate);
 		        str += '<td>'+formatDate(date)+'</td>';
 		        tr.innerHTML = str;
-		        frag.appendChild(tr);
+				myReviewTable.append($(tr));
 			}
-			myReviewTable.append($(frag));
 		}
 		
 		/* 	ajax 방식으로 페이징 처리 */

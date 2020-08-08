@@ -46,8 +46,7 @@ public class MyPageController {
 	private ServletContext servletContext;
 	private MyPageService myPageService;
 
-	// 나의 주문내역
-	// 처음엔는 get방식으로 페이지 전체 로드
+	// [마이페이지]나의 주문내역 (최초 페이지 로드 시 get방식 사용) 
 	@GetMapping("/myPerchaseList")
 	public String myPerchase(HttpSession session, Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
@@ -65,7 +64,7 @@ public class MyPageController {
 		return "/mypage/myPerchaseList";
 	}
 
-	// 페이지 이동할 때에는 header, menubar, sidebar 고정, 안에서만 그려주기
+	// 페이지 이동 ajax방식으로 처리
 	@GetMapping(value = "/myPerchase/page/{pageNum}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<?> myPerchase(HttpSession session, @PathVariable int pageNum) {
@@ -76,8 +75,7 @@ public class MyPageController {
 		return ResponseEntity.status(HttpStatus.OK).body(myPerchase);
 	}
 
-	// 나의 상품문의
-	// 처음엔는 get방식으로 페이지 전체 로드
+	// [마이페이지]나의 상품문의 (최초 페이지 로드 시 get방식 사용) 
 	@GetMapping("/myPrdReply")
 	public String myPrdReply(HttpSession session, Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
@@ -95,7 +93,7 @@ public class MyPageController {
 		return "/mypage/myPrdReply";
 	}
 
-	// 페이지 이동할 때에는 header, menubar, sidebar 고정, 안에서만 그려주기
+	// 페이지 이동 ajax방식으로 처리
 	@GetMapping(value = "/myPrdReply/page/{pageNum}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<?> myPrdReply(HttpSession session, @PathVariable int pageNum) {
@@ -106,8 +104,7 @@ public class MyPageController {
 		return ResponseEntity.status(HttpStatus.OK).body(myPrdReply);
 	}
 
-	// 나의 상품평(t_review)
-	// 처음엔는 get방식으로 페이지 전체 로드
+	// [마이페이지]나의 상품평 (최초 페이지 로드 시 get방식 사용)
 	@GetMapping("/myReview")
 	public String myReview(HttpSession session, Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
@@ -125,7 +122,7 @@ public class MyPageController {
 		return "/mypage/myReview";
 	}
 
-	// 페이지 이동할 때에는 header, menubar, sidebar 고정, 안에서만 그려주기
+	// 페이지 이동 ajax방식으로 처리
 	@GetMapping(value = "/myReview/page/{pageNum}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<?> myReview(HttpSession session, @PathVariable int pageNum) {
@@ -136,7 +133,7 @@ public class MyPageController {
 		return ResponseEntity.status(HttpStatus.OK).body(myReview);
 	}
 
-	// 회원정보수정(일반고객)
+	// [마이페이지][일반회원]회원정보수정
 	@GetMapping("/customerInfoModify")
 	public String customerInfoModify(HttpSession session, Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
@@ -152,7 +149,7 @@ public class MyPageController {
 		}
 	}
 
-	// 회원정보수정(일반고객)
+	// [마이페이지][일반회원]회원정보수정
 	@PostMapping("/customerInfoModify")
 	public String customerInfoModify(MemberVO member, RedirectAttributes rttr) {
 		if (customerService.modifyCustomerInfo(member)) {
@@ -162,7 +159,7 @@ public class MyPageController {
 
 	}
 
-	// 회원정보수정(상인)
+	// [마이페이지][상인회원]회원정보수정
 	@GetMapping("/sellerInfoModify")
 	public String sellerInfoModify(HttpSession session, Model model) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
@@ -179,7 +176,7 @@ public class MyPageController {
 
 	}
 
-	// 회원정보수정(상인)
+	// [마이페이지][상인회원]회원정보수정
 	@PostMapping("/sellerInfoModify")
 	public String sellerInfoModify(MemberVO member, RedirectAttributes rttr, MultipartFile[] uploadFile) {
 		String uploadFolder = servletContext.getRealPath("/resources/seller");
@@ -228,7 +225,7 @@ public class MyPageController {
 
 	}
 
-	//비밀번호 변경
+	//[마이페이지]비밀번호 변경
 	@GetMapping("/modifyPwd")
 	public String modifyPwd(HttpSession session) {
 		Object member = session.getAttribute("sessionMember");
@@ -238,7 +235,7 @@ public class MyPageController {
 		return "/mypage/modifyPwd";
 	}
 
-	//비밀번호 변경
+	//[마이페이지]비밀번호 변경
 	@PostMapping("/modifyPwd")
 	public String modifyPwd(String pwd, String newPwd, HttpSession session, RedirectAttributes rttr) {
 
@@ -257,7 +254,7 @@ public class MyPageController {
 		return "redirect:/mypage/modifyPwd";
 	}
 
-	// 회원탈퇴
+	//[마이페이지]회원탈퇴
 	@GetMapping("/memberDelete")
 	public String memberDelete(HttpSession session) {
 		Object member = session.getAttribute("sessionMember");
@@ -267,7 +264,7 @@ public class MyPageController {
 		return "/mypage/memberDelete";
 	}
 
-	// 회원탈퇴
+	//[마이페이지]회원탈퇴
 	@PostMapping("/memberDelete")
 	public String memberDelete(MemberHistoryVO memberHistory, HttpSession session, RedirectAttributes rttr) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
@@ -288,7 +285,7 @@ public class MyPageController {
 		return "redirect:/mypage/memberDelete";
 	}
 	
-	//회원탈퇴완료 
+	//[마이페이지]회원탈퇴완료
 	@GetMapping("/memberDeleteComplete")
 	public void memberDeleteComplete(HttpSession session) {
 		session.invalidate();

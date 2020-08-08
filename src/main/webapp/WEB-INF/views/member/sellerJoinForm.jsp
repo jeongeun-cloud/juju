@@ -91,7 +91,9 @@ body {
 			<input type="text" id="memNameModal" name="memNameModal" readonly="readonly"  placeholder="readonly"><br>
 			<!-- 상점이름  -->
 			사업자 등록번호
-			<input type="text" id="businessCode" name="businessCode"  placeholder="필수입력"> <br> 
+			<input type="text" id="businessCode" name="businessCode"  placeholder="필수입력"> <button id="bcUniqueCheckBtn">사업자 등록번호 확인</button> <br>
+			<input type="hidden" id="bcUniqueCheck">
+			<input type="hidden" id="bcUniqueCheckResult" value="false"> 
 			사업자등록증(이미지, 필수)
 			<input type="file" id="businessRegFile" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
 			<img id="businessRegThumb" alt="" src=""><br>
@@ -193,6 +195,8 @@ body {
 			inputCode = $("#inputCode");
 			authResult = $("#authResult");
 
+			bcUniqueCheckBtn = $("#bcUniqueCheckBtn");
+			bcUniqueCheckResult = $("#bcUniqueCheckResult");
 			emailDuplicateCheckBtn = $("#emailDuplicateCheckBtn");
 			duplicateCheckResult = $("#duplicateCheckResult");
 			
@@ -255,6 +259,7 @@ body {
 			emailAccount.change(function(e){
 				duplicateCheckResult.val("false");
 				authResult.val("false");
+				bcUniqueCheckResult.val("false");
 			});
 			
 			
@@ -287,6 +292,35 @@ body {
 					
 				});
 			
+			
+			//사업자등록번호 중복체크
+			bcUniqueCheckBtn.click(function(e){
+				e.preventDefault();
+				if (!(businessCodeCheck())) {
+					return false;
+				}
+				
+				bcUniqueCheck(businessCode.val())
+				.then(function(response){
+					
+				if(response==true){
+					alert("등록 가능합니다.");
+					bcUniqueCheckResult.val("true")
+					
+				} else{
+					alert("이미 등록된 사업자등록번호입니다.");
+					bcUniqueCheckResult.val("false")
+									
+				}
+				bcUniqueCheckBtn.val(response);
+				})
+				
+				.catch(function(error){
+					console.log(error);
+					
+				});
+					
+				});
 			
 			
 			//REST방식의 컨트롤러 MemberController에 페이지 이동 없이 비동기 방식으로  
@@ -331,6 +365,8 @@ body {
 			} else if (!(memAddrCheck())) {
 				return false;
 			} else if (!(businessCodeCheck())) {
+				return false;
+			} else if (!(bcUniqueCheck())){
 				return false;
 			} else if (businessRegFile.val()==null||businessRegFile.val()=="") {
 				alert("사업자 등록증을 업로드해주세요.");
@@ -564,6 +600,17 @@ body {
 					type : 'POST',
 					url : '/member/duplicateCheck',
 					data : emailAccount,
+					contentType : "application/text; charset=UTF-8"
+					
+					
+							})
+					} 	
+		
+		function bcUniqueCheck(businessCode){
+				return $.ajax({
+					type : 'POST',
+					url : '/member/bcUniqueCheck',
+					data : businessCode,
 					contentType : "application/text; charset=UTF-8"
 					
 					
