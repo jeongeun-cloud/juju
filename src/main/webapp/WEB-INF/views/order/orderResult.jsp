@@ -310,6 +310,32 @@
    <h4><strong>| 주문자 정보</strong></h4>
    </div>
    
+   
+    <!--비회원 주문 상태일 때 주문자 정보 표 -->
+   <c:if test="${empty sessionMember}">
+   <table border="1" cellpadding="0" cellspacing="0">
+      <colgroup>
+         <col width="150" />
+         <col width="400" />
+      </colgroup>
+
+      <tr>
+         <th>이름</th>
+         <td>${delivery.receiver}</td>
+      </tr>
+      <tr>
+         <th>연락처</th>
+         <td>${delivery.receivContact}</td>
+      </tr>
+      
+   </table>
+   </c:if>
+    <!--비회원 주문 상태일 때 주문자 정보 표 -->
+   
+   
+   
+   <!--로그인 상태일 때 주문자 정보 표 -->
+   <c:if test="${!empty sessionMember}">
    <table border="1" cellpadding="0" cellspacing="0">
       <colgroup>
          <col width="150" />
@@ -326,6 +352,8 @@
       </tr>
       
    </table>
+   </c:if>
+   <!--로그인 상태일 때 주문자 정보 표 -->
 
    
    

@@ -16,6 +16,7 @@ public class BasketVO {
 	private int price;
 	
 	private int normPrice;
+	private int disAmount;
 	
 
 }

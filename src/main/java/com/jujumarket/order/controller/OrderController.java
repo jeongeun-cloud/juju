@@ -90,6 +90,70 @@ public class OrderController {
 		return "order/orderItemsForm";
 	}
 
+	
+	
+	
+	@PostMapping("/orderItemsForm")
+	public void sendChkRow(@RequestParam("idNo") String idNo, String[] checkRow, Model model, HttpSession session) {
+
+		
+		List<BasketVO> list = new ArrayList<>();
+		for (int i = 0; i < checkRow.length; i++) {
+			list.add(orderService.getOne(checkRow[i]));
+		}
+
+		model.addAttribute("list", list);
+		
+		// 비회원일 경우를 대비해서 idNo를 컨트롤러에서 실어보낸다 
+		model.addAttribute("controllerIdNo", idNo);
+
+		// [baskId105, baskId107]
+		System.out.println("orderController 에서 Arrays.toString(checkRow) : " + Arrays.toString(checkRow));
+		// [baskId105, baskId107]
+		System.out.println("orderController 에서 list.toString(): " + list.toString());
+
+		log.info("orderList");
+		// model에 orderList를 담아 주문서(orderItemsForm.jsp)에 출력
+		//model.addAttribute("orderList", orderService.getOrderResponse(idNo));
+		System.out.println(idNo);
+		
+		// 0802 주정은 수정
+		// model에 memberInfo를 담아 주문서(orderItemsForm.jsp)에 출력
+		OrderMemberVO orderMember = new OrderMemberVO();
+		if(idNo.substring(0, 1).equals("c") || idNo.substring(0, 1).equals("g") ) {
+			orderMember = orderMemberService.getOrderMemberInfo(idNo);
+			//System.out.println(orderMemberService.getOrderMemberInfo(idNo).toString());
+		}else if(idNo.substring(0, 1).equals("s")) {
+			orderMember = orderMemberService.getOrderSellerInfo(idNo);
+		}else {
+			orderMember = orderMemberService.getOrderSocialInfo(idNo);
+		}
+		model.addAttribute("memberInfo", orderMember);
+		
+		// idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
+		String orderCode = orderService.getRecentOrderCode(idNo);
+		if (orderCode != null) {
+			
+			DeliveryVO delivery = deliveryService.get(orderCode);
+			
+			if(delivery != null) {
+				
+				model.addAttribute("recentDelivery", delivery);
+			}
+			
+		}
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/payAPItest")
 	public void payAPItest() {
 
@@ -180,57 +244,7 @@ public class OrderController {
 //      //return "redirect:/order/orderItemsForm?idNo=c0001";
 //   }
 
-	@PostMapping("/orderItemsForm")
-	public void sendChkRow(@RequestParam("idNo") String idNo, String[] checkRow, Model model, HttpSession session) {
-
-		
-		List<BasketVO> list = new ArrayList<>();
-		for (int i = 0; i < checkRow.length; i++) {
-			list.add(orderService.getOne(checkRow[i]));
-		}
-
-		model.addAttribute("list", list);
-		
-		// 비회원일 경우를 대비해서 idNo를 컨트롤러에서 실어보낸다 
-		model.addAttribute("controllerIdNo", idNo);
-
-		// [baskId105, baskId107]
-		System.out.println("orderController 에서 Arrays.toString(checkRow) : " + Arrays.toString(checkRow));
-		// [baskId105, baskId107]
-		System.out.println("orderController 에서 list.toString(): " + list.toString());
-
-		log.info("orderList");
-		// model에 orderList를 담아 주문서(orderItemsForm.jsp)에 출력
-		//model.addAttribute("orderList", orderService.getOrderResponse(idNo));
-		System.out.println(idNo);
-		
-		// 0802 주정은 수정
-		// model에 memberInfo를 담아 주문서(orderItemsForm.jsp)에 출력
-		OrderMemberVO orderMember = new OrderMemberVO();
-		if(idNo.substring(0, 1).equals("c") || idNo.substring(0, 1).equals("g") ) {
-			orderMember = orderMemberService.getOrderMemberInfo(idNo);
-			//System.out.println(orderMemberService.getOrderMemberInfo(idNo).toString());
-		}else if(idNo.substring(0, 1).equals("s")) {
-			orderMember = orderMemberService.getOrderSellerInfo(idNo);
-		}else {
-			orderMember = orderMemberService.getOrderSocialInfo(idNo);
-		}
-		model.addAttribute("memberInfo", orderMember);
-		
-		// idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
-		String orderCode = orderService.getRecentOrderCode(idNo);
-		if (orderCode != null) {
-			
-			DeliveryVO delivery = deliveryService.get(orderCode);
-			
-			if(delivery != null) {
-				
-				model.addAttribute("recentDelivery", delivery);
-			}
-			
-		}
-
-	}
+	
 
 	@GetMapping("/getSelectedBasket")
 	@ResponseBody
@@ -263,7 +277,11 @@ public class OrderController {
 		
 		OrderInfoVO fullvo = orderService.getMakeInfoAndHistory(notfullVO.getBaskId());
 		
-		//System.out.println("fullvo : " + fullvo.toString());
+		if(fullvo==null) {
+			System.out.println("왜 fullvo가 널이야?");
+		}
+		
+		System.out.println("fullvo : " + fullvo.toString());
 		
 		fullvo.setOrderCode(notfullVO.getOrderCode());
 		fullvo.setDisAmount((fullvo.getNormPrice()-fullvo.getPrice())*fullvo.getItemNum());

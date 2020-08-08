@@ -720,7 +720,7 @@ function paymentComplete() {
             deletefromBasket(baskIdArr[i]);
          }
          
-      }, 1);
+      }, 500);
       
       
    }).then(function(){
@@ -730,7 +730,7 @@ function paymentComplete() {
       // orderResult 페이지로 넘어가기 
       location.href = "/order/orderResult" + "?orderCode=" + orderCode;
       
-      }, 3);
+      }, 1000);
    })
    
    
@@ -1062,6 +1062,14 @@ function init() {
       
       
       if (recentDelivery.is(":checked")) {
+    	  
+    	  if(recentReceiver.val()=="") {
+    		  alert("최근 주문 내역이 없습니다.");
+    		  recentDelivery.prop('checked',false);
+    		  return;
+    	  }
+    	  
+    	  
          receiver.val(recentReceiver.val());
          receivContact.val(recentReceivContact.val());
          roadAddress.val(raddrs[0]); // 도로명 주소

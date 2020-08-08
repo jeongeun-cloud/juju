@@ -72,7 +72,7 @@
    </select>
    
    <select id="orderSellerInfo" resultType="com.jujumarket.order.domain.OrderMemberVO">
-      select m.*, s.contact1
+      select m.*, s.contact1 contact
       from t_member m, m_shop s
       where m.idNo = s.idNo
       and m.idNo = #{idNo}
