@@ -202,7 +202,7 @@
 	                            <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i> 이벤트</a></li>
 		                    <br>
 		                    <p><b>회원관리</b></p>
-			                   	<li><a href='/admin/memberManage'><i class="fa fa-check" ></i> 회원 관리</a></li>
+			                   	<li><a href='/admin/memberManage'><i class="fa fa-check" ></i> 회원 리스트</a></li>
 			                    <li><a href='/admin/memberStat'><i class="fa fa-check" ></i> 회원 현황</a></li>
 			                    <li><a href='#'><i class="fa fa-check" ></i> 상인 승인</a></li>
 			                    <li><a href='/admin/withdraw'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
@@ -258,8 +258,8 @@
                             <tr>
                                 <td><input type="checkbox" name="chk" value='<c:out value="${list.itemCode }" />'></td>
                                 <td>
-                                    <a class='move' href='#'>
-                                        <c:out value="${list.itemName }" />
+                                    <a class='move' href='/product/item?itemCode=<c:out value="${list.itemName }" />' >
+                                        <c:out value="${list.itemName }" /> 
                                     </a>
                                 </td>
                                 <td style="text-align:right;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${list.price}" />원</td>
@@ -324,7 +324,7 @@
                             <tr>
                                 <td><input type="checkbox" name="chkSeason" value='<c:out value="${seasonItemResult.itemCode }" />'></td>
                                 <td>
-                                    <a class='move' href='#'>
+                                    <a class='move' href='/product/item?itemCode=<c:out value="${seasonItemResult.itemName }" />'>
                                         <c:out value="${seasonItemResult.itemName }" />
                                     </a>
                                 </td>
@@ -678,15 +678,6 @@
     	         
     	        actionForm.find("input[name='pageNum']").val($(this).attr("href"));
     	        actionForm.submit();
-    	    });
-    	      
-    	    // get
-    	    $(".move").on("click", function(e) {
-    	         e.preventDefault();
-    	         
-    	         actionForm.append("<input type='hidden' name='itemCode' value='" + $(this).attr("href") + "'>");
-    	         actionForm.attr("action", "/admin/seasonalMagazine");
-    	         actionForm.submit();
     	    });
     		
     		// search

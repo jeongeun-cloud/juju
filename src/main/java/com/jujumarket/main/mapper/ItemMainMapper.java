@@ -18,9 +18,6 @@ public interface ItemMainMapper {
 	public int delete(String ItemCode);
 	
 	public int update(ItemMainVO item);
-	
-
-	
 
 	public String getShop(String itemCode);
 

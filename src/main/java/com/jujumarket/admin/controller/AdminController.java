@@ -1,5 +1,6 @@
 package com.jujumarket.admin.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jujumarket.admin.domain.MemStatVO;
+import com.jujumarket.admin.domain.MemberManageVO;
 import com.jujumarket.admin.service.MemStatService;
 import com.jujumarket.admin.service.MemberManageService;
 import com.jujumarket.admin.service.QnaListService;
@@ -152,10 +154,14 @@ public class AdminController {
 	}
 	
 	@GetMapping("/memberManage")
-	public void memberManage(Model model) {
+	public void memberManage(ItemCriteria cri, Model model) {
 		
-		model.addAttribute("regDate", mmservice.getRegDate());
-		model.addAttribute("allMember", mmservice.getAllMember());
+		List<MemberManageVO> list = mmservice.getTotal();
+		int total = list.size();
+		
+		//model.addAttribute("total", mmservice.getTotal());
+		model.addAttribute("allMember", mmservice.getAllMember(cri));
+		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 	}
 	
 }

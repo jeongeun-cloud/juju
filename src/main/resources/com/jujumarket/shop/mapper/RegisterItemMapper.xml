@@ -131,6 +131,4 @@
 		or itemContent like '%' || #{keyword} || '%'
 	</select>
 	
-	
-	
 </mapper>

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.shop.domain.CategoryVO;
 import com.jujumarket.shop.domain.ItemCriteria;
@@ -292,10 +291,10 @@ public class RegisterItemContoller {
 			if(vo.getSaleStat().equals("판매중")) {
 				vo.setSaleStat("판매중지");
 			}else {
-				log.info(vo.getItemChr() + "2");
 				vo.setSaleStat("판매중");
-				
+
 				//model.addAttribute("category", JSONArray.fromObject(alist));
+
 			}
 			service.modify(vo);
 		}

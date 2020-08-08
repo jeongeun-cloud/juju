@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import com.jujumarket.shop.domain.CategoryVO;
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.RegisterItemVO;
@@ -179,5 +178,5 @@ public class RegisterItemServiceImpl implements RegisterItemService {
 		
 		return mapper.getResultTotal(cri);
 	}
-	
+
 }

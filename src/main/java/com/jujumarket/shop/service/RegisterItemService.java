@@ -33,6 +33,4 @@ public interface RegisterItemService {
 	
 	public int getResultTotal(ItemCriteria cri);
 	
-	
-	
 }
