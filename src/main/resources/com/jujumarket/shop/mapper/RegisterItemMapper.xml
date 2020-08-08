@@ -130,12 +130,6 @@
 		where itemName like '%' || #{keyword} || '%' 
 		or itemContent like '%' || #{keyword} || '%'
 	</select>
-	
-	<!--알람 받을 사람들 리스트  -->
-	<select id="getAlarmList" resultType="com.jujumarket.main.domain.AlarmVO">
-	select distinct itemCode, idNo
-	from t_alarm_history
-	where itemCode=#{itemCode}
-	</select>
+
 	
 </mapper>

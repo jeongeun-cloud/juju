@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jujumarket.main.domain.AlarmVO;
 import com.jujumarket.main.domain.BasketVO;
 import com.jujumarket.main.domain.Criteria;
 import com.jujumarket.main.domain.PageDTO;
@@ -71,41 +70,6 @@ public class BasketController {
       model.addAttribute("product", itemservice.get(itemCode));
       model.addAttribute("shopName", itemservice.getShop(itemCode));
    }
-
-   //알람 서비스 신청 받기
-   @GetMapping("/addalarm")
-   @ResponseBody
-   public ResponseEntity<String> applyAlarm(String itemCode, String idNo, Model model) {
-	   AlarmVO alarmvo = new AlarmVO();
-	   alarmvo.setItemCode(itemCode);
-	   alarmvo.setIdNo(idNo);
-	   
-	   System.out.println("컨트롤러에 들어온 itemCode"+itemCode);
-	   System.out.println("컨트롤러에 들어온 idNo"+idNo);
-	   System.out.println("vo에 저장됐을까?"+alarmvo.toString());
-	  
-	    itemservice.applyAlarm(alarmvo);
-	   
-	    return new ResponseEntity<>("success", HttpStatus.OK);
-   }
-   //알람 서비스 취소하기 
-   @GetMapping("/cancelalarm")
-   @ResponseBody
-   public ResponseEntity<String> cancelAlarm(String itemCode, String idNo, Model model) {
-	   AlarmVO alarmvo = new AlarmVO();
-	   alarmvo.setItemCode(itemCode);
-	   alarmvo.setIdNo(idNo);
-	   
-	   System.out.println("취소할  itemCode"+itemCode);
-	   System.out.println("취소할 idNo"+idNo);
-	   System.out.println("취소vo에 저장됐을까?"+alarmvo.toString());
-	   
-	    itemservice.cancelAlarm(alarmvo);
-	   
-	    return new ResponseEntity<>("success", HttpStatus.OK);
-   }
-   
-   
    
    
    @GetMapping("/basket")
