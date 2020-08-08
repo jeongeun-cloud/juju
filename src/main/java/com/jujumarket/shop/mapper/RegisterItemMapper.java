@@ -34,5 +34,5 @@ public interface RegisterItemMapper {
 	public List<RegisterItemVO> getOldFiles();
 
 	public int getResultTotal(ItemCriteria cri);
-	
+
 }

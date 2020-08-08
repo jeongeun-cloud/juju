@@ -11,6 +11,8 @@ public interface SellerService {
 	public boolean modifySellerInfo(MemberVO member);
 	//[마이페이지]회원탈퇴(상인)
 	public boolean deleteMember(MemberHistoryVO memberHistory);
+	//사업자등록번호 중복체크 
+	public boolean bcUniqueCheck(String businessCode);
 
 
 }

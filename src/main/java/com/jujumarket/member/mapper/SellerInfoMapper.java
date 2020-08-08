@@ -12,5 +12,7 @@ public interface SellerInfoMapper {
 	public int modifySellerInfo(MemberVO member);
 	//상인 회원탈퇴 m_shop_info 
 	public int deleteSellerInfo(String idNo);
+	//사업자등록번호 중복체크 
+	public String bcUniqueCheck(String businessCode);
 
 }

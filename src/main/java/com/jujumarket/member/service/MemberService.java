@@ -3,6 +3,7 @@ package com.jujumarket.member.service;
 import java.util.List;
 
 import com.jujumarket.member.domain.CustomerVO;
+import com.jujumarket.member.domain.DangolVO;
 import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SellerVO;
 
@@ -24,6 +25,18 @@ public interface MemberService {
 	//세션에 회원정보 가져올 때
 	//회원아이디, 이메일계정, 회원이름, 분류코드 네 가지 가져옴.(MemberMapper.xml참조) 
 	public MemberVO getMemberInfo(String emailAccount);
-
 	
+	//단골 추가, 취소 
+	public void addDangol(DangolVO vo);
+	
+	public void cancelDangol(DangolVO vo);
+	
+	//단골 list불러 오기 
+	public List<DangolVO> getDangol(String shopName);
+	
+	//단골 신청 했는지 안했는지 확인하기 
+	public int checkDangol(DangolVO vo);
+	
+	//총 단골 수 
+	public Integer totalDangol(String shopName);
 }

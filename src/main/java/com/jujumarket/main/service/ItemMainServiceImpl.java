@@ -57,5 +57,5 @@ public class ItemMainServiceImpl implements ItemMainService{
 		
 		return mapper.getShop(itemCode);
 	}
-	
+
 }

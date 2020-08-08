@@ -67,6 +67,15 @@ public class SellerServiceImpl implements SellerService{
 	
 	}
 
+	@Override
+	public boolean bcUniqueCheck(String businessCode) {
+		if (sellerInfoMapper.bcUniqueCheck(businessCode) == null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 
 
 

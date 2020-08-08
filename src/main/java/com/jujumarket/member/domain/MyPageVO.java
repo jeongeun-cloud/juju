@@ -11,7 +11,7 @@ public class MyPageVO {
 	private String itemCode;
 	private String itemName;
 	
-	//prdReply의 regDate, review의 regDate가 같은 값임 안헷갈리기
+
 	private Timestamp regDate;
 
 	//getMyReviewListByIdNo 메소드에서 사용

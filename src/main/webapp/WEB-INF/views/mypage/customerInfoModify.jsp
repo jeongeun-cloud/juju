@@ -315,8 +315,6 @@ a {
 <div class="regi_content">
  <div class="regi_wrap">
 
-
-
 <!-- side 시작 -->
    <div class="side">
       <div class="1nb_list">
@@ -327,37 +325,22 @@ a {
                     <li><a href='/mypage/myPerchaseList'><i class="fa fa-check" ></i>주문내역</a></li>
                     <li><a href='/order/basketList'><i class="fa fa-check" ></i>장바구니</a></li>
                     <br>
-                    <c:if test="${sessionMember.memCode eq 'CUSTOMER'
-                    			||sessionMember.memCode eq 'JUNIOR'
-                    			||sessionMember.memCode eq 'SELLER'
-                    			||sessionMember.memCode eq 'ADMIN'
-                    			||sessionMember.memCode eq 'GOOGLE'
-                    			||sessionMember.memCode eq 'KAKAO'
-                    			||sessionMember.memCode eq 'NAVER'
-                    }">
+                    <c:if test="${!empty sessionMember}">
                     <p><b>게시판 이용 내역</b></p>
                     <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
                     <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
                     <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
                     
+                    
+                    
                    		 <c:choose>
-                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'  
-                           				&& sessionMember.memCode ne 'GOOGLE'
-                           				&& sessionMember.memCode ne 'KAKAO'
-                           				&& sessionMember.memCode ne 'NAVER' }">
+                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
                               <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
-                           <c:when test="${sessionMember.memCode eq 'SELLER'
-                           				&& sessionMember.memCode ne 'GOOGLE'
-                           				&& sessionMember.memCode ne 'KAKAO'
-                           				&& sessionMember.memCode ne 'NAVER' }">
+                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
-                           <c:when test="${sessionMember.memCode eq 'JUNIOR'
-                           				&& sessionMember.memCode ne 'GOOGLE'                           			
-                           				&& sessionMember.memCode ne 'KAKAO'
-                           				&& sessionMember.memCode ne 'NAVER' 
-                           }">
+                           <c:when test="${sessionMember.memCode eq 'JUNIOR'}">
                               <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
                            </c:when>
                         </c:choose>
@@ -365,12 +348,12 @@ a {
   						<c:when test="${(sessionMember.memCode eq 'CUSTOMER'
                            				|| sessionMember.memCode eq 'JUNIOR'                           			
                            				|| sessionMember.memCode eq 'SELLER')                           			
-                           				&& (sessionMember.memCode ne 'GOOGLE'                           			
-                           				|| sessionMember.memCode ne 'KAKAO'
-                           				|| sessionMember.memCode ne 'NAVER')   
                            				}">
                     <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
                     <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
+                    <br>
+                    <p><b>단골 상점 </b></p>
+                    <li> <a href='/mypage/myDangol'><i class="fa fa-check" ></i>상점 바로가기</a></li>
                         </c:when>
                         </c:choose>
                     </c:if>
@@ -380,8 +363,6 @@ a {
      <!-- 1nb_list -->
   </div>
 <!-- side 끝-->
-
-
 
 		
 		<div class="customerInfo">

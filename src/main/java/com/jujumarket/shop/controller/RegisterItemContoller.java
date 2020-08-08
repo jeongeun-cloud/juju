@@ -292,6 +292,9 @@ public class RegisterItemContoller {
 				vo.setSaleStat("판매중지");
 			}else {
 				vo.setSaleStat("판매중");
+
+				//model.addAttribute("category", JSONArray.fromObject(alist));
+
 			}
 			service.modify(vo);
 		}

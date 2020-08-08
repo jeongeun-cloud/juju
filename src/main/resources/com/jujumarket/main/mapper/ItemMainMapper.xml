@@ -49,7 +49,7 @@ select * from t_item
    where itemCode=#{itemCode}
 </update>
 
-
+  
 <select id="getShop" resultType="String">
    select s.shopName
    from m_shop s, t_item i
