@@ -5,13 +5,38 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.jujumarket.admin.mapper.MemberManageMapper">
 
 	<select id="getAllMember" resultType="com.jujumarket.admin.domain.MemberManageVO">
-		select * from t_member
+		<![CDATA[
+			select * from(
+		        SELECT ROW_NUMBER() OVER (ORDER BY h.condiupdatedate DESC) AS rn, m.*, h.condition, h.condiupdatedate
+		          FROM(
+		               SELECT A.*, ROW_NUMBER() OVER(PARTITION BY idno ORDER BY condiupdatedate asc) AS R
+		                 FROM m_history A
+		              )h, 
+		              (select idNo, emailAccount, memname, memcode 
+		                from t_member
+		              )m
+		         WHERE h.R = 1
+		         and h.idno = m.idno
+		         and h.condition <> '탈퇴'
+		         and rownum <= #{pageNum} * #{amount}
+		         order by rn asc
+		    )
+		    where rn > (#{pageNum} -1) * #{amount}
+		]]>
 	</select>
 	
-	<select id="getRegDate" resultType="com.jujumarket.admin.domain.MemberManageVO">
-		select h.condiUpdateDate from t_member m, m_history h
-		where m.idNo = h.idNo
-		and condition = '가입'
+	<select id="getTotal" resultType="com.jujumarket.admin.domain.MemberManageVO">
+		<![CDATA[
+			SELECT m.*, h.condition, h.condiUpdateDate
+			FROM(
+			      SELECT A.*, ROW_NUMBER() OVER(PARTITION BY idNo ORDER BY condiUpdateDate asc) AS R
+			        FROM m_history A
+			     )h, t_member m
+			WHERE h.R = 1
+			and h.idNo = m.idNo
+			and h.condition <> '탈퇴'
+			ORDER BY h.condiUpdateDate asc
+		]]>
 	</select>
 
 </mapper>

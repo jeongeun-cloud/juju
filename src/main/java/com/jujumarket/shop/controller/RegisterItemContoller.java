@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.shop.domain.CategoryVO;
 import com.jujumarket.shop.domain.ItemCriteria;
@@ -288,35 +287,34 @@ public class RegisterItemContoller {
       for(int i=0; i<itemCode.length; i++) {
          RegisterItemVO vo = service.get(itemCode[i]);
 
-         // 판매상태 변경
-         if(vo.getSaleStat().equals("판매중")) {
-            vo.setSaleStat("판매중지");
-         }else {
-            log.info(vo.getItemChr() + "2");
-            vo.setSaleStat("판매중");
-           
-           
-            
-           
-            //model.addAttribute("category", JSONArray.fromObject(alist));
-         }
-         service.modify(vo);
-      }
-      rttr.addFlashAttribute("result", "success");
-      return "redirect:/shop/list";
-   }
-   
-   @GetMapping("/soldModify")
-   public String soldModify(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model, RedirectAttributes rttr) {
-      
-      for(int i=0; i<itemCode.length; i++) {
-         RegisterItemVO vo = service.get(itemCode[i]);
-         
-         vo.setSaleStat("품절");      
-         service.modify(vo);
-      }
-      rttr.addFlashAttribute("result", "success");
-      return "redirect:/shop/list";
-   }
+
+			// 판매상태 변경
+			if(vo.getSaleStat().equals("판매중")) {
+				vo.setSaleStat("판매중지");
+			}else {
+				vo.setSaleStat("판매중");
+
+				//model.addAttribute("category", JSONArray.fromObject(alist));
+
+			}
+			service.modify(vo);
+		}
+		rttr.addFlashAttribute("result", "success");
+		return "redirect:/shop/list";
+	}
+	
+	@GetMapping("/soldModify")
+	public String soldModify(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model, RedirectAttributes rttr) {
+		
+		for(int i=0; i<itemCode.length; i++) {
+			RegisterItemVO vo = service.get(itemCode[i]);
+			
+			vo.setSaleStat("품절");		
+			service.modify(vo);
+		}
+		rttr.addFlashAttribute("result", "success");
+		return "redirect:/shop/list";
+	}
+
 
 }

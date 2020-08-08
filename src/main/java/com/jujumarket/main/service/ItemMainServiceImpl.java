@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.jujumarket.main.domain.ItemMainVO;
 import com.jujumarket.main.mapper.ItemMainMapper;
 
@@ -58,8 +57,5 @@ public class ItemMainServiceImpl implements ItemMainService{
 		
 		return mapper.getShop(itemCode);
 	}
-	
-
-	
 
 }
