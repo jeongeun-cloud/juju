@@ -35,5 +35,26 @@ public class MemberManageServiceImpl implements MemberManageService {
 		
 		return mapper.getAllMember(cri);
 	}
+
+	@Override
+	public MemberManageVO getMember(String idNo) {
+		log.info("getMember......");
+		
+		return mapper.getMember(idNo);
+	}
+
+	@Override
+	public void regBlack(MemberManageVO vo) {
+		log.info("regBlack......");
+		
+		mapper.regBlack(vo);
+	}
+
+	@Override
+	public List<MemberManageVO> getBlack() {
+		log.info("getBlack......");
+		
+		return mapper.getBlack();
+	}
 	
 }

@@ -256,7 +256,43 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.2</version>
         </dependency>
-
+        
+<!--         https://mvnrepository.com/artifact/org.apache.mahout/mahout-core
+		<dependency>
+		    <groupId>org.apache.mahout</groupId>
+		    <artifactId>mahout-core</artifactId>
+		    <version>14.1</version>
+		</dependency>
+		
+		https://mvnrepository.com/artifact/org.apache.mahout/mahout-integration
+		<dependency>
+		    <groupId>org.apache.mahout</groupId>
+		    <artifactId>mahout-integration</artifactId>
+		    <version>0.13.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.guava</groupId>
+		  	<artifactId>guava</artifactId>
+		  	<version>29.0-jre</version>
+		</dependency>
+		
+		https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-math3</artifactId>
+		    <version>3.6.1</version>
+		</dependency>
+		
+		https://mvnrepository.com/artifact/org.apache.mahout/mahout-math
+		<dependency>
+		    <groupId>org.apache.mahout</groupId>
+		    <artifactId>mahout-math</artifactId>
+		    <version>0.13.0</version>
+		</dependency>
+		 -->
+		
+		
    </dependencies>
    <build>
       <plugins>

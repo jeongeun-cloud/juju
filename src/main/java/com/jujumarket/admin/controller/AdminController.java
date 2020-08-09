@@ -3,12 +3,17 @@ package com.jujumarket.admin.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jujumarket.admin.domain.ListItemVO;
 import com.jujumarket.admin.domain.MemStatVO;
 import com.jujumarket.admin.domain.MemberManageVO;
 import com.jujumarket.admin.service.MemStatService;
@@ -159,9 +164,22 @@ public class AdminController {
 		List<MemberManageVO> list = mmservice.getTotal();
 		int total = list.size();
 		
-		//model.addAttribute("total", mmservice.getTotal());
+		model.addAttribute("blackList",mmservice.getBlack());
 		model.addAttribute("allMember", mmservice.getAllMember(cri));
 		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+	}
+	
+	@PostMapping("/regBlack")
+	@ResponseBody
+	public ResponseEntity<String> regSeason(String[] idNo) {
+		
+		for(int i=0; i<idNo.length; i++) {
+			MemberManageVO vo = mmservice.getMember(idNo[i]);
+	
+			mmservice.regBlack(vo);
+		}
+
+		return new ResponseEntity<String>("success", HttpStatus.OK);
 	}
 	
 }

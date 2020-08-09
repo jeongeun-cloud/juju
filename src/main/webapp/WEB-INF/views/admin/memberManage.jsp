@@ -113,12 +113,47 @@
 	    font-size: 20px;
 	    font-weight: 900;
     }
+    #regBtn{
+        float:right;
+        margin-right: 30px;
+        margin-top : 5px;
+        background-color: #ffc30b; 
+        border: none;
+        color: white;
+        padding: 8px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        font-weight: 900;
+    }
+    #regBtn:hover{
+	    background-color: white; 
+	    color: #ffc30b; 
+	    border: 2px solid #ffc30b;
+	    outline: none; 
+    }
+    .search {
+        margin-left: 20px;
+    }
+    .search_la{
+        font-size: 20px;
+        font-weight: 900;
+    }
+    .default_btn{
+        background-color: #ffc30b;
+        border: solid #ffc30b;
+        border-radius:10px;
+        color:white;
+    }
 </style>
 
 </head>
 <body>
- <%--    <%@include file="./idCheck.jsp" %> --%>
-    <%@include file="../includes/header.jsp" %>
+<%@include file="./idCheck.jsp" %>
+<%@include file="../includes/header.jsp" %>
     <div class="memStat_content">
         <div class="memStat_wrap">
             <!-- side 시작 -->
@@ -151,10 +186,33 @@
                         <p><b><i class="fa fa-list-alt"></i> 회원 리스트</b></p>
                     </div>
                     <label class="mem_la"><i class="fa fa-lightbulb-o"></i> 총 회원수 : <c:out value="${pageMaker.total }"/>명</label>  
+                   	<button id="regBtn">블랙 리스트 등록</button>
+                   	
+                   	<!-- 검색 -->
+                   	<div class="search_bar">
+	                    <form id="searchForm" action="/admin/memberManage" method="get">
+	                        <div class="search">
+	                            <label class="search_la">검색</label>
+	                            <select name='type'>
+	                                <option value="" <c:out value="${pageMaker.cri.type == null? 'selected':'' }" /> >--</option>
+	                                <option value="N" <c:out value="${pageMaker.cri.type eq 'N'? 'selected':'' }" />>회원 이름</option>
+	                                <option value="A" <c:out value="${pageMaker.cri.type eq 'A'? 'selected':'' }" />>회원 계정</option>
+	                            </select>
+	                            
+	                            <input type="text" name="keyword" value="${pageMaker.cri.keyword }">
+	                            <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+	                            <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+	                            <button class="default_btn">검색</button>
+	                        </div>
+	                    </form>
+	                </div>
+	                
+                	<!-- 테이블 -->
                     <div class="index_table">
                     	<table tit aria-setsize="500px">
 				            <thead>
 				               <tr>
+				               	  <th><input type="checkbox" name="chkAll" id="chkAll"></th>
 				                  <th>회원 이름</th>
 				                  <th>회원 계정</th>
 				                  <th>회원 유형</th>
@@ -163,6 +221,7 @@
 				            </thead>
 				            <c:forEach items="${allMember }" var="allMember">
 				               <tr>
+				               	  <td><input type="checkbox" id="idNo" name="chk" value='<c:out value="${allMember.idNo }" />'></td>
 				                  <td><c:out value="${allMember.memName }" /></td>
 				                  <td><c:out value="${allMember.emailAccount }" /></td>
 				                  <td>
@@ -227,6 +286,68 @@
     	        actionForm.find("input[name='pageNum']").val($(this).attr("href"));
     	        actionForm.submit();
     	    });
+    	    
+    	 	// 전체 선택
+            $("#chkAll").click(function(){
+                 //클릭되었으면
+                 if($("#chkAll").prop("checked")){
+                     //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 true로 정의
+                     $("input[name=chk]").prop("checked",true);
+                     //클릭이 안되있으면
+                 }else{
+                     //input태그의 name이 chk인 태그들을 찾아서 checked옵션을 false로 정의
+                     $("input[name=chk]").prop("checked",false);
+                 }
+            });
+    	 	
+    	 	// 블랙리스트 등록
+            $("#regBtn").on("click", function(){
+         
+	        	var checkRow = "";
+	         	$("input[name='chk']:checked").each (function (){
+	            	checkRow = checkRow + $(this).val()+"," ;
+	         	});
+	           	checkRow = checkRow.substring(0,checkRow.lastIndexOf(",")); //맨끝 콤마 지우기
+	       
+	           	if(checkRow == ''){
+	             	alert("블랙 리스트로 등록할 회원을 선택해주세요.");
+	             	return false;
+	           	}
+	           	console.log("선택한 회원 id => " + checkRow);
+	           	var result = confirm("블랙리스트로 등록 하시겠습니까?");
+	           	if (result) {
+		            $.ajax({
+	    				url : '/admin/regBlack',
+	    				data : {idNo : checkRow},
+	    				dataType : 'text',
+	    				type : 'POST',
+	    				success : function(result) {
+	    					alert('정상적으로 등록 되었습니다.');
+	    					location.reload();
+	    				}
+	    			});	// $.ajax
+	           	}else {
+	           		return false;
+	           	}
+    		});
+    	 	
+			var blackList = new Array();
+	        
+	        <c:forEach items = "${blackList}" var="blackList">
+	        	blackList.push("${blackList.idNo}");
+	        </c:forEach>
+	        
+	        
+	        $('tr').each(function() {
+	        	
+	        	for(var i=0; i<blackList.length; i++) {
+			        var black = blackList[i];
+			        
+			        if(black == this.children[0].children[0].value) {
+			        	this.style.background = "#ffd4d4";
+			        }
+		        }
+	        });
     	    
 		});
 	
