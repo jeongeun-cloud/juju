@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.jujumarket.main.domain.Criteria;
+import com.jujumarket.member.domain.DangolVO;
 import com.jujumarket.member.domain.MyPageVO;
+import com.jujumarket.member.domain.MyPerchaseVO;
 import com.jujumarket.member.mapper.MyPageMapper;
 
 import lombok.AllArgsConstructor;
@@ -35,6 +37,21 @@ public class MyPageServiceImpl implements MyPageService{
 	@Override
 	public int getMyPrdReplyCountByIdNo(String idNo, Criteria cri) {
 		return myPageMapper.getMyPrdReplyCountByIdNo(idNo, cri);
+	}
+
+	@Override
+	public List<MyPerchaseVO> getMyPerchaseListByIdNo(String idNo, Criteria cri) {
+		return myPageMapper.getMyPerchaseListByIdNo(idNo, cri);
+	}
+
+	@Override
+	public int getMyPerchaseCountByIdNo(String idNo, Criteria cri) {
+		return myPageMapper.getMyPerchaseCountByIdNo(idNo, cri);
+	}
+	//나의 단골 가게 보기 
+	@Override
+	public List<DangolVO> getMyDangol(String memidNo) {
+		return myPageMapper.getMyDangol(memidNo);
 	}
 
 

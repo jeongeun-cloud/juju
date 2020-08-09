@@ -37,6 +37,12 @@ public interface OrderMapper {
    public void guestMemberInsert(OrderMemberVO orderMember);
    public void guestCustomerInsert(OrderMemberVO orderMember);
    
+   public OrderVO readByIdno(String idNo);
+   
+   public void socialMemUpdateM(OrderMemberVO orderMember);
+   
+   public void mSocialUpdate(OrderMemberVO orderMember);
+   
 }
 
 

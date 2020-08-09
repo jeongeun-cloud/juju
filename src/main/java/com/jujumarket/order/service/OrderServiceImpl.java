@@ -140,5 +140,17 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 	
+	@Override
+	public OrderVO readByIdno(String idNo) {
+		return orderMapper.readByIdno(idNo);
+		
+	}
+
+	@Override
+	public void socialMemUpdate(OrderMemberVO orderMember) {
+		orderMapper.socialMemUpdateM(orderMember);
+		orderMapper.mSocialUpdate(orderMember);
+	}
+	
 
 }

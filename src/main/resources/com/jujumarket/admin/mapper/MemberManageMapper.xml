@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jujumarket.admin.mapper.MemberManageMapper">
+
+	<sql id="itemcriteria">
+      	<trim prefix="(" suffix=") AND" prefixOverrides="OR">
+			<foreach item="type" collection="typeArr">
+            	<trim prefix="OR">
+               		<choose>
+	                  	<when test="type == 'N'.toString()">
+	                    	memName like '%' || #{keyword} || '%'
+	                  	</when>
+	                  	<when test="type == 'A'.toString()">
+	                    	emailAccount like '%' || #{keyword} || '%'
+	                  	</when>
+               		</choose>
+            	</trim>
+         	</foreach>
+      	</trim>
+   	</sql>
+   	
+	<select id="getAllMember" resultType="com.jujumarket.admin.domain.MemberManageVO">
+		<![CDATA[
+			select * from(
+		        SELECT ROW_NUMBER() OVER (ORDER BY h.condiupdatedate DESC) AS rn, m.*, h.condition, h.condiupdatedate
+		          FROM(
+		               SELECT A.*, ROW_NUMBER() OVER(PARTITION BY idno ORDER BY condiupdatedate asc) AS R
+		                 FROM m_history A
+		              )h, 
+		              (select idNo, emailAccount, memname, memcode 
+		                from t_member
+		              )m
+		         WHERE h.R = 1
+		         and h.idno = m.idno
+		         and h.condition <> '탈퇴'
+		         and
+        ]]>
+     
+        <include refid="itemcriteria"></include>
+      
+        <![CDATA[
+		         rownum <= #{pageNum} * #{amount}
+		         order by rn asc
+		    )
+		    where rn > (#{pageNum} -1) * #{amount}
+		]]>
+	</select>
+	
+	<select id="getTotal" resultType="com.jujumarket.admin.domain.MemberManageVO">
+		<![CDATA[
+			SELECT m.*, h.condition, h.condiUpdateDate
+			FROM(
+			      SELECT A.*, ROW_NUMBER() OVER(PARTITION BY idNo ORDER BY condiUpdateDate asc) AS R
+			        FROM m_history A
+			     )h, t_member m
+			WHERE h.R = 1
+			and h.idNo = m.idNo
+			and h.condition <> '탈퇴'
+			ORDER BY h.condiUpdateDate asc
+		]]>
+	</select>
+	
+	<select id="getMember" resultType="com.jujumarket.admin.domain.MemberManageVO">
+		select * from t_member where idNo = #{idNo}
+	</select>
+	
+	<insert id="regBlack">
+		insert into m_history (historyNo, idNo, condition, memCode, reason)
+		values (seq_history.nextval, #{idNo}, '불량회원', #{memCode}, '불량회원으로 접수됨')
+	</insert>
+	
+	<select id="getBlack" resultType="com.jujumarket.admin.domain.MemberManageVO">
+		select * from m_history where condition = '불량회원'
+	</select>
+
+</mapper>

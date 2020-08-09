@@ -2,7 +2,6 @@ package com.jujumarket.shop.mapper;
 
 import java.util.List;
 
-import com.jujumarket.main.domain.AlarmVO;
 import com.jujumarket.shop.domain.CategoryVO;
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.RegisterItemVO;
@@ -35,8 +34,5 @@ public interface RegisterItemMapper {
 	public List<RegisterItemVO> getOldFiles();
 
 	public int getResultTotal(ItemCriteria cri);
-	
-	//알람 받을 사람들 list 가져오기
-	public List<AlarmVO> getAlarmList(String itemCode);
-	
+
 }
