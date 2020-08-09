@@ -659,9 +659,12 @@ function paymentComplete() {
    
    
    
-   // 만약 비회원이면 t_member, m_customer 에 먼저 회원정보 넣어준다 + 첫주문이어야함 (안그럼 pk중복됨)
-   if(idNo.value.substring(0,1)=="g") {
+   // 만약 비회원이면 t_member, m_customer 에 먼저 회원정보 넣어준다 + 첫주문이어야함 (안그럼 pk중복됨) - 첫주문 자동으로 걸러짐. 재주문이면 idNo.value 가 g 로 시작
+   if(idNo.value.substring(0,1)=="") {
       guestInsert();
+      
+   }else if(idNo.value.substring(0,1)=="u"){
+	  socialMemUpdate(); 
    }
    
    
@@ -740,6 +743,32 @@ function paymentComplete() {
 
 
 
+function socialMemUpdate() {
+	
+	var socialData = {
+		memName : memName.val(),
+		contact : contact.val(),
+		emailAccount : email.val(),
+		idNo : idNo.value	
+	}
+	
+	
+	 return $.ajax({
+	      url: "/order/socialMemUpdate",
+	      type: "POST",
+	      data: JSON.stringify(socialData),
+	      contentType: "application/json",
+	      error : function(){console.log("socialMemUpdate 통신실패")},
+	       success : function(){console.log("socialMemUpdate 통신성공")}
+	   }); 
+	
+	
+}
+
+
+
+
+
 function guestInsert() {
    
    var guestData = {
@@ -760,7 +789,6 @@ function guestInsert() {
    }); 
    
 }
-
 
 
 
