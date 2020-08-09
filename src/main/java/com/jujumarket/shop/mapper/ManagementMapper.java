@@ -25,6 +25,8 @@ public interface ManagementMapper {
 		public List<ManagementVO> getcheck(String orderStat);//착크박스 처리였나 ?...
 		
 		public List<ManagementVO> getcheckAll(ItemCriteria cri); //전체보기 orderStat
+	
+		public List<Integer> getListCount(); //송장없는 애들 List
 		
 		public void insertSelectKey(ManagementVO vo); //송장수정
 		

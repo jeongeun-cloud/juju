@@ -21,8 +21,10 @@ public interface ManagementService {
 	public int getTotal(ItemCriteria cri);
 	
 	public int getNotTotal(ItemCriteria cri);
+
+	public List<Integer>ListCount();
 	
-	public List<ManagementVO> searcheck(String orderStat);
+    public List<ManagementVO> searcheck(String orderStat);
 	
 	public List<ManagementVO> searcheckAll(ItemCriteria cri);
 

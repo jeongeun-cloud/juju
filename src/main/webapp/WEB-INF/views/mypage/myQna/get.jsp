@@ -404,20 +404,14 @@ li {
               str += "<li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
               str += "<div><div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
               
-              str += "<div><small class ='pull-right text-muted'>"+replyService.displayTime(list[i].regDate)+"</div></small>";
-              
-             
-              str += "<div><textarea class='text' id='text' rows='5'readonly='readonly' >"+list[i].replyContent+"</textArea></div>";
+              str += "<div><small class ='pull-right text-muted'>"+replyService.displayTime(list[i].regDate)+"</div></small>";    
+              str += "<div><pre class='text' id='text' rows='5'readonly='readonly' >"+list[i].replyContent+"</pre></div>";
              
               str += "<button id='RemoveBtn' class ='btn btn-dangers'>"+'삭제'+"</button>"
               str += "<button id='ModifyBtn' class ='btn btn-dangers'>"+'수정'+"</button></div>"
               str += "<div id='divBtnDelete' class ='btn btn-dange' style='display: none'>"  
             
-              str += "<button id='Mbtn' class ='btn btn-danger' >"+'수정완료'+"</button>"
-              str += "<button id='Cbtn' class ='btn btn-danger' >"+'수정취소'+"</button></div>"
-             
-            
-              
+       
            }
            replyUL.html(str);
 
@@ -510,22 +504,27 @@ li {
          //수정 start
         $("#list").on("click","button[id='ModifyBtn']",function(e){
           
+           
           
            
+           
            var target = e.target
-              var replyLi = $(target).closest("li");
-              var replyNo = replyLi.data("replyno");
-           var text = replyLi.data("text");
-       
+           var replyLi = $(target).closest("li");
+           var replyNo = replyLi.data("replyno");
            
-           var str = $(target).parent().find(".text").val(text);
-      
-            
+         
+           // var text = replyLi.data("text");
+            var str = $(target).parent().parent().find("#text")[0].textContent;
+            $(".text").css("display","block");
            
+         
+                
+          //   $("#text").css("display","block");
+             $(target).parent().find("#text").css("display","none");
            
              $(".btn-dangers").show();
              $(".btn-dange").hide();
-             $(".text").attr('readonly','readonly');
+       	    
               
              
             $(target).parent().find("button")
@@ -536,23 +535,45 @@ li {
             
             
             $(target).parent().find("#text").removeAttr("readonly");
+            $(target).parent().parent().find("#divBtnDelete").show();
+            
+            
+     /*        str += "<button id='Mbtn' class ='btn btn-danger' >"+'수정완료'+"</button>"
+            str += "<button id='Cbtn' class ='btn btn-danger' >"+'수정취소'+"</button></div>"
+             */
+            
+            ///수정버튼눌럿을겨우 텍스트만들기
+            var replyDiv = document.createElement("div");
+            replyDiv.setAttribute("class", "replyDiv");
+
+            var textArea = document.createElement("textarea");
+            textArea.setAttribute("id", "replyTextarea");
+            textArea.setAttribute("style", "width:100%; height:100px;"); 
+            
+            var Mbtn = document.createElement("input");
+            Mbtn.setAttribute("id", "Mbtn");
+            Mbtn.setAttribute("class", "btn btn-danger");
+            Mbtn.setAttribute("value", "수정완료");
            
-           //$(target).siblings("button").hide();
             
-               
-           $(target).parent().parent().find("#divBtnDelete").show();
+            var Cbtn = document.createElement("input");
+            Cbtn.setAttribute("id", "Cbtn");
+            Cbtn.setAttribute("class", "btn btn-danger");
+            Cbtn.setAttribute("value", "취소");
             
+            $(textArea).html(str);     
          
+            replyDiv.appendChild(textArea);
+            replyDiv.appendChild(Mbtn);
+            replyDiv.appendChild(Cbtn);
         
         
-        
+            $(target).parent().parent().after(replyDiv);
        });
     
-      
-          $("#list").on("click","button[id='Mbtn']",function(e){
+    
+          $("#list").on("click","input[id='Mbtn']",function(e){
                
-                
-           
              
             var target = e.target
               var replyLi = $(target).closest("li");
@@ -561,7 +582,7 @@ li {
             
             
              
-             var replyContent =  $(target).parent().parent().find("#text").val();
+             var replyContent =  $(target).parent().parent().find("#replyTextarea").val();
          
               if(replyContent==''||replyContent.trim()==''||replyContent.length>600){
                  
@@ -586,7 +607,7 @@ li {
                 
           });
           
-          $("#list").on("click","button[id='Cbtn']",function(e){
+          $("#list").on("click","input[id='Cbtn']",function(e){
 
         
             showList(1);
