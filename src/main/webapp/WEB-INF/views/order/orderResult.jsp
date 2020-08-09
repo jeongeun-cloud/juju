@@ -283,19 +283,21 @@
 
             <c:forEach var="item" items="${itemList}">
                <tr cellpadding="40" align=center>
-                  <td><img id="basketItemImg" src="<c:out value="${item.itemImg1}"/>"></td>
+                  <td><img id="basketItemImg" src="/resources/upload/<c:out value="${item.sellerId}"/>/<c:out value="${item.itemImg1}"/>"></td>
                   <td><c:out value="${item.itemName}"></c:out></td>
                   <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" /></td>
                   <td><c:out value="${item.itemNum}"></c:out></td>
-                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice - item.price}" /></td>
+                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.disAmount}" /></td>
                   <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.totalPrice}" /></td>
                </tr>
+               
             </c:forEach>
 
          </tbody>
       </table>
    </form>
-   
+	배송비 2500
+	총금액    ${order.totalPay+2500}
    
    </div>
    
@@ -308,6 +310,32 @@
    <h4><strong>| 주문자 정보</strong></h4>
    </div>
    
+   
+    <!--비회원 주문 상태일 때 주문자 정보 표 -->
+   <c:if test="${empty sessionMember}">
+   <table border="1" cellpadding="0" cellspacing="0">
+      <colgroup>
+         <col width="150" />
+         <col width="400" />
+      </colgroup>
+
+      <tr>
+         <th>이름</th>
+         <td>${delivery.receiver}</td>
+      </tr>
+      <tr>
+         <th>연락처</th>
+         <td>${delivery.receivContact}</td>
+      </tr>
+      
+   </table>
+   </c:if>
+    <!--비회원 주문 상태일 때 주문자 정보 표 -->
+   
+   
+   
+   <!--로그인 상태일 때 주문자 정보 표 -->
+   <c:if test="${!empty sessionMember}">
    <table border="1" cellpadding="0" cellspacing="0">
       <colgroup>
          <col width="150" />
@@ -324,6 +352,8 @@
       </tr>
       
    </table>
+   </c:if>
+   <!--로그인 상태일 때 주문자 정보 표 -->
 
    
    
@@ -388,7 +418,7 @@
       </tr>
       <tr>
          <th>결제금액</th>
-         <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${order.totalPay}" /></td>
+         <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${order.totalPay+2500}" /></td>
       </tr>
 
    </table>

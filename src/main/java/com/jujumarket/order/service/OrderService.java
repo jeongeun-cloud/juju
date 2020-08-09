@@ -40,6 +40,10 @@ public interface OrderService {
    public void paymentRegister(PaymentVO payment);
 
    public void guestInsert(OrderMemberVO orderMember);
+
+   public OrderVO readByIdno(String idNo);
+
+   public void socialMemUpdate(OrderMemberVO orderMember);
    
    
 }

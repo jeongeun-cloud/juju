@@ -238,7 +238,17 @@
      margin-left:70px;}
      /*품절 된 상황  */
 
-       .soldout,
+       .soldout{
+           text-align:center;
+           width:100%;
+           bottom: 50px; 
+           font-size: 3.5em;
+           font-weight: bold; 
+           position: absolute; 
+           color: white;
+          
+        
+       }
        #soldout{
            text-align:center;
            width:100%;
@@ -247,9 +257,10 @@
            font-weight: bold; 
            position: absolute; 
            color: white;
+           top:0;
+           left:0;
         
        }
-       
 
      
       
@@ -697,28 +708,28 @@ $(document).on("change", "select.mainCateg", function(){
             "<div id='so_idNo'>"+response[i].idNo+"</div>"+
             "<div id='so_price'>"+response[i].price+"원</div>"+
             "<div id='so_norPrice'>"+response[i].normPrice+"원</div>"+
-            "<div id='so_cart'>"+"<button class='so_add_cart'>add to cart</button>"+"</div></div>"); 
+            "<div id='so_cart'>"+"<button class='so_add_cart' value=\""+response[i].itemCode+"\" onclick='addToBasketEvent(this.value)'>add to cart</button>"+"</div></div>"); 
       
  
 		//품절일때 
 		if(response[i].saleStat=='품절'){
 			
 			 
-	     	  $("#so_img"+i).css("background-color", "black");
-	     	  $("#so_img"+i).css("opacity", "0.2"); 
+	     	 // $("#so_img"+i).css("background-color", "black");
+	     	 // $("#so_img"+i).css("opacity", "0.2"); 
 	         
 	     	  
-	     	  $("#so_img"+i).append("<div id='soldout'>"+"<p>품절</p>"+"</div>"); 
+	     	  $("#so_img"+i).append("<div id='soldout'><img src=\"/resources/images/s.png\"></div>"); 
 	     	 
 	     	  
 	       }
 		//판매중지 일때 
 		if(response[i].saleStat=='판매중지'){
 			
-	     	  $("#so_img"+i).css("background-color", "black");
-	     	  $("#so_img"+i).css("opacity", "0.2");
+	     	 // $("#so_img"+i).css("background-color", "black");
+	     	 // $("#so_img"+i).css("opacity", "0.2");
 	         
-	     	  $("#so_img"+i).append("<div id='soldout'>"+"<p>판매 중지</p>"+"</div>"); 
+	     	  $("#so_img"+i).append("<div id='soldout'><img src=\"/resources/images/t.png\"></div>"); 
 	     	 
 	     	  
 	       }

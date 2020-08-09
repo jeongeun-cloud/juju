@@ -18,10 +18,16 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class SellerServiceImpl implements SellerService{
 	
+	//t_member
 	private MemberMapper memberMapper;
+	//m_shop
 	private SellerMapper sellerMapper;
+	//m_shop_info
 	private SellerInfoMapper sellerInfoMapper;
 
+	
+	//회원가입(상인) 
+	//t_member, m_shop, m_shop,info, m_history 가입정보 동시에 추가	
 	@Transactional
 	@Override
 	public void register(SellerVO seller) {
@@ -33,6 +39,8 @@ public class SellerServiceImpl implements SellerService{
 	
 	}
 
+	//[마이페이지]회원정보수정(상인)
+	//t_member, m_shop, m_shop_info 를 동시에 update
 	@Transactional
 	@Override
 	public boolean modifySellerInfo(MemberVO member) {
@@ -42,6 +50,10 @@ public class SellerServiceImpl implements SellerService{
 		&& sellerInfoMapper.modifySellerInfo(member)==1;
 	}
 	
+	//[마이페이지]회원탈퇴(상인)
+	//t_member, m_shop, m_shop_info 에서 회원삭제
+	//m_history에 탈퇴정보 추가 
+	//를 동시에 
 	@Transactional
 	@Override
 	public boolean deleteMember(MemberHistoryVO memberHistory) {
@@ -53,6 +65,15 @@ public class SellerServiceImpl implements SellerService{
 		&& sellerMapper.insertDeleteInfo(memberHistory) ==1;
 
 	
+	}
+
+	@Override
+	public boolean bcUniqueCheck(String businessCode) {
+		if (sellerInfoMapper.bcUniqueCheck(businessCode) == null) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 

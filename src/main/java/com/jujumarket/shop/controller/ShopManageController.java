@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.jujumarket.board.service.BoardFAQService;
+import com.jujumarket.member.domain.DangolVO;
 import com.jujumarket.member.domain.MemberVO;
+import com.jujumarket.member.service.MemberService;
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.ItemPageDTO;
 import com.jujumarket.shop.domain.ShopManageVO;
@@ -33,6 +35,7 @@ public class ShopManageController {
 	private ShopManageService smservice;
 	private BoardFAQService fservice;
 	private RegisterItemService itemService;
+	private MemberService mservice;
 	
 	@GetMapping("/")
 	public String index(HttpSession session, Model model) {
@@ -217,6 +220,26 @@ public class ShopManageController {
 		}
 		model.addAttribute("yy", result4);
 
+	}
+	//상인 페이지에서 단골 회원 list 끌고 오기
+	@GetMapping("/dangol")
+	public void dangolList(HttpSession session,Model model) {
+		
+		MemberVO member = (MemberVO)session.getAttribute("sessionMember");
+	    String shopidNo = member == null ? "" : member.getIdNo().trim();
+	    
+	    String shopName=smservice.getShopName(shopidNo);
+	    
+	    model.addAttribute("shopName", shopName);
+	    
+	    model.addAttribute("dangolList",mservice.getDangol(shopName));
+	    
+	    Integer total=mservice.totalDangol(shopName);
+		if(total==null) {total=0;}
+		model.addAttribute("totalDangol",total );
+	    
+	    
+		
 	}
 	
 	

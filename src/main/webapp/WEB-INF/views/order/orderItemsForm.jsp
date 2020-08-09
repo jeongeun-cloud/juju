@@ -349,7 +349,7 @@
                      value="${totalDiscount + ((basketL.normPrice - basketL.price) * basketL.itemNum)}" />
                <tr cellpadding=40 align=center>
                
-                  <td><img id="basketItemImg" src="<c:out value="${basketL.itemImg1}"/>"></td>
+                  <td><img id="basketItemImg" src="/resources/upload/<c:out value="${basketL.sellerId}"/>/<c:out value="${basketL.itemImg1}"/>"></td>
                   <td><c:out value="${basketL.itemName}"></c:out></td>
                   <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${basketL.normPrice}" /></td>
                   <td><c:out value="${basketL.itemNum}"></c:out></td>
@@ -384,9 +384,14 @@
       
       <table width=80% class="list_view">
          <tbody>
+            <td class="fixed join">배송비</td>
+            <td class="fixed join"><fmt:formatNumber type="number" maxFractionDigits="3" value="2500" /></td>
+         </tbody>
+      </table>
+      <table width=80% class="list_view">
+         <tbody>
             <td class="fixed join">최종 결제금액</td>
-            <td class="fixed join"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay}" /></td>
-
+            <td class="fixed join"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay+2500}" /></td>
          </tbody>
       </table>
       <!-- 가져다 쓰기 위한 hidden input 태그들  -->
@@ -654,9 +659,12 @@ function paymentComplete() {
    
    
    
-   // 만약 비회원이면 t_member, m_customer 에 먼저 회원정보 넣어준다 + 첫주문이어야함 (안그럼 pk중복됨)
-   if(idNo.value.substring(0,1)=="g") {
+   // 만약 비회원이면 t_member, m_customer 에 먼저 회원정보 넣어준다 + 첫주문이어야함 (안그럼 pk중복됨) - 첫주문 자동으로 걸러짐. 재주문이면 idNo.value 가 g 로 시작
+   if(idNo.value.substring(0,1)=="") {
       guestInsert();
+      
+   }else if(idNo.value.substring(0,1)=="u"){
+	  socialMemUpdate(); 
    }
    
    
@@ -715,7 +723,7 @@ function paymentComplete() {
             deletefromBasket(baskIdArr[i]);
          }
          
-      }, 1);
+      }, 500);
       
       
    }).then(function(){
@@ -725,10 +733,36 @@ function paymentComplete() {
       // orderResult 페이지로 넘어가기 
       location.href = "/order/orderResult" + "?orderCode=" + orderCode;
       
-      }, 3);
+      }, 1000);
    })
    
    
+}
+
+
+
+
+
+function socialMemUpdate() {
+	
+	var socialData = {
+		memName : memName.val(),
+		contact : contact.val(),
+		emailAccount : email.val(),
+		idNo : idNo.value	
+	}
+	
+	
+	 return $.ajax({
+	      url: "/order/socialMemUpdate",
+	      type: "POST",
+	      data: JSON.stringify(socialData),
+	      contentType: "application/json",
+	      error : function(){console.log("socialMemUpdate 통신실패")},
+	       success : function(){console.log("socialMemUpdate 통신성공")}
+	   }); 
+	
+	
 }
 
 
@@ -755,7 +789,6 @@ function guestInsert() {
    }); 
    
 }
-
 
 
 
@@ -1057,6 +1090,14 @@ function init() {
       
       
       if (recentDelivery.is(":checked")) {
+    	  
+    	  if(recentReceiver.val()=="") {
+    		  alert("최근 주문 내역이 없습니다.");
+    		  recentDelivery.prop('checked',false);
+    		  return;
+    	  }
+    	  
+    	  
          receiver.val(recentReceiver.val());
          receivContact.val(recentReceivContact.val());
          roadAddress.val(raddrs[0]); // 도로명 주소
