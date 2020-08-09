@@ -52,11 +52,9 @@ public class OrderController {
 	public String orderItemsForm(@RequestParam("idNo") String idNo, Model model, HttpSession session) {
 		log.info("orderList");
 
-		//System.out.println("test1");
 		// model에 orderList를 담아 주문서(orderItemsForm.jsp)에 출력
 		//model.addAttribute("orderList", orderService.getOrderResponse(idNo));
 		
-		//System.out.println("test2");
 		// model에 memberInfo를 담아 주문서(orderItemsForm.jsp)에 출력
 		// 0802 주정은 수정
 		MemberVO vo = (MemberVO) session.getAttribute("sessionMember");
@@ -76,10 +74,8 @@ public class OrderController {
 			model.addAttribute("memberInfo", orderMemberService.getOrderSocialInfo(idNo));
 		}
 		
-		//System.out.println("test3");
 		// idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
 		String orderCode = orderService.getRecentOrderCode(idNo);
-		//System.out.println("test4");
 		
 		System.out.println("orderCode 비었어? " + orderCode);
 		
@@ -277,10 +273,6 @@ public class OrderController {
 		
 		OrderInfoVO fullvo = orderService.getMakeInfoAndHistory(notfullVO.getBaskId());
 		
-		if(fullvo==null) {
-			System.out.println("왜 fullvo가 널이야?");
-		}
-		
 		System.out.println("fullvo : " + fullvo.toString());
 		
 		fullvo.setOrderCode(notfullVO.getOrderCode());
@@ -315,7 +307,15 @@ public class OrderController {
 	@PostMapping("/gusetInsert")
 	@ResponseBody
 	public void gusetInsert(@RequestBody OrderMemberVO orderMember) {
+		
 		orderService.guestInsert(orderMember);
+	}
+	
+	
+	@PostMapping("/socialMemUpdate")
+	@ResponseBody
+	public void socialMemUpdate(@RequestBody OrderMemberVO orderMember) {
+		orderService.socialMemUpdate(orderMember);
 	}
 	
 	
