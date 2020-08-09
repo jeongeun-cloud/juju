@@ -12,4 +12,10 @@ public interface MemberManageMapper {
 	
 	public List<MemberManageVO> getAllMember(ItemCriteria cri);
 	
+	public MemberManageVO getMember(String idNo);
+	
+	public void regBlack(MemberManageVO vo);
+	
+	public List<MemberManageVO> getBlack();
+	
 }
