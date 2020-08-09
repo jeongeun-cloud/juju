@@ -219,6 +219,7 @@ public class OrderController {
 		
 		// idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
 		String orderCode = orderService.getRecentOrderCode(idNo);
+		
 		if (orderCode != null) {
 			
 			DeliveryVO delivery = deliveryService.get(orderCode);

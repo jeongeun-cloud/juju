@@ -20,6 +20,7 @@ public class DeliveryServiceImpl implements DeliverySerivce{
 	@Override
 	public DeliveryVO get(String orderCode) {
 		List<DeliveryVO> deliveryList = deliveryMapper.readByOrderCode(orderCode);
+		
 		return deliveryList.get(0) ;
 		
 	}

@@ -97,4 +97,11 @@ public class ManagementServiceImpl implements ManagementService {
 		
 	}
 
+
+	@Override
+	public List<Integer> ListCount() {
+		// TODO Auto-generated method stub
+		return mapper.getListCount();
+	}
+
 }

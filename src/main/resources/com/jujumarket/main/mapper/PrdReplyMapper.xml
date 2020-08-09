@@ -41,7 +41,7 @@ values (seq_prdReplyNo.nextval,#{replyDepth},#{replyCount},#{replyContent},#{rep
 </delete>
 
 <update id ="update">
-		update t_prdQNA set replyContent = #{replyContent}, updateDate = sysDate where
+		update t_prdQNA set replyContent = #{replyContent}, updateDate = sysDate, replyCount = #{replyCount} where
 		replyNo = #{replyNo}
 </update>
 

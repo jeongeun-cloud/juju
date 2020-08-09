@@ -793,16 +793,16 @@ input[type=range] {
 									 <div class="form-grop"><label>id</label>
 								     <input class ="form-control" id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
              					     <div class="form-grop">
-            	 					  <label>replyDepth</label>
-									  <input class ="form-control" id ="replyDepth"  name='replyDepth' value='0' readonly="readonly"></div> 
-									  <label>replyCount</label>
-									  <input class ="form-control" id ="replyCount"  name='replyCount' value='1' readonly="readonly"></div>
+            	 					 
+									  <input class ="form-control"  type="hidden" type="hidden" id ="replyDepth"  name='replyDepth' value='0' readonly="readonly"></div> 
+									
+									  <input class ="form-control" type="hidden" id ="replyCount"  name='replyCount' value='1' readonly="readonly"></div>
 									  <div class="form-grop">
-									 <label>replyCode</label>
-									 <input class ="form-control" id ="replyCode"  name='replyCode' value='1' readonly="readonly"></div>
+									
+									 <input class ="form-control" type="hidden" id ="replyCode"  name='replyCode' value='1' readonly="readonly"></div>
 									 <div  style='display:none' class="form-grop">
-									 <label>itemCode</label>
-									 <input class ="form-control" id ="itemCode"  name='itemCode' value='itemCode' readonly="readonly"></div>
+								
+									 <input class ="form-control" type="hidden" id ="itemCode"  name='itemCode' value='itemCode' readonly="readonly"></div>
            							 <div class="panel-heading"><i class="fa fa-comments fa-fw"></i>Reply
 									 <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 입력하기</button></div>
               
@@ -941,9 +941,9 @@ $(document).ready(function(){
             for(var i = 0, len =list.length || 0; i <len; i++){
             
            var replyDepth = list[i].replyDepth;
+           var replyCount = list[i].replyCount;
+     
            
-           console.log("d여기다아아ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ아아");
-           console.log(replyDepth);
             str += "<ul><li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
 
                  if(replyDepth==0){
@@ -951,8 +951,11 @@ $(document).ready(function(){
                      str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
                      str += "<div><pre class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
                      str += "<div ><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
+                     
+                     if(replyCount!='2'){
+                     
                      str += '<button id="replybtn" class ="replybtn" >답글달기</button> <br></div></div></div>'; 
-               
+                     }
                  }else{
       
               
@@ -966,14 +969,15 @@ $(document).ready(function(){
                  }
             //문의글 , 답글 구현 end
             
-            
+          if(replyCount!='2'){
+        	
             str += '<div class="dropdown">';
             str += '<button class="dropbtn">:</button>';
             str += '<div id="myDropdown" class="dropdown-content">';
             str += '<button id="modify" class ="modify">수정</button> <br>';
             str += '<button id="delete" class ="deletebtn">삭제</button>';
             str += '</div></div></li></ul>'
-            
+          }
          }
          replyUL.html(str);
          showReplyPage(prdReplyCnt);
@@ -1136,18 +1140,36 @@ $(document).ready(function(){
           console.log(target);
           //var replyLi = $(target).parent().parent().parent();
           var replyLi = $(target).closest("li");
-          
-          console.log(replyLi+"LLLIII");
+ 
           var replyNo = replyLi.data("replyno");
           
           var ids = replyLi.data("id");
           
+          
+          var replyContent = '삭제된 댓글입니다.';
+          var replyCount = '2';
           console.log("replyNo == " + replyNo);
           
        
-       
+                
+                  prdreplyService.update({
+                      
+                  	
+                      replyNo  : replyNo,    
+                      itemCode : itemCode,
+                      replyContent : replyContent,
+                      replyCount : replyCount
+
+               
+               },function(result){
+                  
+                     alert("수정 완료 ........")
+                     showList(pageNum);
+                  
+                     
+                });
         
-          prdreplyService.remove(replyNo , function(count){
+          /* prdreplyService.remove(replyNo , function(count){
             
              console.log(count);
              
@@ -1160,7 +1182,7 @@ $(document).ready(function(){
           }, function(err){
            alert('ERROR....')   
              
-          }); 
+          });  */
  
     });       //문의글 삭제, 댓글 삭제end
     
@@ -1181,8 +1203,6 @@ $(document).ready(function(){
                var replyNo = replyLi.data("replyno");
                var replyContent = replyLi.data("text");        
                
-               console.log("1번입니다" +replyContent);
-           
 
           
                //대댓글의경우 replyContent null, parent() 한개더 줘서 replyContetn 값을 줌
