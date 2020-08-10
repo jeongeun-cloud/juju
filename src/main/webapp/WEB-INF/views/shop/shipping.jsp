@@ -130,10 +130,10 @@
 			          <input  type='hidden' id = 'shippingval'type ='text' name = 'shippingCode'value=''>		   
 			          <input  type='hidden' id = 'baskval'type ='text' name = 'baskId'value=''>
 			          <input  type='hidden' id = 'itemCodeal'type ='text' name = 'itemCode'value=''>
-			          <input type='' name='pageNum' value = '${pageMaker.cri.pageNum}'>
-			          <input type='' name='amount' value = '${pageMaker.cri.amount}'>
-			       	  <input type='' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
-			          <input  type='' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+			          <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
+			          <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
+			       	  <input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
+			          <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
 	          </form>
              
             <!-- 페이징시작 -->
@@ -141,12 +141,12 @@
 		   
          
          <form id='actionForm' action="/shop/shipping" method='get'>
-            <input type='' name='pageNum' value = '${pageMaker.cri.pageNum}'>
-            <input type='' name='amount' value = '${pageMaker.cri.amount}'>
-       		<input type='' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
-            <input  type='' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-            <input  type='' name='date1' value = '<c:out value="${pageMaker.cri.date1}"/>'>
-		    <input  type='' name='date2' value = '<c:out value="${pageMaker.cri.date2}"/>'>
+            <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
+            <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
+       		<input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
+            <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+            <input  type='hidden' name='date1' value = '<c:out value="${pageMaker.cri.date1}"/>'>
+		    <input  type='hidden' name='date2' value = '<c:out value="${pageMaker.cri.date2}"/>'>
 
           </form>
         <!-- paging form end--> 
