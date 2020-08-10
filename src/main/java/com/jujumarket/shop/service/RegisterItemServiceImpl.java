@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jujumarket.admin.domain.ListItemVO;
+import com.jujumarket.admin.mapper.BannerMapper;
 import com.jujumarket.shop.domain.CategoryVO;
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.RegisterItemVO;
@@ -31,6 +33,7 @@ public class RegisterItemServiceImpl implements RegisterItemService {
 	
 	@Setter(onMethod_ = @Autowired)
 	private RegisterItemMapper mapper;
+	private BannerMapper bannerMapper;
 
 	@Override
 	public void register(RegisterItemVO register) {
@@ -57,13 +60,19 @@ public class RegisterItemServiceImpl implements RegisterItemService {
 		return mapper.read(itemCode);
 	}
 
-	@Transactional
 	@Override
 	public boolean modify(RegisterItemVO register) {
 		log.info("modify........" + register);
 		
-		return mapper.updateSeason(register) == 1 &&
-		mapper.update(register) == 1;
+		List<ListItemVO> list = bannerMapper.getSeason();
+		for(int i=0; i<list.size(); i++) {
+			ListItemVO vo = list.get(i);
+			if(vo.getItemCode().equals(register.getItemCode())) {
+				mapper.updateSeason(register);
+			}
+		}
+		
+		return mapper.update(register) == 1;
 	}
 
 	@Override
