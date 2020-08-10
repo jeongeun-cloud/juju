@@ -28,7 +28,7 @@ public class DeliveryServiceImpl implements DeliverySerivce{
       
       // 최근 주문이 없을때 처리(null 에러 방지) 
       if(deliveryList.size()==0) {
-    	  
+         
          deliveryList = new ArrayList<DeliveryVO>();
          DeliveryVO dv = new DeliveryVO();
          deliveryList.add(dv);

@@ -48,9 +48,13 @@ public class ManagementController {
 		
 		   date1 = date1 == null?"2020-07-01": date1;
 		   date2 = date2 == null?time1: date2;
+		   date1 = date1 == ""?"2020-07-01": date1;
+		   date2 = date2 == ""?time1: date2;
+		
 		   cri.setDate1(date1);
 		   cri.setDate2(date2);
 		   cri.setOrderStat(orderStat);
+		   cri.setAmount(30);
 		   
 		   int total = service.getTotal(cri);
 
@@ -88,37 +92,37 @@ public class ManagementController {
 	   
 	   date1 = date1 == null?"2020-07-01": date1;
 	   date2 = date2 == null?time1: date2;
+	   date1 = date1 == ""?"2020-07-01": date1;
+	   date2 = date2 == ""?time1: date2;
 	   
 	   
 	   cri.setDate1(date1);
 	   cri.setDate2(date2);
+	   cri.setAmount(60);
 	   
 	   
-	   for(int i = 0; i < (page.size()/10)+1;i++) {
-		   int sum = 0;
-		   int multiply = i*10;
-		   int count = 0;
-		  
-		   for(int j=multiply; j<page.size();j++) {
-			   
-			
-			   sum += page.get(j);
-			 
-			   
-			 if(count==9 || j==page.size()-1) {
-				 System.out.println();
-				 count = 0;
-		
-				 cri.setAmount(sum); 
-			
-				
-			 }
-			  count ++;
-		   
-	   }
-		   
-		 
-	   }System.out.println("마리ㅓㄴ미ㅏㄹ"+cri);
+		/*
+		 * for(int i = 0; i < (page.size()/10)+1;i++) { int sum = 0; int multiply =
+		 * i*10; int count = 0;
+		 * 
+		 * for(int j=multiply; j<page.size();j++) {
+		 * 
+		 * 
+		 * sum += page.get(j);
+		 * 
+		 * 
+		 * if(count==9 || j==page.size()-1) { System.out.println(); count = 0;
+		 * 
+		 * 
+		 * 
+		 * 
+		 * } count ++;
+		 * 
+		 * }
+		 * 
+		 * 
+		 * }System.out.println("마리ㅓㄴ미ㅏㄹ"+cri);
+		 */
 	   
 	 
 	       model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
