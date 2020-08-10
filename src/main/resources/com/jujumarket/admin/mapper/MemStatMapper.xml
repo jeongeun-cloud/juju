@@ -6,10 +6,9 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 
 <!--총 일반 회원 수  -->
 <select id="getCusNum" resultType="java.lang.Integer">
-select count(memCode) customerNum
+select count(*) customerNum
 from t_member 
-where memCode='CUSTOMER'
-group by memCode
+where memCode IN ('CUSTOMER','KAKAO','NAVER','GOOGLE')
 </select>
 
 <select id="getSellNum" resultType="java.lang.Integer">
@@ -79,14 +78,14 @@ order by mon.day
 <select id="TotalMem" resultType="java.lang.Integer">
 select count(*) iT
 from m_history
-where condition='일반고객'
+where condition in('일반고객','가입')
 </select>
 
 <!--오늘 가입 회원  -->
 <select id="TodayTotalMem" resultType="java.lang.Integer">
 select count(*) iTodayT
 from m_history
-where condition='일반고객' AND to_char(condiupdatedate, 'yy/mm/dd') = to_char(sysdate)
+where condition in('일반고객','가입') AND to_char(condiupdatedate, 'yy/mm/dd') = to_char(sysdate)
 </select>
 
 <!-- 총탈퇴회원 -->
