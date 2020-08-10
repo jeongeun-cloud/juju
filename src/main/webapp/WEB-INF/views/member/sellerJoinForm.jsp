@@ -44,6 +44,10 @@ body {
 	text-decoration: none;
 	cursor: pointer;
 }
+
+.joinForm{
+	
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"
 	integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -53,17 +57,22 @@ body {
 </head>
 <body>
 	<form action="/member/sellerJoinForm"  id="sellerJoinForm" method="post" enctype="multipart/form-data">
-
+		<div class="joinForm active">
 		 이메일:
 		<input type="text" id="emailAccount" name="emailAccount"  placeholder="필수입력"> <button id="emailDuplicateCheckBtn">가입여부확인</button> <br>
 		<input type="hidden" id="duplicateCheck">
 		<input type="hidden" id="duplicateCheckResult" value="false">
 		이메일 인증: <button id="emailSendBtn">인증번호받기</button>  인증번호입력<input type="text" id="inputCode"> <button id="emailAuthBtn">인증하기</button>
+		<div id="emailAuthMessage"></div>
 		<input type="hidden" id="tempCode">
 		<input type="hidden" id="authResult" value="false">
-		<br>
+		</div>
+		<div class="joinForm">
 		비밀번호: <input type="password" id="pwd" name="pwd"> <br>
-		비밀번호확인 :<input type="password" id="pwdChk" name="pwdChk">  <br>
+		비밀번호확인 :<input type="password" id="pwdChk" name="pwdChk"> 
+		<div id="pwdChkMessage"></div>
+		</div>
+		<div class="joinForm">
 		상점명: <input type="text" id="shopName" name="shopName"  placeholder="필수입력"> <br>
 		회원이름 <input type="text" id="memName" name="memName"  placeholder="필수입력"> <br>
  		연락처1: <input type="text" id="contact1" name="contact1"  placeholder="XXX-XXXX-XXXX,필수">
@@ -73,18 +82,9 @@ body {
 		도로명 주소: <input type="text" id="roadAddr" name="roadAddr" size="50" value="" readonly="readonly"/><br>
 		나머지 주소: <input type="text" id="namujiAddr" name="namujiAddr">
 		<input type="hidden" id="memAddr" name="memAddr">
-		<br><button id="myBtn">상점 상세정보 입력하기 </button><br>
-		<br>
+		</div>
 		<!-- t_member -->
-
-
-
-
-	
-	<div id="myModal" class="modal">
-
-		<div class="modal-content">
-			<span class="close">&times;</span> 
+		<div class="joinForm">
 			상점명: 
 			<input type="text" id="shopNameModal" name="shopNameModal" readonly="readonly"  placeholder="readonly"> <br> 
 			대표자: 
@@ -120,12 +120,9 @@ body {
 			배경이미지 
 			<input type="file" id="backImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
 			<img id="backThumb" alt="" src=""><br>
-			<button id="sellerAuthBtn">확인</button>
-			<br>
 
-		</div>
-	</div>
 		<button type = "submit" id="submitBtn"  > 가입하기 </button> 
+		</div>
 	</form>
 
 
@@ -134,10 +131,7 @@ body {
 
 		
 	$(document).ready(function(){
-		modal = document.getElementById("myModal");
-		btn = document.getElementById("myBtn");
-		span = document.getElementsByClassName("close")[0];
-		sellerAuthBtn = $("#sellerAuthBtn");
+
 		aTags = $("a");
 		aTags.on().click(function(e){
 			e.preventDefault();
@@ -145,27 +139,7 @@ body {
 			execDaumPostcode(targetId);
 		})
 
-		btn.onclick = function(e) {
-			e.preventDefault();
-			modal.style.display = "block";
-			memNameModal.val(memName.val());
-			shopNameModal.val(shopName.val());
-		}
-
-		span.onclick = function() {
-			modal.style.display = "none";
-		}
-
-		window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-		}
-
-		sellerAuthBtn.click(function(e) {
-			e.preventDefault();
-			modal.style.display = "none";
-		});
+		
 			
 			emailSendBtn = $("#emailSendBtn");
 			emailAccount = $("#emailAccount");
@@ -194,6 +168,9 @@ body {
 			emailAuthBtn = $("#emailAuthBtn");
 			inputCode = $("#inputCode");
 			authResult = $("#authResult");
+			
+			emailAuthMessage = $("#emailAuthMessage");
+			pwdChkMessage = $("#pwdChkMessage");
 
 			bcUniqueCheckBtn = $("#bcUniqueCheckBtn");
 			bcUniqueCheckResult = $("#bcUniqueCheckResult");
@@ -220,11 +197,13 @@ body {
 				
 				//return true일때와 각 input항목 유효성검사, 정규식 처리 이후 가입하기 submit 되도록 처리하기 				
 				if(inputCode.val()==tempCode.val()){
-					alert("이메일 인증에 성공했습니다.");
+					emailAuthMessage.html("이메일 인증에 성공했습니다.");
+					emailAuthMessage.css("color", "green");
 					authResult.val("true");
 					inputCode.val("");
 				} else {
-					alert("이메일 인증에 실패했습니다.");
+					emailAuthMessage.html("이메일 인증에 실패했습니다.");
+					emailAuthMessage.css("color", "red");
 					inputCode.val("");
 				}
 			});
@@ -246,7 +225,8 @@ body {
 				emailAuth(email)
 				.then(function(response){
 					alert("인증번호가 발송되었습니다");
-					console.log(response);
+					//인증번호 개발자도구에서 확인하고싶으면 
+					//console.log(response); 
 					tempCode.val(response);
 				})
 				//자바의 트라이캐치문때문에 빨간줄이 떴다안떴다하는듯? 상관X 
@@ -260,6 +240,7 @@ body {
 				duplicateCheckResult.val("false");
 				authResult.val("false");
 				bcUniqueCheckResult.val("false");
+				emailAuthMessage.html("");
 			});
 			
 			
@@ -291,6 +272,17 @@ body {
 				});
 					
 				});
+			
+			
+			pwdChk.keyup(function(){
+				if(pwdChk.val()==pwd.val()){
+					pwdChkMessage.html("비밀번호와 비밀번호 확인이 일치합니다.");
+					pwdChkMessage.css("color", "green");
+				} else {
+					pwdChkMessage.html("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+					pwdChkMessage.css("color", "red");
+				}
+			});
 			
 			
 			//사업자등록번호 중복체크

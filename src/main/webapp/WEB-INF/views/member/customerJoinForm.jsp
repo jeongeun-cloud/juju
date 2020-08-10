@@ -16,13 +16,15 @@
 		<input type="hidden" id="duplicateCheck">
 		<input type="hidden" id="duplicateCheckResult" value="false">
 		<button id="emailSendBtn">인증번호받기</button> <input type="text" id="inputCode" placeholder="인증번호입력"> <button id="emailAuthBtn">인증하기</button>
+		<div id="emailAuthMessage"></div>
 		<input type="hidden" id="tempCode">
 		<input type="hidden" id="authResult" value="false">
-		<br>
 		비밀번호 : 
-		<input type="password" id="pwd" name="pwd" placeholder="6~12자 영문+숫자">  <br>
+		<input type="password" id="pwd" name="pwd" placeholder="6~12자 영문+숫자">
+		<br>
 		비밀번호확인 : 
-		<input type="password" id="pwdChk" name="pwdChk">  <br>
+		<input type="password" id="pwdChk" name="pwdChk">
+		<div id="pwdChkMessage"></div>
 		이름:
 		<input type="text" id="memName" name="memName"> <br>
 		<!-- 회원코드
@@ -62,6 +64,8 @@
 			authResult = $("#authResult");
 			emailDuplicateCheckBtn = $("#emailDuplicateCheckBtn");
 			duplicateCheckResult = $("#duplicateCheckResult");
+			emailAuthMessage = $("#emailAuthMessage");
+			pwdChkMessage = $("#pwdChkMessage");
 			
 			
 			emailAuthBtn.click(function(e){
@@ -81,11 +85,13 @@
 				
 				//return true일때와 각 input항목 유효성검사, 정규식 처리 이후 가입하기 submit 되도록 처리하기 				
 				if(inputCode.val()==tempCode.val()){
-					alert("이메일 인증에 성공했습니다.");
+					emailAuthMessage.html("이메일 인증에 성공했습니다.");
+					emailAuthMessage.css("color", "green");
 					authResult.val("true");
 					inputCode.val("");
 				} else {
-					alert("이메일 인증에 실패했습니다.");
+					emailAuthMessage.html("이메일 인증에 실패했습니다.");
+					emailAuthMessage.css("color", "red");
 					inputCode.val("");
 				}
 			});
@@ -107,7 +113,8 @@
 				emailAuth(email)
 				.then(function(response){
 					alert("인증번호가 발송되었습니다");
-					console.log(response);
+					//인증번호 개발자도구에서 확인하고싶으면 
+					//console.log(response); 
 					tempCode.val(response);
 				})
 				//자바의 트라이캐치문때문에 빨간줄이 떴다안떴다하는듯? 상관X 
@@ -120,6 +127,7 @@
 			emailAccount.change(function(e){
 				duplicateCheckResult.val("false");
 				authResult.val("false");
+				emailAuthMessage.html("");
 			});
 			
 			emailDuplicateCheckBtn.click(function(e){
@@ -149,7 +157,17 @@
 				});
 					
 				});
-				
+			
+			
+			pwdChk.keyup(function(){
+				if(pwdChk.val()==pwd.val()){
+					pwdChkMessage.html("비밀번호와 비밀번호 확인이 일치합니다.");
+					pwdChkMessage.css("color", "green");
+				} else {
+					pwdChkMessage.html("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+					pwdChkMessage.css("color", "red");
+				}
+			});
 			
 			
 			//REST방식의 컨트롤러 MemberController에 페이지 이동 없이 비동기 방식으로  
