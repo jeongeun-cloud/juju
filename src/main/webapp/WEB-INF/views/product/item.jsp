@@ -788,7 +788,7 @@ input[type=range] {
                            <label>replyContent</label>
                            <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
                             <div class="form-grop"><label>id</label>
-                             <input class ="form-control" id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
+                             <input class ="form-control"  type="hidden" id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
                                  <div class="form-grop">
                                 
                              <input class ="form-control"  type="hidden" type="hidden" id ="replyDepth"  name='replyDepth' value='0' readonly="readonly"></div> 
@@ -1925,9 +1925,7 @@ $(document).ready(function(){
         
       
         }
-      
-
-      
+ 
 
 /* 리뷰 부분 끝 */
 

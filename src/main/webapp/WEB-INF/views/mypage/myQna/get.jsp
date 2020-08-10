@@ -265,7 +265,7 @@ li {
             </div>
                
             <div  class="from-group">
-                  <label>글번호</label><input class="form-control" name='postingNo'
+                <!--   <label>글번호</label> --><input type ='hidden' class="form-control" name='postingNo'
                      value='<c:out value="${BoardQNA.postingNo}"/>'readonly="readonly">
              </div>
              
@@ -306,8 +306,8 @@ li {
                <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
                
                <div class="form-grop">
-               <label>id</label>
-               <input class ="form-control" id ="idNoBtn"  name='idNo' value='idNo' readonly="readonly"></div>
+              
+               <input class ="form-control" id ="idNoBtn"  type='hidden'  name='idNo' value='${sessionMember.idNo}' readonly="readonly"></div>
                  
     
                
@@ -397,13 +397,13 @@ li {
                 return;
            }
            
-           
-           
-
            for(var i = 0, len =list.length || 0; i <len; i++){
               str += "<li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
-              str += "<div><div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
+              str += "<div><div class=''><strong class='primary-font email'>"+list[i].emailAccount+"</strong>";
               
+             
+              str += "<div><div class='header'><input type='hidden' class='primary-font checkidNo' value='"+list[i].idNo+"'/>";
+               
               str += "<div><small class ='pull-right text-muted'>"+replyService.displayTime(list[i].regDate)+"</div></small>";    
               str += "<div><pre class='text' id='text' rows='5'readonly='readonly' >"+list[i].replyContent+"</pre></div>";
              
@@ -413,15 +413,38 @@ li {
             
        
            }
+            
+           
            replyUL.html(str);
 
-           
+                  var idNoBtn = $("#idNoBtn")[0].value;
+                  var checkidNo = "";
+                  for(var i = 0; i <=2; i++){
+                	  
+                	
+						 checkidNo = $(".checkidNo")[i].value;
+                 
+                        
+                  
+                     if(idNoBtn!=checkidNo){
+                   	  
+                    	 $(".header")[i].children[3].style.display = "none";
+                    	 $(".header")[i].children[4].style.display = "none";
+                   	  		
+                   	  } 
+  				  }
+                     
                   });//end function
+                  
+                  
+                  
                  }//end showList
                  
               
     
         //댓글 입력처리
+
+          
         var regiBtn = $("#regiBtn")
           
           
@@ -464,8 +487,7 @@ li {
       
       
           $("#list").on("click","button[id='RemoveBtn']",function(e){
-            
-            
+        	 
            
          
                var target = e.target
