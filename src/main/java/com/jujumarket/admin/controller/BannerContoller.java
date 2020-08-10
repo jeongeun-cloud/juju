@@ -82,10 +82,8 @@ public class BannerContoller {
 		for(int i=0; i<list.size(); i++) {
 			ColumnVO column = list.get(i);
 			
-			if(column != null ) {
-				column.setColumn1(column.getColumn1().replace("\r\n", "<br>"));
-				column.setColumn2(column.getColumn2().replace("\r\n", "<br>"));
-			}
+			column.setColumn1(column.getColumn1().replace("\r\n", "<br>"));
+			column.setColumn2(column.getColumn2().replace("\r\n", "<br>"));
 		}
 		
 		model.addAttribute("column", list);

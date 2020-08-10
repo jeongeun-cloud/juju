@@ -49,7 +49,7 @@
 			float : left;
 			margin-bottom : 100px;
 		}
-		.columnText textarea {
+		.columnText pre {
 			width:100%;
 			height : 500px;
 			resize : none;
@@ -427,10 +427,10 @@
 				<img alt="" src='/resources/banner/column/<c:out value="${column.img1}"/>' >
 			</div>
 			<div class="columnText" data-aos="fade-down" data-aos-duration="1500">
-				<textarea id="column1" readonly disabled><c:out value="${column.column1}"/></textarea>
+				<pre id="column1" readonly disabled><c:out value="${column.column1}"/></pre>
 			</div>
 			<div class="columnText" data-aos="fade-up" data-aos-duration="1500">
-				<textarea id="column2" readonly disabled><c:out value="${column.column2}"/></textarea>
+				<pre id="column2" readonly disabled><c:out value="${column.column2}"/></pre>
 			</div>
 			<div class="columnImg" data-aos="fade-left" data-aos-duration="1500">
 				<img alt="" src='/resources/banner/column/<c:out value="${column.img2}"/>' >
@@ -569,8 +569,8 @@
 	
 		$(document).ready(function() {
 			// 줄바꿈 처리
-			$("#column1").html($("#column1")[0].value.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
-			$("#column2").html($("#column2")[0].value.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+			//$("#column1").html($("#column1")[0].value.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
+			//$("#column2").html($("#column2")[0].value.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n'));
     	    
 			var seasonal = new Array();
 	        
