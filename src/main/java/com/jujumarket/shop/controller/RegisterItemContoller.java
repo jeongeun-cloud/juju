@@ -265,6 +265,7 @@ public class RegisterItemContoller {
    public String disModify(@RequestParam("itemCode") String[] itemCode, @ModelAttribute("cri") ItemCriteria cri, Model model, RedirectAttributes rttr) {
       
       for(int i=0; i<itemCode.length; i++) {
+    	  
          RegisterItemVO vo = service.get(itemCode[i]);
          
          // 진열상태 변경
@@ -286,17 +287,14 @@ public class RegisterItemContoller {
       
       for(int i=0; i<itemCode.length; i++) {
          RegisterItemVO vo = service.get(itemCode[i]);
-
-
+         
 			// 판매상태 변경
 			if(vo.getSaleStat().equals("판매중")) {
 				vo.setSaleStat("판매중지");
 			}else {
 				vo.setSaleStat("판매중");
-
-				//model.addAttribute("category", JSONArray.fromObject(alist));
-
 			}
+			
 			service.modify(vo);
 		}
 		rttr.addFlashAttribute("result", "success");

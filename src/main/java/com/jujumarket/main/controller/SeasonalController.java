@@ -21,7 +21,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/")
 @AllArgsConstructor
 public class SeasonalController {
-   
+
    private BannerService service;
    
    @GetMapping("/seasonal")
@@ -40,5 +40,6 @@ public class SeasonalController {
       model.addAttribute("seasonal", service.getBanner("seasonal"));
       model.addAttribute("seasonItem", service.getSeason());
    }
+
 
 }
