@@ -15,6 +15,7 @@ import lombok.extern.log4j.Log4j;
 @Service
 @AllArgsConstructor
 public class DeliveryServiceImpl implements DeliverySerivce{
+
    
    private DeliveryMapper deliveryMapper;
 
@@ -42,5 +43,6 @@ public class DeliveryServiceImpl implements DeliverySerivce{
    public void register(DeliveryVO delivery) {
       deliveryMapper.insertSelectKey(delivery);
    }
+
 
 }

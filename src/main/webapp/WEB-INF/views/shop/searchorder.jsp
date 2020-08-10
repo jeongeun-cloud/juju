@@ -40,8 +40,8 @@ table, td, th {
 						      <c:out value="${pageMaker.cri.type eq 'P'?'selected':''}"/>>연락처</option>
  						 </select>
 		                <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-					    <input type=""  name ='pageNum' value='${pageMaker.cri.pageNum}'>
-					    <input type=""  name ='amount' value='${pageMaker.cri.amount}'>               
+					    <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
+					    <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>               
 
 						      <br>
 						      주문일<input id='date1' name='date1' type='date'>~<input id='date2' name='date2' type='date'>
@@ -67,7 +67,7 @@ table, td, th {
 		              <table tit aria-setsize="500px">
 		                  <thead>
 		                    <tr>
-		                        <th><input type="checkbox"></th>
+		                        <th><input id='checkAll' type="checkbox"></th>
 		                        <th>주문일</th>
 		                        <th>주문번호</th>
 		                        <th>송장번호</th>
@@ -91,7 +91,7 @@ table, td, th {
 		    
 		               <tr>
 		               
-		                  <td><input type="checkbox"></td>
+		                  <td><input name ='chk'type="checkbox"></td>
 		                  <td><fmt:formatDate pattern="yyyy/MM/dd"
 		                        value="${list.orderDate }" /></td>
 		                  <td><c:out value="${list.orderCode }" /></td>
@@ -145,9 +145,9 @@ table, td, th {
 		            <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
 		         	<input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
 		            <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-	                <input  type='' name='date1' value = '<c:out value="${pageMaker.cri.date1}"/>'>
-		            <input  type='' name='date2' value = '<c:out value="${pageMaker.cri.date2}"/>'>
-		            <input  type='' name='orderStat' value = '<c:out value="${pageMaker.cri.orderStat}"/>'>
+	                <input  type='hidden' name='date1' value = '<c:out value="${pageMaker.cri.date1}"/>'>
+		            <input  type='hidden' name='date2' value = '<c:out value="${pageMaker.cri.date2}"/>'>
+		            <input  type='hidden' name='orderStat' value = '<c:out value="${pageMaker.cri.orderStat}"/>'>
 		         </form>
 					 <!-- paging form end--> 
 			
@@ -157,6 +157,16 @@ table, td, th {
 </body>
 <script type='text/javascript'>
 $(document).ready(function(){
+	
+	   //전체 체크처리	
+	$("#checkAll").click(function(){
+
+	      if( $("#checkAll").is(':checked') ){
+	        $("input[name=chk]").prop("checked", true);
+	      }else{
+	        $("input[name=chk]").prop("checked", false);
+	      }
+	});
 
       //페이징처리
       $(".paginate_button a").on("click", function(e) {
@@ -199,6 +209,8 @@ $(document).ready(function(){
     	  
       });
       
+      
+      
       $("#radioBtn").on("click", function(e){
 
          var check = $("input:radio[name='orderStat']:checked").val();
@@ -217,6 +229,8 @@ $(document).ready(function(){
 			});  */	// $.ajax
 
       });
+      
+   
 	
 });
 </script>
