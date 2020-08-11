@@ -747,6 +747,7 @@ input[type=range] {
            
             <!-- 로그인 idNo -->
               <input type="hidden" id="sessionId" value='<c:out value="${sessionMember.idNo}"/>'>
+              <input type="hidden" id="sellerId" value='<c:out value="${product.idNo}"/>'>
             <!-- 글쓴이 idNo -->
               <input type="hidden" name="idNo" id="idNo">
               <input type="hidden" name="score" id="score" value="0">
@@ -787,9 +788,11 @@ input[type=range] {
                      <div class="form-grop regiBtn">
                            <label>replyContent</label>
                            <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
-                            <div class="form-grop"><label>id</label>
-                             <input class ="form-control"  type="hidden" id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
-                                 <div class="form-grop">
+                            <div class="form-grop">
+                             <input class ="form-control"  type="hidden"id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
+                            <div class="form-grop"><label>아이디</label>
+                             <input class ="form-control"  type="text" id =""  name='' value="${sessionMember.emailAccount}" readonly="readonly"></div>
+                             <div class="form-grop">
                                 
                              <input class ="form-control"  type="hidden" type="hidden" id ="replyDepth"  name='replyDepth' value='0' readonly="readonly"></div> 
                            
@@ -935,38 +938,39 @@ $(document).ready(function(){
                           }
 
           //문의글 , 답글 구현
+          var j = 0;
             for(var i = 0, len =list.length || 0; i <len; i++){
             
            var replyDepth = list[i].replyDepth;
            var replyCount = list[i].replyCount;
      
            
-            str += "<ul><li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
+            
 
                  if(replyDepth==0){
-                     str += "<div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
+                	 str += "<ul><li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
+                	 str += "<div class='header'><input type='hidden' class='primary-font' value='"+list[i].idNo+"'>";
+                     
+                     str += "<div class='emaile'><strong class='primary-font'>"+list[i].emailAccount+"</strong>";
                      str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
                      str += "<div><pre class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
-                     str += "<div ><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
-                     
-                     if(replyCount!='2'){
-                     
+                     str += "<div id='reDiv"+i+"'><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
                      str += '<button id="replybtn" class ="replybtn" >답글달기</button> <br></div></div></div>'; 
-                     }
-                 }else{
+                   
+                     j=i
+                     }else{
       
-              
-                    str += "<div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
+                    str += "<ul><li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
+                    str += "<div class='header'><input type='hidden' class='primary-font' value='"+list[i].idNo+"'>";
+                    str += "<div class='emaile'><strong class='primary-font'>"+list[i].emailAccount+"</strong>";
                     str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
                     str += "<div>"+'&nbsp&nbsp; >>>답글:'+"<pre class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
-                    str += "<div><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
-                   /*    str += '<button id="replybtn" class ="replybtn" >답글달기</button> <br></div></div></div>';  */
+                    str += "<div id='reDiv"+i+"'><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
+                    str += '<button id="replybtn" class ="replybtn" style="display:none" >답글달기</button> <br></div></div></div>';
                      
                     
                  }
             //문의글 , 답글 구현 end
-            
-          if(replyCount!='2'){
            
             str += '<div class="dropdown">';
             str += '<button class="dropbtn">:</button>';
@@ -974,16 +978,55 @@ $(document).ready(function(){
             str += '<button id="modify" class ="modify">수정</button> <br>';
             str += '<button id="delete" class ="deletebtn">삭제</button>';
             str += '</div></div></li></ul>'
-          }
+      
          }
          replyUL.html(str);
          showReplyPage(prdReplyCnt);
-  
+         
+          //글쓴사람만 삭제가능
+          var idSession = $("#idNoBtn").val();
+          var idCode = "";
+          for(var i = 0; i< $(".header").length;i++){
+        	  
+		   		idCode = $(".header")[i].children[0].value;
+		   		
+	   			if(idCode!=idSession){
+	   				 	$(".header")[i].children[2].children[0].style.display = "none"; 
+	   				 	$(".header")[i].children[2].children[1].style.display = "none"; 
+	   					$(".header")[i].children[2].children[1].children[0].style.display = "none"
+	   					$(".header")[i].children[2].children[1].children[1].style.display = "none"
+	   					$(".header")[i].children[2].children[1].children[2].style.display = "none"
+	   			}
+       	   
+          }
+          
+          var sessionId = $("#sessionId").val();
+          var sellerId = $("#sellerId").val();
+    		
+          console.log(sessionId);
+          console.log(sellerId);
+          
+           if(sessionId!=sellerId){
+        	   for(var i = 0; i <=j; i++){
+        		   $("#reDiv"+i)[0].style.display ="none";
+        	   }
+        	   //$(".header")[0].children[1].children[2].children[1].children[1].style.display="none"; 
+        	 
+        
+        	   
+           }
+      //    <input type="hidden" id="sessionId" value='<c:out value="${sessionMember.idNo}"/>'>
+      //    <input type="hidden" id="sellerId" value='<c:out value="${product.idNo}"/>'>
+      
+      
+           
          
                 });//end function
                 
                 
                }//end showList
+               
+               
                
                
               //문의 입력  start
@@ -1103,9 +1146,9 @@ $(document).ready(function(){
 
        //: . dropDown 클릭시발생하는 이벤트
 
-       window.onclick = function(e) {
-       
-   
+
+       $(document).on("click","button[class='dropbtn']", function(e){
+
            var target = e.target
              //var replyLi = $(target).parent().parent().parent();
              var replyLi = $(target).closest("li");
@@ -1126,7 +1169,7 @@ $(document).ready(function(){
                           }
             }
              
-     }//: . dropDown 클릭시발생하는 이벤트 end
+     });//: . dropDown 클릭시발생하는 이벤트 end
        
        
         

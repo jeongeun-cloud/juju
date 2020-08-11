@@ -13,6 +13,7 @@ public class PrdReplyVO {
 	private String replyContent;
 	private String replyCode;
 
+	private String emailAccount;
 	private String itemCode;
 	private String idNo;
 	private Date regDate;
