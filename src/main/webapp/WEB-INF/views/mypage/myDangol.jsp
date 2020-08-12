@@ -26,7 +26,7 @@
 	table {
 		border-collapse: collapse;
 		width: 90%;
-		margin-left: 50px;
+		margin-left: 20px;
         margin-top: 30px;
 	}
     th, td {
@@ -50,8 +50,8 @@
 	.side{
 	     width: 300px;	     
 	     float: left;
-	     margin-right: 120px;
-	     
+	     margin-right: 20px;
+	     margin-top:25px;
 	}
 
 	
@@ -59,7 +59,7 @@
 	/* 사이드 메뉴 끝 */
 	.regi_main{
 	   float:  right;
-	   width: 800px;	   
+	   width: 980px;	   
 	   background-color: white;
        
 	} 
@@ -73,6 +73,15 @@
 	   position: relative;
 	   display: inline-block;
 	   padding-top: 30px;
+	}
+	.regi_main .title {
+	margin-left: 20px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
 	}
 </style>
 </head>
@@ -88,7 +97,9 @@
 <!-- side 끝-->
 <!-- regi_main 시작 -->      
 	<div class="regi_main">
-	
+		<div class=title>
+		<h3>나의 단골 상점</h3> <p>나의 단골 상점들을 한곳에서 확인하세요.</p>
+		</div>
 		<table tit aria-setsize="500px">
                         <thead>
                             <tr>

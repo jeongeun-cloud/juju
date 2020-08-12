@@ -91,7 +91,7 @@
         display: block;
         }
         .div{
-            padding-top: 14px;
+            padding-top: 12px;
         }
 </style>
 
@@ -160,7 +160,7 @@
 		             	</c:otherwise>
 					 </c:choose>
                   </c:if>
-				 
+				  <span class="div">|</span>
 
                   <li class="dropdown_sub"><a href="/mypage/myPerchaseList" class="subMemu">마이페이지</a>
 <%--                      <div class="subMemu-content">
@@ -184,6 +184,7 @@
 <!--                            <a href="/mypage/myQna/list">1:1 문의 게시판</a> -->
                         </div>
                      </li>
+                     <span class="div">|</span>
                      <c:choose>
 <%--                         <c:when test="${fn:substring(sessionMember, 0, 1) eq 's'}"> --%>
                            <c:when test="${sessionMember.memCode eq 'SELLER'}">

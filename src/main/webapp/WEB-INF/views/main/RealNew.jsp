@@ -40,6 +40,7 @@
             height: 396px;
             position: relative;
             overflow: hidden;
+            background-color:black;
         }
         .pro_img_wrap img{
         display:block;
@@ -213,10 +214,10 @@
 							                
 							                  <div class="cart_btn">
 							                    <c:if test="${realnew.saleStat=='품절'||realnew.saleStat=='판매중지'}">
-							                       <button type="button" class="add_to_cart" value="${realnew.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/cart.png"></button>
+							                       <button type="button" class="add_to_cart" value="${realnew.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/addcart.png"></button>
 							                    </c:if>
 							                    <c:if test="${realnew.saleStat!='품절'&& realnew.saleStat!='판매중지'}">
-							            	 		<button type="button" class="add_to_cart" value="${realnew.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/cart.png"></button> 
+							            	 		<button type="button" class="add_to_cart" value="${realnew.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/addcart.png"></button> 
 							            	 	</c:if>
 							                  </div>
 							                
