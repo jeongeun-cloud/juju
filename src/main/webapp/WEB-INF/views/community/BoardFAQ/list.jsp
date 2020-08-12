@@ -27,6 +27,7 @@
     }
     body{
         color: #303030;
+        font-family: Arial, Helvetica, sans-serif;
     }
     .jaju_menu a{
         text-decoration: none;
@@ -51,10 +52,10 @@
       
         width: 200px;
         height: 200px;
-        background-color: white;
+        background-color: #F0F2F0;
         float: left;
         margin-right: 90px;
-        border:solid  #ffc30b ;
+        border:solid  #637365 ;
         
     }
     .jaju_main{
@@ -68,7 +69,7 @@
         padding-bottom:12px ;
         text-align: center;
         width: 100%;
-        background-color: #ffc30b;
+        background-color: #8FA691;
         font-size: 20px;
         font-weight: 900;
         
@@ -87,7 +88,7 @@
 
     .searchBtn,
     #regBtn{
-        background-color: #ffc30b; 
+        background-color: #8FA691; 
         border: none;
         color: white;
         padding: 8px 20px;
@@ -102,9 +103,9 @@
     }
     .searchBtn:hover,
     #regBtn:hover {
-    background-color: white; 
-    color: #ffc30b; 
-    border: 2px solid #ffc30b;
+    background-color: #F0F2F0; 
+    color: #8FA691; 
+    border: 2px solid #F0F2F0;
     }
     .searchBtn,
     #regBtn
@@ -130,15 +131,19 @@
     }
     
     th {
-        background-color: black;
-        height: 30px;
-        color: white;
-        text-align: left;
+       background-color: #8FA691; 
+	   color: white;
+	   text-align: left;
     }
+    
+    td{
+   background-color: #F0F2F0; 
+	}
     
     tr:hover {
         background-color: #f5f5f5;
     }
+    
     #regBtn{
         margin-right: 50px;
     }
