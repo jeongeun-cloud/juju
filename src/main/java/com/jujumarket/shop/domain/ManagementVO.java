@@ -18,6 +18,8 @@ public class ManagementVO {
 	 private String receivContact;  //연락처
 	 private String itemCode; //상품코드
 	 private String receiver; //수취인명
+	 private String idNo; //상인계정불러올것
+	 
 	 
 
 	 

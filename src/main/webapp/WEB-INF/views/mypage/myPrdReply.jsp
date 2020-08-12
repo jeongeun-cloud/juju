@@ -36,6 +36,7 @@ table {
    width: 100%;
 }
 
+
 /* 배치 */
 th, td {
    padding: 8px;
@@ -44,9 +45,13 @@ th, td {
 }
 
 th {
-   background-color: black; 
+   background-color: #8FA691; 
    color: white;
    text-align: left;
+}
+
+td{
+   background-color: #F0F2F0; 
 }
 
 tr:hover {
@@ -76,7 +81,7 @@ tr:hover {
 /* 글쓰기, 검색 버튼 시작 */
 #regBtn,
 #searchBtn {
-  background-color: #ffc30b; 
+  background-color: #8FA691; 
   border: none;
   color: white;
   padding: 10px 20px;
@@ -92,9 +97,9 @@ tr:hover {
 
 #regBtn:hover,
 #searchBtn:hover {
-  background-color: white; 
-  color: #ffc30b; 
-  border: 2px solid #ffc30b;
+  background-color: #F0F2F0 ; 
+  color: #8FA691; 
+  border: 2px solid #8FA691;
 }
 #regBtn:focus,
 #searchBtn:focus { 
@@ -108,7 +113,6 @@ margin-right: 0%;
 
 }
 /* 글쓰기, 검색 버튼 끝 */
-
 /* 페이지 버튼 디자인 시작 */
 
 .pageBtns {
@@ -116,19 +120,18 @@ margin-right: 0%;
 }
 
 .pageBtns a{
-    color: black;
+    color: #637365;
     float: left;
     padding: 8px 16px;
     text-decoration: none;
 }
 
 .pagination1 a:hover:not(.active) {
-    background-color: #f6dd90;
+    background-color: #F0F2F0;
     border-radius: 50%;
 }
 
 /* 페이지 버튼 디자인 끝 */
-
 /* 모달디자인 시작  */
 .close:hover,
 .close:focus {
@@ -150,7 +153,6 @@ margin-right: 0%;
   background-color: white;
   color: white;
 }
-
 
 #closeBtn {
   background-color: #ffc30b; 
@@ -186,21 +188,24 @@ margin-right: 0%;
      background-color: white;
      float: left;
      margin-right: 90px;
-     border:solid #ffc30b ;
+     border:solid #637365;
+     background-color: #F0F2F0;
 }
 
  .regi_side_tit{
       padding-top: 12px;
       padding-bottom:12px ;
       text-align: center;
+      color: white;
       width: 100%;
-      background-color: #ffc30b;
+      background-color: #8FA691;
       font-size: 20px;
       font-weight: 900;
 }
 
 .regi_menu {
 	margin-top:20px;
+	
 }
 
 /* 사이드 메뉴 끝 */

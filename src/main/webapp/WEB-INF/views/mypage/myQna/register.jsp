@@ -33,15 +33,14 @@ li {
 
 
 /* 사이드 메뉴 */
+/* 사이드 메뉴 */
 .side{
-          
      width: 200px;
      height: 500px;
      background-color: white;
      float: left;
      margin-right: 90px;
-     border:solid #ffc30b;
-            
+     border:solid #637365;
 }
 
  .regi_side_tit{
@@ -49,18 +48,17 @@ li {
       padding-bottom:12px ;
       text-align: center;
       width: 100%;
-      background-color: #ffc30b;
+      background-color: #8FA691;
       font-size: 20px;
       font-weight: 900;
-            
 }
 
 .regi_menu {
 	margin-top:20px;
-
 }
 
 /* 사이드 메뉴 끝 */
+
 
 
 

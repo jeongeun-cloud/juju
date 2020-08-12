@@ -41,14 +41,14 @@
 <select id = "searchordergetListPaging" resultType="com.jujumarket.shop.domain.ManagementVO" >
 <![CDATA[
 select s.orderCode, s.orderstat, s.totalprice, s.orderdate, 
-s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver
+s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver,s.idNo
 ,s.itemNum,s.price
 
 from
    (
    select /*+INDEX_DESC(t_order_history PK_T_ORDER_HISTORY) */
      rownum rn,h.orderCode, h.orderstat, o.totalprice, o.orderdate, 
-i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
+i.itemName,i.idNo,d.shippingCode, d.receivAddr, d.receivContact, d.receiver
 ,o.itemNum,i.price
 
 from t_order_history h, t_order_info o, t_item i, t_delivery d
@@ -82,13 +82,13 @@ where rn > (#{pageNum} -1)* #{amount}
 <![CDATA[
 select s.ordercode, s.orderstat, s.totalprice, s.orderdate, 
 s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver
-,s.itemNum,s.price,s.baskId,s.prgDate,s.itemCode
+,s.itemNum,s.price,s.baskId,s.prgDate,s.itemCode,s.idNo
 from
    (
    select /*+INDEX_DESC(t_order_history PK_T_ORDER_HISTORY) */
      rownum rn,h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
-,o.itemNum,i.price,h.baskId,h.prgDate,h.itemCode
+,o.itemNum,i.price,h.baskId,h.prgDate,h.itemCode,i.idNo
 
 from t_order_history h, t_order_info o, t_item i, t_delivery d
 where 
@@ -106,7 +106,9 @@ and h.baskid = o.baskid
 and shippingcode is NULL
 and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
 and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
+and i.idNo = #{idNo}
 and rownum <= #{pageNum} * #{amount}
+
 ) s
 where rn > (#{pageNum} -1)* #{amount}
 
@@ -201,7 +203,7 @@ and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
 <select id = "getcheckAll" resultType="com.jujumarket.shop.domain.ManagementVO" >
 <![CDATA[
 select   s.orderCode, s.orderstat, s.totalprice, s.orderdate, 
-s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver
+s.itemName, s.shippingCode, s.receivAddr, s.receivContact, s.receiver,s.idNo
 ,s.itemNum,s.price
 
 from
@@ -209,7 +211,7 @@ from
    select /*+INDEX_DESC(t_order_orderCode PK_T_ORDER) */
      rownum rn,r.orderCode, r.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
-,o.itemNum,i.price
+,o.itemNum,i.price,i.idNo
 
 from  t_order_info o, t_item i, t_delivery d,t_order r
 where
@@ -222,7 +224,7 @@ and o.itemCode = i.itemCode
 and o.baskid = d.baskId
 and #{date1} <= to_char(o.orderdate, 'yyyy-MM-dd')
 and to_char(o.orderdate, 'yyyy-MM-dd') <= #{date2}
-
+and i.idNo = #{idNo}
 and rownum <= #{pageNum} * #{amount}
 ) s
 where rn > (#{pageNum} -1)* #{amount}
@@ -254,6 +256,7 @@ and d.orderCode = r.orderCode
 and o.itemCode = i.itemCode
 and d.baskId = o.baskId
 and r.orderStat = #{orderStat}
+
 
 
 

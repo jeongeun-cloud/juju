@@ -16,9 +16,6 @@
 <style>
 /* css 영역 */
 
-
-
-
 li {
    list-style: none;
 
@@ -31,19 +28,15 @@ li {
 }
 
 
-
-
-
 /* 사이드 메뉴 */
+
 .side{
-          
      width: 200px;
      height: 500px;
      background-color: white;
      float: left;
      margin-right: 90px;
-     border:solid #ffc30b;
-            
+     border:solid #637365;
 }
 
  .regi_side_tit{
@@ -51,26 +44,16 @@ li {
       padding-bottom:12px ;
       text-align: center;
       width: 100%;
-      background-color: #ffc30b;
+      background-color: #8FA691;
       font-size: 20px;
       font-weight: 900;
-            
 }
 
 .regi_menu {
 	margin-top:20px;
-
 }
 
 /* 사이드 메뉴 끝 */
-
-
-
-
-
-
-
-
 
         
 .regi_main{
@@ -105,17 +88,12 @@ li {
         
 
 
-
-
-
-
-
 /* 등록, 리셋 버튼 시작 */
 #addReplyBtn,
 #modifyBtn,
 #deleteBtn,
 #listBtn {
-  background-color: #ffc30b; 
+  background-color: #8FA691; 
   border: none;
   color: white;
   padding: 10px 20px;
@@ -134,8 +112,8 @@ li {
 #deleteBtn:hover,
 #listBtn:hover {
   background-color: white; 
-  color: #ffc30b; 
-  border: 2px solid #ffc30b;
+  color: #8FA691; 
+  border: 2px solid #8FA691;
 }
 
 #addReplyBtn:focus,
@@ -147,16 +125,6 @@ li {
 
 
 /* 등록, 리셋 버튼 끝 */
-
-
-
-
-
-
-
-
-
-
 
 </style>
 
@@ -232,22 +200,15 @@ li {
 
 
 
-
-
-
-
-
-
    <div class="row">
       <div class="col-lg-12">
          <div class="panel panel-default">
-            <div class="panel-heading"><c:out value="${BoardQNA.content}"/></div>
-            <div class="panel-body">
+            <div class="panel-body" id='body'>
 
                    <form id = "actionForm" role="form" method="post">
 
                <div class="from-group">
-                  <label>Title</label><input class="form-control" name='title'
+                  <label>제목</label><input class="form-control" name='title'
                      value='<c:out value="${BoardQNA.title}"/>'
                   readonly="readonly">
                </div>
@@ -260,7 +221,7 @@ li {
      
                
             <div class="from-group">
-                  <label>작성자</label><input type="hidden" class="form-control" name='idNo'
+                  <input type="hidden" class="form-control" name='idNo'
                      value='<c:out value="${BoardQNA.idNo}"/>'readonly="readonly">
             </div>
                
@@ -408,7 +369,7 @@ li {
               str += "<div><pre class='text' id='text' rows='5'readonly='readonly' >"+list[i].replyContent+"</pre></div>";
              
               str += "<button id='RemoveBtn' class ='btn btn-dangers'>"+'삭제'+"</button>"
-              str += "<button id='ModifyBtn' class ='btn btn-dangers'>"+'수정'+"</button></div>"
+              str += "<button id='ModifyBtnBtn' class ='btn btn-dangers'>"+'수정'+"</button></div>"
               str += "<div id='divBtnDelete' class ='btn btn-dange' style='display: none'>"  
             
        
@@ -419,7 +380,7 @@ li {
 
                   var idNoBtn = $("#idNoBtn")[0].value;
                   var checkidNo = "";
-                  for(var i = 0; i <=2; i++){
+                  for(var i = 0; i <=$(".checkidNo")[i].length; i++){
                 	  
                 	
 						 checkidNo = $(".checkidNo")[i].value;
@@ -524,12 +485,11 @@ li {
       
       
          //수정 start
-        $("#list").on("click","button[id='ModifyBtn']",function(e){
+        $("#list").on("click","button[id='ModifyBtnBtn']",function(e){
+        	
+        	console.log(여기로들어옴);
           
-           
-          
-           
-           
+
            var target = e.target
            var replyLi = $(target).closest("li");
            var replyNo = replyLi.data("replyno");
@@ -653,81 +613,10 @@ li {
    
 
 
-   </script>
-   
-   <script type="text/javascript">//댓글 스크립트2.
+</script>
+<!-- 댓글스크립트 -->
 
-   
-     /*  console.log("=========");
-      console.log("JS TEST");
-     
-      console.log(replyService);
-      
-      var replyNoValue = '38';
-      
-     // <!--댓글 입력-->
-      replyService.add(
-            {idNo:"", replyContent:"", postingNo:"38"},
-            
-            function(result){
-               alert("RESUTL : " + result);
-          
-         }); 
-      
-      //<!-- 댓글 출력-->
-       replyService.getList({postingNo:38, page:1}, function(list){
-         
-         
-         console.log(list[0]);
-      
-        for(var i =0, len = list.length||0; i<len; i++){
-           
-           console.log(list[i]);
-        }   
-     
-      }); 
-      
-      
-      //remove 안에 숫자는 replyNO
-       replyService.remove(34 , function(count){
-        
-         console.log(count);
-         
-         if(count === "success"){
-            alert("REMOVED");
-         }
-      }, function(err){
-       alert('ERROR....')   
-         
-      }); 
-      
-      //댓글수정  preplyNo로 찾고 replyContent 수정. 추가수정하려면 xml 쿼리문 고쳐야함
-      replyService.update({
-       
-   
-          replyNo  : "205",
-          postingNo : "25",
-         replyContent : "수정된 리플입니다!!",
-      
-
-      
-      },function(result){
-            
-            alert("수정 완료 ........")
-         
-      });
-      
-      replyService.get("25", function(data){
-        
-         console.log("데이타타타탙타ㅏ타타 " + data);
-      });
-            */
-         
-  
-   </script>
-
-
-     <script type="text/javascript">
+<script type="text/javascript">
      
      
      $(document).ready(function(){
@@ -750,21 +639,19 @@ li {
            
         var operForm = $("#operForm");
         
-
-        
          $("button[data-oper='modify']").on("click", function(e){
-        
-           operForm.attr("action","/mypage/myQna/modify").submit();
+        	 
+			  operForm.attr("action","/mypage/myQna/modify").submit();
            
-        });
+          });
         
-        $("button[data-oper='list']").on("click",function(e){
+      	  $("button[data-oper='list']").on("click",function(e){
            
           operForm.find("#postingNo").remove();
           operForm.attr("action","/mypage/myQna/list");
           operForm.submit();
            
-        });
+          });
      });
      
      </script>

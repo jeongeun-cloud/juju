@@ -60,45 +60,31 @@ li {
 
 }
 
+/* 사이드 메뉴 */
+.side{
+     width: 200px;
+     height: 500px;
+     background-color: white;
+     float: left;
+     margin-right: 90px;
+     border:solid #637365;
+}
+
+ .regi_side_tit{
+      padding-top: 12px;
+      padding-bottom:12px ;
+      text-align: center;
+      width: 100%;
+      background-color: #8FA691;
+      font-size: 20px;
+      font-weight: 900;
+}
+
+.regi_menu {
+	margin-top:20px;
+}
+
 /* 사이드 메뉴 끝 */
-
-
-
-
-
-        
-.regi_main{
-   float:  right;
-   width: 1000px;
-   height: 1000px;
-   background-color: white;
-} 
-
-.regi_main .regi_tit{
-   font-size: 30px;
-   margin-bottom:50px;
-   text-align: center;
-
-}
-
-
-
-
-.regi_content{
-   width: 1300px;
-   height: 1000px;
-   margin:0 auto;
-}
-        
-.regi_wrap{
-                 
-   position: relative;
-   display: inline-block;
-   padding-top: 30px;
-}
-        
-
-
 
 
 /* 등록, 리셋 버튼 시작 */

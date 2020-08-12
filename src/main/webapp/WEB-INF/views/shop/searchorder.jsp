@@ -23,6 +23,7 @@ table, td, th {
  		
  		    <input class="quick_btn" type="button" value="전체주문보기" onClick="location.href='/shop/searchorder'">
    			 <input class="quick_btn" type="button" value="송창처리" onClick="location.href='/shop/shipping'">
+   			 <input class="quick_btn" type="button" value="환불요청보기" onClick="location.href='/shop/refund'">
   
 		      <form id='searchForm' action="/shop/searchorder" method = 'get'>  
 		          <div> 검색어
@@ -80,17 +81,15 @@ table, td, th {
 		                        <th>고객명</th>
 		                        <th>연락처</th>
 		                        <th>주소</th>
-		
-		                      
+   
 		                    </tr>
 		                  </thead>
          
 		              <c:forEach items="${list}" var="list">
-		        
-		                     <tr>
 		    
-		               <tr>
-		               
+		                  
+		                    <tr>
+
 		                  <td><input name ='chk'type="checkbox"></td>
 		                  <td><fmt:formatDate pattern="yyyy/MM/dd"
 		                        value="${list.orderDate }" /></td>
@@ -101,18 +100,21 @@ table, td, th {
 		                    <td><c:out value="${list.itemName }" /></td>   
 		                     <td><c:out value="${list.itemNum }" /></td>  
 		                     <td><c:out value="${list.price }" /></td>  
-		                     
-		         
-		                    
-							<td><c:out value="${list.totalPrice}"/></td>
+		              
+						<td><c:out value="${list.totalPrice}"/></td>
 		                      <td><c:out value="${list.receiver }" /></td>  
 		                        <td><c:out value="${list.receivContact }" /></td>  
 		                   <td><c:out value="${list.receivAddr }" /></td>
-		                        
-		                    </tr> 
+
+		                   
+		                     </tr>
+		                     
+		                   
 		                  </c:forEach>
 		               </table>
-		                  
+		               
+		                 <input type="" id="sessionId" value='<c:out value="${sessionMember.idNo}"/>'>
+		             
 		                  <!-- 페이징 처리 시작 -->
 		                  
 		                  
@@ -157,6 +159,7 @@ table, td, th {
 </body>
 <script type='text/javascript'>
 $(document).ready(function(){
+  
 	
 	   //전체 체크처리	
 	$("#checkAll").click(function(){
