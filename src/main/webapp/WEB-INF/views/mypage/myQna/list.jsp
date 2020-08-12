@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 
 <style>
@@ -345,8 +346,6 @@ margin-right: 0%;
                <tr>
                   <th>번호</th>    
                   <th>제목</th>   
-
-                  <th>내용</th> 
                   <th>등록일</th>  
                </tr>
             </thead>
@@ -355,16 +354,13 @@ margin-right: 0%;
             replyBool
                  regdata -->
                  <!-- 페이징처리 -->
-                 
+            <tbody>
             <c:forEach items="${qna}" var="myQna">
                <tr>
-                  <td><c:out value="${myQna.postingNo }" /></td>
+                  <td><c:out value="${total - myQna.rn + 1}" /></td>
 
-                  <td><a class ='move' href='<c:out value="${myQna.postingNo}"/>'>
+                  <td><a class ='move' href='/mypage/myQna/get?postingNo=<c:out value="${myQna.postingNo}"/>'>
                   <c:out value="${myQna.title }" /></a></td>
-      
-
-                 <td><c:out value="${myQna.content }" /></td>
                
                   <td><fmt:formatDate pattern="yyyy/MM/dd"
                         value="${myQna.regDate }" /></td>
@@ -373,6 +369,7 @@ margin-right: 0%;
                </tr>
 
             </c:forEach>
+            </tbody>
 
          </table>
          
@@ -388,13 +385,13 @@ margin-right: 0%;
             
                <c:if test="${pageMaker.prev}">
                <li class="paginate_button1 pervious">
-               <a href="${pageMaker.startPage -1}">Pervious</a>
+               <a href="${pageMaker.startPage -1}">Previous</a>
                </li>
                </c:if>
                
                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
                <li class='paginate_button1 ${pageMaker.cri.pageNum == num? "active":""}'>
-               <a href="${num}">${num}</a></li>
+               <a class="paging" href="/mypage/myQna/list/page/${num}">${num}</a></li>
                </c:forEach>
                
                <c:if test="${pageMaker.next}">
@@ -405,14 +402,12 @@ margin-right: 0%;
             
             </ul>
          </div><!-- endPaging -->
-         
-         <!-- paging form-->
+         <input type="hidden" id="total" value="${total}">
+         <!-- paging form
          <form id='actionForm' action="/mypage/myQna/list" method='get'>
             <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
-            <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
-             <input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
              <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-         </form><!-- paging form end-->
+         </form> paging form end-->
 
          
 
@@ -440,91 +435,109 @@ margin-right: 0%;
 <!-- regi_wrap 끝 -->
       
       
-      
-
-<!-- modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
-   <div class="modal-dialog">
-       <div class="modal-content">
-           <div class="modal-header" style="border-bottom:none;">
-               <button type="button" class="close" data-dismiss="modal"  aria-hidden="true">&times;</button>
-               <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-           </div>
-               <div class="modal-body">처리가 완료되었습니다.</div>
-               <div class="modal-footer" style="border-top:none;">
-               <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-       </div><!--  modal-content -->
-   </div><!--  modal dialog -->
-</div><!-- modal 마지막 -->
-
-
-
-
-
- 
-
 <script type="text/javascript">
         var actionForm = $("#actionForm");
-   
-      
-      $(document).ready(
+      	$(document).ready(
                function() {
-
+            	   
+            	  //0811 kw  
+            	  var pageTags = $(".paging");
+            	  var myQnATable = $("tbody");
+            	  var total = $("#total");
                   var result = '<c:out value="${result}"/>';
-
+                  
+                //0811 kw 
+              	pageTags.on().click(function(e){
+            		e.preventDefault();
+            		var pageNum = e.target.innerText;
+            		console.log(pageNum);
+            		getListByPage(pageNum)
+            		.then(function(response){
+            			console.log(response);
+            			drawmyQnAList(response);
+            		})
+            		.catch(function(error){
+            			console.log(error);
+            		});
+            		
+            	});
+            	
+                
+            	/* 	ajax 방식으로 페이징 처리 */
+            	function getListByPage(pageNum) {
+            		return $.ajax({
+            			type: "GET",
+            			url: "/mypage/myQna/list/page/" + pageNum,
+            			contentType : "application/json; charset=UTF-8"
+            		});
+            	}
+            	
+            	
+            	function drawmyQnAList(myQnAList){
+            		myQnATable.html("");
+            		for(var i = 0; i<myQnAList.length; i++){
+            			var str = "";
+            			var myQnA = myQnAList[i];
+            			var tr = document.createElement("tr");
+            		
+            			str += "<td>"+ (total.val() - myQnA.rn + 1) +"</td>"
+            			str += "<td><a href='/mypage/myQna/get?postingNo="+myQnA.postingNo+"'>"+myQnA.title+"</a></td>";
+            	        var regDate = myQnA.regDate;
+            	        var date = new Date(regDate);
+            	        str += '<td>'+formatDate(date)+'</td>';
+            	        tr.innerHTML = str;
+            	        myQnATable.append($(tr));
+            		}
+            	}
+            	
+            	
+            	/* 연/월/일만 가져오는 함수 */
+            	function formatDate(date) { 
+            		var d = new Date(date), month = '' + (d.getMonth() + 1), day = '' + d.getDate(), year = d.getFullYear(); 
+            		if (month.length < 2) month = '0' + month; 
+            		if (day.length < 2) day = '0' + day; 
+            		return [year, month, day].join('/'); }
+            	
+              	
                   checkModal(result);
-
+                  
                   function checkModal(result) {
-
                      if (result === '') {
                         return;
                      }
-
                      if (parseInt(result) > 0) {
-
-                     
                         $(".modal-body").html( "게시글" + parseInt(result) + "번이 등록되었습니다.");
-
                      }
                      $("#myModal").modal("show");
-
                   }
 
                   $("#regBtn").on("click", function() {
-
                      self.location = "/mypage/myQna/register"
                   });
                   
                });
-         
                     
-            $(".paginate_button1 a").on("click", function(e){
-              
-           
+/*             $(".paginate_button1 a").on("click", function(e){
                e.preventDefault();
-               
                console.log('click');
-            
                actionForm.find("input[name='pageNum']").val($(this).attr("href"));
                actionForm.submit();
             });
             
             $(".move").on("click",function(e){
-                 
-
                 e.preventDefault();
                 actionForm.append("<input type='hidden' name='postingNo' value = '" + $(this).attr("href") + "'>");
                 actionForm.attr("action", "/mypage/myQna/get");
                 actionForm.submit();
-                
-             });
+             }); */
             
+             
+             
+             
+             
             <!--검색 스크립트 start-->
             var searchForm =$("#searchForm");
-            
             $("#searchForm button").on("click" , function(e){
-                  
                if(!searchForm.find("option:selected").val()){
                   alert("검색종류를 선택하세요");
                   return false;
@@ -533,7 +546,6 @@ margin-right: 0%;
                if(!searchForm.find("input[name='keyword']").val()){
                   alert("검색어 입력하세요");
                   return false;
-                  
                }
                
                searchForm.find("input[name='pageNum']").val("1");

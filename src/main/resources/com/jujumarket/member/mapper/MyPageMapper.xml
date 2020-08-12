@@ -27,7 +27,7 @@
 	</select>
 
 	<!-- 나의 상품평 갯수 -->
-	<select id="getMyReviewCountByIdNo" resultType="int">
+	<select id="getMyReviewCountByIdNo" resultType="Integer">
 		select
 		count(reviewNo) from t_review where idNo = #{idNo}
 	</select>
@@ -58,7 +58,7 @@
 
 
 	<!-- 나의 상품문의 갯수 -->
-	<select id="getMyPrdReplyCountByIdNo" resultType="int">
+	<select id="getMyPrdReplyCountByIdNo" resultType="Integer">
 		select
 		count(replyNo) from t_prdQNA where idNo = #{idNo}
 	</select>
@@ -71,17 +71,18 @@
 	<!-- 나의 주문내역 -->
 	<select id="getMyPerchaseListByIdNo"
 		resultType="com.jujumarket.member.domain.MyPerchaseVO">
- <![CDATA[
-select * from
-        (
-        select Rank()over(order by OI.orderDate desc) as rn, OI.orderCode, OI.orderDate, OI.itemNum, OI.totalPrice, O.orderStat, I.idNo, I.itemImg1, I.itemName, C.fullpath, S.shopName
-		from t_order O, t_order_info OI, t_item I, t_category C, m_shop S
-		where OI.orderCode = O.orderCode
-		and O.idNo = #{idNo}
-		and OI.itemCode = I.itemCode
-		and I.classCode = C.classCode
-		and I.idNo = S.idNo
-        order by orderDate desc
+ 	<![CDATA[
+		select * 
+		from(
+        
+        	select Rank()over(order by OI.orderDate desc) as rn, OI.orderCode, OI.orderDate, OI.itemNum, OI.totalPrice, O.orderStat, I.idNo, I.itemImg1, I.itemName, C.fullpath, S.shopName
+			from t_order O, t_order_info OI, t_item I, t_category C, m_shop S
+			where OI.orderCode = O.orderCode
+			and O.idNo = #{idNo}
+			and OI.itemCode = I.itemCode
+			and I.classCode = C.classCode
+			and I.idNo = S.idNo
+        	order by orderDate desc
 		)
 	    where rn <= #{cri.pageNum} * #{cri.amount}
     	and rn > (#{cri.pageNum}-1) * #{cri.amount}
@@ -91,7 +92,7 @@ select * from
 
 	<!-- 나의 주문내역 갯수 -->
 
-	<select id="getMyPerchaseCountByIdNo" resultType="int">
+	<select id="getMyPerchaseCountByIdNo" resultType="Integer">
 		select count(*)
 		from t_order_info OI, t_order O
 		where

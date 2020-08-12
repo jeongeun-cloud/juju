@@ -196,15 +196,12 @@
 			
 			
 			
-
 		
 		
 		submitBtn = $("#submitBtn");
 		customerJoinForm = $("#customerJoinForm");
-
 		submitBtn.click(function(e) {
 			e.preventDefault();
-
 			if (!(emailAccountCheck())) {
 				return false;
 			} else if (duplicateCheckResult.val()=="false") {
@@ -232,14 +229,11 @@
 				} else {
 					memAddr.val(roadAddr.val()+"/"+namujiAddr.val());
 				}
-
 				customerJoinForm.submit();
 			}
-
 		});
 		
 		function emailAccountCheck(){
-
 			let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			
 			if (emailAccount.val().trim() == "" || emailAccount.val() == null) {
@@ -285,7 +279,6 @@
 		
 		function memNameCheck(){
 			let regExp = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
-
 			if (memName.val().trim() == "" || memName.val() == null) {
 				alert("이름을 입력해주세요.");
 				memName.focus();
@@ -306,7 +299,6 @@
 		
 		function contactCheck(){
 			let regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
-
 			if (contact.val().trim() == "" || contact.val() == null) {
 				alert("연락처를 입력해주세요.");
 				contact.focus();
@@ -327,7 +319,6 @@
 		
 		
 		function memAddrCheck(){
-
 			if (roadAddr.val() == "" || roadAddr.val() == null){
 				if (!(namujiAddr.val().trim() == "" || namujiAddr.val() == null)) {
 				alert("도로명 주소를 입력해주세요.");
@@ -356,10 +347,8 @@
 			new daum.Postcode(
 					{
 							oncomplete : function(data) {
-
 								let fullRoadAddr = data.roadAddress;
 								let extraRoadAddr = '';
-
 								if (data.bname !== ''
 										&& /[동|로|가]$/g.test(data.bname)) {
 									extraRoadAddr += data.bname;
@@ -375,16 +364,12 @@
 								if (fullRoadAddr !== '') {
 									fullRoadAddr += extraRoadAddr;
 								}
-
 								document.getElementById('postCode').value = data.zonecode;
 								document.getElementById('roadAddr').value = fullRoadAddr;
 								document.getElementById('jibunAddr').value = data.jibunAddress;
-
 							}
 						}).open()
-
 			};
-
 		
 		
 		

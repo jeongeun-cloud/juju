@@ -99,4 +99,14 @@ public class BoardQNAServiceImpl implements BoardQNAService {
 		return mapper.getIdNoByPostingNo(postingNo);
 	}
 
+	@Override
+	public List<BoardQNAVO> getMyQnAListByIdNo(String idNo, Criteria cri) {
+		return mapper.getMyQnAListByIdNo(idNo, cri);
+	}
+
+	@Override
+	public int getMyQnACountByIdNo(String idNo, Criteria cri) {
+		return mapper.getMyQnACountByIdNo(idNo, cri);
+	}
+
 }

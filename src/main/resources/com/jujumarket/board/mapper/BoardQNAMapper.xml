@@ -74,7 +74,37 @@
    </trim><!--  prefix end -->
    </sql>
    
+  
+<!-- 나의 1:1문의  -->
+	<select id="getMyQnAListByIdNo" resultType="com.jujumarket.board.domain.BoardQNAVO">
+	   <![CDATA[
+	   
+	   
+		select *
+  		from(
+  				select row_number() over(order by regdate desc) as rn, postingNo, title, regdate
+    			from t_board_qna		 
+    			where idNo = #{idNo}
+                order by regdate desc
+    			)
+	    where rn <= #{cri.pageNum} * #{cri.amount}
+    	and rn > (#{cri.pageNum}-1) * #{cri.amount}
+	   
 
+	
+	      ]]>
+	</select>
+	
+	<!-- 나의 1:1문의 갯수 -->
+	<select id="getMyQnACountByIdNo" resultType="Integer">
+		select
+		count(postingNo) from t_board_qna where idNo = #{idNo}
+	</select>
+	
+
+ 
+ 
+ 
    <select id="getListWithPaging" resultType="com.jujumarket.board.domain.BoardQNAVO">
    <![CDATA[
    select
