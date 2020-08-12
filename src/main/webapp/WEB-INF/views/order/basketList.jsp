@@ -13,10 +13,12 @@
 <title>Basket List</title>
 
     <style>
-
-
-
-
+    
+    #tableBody{
+    
+     border-bottom: 4px solid #F0F2F0 ;
+    
+    }
 
 
         #containerOFAll {
@@ -38,7 +40,7 @@
 
 
         .button {
-        background-color: #ffc30b; 
+        background-color: #8FA691; 
         border: none;
         color: white;
         padding: 16px 32px;
@@ -54,12 +56,12 @@
 
         .button:hover {
         background-color: white; 
-        color: #ffc30b; 
-        border: 2px solid #ffc30b;
+        color: #8FA691; 
+        border: 2px solid #8FA691;
         }
 
         .button {
-        background-color: #ffc30b;
+        background-color: #8FA691;
         color: white;
             
         }
@@ -121,8 +123,8 @@
 
             position:relative;
 
-            border:3px solid;
-            border-color:lightgray;
+            border:4px solid;
+            border-color:#F0F2F0;
             
             width : 1000px;
             height : 200px;
@@ -159,10 +161,11 @@
             
             width:1100px;
             margin: auto;
+            
         }
 
         #tableTitle {
-            background-color: #303030;
+            background-color: #8FA691;
             color: white;
             height: 50px;
             margin: auto;
@@ -191,12 +194,18 @@
             width: 80px;
             height: 30px;
             margin-left:800px;
-            background-color: #303030;
+            background-color: #8FA691;
             color: white;
             border:none;
             border-radius:10%;
             
             float:left;
+        }
+        
+        #dltBtn:hover {
+        background-color: white; 
+        color: #8FA691; 
+        border: 2px solid #8FA691;
         }
 
         
@@ -216,6 +225,8 @@
          width: 200px;
          float: left;
          margin-left: -80px;
+         color: writh;
+         
       
       }
       
@@ -704,7 +715,7 @@ function draw(jsonData) {
 	   
       
       $tableBody.append("<tr id='tableBody'><td><input type='checkbox' name='chkBox' id=\""+jsonData[i].baskId+"\"  checked='checked' value=\""+pArr+"\" onclick='onechkEvt(this)'></td><td><img id='thumbnailImg' src='/resources/upload/"+jsonData[i].sellerId+"/"+jsonData[i].itemImg1+"'></td><td>"+jsonData[i].itemName+"<br>단가 "+addCommas(jsonData[i].normPrice)+"원<br>"+jsonData[i].itemNum+"개</td><td>"+addCommas(jsonData[i].normPrice*jsonData[i].itemNum)+"원</td><td>"+addCommas(jsonData[i].disAmount*jsonData[i].itemNum)+"원 할인</td><td>"+addCommas(jsonData[i].price*jsonData[i].itemNum)+"원</td></tr>");
-      
+
    }
    
          // json 마지막에 비회원 id 담음
