@@ -36,14 +36,33 @@
 		        
 		        <!-- CONTAINER  -->
 		        <div class="mainContent">  
+		        
+		        <!-- 검색 -->
+                <div class="search_bar">
+                    <form id="searchForm" class="formSearch fl" action="/admin/memberManage" method="get">
+                        <div class="search">
+                            <!-- <label class="search_la">검색</label> -->
+                            <select name='type'>
+                                <option value="" <c:out value="${pageMaker.cri.type == null? 'selected':'' }" /> >--</option>
+                                <option value="N" <c:out value="${pageMaker.cri.type eq 'N'? 'selected':'' }" />>회원 이름</option>
+                                <option value="A" <c:out value="${pageMaker.cri.type eq 'A'? 'selected':'' }" />>회원 계정</option>
+                            </select>
+                            
+                            <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+                            <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+                            <input class="inputSearch" placeholder="Search" type="text" name="keyword" value="${pageMaker.cri.keyword }">
+                            <button class="btnSearch"><i class="fa fa-search"></i></button>
+                        </div>
+                    </form>
+                </div><br><br>
 		
 				  <!-- DETAIL FORM -->
-				  <form action="" method="GET" name="listForm" class="form scrollX">
+				  <form action="" method="GET" name="listForm" class="form">
 		            <div class="formHeader row">
 		                <h2 class="text-1 fl">Member List</h2><br><br>
 		                <label class="mem_la" style="font-size:15px; cursor:auto;"><i class="fa fa-lightbulb-o"></i> 총 회원수 : <c:out value="${pageMaker.total }"/>명</label>  
 		                <div class="fr">
-		                  <button type="submit" class="btnSave bg-1 text-fff text-bold fr">SAVE</button><a href="" class="btnAdd fa fa-plus bg-1 text-fff"></a>
+		                  <button  id="regBtn" class="btnSave bg-1 text-fff text-bold fr">블랙 리스트로 등록</button>
 		                </div>
 		            </div>
 		            <div class="table">
@@ -77,103 +96,42 @@
 		            <!--   END LOOP -->
 		            </div>
 		        </form>
+		        
+		        <div id="pagination" class='page_num'>
+                    <ul class="pagination list-inline text-right">
+                        <c:if test="${pageMaker.prev}">
+                            <li class="paginate_button previous">
+                                <a href="${pageMaker.startPage -1}">&laquo;</a>
+                            </li>
+                        </c:if>
+
+                        <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                            <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                                <a href="${num}">${num}</a>
+                            </li>
+                        </c:forEach>
+
+                        <c:if test="${pageMaker.next}">
+                            <li class="paginate_button next">
+                                <a href="${pageMaker.endPage +1 }">&raquo;</a>
+                            </li>
+                        </c:if>
+                    </ul> 
+                </div>
+                <!-- end pagination -->
+                
+                <form id='actionForm' action="/admin/memberManage" method='get'>
+                    <input type='hidden' name='pageNum' id="pageNum" value='${pageMaker.cri.pageNum}'>
+                    <input type='hidden' name='amount' id="amount" value='${pageMaker.cri.amount}'>
+                    <input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>' >
+                    <input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type }"/>' >
+                </form>  
+	                
 	    	</div>
 	    	<!-- END CONTAINER  -->
 	    </div>
 	</div>
 	
-    <div class="memStat_content">
-        <div class="memStat_wrap">
-                <div class="memStat_main">
-                    <label class="mem_la"><i class="fa fa-lightbulb-o"></i> 총 회원수 : <c:out value="${pageMaker.total }"/>명</label>  
-                   	<button id="regBtn">블랙 리스트 등록</button>
-                   	
-                   	<!-- 검색 -->
-                   	<div class="search_bar">
-	                    <form id="searchForm" action="/admin/memberManage" method="get">
-	                        <div class="search">
-	                            <label class="search_la">검색</label>
-	                            <select name='type'>
-	                                <option value="" <c:out value="${pageMaker.cri.type == null? 'selected':'' }" /> >--</option>
-	                                <option value="N" <c:out value="${pageMaker.cri.type eq 'N'? 'selected':'' }" />>회원 이름</option>
-	                                <option value="A" <c:out value="${pageMaker.cri.type eq 'A'? 'selected':'' }" />>회원 계정</option>
-	                            </select>
-	                            
-	                            <input type="text" name="keyword" value="${pageMaker.cri.keyword }">
-	                            <input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
-	                            <input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-	                            <button class="default_btn">검색</button>
-	                        </div>
-	                    </form>
-	                </div>
-	                
-                	<!-- 테이블 -->
-                    <div class="index_table">
-                    	<table tit aria-setsize="500px">
-				            <thead>
-				               <tr>
-				               	  <th><input type="checkbox" name="chkAll" id="chkAll"></th>
-				                  <th>회원 이름</th>
-				                  <th>회원 계정</th>
-				                  <th>회원 유형</th>
-				                  <th>가입 일자</th>
-				               </tr>
-				            </thead>
-				            <c:forEach items="${allMember }" var="allMember">
-				               <tr>
-				               	  <td><input type="checkbox" id="idNo" name="chk" value='<c:out value="${allMember.idNo }" />'></td>
-				                  <td><c:out value="${allMember.memName }" /></td>
-				                  <td><c:out value="${allMember.emailAccount }" /></td>
-				                  <td>
-				                  	<c:choose>
-										<c:when test="${allMember.memCode eq 'ADMIN'}">관리자</c:when>
-										<c:when test="${allMember.memCode eq 'SELLER'}">상인</c:when>
-										<c:when test="${allMember.memCode eq 'CUSTOMER'}">일반고객</c:when>
-										<c:otherwise>소셜고객</c:otherwise>
-								  	</c:choose>
-				                  </td>
-				                  <td><fmt:formatDate pattern="yyyy/MM/dd" value="${allMember.condiUpdateDate }" /></td>
-				               </tr>
-				            </c:forEach>
-				         </table>
-		         	</div>
-		         	
-		         	<div class='page_num'>
-	                    <ul class="pagination">
-	                        <c:if test="${pageMaker.prev}">
-	                            <li class="paginate_button previous">
-	                                <a href="${pageMaker.startPage -1}">&laquo;</a>
-	                            </li>
-	                        </c:if>
-	
-	                        <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-	                            <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
-	                                <a href="${num}">${num}</a>
-	                            </li>
-	                        </c:forEach>
-	
-	                        <c:if test="${pageMaker.next}">
-	                            <li class="paginate_button next">
-	                                <a href="${pageMaker.endPage +1 }">&raquo;</a>
-	                            </li>
-	                        </c:if>
-	                    </ul> 
-	                </div>
-	                <!-- end pagination -->
-                    
-	                 <form id='actionForm' action="/admin/memberManage" method='get'>
-	                    <input type='hidden' name='pageNum' id="pageNum" value='${pageMaker.cri.pageNum}'>
-	                    <input type='hidden' name='amount' id="amount" value='${pageMaker.cri.amount}'>
-	                    <input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>' >
-	                    <input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type }"/>' >
-	                </form>  
-	              		  
-                </div>
-                 <!-- memStat_main  -->
-         </div>
-           <!-- memStat_wrap -->
-    </div>
-	 <!-- memStat_content -->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
 	<script src="../resources/js/admin.js"></script>
     <script type="text/javascript">
@@ -183,6 +141,8 @@
     	    var actionForm = $("#actionForm");
     	    $(".paginate_button a").on("click", function(e) {
     	    	e.preventDefault();
+    	    	
+    	    	// a태그의 class 스타일 추가 is-active
     	         
     	        actionForm.find("input[name='pageNum']").val($(this).attr("href"));
     	        actionForm.submit();
