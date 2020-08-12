@@ -169,6 +169,17 @@ public class AdminController {
 		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 	}
 	
+	@GetMapping("/memberManage2")
+	public void memberManage2(ItemCriteria cri, Model model) {
+		
+		List<MemberManageVO> list = mmservice.getTotal();
+		int total = list.size();
+		
+		model.addAttribute("blackList",mmservice.getBlack());
+		model.addAttribute("allMember", mmservice.getAllMember(cri));
+		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+	}
+	
 	@PostMapping("/regBlack")
 	@ResponseBody
 	public ResponseEntity<String> regSeason(String[] idNo) {
