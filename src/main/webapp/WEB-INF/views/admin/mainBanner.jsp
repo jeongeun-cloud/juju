@@ -3,141 +3,95 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
     <title>Admin Page</title>
-<%-- <%@include file="../includes/header.jsp" %> --%>
-<style>
-	li{
-       list-style: none;
-       
-   	}
-   	body{
-       color: #303030;
-   	}
-   	a{
-       text-decoration: none;
-       color: #303030;
-       font-size: 17px;
-   	}
-   	.banner_content{
-       width: 1300px;
-       height: 1000px;
-       margin:0 auto;
-       border: solid;
-   	}
-   	.banner_wrap{
-      position: relative;
-      display: inline-block;
-      padding-top: 30px;
-      background-color: cornsilk;
-   	}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+    <link rel="stylesheet"  href="../resources/css/admin.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
    
-   	.side{
-       width: 200px;
-       height: 500px;
-       background-color: white;
-       float: left;
-       margin-right: 90px;
-       border:solid;
-       
-   	}
-   	.banner_main{
-       float:  right;
-       width: 1000px;
-       height: 1000px;
-       background-color: white;
-   	} 
-   	.banner_side_tit{
-       padding-top: 12px;
-       padding-bottom:12px ;
-       text-align: center;
-       width: 100%;
-       background-color: #ffc30b;
-       font-size: 20px;
-       font-weight: 900;
-   	}
-   	
-   .banner_main .banner_tit{
-       font-size: 30px;
-       margin-bottom:20px;
-
-   }
-	#activeImg img{
-		height : 400px;
-		width : 600px;
-		padding-bottom : 30px;
-	}
-</style>
+</head>
 <body>
-<%@include file="./idCheck.jsp" %>
-<%@include file="../includes/header.jsp" %>
-    <div class="banner_content">
-        <div class="banner_wrap">
-            <!-- side 시작 -->
-		   	<div class="side">
-		      <div class="1nb_list">
-		         <div class="banner_side_tit">관리자 페이지</div>
-		           <div class="banner_side_menu">
-		               <ul class="banner_menu">
-		                    <p><a href='/admin/index'><b>JUJU 현황</b></a></p>
-		                    <p><b>배너관리</b></p>
-			                    <li><a href='/admin/mainBanner'><i class="fa fa-check" ></i> 메인 배너</a></li>
-	                            <li><a href='/admin/advertise'><i class="fa fa-check" ></i> 중간 광고</a></li>
-	                            <li><a href='/admin/seasonalMagazine'><i class="fa fa-check" ></i> 제철 페이지</a></li>
-	                            <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i> 이벤트</a></li>
-		                    <br>
-		                    <p><b>회원관리</b></p>
-			                  <li><a href='/admin/memberManage'><i class="fa fa-check" ></i> 회원 리스트</a></li>
-			                    <li><a href='/admin/memberStat'><i class="fa fa-check" ></i> 회원 현황</a></li>
-			                    <li><a href='#'><i class="fa fa-check" ></i> 상인 승인</a></li>
-			                    <li><a href='/admin/withdraw'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
-			                     <li><a href='/admin/QnaList'><i class="fa fa-check" ></i> 1:1 문의</a></li>
-		                </ul>
-		           </div>
-		     	</div>
-		     	<!-- 1nb_list -->
-		  	</div>
-			<!-- side 끝-->
-
-            <div class="banner_main">
-                <div class="banner_tit">
-                    <p><b><i class="fa fa-list-alt"></i>메인배너 등록</b></p>
-                </div>
-                <p>메인 슬라이더 이미지는 최대 4개까지 가능합니다.</p><br>
-                <p style='opacity:0.75;'>이미지 규격 : </p>
-                <div class="uploadDiv">
-                	<input type="file" name="uploadFile" multiple>
-                	<!-- <button id="uploadBtn">등록하기</button> -->
-                </div>
-                <div class="uploadResult">
-                	<ul>
-                	
-                	</ul>
-                </div>
+	<%@include file="./idCheck.jsp" %>
+    <div class="container">
+        <%@include file="./adminSideBar.jsp" %>
+            <div class="mainArea">
+            
+                <!-- BEGIN NAV -->
+                <nav class="navTop row">
+                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- END NAV -->
                 
-                <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
-               	<label>현재 등록된 메인배너 이미지</label><br>
-                <div id="activeImg">
-                	<input type="hidden" id="imgLen" value='<c:out value="${fn:length(main)}"/>'>
-                	<c:forEach items="${main }" var="main">
-		           		<img class="banner" alt="" src='/resources/banner/<c:out value="${main.imgPath}"/>/<c:out value="${main.uuid}"/>_<c:out value="${main.imgName}"/>' >
-		           		<button id='removeBtn' data-oper='<c:out value="${main.imgNo}"/>'>삭제</button>
-		           	</c:forEach>
-                </div>
-             </div>
-            <!-- banner_main  -->
-        </div>
-        <!-- banner_wrap -->
-    </div>
-    <!-- banner_content -->
+                <!-- CONTAINER  -->
+                <div class="mainContent">  
 
+		        <!-- DETAIL FORM -->
+		        <form action="" method="POST" enctype="multipart/form-data" class="form">
+		            <div class="formHeader row">
+		                <h2 class="text-1 fl">Main Banner</h2>
+		            </div>
+		            <div class="formBody row">
+
+		                <div class="column s-6">
+			                <p>메인 슬라이더 이미지는 최대 4개까지 가능합니다.</p><br>
+			                <p style='opacity:0.75;'>이미지 규격 : </p>
+			                <div class="uploadDiv">
+			                	<input type="file" name="uploadFile" multiple>
+			                	<!-- <button id="uploadBtn">등록하기</button> -->
+			                </div>
+			                <div class="uploadResult">
+			                	<ul>
+			                	
+			                	</ul>
+			                </div>
+			                
+			                <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
+			               	<!-- <label class="inputGroup">현재 등록된 메인배너 이미지</label><br> -->
+			                <div id="activeImg" style="margin-top:20px;">
+				                <h2 class="text-1 fl">현재 등록된 메인배너 이미지</h2><br>
+			                	<input type="hidden" id="imgLen" value='<c:out value="${fn:length(main)}"/>'>
+			                	<c:forEach items="${main }" var="main">
+					           		<img class="banner" alt="" src='/resources/banner/<c:out value="${main.imgPath}"/>/<c:out value="${main.uuid}"/>_<c:out value="${main.imgName}"/>' >
+					           		<button id='removeBtn' class="btnSave bg-1 text-fff text-bold fr" data-oper='<c:out value="${main.imgNo}"/>'>삭제</button>
+					           	</c:forEach>
+			                </div>
+			                
+		                   <!--  <label class="inputGroup">
+		                        <span>Image</span>
+								
+		                        <input type="hidden" name="img" value="src">
+		                        <span>
+		                            <input type="file" name="img" onchange="getImg(this)" multiple>
+		                            <img src="http://bookstore.crunchpress.com/wp-content/uploads/2013/05/b2.jpg" alt="" width="50">
+		                        </span>
+		                        
+		                    </label> -->
+		                </div>
+
+		            </div>
+		        </form> 
+                  
+
+                </div>
+                <!-- END CONTAINER  -->
+            </div>
+        </div>
+
+    <script src="../resources/js/admin.js"></script>
     <script type="text/javascript">
     	$(document).ready(function() {
     		
@@ -206,7 +160,7 @@
 	    			var fileCallPath = encodeURIComponent(obj.imgPath + "/" + obj.uuid + "_" + obj.imgName);
 	    			str += "<li><div>";
 	    			str += "<span>" + obj.imgName + "</span>";
-	    			str += "<button type='button' data-no='"+ obj.imgNo +"' data-file=\'" + fileCallPath + "\' data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+	    			str += "<button type='button' data-no='"+ obj.imgNo +"' data-file=\'" + fileCallPath + "\' data-type='image' class='btnSave bg-1 text-fff text-bold fr'><i class='fa fa-times'></i></button><br>";
     				str += "<img src='/admin/display?imgName=" + fileCallPath + "'>";
     				str += "</div></li>";
     			});
