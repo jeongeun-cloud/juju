@@ -19,8 +19,8 @@ public class ItemCriteria {
     
     private String date1 = ""; 
 	private String date2 = ""; 
-	String orderStat;
-	String orderCode;
+	private String orderStat;
+	private String orderCode;
     
     private String idNo;
 	

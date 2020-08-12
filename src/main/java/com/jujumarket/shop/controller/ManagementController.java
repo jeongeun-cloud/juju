@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.domain.ItemPageDTO;
 import com.jujumarket.shop.domain.ManagementVO;
@@ -37,7 +40,7 @@ public class ManagementController {
 	//searchorder /shipping
 
 	 @GetMapping("/searchorder") 
-	 public void searlist(ItemCriteria cri,String date1,String date2,Model model,String orderStat
+	 public void searlist(ItemCriteria cri,String date1,String date2,Model model,String orderStat,HttpSession session
 			              ) {
 		
 		   orderStat = orderStat == null?  "" : orderStat;
@@ -56,7 +59,13 @@ public class ManagementController {
 		   cri.setOrderStat(orderStat);
 		   cri.setAmount(30);
 		   
+		   MemberVO vo = (MemberVO) session.getAttribute("sessionMember");
+		   String memidNo = vo == null ? "" : vo.getIdNo().trim();
+		   cri.setIdNo(memidNo);
+		   
 		   int total = service.getTotal(cri);
+		   
+		   System.out.println(cri.getIdNo());
 
 		   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 		   model.addAttribute("list", service.searcheckAll(cri));
@@ -76,13 +85,17 @@ public class ManagementController {
 	
 	 //배송대기중 출력
 	 @GetMapping("/shipping")
-	 public void  shippinglist(ItemCriteria cri , Model model, String date1,String date2) {
+	 public void  shippinglist(ItemCriteria cri , Model model, String date1,String date2,HttpSession session) {
+		 
 	 int total = service.getNotTotal(cri);
 	  List<Integer>page = service.ListCount();
 	  
 	  System.out.println("페이지리스트당"+page);
 	  System.out.println("페이지리스트당"+page.size());
 
+	   MemberVO vo = (MemberVO) session.getAttribute("sessionMember");
+	   String memidNo = vo == null ? "" : vo.getIdNo().trim();
+	   cri.setIdNo(memidNo);
 	  
 
 	 
@@ -100,31 +113,6 @@ public class ManagementController {
 	   cri.setDate2(date2);
 	   cri.setAmount(60);
 	   
-	   
-		/*
-		 * for(int i = 0; i < (page.size()/10)+1;i++) { int sum = 0; int multiply =
-		 * i*10; int count = 0;
-		 * 
-		 * for(int j=multiply; j<page.size();j++) {
-		 * 
-		 * 
-		 * sum += page.get(j);
-		 * 
-		 * 
-		 * if(count==9 || j==page.size()-1) { System.out.println(); count = 0;
-		 * 
-		 * 
-		 * 
-		 * 
-		 * } count ++;
-		 * 
-		 * }
-		 * 
-		 * 
-		 * }System.out.println("마리ㅓㄴ미ㅏㄹ"+cri);
-		 */
-	   
-	 
 	       model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 	       model.addAttribute("list", service.shippinggetList(cri));
 
@@ -219,6 +207,8 @@ public class ManagementController {
 	 public void refundlist(ItemCriteria cri,String date1,String date2,Model model,String orderStat) {
 		
 		   orderStat = orderStat == null? "환불처리요청": orderStat;
+		   
+		   
 		 
 		   SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
 		   Date time = new Date();
@@ -250,6 +240,7 @@ public class ManagementController {
 	 public String refundStatus(String orderCode,String orderStat,String baskId ,String itemCode,Model model) {
 		 
 		 ManagementVO vo = new ManagementVO();
+		 
 		  
 			String[] arrorderCode = orderCode.toString().split(",");
 			String[] arrorderStat = orderStat.toString().split(",");

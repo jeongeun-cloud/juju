@@ -25,7 +25,7 @@ li {
    list-style: none;
 }
 
-.regi_menu a{
+.regi_menu a{[]
    text-decoration: none;
    color: #303030;
    font-size: 17px;
@@ -186,7 +186,7 @@ margin-right: 0%;
      background-color: white;
      float: left;
      margin-right: 90px;
-     border:solid #ffc30b ;
+     border:solid #637365;
 }
 
  .regi_side_tit{
@@ -194,7 +194,7 @@ margin-right: 0%;
       padding-bottom:12px ;
       text-align: center;
       width: 100%;
-      background-color: #ffc30b;
+      background-color: #8FA691;
       font-size: 20px;
       font-weight: 900;
 }
