@@ -22,9 +22,9 @@
    
    .main_new_pro{
       margin:50px auto;
-      width:1200px;
+      width:1300px;
       /* border:solid; */
-      height:1300px;
+      height:100%;
    }
    .main_new_tit p{
    font-size:30px;
@@ -79,10 +79,10 @@
                 <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
                   <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
                   <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
-                  <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
+<!--                   <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
                   <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
                   <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
-                  <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span>
+                  <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span> -->
                  
                 </div>
             </div>
@@ -128,15 +128,7 @@
      <script src="/resources/js/swiper-bundle.min.js"></script>
    <script type="text/javascript">
   
-   /*알람  */
-	/*   window.onload = function () {
-       var ref = this.open('http://jujumarket-23.web.app/');
-       this.addEventListener('message', function (e) {
-           if (e.data.permission === "granted") { ref.close(); }
-           console.log('토큰값'+e.data.token);
-       });
-   }    */
-   /* 알람*/
+
         // top_banner_wrap 기능
         // 밑에 동그라미(순서)가 같이 움직이는 기능 
         var slideIndex = 1;

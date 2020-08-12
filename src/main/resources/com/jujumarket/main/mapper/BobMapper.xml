@@ -29,7 +29,7 @@ from(
  <![CDATA[
 select rl.*
 from(
-	select r.itemCode, t.itemChr, t.itemName, t.price, t.normPrice,t.saleStat ,t.idNo
+	select r.itemCode, t.itemChr, t.itemName, t.price, t.normPrice,t.saleStat ,t.idNo,t.itemImg1
 	from (
 	select  itemcode ,avg(score) reviewAvg , count(itemCode) reviewCnt
 	from t_review

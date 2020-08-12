@@ -278,13 +278,12 @@
 							        <ul class="pro_list_ul">
 							            <li class="pro_list_li">
 							                <div class="pro_module">
-							               <c:if test="${bob.saleStat=='판매중'}">
+							                  <c:if test="${bob.saleStat=='판매중'}">
                                             <div class="pro_img_wrap">
                                         
                                                <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
 
-                   							<img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
-
+                                                      <img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
                                                </a>
                                 
                                                   </div>    
@@ -296,7 +295,8 @@
                                         
                                                 <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts" style="opacity:0.2;">
 
-                                                   <img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
+                                               <img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
+
                                                </a>
                                                   <div class="soldout">
                                                          <p>품절</p>
@@ -310,7 +310,8 @@
 	                                        
 	                                              	  <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts" style="opacity:0.2;">
 	
-	                                                     <img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
+	                     							 <img class="active" src="/resources/upload/<c:out value="${bob.idNo}"/>/<c:out value="${bob.itemImg1}"/>">
+
 	                                             	  </a>
 	                                               		    <div class="soldout">
 	                                                         <p>판매 중지</p>
@@ -322,9 +323,9 @@
 							                	 <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
 							                        <div class="pro_flag_wrap">
                                           
-			                                            <c:if test="${bob.itemChr!='default'}">
-			                                                 <span class="flag"> <c:out value="${bob.itemChr}" /></span>                                                                                
-			                                             </c:if>
+		                                            <c:if test="${bob.itemChr!='default'}">
+		                                                 <span class="flag"> <c:out value="${bob.itemChr}" /></span>                                                                                
+		                                             </c:if>
 		                                             
 		                                           </div>
 							                        <!-- END pro_flag_wrap -->
@@ -346,7 +347,7 @@
 							                        </div>
 							                  		 </a>
 							                    <div class="cart_btn">
-							                       <c:if test="${bob.saleStat=='품절'||bob.saleStat=='판매중지'}">
+							                    <c:if test="${bob.saleStat=='품절'||bob.saleStat=='판매중지'}">
 							                       <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')">add to cart</button>
 							                    </c:if>
 							                    <c:if test="${bob.saleStat!='품절'&& bob.saleStat!='판매중지'}">
