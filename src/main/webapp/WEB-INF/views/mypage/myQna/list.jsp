@@ -236,6 +236,16 @@ margin-right: 0%;
    display: inline-block;
    padding-top: 30px;
 }
+
+.pageBtns a {
+    color: #637365;
+    float: right;
+}
+
+
+ a:link { color: balck; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: #8FA691; text-decoration: none;}
         
 </style>
 </head>
@@ -345,6 +355,7 @@ margin-right: 0%;
       </div>
       </div><!-- 검색창마지막 -->
          
+             <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>  
          <table tit aria-setsize="500px">
             <thead>
                <tr>
@@ -363,7 +374,7 @@ margin-right: 0%;
                <tr>
                   <td><c:out value="${total - myQna.rn + 1}" /></td>
 
-                  <td><a class ='move' href='/mypage/myQna/get?postingNo=<c:out value="${myQna.postingNo}"/>'>
+                  <td><a class ='move'  style='color:black' href='/mypage/myQna/get?postingNo=<c:out value="${myQna.postingNo}"/>'>
                   <c:out value="${myQna.title }" /></a></td>
                
                   <td><fmt:formatDate pattern="yyyy/MM/dd"
@@ -380,11 +391,11 @@ margin-right: 0%;
          
          
          
-       <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>  
+   
          
                
       <!-- Paging -->
-         <div class='pageBtns'>
+         <div class='pageBtns'  >
             <ul class="pagination1">
             
                <c:if test="${pageMaker.prev}">
