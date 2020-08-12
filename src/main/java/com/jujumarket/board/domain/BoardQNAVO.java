@@ -13,7 +13,8 @@ public class BoardQNAVO {
 	private String idNo;
 	private Date  regDate;
 	private Date updateDate;
-	
+	//0811 kw 추가 
+	private Integer rn;
 
 
 

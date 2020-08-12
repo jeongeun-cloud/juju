@@ -82,17 +82,17 @@
 		  
 		              	      <tr id="test" class ='test'>
 			                  <td><input id='checkbox' name='chk' type="checkbox"  value='<c:out value="${list.orderCode}"/>' ></td>             
-			                  <td><fmt:formatDate pattern="yyyy/MM/dd" value="${list.orderDate }" /></td>
+			                  <td><input data-shipping='<c:out value="${list.orderCode}"/>' type='hidden'><fmt:formatDate  pattern="yyyy/MM/dd" value="${list.orderDate }" /></td>
 		         			  <td><input type ='text' id ='orderCode' value='<c:out value="${list.orderCode}"/>'></td>
-			               	  <td><input id ="shippingCode" type='text'></td>     
-			                  <td><c:out value="${list.orderStat }" /></td>
+			               	  <td><input data-shipping='<c:out value="${list.orderCode}"/>' id ="shippingCode" type='text' value='<c:out value="${list.shippingCode}"/>'></td>     
+			                  <td><input data-shipping='<c:out value="${list.orderCode}"/>' type='hidden'><c:out value="${list.orderStat }" /></td>
 			                  <td><c:out value="${list.itemName }" /></td>   
 			                  <td><c:out value="${list.itemNum }" /></td>  
 			                  <td><c:out value="${list.price }" /></td>  
 			                  <td><c:out value="${list.totalPrice}"/></td>
-			                  <td><c:out value="${list.receiver }" /></td>  
-			                  <td><c:out value="${list.receivContact }" /></td>  
-			                  <td><c:out value="${list.receivAddr }" /></td>
+			                  <td><input data-shipping='<c:out value="${list.orderCode}"/>' type='hidden'><c:out value="${list.receiver }" /></td>  
+			                  <td><input data-shipping='<c:out value="${list.orderCode}"/>' type='hidden'><c:out value="${list.receivContact }" /></td>  
+			                  <td><input data-shipping='<c:out value="${list.orderCode}"/>' type='hidden'><c:out value="${list.receivAddr }" /></td>
 			                  <td style='visibility:hidden;'><c:out value="${list.baskId }" /></td>
 			                  <td style='visibility:hidden;'><c:out value="${list.itemCode }" /></td>   
 			                                   
@@ -126,14 +126,14 @@
              
              <!--송장처리 form -->
 	          <form id ='shippingForm'  action="/shop/shipping" method="post">
-			          <input type='hidden' id = 'orderval' type ='text' name = 'orderCode' value=''>
+			          <input  type='hidden' id = 'orderval' type ='text' name = 'orderCode' value=''>
 			          <input  type='hidden' id = 'shippingval'type ='text' name = 'shippingCode'value=''>		   
 			          <input  type='hidden' id = 'baskval'type ='text' name = 'baskId'value=''>
 			          <input  type='hidden' id = 'itemCodeal'type ='text' name = 'itemCode'value=''>
-			          <input type='' name='pageNum' value = '${pageMaker.cri.pageNum}'>
-			          <input type='' name='amount' value = '${pageMaker.cri.amount}'>
-			       	  <input type='' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
-			          <input  type='' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+			          <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
+			          <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
+			       	  <input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
+			          <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
 	          </form>
              
             <!-- 페이징시작 -->
@@ -141,13 +141,13 @@
 		   
          
          <form id='actionForm' action="/shop/shipping" method='get'>
-            <input type='' name='pageNum' value = '${pageMaker.cri.pageNum}'>
-            <input type='' name='amount' value = '${pageMaker.cri.amount}'>
-       		<input type='' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
-            <input  type='' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-            <input  type='' name='date1' value = '<c:out value="${pageMaker.cri.date1}"/>'>
-		    <input  type='' name='date2' value = '<c:out value="${pageMaker.cri.date2}"/>'>
-		 
+            <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
+            <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
+       		<input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
+            <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+            <input  type='hidden' name='date1' value = '<c:out value="${pageMaker.cri.date1}"/>'>
+		    <input  type='hidden' name='date2' value = '<c:out value="${pageMaker.cri.date2}"/>'>
+
           </form>
         <!-- paging form end--> 
            
@@ -157,6 +157,85 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	
+	
+	$.fn.rowspan = function(colIdx, isStats) {
+		  return this.each(function(){
+		    var that;
+		    $('tr', this).each(function(row) {
+		      $('td:eq('+colIdx+')', this).filter(':visible').each(function(col) {
+
+		        if ($(this).html() == $(that).html()
+		                && (!isStats
+		                        || isStats && $(this).prev().html() == $(that).prev().html()
+		                )
+		        ) {
+		          rowspan = $(that).attr("rowspan") || 1;
+		          rowspan = Number(rowspan)+1;
+
+		          $(that).attr("rowspan",rowspan);
+
+		          // do your action for the colspan cell here
+		          $(this).hide();
+
+		          //$(this).remove();
+		          // do your action for the old cell here
+
+		        } else {
+		          that = this;
+		        }
+
+		        // set the that if not already set
+		        that = (that == null) ? this : that;
+		      });
+		    });
+		  });
+		};
+
+		$.fn.colspan = function(rowIdx) {
+		  return this.each(function(){
+
+		    var that;
+		    $('tr', this).filter(":eq("+rowIdx+")").each(function(row) {
+		      $(this).find('th').filter(':visible').each(function(col) {
+		        if ($(this).html() == $(that).html()) {
+		          colspan = $(that).attr("colSpan") || 1;
+		          colspan = Number(colspan)+1;
+
+		          $(that).attr("colSpan",colspan);
+		          $(this).hide(); // .remove();
+		        } else {
+		          that = this;
+		        }
+
+		        // set the that if not already set
+		        that = (that == null) ? this : that;
+
+		      });
+		    });
+		  });
+		}
+		
+		$("#hazy").rowspan(0);
+		$("#hazy").rowspan(1); //주문날짜
+		$("#hazy").rowspan(2); //주문번혼  . 얘의 양옆애 애들
+		$("#hazy").rowspan(3); //송장번호
+		$("#hazy").rowspan(4);
+	//  $("#hazy").rowspan(5); 주문상태
+		//$("#hazy").rowspan(6); 
+//		$("#hazy").rowspan(7); 판매가
+//		$("#hazy").rowspan(8); 결제금액
+		$("#hazy").rowspan(9);
+		$("#hazy").rowspan(10);
+		$("#hazy").rowspan(11);
+	 	$("#hazy").rowspan(12);
+
+		$("table tbody tr:visible").each(function(row) {
+		  $('#hazy').colspan(row);
+		});
+
+
+
 
 
 		    //페이징처리
@@ -208,9 +287,15 @@ $(document).ready(function(){
 		    var stemCodeRow = "";
 		    
 		    
+		    
+		    
+		    
 		    $("input[name='chk']:checked").each (function (){
+		    	
+		    	
+		    	
 		       checkRow = checkRow + $(this).val()+"," ;
-	           shipRow = shipRow + $(this).closest('tr')[0].children[3].children[0].value + ",";
+	           shipRow = shipRow + $(this).closest('tr')[0].children[3].childNodes[0].value + ",";
 	           statRow = statRow + $(this).closest('tr')[0].children[12].childNodes[0].nodeValue + ",";
 	           stemCodeRow = stemCodeRow + $(this).closest('tr')[0].children[13].childNodes[0].nodeValue+ ",";
 

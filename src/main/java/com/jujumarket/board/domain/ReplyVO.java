@@ -15,6 +15,7 @@ public class ReplyVO {
 	private Date updateDate;
 	
 	private String postingNo;
+	private String emailAccount;
 	
 	
 	private String idNo;

@@ -41,7 +41,7 @@ values (seq_prdReplyNo.nextval,#{replyDepth},#{replyCount},#{replyContent},#{rep
 </delete>
 
 <update id ="update">
-		update t_prdQNA set replyContent = #{replyContent}, updateDate = sysDate where
+		update t_prdQNA set replyContent = #{replyContent}, updateDate = sysDate, replyCount = #{replyCount} where
 		replyNo = #{replyNo}
 </update>
 
@@ -55,12 +55,16 @@ values (seq_prdReplyNo.nextval,#{replyDepth},#{replyCount},#{replyContent},#{rep
 		 -->
     <![CDATA[
    select replyNo,replyDepth,replyCount,replyContent,replyCode,
-   itemCode,idNo,regDate,updateDate,SUBSTR(replyCode,0,2)sub
+   itemCode,idNo,regDate,updateDate,emailAccount,SUBSTR(replyCode,0,2)sub
    from(
-        select /*+INDEX(t_prdQNA idx_prdqnareply)*/
+          select /*+INDEX(t_prdQNA idx_prdqnareply)*/
         rownum rn,replyNo,replyDepth,replyCount,replyContent,replyCode,
-        itemCode,idNo,regDate,updateDate,SUBSTR(replyCode,0,2)sub
-        from (select * from t_prdQNA  order by SUBSTR(replyCode,0,2) desc, regdate asc)       
+        itemCode,idNo,regDate,updateDate,emailAccount,SUBSTR(replyCode,0,2)sub
+        from (select p.*,m.emailAccount from t_prdQNA p,t_member m
+        where p.idNo = m.idNo
+        order by SUBSTR(replyCode,0,2) desc, regdate asc)     
+    	
+    	
     	where itemCode = #{itemCode}
     	and replyNo >0
     	and rownum <= #{cri.pageNum} * #{cri.amount}

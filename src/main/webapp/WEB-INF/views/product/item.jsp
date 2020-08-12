@@ -554,15 +554,15 @@ input[type=range] {
             <div class="column-xs-4 column-md-6">
               <ul>
                 <li class="nav-item">
-                	<a class='move'>
-                		<c:out value="${shopName}"/>
-                	</a>
+                   <a class='move'>
+                      <c:out value="${shopName}"/>
+                   </a>
                 </li>
               </ul>
             </div>
             <form id='actionForm' action="/product/store" method='get'>
-			    <input type='hidden' name='idNo' id="idNo" value='<c:out value="${product.idNo}"/>'>
-			</form> 
+             <input type='hidden' name='idNo' id="idNo" value='<c:out value="${product.idNo}"/>'>
+         </form> 
           </div>
         </div>
   
@@ -629,10 +629,10 @@ input[type=range] {
               </div>
               <!-- 품절, 판매중지 인 상품 장바구니로 못넘어가게 하기 -->
               <c:if test="${product.saleStat=='품절'||product.saleStat=='판매중지'}">
-              	<button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="alert('죄송합니다. 구매 불가한 상품입니다.')" >장바구니 담기</button>
+                 <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="alert('죄송합니다. 구매 불가한 상품입니다.')" >장바구니 담기</button>
               </c:if>
               <c:if test="${product.saleStat!='품절' && product.saleStat!='판매중지'}">
-              	<button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" >장바구니 담기</button>
+                 <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" >장바구니 담기</button>
               </c:if>
              
             </div>
@@ -747,6 +747,7 @@ input[type=range] {
            
             <!-- 로그인 idNo -->
               <input type="hidden" id="sessionId" value='<c:out value="${sessionMember.idNo}"/>'>
+              <input type="hidden" id="sellerId" value='<c:out value="${product.idNo}"/>'>
             <!-- 글쓴이 idNo -->
               <input type="hidden" name="idNo" id="idNo">
               <input type="hidden" name="score" id="score" value="0">
@@ -783,30 +784,32 @@ input[type=range] {
      <!-- 상품 문의 댓글 영역 -->
          <div class = "reply-main"  id = "regiBtn">
                <h4 class="reply-title" id="replytitle">댓글쓰기</h4>
-         	   <div id = "" class=''>
-              		 <div class="form-grop regiBtn">
-              			 	<label>replyContent</label>
-               				<textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
-									 <div class="form-grop"><label>id</label>
-								     <input class ="form-control" id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
-             					     <div class="form-grop">
-            	 					  <label>replyDepth</label>
-									  <input class ="form-control" id ="replyDepth"  name='replyDepth' value='0' readonly="readonly"></div> 
-									  <label>replyCount</label>
-									  <input class ="form-control" id ="replyCount"  name='replyCount' value='1' readonly="readonly"></div>
-									  <div class="form-grop">
-									 <label>replyCode</label>
-									 <input class ="form-control" id ="replyCode"  name='replyCode' value='1' readonly="readonly"></div>
-									 <div  style='display:none' class="form-grop">
-									 <label>itemCode</label>
-									 <input class ="form-control" id ="itemCode"  name='itemCode' value='itemCode' readonly="readonly"></div>
-           							 <div class="panel-heading"><i class="fa fa-comments fa-fw"></i>Reply
-									 <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 입력하기</button></div>
+               <div id = "" class=''>
+                     <div class="form-grop regiBtn">
+                           <label>replyContent</label>
+                           <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
+                            <div class="form-grop">
+                             <input class ="form-control"  type="hidden"id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
+                            <div class="form-grop"><label>아이디</label>
+                             <input class ="form-control"  type="text" id =""  name='' value="${sessionMember.emailAccount}" readonly="readonly"></div>
+                             <div class="form-grop">
+                                
+                             <input class ="form-control"  type="hidden" type="hidden" id ="replyDepth"  name='replyDepth' value='0' readonly="readonly"></div> 
+                           
+                             <input class ="form-control" type="hidden" id ="replyCount"  name='replyCount' value='1' readonly="readonly"></div>
+                             <div class="form-grop">
+                           
+                            <input class ="form-control" type="hidden" id ="replyCode"  name='replyCode' value='1' readonly="readonly"></div>
+                            <div  style='display:none' class="form-grop">
+                        
+                            <input class ="form-control" type="hidden" id ="itemCode"  name='itemCode' value='itemCode' readonly="readonly"></div>
+                                 <div class="panel-heading"><i class="fa fa-comments fa-fw"></i>Reply
+                            <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 입력하기</button></div>
               
-    								   <!--       <div class="form-grop">
-										  <label>replyDate</label>
-										  <input class ="form-control" name='regDate' value=''></div> -->								              
-										                
+                               <!--       <div class="form-grop">
+                                <label>replyDate</label>
+                                <input class ="form-control" name='regDate' value=''></div> -->                                      
+                                              
                </div> <!-- /,panel-heading -->
    <!--             </div>regiBtn
    
@@ -935,46 +938,88 @@ $(document).ready(function(){
                           }
 
           //문의글 , 답글 구현
+          var j = 0;
             for(var i = 0, len =list.length || 0; i <len; i++){
             
            var replyDepth = list[i].replyDepth;
+           var replyCount = list[i].replyCount;
+     
            
-           console.log("d여기다아아ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹ아아");
-           console.log(replyDepth);
-            str += "<ul><li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
+            
 
                  if(replyDepth==0){
-                     str += "<div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
+                	 str += "<ul><li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
+                	 str += "<div class='header'><input type='hidden' class='primary-font' value='"+list[i].idNo+"'>";
+                     
+                     str += "<div class='emaile'><strong class='primary-font'>"+list[i].emailAccount+"</strong>";
                      str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
                      str += "<div><pre class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
-                     str += "<div ><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
+                     str += "<div id='reDiv"+i+"'><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
                      str += '<button id="replybtn" class ="replybtn" >답글달기</button> <br></div></div></div>'; 
-               
-                 }else{
+                   
+                     j=i
+                     }else{
       
-              
-                    str += "<div class='header'><strong class='primary-font'>"+list[i].idNo+"</strong>";
+                    str += "<ul><li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
+                    str += "<div class='header'><input type='hidden' class='primary-font' value='"+list[i].idNo+"'>";
+                    str += "<div class='emaile'><strong class='primary-font'>"+list[i].emailAccount+"</strong>";
                     str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
                     str += "<div>"+'&nbsp&nbsp; >>>답글:'+"<pre class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
-                    str += "<div><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
-                   /*    str += '<button id="replybtn" class ="replybtn" >답글달기</button> <br></div></div></div>';  */
+                    str += "<div id='reDiv"+i+"'><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
+                    str += '<button id="replybtn" class ="replybtn" style="display:none" >답글달기</button> <br></div></div></div>';
                      
                     
                  }
             //문의글 , 답글 구현 end
-            
-            
+           
             str += '<div class="dropdown">';
             str += '<button class="dropbtn">:</button>';
             str += '<div id="myDropdown" class="dropdown-content">';
             str += '<button id="modify" class ="modify">수정</button> <br>';
             str += '<button id="delete" class ="deletebtn">삭제</button>';
             str += '</div></div></li></ul>'
-            
+      
          }
          replyUL.html(str);
          showReplyPage(prdReplyCnt);
-  
+         
+          //글쓴사람만 삭제가능
+          var idSession = $("#idNoBtn").val();
+          var idCode = "";
+          for(var i = 0; i< $(".header").length;i++){
+        	  
+		   		idCode = $(".header")[i].children[0].value;
+		   		
+	   			if(idCode!=idSession){
+	   				 	$(".header")[i].children[2].children[0].style.display = "none"; 
+	   				 	$(".header")[i].children[2].children[1].style.display = "none"; 
+	   					$(".header")[i].children[2].children[1].children[0].style.display = "none"
+	   					$(".header")[i].children[2].children[1].children[1].style.display = "none"
+	   					$(".header")[i].children[2].children[1].children[2].style.display = "none"
+	   			}
+       	   
+          }
+          
+          var sessionId = $("#sessionId").val();
+          var sellerId = $("#sellerId").val();
+    		
+          console.log(sessionId);
+          console.log(sellerId);
+          
+           if(sessionId!=sellerId){
+        	   for(var i = 0; i <=j; i++){
+        		   $("#reDiv"+i)[0].style.display ="none";
+        	   }
+        	   //$(".header")[0].children[1].children[2].children[1].children[1].style.display="none"; 
+        	 
+        
+        	   
+           }
+      //    <input type="hidden" id="sessionId" value='<c:out value="${sessionMember.idNo}"/>'>
+      //    <input type="hidden" id="sellerId" value='<c:out value="${product.idNo}"/>'>
+      
+      
+           
          
                 });//end function
                 
@@ -982,11 +1027,13 @@ $(document).ready(function(){
                }//end showList
                
                
+               
+               
               //문의 입력  start
                var regiBtn = $("#regiBtn")
   
                $("#regiBtn").on("click","button[id='addReplyBtn']",function(e){
-            	   
+                  
                
                if($("#replyContentBtn").val() == ''||$("#replyContentBtn").val().trim()==""||$("#replyContentBtn").val().length>600){
                      
@@ -995,14 +1042,14 @@ $(document).ready(function(){
                       
                }
                console.log("#idNoBtn");
-    		   console.log("#replyContentBtn");
-    		   console.log("#replyDepth");
-    		   console.log("여기야야양ㄻㅇㄴㄹㅇㄴㄻㄴㄹㅇㄴ");
-    		   
+             console.log("#replyContentBtn");
+             console.log("#replyDepth");
+             console.log("여기야야양ㄻㅇㄴㄹㅇㄴㄻㄴㄹㅇㄴ");
+             
       
                prdreplyService.add(
-            		   
-            		  
+                     
+                    
                     {idNo:$("#idNoBtn").val(), replyContent:$("#replyContentBtn").val(),  itemCode:$("#itemCode").val(),
                     replyDepth:$("#replyDepth").val(), replyCount:$("#replyCount").val(), replyCode:$("#replyCode").val(),
                     },
@@ -1099,9 +1146,9 @@ $(document).ready(function(){
 
        //: . dropDown 클릭시발생하는 이벤트
 
-       window.onclick = function(e) {
-       
-   
+
+       $(document).on("click","button[class='dropbtn']", function(e){
+
            var target = e.target
              //var replyLi = $(target).parent().parent().parent();
              var replyLi = $(target).closest("li");
@@ -1122,7 +1169,7 @@ $(document).ready(function(){
                           }
             }
              
-     }//: . dropDown 클릭시발생하는 이벤트 end
+     });//: . dropDown 클릭시발생하는 이벤트 end
        
        
         
@@ -1133,18 +1180,36 @@ $(document).ready(function(){
           console.log(target);
           //var replyLi = $(target).parent().parent().parent();
           var replyLi = $(target).closest("li");
-          
-          console.log(replyLi+"LLLIII");
+ 
           var replyNo = replyLi.data("replyno");
           
           var ids = replyLi.data("id");
           
+          
+          var replyContent = '삭제된 댓글입니다.';
+          var replyCount = '2';
           console.log("replyNo == " + replyNo);
           
        
-       
+                
+                  prdreplyService.update({
+                      
+                     
+                      replyNo  : replyNo,    
+                      itemCode : itemCode,
+                      replyContent : replyContent,
+                      replyCount : replyCount
+
+               
+               },function(result){
+                  
+                     alert("수정 완료 ........")
+                     showList(pageNum);
+                  
+                     
+                });
         
-          prdreplyService.remove(replyNo , function(count){
+          /* prdreplyService.remove(replyNo , function(count){
             
              console.log(count);
              
@@ -1157,29 +1222,27 @@ $(document).ready(function(){
           }, function(err){
            alert('ERROR....')   
              
-          }); 
+          });  */
  
     });       //문의글 삭제, 댓글 삭제end
     
  
           //문의글 수정, 댓글수정
           $(document).on("click","button[id='modify']",function(e){
-        	  if(e.preventDefault()){
-       		   e.preventDefault();
-       	   }else{
-       		   e.returnValue = false;
-       	   }
-       	  
-        	  $("#text").css("display","block");
+             if(e.preventDefault()){
+                e.preventDefault();
+             }else{
+                e.returnValue = false;
+             }
+            
+             $("#text").css("display","block");
 
-        	    $(".replyDiv").remove();
+               $(".replyDiv").remove();
                var target = e.target;
                var replyLi = $(this).closest("li");
                var replyNo = replyLi.data("replyno");
                var replyContent = replyLi.data("text");        
                
-               console.log("1번입니다" +replyContent);
-           
 
           
                //대댓글의경우 replyContent null, parent() 한개더 줘서 replyContetn 값을 줌
@@ -1224,12 +1287,12 @@ $(document).ready(function(){
        
                
                $(document).on("click","input[id='upBtn']",function(e){
-	
-            	   console.log("aaaa"+replyNo);
-            	   console.log("bbb"+itemCode);
-            	   console.log("ccc"+textArea.value);
-            	   replyContent = textArea.value;
-            	   
+   
+                  console.log("aaaa"+replyNo);
+                  console.log("bbb"+itemCode);
+                  console.log("ccc"+textArea.value);
+                  replyContent = textArea.value;
+                  
             
            /*      if(replyContent==''||replyContent.trim()==''||replyContent.length>600){
                    
@@ -1239,7 +1302,7 @@ $(document).ready(function(){
           
                 prdreplyService.update({
                       
-                	
+                   
                       replyNo  : replyNo,    
                       itemCode : itemCode,
                       replyContent : replyContent
@@ -1396,14 +1459,14 @@ $(document).ready(function(){
       function orderCheck() {
         var sessionId = $("#sessionId").val();
         var itemCode = $("#itemCode").val();
-    	
+       
         $.ajax({
               url : '/review/orderCheck',
               data : {idNo : sessionId, itemCode : itemCode},
               type : 'POST',
               success : function(result) {
                  if(result == 'success') {
-                	 document.getElementById('review').style.display='block';
+                    document.getElementById('review').style.display='block';
                      
                      // 버튼 및 내용 초기화
                      $("#reviewBtn").show();
@@ -1415,11 +1478,11 @@ $(document).ready(function(){
                      $("#reviewNo").val("");
                      $("#star_grade a").parent().children("a").removeClass("on");
                  }else {
-                	alert("상품 후기는 상품을 구매하시고 배송완료된 회원 분만 작성 가능합니다.");
-         	     	return false;
+                   alert("상품 후기는 상품을 구매하시고 배송완료된 회원 분만 작성 가능합니다.");
+                    return false;
                  }
               }
-       	 });
+           });
       }
       
       // 이미지 체크
@@ -1608,20 +1671,20 @@ $(document).ready(function(){
 
                 str += "</div>";
                 str += "<br><hr>"
-				
+            
               }
             
-      		// 아이디 체크해서 맞을 경우만 버튼 보이기
-/* 	        var idNo = $("#writer").val();
-	        var sessionId = $("#sessionId").val();
-	        
-        	if(idNo != sessionId) {
-         		$('.rBtn').css('visibility', 'hidden');
-        	}else {
-      	  		$('.rBtn').css('visibility', 'visible');
-        	}
+            // 아이디 체크해서 맞을 경우만 버튼 보이기
+/*            var idNo = $("#writer").val();
+           var sessionId = $("#sessionId").val();
+           
+           if(idNo != sessionId) {
+               $('.rBtn').css('visibility', 'hidden');
+           }else {
+                 $('.rBtn').css('visibility', 'visible');
+           }
  */
-           	reviewList.html(str);
+              reviewList.html(str);
             showReviewPage(reviewCnt); 
             getScore();
 
@@ -1635,21 +1698,21 @@ $(document).ready(function(){
                     this.classList.toggle("active");
                     var content = this.nextElementSibling;
                     
-					console.log(this.nextElementSibling.children[2]);
-					console.log(content.children[3]);
-					var btn = content.children[3];
+               console.log(this.nextElementSibling.children[2]);
+               console.log(content.children[3]);
+               var btn = content.children[3];
                     // 아이디 체크해서 버튼 숨기기
-					var writer = content.children[0].value;
+               var writer = content.children[0].value;
                     var sessionId = $("#sessionId").val();
                     
                     if(writer != sessionId) {
-                    	$(content.children[2]).css('visibility', 'hidden');
-                    	$(content.children[3]).css('visibility', 'hidden');
-                   	}else {
-                    	$(content.children[2]).css('visibility', 'visible');
-                    	$(content.children[3]).css('visibility', 'visible');
-                   	}
-                    	
+                       $(content.children[2]).css('visibility', 'hidden');
+                       $(content.children[3]).css('visibility', 'hidden');
+                      }else {
+                       $(content.children[2]).css('visibility', 'visible');
+                       $(content.children[3]).css('visibility', 'visible');
+                      }
+                       
                     if (content.style.maxHeight){
                          content.style.maxHeight = null;
                     } else {
@@ -1759,8 +1822,8 @@ $(document).ready(function(){
                     alert('통신 오류입니다. 잠시 후 다시 시도해주세요.');
                      error(er);
                   }
-         	});
-      	}else {
+            });
+         }else {
            return false;
         }
    });   // 삭제 function 끝
@@ -1905,9 +1968,7 @@ $(document).ready(function(){
         
       
         }
-      
-
-  	 
+ 
 
 /* 리뷰 부분 끝 */
 

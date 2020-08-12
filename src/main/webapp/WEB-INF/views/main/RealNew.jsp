@@ -173,7 +173,7 @@
                                                    </c:if>
                                                    
                                                    <!--판매 중지일때  -->
-                                            <c:if test="${bob.saleStat=='판매중지'}">
+                                            <c:if test="${realnew.saleStat=='판매중지'}">
 	                                           	 <div class="pro_img_wrap">
 	                                        
 	                                              	  <a href="/product/item?itemCode=<c:out value='${realnew.itemCode}'/>" class="conts" style="opacity:0.2;">

@@ -98,6 +98,24 @@
 	    background-color: #f6dd90;
 	    border-radius: 50%;
 	}
+ 	/*버튼 */
+ 	.Dangol{
+ 	  background-color: #ffc30b; 
+	  border: none;
+	  color: white;
+	  padding: 10px;
+	  text-align: center;
+	  font-weight: 700;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 14px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	  border-radius: 20px;
+ 	}
+ 	.Dangol:focus{
+ 	outline:none;
+ 	}
  	
 </style>
 </head>

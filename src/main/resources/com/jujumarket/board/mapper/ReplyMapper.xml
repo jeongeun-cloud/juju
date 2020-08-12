@@ -59,12 +59,12 @@ where rn >(#{cri.pageNum}-1)*#{cri.amount}
  <select id="getListWithPaging"
 resultType="com.jujumarket.board.domain.ReplyVO">
 
-select replyNo,idNo,postingNo,replyContent,regdate
-from t_reply
+select r.replyNo,r.idNo,r.postingNo,r.replyContent,r.regdate,m.emailAccount
+from t_member m, t_reply r
 where postingNo = #{postingNo}
+and r.idNo = m.idNo
+
 order by replyNo asc
-
-
 </select>
 
 

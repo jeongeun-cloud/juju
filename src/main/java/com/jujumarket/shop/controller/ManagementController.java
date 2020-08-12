@@ -2,8 +2,11 @@ package com.jujumarket.shop.controller;
 
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,9 +48,13 @@ public class ManagementController {
 		
 		   date1 = date1 == null?"2020-07-01": date1;
 		   date2 = date2 == null?time1: date2;
+		   date1 = date1 == ""?"2020-07-01": date1;
+		   date2 = date2 == ""?time1: date2;
+		
 		   cri.setDate1(date1);
 		   cri.setDate2(date2);
 		   cri.setOrderStat(orderStat);
+		   cri.setAmount(30);
 		   
 		   int total = service.getTotal(cri);
 
@@ -71,6 +78,12 @@ public class ManagementController {
 	 @GetMapping("/shipping")
 	 public void  shippinglist(ItemCriteria cri , Model model, String date1,String date2) {
 	 int total = service.getNotTotal(cri);
+	  List<Integer>page = service.ListCount();
+	  
+	  System.out.println("페이지리스트당"+page);
+	  System.out.println("페이지리스트당"+page.size());
+
+	  
 
 	 
 	   SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
@@ -79,15 +92,42 @@ public class ManagementController {
 	   
 	   date1 = date1 == null?"2020-07-01": date1;
 	   date2 = date2 == null?time1: date2;
+	   date1 = date1 == ""?"2020-07-01": date1;
+	   date2 = date2 == ""?time1: date2;
+	   
 	   
 	   cri.setDate1(date1);
 	   cri.setDate2(date2);
-
-	   System.out.println("맥크리shiping"+cri);
+	   cri.setAmount(60);
 	   
-	   model.addAttribute("list", service.shippinggetList(cri));
-	   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+	   
+		/*
+		 * for(int i = 0; i < (page.size()/10)+1;i++) { int sum = 0; int multiply =
+		 * i*10; int count = 0;
+		 * 
+		 * for(int j=multiply; j<page.size();j++) {
+		 * 
+		 * 
+		 * sum += page.get(j);
+		 * 
+		 * 
+		 * if(count==9 || j==page.size()-1) { System.out.println(); count = 0;
+		 * 
+		 * 
+		 * 
+		 * 
+		 * } count ++;
+		 * 
+		 * }
+		 * 
+		 * 
+		 * }System.out.println("마리ㅓㄴ미ㅏㄹ"+cri);
+		 */
+	   
 	 
+	       model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
+	       model.addAttribute("list", service.shippinggetList(cri));
+
 	 }
 	
 	 
@@ -97,23 +137,75 @@ public class ManagementController {
 	 @PostMapping("/shipping")
 		public String shippingupdate(String shippingCode,String orderCode,String baskId,String itemCode, Model model) {
   
-		 System.out.println("들어옴2");
+	
 		    ManagementVO vo = new ManagementVO();
 		  
 			String[] arrOrder = orderCode.toString().split(",");
 			String[] arrShipping = shippingCode.toString().split(",");
 			String[] arrbaskId = baskId.toString().split(",");
 			String[] arritemCode = itemCode.toString().split(",");
+			String[] arrShippingcode = new String[arrOrder.length];
+			
+			System.out.println(arrShippingcode.length);
+			
+			System.arraycopy(arrShipping, 0, arrShippingcode, 0, arrShipping.length);
+			
+		        
+				if(arrOrder.length!=arrShipping.length) {
+				  
+				  	  for(int i = 0; i <arrShippingcode.length ;i++ ) {
+					  
+							  if(arrShippingcode[i]==null) {
+							  arrShippingcode[i] = "";
+					  }
+				  }
+					  
+	           System.out.println("Arrays.toString(arrShippingcode)"+Arrays.toString(arrShippingcode));
+				
+	           	   String j="";
+								 
+					for(int i = 0; i <arrOrder.length ;i++ ) {
+						
+						
+						
+						if(!arrShippingcode[i].equals("")) {
+			
+					    	j = arrShippingcode[i];
+						}
+
+				
+						if(arrShippingcode[i].equals("")) {
+							arrShippingcode[i] = j;
+						}
+						}
+			  
+				
+			  }
+			 
+			
+			 System.out.println("Arrays.toString(arrOrder))"+Arrays.toString(arrOrder));
+			 System.out.println("Arrays.toString(arrbaskId))"+Arrays.toString(arrbaskId));
+			 System.out.println("Arrays.toString(arritemCode)"+Arrays.toString(arritemCode));
+			 System.out.println("Arrays.toString(arrShippingcode22222)"+Arrays.toString(arrShippingcode));
+			
+	
 			
 			for (int i=0; i<arrOrder.length; i++) {
+				
+			     
+			    
+			    System.out.println("이ㅓㄱ야리거222222"+arrShippingcode[i]);
+				
 				vo.setOrderCode(arrOrder[i]);
-				vo.setShippingCode(arrShipping[i]);
+				vo.setShippingCode(arrShippingcode[i]);
 				vo.setBaskId(arrbaskId[i]);
 				vo.setItemCode(arritemCode[i]);
 				
 				
 			
 				service.shippingupdate(vo);
+				
+				
 				  
 				model.addAttribute("shippingCode");				
 

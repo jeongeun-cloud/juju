@@ -141,6 +141,18 @@ where orderCode = #{orderCode}
    WHERE shippingCode is NULL
 </select>
 
+
+
+<select id="getListCount" resultType="int">
+   select count(*) from t_delivery
+   WHERE shippingCode is NULL
+   GROUP by orderCode
+</select>
+
+
+
+
+
 <!-- <select id="searchordergetList" resultType="com.jujumarket.shop.domain.ManagementVO" >   
 select h.ordercode, h.orderstat, o.totalprice, o.orderdate, 
 i.itemName, d.shippingCode, d.receivAddr, d.receivContact, d.receiver
