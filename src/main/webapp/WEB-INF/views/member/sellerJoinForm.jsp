@@ -9,7 +9,6 @@
 body {
 	font-family: Arial, Helvetica, sans-serif;
 }
-
 .modal {
 	display: none;
 	position: fixed;
@@ -23,7 +22,6 @@ body {
 	background-color: rgb(0, 0, 0);
 	background-color: rgba(0, 0, 0, 0.4);
 }
-
 .modal-content {
 	background-color: #fefefe;
 	margin: auto;
@@ -31,20 +29,17 @@ body {
 	border: 1px solid #888;
 	width: 80%;
 }
-
 .close {
 	color: #aaaaaa;
 	float: right;
 	font-size: 28px;
 	font-weight: bold;
 }
-
 .close:hover, .close:focus {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
 }
-
 .joinForm{
 	
 }
@@ -85,11 +80,6 @@ body {
 		</div>
 		<!-- t_member -->
 		<div class="joinForm">
-			상점명: 
-			<input type="text" id="shopNameModal" name="shopNameModal" readonly="readonly"  placeholder="readonly"> <br> 
-			대표자: 
-			<input type="text" id="memNameModal" name="memNameModal" readonly="readonly"  placeholder="readonly"><br>
-			<!-- 상점이름  -->
 			사업자 등록번호
 			<input type="text" id="businessCode" name="businessCode"  placeholder="필수입력"> <button id="bcUniqueCheckBtn">사업자 등록번호 확인</button> <br>
 			<input type="hidden" id="bcUniqueCheck">
@@ -128,17 +118,14 @@ body {
 
 
 	<script>
-
 		
 	$(document).ready(function(){
-
 		aTags = $("a");
 		aTags.on().click(function(e){
 			e.preventDefault();
 			let targetId = $(e.target).prop("id");
 			execDaumPostcode(targetId);
 		})
-
 		
 			
 			emailSendBtn = $("#emailSendBtn");
@@ -164,14 +151,12 @@ body {
 			thumbImg = $("#thumbImg");
 			backImg = $("#backImg");
 			
-
 			emailAuthBtn = $("#emailAuthBtn");
 			inputCode = $("#inputCode");
 			authResult = $("#authResult");
 			
 			emailAuthMessage = $("#emailAuthMessage");
 			pwdChkMessage = $("#pwdChkMessage");
-
 			bcUniqueCheckBtn = $("#bcUniqueCheckBtn");
 			bcUniqueCheckResult = $("#bcUniqueCheckResult");
 			emailDuplicateCheckBtn = $("#emailDuplicateCheckBtn");
@@ -226,7 +211,7 @@ body {
 				.then(function(response){
 					alert("인증번호가 발송되었습니다");
 					//인증번호 개발자도구에서 확인하고싶으면 
-					//console.log(response); 
+					console.log(response); 
 					tempCode.val(response);
 				})
 				//자바의 트라이캐치문때문에 빨간줄이 떴다안떴다하는듯? 상관X 
@@ -333,7 +318,6 @@ body {
 		
 			submitBtn.click(function(e) {
 			e.preventDefault();
-
 			if (!(emailAccountCheck())) {
 				return false;
 			} else if (duplicateCheckResult.val()=="false") {
@@ -385,11 +369,9 @@ body {
 				shopAddr.val(shopRoadAddr.val()+"/"+shopNamujiAddr.val());
 				sellerJoinForm.submit();
 			}
-
 		});
 		
 		function emailAccountCheck(){
-
 			let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			
 			if (emailAccount.val().trim() == "" || emailAccount.val() == null) {
@@ -413,10 +395,7 @@ body {
 		
 		
 		function pwdCheck(){
-
 			let regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
-
-
 			if (pwd.val().trim() == "" || pwd.val() == null) {
 				alert("비밀번호를 입력해주세요.");
 				pwd.focus();
@@ -480,7 +459,6 @@ body {
 		
 		function shopNameCheck(){
 			let regExp =/^[가-힣a-zA-Z\s]+$/;
-
 			if (shopName.val().trim() == "" || shopName.val() == null) {
 				alert("상점이름을 입력해주세요.");
 				shopName.focus();
@@ -502,7 +480,6 @@ body {
 		
 		function memNameCheck(){
 			let regExp = /^[가-힣]{1,5}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
-
 			if (memName.val().trim() == "" || memName.val() == null) {
 				alert("회원이름을 입력해주세요.");
 				memName.focus();
@@ -523,7 +500,6 @@ body {
 		
 		function contact1Check(){
 			let regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
-
 			if (contact1.val().trim() == "" || contact1.val() == null) {
 				alert("연락처1을 입력해주세요.");
 				contact1.focus();
@@ -544,7 +520,6 @@ body {
 		
 		
 		function memAddrCheck(){
-
 			if (roadAddr.val() == "" || roadAddr.val() == null){
 				if (!(namujiAddr.val().trim() == "" || namujiAddr.val() == null)) {
 				alert("도로명 주소를 입력해주세요.");
@@ -569,7 +544,6 @@ body {
 		};
 		
 		function shopAddrCheck(){
-
 			if (shopRoadAddr.val() == "" || shopRoadAddr.val() == null) {
 				alert("도로명 주소를 입력해주세요.");
 				shopRoadAddr.focus();
@@ -617,7 +591,6 @@ body {
 			
 			if(this.files){
 				let reader = new FileReader;
-
                 reader.onload = function(data) {
                     imgTarget.next().next().attr("src", data.target.result).width(100);
                  }
@@ -643,10 +616,8 @@ body {
 				{
 					
 						oncomplete : function(data) {
-
 							let fullRoadAddr = data.roadAddress;
 							let extraRoadAddr = '';
-
 							if (data.bname !== ''
 									&& /[동|로|가]$/g.test(data.bname)) {
 								extraRoadAddr += data.bname;
@@ -662,13 +633,10 @@ body {
 							if (fullRoadAddr !== '') {
 								fullRoadAddr += extraRoadAddr;
 							}
-
 							document.getElementById(postCode).value = data.zonecode;
 							document.getElementById(roadAddr).value = fullRoadAddr;
-
 						}
 					}).open()
-
 		};
 		
 		

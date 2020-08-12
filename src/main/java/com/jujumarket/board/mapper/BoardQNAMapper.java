@@ -2,6 +2,8 @@ package com.jujumarket.board.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.jujumarket.board.domain.BoardQNAVO;
 import com.jujumarket.board.domain.Criteria;
 
@@ -43,5 +45,9 @@ public interface BoardQNAMapper {
 	public int getResultTotalByIdNo(Criteria cri, String idNo);
 
 	public String getIdNoByPostingNo(String postingNo);
+
+	public List<BoardQNAVO> getMyQnAListByIdNo(@Param("idNo") String idNo,@Param("cri") Criteria cri);
+
+	public int getMyQnACountByIdNo(@Param("idNo") String idNo,@Param("cri") Criteria cri);
 
 }

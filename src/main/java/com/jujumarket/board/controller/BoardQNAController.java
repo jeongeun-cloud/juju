@@ -1,14 +1,21 @@
 package com.jujumarket.board.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jujumarket.board.domain.BoardQNAVO;
@@ -50,28 +57,37 @@ public class BoardQNAController {
 	}
 
 	@GetMapping("/myQna/list")
-	public String list(Criteria cri, Model model, HttpSession session) {
+	public String list(Model model, HttpSession session) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
 		if (member == null) {
 			return "redirect:/member/login";
 
 		}
+		Criteria cri = new Criteria(1, 10);
 		String idNo = member.getIdNo();
-
-		log.info("qna" + cri);
-		model.addAttribute("qna", service.getListByIdNo(idNo));
-		int total = service.getTotal(cri);
-		if (cri.getKeyword() != null && cri.getKeyword() != "") {
-			int resultTotal = service.getResultTotalByIdNo(cri, idNo);
-			System.out.println("resultTotal" + resultTotal);
-			model.addAttribute("pageMaker", new PageDTO(cri, resultTotal));
-		} else {
-			System.out.println("total" + total);
-			model.addAttribute("pageMaker", new PageDTO(cri, total));
-		}
+		List<BoardQNAVO> myQnA = service.getMyQnAListByIdNo(idNo, cri);
+		model.addAttribute("qna", myQnA);
+		
+		int myQnANum = service.getMyQnACountByIdNo(idNo, cri);
+		model.addAttribute("pageMaker", new PageDTO(cri, myQnANum));
+		model.addAttribute("total", myQnANum);
+		
 
 		return "/mypage/myQna/list";
 	}
+	
+	// 페이지 이동 ajax방식으로 처리
+	@GetMapping(value = "/myQna/list/page/{pageNum}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<?> myQnA(HttpSession session, @PathVariable int pageNum) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+		Criteria cri = new Criteria(pageNum, 10);
+		String idNo = member.getIdNo();
+		List<BoardQNAVO> myQnA = service.getMyQnAListByIdNo(idNo, cri);
+		return ResponseEntity.status(HttpStatus.OK).body(myQnA);
+	}
+	
+	
 
 	@GetMapping("/myQna/register")
 	public void register() {

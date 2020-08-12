@@ -33,6 +33,10 @@ public interface BoardQNAService {
 
 	public String getIdNoByPostingNo(String postingNo);
 
+	public List<BoardQNAVO> getMyQnAListByIdNo(String idNo, Criteria cri);
+
+	public int getMyQnACountByIdNo(String idNo, Criteria cri);
+
 	
 	
 	

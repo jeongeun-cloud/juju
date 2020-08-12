@@ -387,25 +387,23 @@ $(document).ready(function(){
 		
 	});
 	
-	
-	
-	var pageTags = $(".paging");
-	var myPrdReplyTable = $("#myPrdReplyTable");
-	
-	pageTags.on().click(function(e){
-		e.preventDefault();
-		var pageNum = e.target.innerText;
-		console.log(pageNum);
-		getListByPage(pageNum)
-		.then(function(response){
-			console.log(response);
-			drawmyPrdReplyList(response);
-		})
-		.catch(function(error){
-			console.log(error);
-		});
+	function drawmyPrdReplyList(myPrdReplyList){
+		myPrdReplyTable.html("");
+		for(var i = 0; i<myPrdReplyList.length; i++){
+			var str = "";
+			var myPrdReply = myPrdReplyList[i];
+			var tr = document.createElement("tr");
 		
-	});
+			str += "<td><a href='/product/item?itemCode="+myPrdReply.itemCode+"'>"+myPrdReply.itemName+"</a></td>";
+	        str += '<td>'+myPrdReply.replyContent+'</td>';
+	       
+	        var regDate = myPrdReply.regDate;
+	        var date = new Date(regDate);
+	        str += '<td>'+formatDate(date)+'</td>';
+	        tr.innerHTML = str;
+			myPrdReplyTable.append($(tr));
+		}
+	}
 	
 	
 	/* 	ajax 방식으로 페이징 처리 */
