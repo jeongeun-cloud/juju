@@ -38,7 +38,7 @@
   font-weight: 500;
   letter-spacing: 0.035em;
   position: relative;
-  font-size: 18px;
+  font-size: 16px;
   transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
   border-radius: 10px;
@@ -52,9 +52,7 @@
      position: relative;
      color:white;
      background-color: #8FA691;
-     border-top-right-radius: 17px;
-     border-top-left-radius: 17px;
-     font-size:1.5em;
+     font-size:1.3em;
      font-weight: bold;
      
 }
@@ -110,7 +108,7 @@
 .sidebarNav {
   max-width: 247px;
   border: 1px solid #8FA691;
-  border-radius: 20px;
+
   
 }
 .sidebarNav h3 {
