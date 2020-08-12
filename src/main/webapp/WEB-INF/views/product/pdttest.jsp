@@ -8,5 +8,7 @@
 </head>
 <body>
 <jsp:include page="../basket/basket.jsp" flush="false"/>
+
+
 </body>
 </html>
