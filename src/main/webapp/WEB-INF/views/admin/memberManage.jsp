@@ -105,7 +105,7 @@
                         </c:if>
 
                         <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                            <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                            <li class='paginate_button ${pageMaker.cri.pageNum == num ? " is-active" : "" } '>
                                 <a href="${num}">${num}</a>
                             </li>
                         </c:forEach>
@@ -141,8 +141,6 @@
     	    $(".paginate_button a").on("click", function(e) {
     	    	e.preventDefault();
     	    	
-    	    	// a태그의 class 스타일 추가 is-active
-    	         
     	        actionForm.find("input[name='pageNum']").val($(this).attr("href"));
     	        actionForm.submit();
     	    });
