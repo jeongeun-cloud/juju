@@ -239,22 +239,28 @@ margin-top : 20px;
 							value='<c:out value="${BoardQNA.idNo}"/>'readonly="readonly">
 					</div>
 					
-					<div class="from-group">
+<%-- 					<div class="from-group">
 						<label>답글여부</label><input class="form-control" name='replyBool'
 							value='<c:out value="${BoardQNA.replyBool}"/>'readonly="readonly">
-					</div>
+					</div> --%>
 					
 					<div class="from-group">
 						<label>글번호</label><input class="form-control" name='postingNo'
 							value='<c:out value="${BoardQNA.postingNo}"/>'readonly="readonly">
 					</div>
 					
+					
+                  <div class="form-group1">
+                   <input type="hidden" class="form-control" value='${sessionMember.idNo}'>
+                  </div>
+					
+					
 					<div class="btns">
 					<button type="button" data-oper='modify' class="btn-default" id="completeBtn">수정완료</button>
 					<button type="button" data-oper='remove' class="btn btn-danger" id="deleteBtn">삭제</button>
 					<button type="button" data-oper='list' class="btn btn-info" id="listBtn">리스트</button>
-					</div>
-
+					
+					</div>		
 					</form>
 					
 					
