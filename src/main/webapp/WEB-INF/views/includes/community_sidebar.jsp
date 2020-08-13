@@ -173,15 +173,15 @@
             <div class="accordian sidebarNav">
                 <ul>
                     <h2>
-                        마이페이지
+       				        고객센터
                     </h2>
                     <li>
                         <h3>
-                            <span class="arrow"></span>쇼핑 이용 정보
+                            <span class="arrow"></span>고객센터
                         </h3>
                         <ul class="cont">
-                            <li><a href='/mypage/myPerchaseList'>주문 내역</a></li>
-                            <li><a href='/order/basketList'>장바구니</a></li>
+                            <li><a href='/community/notice/list'>공지사항</a></li>
+                            <li><a href='/community/BoardFAQ/list'>자주묻는질문</a></li>
                         </ul>
                     </li>
                     <c:if test="${!empty sessionMember}">

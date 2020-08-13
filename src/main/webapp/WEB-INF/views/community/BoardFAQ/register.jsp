@@ -10,121 +10,206 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Insert title here</title>
 <style>
-    li{
-       list-style: none;
-       
-   }
-   body{
-       color: #303030;
-   }
-   a{
-   	text-decoration: none;
-  	 color: #303030;
-   }
-   .jaju_menu a{
-       text-decoration: none;
-       font-size: 17px;
-   }
-   .jaju_content{
-       width: 1300px;
-       height: 1000px;
-       margin:0 auto;
-       
-   }
-   .jaju_wrap{                
-      position: relative;
-      display: inline-block;
-      padding-top: 30px;
-     
-   }
-   
-   .side{
-     
-       width: 200px;
-       height: 200px;
-       background-color: white;
-       float: left;
-       margin-right: 90px;
-       border:solid #ffc30b;
+     body {
+   font-family: Arial, Helvetica, sans-serif;
+   color: #303030;
+}
+
+li {
+   list-style: none;
+}
+
+
+table {
+		border-collapse: collapse;
+		width: 90%;
+		margin-left: 20px;
+        margin-top: 30px;
+	}
+
+/* 배치 */
+th, td {
+   padding: 8px;
+   text-align: left;
+   border-bottom: 1px solid #ddd;
+}
+
+th {
+   background-color: #8FA691; 
+   color: white;
+    height: 40px;
+   text-align: left;
+}
+
+tr:hover {
+   background-color: #f5f5f5;
+}
+
+
+/* 사이드 메뉴 */
+.side{
+	     width: 300px;	     
+	     float: left;
+	      margin-right: 20px;
+	     margin-top:25px;
+	}
+	
+.regi_main{
+	   float:  right;
+	   width: 950px;	   
+	   background-color: white;
+}
+
+.regi_content{
+	   width: 1300px;
+	   margin:0 auto;
       
-       
-   }
-   .jaju_main{
-       float:  right;
-       width: 1000px;
-       height: 1000px;
-       background-color: white;
-   } 
-   .jaju_side_tit{
-       padding-top: 12px;
-       padding-bottom:12px ;
-       text-align: center;
-       width: 100%;
-       background-color: #ffc30b;
-       font-size: 20px;
-       font-weight: 900;
-       
+	}
 
-   }
-   .jaju_main .jaju_tit{
-       font-size: 30px;
-       margin-bottom:50px;
-       text-align: center;
+.regi_wrap{
+   position: relative;
+   display: inline-block;
+   padding-top: 30px;
+}
 
-   }
-   .jaju_regi_form{
-       margin: 50px 100px 0 150px;
-     
-   }
-   .form-group{
-       margin-bottom:10px ;
-   }
-   .form-group label{
-       font-weight: 900;
-       font-size: 17px;;
-   }
-   
-   #regBtn,
-   #resetBtn{
-       background-color: #ffc30b; /* Green */
-       border: none;
-       color: white;
-       padding: 10px 20px;
-       text-align: center;
-       text-decoration: none;
-       display: inline-block;
-       font-size: 16px;
-       font-weight: bold;
-       margin: 4px 2px;
-     
-   }
-   .jaju_regbtn{
-       float: right;
-   }
+.regi_main .title {
+	margin-left: 20px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+	
+
+/* 글쓰기, 검색 버튼 시작 */
+.btn {
+  float:right;
+  height: 43.75px;
+  background-color: #8FA691; 
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+    
+
+  }
+
+.btn:hover {
+  height: 43.75px;
+  background-color: #F0F2F0 ; 
+  color: #8FA691; 
+  padding: 0px 20px;
+  border: 2px solid #8FA691;
+ 
+}
+
+.btn:focus{ 
+    outline: none; 
+}
+
+
+
+/* 글쓰기, 검색 버튼 끝 */
+/* 페이지 버튼 디자인 시작 */
+
+.pageBtns {
+	text-align: center;
+	margin-right: 8%;
+}
+
+.pageBtns a{
+    color: #637365;
+    float: right;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.pagination1 a:hover:not(.active) {
+    background-color: #F0F2F0;
+    border-radius: 50%;
+}
+
+/* 페이지 버튼 디자인 끝 */
+/* 모달디자인 시작  */
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 2px 16px;
+  background-color: white;
+  color: white;
+}
+
+.modal-body {padding: 2px 16px;}
+
+.modal-footer {
+  padding: 2px 16px;
+  background-color: white;
+  color: white;
+}
+
+#closeBtn {
+  background-color: #ffc30b; 
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+#closeBtn:hover {
+  background-color: white; 
+  color: #ffc30b; 
+  border: 2px solid #ffc30b;
+
+}
+
+#closeBtn:focus {
+    outline: none; 
+
+}
+/* 모달 디자인 끝 */
+  
    
 </style>
 </head>
 <body>
-<div class="jaju_content">
-   <div class="jaju_wrap">
-       <div class="side">
-           <div class="1nb_list">
-               <div class="jaju_side_tit">
-                   고객센터
-               </div>
-               <div class="jaju_side_menu">
-                   <ul class="jaju_menu" style="margin-top:20px">
-                       <li><a href='/community/notice/list'><i class="fa fa-check" ></i>공지사항</a></li>
-                       <li><a href='/community/BoardFAQ/list'><i class="fa fa-check" ></i>자주 묻는 질문</a></li>
-                   </ul>
-               </div>
-           </div>
-           <!-- 1nb_list -->
-       </div>
-       <!-- side -->
-
-       <div class="jaju_main">
-           <div class="jaju_tit">
+<div class="regi_content">
+   <div class="regi_wrap">
+     <div class="1nb_list">
+       <!-- side 시작 -->
+	    <div class="side">
+			<%@include file="../../includes/community_sidebar.jsp" %>
+       </div>	
+<!-- side 끝-->        
+    </div>
+     <!-- 1nb_list -->
+  </div>
+<!-- side 끝-->
+       
+<!-- regi_main 시작 -->      
+<div class="regi_main">
+      <div class="p2">
+      
+      <div class='row'>
+   		   <div>
                <p><b>[자주 묻는 질문]</b></p>
               
            </div>
@@ -143,7 +228,7 @@
 
 
                    <div class="form-group">
-                       <label>작성자</label><input class="form-control" readonly ="readonly" name='idNo' value='운영자'>
+                       <input type='hidden' class="form-control" readonly ="readonly" name='idNo' value='운영자'>
                    </div>
                    
                    
@@ -159,6 +244,7 @@
                </form>
            </div>
               
+       </div>
        </div>
 
    </div>

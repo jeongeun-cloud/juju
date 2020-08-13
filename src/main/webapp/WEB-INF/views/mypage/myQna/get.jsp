@@ -16,49 +16,53 @@
 <style>
 /* css 영역 */
 
-li {
-   list-style: none;
-
+body {
+   font-family: Arial, Helvetica, sans-serif;
+   color: #303030;
 }
 
-.regi_menu a{
-   text-decoration: none;
-   color: #303030;
-   font-size: 17px;
+li {
+   list-style: none;
 }
 
 
 /* 사이드 메뉴 */
 
 .side{
-     width: 200px;
-     height: 500px;
-     background-color: white;
-     float: left;
-     margin-right: 90px;
-     border:solid #637365;
+	     width: 300px;	     
+	     float: left;
+	     margin-right: 20px;
+	     margin-top:25px;
+	}
+
+	
+.regi_content{
+	   width: 1300px;
+	   margin:0 auto;
+      
+	}
+
+.regi_wrap{
+   position: relative;
+   display: inline-block;
+   margin-right: 0px;
+   padding-top: 30px;
 }
 
- .regi_side_tit{
-      padding-top: 12px;
-      padding-bottom:12px ;
-      text-align: center;
-      width: 100%;
-      background-color: #8FA691;
-      font-size: 20px;
-      font-weight: 900;
-}
-
-.regi_menu {
-	margin-top:20px;
-}
-
-/* 사이드 메뉴 끝 */
-
-        
+.regi_main .title {
+	margin-left: 20px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+	
+	      
 .regi_main{
    float:  right;
-   width: 1000px;
+   width: 950px;
    height: 1000px;
    background-color: white;
 } 
@@ -70,14 +74,11 @@ li {
 
 }
 
-
-
-
 .regi_content{
-   width: 1300px;
-   height: 1000px;
-   margin:0 auto;
-}
+	   width: 1300px;
+	   margin:0 auto;
+      
+	}
         
 .regi_wrap{
                  
@@ -86,7 +87,39 @@ li {
    padding-top: 30px;
 }
         
+	
+	
+/* 사이드끝 */	
+	
+table {
+		border-collapse: collapse;
+		width: 90%;
+		margin-left: 20px;
+        margin-top: 30px;
+	}
 
+/* 배치 */
+th, td {
+   padding: 8px;
+   text-align: left;
+   border-bottom: 1px solid #ddd;
+}
+
+th {
+   background-color: #8FA691; 
+   color: white;
+    height: 40px;
+   text-align: left;
+}
+
+tr:hover {
+   background-color: #f5f5f5;
+}
+	
+
+/* 사이드 메뉴 끝 */
+
+  
 
 /* 등록, 리셋 버튼 시작 */
 #addReplyBtn,
@@ -116,6 +149,7 @@ li {
   border: 2px solid #8FA691;
 }
 
+
 #addReplyBtn:focus,
 #modifyBtn:focus,
 #deleteBtn:focus,
@@ -123,6 +157,31 @@ li {
     outline: none; 
 }
 
+.Bbtn{
+
+  background-color: #8FA691; 
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  width:10%;
+  
+  
+
+}
+
+.Bbtn:hover {
+  background-color: white; 
+  color: #8FA691; 
+  border: 2px solid #8FA691;
+ 
+}
 
 /* 등록, 리셋 버튼 끝 */
 
@@ -133,56 +192,15 @@ li {
 <body>
 
 
-
-
-
 <div class="regi_content">
  <div class="regi_wrap">
-
+     <div class="1nb_list">
+     
 <!-- side 시작 -->
-   <div class="side">
-      <div class="1nb_list">
-         <div class="regi_side_tit">마이페이지</div>
-           <div class="regi_side_menu">
-               <ul class="regi_menu">
-                    <p><b>쇼핑 이용 정보</b></p>
-                    <li><a href='/mypage/myPerchaseList'><i class="fa fa-check" ></i>주문내역</a></li>
-                    <li><a href='/order/basketList'><i class="fa fa-check" ></i>장바구니</a></li>
-                    <br>
-                    <c:if test="${!empty sessionMember}">
-                    <p><b>게시판 이용 내역</b></p>
-                    <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
-                    <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
-                    <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
-                    
-                    
-                    
-                   		 <c:choose>
-                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
-                              <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
-                           </c:when>
-                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
-                              <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
-                           </c:when>
-                           <c:when test="${sessionMember.memCode eq 'JUNIOR'}">
-                              <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
-                           </c:when>
-                        </c:choose>
-                        <c:choose>
-  						<c:when test="${(sessionMember.memCode eq 'CUSTOMER'
-                           				|| sessionMember.memCode eq 'JUNIOR'                           			
-                           				|| sessionMember.memCode eq 'SELLER')                           			
-                           				}">
-                    <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
-                    <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
-                    <br>
-                    <p><b>단골 상점 </b></p>
-                    <li> <a href='/mypage/myDangol'><i class="fa fa-check" ></i>상점 바로가기</a></li>
-                        </c:when>
-                        </c:choose>
-                    </c:if>
-                </ul>
-           </div>
+	<div class="side">
+<%@include file="../../includes/mypage_sidebar.jsp" %>
+   </div>
+<!-- side 끝-->     
      </div>
      <!-- 1nb_list -->
   </div>
@@ -215,7 +233,7 @@ li {
 
             <div class="from-group">
                   <label>내용</label>
-                  <textarea class="form-control" rows="10" name='content'
+                  <textarea  style='resize:none' class="form-control" rows="10" name='content'
                   readonly="readonly"><c:out value="${BoardQNA.content}"/></textarea>
             </div>
      
@@ -263,8 +281,8 @@ li {
             
               <div id = "regiBtn">
                <div class="form-grop">
-               <label>replyContent</label>
-               <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
+         
+               <textarea style='resize:none' class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
                
                <div class="form-grop">
               
@@ -368,8 +386,8 @@ li {
               str += "<div><small class ='pull-right text-muted'>"+replyService.displayTime(list[i].regDate)+"</div></small>";    
               str += "<div><pre class='text' id='text' rows='5'readonly='readonly' >"+list[i].replyContent+"</pre></div>";
              
-              str += "<button id='RemoveBtn' class ='btn btn-dangers'>"+'삭제'+"</button>"
-              str += "<button id='ModifyBtnBtn' class ='btn btn-dangers'>"+'수정'+"</button></div>"
+              str += "<button id='RemoveBtn' class ='btn btn-dangers Bbtn'>"+'삭제'+"</button>"
+              str += "<button id='ModifyBtnBtn' class ='btn btn-dangers Bbtn'>"+'수정'+"</button></div>"
               str += "<div id='divBtnDelete' class ='btn btn-dange' style='display: none'>"  
             
        
@@ -487,8 +505,6 @@ li {
          //수정 start
         $("#list").on("click","button[id='ModifyBtnBtn']",function(e){
         	
-        	console.log(여기로들어옴);
-          
 
            var target = e.target
            var replyLi = $(target).closest("li");
@@ -530,17 +546,18 @@ li {
 
             var textArea = document.createElement("textarea");
             textArea.setAttribute("id", "replyTextarea");
-            textArea.setAttribute("style", "width:100%; height:100px;"); 
+            textArea.setAttribute("style", "width:100%; height:100px; resize:none;"); 
+          
             
             var Mbtn = document.createElement("input");
             Mbtn.setAttribute("id", "Mbtn");
-            Mbtn.setAttribute("class", "btn btn-danger");
-            Mbtn.setAttribute("value", "수정완료");
+            Mbtn.setAttribute("class", "btn btn-danger Bbtn");
+            Mbtn.setAttribute("value", "완료");
            
             
             var Cbtn = document.createElement("input");
             Cbtn.setAttribute("id", "Cbtn");
-            Cbtn.setAttribute("class", "btn btn-danger");
+            Cbtn.setAttribute("class", "btn btn-danger Bbtn");
             Cbtn.setAttribute("value", "취소");
             
             $(textArea).html(str);     
