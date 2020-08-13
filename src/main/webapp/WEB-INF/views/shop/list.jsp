@@ -29,7 +29,7 @@
         }
         .regi_content{
             width: 1300px;
-            height: 1000px;
+            height: 100%;
             margin:0 auto;
            
         }
@@ -41,37 +41,17 @@
           /*  background-color: cornsilk; */
         }
         
-        .side{
-            
-            width: 200px;
-            height: 200px;
-            background-color: white;
-            float: left;
-            margin-right: 90px;
-            border:solid #ffc30b;
+        .side{         
+         width: 300px;	     
+	     float: left;
+	     margin-right: 20px;
+	     margin-top:25px;
         }
         .regi_main{
             float:  right;
-            width: 1000px;
-            height: 1000px;
+            width: 980px;
             background-color: white;
         } 
-        .regi_side_tit{
-            padding-top: 12px;
-            padding-bottom:12px ;
-            text-align: center;
-            width: 100%;     
-            background-color: #ffc30b;
-            font-size: 20px;
-            font-weight: 900;
-            
-
-        }
-        .regi_main .regi_tit{
-            font-size: 30px;
-            margin-bottom:50px;
-
-        }
         #excelDown{
             float:right;
             margin-right: 30px;
@@ -83,7 +63,7 @@
         .rbtn #excelDown ,
         #pro_regiBtn,
         #regBtn{
-            background-color: #ffc30b; 
+            background-color: #8FA691; 
             border: none;
             color: white;
             padding: 8px 20px;
@@ -101,14 +81,14 @@
         #regBtn:hover
          {
         background-color: white; 
-        color: #ffc30b; 
-        border: 2px solid #ffc30b;
+        color: #8FA691; 
+        border: 2px solid #8FA691;
         }
         .rbtn #excelDown,
         #pro_regiBtn,
         #regBtn
          {
-        background-color: #ffc30b;
+        background-color: #8FA691;
         color: white;
         
         
@@ -119,14 +99,12 @@
             outline: none; 
         }
         .regi_la{
-            font-size: 20px;
-            font-weight: 900;
-           
+            font-size: 18px;                      
         }
         table {
       border-collapse: collapse;
         width: 90%;
-        margin-left: 50px;
+        margin-left: 100px;
        }
         .regi_list-btn{
             margin-bottom: 80px;
@@ -140,7 +118,7 @@
         }
         
         th {
-            background-color: black;
+            background-color: #8FA691;
             color: white;
             text-align: left;
             height: 40px;
@@ -162,7 +140,7 @@
         }
         
         .serch {
-            margin-left: 50px;
+            margin-left: 100px;
             margin-bottom: 10px;
         }
         
@@ -170,7 +148,9 @@
             height: 35px;
         }
         .select_state{
-            margin-left: 60px;
+            margin-left: 100px;
+            margin-bottom:30px;
+            
         }
         .page_num {
         display: inline-block;
@@ -185,17 +165,30 @@
    
         }
         .pagination a:hover:not(.active) {
-          background-color: #f6dd90;
+          background-color: #8FA691;
           border-radius: 50%;}
         
         .regi_table{
         margin-bottom: 20px;
         }
         .default_btn{
-        background-color: #ffc30b;
-        border: solid #ffc30b;
+        background-color: #8FA691;
+        border: solid #8FA691;
         border-radius:10px;
         color:white;
+        }
+        .regi_main .title {
+        margin-left: 100px;
+        }
+        .regi_main h3{
+        font-weight:500;
+        font-size:24px;
+        margin-bottom:10px;
+        }
+        .regi_main p{
+            color: #b9b9b9;
+            margin-top:0;
+            
         }
         /* 모달디자인 시작  */
       .close:hover,
@@ -221,7 +214,7 @@
       
       
       #closeBtn {
-        background-color: #ffc30b; 
+        background-color: #8FA691; 
         border: none;
         color: white;
         padding: 10px 20px;
@@ -236,8 +229,8 @@
       
       #closeBtn:hover {
         background-color: white; 
-        color: #ffc30b; 
-        border: 2px solid #ffc30b;
+        color: #8FA691; 
+        border: 2px solid #8FA691;
       
       }
       
@@ -255,23 +248,13 @@
     <div class="regi_content">
         <div class="regi_wrap">
             <div class="side">
-                <div class="1nb_list">
-                    <div class="regi_side_tit">
-                        상품 관리
-                    </div>
-                    <div class="regi_side_menu">
-                        <ul class="regi_menu">
-                            <li> <a href='/shop/register'><i class="fa fa-check" ></i>상품 등록</a></li>
-                            <li><a href='/shop/list'><i class="fa fa-check" ></i>상품 리스트</a></li>
-                        </ul>
-                    </div>
-                </div>
-
+               <%@include file="../includes/shop_sidebar.jsp" %>
             </div>
 
             <div class="regi_main">
-                <div class="regi_tit">
-                    <p><b><i class="fa fa-list-alt"></i>상품 리스트</b></p>
+                <div class="title">
+                 <h3>상품 리스트</h3>
+                <p><i class="fa fa-lightbulb-o"></i>총 등록 상품 : <c:out value="${pageMaker.total }" /></p>
                 </div>
                 <div class="regi_list-btn" >
                     <div class="rbtn" >
@@ -283,14 +266,14 @@
                     <div class="rbtn" >
                         <button id="pro_regiBtn" type="button" >상품 등록</button> 
                     </div>  
-                    <label class="regi_la"><i class="fa fa-lightbulb-o"></i>총 등록 상품 : <c:out value="${pageMaker.total }" /></label>  
+                    
                 </div>
 
                 <div class="search_bar">
                     <form id="searchForm" action="/shop/list" method="get">
                         <div class="serch">
                             <label class="regi_la">상품명</label>
-                            <select name='type'>
+                            <select name='type' style="height:30px">
                                 <option value="" <c:out value="${pageMaker.cri.type == null? 'selected':'' }" /> >--</option>
                                 <option value="N" <c:out value="${pageMaker.cri.type eq 'N'? 'selected':'' }" />>상품명</option>
                                 <option value="C" <c:out value="${pageMaker.cri.type eq 'C'? 'selected':'' }" />>상품설명</option>
