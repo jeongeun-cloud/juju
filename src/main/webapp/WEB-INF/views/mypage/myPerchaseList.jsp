@@ -43,6 +43,11 @@ li {
 	
 .regi_content{
 	   width: 1300px;
+	   
+	/*	   
+	   height: 2500px;
+	*/   
+	   
 	   margin:0 auto;
       
 	}
@@ -221,7 +226,7 @@ margin-right: 8%;
 .regi_main{
    float:  right;
    width: 950px;
-   height: 1000px;
+  height:100%;
    background-color: white;
 } 
 
@@ -233,6 +238,7 @@ margin-right: 8%;
 
 .regi_content{
 	   width: 1300px;
+	   height:100%;
 	   margin:0 auto;
       
 	}
@@ -250,6 +256,10 @@ table img {
 
 .imgTd {
 	width: 215px;
+}
+
+#footer{
+	bottom:0;
 }
 </style>
 </head>
@@ -354,8 +364,10 @@ table img {
 <!-- regi_main 끝 -->     
 
 </div>
-
+<div id="footer">
+	<%@include file="../includes/footer.jsp" %>   
 </div>
+
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -426,8 +438,8 @@ $(document).ready(function(){
 });
 </script>
 
-
-   <%@include file="../includes/footer.jsp" %>   
-
+   
 </body>
+
+
 </html>

@@ -23,7 +23,7 @@
 	}
 	
 	.event_pro{
-	    /* height: 2000px; */
+	    height: 1000px;
 	    width: 1000px;
 	    margin: 0 auto;
 	}
@@ -40,102 +40,6 @@
 	}
 
         
-/* 장바구니 css 시작 */      
-	.basketContainer {
-    	position: fixed;
-        top: 0px;
-        z-index: 999;
-    }
-
-	 #basketNav {
-	     right: -20%;
-	 }
-	
-	 .basketNavBar {
-	     position : fixed;
-	     width: 20%;
-	     height : 100%;
-	     /* 메뉴바 전체 배경색 */
-	     background-color: rgb(0,158,219);
-	     color: white;
-	     border-style:solid;
-	     border-color: lightgray;
-	     text-align: center;
-	     align-items: center;
-	     transition : 0.800s ease;
-	     z-index: 1;
-	     
-	 }
-	
-	 .basket-toggle-collapse {
-	     float: left;
-	     margin-left: -3.685em;
-	     margin-top: 17em;
-	     content: "";
-	     outline: inherit;
-	     border: 0px;
-	     background: transparent;
-	 }
-	
-	 .basket-toggle-icon,
-	 .basket-toggle-icon::before,
-	 .basket-toggle-icon::after{
-	     content:"";
-	     position: fixed;
-	     background-color: transparent;
-	     border-radius: 2em;
-	     border: 0px solid transparent ; 
-	 }
-	 
-	.basketList {
-	    margin-left: 0px;
-	    margin-top: 50px;
-	    width:100%;
-	    height: 60%;
-	    background-color: white;
-	    color: grey;
-	    text-align: left;
-	    border: 3px;
-	    font-size: 1em;
-	    
-	    /* 여기서 스크롤 생김(양 초과했을 때) */
-	    overflow: auto;
-	}
-	
-	.basketItemImg {
-	   width: 100px;
-	   float: left;
-	   border : 3px;
-	   margin-top: 25px;
-	   margin-left : 10px;
-	}
-	
-	#basketImg {
-		width: 120px;
-		height: 100px;
-		float: left;
-		margin: 3px;
-	}
-	
-	#basketContent {
-		width: 120px;
-		height: 100px;
-		float: left;
-		margin: 3px;
-	}
-	
-	
-	#dltBtn {
-		width: 10px;
-		heigth: 10px;
-	}
-	
-	#dltBtnImg{
-		width: 10px;
-		height: 10px;
-	}
-    
-/* 장바구니 css 끝 */  
 </style>
     
    

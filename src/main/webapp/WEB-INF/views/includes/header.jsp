@@ -16,6 +16,18 @@
             border:1px;
             height:200px;
         }
+        
+        #colorHeader {
+        	
+        	width: 100%;
+        	height: 50px;
+        	line-height: 50px;
+        	background-color : #637365;
+        	color : white;
+        	text-align: center;
+        }
+        
+        
         li{
             /* 앞에 점 없앰 */
             list-style: none;
@@ -26,7 +38,6 @@
             display:flex;
             justify-content: center;
             padding-bottom: 20px;
-            
     
         }
         .head_util{
@@ -131,6 +142,14 @@
    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </head>
 <body>
+
+
+<div id="colorHeader">
+지금 가입하고 최대 <b>30%할인</b> 을 즐겨보세요! >
+</div>
+
+
+
    <header id="head">
       <div class="head_wrap">
          <div class="head_util">
@@ -201,7 +220,7 @@
 
          <div class="head_logo">
             <div class="logo">
-               <a href="/"><img src="/resources/images/juju_logo.png"
+               <a href="/"><img src="/resources/images/JUJULOGO.png"
                   alt="JuJu_Market_Logo" style="height: 150px;"></a>
             </div>
          </div>
