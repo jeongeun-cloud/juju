@@ -59,8 +59,8 @@
 				  <!-- DETAIL FORM -->
 				  <form action="" method="GET" name="listForm" class="form">
 		            <div class="formHeader row">
-		                <h2 class="text-1 fl">Member List</h2><br><br>
-		                <label class="mem_la" style="font-size:15px; cursor:auto;"><i class="fa fa-lightbulb-o"></i> 총 회원수 : <c:out value="${pageMaker.total }"/>명</label>  
+		                <h2 class="text-1 fl">회원 리스트</h2><br><br>
+		                <label class="mem_la" style="font-size:17px; cursor:auto;"><i class="fa fa-lightbulb-o"></i> 총 회원수 : <c:out value="${pageMaker.total }"/>명</label>  
 		                <div class="fr">
 		                  <button  id="regBtn" class="btnSave bg-1 text-fff text-bold fr">블랙 리스트로 등록</button>
 		                </div>

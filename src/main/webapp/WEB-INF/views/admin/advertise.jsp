@@ -61,11 +61,11 @@
 			                
 			                <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
 				                <div id="activeImg" style="margin-top:20px;">
-				                	<h2 class="text-1 fl">현재 등록된 광고 이미지</h2><br>
+				                	<h2 class="text-1 fl">현재 등록된 광고 이미지</h2><br><br><br>
 				                	<input type="hidden" id="imgLen" value='<c:out value="${fn:length(advertise)}"/>'>
 				                	<c:forEach items="${advertise }" var="advertise">
 						           		<img class="banner" alt="" src='/resources/banner/<c:out value="${advertise.imgPath}"/>/<c:out value="${advertise.uuid}"/>_<c:out value="${advertise.imgName}"/>' >
-						           		<button id='removeBtn' class="btnSave bg-1 text-fff text-bold fr" data-oper='<c:out value="${advertise.imgNo}"/>'>삭제</button>
+						           		<button id='removeBtn' class="btnSave bg-1 text-fff text-bold fr" data-oper='<c:out value="${advertise.imgNo}"/>'>삭제</button><br><br>
 						           	</c:forEach>
 				                </div>
 				             </div>

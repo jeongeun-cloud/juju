@@ -850,6 +850,7 @@ label {
 }
 .table .row {
     width: 100%;
+    color : #000000;
 }
 .table .row .cell {
     display: table-cell;

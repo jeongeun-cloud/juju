@@ -58,10 +58,10 @@
 			                
 			                <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
 			                <div id="activeImg" style="margin-top:20px;">
-				                <h2 class="text-1 fl">현재 등록된 이벤트 이미지</h2><br>
+				                <h2 class="text-1 fl">현재 등록된 이벤트 이미지</h2><br><br><br>
 			                	<c:forEach items="${event }" var="event">
 					           		<img class="banner" alt="" src='/resources/banner/<c:out value="${event.imgPath}"/>/<c:out value="${event.uuid}"/>_<c:out value="${event.imgName}"/>' >
-					           		<button id='removeBtn' class="btnSave bg-1 text-fff text-bold fr" data-oper='<c:out value="${event.imgNo}"/>'>삭제</button>
+					           		<button id='removeBtn' class="btnSave bg-1 text-fff text-bold fr" data-oper='<c:out value="${event.imgNo}"/>'>삭제</button><br><br>
 					           	</c:forEach>
 			                </div>
 		                </div>

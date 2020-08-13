@@ -40,7 +40,7 @@
 		
 				  <!-- DETAIL FORM -->
 		            <div class="formHeader row">
-		                <h2 class="text-1 fl">탈퇴 회원 List</h2><br><br>
+		                <h2 class="text-1 fl">탈퇴 회원 리스트</h2><br><br>
 		            </div>
 		            <div class="table" style="background: white;">
 		                <div class="row bg-1">
