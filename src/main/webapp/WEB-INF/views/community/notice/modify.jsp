@@ -352,6 +352,8 @@ margin-top : 20px;
 	});
 	
 	</script>
+	
+   <%@include file="../../includes/footer.jsp" %>   	
 
 </body>
 </html>

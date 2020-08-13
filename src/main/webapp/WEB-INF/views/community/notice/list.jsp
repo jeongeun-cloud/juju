@@ -570,7 +570,7 @@ margin-top: 10px;
 
 
 
-
+   <%@include file="../../includes/footer.jsp" %>   
 
 </body>
 

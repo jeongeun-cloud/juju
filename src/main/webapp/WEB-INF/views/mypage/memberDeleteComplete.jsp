@@ -14,6 +14,9 @@
 		<button type="button" onclick="location.href='/member/chooseMemberType'">회원가입하기</button>
 		<button type="button" onclick="location.href='/'">메인으로 가기</button>
 	</div>
+	
+   <%@include file="../includes/footer.jsp" %>   	
+	
 </body>
 </html>
 
