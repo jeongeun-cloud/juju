@@ -381,7 +381,7 @@
     <!--bob_content  -->
 
 
-
+<%@include file="./includes/footer.jsp" %>
 
 
 </body>

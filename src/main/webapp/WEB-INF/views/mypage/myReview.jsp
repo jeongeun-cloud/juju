@@ -514,5 +514,9 @@ table img {
 		
 	});
 </script>
+
+
+   <%@include file="../includes/footer.jsp" %>   
+
 </body>
 </html>

@@ -232,6 +232,11 @@ public class BasketController {
       return basketservice.makeGuestId();
    }
 
+   @GetMapping("/footer")
+   public void footer() {
+   }
+   
+   
 //   @PostMapping("/remove")
 // public String remove(@RequestParam("baskId") String baskId, RedirectAttributes rttr) {
 //    

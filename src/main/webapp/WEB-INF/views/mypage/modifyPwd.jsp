@@ -447,7 +447,7 @@ a {
    
 
 
-
+   <%@include file="../includes/footer.jsp" %>   
 
 
 

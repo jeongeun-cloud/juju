@@ -128,5 +128,9 @@
          <!--regi_wrap  -->
  </div>
  <!--regi_content  -->
+ 
+ 
+    <%@include file="../includes/footer.jsp" %>   
+ 
 </body>
 </html>

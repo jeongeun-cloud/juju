@@ -950,7 +950,7 @@ function addCommas(x) {
     
     
     
-
+   <%@include file="../includes/footer.jsp" %>
 
 </body>
 </html>

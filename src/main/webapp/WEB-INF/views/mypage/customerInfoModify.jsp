@@ -410,6 +410,8 @@ a {
 	</div>
 		<input type="hidden" id="result" value="${result }">
 
+</div>
+
 <script>
 
 $(document).ready(function(){
@@ -560,5 +562,8 @@ $(document).ready(function(){
 		
 
 </script>
+
+   <%@include file="../includes/footer.jsp" %>   
+
 </body>
 </html>

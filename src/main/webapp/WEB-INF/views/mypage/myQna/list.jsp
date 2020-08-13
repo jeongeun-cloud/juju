@@ -577,6 +577,8 @@ margin-right: 0%;
 
 
 
+   <%@include file="../../includes/footer.jsp" %>   
+
 </body>
 
 </html>

@@ -222,5 +222,8 @@
         /* 중간 광고 끝 */
         
    </script>
+   
+   <%@include file="../includes/footer.jsp" %>
+   
 </body>
 </html>

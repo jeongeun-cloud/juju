@@ -1983,5 +1983,6 @@ $(document).ready(function(){
 /* 상점으로 이동하기 끝 */
 </script>
 
+   <%@include file="../includes/footer.jsp" %>
 
 </html>
