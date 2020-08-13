@@ -34,12 +34,7 @@
 	<select id="read" resultType ="com.jujumarket.board.domain.BoardQNAVO">
 		select * from t_board_QNA where postingNo = #{postingNo}
 	</select>
-	
-	<delete id="delete">
-	delete from t_board_QNA where postingNo = #{postingNo}
-	
-	</delete>
-	
+
 	
 	<update id="update">
 	update t_board_QNA
@@ -178,6 +173,12 @@
        		)
    
    </select>
+   
+		<delete id="delete">
+	delete from t_board_QNA where postingNo = #{postingNo}
+	
+	</delete>
+	
    
    <select id ="getIdNoByPostingNo" resultType="String">
 		select idNo

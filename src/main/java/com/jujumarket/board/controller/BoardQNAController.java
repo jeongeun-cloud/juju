@@ -94,11 +94,12 @@ public class BoardQNAController {
 
 	}
 
-	@GetMapping({ "/myQna/get", "/myQna/modify" })
+	@GetMapping("/myQna/get")
 	public String get(@RequestParam("postingNo") String postingNo, @ModelAttribute("cri") Criteria cri, Model model,
-			HttpSession session, RedirectAttributes rttr) {
+	HttpSession session, RedirectAttributes rttr) {
 		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
-
+	
+		
 		if (member == null) {
 			rttr.addFlashAttribute("result", "로그인 후 이용 가능합니다.");
 			return "redirect:/mypage/myQna/list";
@@ -106,7 +107,28 @@ public class BoardQNAController {
 				|| (member.getIdNo().equals(service.getIdNoByPostingNo(postingNo)))) {
 			model.addAttribute("BoardQNA", service.get(postingNo));
 			model.addAttribute("qna", service.get(postingNo));
+			
 			return "/mypage/myQna/get";
+		} else {
+			return "/mypage/myQna/list";
+		}
+	}
+	
+	@GetMapping("/myQna/modify")
+	public String modify(@RequestParam("postingNo") String postingNo, @ModelAttribute("cri") Criteria cri, Model model,
+	HttpSession session, RedirectAttributes rttr) {
+		MemberVO member = (MemberVO) session.getAttribute("sessionMember");
+	
+		
+		if (member == null) {
+			rttr.addFlashAttribute("result", "로그인 후 이용 가능합니다.");
+			return "redirect:/mypage/myQna/list";
+		} else if ((member.getMemCode().equals("ADMIN"))
+				|| (member.getIdNo().equals(service.getIdNoByPostingNo(postingNo)))) {
+			model.addAttribute("BoardQNA", service.get(postingNo));
+			model.addAttribute("qna", service.get(postingNo));
+			
+			return "/mypage/myQna/modify";
 		} else {
 			return "/mypage/myQna/list";
 		}
@@ -114,7 +136,9 @@ public class BoardQNAController {
 
 	@PostMapping("/myQna/modify")
 	public String modify(BoardQNAVO qna, @ModelAttribute("cri") Criteria cri, RedirectAttributes rttr) {
-		log.info("modify : " + qna);
+
+		
+	
 
 		if (service.modify(qna)) {
 			rttr.addFlashAttribute("result", "success");

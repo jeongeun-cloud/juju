@@ -17,28 +17,34 @@
 
 </head>
 <style>
-	html{
-			font-family: "쌍문동_타이포";
-		}
+
 	button{
-			width: 300px;
-			height:30px;
+  			background-color: #8FA691;
+        	border: 1px solid #8FA691;
+        	border-radius: 5px;
+        	margin: 0;
+        	outline: none;
+        	color: #FFFFFF;
+        	padding: 15px 175px;
+        	cursor: pointer;
+        	margin-bottom: 5px;
 		}
+		
+	#chooseMemberType{
+		position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+	}
 </style>
 <body>
-	<div align="center">
+	<div id="chooseMemberType" align="center">
 		<h1>주주마켓 회원가입</h1>
-		<h6>
-			
-			- 제품을 구매만 할 경우는 ‘일반회원’으로 가입하세요<br>
-			- 제품 구매 및 판매 할 경우는 ‘상인’으로 가입하세요<br>
-			- 상인으로 가입시 사업자등록 인증이 필요합니다.<br>
-			- 상인으로 가입시 관리자의 허가가 있어야 상점 등록 가능 합니다.
-			
-		</h6>
+		<h6>회원타입별 가입안내문구 추가하기</h6>
+		
 		<br><br>
 		<button onClick="location.href='/member/customerJoinForm'">일반회원가입</button><br><br>
-		<button onClick="location.href='/member/sellerJoinForm'">상인가입</button>
+		<button onClick="location.href='/member/sellerJoinForm'">상인회원가입</button>
 	</div>
 </body>
 </html>

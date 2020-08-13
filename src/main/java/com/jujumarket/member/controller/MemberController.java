@@ -58,8 +58,9 @@ public class MemberController {
 
 	// [회원가입]일반회원
 	@PostMapping("/customerJoinForm")
-	public String customerJoinForm(CustomerVO customer) {
+	public String customerJoinForm(CustomerVO customer, RedirectAttributes rttr) {
 		customerService.register(customer);
+		rttr.addFlashAttribute("customer", customer);
 		return "redirect:/member/customerJoinComplete";
 	}
 
