@@ -137,7 +137,7 @@
 			               <li class="row cellRow">
 			               	  <div class="cell cell-50 text-center"><input type="checkbox" name="chk" value='<c:out value="${list.itemCode }" />'></div>
 			                  <div class="cell cell-100p text-center">
-			                  	<a class='move' href='/product/item?itemCode=<c:out value="${list.itemName }" />' >
+			                  	<a class='move' href='/product/item?itemCode=<c:out value="${list.itemCode }" />' >
                                        <c:out value="${list.itemName }" /> 
                                    </a>
 			                  </div>
@@ -188,7 +188,7 @@
 		            <div class="formHeader row">
 		                <label class="season_la"><i class="fa fa-list-alt"></i> 다담기로 등록된 상품</label>  
 		                <div class="fr">
-		                  <button  id="regBtn" class="btnSave bg-1 text-fff text-bold fr">다담기 상품에서 제거</button>
+		                  <button id="deleBtn" class="btnSave bg-1 text-fff text-bold fr">다담기 상품에서 제거</button>
 		                </div>
 		            </div>
 		            <div class="table">
@@ -207,7 +207,7 @@
 				               <li class="row cellRow">
 				               	  <div class="cell cell-50 text-center"><input type="checkbox" name="chkSeason" value='<c:out value="${seasonItemResult.itemCode }" />'></div>
 				                  <div class="cell cell-100p text-center">
-				                  	<a class='move' href='/product/item?itemCode=<c:out value="${seasonItemResult.itemName }" />' >
+				                  	<a class='move' href='/product/item?itemCode=<c:out value="${seasonItemResult.itemCode }" />' >
                                         <c:out value="${seasonItemResult.itemName }" /> 
                                     </a>
 				                  </div>
