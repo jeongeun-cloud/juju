@@ -55,7 +55,7 @@
 </head>
 
 <body>
-	<%-- <%@include file="./idCheck.jsp" %> --%>
+<%@include file="./idCheck.jsp" %>
 	<div class="container">
         <%@include file="./adminSideBar.jsp" %>
             <div class="mainArea">
@@ -126,7 +126,7 @@
     <!-- authority get 모달 시작 -->
 	<div id="id01" class="w3-modal">
 	    <div class="w3-modal-content w3-animate-zoom w3-card-4">
-	      <header class="w3-container" style="height:36px;"> 
+	      <header class="w3-container" style="height:37px;"> 
 	        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 	        <h2>상인 상세정보</h2>
 	      </header>
