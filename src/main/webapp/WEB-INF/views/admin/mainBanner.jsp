@@ -42,12 +42,12 @@
 		        <!-- DETAIL FORM -->
 		        <form action="" method="POST" enctype="multipart/form-data" class="form">
 		            <div class="formHeader row">
-		                <h2 class="text-1 fl">Main Banner</h2>
+		                <h2 class="text-1 fl">메인 배너</h2>
 		            </div>
 		            <div class="formBody row">
 
 		                <div class="column s-6">
-			                <p>메인 슬라이더 이미지는 최대 4개까지 가능합니다.</p><br>
+			                <p style="font-size:17px;">메인 슬라이더 이미지는 최대 4개까지 가능합니다.</p><br>
 			                <p style='opacity:0.75;'>이미지 규격 : </p>
 			                <div class="uploadDiv">
 			                	<input type="file" name="uploadFile" multiple>

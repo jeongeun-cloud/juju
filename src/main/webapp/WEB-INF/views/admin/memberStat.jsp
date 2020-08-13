@@ -4,161 +4,118 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>회원 현황보기</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
-<%-- <%@include file="../includes/header.jsp" %> --%>
-<style>
-	li{
-       list-style: none;
-       
-   	}
-   	body{
-       color: #303030;
-   	}
-   	a{
-       text-decoration: none;
-       color: #303030;
-       font-size: 17px;
-   	}
-   	.memStat_content{
-       width: 1300px;
-       height: 1000px;
-       margin:0 auto;
-       border: solid;
-   	}
-   	.memStat_wrap{
-      position: relative;
-      display: inline-block;
-      padding-top: 30px;
-      background-color: cornsilk;
-   	}
-   
-   	.side{
-       width: 200px;
-       height: 500px;
-       background-color: white;
-       float: left;
-       margin-right: 90px;
-       border:solid;
-       
-   	}
-   	.memStat_main{
-       float:  right;
-       width: 1000px;
-       height: 1000px;
-       background-color: white;
-   	} 
-   	.memStat_side_tit{
-       padding-top: 12px;
-       padding-bottom:12px ;
-       text-align: center;
-       width: 100%;
-       background-color: #ffc30b;
-       font-size: 20px;
-       font-weight: 900;
-   	}
-   	
-   .memStat_main .memStat_tit{
-       font-size: 30px;
-       margin-bottom:20px;
-
-   }
-</style>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Admin Page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+    <link rel="stylesheet"  href="../resources/css/admin.css">
+   	<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
 </head>
+<style>
+	body {
+		background : white;
+	}
+	p {
+		font-size:17px;
+	}
+	#MemStat, #WithdrawSta {
+		padding-top : 30px;
+	}
+</style>
 <body>
     <%@include file="./idCheck.jsp" %>
-    <%@include file="../includes/header.jsp" %>
-    <div class="memStat_content">
-        <div class="memStat_wrap">
-            <!-- side 시작 -->
-            <div class="side">
-                <div class="1nb_list">
-                <div class="memStat_side_tit">관리자 페이지</div>
-                    <div class="memStat_side_menu">
-                        <ul class="memStat_menu">
-                            <p><a href='/admin/index'><b>JUJU 현황</b></a></p>
-                            <p><b>배너관리</b></p>
-                                <li><a href='/admin/mainBanner'><i class="fa fa-check" ></i> 메인 배너</a></li>
-                                <li><a href='/admin/advertise'><i class="fa fa-check" ></i> 중간 광고</a></li>
-                                <li><a href='/admin/seasonalMagazine'><i class="fa fa-check" ></i> 제철 페이지</a></li>
-                                <li><a href='/admin/eventBanner'><i class="fa fa-check" ></i> 이벤트</a></li>
-                            <br>
-                            <p><b>회원관리</b></p>
-                                <li><a href='/admin/memberManage'><i class="fa fa-check" ></i> 회원 리스트</a></li>
-                                <li><a href='/admin/memberStat'><i class="fa fa-check" ></i> 회원 현황</a></li>
-                                <li><a href='/admin/authority'><i class="fa fa-check" ></i> 상인 승인</a></li>
-                                <li><a href='/admin/withdraw'><i class="fa fa-check" ></i> 탈퇴 사유</a></li>
-                                 <li><a href='/admin/QnaList'><i class="fa fa-check" ></i> 1:1 문의</a></li>
+    <div class="container">
+        <%@include file="./adminSideBar.jsp" %>
+            <div class="mainArea">
+            
+                <!-- BEGIN NAV -->
+                <nav class="navTop row">
+                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
                         </ul>
                     </div>
-                </div>
-                <!-- 1nb_list -->
-                </div>
-            <!-- side 끝-->
-                <div class="memStat_main">
-                    <div class="memStat_tit">
-                        <p><b><i class="fa fa-list-alt"></i>회원 현황</b></p>
-                    </div>
-                    
-                        [일반회원수 : <c:out value="${customerNum}"/>명]+
-                        [상인회원수 : <c:out value="${sellerNum}"/>명]=
-              		          총 인원:	<c:out value="${totalNum}"/>
-              		     
-              		     <form id="searchDayform" role="form" action="/admin/memberStat" method="GET" >
-              		     <div class="stat">
-		              		   <select class="year" id="year">
-		              		   		<option value="">년</option>
-								    <option value="2019">2019</option>
-								    <option value="2020">2020</option>
-		              		   
-		              		   </select>
-								    
-								<select class="month" id="month" >
-								    <option value="">월</option>
-								    <option value="01">01</option>
-								    <option value="02">02</option>
-								    <option value="03">03</option>
-								    <option value="04">04</option>
-								    <option value="05">05</option>
-								    <option value="06">06</option>
-								    <option value="07">07</option>
-								    <option value="08">08</option>
-								    <option value="09">09</option>
-								    <option value="10">10</option>
-									<option value="11">11</option>
-								    <option value="12">12</option>
-								</select>
-              		     
+                </nav>
+                <!-- END NAV -->
+                
+                <!-- CONTAINER  -->
+                <div class="mainContent">  
+
+		        	<!-- DETAIL FORM -->
+		        	<form id="searchDayform" role="form" action="/admin/memberStat" method="GET" >
+		            <div class="formHeader row">
+		                <h2 class="text-1 fl"><c:out value="${year}"/> / <c:out value="${month}"/> 회원 현황</h2>
+		            </div>
+		            
+		            <div class="formBody row">
+		            	<!-- <div class="column s-6"> -->
+			                <p style="float:right;">
+				                <i class="fa fa-user" aria-hidden="true"></i> 일반회원 : <c:out value="${customerNum}"/>명 +
+		                        <i class="fa fa-user-o" aria-hidden="true"></i> 상인회원 : <c:out value="${sellerNum}"/>명 =
+	              		    	총 <c:out value="${totalNum}"/> 명
+	              		    </p>
+	              		         
+              		     	<div class="stat">
+              		     		<div style="margin-bottom:20px;">
+			              		   <select class="year" id="year">
+			              		   		<option value="">년</option>
+									    <option value="2019">2019</option>
+									    <option value="2020">2020</option>
+			              		   
+			              		   </select>
+									    
+									<select class="month" id="month" >
+									    <option value="">월</option>
+									    <option value="01">01</option>
+									    <option value="02">02</option>
+									    <option value="03">03</option>
+									    <option value="04">04</option>
+									    <option value="05">05</option>
+									    <option value="06">06</option>
+									    <option value="07">07</option>
+									    <option value="08">08</option>
+									    <option value="09">09</option>
+									    <option value="10">10</option>
+										<option value="11">11</option>
+									    <option value="12">12</option>
+									</select>
               		  	
-              		     <input type="hidden" name="searchDay" id="searchDay">
-	              		 <input type="submit" name="submit" id="submit">
-	              		 <p>(년도 와 월 을 함께 선택해주세요)</p><br>
-	              		  
-	              		  <h2>[Day:<c:out value="${year}"/>/<c:out value="${month}"/>] 회원 현황</h2>
-	              		  
-	              		  <div id="MemStat_cont">
-	              		  <p>[회원가입 수]</p>
-	              		  <div id="MemStat"></div>
-	              		  </div>
-	              		  
-	              		  <div id= "WithdrawSta_cont">
-	              		  <p>[탈퇴회원 수]</p>
-	              		  <div id="WithdrawSta"></div> 
-	              		  </div>
+		              		     	<input type="hidden" name="searchDay" id="searchDay">
+			              		 	<input type="submit" name="submit" id="submit" class="btnSave bg-1 text-fff text-bold">
+		              		 	</div>
+		              		 	<!-- <p>(년도 와 월 을 함께 선택해주세요)</p><br> -->
+		              		  
+		              		  	<%-- <h2 class="text-1 fl" style="color:#637365;">[Day:<c:out value="${year}"/>/<c:out value="${month}"/>]</h2> --%>
+		              		  	<!-- <br><br> -->
+		              		  	
+		              		  	<div id="MemStat_cont">
+		              		  		<h2 class="text-1 fl" style="color:#637365;">회원가입 수</h2>
+		              		  		<div id="MemStat"></div>
+		              			</div>
+		              			<br><br>
+		              		  
+		              		  	<div id= "WithdrawSta_cont">
+		              		  		<h2 class="text-1 fl" style="color:#637365;">탈퇴회원 수</h2>
+		              		  		<div id="WithdrawSta"></div> 
+		              		  	</div>
 	              		      
-	              		 </div>  
-	              		 </form>
-	              		  
-                </div>
-                 <!-- memStat_main  -->
-         </div>
-           <!-- memStat_wrap -->
-    </div>
-	 <!-- memStat_content -->
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
+	              			</div>
+	              			<!-- end stat -->
+		            	</div>
+	              	</form>
+		        </div>
+            </div>
+        </div>
+        <!-- END CONTAINER  -->
+        
+
+	<script src="../resources/js/admin.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     
