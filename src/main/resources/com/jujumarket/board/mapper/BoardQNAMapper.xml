@@ -82,7 +82,7 @@
 	   
 		select *
   		from(
-  				select row_number() over(order by regdate desc) as rn, postingNo, title, regdate
+  				select row_number() over(order by regdate desc) as rn, postingNo,content,title, regdate
     			from t_board_qna		 
     			where idNo = #{idNo}
                 order by regdate desc
