@@ -24,11 +24,13 @@ public class AuthorityController {
 	@GetMapping("/authority")
 	public void authority(Model model) {
 		
-		
-		
-//		System.out.println(service.authorityList());
 		model.addAttribute("list",service.authorityList());
-
+	}
+	
+	@GetMapping("/authority2")
+	public void authority2(Model model) {
+		
+		model.addAttribute("list",service.authorityList());
 	}
 	
 	@GetMapping("/authorityget")

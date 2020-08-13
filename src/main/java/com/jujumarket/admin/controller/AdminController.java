@@ -138,6 +138,7 @@ public class AdminController {
 		model.addAttribute("WithdrawSta",result2);
 		
 	}
+	
 	//탈퇴 회원 
 	@GetMapping("/withdraw")
 	public void withdraw(ItemCriteria cri,Model model) {
@@ -160,17 +161,6 @@ public class AdminController {
 	
 	@GetMapping("/memberManage")
 	public void memberManage(ItemCriteria cri, Model model) {
-		
-		List<MemberManageVO> list = mmservice.getTotal();
-		int total = list.size();
-		
-		model.addAttribute("blackList",mmservice.getBlack());
-		model.addAttribute("allMember", mmservice.getAllMember(cri));
-		model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
-	}
-	
-	@GetMapping("/memberManage2")
-	public void memberManage2(ItemCriteria cri, Model model) {
 		
 		List<MemberManageVO> list = mmservice.getTotal();
 		int total = list.size();

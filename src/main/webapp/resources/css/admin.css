@@ -533,16 +533,16 @@ strike {
 body {
     font-family: 'SFU Futura', Arial, sans-serif;
     font-size: 14px;
-    color: #2a3f54;
+    color: #637365;
     background: #f7f7f7;
 }
 
 .bg-1 {
-    background: #8FA691;
+    background: #637365;
 }
 
 .text-1 {
-    color: #8FA691;
+    color: #637365;
 }
 
 /* ADMIN PAGE */
@@ -560,7 +560,7 @@ label {
     position: relative;
     width: 1em;
     height: 1em;
-    background: #8FA691;
+    background: #637365;
     vertical-align: middle;
 }
 .checkbox:before {
@@ -569,7 +569,7 @@ label {
     width: 1em;
     height: 1em;
     background: #fff;
-    border: 1px solid #8FA691;
+    border: 1px solid #637365;
     border-radius: 2px;
     position: absolute;
     top: 0;
@@ -591,7 +591,7 @@ label {
     cursor: pointer;
 }
 .checkbox:checked:before {
-    background: #8FA691;
+    background: #637365;
 }
 .checkbox:checked:after {
     display: block;
@@ -630,11 +630,11 @@ label {
     transition: left 0.2s;
 }
 .btnSwitch:checked:before {
-    background: #8FA691;
+    background: #637365;
 }
 .btnSwitch:checked:after {
     content: "ON";
-    background: #8FA691;
+    background: #637365;
     color: #fff;
     border: none;
     left: calc(100% - 2em);
@@ -650,14 +650,14 @@ label {
     background: #fff;
 }
 .pagination a:hover {
-    border-color: #8FA691;
-    color: #8FA691;
+    border-color: #637365;
+    color: #637365;
 }
 .pagination li {
     margin: 0 2px;
 }
 .pagination li.is-active a {
-    background: #8FA691;
+    background: #637365;
     color: #fff;
     border: none;
     pointer-events: none;
@@ -701,7 +701,7 @@ label {
 .sideArea {
     width: 200px;
     min-width: 200px;
-    background: #637365;
+    background: #8FA691;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -757,7 +757,7 @@ label {
     padding: 0 1em;
 }
 .name{
-    color: #2A3F54;
+    color: #637365;
     padding: 1em 0;
     cursor: pointer;
 }
@@ -778,7 +778,7 @@ label {
 }
 .accountLinks li a {
     display: block;
-    color: #2A3F54;
+    color: #637365;
     padding: 0.7em 1em;
 }
 .account:hover, .accountLinks li a:hover {
@@ -1074,7 +1074,7 @@ label {
     background: #ccc;
 }
 .noUi-connect {
-    background: #2a3f54;
+    background: #637365;
 }
 .noUi-handle {
     outline: none;
