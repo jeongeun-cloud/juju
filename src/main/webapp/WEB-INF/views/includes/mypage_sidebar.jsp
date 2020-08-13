@@ -212,9 +212,12 @@
                                                }">
                                 <li><a href='/mypage/modifyPwd'>비밀번호 변경</a></li>
                                 <li><a href='/mypage/memberDelete'>회원 탈퇴</a></li>
+                         </c:when>
+                     	</c:choose>
                         </ul>
                     </li>
-                    <li>
+                         
+                      <li>
                         <h3>
                             <span class="arrow"></span> 단골 상점
                         </h3>
@@ -222,8 +225,6 @@
                             <li> <a href='/mypage/myDangol'>상점 바로가기</a></li>
                         </ul>
                     </li>
-                          </c:when>
-                     </c:choose>
                     </c:if>
                 </ul>
             </div>

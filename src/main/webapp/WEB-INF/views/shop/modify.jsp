@@ -10,6 +10,11 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
+         td{
+         border-bottom: 1px solid #ddd;
+         padding: 8px;
+         height: 30px;
+              }
          li{
             list-style: none;
             float: left;
@@ -18,6 +23,33 @@
 	   	text-decoration: none;
 	  	 color: #303030;
 	   }
+	    .select_img1 ,
+        .select_img2 ,
+        .select_img3 ,
+        .select_img4 ,
+        .select_img5 {
+        width:100px;
+        height:100px;
+        position:relative;
+        overflow:hidden;
+
+        }
+         
+        .select_img1 img,
+        .select_img2 img,
+        .select_img3 img,
+        .select_img4 img,
+        .select_img5 img{
+        	display:block;
+        	
+           width : 100%;
+           height: 100%;
+           postion:absoulte;
+           top:0;
+           botton:0;
+           left:0;
+           right:0;
+        }
         .get_menu a{
             text-decoration: none;
             color: #303030;
@@ -38,13 +70,10 @@
                 
              }
         .side{
-        box-sizing: border-box;
-          width: 200px;
-          height: 200px;
-          background-color: white;
-          float: left;
-          margin-right: 90px;
-          border:solid #ffc30b;
+         width: 300px;	     
+	     float: left;
+	     margin-right: 20px;
+	     margin-top:25px;
            
          }
         .modi_side_tit{
@@ -61,16 +90,12 @@
          }
         .modi_main{
             float:  right;
-            width: 1000px;       
+            /* width: 980px;     */   
             background-color: white;
         } 
-        .modi_main .modi_tit{
-            font-size: 30px;
-            margin-bottom:50px;
-
-        }
+        
         .modi_form{
-            margin: 50px 100px 0 150px;
+            margin: 50px 100px 0 100px;
 
         }
         .container label{
@@ -81,11 +106,24 @@
         .container{
             margin-bottom:20px;
         }
+        .modi_main .title {
+        margin-left: 100px;
+        }
+        .modi_main h3{
+        font-weight:500;
+        font-size:24px;
+        margin-bottom:10px;
+        }
+        .modi_main p{
+            color: #b9b9b9;
+            margin-top:0;
+            
+        }
         /* 버튼 */
         .modi_btn #uploadBtn,
         .modi_btn #rBtn,
         .modi_btn #lBtn{
-            background-color: #ffc30b; /* Green */
+            background-color: #8FA691; 
             border: none;
             color: white;
             padding: 10px 20px;
@@ -101,8 +139,8 @@
         .modi_btn #rBtn:hover,
         .modi_btn #lBtn:hover{
         background-color: white; 
-        color: #ffc30b; 
-        border: 2px solid #ffc30b;
+        color: #8FA691; 
+        border: 2px solid #8FA691;
         }
         .modi_btn #uploadBtn:focus,
         .modi_btn #rBtn:focus,
@@ -112,6 +150,7 @@
         
         .modi_btn{
             float: right;
+            margin: 10px 0 10px 0;
         }
         /* 버튼 끝 */
         
@@ -126,24 +165,16 @@
     <div class="modi_content">
         <div class="modi_wrap">
             <div class="side">
-                <div class="1nb_list">
-                    <div class="modi_side_tit">
-                        상품 관리
-                    </div>
-                    <div class="modi_side_menu">
-                        <ul class="modi_menu">
-                            <li> <a href='/shop/register'><i class="fa fa-check" ></i>상품 등록</a></li>
-                            <li><a href='/shop/list'><i class="fa fa-check" ></i>상품 리스트</a></li>
-                        </ul>
-                    </div>
-                </div>
+            <%@include file="../includes/shop_sidebar.jsp" %>    
             </div>
             <!-- side -->
             <div class="modi_main">
-                <div class="modi_tit">
-                    <p><b><i class="fa fa-list-alt"></i>상품 수정</b></p>
+                <div class="title">
+                 <h3>상품 정보 수정</h3>
+                 <p>필요한 정보를 알맞게 수정해 주세요. [상품ID: <c:out value="${item.itemCode }"/>]</p>
                 </div>
                     <div class="modi_form">
+                    	<table>
                         <form role="form" action="/shop/modify" method="POST" enctype="multipart/form-data">
                             <!-- 추가 -->
                             <input type="hidden" name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
@@ -152,93 +183,164 @@
                             <input type='hidden' name='type' value='<c:out value="${cri.type }"/>' >
                             <input type="hidden" name="idNo" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
                             
-                            <div class="container">
-                                <label for="category"><i class="fa fa-scissors"></i>상품 정보 수정</label><br>
-                            </div>
+
                             <input type="hidden" name="itemCode" value='<c:out value="${item.itemCode }"/>'>
                             <div class="container">
-                                <label for="itemName"><i class="fa fa-chevron-right"></i>상품 이름</label><br>
-                                <input type="text" name="itemName" id="itemName" style="width: 350px;" value='<c:out value="${item.itemName }"/>'>
+                            <tr>
+                                <td><label for="itemName"><i class="fa fa-chevron-right"></i>상품 이름</label><br></td>
+                                <td><input type="text" name="itemName" id="itemName" style="width: 350px;" value='<c:out value="${item.itemName }"/>'></td>
+                            </tr>
                             </div>
+                            
                             <div class="container">
-                            <label for="category"><i class="fa fa-chevron-right"></i>카테고리 분류</label><br>
-                            <input type="text" name="getCategory" style="width: 350px;" value='<c:out value="${getCategory }"/>' readonly="readonly">
+                            <tr>
+                            <td><label for="category"><i class="fa fa-chevron-right"></i>카테고리 분류</label></td>
+                            <td><input type="text" name="getCategory" style="width: 350px;" value='<c:out value="${getCategory }"/>' readonly="readonly"></td>
+                            </tr>
                         </div>
+                        
                             <div class="container">
-                                <label for="itemContent"><i class="fa fa-chevron-right"></i>상품 상세정보</label><br>
-                                <textarea name="itemContent" id="itemContent" style="height: 200px; width: 350px; resize:none;"><c:out value="${item.itemContent }" /></textarea>
+                            <tr>
+                                <td><label for="itemContent"><i class="fa fa-chevron-right"></i>상품 상세정보</label></td>
+                                <td><textarea name="itemContent" id="itemContent" style="height: 200px; width: 350px; resize:none;"><c:out value="${item.itemContent }" /></textarea></td>
+                           </tr>
                             </div>
+                            
                             <div class="container">
-                                <small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
+                            <tr>
+                            <td>
+                               <small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
                                 <label for="price"><i class="fa fa-chevron-right"></i>판매가격</label> 
+                            </td>
+                            <td>    
                                 <input type="text" name="price" id="price" numberOnly value='<c:out value="${item.price }"/>'> <br> 
+                            </td>
+                            </tr>
+                            <tr>
+                            <td>
                                 <label for="normPrice"><i class="fa fa-chevron-right"></i>정상가격</label> 
+                            </td>    
+                            <td>  
                                 <input type="text" name="normPrice" id="normPrice" numberOnly value='<c:out value="${item.normPrice }"/>'>
+                             </td>
+                             </tr>
                             </div>
+                            
                             <div class="container">
-                                <label for="stock"><i class="fa fa-chevron-right"></i>재고</label> 
-                                <input type="text" name="stock" id="stock" numberOnly value='<c:out value="${item.stock }"/>'><br>
+                            <tr>
+                                <td><label for="stock"><i class="fa fa-chevron-right"></i>재고</label></td>
+                                <td><input type="text" name="stock" id="stock" numberOnly value='<c:out value="${item.stock }"/>'><br></td>
+                            </tr>
                             </div>
                     
                             <div class="container">
-                                <label for="status"><b><i class="fa fa-chevron-right"></i>표시상태 설정</b></label><br> 
-                                <label for="">진열상태</label>
+                            <tr>                    
+                                <td><label for="">진열상태</label></td>
                                     <input type="hidden" id="disValue" value='<c:out value="${item.dispStat}"/>'>
+                                <td> 
                                     <input type="radio" name="dispStat" value="진열함">진열함
                                     <input type="radio" name="dispStat" value="진열안함">진열안함<br>
-                                <label for="">판매상태</label> 
+                                </td>
+                            </tr>      
+                            <tr>  
+                               <td> <label for="">판매상태</label> </td>
                                     <input type="hidden" id="saleValue" value='<c:out value="${item.saleStat}"/>'>
+                               <td>
                                     <input type="radio" name="saleStat" value="판매중">판매중
                                     <input type="radio" name="saleStat" value="판매중지">판매중지 
                                     <input type="radio" name="saleStat" value="품절">품절
+                               </td>
+                            </tr>
                             </div>
                             <div class="container">
-                                <label><i class="fa fa-chevron-right"></i>상품 특성<small style="opacity:0.75;">(특성을 선택하지 않으면 기본으로 설정 됩니다.)</small></label><br> 
+                            <tr>
+                              
+                              <td>
+                               <small style="opacity:0.75;">특성을 선택하지 않으면 기본으로 설정 됩니다.</small><br>
+                               <label><i class="fa fa-chevron-right"></i>상품 특성</label><br> 
+                               </td>
                                 <input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
+                               <td>
                                 <input type="checkbox" name="itemChr" value="new">신상품 
                                 <input type="checkbox" name="itemChr" value="sale">할인
                                 <!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
                                 <input type="checkbox" name="itemChr" value="default" style="visibility:hidden">
+                                </td>
+                            </tr>
                             </div>
                             
-                            <label><small style="opacity:0.75;">메인, 서브 이미지 규격 : 270*300</small></label><br>
+                            
                             <div class="container">
-                                <label><i class="fa fa-chevron-right"></i>메인 이미지</label>
+                            <tr>
+                            <td>
+                            	<label><small style="opacity:0.75;">메인, 서브 이미지 규격 : 270*300</small></label><br>
+                                <label><i class="fa fa-chevron-right"></i>메인 이미지</label><br>                            
                                 <input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg1" value="<c:out value="${item.itemImg1}"/>">
+                            </td>
+                            <td> 
                                 <div class="select_img1"><img class='itemImg' src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
+                            </td>
+                            </tr>
                             </div>
                             <div class="container">
-                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                            <tr>
+                                <td>
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label><br>
                                 <input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg2" value="<c:out value="${item.itemImg2}"/>">
+                              	</td>
+                              	<td>
                                 <div class="select_img2"><img class='itemImg' src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
+                            	</td>
+                            </tr>
                             </div>
+                            
                             <div class="container">
-                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                            <tr>
+                                <td>
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label><br>
                                 <input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg3" value="<c:out value="${item.itemImg3}"/>">
+                               </td>
+                               <td>
                                 <div class="select_img3"><img class='itemImg' src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
+                            	</td>
+                            </tr>
                             </div>
+                            
                             <div class="container">
-                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                            <tr>
+                                <td>
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label><br>
                                 <input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg4" value="<c:out value="${item.itemImg4}"/>">
+                                </td>
+                                <td>
                                 <div class="select_img4"><img class='itemImg' src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
+                            	</td>
+                            </tr>
                             </div>
                             <div class="container">
-                                <label><i class="fa fa-chevron-right"></i>상품 상세 설명 이미지</label>
+                            <tr>
+                            	<td>
+                                <label><i class="fa fa-chevron-right"></i>상품 상세 설명 이미지</label><br>
                                 <input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="imgDetail" value="<c:out value="${item.imgDetail}"/>">
+                                </td>
+                                <td>
                                 <div class="select_img5"><img class='itemImg' src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" /></div>
+                            	</td>
+                            </tr>
                             </div>
-                    
-                            <div class="modi_btn">
+
+                        </form>
+                        </table>
+                           <div class="modi_btn">
                                 <button id="uploadBtn" >Modify</button>
                                 <button type="button" class="btn" id="rBtn" data-oper='remove'>Remove</button>
                                 <button type="button" class="btn" id="lBtn" data-oper='list'>List</button>
-                            </div>
-                        </form>
+                           </div>
                     </div>
                     <!-- modi_form -->
             </div>

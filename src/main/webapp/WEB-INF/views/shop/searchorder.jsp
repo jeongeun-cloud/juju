@@ -11,16 +11,84 @@
 </head>
 
 <style>
-table {
-  border-collapse: collapse;
-}
+         li{
+            list-style: none;
+            
+        }
+        body{
+            color: #303030;
+        }
+        a{
+            text-decoration: none;
+            color: #303030;
+            font-size: 17px;
+        }
+        .manage_content{
+            width: 1300px;
+            margin:0 auto;
+           
+        }
+        .manage_wrap{
+                 
+            position: relative;
+           display: inline-block;
+           padding-top: 30px;
+        
+        }
+        
+	.side{
+	     width: 280px;	     
+	     float: left;   
+	     
+	     margin-top:25px;
+	}
+        .manage_main{
+            float:  right;
+            width: 1000px;
+            background-color: white;
+        } 
 
-table, td, th {
-  border: 1px solid black;
-}
-</style>
- 		<body>
+    /* 테이블 */
+       table {
+		border-collapse: collapse;
+		width: 100%;
+        margin-top: 30px;
+		}
+	    th, td {
+	        padding: 10px;
+	        text-align: center;
+	        border-bottom: 2px solid #ddd;
+	    }
+	    
+	    th {
+	        background-color: #8FA691;
+	        color: white;
+	        text-align: left;
+	        height: 30px;
+	        text-align:center;
+	    }
+		.manage_main h3{
+		font-weight:500;
+		font-size:24px;
+		}
+		.manage_main p{
+			color: #b9b9b9;
+		}
+    </style>
+ 	<body>
+<%@include file="../includes/header.jsp" %>
+    <div class="manage_content">
+        <div class="manage_wrap">
+            <div class="side">
+ 				<%@include file="../includes/ishop_sidebar.jsp" %>
+            </div>
+            <!-- side --> 		
  		
+ 		<div class="manage_main">
+ 		         <div class="title">
+                   <h3>전체 주문 관리</h3>
+                   <p>우리 가게의 주문을 확인하세요.</p>
+                </div>
  		    <input class="quick_btn" type="button" value="전체주문보기" onClick="location.href='/shop/searchorder'">
    			 <input class="quick_btn" type="button" value="송창처리" onClick="location.href='/shop/shipping'">
    			 <input class="quick_btn" type="button" value="환불요청보기" onClick="location.href='/shop/refund'">
@@ -113,7 +181,7 @@ table, td, th {
 		                  </c:forEach>
 		               </table>
 		               
-		                 <input type="" id="sessionId" value='<c:out value="${sessionMember.idNo}"/>'>
+		                 <input type="hidden" id="sessionId" value='<c:out value="${sessionMember.idNo}"/>'>
 		             
 		                  <!-- 페이징 처리 시작 -->
 		                  
@@ -152,9 +220,9 @@ table, td, th {
 		            <input  type='hidden' name='orderStat' value = '<c:out value="${pageMaker.cri.orderStat}"/>'>
 		         </form>
 					 <!-- paging form end--> 
-			
-					
-			
+		</div>			 
+	</div>
+</div>		
 				
 </body>
 <script type='text/javascript'>
