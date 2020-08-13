@@ -17,31 +17,23 @@
 <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
 
 <style>
-   
-   
-body {
+ body {
    font-family: Arial, Helvetica, sans-serif;
    color: #303030;
-
 }
 
 li {
    list-style: none;
-
 }
 
-.regi_menu a{
-   text-decoration: none;
-   color: #303030;
-   font-size: 17px;
-}
-   
-      
+
 table {
-   border-collapse: collapse;
-   width: 100%;
-}
-         
+		border-collapse: collapse;
+		width: 90%;
+		margin-left: 20px;
+        margin-top: 30px;
+	}
+
 /* 배치 */
 th, td {
    padding: 8px;
@@ -50,8 +42,9 @@ th, td {
 }
 
 th {
-   background-color: black;
+   background-color: #8FA691; 
    color: white;
+    height: 40px;
    text-align: left;
 }
 
@@ -59,54 +52,92 @@ tr:hover {
    background-color: #f5f5f5;
 }
 
-.check {
-   width: 5%;
-   height: 30px;
-   left: 30%;
+
+/* 사이드 메뉴 */
+.side{
+	     width: 300px;	     
+	     float: left;
+	      margin-right: 20px;
+	     margin-top:25px;
+	}
+	
+	.regi_main{
+	   float:  right;
+	   width: 950px;	   
+	   background-color: white;
 }
 
-.text {
-   width: 50%;
-   height: 25px;
+.regi_content{
+	   width: 1300px;
+	   margin:0 auto;
+      
+	}
+
+.regi_wrap{
+   position: relative;
+   display: inline-block;
+   padding-top: 30px;
 }
 
-.serch {
-   margin-left: 200px;
-   margin-bottom: 10px;
-}
-
-.sb {
-   height: 35px;
-}
-
-
-
-
-
+.regi_main .title {
+	margin-left: 20px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+	
 
 /* 글쓰기, 검색 버튼 시작 */
-#regBtn,
-#searchBtn {
-  background-color: #ffc30b; 
+#regBtn {
+  height: 43.75px;
+  background-color: #8FA691; 
   border: none;
   color: white;
-  padding: 8px 20px;
+  padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 0px 50px 0px 0px;
+  margin: 4px 2px;
   transition-duration: 0.4s;
   cursor: pointer;
+
+  }
+  
+#searchBtn {
+  background-color: #8FA691; 
+  border: none;
+  color: white;
+  padding: 0px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  height: 30px;
 }
 
-
-#regBtn:hover,
 #searchBtn:hover {
-  background-color: white; 
-  color: #ffc30b; 
-  border: 2px solid #ffc30b;
+  background-color: #F0F2F0 ; 
+  color: #8FA691; 
+  padding: 0px 20px;
+  border: 2px solid #8FA691;
 }
+
+#regBtn:hover {
+  height: 43.75px;
+  background-color: #F0F2F0 ; 
+  color: #8FA691; 
+  padding: 0px 20px;
+  border: 2px solid #8FA691;
+ 
+}
+
 #regBtn:focus,
 #searchBtn:focus { 
     outline: none; 
@@ -115,43 +146,32 @@ tr:hover {
 
 #regBtn {
 
-margin-right: 0%;
-margin-top: 10px;
+margin-right: 8%;
 
 }
+
+
 /* 글쓰기, 검색 버튼 끝 */
-
-
-
-
-
-
 /* 페이지 버튼 디자인 시작 */
 
 .pageBtns {
-   text-align: center;
+	text-align: center;
+	margin-right: 8%;
 }
 
-
 .pageBtns a{
-    color: black;
-    float: left;
+    color: #637365;
+    float: right;
     padding: 8px 16px;
     text-decoration: none;
-   
 }
 
 .pagination1 a:hover:not(.active) {
-    background-color: #f6dd90;
+    background-color: #F0F2F0;
     border-radius: 50%;
 }
 
-
 /* 페이지 버튼 디자인 끝 */
-
-
-
-
 /* 모달디자인 시작  */
 .close:hover,
 .close:focus {
@@ -173,7 +193,6 @@ margin-top: 10px;
   background-color: white;
   color: white;
 }
-
 
 #closeBtn {
   background-color: #ffc30b; 
@@ -203,139 +222,49 @@ margin-top: 10px;
 /* 모달 디자인 끝 */
 
 
-
-
-/* 사이드 메뉴 */
-.side{
-          
-     width: 200px;
-     height: 200px;
-     background-color: white;
-     float: left;
-     margin-right: 90px;
-     border:solid #ffc30b ;
-            
-}
-
- .regi_side_tit{
-      padding-top: 12px;
-      padding-bottom:12px ;
-      text-align: center;
-      width: 100%;
-      background-color: #ffc30b;
-      font-size: 20px;
-      font-weight: 900;
-            
-}
-
-.regi_menu {
-   margin-top:20px;
-
-
-}
-
-
-/* 사이드 메뉴 끝 */
-
-
-
+/* 검색바 */
 .col-lg-12 {
-
-   text-align: center;
+	text-align: center;
     margin: 10px 0 30px 0;
+    
+}
+
+#selected{
+    width: 100px;
+    height: 30px;
+}
+
+#keyword{
+    height: 30px;
 }
 
 
-
-
-        
-.regi_main{
-   float:  right;
-   width: 1000px;
-   height: 1000px;
-   background-color: white;
-} 
-
-.regi_main .regi_tit{
-   font-size: 30px;
-   margin-bottom:50px;
-   text-align: center;
-
-}
-
-
-
-.regi_content{
-   width: 1300px;
-   height: 1000px;
-   margin:0 auto;
-}
-        
-.regi_wrap{
-                 
-   position: relative;
-   display: inline-block;
-   padding-top: 30px;
-}
-        
-
-
-
-
-
-         
+ a:link { color: balck; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: #8FA691; text-decoration: none;}
+           
 </style>
 </head>
 <body>
-
-
-
 <div class="regi_content">
- <div class="regi_wrap">
-
-
-
-
-<!-- side 시작 -->
-<div class="side">
-            <div class="1nb_list">
-                <div class="regi_side_tit">고객센터</div>
-                <div class="regi_side_menu">
-                    <ul class="regi_menu" style="margin-top:20px">
-                        <li> <a href='/community/notice/list'><i class="fa fa-check" ></i>공지사항</a></li>
-                        <li><a href='/community/BoardFAQ/list'><i class="fa fa-check" ></i>자주 묻는 질문</a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- 1nb_list -->
-</div>
-<!-- side -->
-
-
-      
-
-
-
-
-      
-      
+   <div class="regi_wrap">
+     <div class="1nb_list">
+       <!-- side 시작 -->
+	    <div class="side">
+			<%@include file="../../includes/community_sidebar.jsp" %>
+       </div>	
+<!-- side 끝-->        
+    </div>
+     <!-- 1nb_list -->
+  </div>
+<!-- side 끝-->
+       
 <!-- regi_main 시작 -->      
 <div class="regi_main">
-      
-      
-
-
-
-      
-   <!-- regi_tit 시작 -->
-    <div class="regi_tit">
+      <div class="p2">
        <p><b>공지사항</b></p>
    </div>
    <!-- regi_tit 끝 -->
-      
-      
-      
-
 
                <!-- 검색창 form-->
            <div class='row'>
@@ -362,6 +291,10 @@ margin-top: 10px;
       </form>
       </div>
       </div><!-- 검색창마지막 -->
+      
+   		   <c:if test="${sessionMember.memCode eq 'ADMIN'}">
+         <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>
+         </c:if>
          
          <table tit aria-setsize="500px">
             <thead>
@@ -373,6 +306,7 @@ margin-top: 10px;
                   <th>등록일</th>
                </tr>
             </thead>
+            
                  
              
             <c:forEach items="${notice}" var="notice">
@@ -396,9 +330,7 @@ margin-top: 10px;
 
          </table>
          
-		<c:if test="${sessionMember.memCode eq 'ADMIN'}">
-         <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>
-         </c:if>
+		
     
          
                <!-- Paging -->

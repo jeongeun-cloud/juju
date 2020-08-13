@@ -37,9 +37,11 @@ li {
 
 
 table {
-   border-collapse: collapse;
-   width: 100%;
-}
+		border-collapse: collapse;
+		width: 90%;
+		margin-left: 20px;
+        margin-top: 30px;
+	}
 
 
 /* 배치 */
