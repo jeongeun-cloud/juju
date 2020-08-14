@@ -128,7 +128,7 @@
 	<div class="store_wrap">
         <div class="store_pro">
         	<div id="backImg">
-		    	<img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.backImg}"/>' onError="">
+		    	<img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.backImg}"/>' onError="this.style.background-color:blue">
 		        <div id="thumbnail">
 		        	<img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.thumbImg}"/>' onError="">
 		        </div>
