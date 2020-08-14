@@ -199,10 +199,10 @@
                                 <li><a href="/mypage/customerInfoModify">개인 정보 수정</a></li>
                                 </c:when>
                                 <c:when test="${sessionMember.memCode eq 'SELLER'}">
-                                <li><a href="/mypage/customerInfoModify">개인 정보 수정</a></li>
+                                <li><a href="/mypage/sellerInfoModify">개인 정보 수정</a></li>
                                 </c:when>
                                 <c:when test="${sessionMember.memCode eq 'JUNIOR'}">
-                                <li><a href="/mypage/customerInfoModify">개인 정보 수정</a></li>
+                                <li><a href="/mypage/sellerInfoModify">개인 정보 수정</a></li>
                                 </c:when>
                             </c:choose>
                             <c:choose>
