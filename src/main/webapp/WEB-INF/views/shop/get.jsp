@@ -47,7 +47,6 @@
         height:100px;
         position:relative;
         overflow:hidden;
-
         }
          
         .select_img1 img,
@@ -114,7 +113,6 @@
             
         }
    
-
      </style>
 
 </head>
@@ -370,9 +368,7 @@ integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
                 }
              }
           }
-
       });
    </script>
 </body>
 </html>
-     

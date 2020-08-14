@@ -181,7 +181,6 @@
           ${WholeSta}
         
         ]);
-
         var options = {
           title: '상위 top10 상품',
           pieHole: 0.4,
@@ -190,7 +189,6 @@
         	  0:
           }
         };
-
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
         chart.draw(data, options);
       }
@@ -199,14 +197,12 @@
     /* 일 막대 차트  */  
      google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart2);
-
       function drawChart2() {
         var data2 = google.visualization.arrayToDataTable([
         	 ['DAY', '주문 금액'],
         	 ${dd}
 	        
         ]);
-
         var options = {
           chart: {
             title: 'DAY',
@@ -218,24 +214,19 @@
           colors: ['fba01d'],
           backgroundColor: '#f7f7f7'
         };
-
         var chart = new google.charts.Bar(document.getElementById('chart_div1'));
-
         chart.draw(data2, google.charts.Bar.convertOptions(options));
-
       } 
       /* 끝 일 막대 차트  */ 
       /* 달 막대 차트  */  
       google.charts.load('current', {'packages':['bar']});
        google.charts.setOnLoadCallback(drawChart3);
-
        function drawChart3() {
          var data3 = google.visualization.arrayToDataTable([
          	 ['MONTH', '주문 금액'],
          	 ${mm}
  	        
          ]);
-
          var options = {
            chart: {
              title: 'MONTH',
@@ -247,23 +238,19 @@
            colors: ['#7dd0b6'],
            backgroundColor: '#f7f7f7'
          };
-
          var chart = new google.charts.Bar(document.getElementById('chart_div2'));
-
          chart.draw(data3, google.charts.Bar.convertOptions(options));
    
        } 
        /* 끝 달 막대 차트  */  
         google.charts.load('current', {'packages':['bar']});
        google.charts.setOnLoadCallback(drawChart4);
-
        function drawChart4() {
          var data4 = google.visualization.arrayToDataTable([
          	 ['YEAR', '주문 금액'],
          	 ${yy}
  	        
          ]);
-
          var options = {
            chart: {
              title: 'YEAR',
@@ -275,9 +262,7 @@
            colors: ['#ff6961'],
            backgroundColor: '#f7f7f7'
          };
-
          var chart = new google.charts.Bar(document.getElementById('chart_div3'));
-
          chart.draw(data4, google.charts.Bar.convertOptions(options));
    
        } 

@@ -41,7 +41,6 @@
         height:100px;
         position:relative;
         overflow:hidden;
-
         }
          
         .select_img1 img,
@@ -488,7 +487,6 @@ crossorigin="anonymous"></script>
              if(!x || x.length == 0) return "";
              else return x.split(",").join("");
          }
-
          // 숫자만 입력
          $("input:text[numberOnly]").on("focus", function() {
              var x = $(this).val();

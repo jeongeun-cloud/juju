@@ -162,7 +162,7 @@
 </head>
 <body>
 <%@include file="./idCheck.jsp" %>
-<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/thinHeader.jsp" %>
     <div class="admi_container">
         <div cass="admi_tit">
             <h1>주주마켓 Admin</h1>

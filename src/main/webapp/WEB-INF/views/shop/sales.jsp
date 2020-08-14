@@ -31,7 +31,6 @@
             font-size: 17px;
         }
         
-
     /* 테이블 */
        table {
 		border-collapse: collapse;
