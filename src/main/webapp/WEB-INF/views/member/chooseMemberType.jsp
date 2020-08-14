@@ -18,6 +18,11 @@
 </head>
 <style>
 
+	h2 {
+	  margin: 20px;
+	  font-weight: bold;
+	}
+	
 	button{
   			background-color: #8FA691;
         	border: 1px solid #8FA691;
@@ -25,9 +30,9 @@
         	margin: 0;
         	outline: none;
         	color: #FFFFFF;
-        	padding: 15px 175px;
+        	padding: 15px 150px;
         	cursor: pointer;
-        	margin-bottom: 5px;
+        	margin-bottom: 10px;
 		}
 		
 	#chooseMemberType{
@@ -39,11 +44,11 @@
 </style>
 <body>
 	<div id="chooseMemberType" align="center">
-		<h1>주주마켓 회원가입</h1>
+		<h2>주주마켓 회원가입</h2>
 		<h6>회원타입별 가입안내문구 추가하기</h6>
 		
 		<br><br>
-		<button onClick="location.href='/member/customerJoinForm'">일반회원가입</button><br><br>
+		<button onClick="location.href='/member/customerJoinForm'">일반회원가입</button><br>
 		<button onClick="location.href='/member/sellerJoinForm'">상인회원가입</button>
 	</div>
 </body>
