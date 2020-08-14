@@ -203,14 +203,15 @@
 <!--                            <a href="/mypage/myQna/list">1:1 문의 게시판</a> -->
                         </div>
                      </li>
-                     <span class="div">|</span>
                      <c:choose>
 <%--                         <c:when test="${fn:substring(sessionMember, 0, 1) eq 's'}"> --%>
                            <c:when test="${sessionMember.memCode eq 'SELLER'}">
+                     			<span class="div">|</span>
                            <li><a href="/shop/">상인 홈</a></li>
                         </c:when>
 <%--                         <c:when test="${fn:substring(sessionMember, 0, 1) eq 'a'}"> --%>
                            <c:when test="${sessionMember.memCode eq 'ADMIN'}">
+                     			<span class="div">|</span>
                            <li><a href="/admin/index">관리자 홈</a></li>
                         </c:when>
                      </c:choose>

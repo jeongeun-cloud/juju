@@ -55,6 +55,11 @@ public class BasketServiceImpl implements BasketService {
 	public String makeGuestId() {
 		return mapper.makeGuestId();
 	}
+
+	@Override
+	public Integer getBasketTotal(String id) {
+		return mapper.getBasketTotal(id);
+	}
 	
 	
 
