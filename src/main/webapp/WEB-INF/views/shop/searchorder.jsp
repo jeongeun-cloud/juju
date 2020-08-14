@@ -7,27 +7,166 @@
 <head>
 <script src="http://code.jquery.com/jquery-1.12.1.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+<link rel="stylesheet"  href="../resources/css/admin.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
+
 
 <style>
-table {
-  border-collapse: collapse;
-}
+         li{
+            list-style: none;
+            
+        }
+        body{
+            color: #303030;
+        }
+        a{
+            text-decoration: none;
+            color: #303030;
+            font-size: 17px;
+        }
 
-table, td, th {
-  border: 1px solid black;
-}
-</style>
- 		<body>
+ 
+
+    /* 테이블 */
+       table {
+		border-collapse: collapse;
+		width: 100%;
+        margin-top: 30px;
+        margin-bottom:30px;
+		}
+	    th, td {
+	        padding: 10px;
+	        text-align: center;
+	        border-bottom: 2px solid #ddd;
+	    }
+	    
+	    th {
+	        background-color: #8FA691;
+	        color: white;
+	        text-align: left;
+	        height: 30px;
+	        text-align:center;
+	    }
+		.mainContent h3{
+		font-weight:500;
+		font-size:24px;
+		margin-bottom:20px;
+		}
+		.mainContent p{
+			color: #b9b9b9;
+		}
+		/*버튼  */
+		.q_btn{
+		float:right;
+		margin-bottom: 30px;
+		}
+
+		.quick_btn{
+            background-color: #8FA691; 
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            margin: px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            font-weight: 900;
+        }
+        .quick_btn:hover {
+        background-color: white; 
+        color: #8FA691; 
+        border: 2px solid #8FA691;
+        }
+		.quick_btn
+         {
+        background-color: #8FA691;
+        color: white;
+        
+        
+        }
+
+        .quick_btn:focus { 
+            outline: none; 
+        }
+        .ss{
+        margin-top:20px;
+        margin-bottom:20px;
+        }
+        .ss_label {
+        width: 65px;
+        }
+        .s_btn{
+        background-color: #8FA691;
+        border: solid #8FA691;
+        border-radius:10px;
+        color:white;
+        text-align:center;
+        margin-left:10px;
+        font-size:10px;
+        }
+        /*버튼 끝  */
+        
+        /* 페이징 */
+        .page_num {
+        display: inline-block;
+        padding-left:70%;
+        }
+        
+        .page_num a{
+         color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+   
+        }
+        .searchpaging a:hover:not(.active) {
+          background-color: #8FA691;
+          border-radius: 50%;
+          }
+          /* 페이징 끝 */
+    </style>
+    </head>
+<body>
+
+<div class="container">
+ <%@include file="./shopSideBar.jsp" %>		
  		
- 		    <input class="quick_btn" type="button" value="전체주문보기" onClick="location.href='/shop/searchorder'">
+ 		<div class="mainArea">
+ 		            <!-- BEGIN NAV -->
+                <nav class="navTop row">
+                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- END NAV -->
+                
+                <div class="mainContent">
+ 		         <div class="title">
+                   <h3>전체 주문 관리</h3>
+                   <p>나의 상점의 주문을 확인하세요.</p>
+                </div>
+                
+             <div class="q_btn">
+ 		     <input class="quick_btn" type="button" value="전체주문보기" onClick="location.href='/shop/searchorder'">
    			 <input class="quick_btn" type="button" value="송창처리" onClick="location.href='/shop/shipping'">
    			 <input class="quick_btn" type="button" value="환불요청보기" onClick="location.href='/shop/refund'">
-  
+  			 </div>   
 		      <form id='searchForm' action="/shop/searchorder" method = 'get'>  
-		          <div> 검색어
-		                <select name='type'>
+		          <div class="ss">
+		          		<label class="ss_label">검색어</label> 
+		                <select name='type' style="height:32px;">
 		                
 							  <option value=""
 						      <c:out value="${pageMaker.cri.type ==null?'selected':''}"/>>--</option>
@@ -43,21 +182,23 @@ table, td, th {
 		                <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
 					    <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
 					    <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>               
+					</div>
+					<div class="ss">
+						    <label class="ss_label">주문일</label>  
+						    <input id='date1' name='date1' type='date'> ~ <input id='date2' name='date2' type='date'>
+					</div>				
 
-						      <br>
-						      주문일<input id='date1' name='date1' type='date'>~<input id='date2' name='date2' type='date'>
-						      <br>
-
-		
-		          <div > 주문상태
+				 
+		          <div class="ss"> 
+		          			<label class="ss_label">주문상태</label> 	
 		                <input name='orderStat' type="radio" value = 'all' checked>전체
 		                <input name='orderStat' type="radio" value = '주문완료'>주문완료
 		                <input name='orderStat' type="radio" value = '배송중'>배송중
 		                <input name='orderStat' type="radio" value = 'orderStat'>배송완료
 		                
 		      			
-		      			 <button class='btn btn-default' id="searchBtn"> 검색 </button> 
-		                <button type = 'reset'> 초기화 </button> 
+		      			 <button class="s_btn" id="searchBtn"> 검색 </button> 
+		                 <button class="s_btn" type ='reset'> 초기화 </button> 
 		          
 		          </div>  
 		        </form>    
@@ -113,13 +254,13 @@ table, td, th {
 		                  </c:forEach>
 		               </table>
 		               
-		                 <input type="" id="sessionId" value='<c:out value="${sessionMember.idNo}"/>'>
+		                 <input type="hidden" id="sessionId" value='<c:out value="${sessionMember.idNo}"/>'>
 		             
 		                  <!-- 페이징 처리 시작 -->
 		                  
 		                  
 		                  
-		           <div class='pull-right'>
+		           <div class='page_num'>
 		               		<ul class="searchpaging">
 		            <c:if test="${pageMaker.prev}">
 					              		<li class="paginate_button pervious">
@@ -152,12 +293,14 @@ table, td, th {
 		            <input  type='hidden' name='orderStat' value = '<c:out value="${pageMaker.cri.orderStat}"/>'>
 		         </form>
 					 <!-- paging form end--> 
-			
-					
-			
+		</div>			 
+	</div>
+</div>	
 				
 </body>
+<script src="../resources/js/admin.js"></script>
 <script type='text/javascript'>
+
 $(document).ready(function(){
   
 	

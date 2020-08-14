@@ -6,86 +6,33 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
-<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+<link rel="stylesheet"  href="../resources/css/admin.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
 <style>
-
+        td{
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+            height: 30px;
+                 }
         li{
             list-style: none;
-            float: left;
         }
 	   a{
 	   	text-decoration: none;
 	  	 color: #303030;
+	  	 font-size: 17px;
 	   }        	
-        .get_menu a{
-            text-decoration: none;
-            color: #303030;
-            font-size: 17px;
-        }
-        .regi_content{
-            width: 1300px;
-            height: 100%;
-            margin:0 auto;
-           
-         }
-        .regi_wrap{
-                 
-                 position: relative;
-                display: inline-block;
-                padding-top: 30px;
-                
-             }
-        .side{
-          box-sizing: border-box;
-          width: 200px;
-          height: 200px;
-          background-color: white;
-          float: left;
-          margin-right: 90px;
-          border:solid #ffc30b;
-           
-         }
-        .regi_side_tit{
-            padding-top: 12px;
-            padding-bottom:12px;
-            text-align: center;
-            width: 100%;
-            background-color: #ffc30b;
-            font-size: 20px;
-            font-weight: 900;
-            height:29px;
-            
-
-         }
-         .regi_main{
-            float:  right;
-            width: 1000px;
-         
-            background-color: white;
-        } 
-        .regi_main .regi_tit{
-            font-size: 30px;
-            margin-bottom:50px;
-            
-
-        }
         .regi_form{
-            margin: 50px 100px 0 150px;
-        }
-        .container label,
-        .container_i label{
-            font-size: 20px;
-            font-weight: 900;
-            
-        }
-        .container{
-            margin-bottom: 20px;
+        	margin-top:50px;
+            margin-left: 100px;
         }
         #uploadBtn,
         #resetBtn{
-            background-color: #ffc30b; /* Green */
+            background-color: #8FA691 ; 
             border: none;
             color: white;
             padding: 10px 20px;
@@ -94,142 +41,260 @@
             display: inline-block;
             font-size: 16px;
             font-weight: bold;
-            margin: 4px 2px;
+            margin: 20px 2px;
           
+        }
+        #uploadBtn:focus,
+        #resetBtn:focus{
+         outline:none;
+         border: none;
         }
         .regi_btn{
             float: right;
+            margin-right:330px;
         }
- 
+        .mainContent .title {
+        margin-left: 100px;
+        }
+        .mainContent h3{
+        font-weight:500;
+        font-size:24px;
+        margin-bottom:10px;
+        }
+        .mainContent p{
+            color: #b9b9b9;
+            margin-top:0;
+            
+        }
+	/* 사이드 메뉴 끝 */
 </style>
 
 </head>
 <%@include file="./idCheck.jsp" %>
 <body>
-<%@include file="../includes/thinHeader.jsp" %>
-    <div class="regi_content">
-        <div class="regi_wrap">
-            <div class="side">
-                <div class="1nb_list">
-                    <div class="regi_side_tit">
-                        상품 관리
-                    </div>
-                    <div class="regi_side_menu">
-                        <ul class="regi_menu">
-                            <li><a href='/shop/register'><i class="fa fa-check" ></i>상품 등록</a></li>
-                            <li><a href='/shop/list'><i class="fa fa-check" ></i>상품 리스트</a></li>
+ <div class="container">
+ <%@include file="./shopSideBar.jsp" %>
+
+            
+            <div class="mainArea">
+            <!-- BEGIN NAV -->
+                <nav class="navTop row">
+                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
                         </ul>
                     </div>
+                </nav>
+            <!-- END NAV -->
+            
+            
+            
+            
+            
+            <div class="mainContent" style="margin-top:50px; margin-left:200px;">
+                <div class="title">
+                <h3>상품 등록</h3>
+                <p>자신의 상점 상품을 등록해주세요.</p>
                 </div>
-            </div>
-            <!-- side -->
-            <div class="regi_main">
-                <div class="regi_tit">
-                    <p><b><i class="fa fa-list-alt"></i>상품 등록</b></p>
-                </div>
+                
                 <div class="regi_form">
                         <form role="form" action="/shop/register" method="POST" enctype="multipart/form-data">
-                            <div class="container"> 
-                                <label for="" ><i class="fa fa-chevron-right"></i>상품 정보 입력</label><br>
-                                   
-                                        <select class="mainCateg" id="mainCateg">
-                                            <option value="">대분류 선택</option>
-                                        </select>
-                                        <select class="midCateg" id="midCateg">
-                                            <option value="">중분류 선택</option>
-                                        </select>
-                                    
-                            </div>
-                            <!-- 분류코드 저장하기 위한 hidden값 -->
-                            <input type="hidden" name="classCode" id="classCode" >
-                            <input type="hidden" name="idNo" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
-                            
-                            <input type="text" name="itemName" id="itemName" placeholder="상품명을 입력하세요." style="width: 350px;">
-                            <div class="container">
+                            <table>
+                                <div class="container"> 
+                                    <tr>
+                                    <td>
+                                    <label for="" ><i class="fa fa-chevron-right"></i>상품 정보 입력</label><br>
+                                    </td>
+                                            <td>                                    
+                                            <select class="mainCateg" id="mainCateg">
+                                                <option value="">대분류 선택</option>
+                                            </select>
+                                            <select class="midCateg" id="midCateg">
+                                                <option value="">중분류 선택</option>
+                                            </select>
+                                            </td>
+                                    </tr>    
+                                </div>
+                                <!-- 분류코드 저장하기 위한 hidden값 -->
+                                <input type="hidden" name="classCode" id="classCode" >
+                                <input type="hidden" name="idNo" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
+
+                                <tr>
+                                <td><label for="price"><i class="fa fa-chevron-right"></i>상품명</label></td>
+                                <td><input type="text" name="itemName" id="itemName" placeholder="상품명을 입력하세요." style="width: 350px;">
+                                </td>
+                                </tr>
+
+                                <div class="container">
+                                <tr>
+                                <td>
+                                    <label for="itemContent"><i class="fa fa-chevron-right"></i>상품 상세정보</label><br>
+                                </td>
+                                <td>
+                                    <textarea name="itemContent" id="itemContent" style="height: 200px; width:350px; resize:none;"></textarea>
+                                </td>
+                                </tr>
+                                </div>
+
+                                <div class="container">
+                                <tr>
+                                <td>
+                                    <small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br><br>
+                                    <label for="price"><i class="fa fa-chevron-right"></i>판매가격</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="price" id="price" numberOnly><br>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                    <label for="normPrice"><i class="fa fa-chevron-right"></i>정상가격</label>
+                                </td>
+                                <td>
+                                    <input type="text" name="normPrice" id="normPrice" numberOnly>
+                                </td>    
+                                </tr>
+                                </div>
+
+                                <div class="container" >
+                                <tr>
+                                    <td>
+                                        <label for="stock" > <i class="fa fa-chevron-right"></i>재고</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" name="stock" id="stock" numberOnly><br>
+                                    </td>
+                                </tr>
+                                </div>
                                 
-                                <label for="itemContent">상품 상세정보</label><br>
-                                <textarea name="itemContent" id="itemContent" style="height: 200px; width:350px; resize:none;"></textarea>
-                            </div>
-                            <div class="container">
-                                <small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
-                                <label for="price"><i class="fa fa-chevron-right"></i>판매가격</label>
-                                <input type="text" name="price" id="price" numberOnly><br>
-                                <label for="normPrice"><i class="fa fa-chevron-right"></i>정상가격</label>
-                                <input type="text" name="normPrice" id="normPrice" numberOnly>
-                            </div>
-                            <div class="container" >
-                               <label for="stock" > <i class="fa fa-chevron-right"></i>재고</label>
-                                <input type="text" name="stock" id="stock" numberOnly><br>
-                            </div>
-                            
-                            <div class="container">
-                                <div class="display">
-                                        <label for="status"><i class="fa fa-chevron-right"></i><b>표시상태 설정</b></label><br>
-                                        <div class="display_sta">
-                                            <label for="">진열상태</label>
-                                            <input type="radio" name="dispStat" value="진열함" checked="checked">진열함
-                                            <input type="radio" name="dispStat" value="진열안함">진열안함<br>
-                                            <label for="">판매상태</label>
-                                            <input type="radio" name="saleStat" value="판매중" checked="checked">판매중
-                                            <input type="radio" name="saleStat" value="판매중지">판매중지
-                                        </div>    
-                                </div>    
-                            </div>
-                            <div class="container">
-                                <label><i class="fa fa-chevron-right"></i>상품 특성 <small style="opacity:0.75;">(특성을 선택하지 않으면 기본으로 설정 됩니다.)</small></label><br>
-                                <input type="checkbox" name="itemChr" value="new">신상품
-                                <input type="checkbox" name="itemChr" value="sale">할인
-                                <!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
-                                <input type="checkbox" name="itemChr" value="default" checked="checked" style="visibility:hidden">
-                            </div>
-                            
-                            <!-- 파일 업로드 시작 -->
-                            <label><small style="opacity:0.75;">메인, 서브 이미지 규격 : 270*300</small></label><br>
-                            <div class="container_i">
-                                <label><i class="fa fa-chevron-right"></i>메인 이미지</label>
-                                <input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-                                <div class="select_img1"><img src="" /></div>
-                            </div>
-                            <div class="container_i">
-                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
-                                <input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-                                <div class="select_img2"><img src="" /></div>
-                            </div>
-                            <div class="container_i">
-                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
-                                <input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-                                <div class="select_img3"><img src="" /></div>
-                            </div>
-                            <div class="container_i">
-                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
-                                <input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-                                <div class="select_img4"><img src="" /></div>
-                            </div>
-                            <div class="container_i">
-                                <label><i class="fa fa-chevron-right"></i>상품 상세 설명 이미지</label>
-                                <input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
-                                <div class="select_img5"><img src="" /></div>
-                            </div>
-                            
-                            <!-- <button type="button" onclick="submitAction();">Submit Button</button> -->
-                            <!-- <button type="submit">Submit Button</button> -->
-                            <div class="regi_btn">
-                                <button id="uploadBtn">Submit Button</button>
-                                <button id="resetBtn" type="reset">Reset Button</button>
-                            </div>
+                                <div class="container">
+
+                                    <div class="display">
+                                            
+                                            <div class="display_sta">
+                                                <tr>
+                                                <td>
+                                                <label for=""><i class="fa fa-chevron-right"></i>진열상태</label>
+                                                </td>
+                                                <td>
+                                                <input type="radio" name="dispStat" value="진열함" checked="checked">진열함
+                                                <input type="radio" name="dispStat" value="진열안함">진열안함<br>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                <td>
+                                                <label for=""><i class="fa fa-chevron-right"></i>판매상태</label>
+                                                </td>
+                                                <td>
+                                                <input type="radio" name="saleStat" value="판매중" checked="checked">판매중
+                                                <input type="radio" name="saleStat" value="판매중지">판매중지
+                                                </td>
+                                                </tr>
+                                            </div>
+                                                
+                                    </div>    
+                                </div>
+
+                                <div class="container">
+                                    <tr>
+                                    <td>
+                                    <small style="opacity:0.75;">특성을 선택하지 않으면 기본으로 설정 됩니다.</small><br><br>
+                                    <label><i class="fa fa-chevron-right"></i>상품 특성</label><br>
+                                    </td>
+                                    <td>
+                                    <input type="checkbox" name="itemChr" value="new">신상품
+                                    <input type="checkbox" name="itemChr" value="sale">할인
+                                    
+                                    <!-- 아무것도 선택하지 않으면 '기본'으로 값이 됨 -->
+                                    <input type="checkbox" name="itemChr" value="default" checked="checked" style="visibility:hidden">
+                                    </td>
+                                    </tr>
+                                </div>
+                                
+                                <!-- 파일 업로드 시작 -->
+                                
+                                <div class="container_i">
+                                    <tr>
+                                    <td>
+                                    <label><small style="opacity:0.75;">메인, 서브 이미지 규격 : 270*300</small></label><br><br><br>
+                                    <label><i class="fa fa-chevron-right"></i>메인 이미지</label>
+                                    </td>
+                                    <td>
+                                    <input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                    <div class="select_img1"><img src="" /></div>
+                                    </td>
+                                    </tr>
+                                </div>
+
+                                <div class="container_i">
+                                    <tr>
+                                    <td>
+                                    <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                                    </td>
+                                    <td>
+                                    <input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                    <div class="select_img2"><img src="" /></div>
+                                    </td>
+                                    </tr>
+                                </div>
+
+                                <div class="container_i">
+                                    <tr>
+                                    <td>
+                                    <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                                    </td>
+                                    <td>
+                                    <input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                    <div class="select_img3"><img src="" /></div>
+                                    </td>
+                                    </tr>
+                                </div>
+
+                                <div class="container_i">
+                                    <tr>
+                                    <td>
+                                    <label><i class="fa fa-chevron-right"></i>서브 이미지</label>
+                                    </td>
+                                    <td>
+                                    <input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                    <div class="select_img4"><img src="" /></div>
+                                    </td>
+                                    </tr>
+                                </div>
+                                <div class="container_i">
+                                    <tr>
+                                    <td>
+                                    <label><i class="fa fa-chevron-right"></i>상품 상세 설명 이미지</label>
+                                    </td>
+                                    <td>
+                                    <input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
+                                    <div class="select_img5"><img src="" /></div>
+                                    </td>
+                                    </tr>
+                                </div>
+                            </table> 
+                                <!-- <button type="button" onclick="submitAction();">Submit Button</button> -->
+                                <!-- <button type="submit">Submit Button</button> -->
+                                <div class="regi_btn">
+                                    <button id="uploadBtn">Submit Button</button>
+                                    <button id="resetBtn" type="reset">Reset Button</button>
+                                </div>
+                               
                         </form>
                 </div>
             </div>
 
         </div>
     </div>
-    
+    <script src="../resources/js/admin.js"></script>
     <script
      src="https://code.jquery.com/jquery-3.5.1.js"
      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
      crossorigin="anonymous"></script>
     <script type="text/javascript">
-
       var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG|JPG)$");
        var maxSize = 5242880;
        
@@ -266,7 +331,6 @@
             
             if(this.files && this.files[0]) {
                var reader = new FileReader;
-
                reader.onload = function(data) {
                    $(".select_img"+i+" img").attr("src", data.target.result).width(500);
                 }
@@ -394,7 +458,6 @@
             var midSelect = $("select.midCateg");
             
             midSelect.children().remove();
-
              $("option:selected", this).each(function(){
               
                 var selectVal = $(this).val();  
@@ -447,7 +510,6 @@
              if(!x || x.length == 0) return "";
              else return x.split(",").join("");
          }
-
          // 숫자만 입력
          $("input:text[numberOnly]").on("focus", function() {
              var x = $(this).val();
@@ -474,7 +536,6 @@
          });
       });
    
-
     </script>
 </body>
 </html>

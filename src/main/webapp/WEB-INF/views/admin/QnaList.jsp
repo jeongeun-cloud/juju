@@ -45,7 +45,7 @@
 		
 				  <!-- DETAIL FORM -->
 		            <div class="formHeader row">
-		                <h2 class="text-1 fl">Q&A List</h2><br><br>
+		                <h2 class="text-1 fl">Q&A 리스트</h2><br><br>
 		            </div>
 		            <div class="table" style="background: white;">
 		                <div class="row bg-1">
@@ -87,7 +87,7 @@
 	                        </c:if>
 	
 	                        <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-	                            <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+	                            <li class='paginate_button ${pageMaker.cri.pageNum == num ? " is-active" : "" } '>
 	                                <a href="${num}">${num}</a>
 	                            </li>
 	                        </c:forEach>

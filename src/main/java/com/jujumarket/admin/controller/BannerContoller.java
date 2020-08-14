@@ -237,7 +237,7 @@ public class BannerContoller {
 		
 		BannerVO vo = new BannerVO();
 		vo = service.get(imgNo);
-
+		
 		String fileName = vo.getImgPath() + "/" + vo.getUuid() + "_" + vo.getImgName();
 		
 		boolean deleteFile = removeImg(fileName);

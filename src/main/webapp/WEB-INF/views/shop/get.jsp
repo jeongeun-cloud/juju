@@ -6,237 +6,303 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+<link rel="stylesheet"  href="../resources/css/admin.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
-        img{
-      width : 250px;
-       }
-        li{
-            list-style: none;
-            float: left;
+      
+         td{
+            border-bottom: 1px solid #ddd;
+            padding: 8px;
+            height: 30px;
+         }
+          li{
+             list-style: none;
+             float: left;
+         }
+         body{
+             color: #303030;
+         }
+         a{
+             text-decoration: none;
+             color: #303030;
+             font-size: 17px;
+         }
+         
+           .get_form{
+        	margin-top:50px;
+            margin-left: 100px;
         }
-        body{
-            color: #303030;
+         
+        .select_img1 ,
+        .select_img2 ,
+        .select_img3 ,
+        .select_img4 ,
+        .select_img5 {
+        width:100px;
+        height:100px;
+        position:relative;
+        overflow:hidden;
         }
-        a{
-            text-decoration: none;
-            color: #303030;
-            font-size: 17px;
-        }
-        .get_content{
-            width: 1300px;
-            height: 1000px;
-            margin:0 auto;
-           
-        }
-        .get_wrap{
-                 
-            position: relative;
-           display: inline-block;
-           padding-top: 30px;
-           
+         
+        .select_img1 img,
+        .select_img2 img,
+        .select_img3 img,
+        .select_img4 img,
+        .select_img5 img{
+        	display:block;
+        	
+           width : 100%;
+           height: 100%;
+           postion:absoulte;
+           top:0;
+           botton:0;
+           left:0;
+           right:0;
         }
         
-        .side{
-          
-            width: 200px;
-            height: 200px;
-            background-color: white;
-            float: left;
-            margin-right: 90px;
-            border:solid #ffc30b;
-            
-        }
-        .get_main{
-            float:  right;
-            width: 1000px;
-            height: 1000px;
-            background-color: white;
-        } 
-        .get_side_tit{
-            padding-top: 12px;
-            padding-bottom:12px ;
-            text-align: center;
-            width: 100%;
-            background-color: #ffc30b;
-            font-size: 20px;
-            font-weight: 900;
-            
-
-        }
-        .get_main .get_tit{
-            font-size: 30px;
-            margin-bottom:50px;
-            text-align: center;
-
-        }
-        .get_form{
-            margin:50px 100px 0 150px;
-            
-        }
-        .container label{
-            font-weight: 900;
-            font-size: 17px;
-        }
-        .container{
-            margin-bottom: 10px;
-        }
-        .getBtn #rBtn,
-        .getBtn #lBtn{
-            background-color: #ffc30b; 
+       
+         .getBtn #rBtn,
+         .getBtn #lBtn{
+             background-color: #8FA691; 
             border: none;
             color: white;
-            padding: 8px 20px;
+            padding: 10px 20px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 15px;
-            margin: px 2px;
-            transition-duration: 0.4s;
-            cursor: pointer;
+            font-size: 16px;
             font-weight: bold;
-        }
-        .getBtn #rBtn:hover,
-        .getBtn #lBtn:hover
-         {
-        background-color: white; 
-        color: #ffc30b; 
-        border: 2px solid #ffc30b;
-        }
-        .getBtn #rBtn:focus,
-        .getBtn #lBtn:focus
-         {
-        outline:none;  
+            margin: 4px 2px;
+         }
+         .getBtn #rBtn:hover,
+         .getBtn #lBtn:hover
+          {
+         background-color: white; 
+         color: #8FA691; 
+         border: 2px solid #8FA691;
+         }
+         .getBtn #rBtn:focus,
+         .getBtn #lBtn:focus{
+           outline:none;
         
-        }
-        .getBtn{
+         
+         }
+         .getBtn{
             float: right;
-             margin-bottom: 20px;
+            margin-right:758px;
+              
+         }
+         
+        .mainContent .title {
+        margin-left: 100px;
         }
-    </style>
+         
+         .mainContent h3{
+        font-weight:500;
+        font-size:24px;
+        margin-bottom:10px;
+        }
+        .mainContent p{
+            color: #b9b9b9;
+            margin-top:0;
+            
+        }
+   
+     </style>
 
 </head>
-<%@include file="../includes/thinHeader.jsp" %>
 <%@include file="./idCheck.jsp" %>
 <body>
-    <div class="get_content">
-        <div class="get_wrap">
-            <div class="side">
-                <div class="1nb_list">
-                    <div class="get_side_tit">
-                        상품 관리
-                    </div>
-                    <div class="get_side_menu">
-                        <ul class="get_menu">
-                            <li> <a href='/shop/register'><i class="fa fa-check" ></i>상품 등록</a></li>
-                            <li><a href='/shop/list'><i class="fa fa-check" ></i>상품 리스트</a></li>
+ <div class="container">
+ <%@include file="./shopSideBar.jsp" %>
+        
+        
+        <div class="mainArea">
+            <!-- BEGIN NAV -->
+             	   <nav class="navTop row">
+	                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+	                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
                         </ul>
                     </div>
-                </div>
-            </div>
-            <!-- side  -->
-
-            <div class="get_main">
-                <div class="get_tit">
-                    <p><b>[상품 정보]</b></p>
-                </div>
-                <!--get_tit -->
-                <div class="get_form">
-                    <form id="actionForm" method="POST">
-                        <input type="hidden" name="itemCode" value='<c:out value="${item.itemCode }"/>'>
-                        <div class="container">
-                            <label for="itemName">상품 이름 : </label> <c:out value="${item.itemName }"/> <br>
-                        </div>
-                        <div class="container">
-                            <label for="category">카테고리 : </label> <c:out value="${getCategory }"/> <br>
-                        </div>
-                        <div class="container">
-                            <label for="itemContent">상품 상세정보</label><br>
-                            <textarea name="itemContent" style="height: 200px; width:350px; resize:none;" readonly="readonly"><c:out value="${item.itemContent }"/></textarea>
-                        </div>
-                        <div class="container">
-                            <label for="price">판매가격 : </label> <fmt:formatNumber type="number" maxFractionDigits="3" value="${item.price}" /><br>
-                            <label for="normPrice">정상가격 : </label> <fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" />
-                        </div>
-                        <div class="container">
-                            <label for="stock">재고 : </label> <fmt:formatNumber type="number" maxFractionDigits="3" value="${item.stock}" /> <br>
-                        </div>
-                        
-                        <div class="container">
-                            <label for="status"><b>표시상태 설정</b></label><br>
-                            <label for="">진열상태</label>
-                            <input type="hidden" id="disValue" value='<c:out value="${item.dispStat}"/>'>
-                            <input type="radio" name="dispStat" value="진열함" onclick="return false;">진열함
-                            <input type="radio" name="dispStat" value="진열안함" onclick="return false;">진열안함<br>
-                            <label for="">판매상태</label>
-                            <input type="hidden" id="saleValue" value='<c:out value="${item.saleStat}"/>'>
-                            <input type="radio" name="saleStat" value="판매중" onclick="return false;">판매중
-                            <input type="radio" name="saleStat" value="판매중지" onclick="return false;">판매중지
-                            <input type="radio" name="saleStat" value="품절" onclick="return false;">품절
-                        </div>
-                        <div class="container">
-                            <label>상품 특성<small style="opacity:0.75;">(특성이 선택되어 있지 않으면 기본입니다.)</small></label><br>
-                            <input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
-                            <input type="checkbox" name="itemChr" value="new" onclick="return false;">신상품
-                            <input type="checkbox" name="itemChr" value="sale" onclick="return false;">할인
-                        </div>
-             
-                        <div class="container">
-                             <label>메인 이미지</label>
-                             <div class="select_img1">
-                                 <img class="thumbnail" src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" />
-                             </div>
-                         </div>
-                         <div class="container">
-                             <label>서브 이미지</label>
-                             <div class="select_img2">
-                                 <img class="thumbnail" src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" />
-                             </div>
-                         </div>
-                         <div class="container">
-                             <label>서브 이미지</label>
-                             <div class="select_img3">
-                                 <img class="thumbnail" src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" />
-                             </div>
-                         </div>
-                         <div class="container">
-                             <label>서브 이미지</label>
-                             <div class="select_img4">
-                                 <img class="thumbnail" src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" />
-                             </div>
-                         </div>
-                         <div class="container">
-                             <label>상품 상세 설명 이미지</label>
-                             <div class="select_img5">
-                                 <img class="thumbnail" src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" />
-                             </div>
-                         </div>
-                         
+                </nav>
+            <!-- END NAV -->
+        
+        
+         <div class="mainContent" style="margin-top:50px; margin-left:200px;">
+                     <div class="title">
+                     <h3>상품정보</h3>
+                     <p>상품ID : <c:out value="${item.itemCode}"/></p>
+                 	</div>
+                 <!--get_tit -->
+	                 <div class="get_form">
+	                     <form id="actionForm" method="POST">
+	                         <input type="hidden" name="itemCode" value='<c:out value="${item.itemCode }"/>'>
+	                         <table>
+                                <div class="container">
+                                    <tr>
+                                    <td> <label for="itemName">상품 이름 </label> </td>            
+                                    <td> <c:out value="${item.itemName }"/> <br></td>
+                                    </tr>
+                                </div>
+                                <div class="container">
+                                    <tr>
+                                    <td><label for="category">카테고리</label></td>
+                                    <td><c:out value="${getCategory }"/> <br></td>
+                                    </tr>
+                                </div>
+                                <div class="container">
+                                    <tr>
+                                    <td><label for="itemContent">상품 상세정보</label><br></td>
+                                    <td><textarea name="itemContent" style="height: 200px; width:350px; resize:none;" readonly="readonly"><c:out value="${item.itemContent }"/></textarea></td>
+                                    </tr>    
+                                </div>
+                                <div class="container">
+                                    <tr>
+                                    <td><label for="price">판매가격 </label></td>
+                                    <td> <fmt:formatNumber type="number" maxFractionDigits="3" value="${item.price}" /><br></td>
+                                    </tr>
+                                    <tr>
+                                    <td><label for="normPrice">정상가격 </label></td>
+                                    <td> <fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" /></td>
+                                    </tr>
+                                </div>
+                                <div class="container">
+                                    <tr>
+                                    <td> <label for="stock">재고 </label> </td>
+                                    <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.stock}" /> <br></td>
+                                    </tr>
+                                </div>
+                                
+                                <div class="container">
+                                    <tr>
+                                    <td><label for="">진열상태</label></td>
+                                    <input type="hidden" id="disValue" value='<c:out value="${item.dispStat}"/>'>
+                                    <td>
+                                    <input type="radio" name="dispStat" value="진열함" onclick="return false;">진열함
+                                    <input type="radio" name="dispStat" value="진열안함" onclick="return false;">진열안함<br>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td><label for="">판매상태</label></td>
+                                    <input type="hidden" id="saleValue" value='<c:out value="${item.saleStat}"/>'>
+                                    <td>
+                                    <input type="radio" name="saleStat" value="판매중" onclick="return false;">판매중
+                                    <input type="radio" name="saleStat" value="판매중지" onclick="return false;">판매중지
+                                    <input type="radio" name="saleStat" value="품절" onclick="return false;">품절
+                                    </td>
+                                    </tr>
+                                </div>
+                                <div class="container">
+                                    <tr>
+                                    <td>
+                                    <small style="opacity:0.75;">특성이 선택되어 있지 않으면 기본입니다.</small><br>
+                                    <label>상품 특성</label><br>
+                                    </td>
+                                    <input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
+                                    <td>
+                                    <input type="checkbox" name="itemChr" value="new" onclick="return false;">신상품
+                                    <input type="checkbox" name="itemChr" value="sale" onclick="return false;">할인
+                                    </td>
+                                    </tr>
+                                </div>
+                    
+                                <div class="container">
+                                    <tr>
+                                     <td>   
+                                    <label>메인 이미지</label>
+                                    </td>
+                                    <td>
+                                    <div class="select_img1">
+                                        <img class="thumbnail" src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg1}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                    </div>
+                                    </td>
+                                    </tr>
+                                </div>
+                               
+                                <div class="container">
+                                 <tr>
+                                    <td>
+                                    <label>서브 이미지1</label>
+                                    </td>
+                                    <td>
+                                    <div class="select_img2">
+                                        <img class="thumbnail" src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg2}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                    </div>
+                                    </td>
+                                </tr>    
+                                </div>
+                                <div class="container">
+                                <tr>
+                                    <td><label>서브 이미지2</label></td>
+                                    <td>
+                                    <div class="select_img3">
+                                        <img class="thumbnail" src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg3}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                    </div>
+                                    </td>
+                                </tr>
+                                </div>
+                                <div class="container">
+                                <tr>
+                                    <td><label>서브 이미지3</label></td>
+                                    <td>
+                                    <div class="select_img4">
+                                        <img class="thumbnail" src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.itemImg4}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                    </div>
+                                    </td>
+                                </tr>
+                                </div>
+                                
+                                <div class="container">
+                                    <tr>
+                                    <td>
+                                    <label>상품 상세 설명 이미지</label>
+                                    </td>
+                                    <td>
+                                    <div class="select_img5">
+                                        <img class="thumbnail" src='/resources/upload/<c:out value="${item.idNo}"/>/<c:out value="${item.imgDetail}"/>' onError="this.src='/resources/images/noImg.png'" />
+                                    </div>
+                                    </td>
+                                    </tr>
+                                </div>
+                                
+                          </table>
+                          
+                          <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
+                          <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
+                          <input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>' >
+                          <input type='hidden' name='type' value='<c:out value="${cri.type }"/>' >
+              
+                          <div class="getBtn">
+                          <button type="submit" id="rBtn" data-oper='remove'>Remove</button>
+                          <button type="submit" id="lBtn" data-oper='list'>List</button>
+                          </div>
+                     </form>
+ 
+                     <form id='operForm' action="/shop/modify" method="get">
+                         <input type='hidden' id='itemCode' name='itemCode' value='<c:out value="${item.itemCode}"/>'>
                          <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
                          <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
                          <input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>' >
                          <input type='hidden' name='type' value='<c:out value="${cri.type }"/>' >
-             
-                         <div class="getBtn">
-                         <button type="submit" id="rBtn" data-oper='remove'>Remove</button>
-                         <button type="submit" id="lBtn" data-oper='list'>List</button>
-                         </div>
-                    </form>
-
-                    <form id='operForm' action="/shop/modify" method="get">
-                        <input type='hidden' id='itemCode' name='itemCode' value='<c:out value="${item.itemCode}"/>'>
-                        <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
-                        <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
-                        <input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>' >
-                        <input type='hidden' name='type' value='<c:out value="${cri.type }"/>' >
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-       
+                     </form>
+                 </div>
+             </div>
+           </div>
+         </div>
+ <script src="../resources/js/admin.js"></script>
+ <script
+ src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+ crossorigin="anonymous"></script>
    <script type="text/javascript">
    
       $(document).ready(function(){
@@ -302,7 +368,6 @@
                 }
              }
           }
-
       });
    </script>
 </body>

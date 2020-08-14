@@ -10,14 +10,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+   <!--  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> -->
+<!--     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
     <link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+	<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+	<link rel="stylesheet"  href="../resources/css/admin.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
     <title>product register list</title>
     <style>
+	    .mainContent{
+	    margin-top:50px;
+	    }
         li{
             list-style: none;
-            float: left;
+            
         }
         body{
             color: #303030;
@@ -26,51 +33,6 @@
             text-decoration: none;
             color: #303030;
             font-size: 17px;
-        }
-        .regi_content{
-            width: 1300px;
-            height: 1000px;
-            margin:0 auto;
-           
-        }
-        .regi_wrap{
-                 
-            position: relative;
-           display: inline-block;
-           padding-top: 30px;
-          /*  background-color: cornsilk; */
-        }
-        
-        .side{
-            
-            width: 200px;
-            height: 200px;
-            background-color: white;
-            float: left;
-            margin-right: 90px;
-            border:solid #ffc30b;
-        }
-        .regi_main{
-            float:  right;
-            width: 1000px;
-            height: 1000px;
-            background-color: white;
-        } 
-        .regi_side_tit{
-            padding-top: 12px;
-            padding-bottom:12px ;
-            text-align: center;
-            width: 100%;     
-            background-color: #ffc30b;
-            font-size: 20px;
-            font-weight: 900;
-            
-
-        }
-        .regi_main .regi_tit{
-            font-size: 30px;
-            margin-bottom:50px;
-
         }
         #excelDown{
             float:right;
@@ -83,7 +45,7 @@
         .rbtn #excelDown ,
         #pro_regiBtn,
         #regBtn{
-            background-color: #ffc30b; 
+            background-color: #8FA691; 
             border: none;
             color: white;
             padding: 8px 20px;
@@ -101,14 +63,14 @@
         #regBtn:hover
          {
         background-color: white; 
-        color: #ffc30b; 
-        border: 2px solid #ffc30b;
+        color: #8FA691; 
+        border: 2px solid #8FA691;
         }
         .rbtn #excelDown,
         #pro_regiBtn,
         #regBtn
          {
-        background-color: #ffc30b;
+        background-color: #8FA691;
         color: white;
         
         
@@ -119,14 +81,12 @@
             outline: none; 
         }
         .regi_la{
-            font-size: 20px;
-            font-weight: 900;
-           
+            font-size: 17px;                      
         }
         table {
-      border-collapse: collapse;
+    	  border-collapse: collapse;
         width: 90%;
-        margin-left: 50px;
+        margin-left: 100px;
        }
         .regi_list-btn{
             margin-bottom: 80px;
@@ -135,14 +95,13 @@
         <!--배치-->
         th, td {
             padding: 8px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1px solid #ddd;
         }
         
         th {
-            background-color: black;
-            color: white;
-            text-align: left;
+            background-color: #8FA691;
+            color: white;            
             height: 40px;
             text-align:center;
         }
@@ -162,7 +121,7 @@
         }
         
         .serch {
-            margin-left: 50px;
+            margin-left: 100px;
             margin-bottom: 10px;
         }
         
@@ -170,32 +129,48 @@
             height: 35px;
         }
         .select_state{
-            margin-left: 60px;
+            margin-left:130px;
+            margin-bottom:30px;
+            
         }
-        .page_num {
+        .page_num1 {
         display: inline-block;
         padding-left:70%;
         }
         
-        .page_num a{
+        .page_num1 a{
          color: black;
         float: left;
         padding: 8px 16px;
         text-decoration: none;
    
         }
-        .pagination a:hover:not(.active) {
-          background-color: #f6dd90;
+        .pagination1 a:hover:not(.active) {
+          background-color: #8FA691;
           border-radius: 50%;}
         
         .regi_table{
         margin-bottom: 20px;
         }
         .default_btn{
-        background-color: #ffc30b;
-        border: solid #ffc30b;
+        background-color: #8FA691;
+        border: solid #8FA691;
         border-radius:10px;
         color:white;
+        margin-left: 10px;
+        }
+        .mainContent .title {
+        margin-left: 100px;
+        }
+        .mainContent h3{
+        font-weight:500;
+        font-size:24px;
+        margin-bottom:10px;
+        }
+        .mainContent p{
+            color: #b9b9b9;
+            margin-top:0;
+            
         }
         /* 모달디자인 시작  */
       .close:hover,
@@ -221,7 +196,7 @@
       
       
       #closeBtn {
-        background-color: #ffc30b; 
+        background-color: #8FA691; 
         border: none;
         color: white;
         padding: 10px 20px;
@@ -236,8 +211,8 @@
       
       #closeBtn:hover {
         background-color: white; 
-        color: #ffc30b; 
-        border: 2px solid #ffc30b;
+        color: #8FA691; 
+        border: 2px solid #8FA691;
       
       }
       
@@ -251,27 +226,27 @@
 </head>
 <%@include file="./idCheck.jsp" %>
 <body>
-<%@include file="../includes/thinHeader.jsp" %>
-    <div class="regi_content">
-        <div class="regi_wrap">
-            <div class="side">
-                <div class="1nb_list">
-                    <div class="regi_side_tit">
-                        상품 관리
-                    </div>
-                    <div class="regi_side_menu">
-                        <ul class="regi_menu">
-                            <li> <a href='/shop/register'><i class="fa fa-check" ></i>상품 등록</a></li>
-                            <li><a href='/shop/list'><i class="fa fa-check" ></i>상품 리스트</a></li>
+ <div class="container">
+ <%@include file="./shopSideBar.jsp" %>
+
+
+            <div class="mainArea">
+            <!-- BEGIN NAV -->
+                <nav class="navTop row">
+                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
                         </ul>
                     </div>
-                </div>
-
-            </div>
-
-            <div class="regi_main">
-                <div class="regi_tit">
-                    <p><b><i class="fa fa-list-alt"></i>상품 리스트</b></p>
+                </nav>
+                <!-- END NAV -->
+            <div class="mainContent">
+                <div class="title">
+                 <h3>상품 리스트</h3>
+                <p><i class="fa fa-lightbulb-o"></i>총 등록 상품 : <c:out value="${pageMaker.total }" /></p>
                 </div>
                 <div class="regi_list-btn" >
                     <div class="rbtn" >
@@ -283,14 +258,14 @@
                     <div class="rbtn" >
                         <button id="pro_regiBtn" type="button" >상품 등록</button> 
                     </div>  
-                    <label class="regi_la"><i class="fa fa-lightbulb-o"></i>총 등록 상품 : <c:out value="${pageMaker.total }" /></label>  
+                    
                 </div>
 
                 <div class="search_bar">
                     <form id="searchForm" action="/shop/list" method="get">
                         <div class="serch">
                             <label class="regi_la">상품명</label>
-                            <select name='type'>
+                            <select name='type' style="height:32px">
                                 <option value="" <c:out value="${pageMaker.cri.type == null? 'selected':'' }" /> >--</option>
                                 <option value="N" <c:out value="${pageMaker.cri.type eq 'N'? 'selected':'' }" />>상품명</option>
                                 <option value="C" <c:out value="${pageMaker.cri.type eq 'C'? 'selected':'' }" />>상품설명</option>
@@ -344,9 +319,9 @@
                                 </tr>
                             </c:forEach>
                         </table>
-
-                        <div class='page_num'>
-                            <ul class="pagination">
+					</div>
+                        <div class='page_num1'>
+                            <ul class="pagination1">
                                 <c:if test="${pageMaker.prev}">
                                     <li class="paginate_button previous">
                                         <a href="${pageMaker.startPage -1}">&laquo;</a>
@@ -374,14 +349,14 @@
                     <input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>' >
                     <input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type }"/>' >
                 </form> 
-
+		
                   <!-- 모달 추가 -->
-                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <!-- <h4 class="modal-title" id="myModalLabel">Modal Title</h4> -->
+                                <h4 class="modal-title" id="myModalLabel">Modal Title</h4>
                             </div>
                             <div class="modal-body">처리가 완료되었습니다.</div>
                             <div class="modal-footer">
@@ -389,7 +364,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>  -->
                 <!-- 모달 끝 -->
 
                 </div>  
@@ -400,12 +375,11 @@
                         <button type="button" id="regBtn" value="sold" onclick="statAction(this.value)">품절</button>   
                     </div>    
             </div>
-            <!--! regi_main  -->
+            
         </div>
-        <!-- regi_wrap -->
-    </div>
-    <!-- regi_content -->
+       
 
+    <script src="../resources/js/admin.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
     	  
@@ -529,7 +503,6 @@
             
             searchForm.submit();
          });
-
    </script>
 </body>
 </html>

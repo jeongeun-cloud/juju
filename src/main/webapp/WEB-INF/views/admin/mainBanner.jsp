@@ -16,6 +16,38 @@
     <link rel="stylesheet"  href="../resources/css/admin.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
    
+   	<style>
+   		.gallery {
+	    	float:left;
+	    	padding-bottom : 30px;
+	    	padding-right : 33px;
+	    	text-align : center;
+	    }
+	    #activeImg {
+	    	width : 1200px;
+	    	text-align : center;
+	    	margin : 0 auto;
+	    	padding-left : 100px;
+	    }
+	    #activeImg img{
+			width:500px;
+   			height:300px;
+			margin-bottom : 10px;
+		}
+		#banner_la {
+			font-size:17px;
+			cursor : auto;
+			margin : 20px 0;
+		}
+		#resultDiv {
+			margin:20px 0;
+		}
+		
+		#resultDiv img {
+			width:500px;
+   			height:300px;
+		}
+   	</style>
 </head>
 <body>
 	<%@include file="./idCheck.jsp" %>
@@ -40,56 +72,40 @@
                 <div class="mainContent">  
 
 		        <!-- DETAIL FORM -->
-		        <form action="" method="POST" enctype="multipart/form-data" class="form">
-		            <div class="formHeader row">
-		                <h2 class="text-1 fl">메인 배너</h2>
-		            </div>
-		            <div class="formBody row">
-
-		                <div class="column s-6">
-			                <p style="font-size:17px;">메인 슬라이더 이미지는 최대 4개까지 가능합니다.</p><br>
-			                <p style='opacity:0.75;'>이미지 규격 : </p>
-			                <div class="uploadDiv">
-			                	<input type="file" name="uploadFile" multiple>
-			                	<!-- <button id="uploadBtn">등록하기</button> -->
-			                </div>
-			                <div class="uploadResult">
-			                	<ul>
-			                	
-			                	</ul>
-			                </div>
-			                
-			                <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
-			               	<!-- <label class="inputGroup">현재 등록된 메인배너 이미지</label><br> -->
-			                <div id="activeImg" style="margin-top:20px;">
-				                <h2 class="text-1 fl">현재 등록된 메인배너 이미지</h2><br>
-			                	<input type="hidden" id="imgLen" value='<c:out value="${fn:length(main)}"/>'>
-			                	<c:forEach items="${main }" var="main">
-					           		<img class="banner" alt="" src='/resources/banner/<c:out value="${main.imgPath}"/>/<c:out value="${main.uuid}"/>_<c:out value="${main.imgName}"/>' >
-					           		<button id='removeBtn' class="btnSave bg-1 text-fff text-bold fr" data-oper='<c:out value="${main.imgNo}"/>'>삭제</button>
-					           	</c:forEach>
-			                </div>
-			                
-		                   <!--  <label class="inputGroup">
-		                        <span>Image</span>
-								
-		                        <input type="hidden" name="img" value="src">
-		                        <span>
-		                            <input type="file" name="img" onchange="getImg(this)" multiple>
-		                            <img src="http://bookstore.crunchpress.com/wp-content/uploads/2013/05/b2.jpg" alt="" width="50">
-		                        </span>
-		                        
-		                    </label> -->
+	            <div class="formHeader row">
+	                <h2 class="text-1 fl">메인 배너</h2>
+	            </div>
+	            <div class="formBody row form" style="text-align:center;">
+	                <div class="column">
+		                <p style="font-size:17px;">메인 슬라이더 이미지는 최대 4개까지 가능합니다.</p><br>
+		                <p style='opacity:0.75;'>이미지 규격 : </p>
+		                <div class="uploadDiv">
+		                	<input type="file" name="uploadFile" multiple>
 		                </div>
-
-		            </div>
-		        </form> 
-                  
-
-                </div>
-                <!-- END CONTAINER  -->
+		                <div class="uploadResult">
+		                	<ul>
+		                	
+		                	</ul>
+		                </div>
+		                
+		                <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
+		                <label id="banner_la">현재 등록된 메인배너 이미지</label>
+		                <div id="activeImg">
+		                	<input type="hidden" id="imgLen" value='<c:out value="${fn:length(main)}"/>'>
+		                	<c:forEach items="${main }" var="main">
+		                		<div class="gallery">
+					           		<img class="banner" alt="" src='/resources/banner/<c:out value="${main.imgPath}"/>/<c:out value="${main.uuid}"/>_<c:out value="${main.imgName}"/>' ><br>
+					           		<button id='removeBtn' class="btnSave bg-1 text-fff text-bold" data-oper='<c:out value="${main.imgNo}"/>'>삭제</button><br><br>
+					           	</div>
+				           	</c:forEach>
+		                </div>
+	                </div>
+	            </div>
+		        
             </div>
+            <!-- END CONTAINER  -->
         </div>
+    </div>
 
     <script src="../resources/js/admin.js"></script>
     <script type="text/javascript">
@@ -158,9 +174,9 @@
     			
     			$(uploadResultArr).each(function(i, obj) {
 	    			var fileCallPath = encodeURIComponent(obj.imgPath + "/" + obj.uuid + "_" + obj.imgName);
-	    			str += "<li><div>";
-	    			str += "<span>" + obj.imgName + "</span>";
-	    			str += "<button type='button' data-no='"+ obj.imgNo +"' data-file=\'" + fileCallPath + "\' data-type='image' class='btnSave bg-1 text-fff text-bold fr'><i class='fa fa-times'></i></button><br>";
+	    			str += "<li><div id='resultDiv'>";
+	    			str += "<span style='font-size:20px; margin-right:10px;'>" + obj.imgName + "</span>";
+	    			str += "<button type='button' data-no='"+ obj.imgNo +"' data-file=\'" + fileCallPath + "\' data-type='image' class='btnSave bg-1 text-fff text-bold'><i class='fa fa-times'></i></button><br>";
     				str += "<img src='/admin/display?imgName=" + fileCallPath + "'>";
     				str += "</div></li>";
     			});

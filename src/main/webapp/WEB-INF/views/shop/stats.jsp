@@ -6,10 +6,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+<link rel="stylesheet"  href="../resources/css/admin.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
 
-  <style>
+<style>
+  	    .mainContent{
+	    margin-top:50px;
+	    margin-left:100px;
+	    }
          li{
             list-style: none;
             
@@ -22,112 +30,85 @@
             color: #303030;
             font-size: 17px;
         }
-        .manage_content{
-            width: 1300px;
-            height: 100%;
-            margin:0 auto;
-            border: solid;
+       .pro_sta{          
+          width: 550px;
+          height:500px;
+          padding-left:20px;
+          padding-bottom:30px;
+          display:inline-block;
+          margin-bottom: 50px;
+         }
+         
+        #chart_div1,
+        #chart_div2,
+        #chart_div3{
+        display:inline-block;
         }
-        .manage_wrap{
-                 
-           position: relative;
-           display: inline-block;
-           padding-top: 30px;
-           background-color: cornsilk;
+        #donutchart{
+        margin-top:30px;
         }
-        
-        .side{
-          
-            width: 200px;
-            height: 200px;
-            background-color: white;
-            float: left;
-            margin-right: 90px;
-            border:solid;
-            
-        }
-        .manage_main{
-            float:  right;
-            width: 1000px;
-           
-            background-color: white;
-        } 
-        .manage_side_tit{
-            padding-top: 12px;
-            padding-bottom:12px ;
-            text-align: center;
-            width: 100%;
-            background-color: #ffc30b;
-            font-size: 20px;
-            font-weight: 900;
-            
-
-        }
-        .manage_main .manage_tit{
-            font-size: 30px;
-            margin-bottom:50px;
-
-        }
-         .today_pro_sta{
-            border:solid green;
-            width: 500px;
-            padding-left:50px;
-            padding-bottom:50px;
-            
-        }
-        .whole_pro_sta{
-     	    border:solid orange;
-          
-        }
-        /*  */
-        table{
-		 border:solid black;
-		 }
-          th, td {
-            padding: 8px;
-            text-align: left;
-            height:30px;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        th {
-            background-color: black;
-            color: white;
-            text-align: left;
-            height: 30px;
-            text-align:center;
-        }
+        /* 테이블 */
+       table {
+		border-collapse: collapse;
+		width: 90%;
+        margin-top: 30px;
+		}
+	    th, td {
+	        padding: 8px;
+	        text-align: center;
+	        border-bottom: 2px solid #ddd;
+	    }
+	    
+	    th {
+	        background-color: #8FA691;
+	        color: white;
+	        text-align: left;
+	        height: 40px;
+	        text-align:center;
+	    }
+	    
+	    tr:hover {
+	      background-color: #f5f5f5;
+	    }
+	    .mainContent .title {
+		margin-left: 20px;
+		}
+		.mainContent h3{
+		font-weight:500;
+		font-size:24px;
+		}
+		.mainContent p{
+			color: #b9b9b9;
+		}
+		.chart{
+		margin-bottom: 30px;
+		}
     </style>
 </head>
 <body>
-<%@include file="../includes/thinHeader.jsp" %>
-    <div class="manage_content">
-        <div class="manage_wrap">
-            <div class="side">
-                <div class="1nb_list">
-                    <div class="manage_side_tit">
-                        주문관리
-                    </div>
-                    <div class="manage_side_menu">
-                        <ul class="manage_menu">
-                           
-                            <li> <a href='/shop/sales'>-영업 관리</a></li>
-                            <li><a href='/shop/stats'>-통계 관리</a></li>
-                            <li> <a href='#'>-전체 주문 조회</a></li>
+ <div class="container">
+ <%@include file="./shopSideBar.jsp" %>
 
+
+            <div class="mainArea">
+            <!-- BEGIN NAV -->
+                <nav class="navTop row">
+                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
                         </ul>
                     </div>
+                </nav>
+                <!-- END NAV -->
+            <div class="mainContent">
+                <div class="title">
+                    <h3>통계 관리</h3>   
+                    <br>                 
                 </div>
-                <!-- 1nb_list -->
-            </div>
-            <!-- side -->
-
-            <div class="manage_main">
-            
-                <div class="manage_tit">
-                    <p><b>[통계 관리]</b></p>
-                </div>
-                <div class="today_pro_sta">
+                <div class="pro_sta">
                     <div class="sta_tit">
                        <h3> |오늘 상품 판매량 순위 TOP5</h3>
                     </div>
@@ -158,24 +139,27 @@
                     </table>
                 </div>  
                 <!-- today_pro_sta -->
-                <div class="whole_pro_sta">
+                <div class="pro_sta">
                     <div class="sta_tit">
                        <h3> |전체 상품 판매량 통계</h3>
                     </div>
-                    <div id="donutchart" style="width: 900px; height: 500px;"></div>
+                    <div id="donutchart" style="width: 550px; height: 450px;"></div>
                 
                 </div>
                <!--end today_pro_sta  -->
                 
-            <div>
-            
-            	 <div id="chart_div1" style="width: 800px; height: 500px;"></div>
+            <div class="chart">
+            <div class="sta_tit">
+                       <h3> |전체 상품 판매량 통계</h3><br><br>
+                       
+             </div>
+            	 <div id="chart_div1" style="width: 380px; height: 430px;"></div>
             	 
             	 
-            	 <div id="chart_div2" style="width: 800px; height: 500px;"></div>
+            	 <div id="chart_div2" style="width: 380px; height: 430px;"></div>
             	 
             	 
-            	  <div id="chart_div3" style="width: 800px; height: 500px;"></div>
+            	  <div id="chart_div3" style="width: 380px; height: 430px;"></div>
        
                 
             </div>
@@ -185,6 +169,7 @@
     </div>
     </div>
     
+    <script src="../resources/js/admin.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     /* 원 차트 */
@@ -196,12 +181,14 @@
           ${WholeSta}
         
         ]);
-
         var options = {
           title: '상위 top10 상품',
           pieHole: 0.4,
+          backgroundColor: '#f7f7f7',
+          series:{
+        	  0:
+          }
         };
-
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
         chart.draw(data, options);
       }
@@ -210,82 +197,72 @@
     /* 일 막대 차트  */  
      google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart2);
-
       function drawChart2() {
         var data2 = google.visualization.arrayToDataTable([
-        	 ['DAY', '총 주문 금액'],
+        	 ['DAY', '주문 금액'],
         	 ${dd}
 	        
         ]);
-
         var options = {
           chart: {
-            title: '일별 통계',
+            title: 'DAY',
             subtitle: '3일간 통계',
           },
           bars: 'vertical',
           vAxis: {format: 'decimal'},
           height: 400,
-          colors: ['fba01d']
+          colors: ['fba01d'],
+          backgroundColor: '#f7f7f7'
         };
-
         var chart = new google.charts.Bar(document.getElementById('chart_div1'));
-
         chart.draw(data2, google.charts.Bar.convertOptions(options));
-
       } 
       /* 끝 일 막대 차트  */ 
       /* 달 막대 차트  */  
       google.charts.load('current', {'packages':['bar']});
        google.charts.setOnLoadCallback(drawChart3);
-
        function drawChart3() {
          var data3 = google.visualization.arrayToDataTable([
-         	 ['MONTH', '총 주문 금액'],
+         	 ['MONTH', '주문 금액'],
          	 ${mm}
  	        
          ]);
-
          var options = {
            chart: {
-             title: '달별 통계',
+             title: 'MONTH',
              subtitle: '3달간 통계',
            },
            bars: 'vertical',
            vAxis: {format: 'decimal'},
            height: 400,
-           colors: ['#7dd0b6']
+           colors: ['#7dd0b6'],
+           backgroundColor: '#f7f7f7'
          };
-
          var chart = new google.charts.Bar(document.getElementById('chart_div2'));
-
          chart.draw(data3, google.charts.Bar.convertOptions(options));
    
        } 
        /* 끝 달 막대 차트  */  
         google.charts.load('current', {'packages':['bar']});
        google.charts.setOnLoadCallback(drawChart4);
-
        function drawChart4() {
          var data4 = google.visualization.arrayToDataTable([
-         	 ['YEAR', '총 주문 금액'],
+         	 ['YEAR', '주문 금액'],
          	 ${yy}
  	        
          ]);
-
          var options = {
            chart: {
-             title: '년별 통계',
+             title: 'YEAR',
              subtitle: '3년간 통계',
            },
            bars: 'vertical',
            vAxis: {format: 'decimal'},
            height: 400,
-           colors: ['#ff6961']
+           colors: ['#ff6961'],
+           backgroundColor: '#f7f7f7'
          };
-
          var chart = new google.charts.Bar(document.getElementById('chart_div3'));
-
          chart.draw(data4, google.charts.Bar.convertOptions(options));
    
        } 

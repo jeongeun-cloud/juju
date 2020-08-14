@@ -16,6 +16,16 @@
     <link rel="stylesheet"  href="../resources/css/admin.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
    
+   	<style>
+  		#resultDiv {
+			margin:20px 0;
+		}
+		
+		#resultDiv img {
+			width:750px;
+   			height:150px;
+		}
+   	</style>
 </head>
 <body>
     <%@include file="./idCheck.jsp" %>
@@ -44,9 +54,8 @@
 		            <div class="formHeader row">
 		                <h2 class="text-1 fl">중간광고</h2>
 		            </div>
-		            <div class="formBody row">
-	
-		                <div class="column s-6">
+		            <div class="formBody row" style="text-align:center;">
+		                <div class="column s-6" style="margin-left: 25%;">
 			                <p style="font-size:17px;">광고 이미지는 최대 2개까지 가능합니다.</p><br>
 			                <p style='opacity:0.75;'>이미지 규격 : 1000*200</p>
 			                <div class="uploadDiv">
@@ -61,11 +70,11 @@
 			                
 			                <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
 				                <div id="activeImg" style="margin-top:20px;">
-				                	<h2 class="text-1 fl">현재 등록된 광고 이미지</h2><br>
+				                	<label style="font-size:17px;">현재 등록된 광고 이미지</label><br><br><br>
 				                	<input type="hidden" id="imgLen" value='<c:out value="${fn:length(advertise)}"/>'>
 				                	<c:forEach items="${advertise }" var="advertise">
 						           		<img class="banner" alt="" src='/resources/banner/<c:out value="${advertise.imgPath}"/>/<c:out value="${advertise.uuid}"/>_<c:out value="${advertise.imgName}"/>' >
-						           		<button id='removeBtn' class="btnSave bg-1 text-fff text-bold fr" data-oper='<c:out value="${advertise.imgNo}"/>'>삭제</button>
+						           		<button id='removeBtn' class="btnSave bg-1 text-fff text-bold fr" data-oper='<c:out value="${advertise.imgNo}"/>'>삭제</button><br><br>
 						           	</c:forEach>
 				                </div>
 				             </div>
@@ -145,9 +154,9 @@
     			
     			$(uploadResultArr).each(function(i, obj) {
 	    			var fileCallPath = encodeURIComponent(obj.imgPath + "/" + obj.uuid + "_" + obj.imgName);
-	    			str += "<li><div>";
-	    			str += "<span>" + obj.imgName + "</span>";
-	    			str += "<button type='button' data-no='"+ obj.imgNo +"' data-file=\'" + fileCallPath + "\' data-type='image' class='btnSave bg-1 text-fff text-bold fr'><i class='fa fa-times'></i></button><br>";
+	    			str += "<li><div id='resultDiv'>";
+	    			str += "<span style='font-size:20px; margin-right:10px;'>" + obj.imgName + "</span>";
+	    			str += "<button type='button' data-no='"+ obj.imgNo +"' data-file=\'" + fileCallPath + "\' data-type='image' class='btnSave bg-1 text-fff text-bold'><i class='fa fa-times'></i></button><br>";
     				str += "<img src='/admin/display?imgName=" + fileCallPath + "'>";
     				str += "</div></li>";
     			});
