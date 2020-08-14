@@ -55,10 +55,17 @@
     .item {
         width: 270px;
         height: 370px;
-        background-color: teal;
+   
         float: left;
-        margin: 30px 30px;
+        margin: 60px 30px 0px 30px;
     }
+    
+    .itemContent:hover{
+    
+      color:#637365;
+    
+    }
+    
     .item img {
         width: 270px;
         height: 300px;
@@ -67,16 +74,17 @@
 
     .itemContent {
         height: 70px;
-        background-color: violet;
     }
     #shop {
         height: 30px;
-        border: solid;
+
         border-width: thin;
         width: 270px;
         margin-top: 100px;
         margin-left: 358px;
         text-align : center;
+       
+     
     }
     
     li{
@@ -100,7 +108,7 @@
 	}
  	/*버튼 */
  	.Dangol{
- 	  background-color: #ffc30b; 
+ 	  background-color: #8FA691; 
 	  border: none;
 	  color: white;
 	  padding: 10px;
@@ -112,10 +120,20 @@
 	  margin: 4px 2px;
 	  cursor: pointer;
 	  border-radius: 20px;
+	  
  	}
  	.Dangol:focus{
  	outline:none;
  	}
+ 	
+ 	#shopName{
+ 	font-size:38px;
+ 	}
+ 	
+ 	#dangol_content{
+ 	border-bottom: 30px;
+ 	}
+ 
  	
 </style>
 </head>
@@ -134,22 +152,24 @@
 		        </div>
 		    </div>
 		    <div id="shop">
-		    	<p><c:out value="${seller.shopName}"/></p>
+		    	<p id='shopName'><c:out value="${seller.shopName}"/></p>
 		    	
 		    	<!--단골 되기 버튼  -->
-		    	<c:if test="${memidNo ne '' }">
-		    	<input type="button" value="<c:out value="${checkDangol}"/>" id="Dangol" class="Dangol" onclick="dangol();"></input>
-		    	</c:if>
-		    	<c:if test="${memidNo eq '' }">
-		    	로그인 하시면 단골 등록 하실 수 있습니다.
-		    	</c:if>
-		    	단골 수 : <c:out value="${totalDangol }"/>
+		    	<div id='dangol_content'>
+			    	<c:if test="${memidNo ne '' }">
+			    	<input type="button" value="<c:out value="${checkDangol}"/>" id="Dangol" class="Dangol" onclick="dangol();"></input>
+			    	</c:if>
+			    	<c:if test="${memidNo eq '' }">
+			    	로그인 하시면 단골 등록 하실 수 있습니다.
+			    	</c:if>
+			  		<p>단골 수 : <c:out value="${totalDangol }"/></p>
+		    	</div>
 		    </div>
 		
 		    <div id="itemContainer">
 		    	<c:forEach items="${list }" var="list">
 			    	<div class="item">
-			    		<a href="/product/item?itemCode=<c:out value='${list.itemCode}'/>" >
+			    		<a style=color:black href="/product/item?itemCode=<c:out value='${list.itemCode}'/>" >
 			            	<img src="/resources/upload/<c:out value="${list.idNo}"/>/<c:out value="${list.itemImg1}"/>" />
 				            <div class="itemContent">
 						    	<p><c:out value="${list.itemName}"/></p>
@@ -208,16 +228,16 @@
 		   actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		   actionForm.submit();
 		});
+	
 
 	});
+
+	
 		//단골 신청 ,취소
 		function dangol(){
-			var shopName = document.getElementById("hiddenShopId").value;
-			
+			var shopName = document.getElementById("hiddenShopId").value;		
 			
 			var dangolBtn= document.getElementById("Dangol");
-		
-			
 			
 			if(dangolBtn.value=='단골되기'){
 				dangolBtn.value='단골취소'
@@ -255,9 +275,14 @@
 				
 		}
 		
-		
-	
-	
+		window.onload = function () {
+			
+			if(backImg.children[0].src==null){
+				alert("아몰라스트레스");
+			}
+			
+			
+			}
 	
 
 </script>
