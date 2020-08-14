@@ -7,8 +7,10 @@
 
 <%@include file="../includes/menuBar.jsp" %>
 
-<!-- Link Swiper's CSS -->
-<link rel="stylesheet" href="/resources/css/swiper-bundle.min.css">
+	<link rel="stylesheet"  href="../resources/css/review.css">
+	<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <style>
 
@@ -35,28 +37,7 @@
    }
 
 	/*실시간 베스트  */
-	
-	/* 메인 리뷰 */
-    .swiper-container {
-      width: 100%;
-      padding-top: 50px;
-      padding-bottom: 50px;
-    }
 
-    .swiper-slide {
-      width: 300px;
-      height: 300px;
-      margin-bottom : 40px;
-
-    }
-    
-    .swiper-img {
-       background-size: cover;
-       background-position: center;
-       width: 300px;
-         height: 300px;
-    }
-    /* 메인 리뷰 끝 */
     
     /* 중간 광고 */
     .adImg img {
@@ -66,7 +47,6 @@
 
 </style>
 <br>
-    
         <!-- 첫번째 배너 광고 -->
         <div class="ma_top_banner_wrap" >
             <div class="w3-content w3-display-container" style="max-width:100%; ">
@@ -78,12 +58,7 @@
                 <!-- 밑에 동그라미 -->
                 <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
                   <div class="w3-left w3-hover-text-khaki" onclick="plusDivs(-1)">&#10094;</div>
-                  <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>
-<!--                   <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(1)"></span>
-                  <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(2)"></span>
-                  <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(3)"></span>
-                  <span class="w3-badge demo w3-border w3-transparent w3-hover-white" onclick="currentDiv(4)"></span> -->
-                 
+                  <div class="w3-right w3-hover-text-khaki" onclick="plusDivs(1)">&#10095;</div>                 
                 </div>
             </div>
 
@@ -95,40 +70,62 @@
               <p><b>새로운 상품</b></p>   
               <h5>매일 새로운 주주마켓의 제품을 만나보세요 </h5>         
            </div>   
-           <div class="main_new_li">
+           <div class="main_new_li" style="height:1200px;">
               <%@include file="RealNew.jsp" %>
            </div>                  
         </div>
         
         <!-- 첫번 째 중간광고 -->
-        <div class="adImg" style="max-width:100%; ">
-        	<img id="ad_img_1" src="" >
+        <div class="adImg" style="max-width:100%; margin : 20px 0 200px 0;">
+        	<img id="ad_img_1" src="/resources/banner/advertise/ad1.jpg" >
         </div>
         
-        <!-- Swiper -->
-        <div class="swiper-container">
-          <div class="swiper-wrapper">
-             <c:forEach items="${mainReview }" var="review">
-                <div class="swiper-slide">
-                   <div class='swiper-img' style='background-image:url(/resources/review/<c:out value="${review.itemCode}"/>/<c:out value="${review.reviewImg}"/>)'></div>
-                   <p><c:out value="${review.reviewTitle}"/></p>
-                </div>
-             </c:forEach>
-          </div>
-          <!-- Add Pagination -->
-          <div class="swiper-pagination"></div>
-        </div>
-        
-        <!-- 두번 째 중간광고 -->
- 		<div class="adImg" style="max-width:100%; ">
-        	<img id="ad_img_2" src="" >
-        </div>
+        <!-- 리뷰 -->
+		<div class="main_new_tit">
+			<p><b>생생한 리뷰</b></p><br>
+		</div>
+        <div class="blog-slider">
+	        <div class="blog-slider__wrp swiper-wrapper">
+	         	<c:forEach items="${mainReview }" var="review">
+		          <div class="blog-slider__item swiper-slide">
+		            <div class="blog-slider__img">
+		              
+		              <img src="/resources/review/<c:out value="${review.itemCode}"/>/<c:out value="${review.reviewImg}"/>" alt="">
+		            </div>
+		            <div class="blog-slider__content">
+		              <span class="blog-slider__code"><fmt:formatDate pattern="yyyy/MM/dd" value="${review.regDate }" /></span>
+		              <div class="blog-slider__title"><c:out value="${review.reviewTitle}"/></div>
+		              <div class="blog-slider__text"><c:out value="${review.reviewContent}"/></div>
+		              <a href="#" class="blog-slider__button">READ MORE</a>
+		            </div>
+		          </div>
+	          	</c:forEach>
+	        </div>
+        	<div class="blog-slider__pagination"></div>
+    	</div>
+             
+
+    <!-- 두번 째 중간광고 -->
+	<div class="adImg" style="max-width:100%; margin : 200px 0 20px 0;">
+      	<img id="ad_img_2" src="/resources/banner/advertise/ad2.jpg" >
+    </div>
  
     <!-- Swiper JS -->
-     <script src="/resources/js/swiper-bundle.min.js"></script>
-   <script type="text/javascript">
-  
-
+   	<script type="text/javascript">
+	   	var swiper = new Swiper('.blog-slider', {
+	        spaceBetween: 30,
+	        effect: 'fade',
+	        loop: true,
+	        mousewheel: {
+	            invert: false,
+	        },
+	        // autoHeight: true,
+	        pagination: {
+	            el: '.blog-slider__pagination',
+	            clickable: true,
+	        }
+	    });
+   	
         // top_banner_wrap 기능
         // 밑에 동그라미(순서)가 같이 움직이는 기능 
         var slideIndex = 1;
@@ -177,27 +174,8 @@
            setTimeout(carousel, 2000);  // Change image every 2 seconds
         }
 
-        /* 메인 리뷰 */
-        var swiper = new Swiper('.swiper-container', {
-            effect: 'coverflow',
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: 'auto',
-            coverflowEffect: {
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true,
-            },
-            pagination: {
-              el: '.swiper-pagination',
-            },
-        });
-        /* 메인 리뷰 끝 */
-        
         /* 중간 광고 */
-        var advertise = new Array();
+        /* var advertise = new Array();
         
         <c:forEach items = "${advertise}" var="ad">
         	var json = new Object();
@@ -216,9 +194,7 @@
 	        var url2 = str + advertise[1].imgPath + "/" + advertise[1].uuid + "_" + advertise[1].imgName;
 	        $("#ad_img_1").attr("src", url1);
 	        $("#ad_img_2").attr("src", url2);
-        }
-        
-        
+        } */
         /* 중간 광고 끝 */
         
    </script>
