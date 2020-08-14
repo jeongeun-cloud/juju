@@ -38,7 +38,7 @@
 		        <div class="mainContent">  
 		        
 		        <!-- 검색 -->
-                <div class="search_bar">
+                <div class="search_bar" style="margin-bottom:5px;">
                     <form id="searchForm" class="formSearch fl" action="/admin/memberManage" method="get">
                         <div class="search">
                             <!-- <label class="search_la">검색</label> -->
@@ -56,46 +56,45 @@
                     </form>
                 </div><br><br>
 		
-				  <!-- DETAIL FORM -->
-				  <form action="" method="GET" name="listForm" class="form">
-		            <div class="formHeader row">
-		                <h2 class="text-1 fl">Member List</h2><br><br>
-		                <label class="mem_la" style="font-size:15px; cursor:auto;"><i class="fa fa-lightbulb-o"></i> 총 회원수 : <c:out value="${pageMaker.total }"/>명</label>  
-		                <div class="fr">
-		                  <button  id="regBtn" class="btnSave bg-1 text-fff text-bold fr">블랙 리스트로 등록</button>
-		                </div>
-		            </div>
-		            <div class="table">
-		                <div class="row bg-1">
-		                    <div class="cell cell-50 text-center text-fff"><input type="checkbox" name="chkAll" id="chkAll"></div>
-		                    <div class="cell cell-100 text-center text-fff">회원이름</div>
-		                    <div class="cell cell-100p text-fff">회원계정</div>
-		                    <div class="cell cell-100 text-fff">회원유형</div>
-		                    <div class="cell cell-100 text-center text-fff">가입일자</div>
-		                </div>
-		            <!--   BEGIN LOOP -->
-		                <ul>
-		                	<c:forEach items="${allMember }" var="allMember">
-				               <li class="row cellRow">
-				               	  <div class="cell cell-50 text-center"><input type="checkbox" id="idNo" name="chk" value='<c:out value="${allMember.idNo }" />'></div>
-				                  <div class="cell cell-100 text-center"><c:out value="${allMember.memName }" /></div>
-				                  <div class="cell cell-100p"><c:out value="${allMember.emailAccount }" /></div>
-				                  <div class="cell cell-100">
-				                  	<c:choose>
-										<c:when test="${allMember.memCode eq 'ADMIN'}">관리자</c:when>
-										<c:when test="${allMember.memCode eq 'SELLER'}">상인</c:when>
-										<c:when test="${allMember.memCode eq 'CUSTOMER'}">일반고객</c:when>
-										<c:otherwise>소셜고객</c:otherwise>
-								  	</c:choose>
-				                  </div>
-				                  <div class="cell cell-100 text-center"><fmt:formatDate pattern="yyyy/MM/dd" value="${allMember.condiUpdateDate }" /></div>
-				               </li>
-				            </c:forEach>
-				            
-		                </ul>
-		            <!--   END LOOP -->
-		            </div>
-		        </form>
+				<!-- DETAIL FORM -->
+	            <div class="formHeader row">
+	                <h2 class="text-1 fl">회원 리스트</h2><br><br>
+	                <label class="mem_la" style="font-size:17px; cursor:auto;"><i class="fa fa-lightbulb-o"></i> 총 회원수 : <c:out value="${pageMaker.total }"/>명</label>  
+	                <div class="fr">
+	                  <button  id="regBtn" class="btnSave bg-1 text-fff text-bold fr">블랙 리스트로 등록</button>
+	                </div>
+	            </div>
+	            <div class="table form">
+	                <div class="row bg-1">
+	                    <div class="cell cell-50 text-center text-fff"><input type="checkbox" name="chkAll" id="chkAll"></div>
+	                    <div class="cell cell-100 text-center text-fff">회원이름</div>
+	                    <div class="cell cell-100p text-fff">회원계정</div>
+	                    <div class="cell cell-100 text-fff">회원유형</div>
+	                    <div class="cell cell-100 text-center text-fff">가입일자</div>
+	                </div>
+	                
+	            	<!--   BEGIN LOOP -->
+	                <ul>
+	                	<c:forEach items="${allMember }" var="allMember">
+			               <li class="row cellRow">
+			               	  <div class="cell cell-50 text-center"><input type="checkbox" id="idNo" name="chk" value='<c:out value="${allMember.idNo }" />'></div>
+			                  <div class="cell cell-100 text-center"><c:out value="${allMember.memName }" /></div>
+			                  <div class="cell cell-100p"><c:out value="${allMember.emailAccount }" /></div>
+			                  <div class="cell cell-100">
+			                  	<c:choose>
+									<c:when test="${allMember.memCode eq 'ADMIN'}">관리자</c:when>
+									<c:when test="${allMember.memCode eq 'SELLER'}">상인</c:when>
+									<c:when test="${allMember.memCode eq 'CUSTOMER'}">일반고객</c:when>
+									<c:otherwise>소셜고객</c:otherwise>
+							  	</c:choose>
+			                  </div>
+			                  <div class="cell cell-100 text-center"><fmt:formatDate pattern="yyyy/MM/dd" value="${allMember.condiUpdateDate }" /></div>
+			               </li>
+			            </c:forEach>
+			            
+	                </ul>
+	            <!--   END LOOP -->
+	            </div>
 		        
 		        <div id="pagination" class='page_num'>
                     <ul class="pagination list-inline text-right">
@@ -106,7 +105,7 @@
                         </c:if>
 
                         <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                            <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                            <li class='paginate_button ${pageMaker.cri.pageNum == num ? " is-active" : "" } '>
                                 <a href="${num}">${num}</a>
                             </li>
                         </c:forEach>
@@ -142,8 +141,6 @@
     	    $(".paginate_button a").on("click", function(e) {
     	    	e.preventDefault();
     	    	
-    	    	// a태그의 class 스타일 추가 is-active
-    	         
     	        actionForm.find("input[name='pageNum']").val($(this).attr("href"));
     	        actionForm.submit();
     	    });

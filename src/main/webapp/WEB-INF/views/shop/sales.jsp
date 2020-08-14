@@ -23,67 +23,55 @@
         }
         .manage_content{
             width: 1300px;
-            height: 1000px;
             margin:0 auto;
-            border: solid;
+           
         }
         .manage_wrap{
                  
             position: relative;
            display: inline-block;
            padding-top: 30px;
-           background-color: cornsilk;
+        
         }
         
-        .side{
-          
-            width: 200px;
-            height: 200px;
-            background-color: white;
-            float: left;
-            margin-right: 90px;
-            border:solid;
-            
-        }
+	.side{
+	     width: 280px;	     
+	     float: left;   
+	     margin-right:20px;  
+	     margin-top:25px;
+	}
         .manage_main{
             float:  right;
-            width: 1000px;
-            height: 1000px;
+            width: 980px;
             background-color: white;
         } 
-        .manage_side_tit{
-            padding-top: 12px;
-            padding-bottom:12px ;
-            text-align: center;
-            width: 100%;
-            background-color: #ffc30b;
-            font-size: 20px;
-            font-weight: 900;
-            
 
-        }
-        .manage_main .manage_tit{
-            font-size: 30px;
-            margin-bottom:50px;
-
-        }
-        /*  */
-        table{
-		 border:solid black;
-		 }
-         th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid black;
-        }
-        
-        th {
-            background-color: black;
-            color: white;
-            text-align: left;
-            height: 40px;
-            text-align:center;
-        }
+    /* 테이블 */
+       table {
+		border-collapse: collapse;
+		width: 90%;
+        margin-top: 30px;
+		}
+	    th, td {
+	        padding: 10px;
+	        text-align: center;
+	        border-bottom: 2px solid #ddd;
+	    }
+	    
+	    th {
+	        background-color: #8FA691;
+	        color: white;
+	        text-align: left;
+	        height: 30px;
+	        text-align:center;
+	    }
+		.manage_main h3{
+		font-weight:500;
+		font-size:24px;
+		}
+		.manage_main p{
+			color: #b9b9b9;
+		}
     </style>
 </head>
 <body>
@@ -91,27 +79,14 @@
     <div class="manage_content">
         <div class="manage_wrap">
             <div class="side">
-                <div class="1nb_list">
-                    <div class="manage_side_tit">
-                        주문관리
-                    </div>
-                    <div class="manage_side_menu">
-                        <ul class="manage_menu">
-                           
-                            <li> <a href='/shop/sales'>-영업 관리</a></li>
-                            <li><a href='/shop/stats'>-통계 관리</a></li>
-                            <li> <a href='#'>-전체 주문 조회</a></li>
-
-                        </ul>
-                    </div>
-                </div>
-                <!-- 1nb_list -->
+ 				<%@include file="../includes/ishop_sidebar.jsp" %>
             </div>
             <!-- side -->
 
             <div class="manage_main">
-                <div class="manage_tit">
-                    <p><b>[영업관리]</b></p>
+                <div class="title">
+                   <h3>영업 관리</h3>
+                   <p>우리 가게의 영업을 확인하세요.</p>
                 </div>
                 <table>
 		<thead>

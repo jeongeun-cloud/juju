@@ -28,7 +28,7 @@
     }
     
     th {
-        background-color: #ffc30b;
+        background-color: #8FA691;
         color: white;
         text-align: left;
         height: 40px;
@@ -38,6 +38,19 @@
     tr:hover {
         background-color: #f5f5f5;
     }
+      .regi_wrap .title {
+     margin-left: 50px;
+     }
+     .regi_wrap h3{
+     font-weight:500;
+     font-size:24px;
+     margin-bottom:10px;
+     }
+     .regi_wrap p{
+         color: #b9b9b9;
+         margin-top:0;
+         
+     }
 </style>
 </head>
 <%@include file="./idCheck.jsp" %>
@@ -45,8 +58,10 @@
 <body>
 	<div class="regi_content">
 		<div class="regi_wrap">
-	<h2><c:out value="${shopName}" /></h2>
-	<h3>총 단골 수 : <c:out value="${totalDangol }"/></h3>
+	<div class="title">
+	<h3><c:out value="${shopName}" /></h3>
+	<p>총 단골 수 : <c:out value="${totalDangol }"/></p>
+	</div>
 		<table>
                         <thead>
                             <tr>

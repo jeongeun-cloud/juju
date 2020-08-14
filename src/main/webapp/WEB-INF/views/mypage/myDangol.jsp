@@ -52,9 +52,6 @@
 	     margin-right: 20px;
 	     margin-top:25px;
 	}
-
-	
-
 	/* 사이드 메뉴 끝 */
 	.regi_main{
 	   float:  right;

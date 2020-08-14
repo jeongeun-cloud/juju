@@ -58,8 +58,9 @@ public class MemberController {
 
 	// [회원가입]일반회원
 	@PostMapping("/customerJoinForm")
-	public String customerJoinForm(CustomerVO customer) {
+	public String customerJoinForm(CustomerVO customer, RedirectAttributes rttr) {
 		customerService.register(customer);
+		rttr.addFlashAttribute("customer", customer);
 		return "redirect:/member/customerJoinComplete";
 	}
 
@@ -77,7 +78,7 @@ public class MemberController {
 
 	// [회원가입]상인회원 (+이미지 업로드)
 	@PostMapping("/sellerJoinForm")
-	public String sellerJoinForm(SellerVO seller, MultipartFile[] uploadFile) {
+	public String sellerJoinForm(SellerVO seller, MultipartFile[] uploadFile, RedirectAttributes rttr) {
 
 		String uploadFolder = servletContext.getRealPath("/resources/seller");
 		File uploadPath = new File(uploadFolder, seller.getBusinessCode());
@@ -120,6 +121,7 @@ public class MemberController {
 			i++;
 		}
 		sellerService.register(seller);
+		rttr.addFlashAttribute("seller", seller);
 		return "redirect:/member/sellerJoinComplete";
 	}
 

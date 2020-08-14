@@ -13,7 +13,17 @@
     <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
     <link rel="stylesheet"  href="../resources/css/admin.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
-   
+   	
+   	<style>
+   		#resultDiv {
+			margin:20px 0;
+		}
+		
+		#resultDiv img {
+			width:750px;
+   			height:170px;
+		}
+   	</style>
 </head>
 <body>
     <%@include file="./idCheck.jsp" %>
@@ -42,10 +52,8 @@
 		            <div class="formHeader row">
 		                <h2 class="text-1 fl">이벤트 배너</h2>
 		            </div>
-		            <div class="formBody row">
-
-		                <div class="column s-6">
-			                <p style="font-size:17px;">메인 슬라이더 이미지는 최대 4개까지 가능합니다.</p><br>
+		            <div class="formBody row" style="text-align:center;">
+		                <div class="column s-6" style="margin-left: 25%;">
 			                <p style='opacity:0.75;'>이미지 규격 : 1000*220</p>
 			                <div class="uploadDiv">
 			                	<input type="file" name="uploadFile" multiple>
@@ -58,10 +66,10 @@
 			                
 			                <input type="hidden" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
 			                <div id="activeImg" style="margin-top:20px;">
-				                <h2 class="text-1 fl">현재 등록된 이벤트 이미지</h2><br>
+				                <label style="font-size:17px;">현재 등록된 이벤트 이미지</label><br><br><br>
 			                	<c:forEach items="${event }" var="event">
 					           		<img class="banner" alt="" src='/resources/banner/<c:out value="${event.imgPath}"/>/<c:out value="${event.uuid}"/>_<c:out value="${event.imgName}"/>' >
-					           		<button id='removeBtn' class="btnSave bg-1 text-fff text-bold fr" data-oper='<c:out value="${event.imgNo}"/>'>삭제</button>
+					           		<button id='removeBtn' style="margin-bottom:20px;" class="btnSave bg-1 text-fff text-bold fr" data-oper='<c:out value="${event.imgNo}"/>'>삭제</button>
 					           	</c:forEach>
 			                </div>
 		                </div>
@@ -138,9 +146,9 @@
     			
     			$(uploadResultArr).each(function(i, obj) {
 	    			var fileCallPath = encodeURIComponent(obj.imgPath + "/" + obj.uuid + "_" + obj.imgName);
-	    			str += "<li><div>";
-	    			str += "<span>" + obj.imgName + "</span>";
-	    			str += "<button type='button' data-no='"+ obj.imgNo +"' data-file=\'" + fileCallPath + "\' data-type='image' class='btnSave bg-1 text-fff text-bold fr'><i class='fa fa-times'></i></button><br>";
+	    			str += "<li><div id='resultDiv'>";
+	    			str += "<span style='font-size:20px; margin-right:10px;'>" + obj.imgName + "</span>";
+	    			str += "<button type='button' data-no='"+ obj.imgNo +"' data-file=\'" + fileCallPath + "\' data-type='image' class='btnSave bg-1 text-fff text-bold'><i class='fa fa-times'></i></button><br>";
     				str += "<img src='/admin/display?imgName=" + fileCallPath + "'>";
     				str += "</div></li>";
     			});

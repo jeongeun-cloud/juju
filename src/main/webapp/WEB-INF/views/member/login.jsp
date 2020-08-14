@@ -1,30 +1,88 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+<%@include file="./../includes/header.jsp" %>
+<%@include file="./../includes/menuBar.jsp" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd" >
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
+<head> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="google-signin-scope" content="profile email">
-<meta name="google-signin-client_id" content="1016742526674-9mv9dhnqj72e92mf8im4tn5gp0ob7p1l.apps.googleusercontent.com">
+<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
 <style>
 
    html{
-      font-family: "쌍문동_타이포";
+
    }
    button{
          width: 300px;
          height:30px;
    }
    
+input[type=text] {
+    width:400px;
+    height: 54px;
+    padding: 0 19px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+    outline: none;
+}
+
+input[type=password] {
+    width:400px;
+    height: 54px;
+    padding: 0 19px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+    outline: none;
+}
+
+button, input[type="submit"] {
+	background-color: #8FA691;
+	border: 1px solid #8FA691;
+	border-radius: 5px;
+	margin: 0;
+	outline: none;
+	color: #FFFFFF;
+	padding: 15px 180px;
+	cursor: pointer;
+	margin-bottom: 5px;
+}
+        
+   
    a {
    text-decoration: none;
    color: black;
+   
    }
    
    #fb-root {
    	text-align:center;
    }
+   
+   .findIdPwd {
+   	position: absolute;
+   	right: 0%;
+   }
+   
+   .container {
+       width:400px;
+       position: relative;
+   }
+   
+
    
 }
 </style>
@@ -36,20 +94,22 @@
 
 <body>
 
-	<div class = "a" align="center">
-		<h1>주주마켓 로그인</h1>
-		
+	<div class = "container" align="center">
+	<br><br><br>
+		<h3>로그인</h3>
+		<br>
 		<form action="/member/login"  method="post">
-			<input type="text" name="emailAccount" id="emailAccount" placeholder="ID"><br>
-			<input type="password" name="pwd" id="pwd" placeholder="PASSWORD"><br><br>
+			<input type="text" name="emailAccount" id="emailAccount" size="20" placeholder="아이디를 입력해주세요."><br>
+			<input type="password" name="pwd" id="pwd" size="20"  placeholder="비밀번호를 입력해주세요."><br><br>
 	
+			<a class = "findIdPwd" href="/member/findIdPwd">아이디/비밀번호 찾기</a><br><br>
 			<input type="submit" value="로그인"><br> <br>
 		</form>
 		
 		<!-- 카카오로 로그인 -->
 		<a href="https://kauth.kakao.com/oauth/authorize?client_id=01b574850137dfee5c295348e0be136f&redirect_uri=http://localhost/member/kakaoLogin&response_type=code">
 			<img alt="" src="/resources/images/kakao-login-btn.png">
-		</a><br>
+		</a>
 		
 		<!-- 네이버로 로그인 -->
 		<div id="naverIdLogin"></div>
@@ -60,7 +120,7 @@
 		<div class="g-signin2" data-onsuccess="onSignIn">
 		</div><br>
 		
-		<a href="/member/findIdPwd">아이디/비밀번호 찾기</a><br>
+
 		<input type="hidden" id="result" value="${result }">
 	</div>
 
@@ -91,6 +151,9 @@
        	/* 설정정보를 초기화하고 연동을 준비 */
        	naverLogin.init();
 
+       	
+
+       	
        		
     });
     
