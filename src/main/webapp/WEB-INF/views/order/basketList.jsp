@@ -19,12 +19,13 @@
      border-bottom: 4px solid #F0F2F0 ;
     
     }
+    
 
 
         #containerOFAll {
             width:1300px;
             height:100%;
-            margin: 0 auto;
+            margin:0% 22% 15% 22% ;
 
             color: #303030;
             text-align:center;

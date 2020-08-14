@@ -9,6 +9,13 @@
 <style>
 
 
+#allFooter {
+
+	height: 40%;
+	margin-top: 5%;
+}
+
+
 #footerMakersBar {
 	width: 100%;
     height: 50px;
@@ -56,6 +63,7 @@ text-decoration: none;
 </head>
 <body>
 
+<div id="allFooter">
 <div id="footerMakersBar">
 	<div id="footerMakersBarContent">
 	
@@ -75,6 +83,7 @@ text-decoration: none;
 
 <div>
    <img id="footerimg" src="/resources/images/footerImg.PNG">
+</div>
 </div>
 
 </body>

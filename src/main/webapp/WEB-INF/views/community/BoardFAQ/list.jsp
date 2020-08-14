@@ -61,11 +61,12 @@ tr:hover {
 	     margin-top:25px;
 	}
 	
-	.regi_main{
-	   float:  right;
-	   width: 950px;	   
-	   background-color: white;
-}
+.regi_main{
+   float:  right;
+   width: 950px;
+   margin-bottom: 15%;
+   background-color: white;
+} 
 
 .regi_content{
 	   width: 1300px;
@@ -89,7 +90,7 @@ tr:hover {
 		color: #b9b9b9;
 	}
 	
-
+ 
 /* 글쓰기, 검색 버튼 시작 */
 #regBtn {
   height: 43.75px;
@@ -120,6 +121,7 @@ tr:hover {
   transition-duration: 0.4s;
   cursor: pointer;
   height: 30px;
+  border-radius: 10%;
 }
 
 #searchBtn:hover {
@@ -151,6 +153,7 @@ margin-right: 8%;
 }
 
 
+
 /* 글쓰기, 검색 버튼 끝 */
 /* 페이지 버튼 디자인 시작 */
 
@@ -159,18 +162,40 @@ margin-right: 8%;
 	margin-right: 8%;
 }
 
-.pageBtns a{
-    color: #637365;
-    float: right;
+.page_num a{
+     color: #637365;
+    float: left;
     padding: 8px 16px;
     text-decoration: none;
+    
+   
 }
 
-.pagination1 a:hover:not(.active) {
-    background-color: #F0F2F0;
-    border-radius: 50%;
+
+.page_num {
+        display: inline-block;
+        padding-left:50%;
+        float: left;
+        width: 950px
+        }
+        
+        
+    
+.paginations a:hover:not(.active) {
+          background-color:#F0F2F0;
+          border-radius: 50%;
+          }
+          
+.paging{
+    
+ background-color: white;
+ color: #f6dd90;
 }
 
+.paginations a:hover:not(.active) {
+          background-color:#F0F2F0;
+          border-radius: 50%;
+          }
 /* 페이지 버튼 디자인 끝 */
 /* 모달디자인 시작  */
 .close:hover,
@@ -268,7 +293,7 @@ margin-right: 8%;
      				 <div class="col-lg-12">
                
                        <form id='searchForm' action="/community/BoardFAQ/list" method='get'>
-                        <select name='type'>
+                        <select id='selected' name='type'>
                         <option value=""
                         <c:out value="${pageMaker.cri.type ==null?'selected':''}"/>>--</option>
                         <option value="T"
@@ -281,10 +306,10 @@ margin-right: 8%;
                         
                         </select>
                         
-                        <input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+                        <input id='keyword' type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
                         <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
                         <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
-                         <button class ='searchBtn'>검색</button>
+                         <button class ='searchBtn' id='searchBtn'>검색</button>
                         
                         </form>
                 </div>
@@ -317,7 +342,7 @@ margin-right: 8%;
                                    
                                    <td><c:out value="${faq.rowNum-((pageMaker.cri.pageNum-1)*10)}"/></td>
                    
-									<td><a class ='move' href='<c:out value="${faq.postingNo}"/>'>
+									<td><a style='color:black' class ='move' href='<c:out value="${faq.postingNo}"/>'>
                                     <c:out value="${faq.title }" /></a></td>
                                 
                                     <td><c:out value="${faq.content }" /></td>
@@ -351,28 +376,26 @@ margin-right: 8%;
 
                 <!-- Paging -->
                 <div class='page_num'>
-                <ul class="pagination1">
-                
-                <c:if test="${pageMaker.prev}">
-                <li class="paginate_button pervious">
-                <a href="${pageMaker.startPage -1}">Pervious</a>
-                </li>
-                </c:if>
-                
-                <c:forEach var="num" begin="${pageMaker.startPage}"
-                end="${pageMaker.endPage}">
-                <li class='paginate_button ${pageMaker.cri.pageNum == num? "active":""}'>
-                <a href="${num}">${num}</a></li>
-                </c:forEach>
-                
-                <c:if test="${pageMaker.next}">
-                <li class="paginate_button next">
-                <a href="${pageMaker.endPage +1}">Next</a>
-                </li>
-                </c:if>
-                
-                </ul>
-                </div><!-- endPaging -->
+                            <ul class="paginations">
+                                <c:if test="${pageMaker.prev}">
+                                    <li class="paginate_button pervious">
+                                        <a href="${pageMaker.startPage -1}">&laquo;</a>
+                                    </li>
+                                </c:if>
+        
+                                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                                    <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                                          <a href="${num}">${num}</a></li>
+                                
+                                </c:forEach>
+        
+                                <c:if test="${pageMaker.next}">
+                                     <li class="paginate_button next">
+                                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
+                                    </li>
+                                </c:if>
+                            </ul> 
+                        </div><!-- endPaging -->
 
                     <!-- paging form -->
                 <form id='actionForm' action="/community/BoardFAQ/list" method='get'>

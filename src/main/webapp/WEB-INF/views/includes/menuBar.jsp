@@ -160,7 +160,7 @@
 	            <ul class="nav navbar-nav"> 
 	        
 	                <!-- 전체 카테고리  -->
-	                <li class="dropdown whole_menu_category"  style="padding-left: 10px;"><a href="#" data-toggle="dropdown" class="dropdown-toggle">▲전체카테고리<b class="caret"></b></a>
+	                <li class="dropdown whole_menu_category"  style="padding-left: 10px;"><a href="#" data-toggle="dropdown" class="dropdown-toggle">전체카테고리<b class="caret"></b></a>
 	                    <ul class="dropdown-menu fullwidth">
 	                        <!-- 대분류 /중분류-->
 	                        <li class="whole_menu-content withdesc">
