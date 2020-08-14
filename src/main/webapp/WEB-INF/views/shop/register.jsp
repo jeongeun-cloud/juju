@@ -6,9 +6,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
-<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+<link rel="stylesheet"  href="../resources/css/admin.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
 <style>
         td{
             border-bottom: 1px solid #ddd;
@@ -18,49 +21,18 @@
 
         li{
             list-style: none;
-            float: left;
         }
 	   a{
 	   	text-decoration: none;
 	  	 color: #303030;
+	  	 font-size: 17px;
 	   }        	
-        .get_menu a{
-            text-decoration: none;
-            color: #303030;
-            font-size: 17px;
-        }
-        .regi_content{
-            width: 1300px;
-            height: 100%;
-            margin:0 auto;
-           
-         }
-        .regi_wrap{
-                 
-                 position: relative;
-                display: inline-block;
-                padding-top: 30px;
-                
-             }
-        .side{
-         width: 300px;	     
-	     float: left;
-	     margin-right: 20px;
-	     margin-top:25px;
-           
-         }
-         .regi_main{
-            float:  right;
-            width: 980px;
-         
-            background-color: white;
-        } 
+
         .regi_form{
+        	margin-top:50px;
             margin-left: 100px;
         }
-        .container{
-            margin-bottom: 20px;
-        }
+
         #uploadBtn,
         #resetBtn{
             background-color: #8FA691 ; 
@@ -82,48 +54,51 @@
         }
         .regi_btn{
             float: right;
-            margin-right:230px;
+            margin-right:330px;
         }
-        .regi_main .title {
+        .mainContent .title {
         margin-left: 100px;
         }
-        .regi_main h3{
+        .mainContent h3{
         font-weight:500;
         font-size:24px;
         margin-bottom:10px;
         }
-        .regi_main p{
+        .mainContent p{
             color: #b9b9b9;
             margin-top:0;
             
         }
-         /* 사이드 메뉴 */
-		.side{
-	     width: 300px;	     
-	     float: left;
-	     margin-right: 20px;
-	     margin-top:25px;
-	}
+
 	/* 사이드 메뉴 끝 */
 </style>
 
 </head>
 <%@include file="./idCheck.jsp" %>
 <body>
-<%@include file="../includes/header.jsp" %>
-     <div class="regi_content">
-        <div class="regi_wrap">
-<!-- side 시작 -->
-			<div class="side">
-			<%@include file="../includes/shop_sidebar.jsp" %>
-		   </div>
-<!-- side 끝-->
-            <!-- side -->
-            <div class="regi_main">
+ <div class="container">
+ <%@include file="./shopSideBar.jsp" %>
+
+            
+            <div class="mainArea">
+            <!-- BEGIN NAV -->
+                <nav class="navTop row">
+                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            <!-- END NAV -->
+            <div class="mainContent" style="margin-top:50px; margin-left:200px;">
                 <div class="title">
                 <h3>상품 등록</h3>
                 <p>자신의 상점 상품을 등록해주세요.</p>
                 </div>
+                
                 <div class="regi_form">
                         <form role="form" action="/shop/register" method="POST" enctype="multipart/form-data">
                             <table>
@@ -166,7 +141,7 @@
                                 <div class="container">
                                 <tr>
                                 <td>
-                                    <small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
+                                    <small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br><br>
                                     <label for="price"><i class="fa fa-chevron-right"></i>판매가격</label>
                                 </td>
                                 <td>
@@ -225,7 +200,7 @@
                                 <div class="container">
                                     <tr>
                                     <td>
-                                    <small style="opacity:0.75;">특성을 선택하지 않으면 기본으로 설정 됩니다.</small><br>
+                                    <small style="opacity:0.75;">특성을 선택하지 않으면 기본으로 설정 됩니다.</small><br><br>
                                     <label><i class="fa fa-chevron-right"></i>상품 특성</label><br>
                                     </td>
                                     <td>
@@ -243,7 +218,7 @@
                                 <div class="container_i">
                                     <tr>
                                     <td>
-                                    <label><small style="opacity:0.75;">메인, 서브 이미지 규격 : 270*300</small></label><br>
+                                    <label><small style="opacity:0.75;">메인, 서브 이미지 규격 : 270*300</small></label><br><br><br>
                                     <label><i class="fa fa-chevron-right"></i>메인 이미지</label>
                                     </td>
                                     <td>
@@ -313,7 +288,7 @@
 
         </div>
     </div>
-    
+    <script src="../resources/js/admin.js"></script>
     <script
      src="https://code.jquery.com/jquery-3.5.1.js"
      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="

@@ -10,14 +10,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+   <!--  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> -->
+<!--     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
     <link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+	<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+	<link rel="stylesheet"  href="../resources/css/admin.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
     <title>product register list</title>
     <style>
+	    .mainContent{
+	    margin-top:50px;
+	    }
         li{
             list-style: none;
-            float: left;
+            
         }
         body{
             color: #303030;
@@ -27,31 +34,6 @@
             color: #303030;
             font-size: 17px;
         }
-        .regi_content{
-            width: 1300px;
-            height: 100%;
-            margin:0 auto;
-           
-        }
-        .regi_wrap{
-                 
-            position: relative;
-           display: inline-block;
-           padding-top: 30px;
-          /*  background-color: cornsilk; */
-        }
-        
-        .side{         
-         width: 300px;	     
-	     float: left;
-	     margin-right: 20px;
-	     margin-top:25px;
-        }
-        .regi_main{
-            float:  right;
-            width: 980px;
-            background-color: white;
-        } 
         #excelDown{
             float:right;
             margin-right: 30px;
@@ -99,10 +81,10 @@
             outline: none; 
         }
         .regi_la{
-            font-size: 18px;                      
+            font-size: 17px;                      
         }
         table {
-      border-collapse: collapse;
+    	  border-collapse: collapse;
         width: 90%;
         margin-left: 100px;
        }
@@ -113,14 +95,13 @@
         <!--배치-->
         th, td {
             padding: 8px;
-            text-align: left;
+            text-align: center;
             border-bottom: 1px solid #ddd;
         }
         
         th {
             background-color: #8FA691;
-            color: white;
-            text-align: left;
+            color: white;            
             height: 40px;
             text-align:center;
         }
@@ -148,23 +129,23 @@
             height: 35px;
         }
         .select_state{
-            margin-left: 100px;
+            margin-left:130px;
             margin-bottom:30px;
             
         }
-        .page_num {
+        .page_num1 {
         display: inline-block;
         padding-left:70%;
         }
         
-        .page_num a{
+        .page_num1 a{
          color: black;
         float: left;
         padding: 8px 16px;
         text-decoration: none;
    
         }
-        .pagination a:hover:not(.active) {
+        .pagination1 a:hover:not(.active) {
           background-color: #8FA691;
           border-radius: 50%;}
         
@@ -176,16 +157,17 @@
         border: solid #8FA691;
         border-radius:10px;
         color:white;
+        margin-left: 10px;
         }
-        .regi_main .title {
+        .mainContent .title {
         margin-left: 100px;
         }
-        .regi_main h3{
+        .mainContent h3{
         font-weight:500;
         font-size:24px;
         margin-bottom:10px;
         }
-        .regi_main p{
+        .mainContent p{
             color: #b9b9b9;
             margin-top:0;
             
@@ -244,14 +226,24 @@
 </head>
 <%@include file="./idCheck.jsp" %>
 <body>
-<%@include file="../includes/header.jsp" %>
-    <div class="regi_content">
-        <div class="regi_wrap">
-            <div class="side">
-               <%@include file="../includes/shop_sidebar.jsp" %>
-            </div>
+ <div class="container">
+ <%@include file="./shopSideBar.jsp" %>
 
-            <div class="regi_main">
+
+            <div class="mainArea">
+            <!-- BEGIN NAV -->
+                <nav class="navTop row">
+                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- END NAV -->
+            <div class="mainContent">
                 <div class="title">
                  <h3>상품 리스트</h3>
                 <p><i class="fa fa-lightbulb-o"></i>총 등록 상품 : <c:out value="${pageMaker.total }" /></p>
@@ -273,7 +265,7 @@
                     <form id="searchForm" action="/shop/list" method="get">
                         <div class="serch">
                             <label class="regi_la">상품명</label>
-                            <select name='type' style="height:30px">
+                            <select name='type' style="height:32px">
                                 <option value="" <c:out value="${pageMaker.cri.type == null? 'selected':'' }" /> >--</option>
                                 <option value="N" <c:out value="${pageMaker.cri.type eq 'N'? 'selected':'' }" />>상품명</option>
                                 <option value="C" <c:out value="${pageMaker.cri.type eq 'C'? 'selected':'' }" />>상품설명</option>
@@ -327,9 +319,9 @@
                                 </tr>
                             </c:forEach>
                         </table>
-
-                        <div class='page_num'>
-                            <ul class="pagination">
+					</div>
+                        <div class='page_num1'>
+                            <ul class="pagination1">
                                 <c:if test="${pageMaker.prev}">
                                     <li class="paginate_button previous">
                                         <a href="${pageMaker.startPage -1}">&laquo;</a>
@@ -357,14 +349,14 @@
                     <input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>' >
                     <input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type }"/>' >
                 </form> 
-
+		
                   <!-- 모달 추가 -->
-                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <!-- <h4 class="modal-title" id="myModalLabel">Modal Title</h4> -->
+                                <h4 class="modal-title" id="myModalLabel">Modal Title</h4>
                             </div>
                             <div class="modal-body">처리가 완료되었습니다.</div>
                             <div class="modal-footer">
@@ -372,7 +364,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>  -->
                 <!-- 모달 끝 -->
 
                 </div>  
@@ -383,12 +375,11 @@
                         <button type="button" id="regBtn" value="sold" onclick="statAction(this.value)">품절</button>   
                     </div>    
             </div>
-            <!--! regi_main  -->
+            
         </div>
-        <!-- regi_wrap -->
-    </div>
-    <!-- regi_content -->
+       
 
+    <script src="../resources/js/admin.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
     	  
