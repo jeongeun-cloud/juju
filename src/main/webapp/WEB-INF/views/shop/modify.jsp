@@ -122,7 +122,7 @@
 </head>
 <%@include file="./idCheck.jsp" %>
 <body>
-<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/thinHeader.jsp" %>
     <div class="modi_content">
         <div class="modi_wrap">
             <div class="side">

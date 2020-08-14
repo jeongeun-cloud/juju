@@ -100,7 +100,7 @@
     </style>
 </head>
 <body>
-<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/thinHeader.jsp" %>
     <div class="manage_content">
         <div class="manage_wrap">
             <div class="side">

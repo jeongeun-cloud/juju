@@ -14,7 +14,7 @@
 
    .mySlides{
     width:100%;
-    height:600px;
+    
    }
 
    .w3-left, .w3-right, .w3-badge {cursor:pointer}
@@ -70,10 +70,10 @@
         <!-- 첫번째 배너 광고 -->
         <div class="ma_top_banner_wrap" >
             <div class="w3-content w3-display-container" style="max-width:100%; ">
-                <img class="mySlides" src="/resources/images/i1.jpg" >
-                <img class="mySlides" src="/resources/images/i2.jpg" >
-                <img class="mySlides" src="/resources/images/i3.jpg" >
-                <img class="mySlides" src="/resources/images/i4.jpg" >
+                <img class="mySlides" src="/resources/images/m1new.png" >
+                <img class="mySlides" src="/resources/images/m2new.png" >
+                <img class="mySlides" src="/resources/images/m3new.png" >
+                <img class="mySlides" src="/resources/images/m4new.png" >
               
                 <!-- 밑에 동그라미 -->
                 <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">

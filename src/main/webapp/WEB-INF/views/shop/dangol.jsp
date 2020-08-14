@@ -41,7 +41,7 @@
 </style>
 </head>
 <%@include file="./idCheck.jsp" %>
-<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/thinHeader.jsp" %>
 <body>
 	<div class="regi_content">
 		<div class="regi_wrap">

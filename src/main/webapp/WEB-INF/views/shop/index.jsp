@@ -170,7 +170,7 @@
 </head>
 <%@include file="./idCheck.jsp" %>
 <body>
-<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/thinHeader.jsp" %>
     <div class="admi_container" style="border:solid;">
         <div class="admi_tit">
             <h1>주주마켓 SHOP:'<c:out value="${shopName}"/>'님 반갑습니다.</h1>

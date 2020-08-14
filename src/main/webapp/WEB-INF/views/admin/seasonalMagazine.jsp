@@ -184,7 +184,7 @@
 </style>
 <body>
 <%@include file="./idCheck.jsp" %>
-<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/thinHeader.jsp" %>
     <div class="banner_content">
         <div class="banner_wrap">
         
