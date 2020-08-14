@@ -224,7 +224,15 @@
        margin-bottom: 20px;
        }
        
+       #emptyBasketImgDiv {
+       	width: 50%;
+       	margin-top: 30%;
+       	margin-left: 25%;
+       }
        
+       #emptyBasketImg {
+       	width: 100%;
+       }
     
        /* 장바구니 css 끝 */  
 
@@ -269,11 +277,11 @@
         	
         	<div class="basketCntPdiv">
         	<p style="display: inline-block;">총 주문금액</p>
-        	<p style="display: inline-block; float: right;">0원</p>
+        	<p id="basketOrderTotal" style="display: inline-block; float: right;">0원</p>
         	</div>
         	<div>
         	<p style="display: inline-block;">배송비</p>
-        	<p style="display: inline-block; float: right;">0원</p>
+        	<p id="basketDeli" style="display: inline-block; float: right;">0원</p>
         	</div>
         	
         	<div id="hrDiv">
@@ -281,7 +289,7 @@
         	
         	<div>
         	<p style="display: inline-block;">결제금액</p>
-        	<p style="display: inline-block; float: right;">0원</p>
+        	<p id="basketTotal" style="display: inline-block; float: right;">0원</p>
         	</div>
         
         	</div>
@@ -431,7 +439,7 @@ var id = document.getElementById("hiddenId").value;
     
 
    /* 장바구니 리스트 ajax 로 불러오기 시작 */
-   function getBasketList(id) {
+   function getBasketList() {
       
        var id = document.getElementById("hiddenId").value;
        
@@ -463,6 +471,11 @@ var id = document.getElementById("hiddenId").value;
       
       console.log("결과 : " + jsonData)
       
+      if(jsonData.length==1) {
+    	  $basketList.append("<div id='emptyBasketImgDiv'><img id='emptyBasketImg' src='/resources/images/emptyBasket.png'></div>");
+      }
+      
+      
       for(var i=0; i<jsonData.length-1; i++) {
 
          $basketList.append("<div id='basketUnit'><div id='basketImg'><img src='/resources/upload/"+jsonData[i].sellerId+"/"+jsonData[i].itemImg1+"' style= \"width:60px; height:77.1px; border: 3px; float:left; margin-left: 20px; margin-top:20px; margin-bottom:0px; \" /></div><div id='basketContent'><h5><b>"+jsonData[i].itemName+"</b><br>"+addCommas(jsonData[i].price)+"원 / "+jsonData[i].itemNum+"개<br></h5><button id='dltBtn' value=\""+jsonData[i].baskId+"\" onclick='dltEvent(this.value)'><img id='dltBtnImg' src='/resources/images/deleteBasketBtn.png'></button></div></div>");
@@ -482,11 +495,45 @@ var id = document.getElementById("hiddenId").value;
       $("#basketList").css("font-size","13px");
       $("#basketList").css("font-weight","bold");
       
+      
+      // 장바구니 리스트를 다 그리고 나면 장바구니 금액 합계를 세팅한다. 
+      getBasketTotal(jsonData[0].idNo)
+      	.then(function(response){
+      		console.log(response)
+	      	setBasketTotal(response);
+      	});
+      
+      
    }
    //html 구조 안에다가 장바구니 내용 넣기 function 끝
 
+   
+   
+   
+   function setBasketTotal(basketTotal){
+	   document.getElementById("basketOrderTotal").innerHTML = addCommas(basketTotal) + "원";
+	   document.getElementById("basketDeli").innerHTML = addCommas(2500) + "원";
+	   document.getElementById("basketTotal").innerHTML = addCommas(basketTotal*1 + 2500) + "원";
+   }
+   
     
 
+   // 장바구니 총금액 계산하는 function 시작
+   function getBasketTotal(id) {
+       
+	      return $.ajax({
+	         url: "/basket/getBasketTotal",
+	         type: "GET",
+	         data: {"id":id},
+	         dataType: "text",
+	         error : function(){console.log("getBasketTotal 통신실패")},
+	         success : function(){console.log("getBasketTotal 통신성공")}
+	         });
+	      
+   }
+   // 장바구니 총금액 계산하는 function 끝
+   
+   
 
 
    /* 장바구니 슬라이드 열렸다 닫히는 기능 시작 */

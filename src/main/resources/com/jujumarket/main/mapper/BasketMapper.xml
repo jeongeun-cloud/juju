@@ -65,7 +65,9 @@ ORDER BY baskId
 	select 'g'||lpad(seq_customer.nextval,4,'0') from dual
 </select>
 
-
+<select id="getBasketTotal" resultType="Integer">
+	select sum(i.price * b.itemNum) basketTotal from t_basket b, t_item i where b.itemCode = i.itemCode and b.idNo = #{idNo}
+</select>
 
 
 </mapper>
