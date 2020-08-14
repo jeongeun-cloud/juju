@@ -9,97 +9,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+	<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+	<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+	<link rel="stylesheet"  href="../resources/css/admin.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
     <title>shop index</title>
     <style>
-     .admi_container{
-        width: 1300px;
-        height: 100%;
-        margin: 0 auto;
-        /* border: solid; */
-    }
-    .admi_manager{
-        display: inline-block;
-        position: relative;
-        width: 100%;
-        /* border: solid; */
-        margin-bottom: 80px;
-        
-    }
- 
+	.aa{
+	
+	font-size:20px;
+	margin-left:5px;
+	}
+	.aaa{
+	
+	font-size:30px;
+	margin-left:5px;
+	font-weight:800;
+	}
+
     .quick_wrap{
         margin-top:20px;
         
     }
-    .quick_m{
-        float: left;
-        margin: 10px 20px 20px 10px;
-    }
-    .quick_find{
-        
-        border: 2px solid #ddd ;
-        width: 380px;
-        height: 350px;
-    } 
-    .quick_tit{
-        text-align: center;
-        font-size: 17px;
-        background-color:#ffc30b ;
-    }
-    .today_sta{
-        
-        border:2px solid #ddd ;
-        width: 430px;
-        height: 350px;
-    }
-    .today_do{
-        
-        border:2px solid #ddd ; 
-        width: 380px;
-        height:350px;
 
-    }
-    .quick_btn{
-        height: 100px;
-        width: 100px;
-        border-radius: 50%;
-        margin-right: 20px;
-        margin-left: 50px;
-        margin-top: 20px;
-        background-color:#f6dd90;
-        color:white;
-        font-weight:900;
-        border:#ffc30b;
-        
-    }
-    .today_box{
-        float: left;
-        width: 120px;
-        height: 80px;
-        border:solid;
-        margin: 10px 5px 10px 10px;
-        text-align: center;
-    }
-    .today_tit{
-        width: 100%;
-        height: 25px;
-        text-align: center;
-        padding-top: 10px;
-        padding-bottom: 5px;      
-        background-color: #f6dd90;
-    }
-    .today_total{
-        height: 100px;
-        
-    }
-    .rate{
-        height: 50px;
-        border:solid red;
-        margin: 30px 0 10px 0;
-    }
-    .today_do_li{
-        margin: 50px 10px 0 50px ;
-    }
     .admi_board{
         display: inline-block;
         position: relative;
@@ -170,144 +103,38 @@
 </head>
 <%@include file="./idCheck.jsp" %>
 <body>
-<%@include file="../includes/header.jsp" %>
-    <div class="admi_container" style="border:solid;">
-        <div class="admi_tit">
-            <h1>주주마켓 SHOP:'<c:out value="${shopName}"/>'님 반갑습니다.</h1>
-        </div>
+ <div class="container">
+ <%@include file="./shopSideBar.jsp" %>
+
+
+            <div class="mainArea">
+            <!-- BEGIN NAV -->
+                <nav class="navTop row">
+                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- END NAV -->
         
-        <div class="admi_manager">
+        <div class="mainContent">
            
 
             <div class="quick_wrap">
-                <div class="quick_m">
-                    <div class="quick_find">
-                        <div class="quick_tit">
-                            <p><b>빠르게 찾기</b></p>
-                        </div>
-                       
-                        <input class="quick_btn" type="button" value="상품등록" onClick="location.href='/shop/list'">
-                        <input class="quick_btn" type="button" value="주문조회" onClick="location.href='/shop/searchorder'">
-                        <input class="quick_btn" type="button" value="통계관리" onClick="location.href='/shop/stats'">
-                        <input class="quick_btn" type="button" value="단골관리" onClick="location.href='/shop/dangol'">
+			     <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i><label class="aa" >상품 등록 수:</label><label class="aaa"> <c:out value="${itemTotal.total }" /></label>
+       
+                                    
+                 <i class="fa fa-cart-plus fa-3x" aria-hidden="true"></i><label class="aa" >주문 수:</label> <label class="aaa"><fmt:formatNumber type="number" maxFractionDigits="3" value="${todayOrderCnt}" />건</label>
 
-                    </div>
-                </div>
-
-                <div class="quick_m">    
-                    <div class="today_sta">
-                        <div class="quick_tit">
-                            <p><b>Today 현황[오늘 날짜]</b></p>
-                        </div>
-
-                        <div class="today_total">
-                            <div class="today_box">
-                                <div class="pro_regi_sta">
-                                    <div class="today_tit">
-                                        상품 등록 수 
-                                    </div>
-                                    <div>
-                                        <c:out value="${itemTotal.total }" />
-                                    </div>
-                                </div>
-                            </div>   
-                            <!-- today_box -->
-                            
-                            <div class="today_box">
-                                <div class="pro_pay_sta">
-                                    <div class="today_tit">
-                                        결제 건 수  
-                                    </div>
-                                    <div>
-                                        00건
-                                    </div>
-                                </div>
-                            </div>   
-                            <!-- today_box -->
-
-                            <div class="today_box">
-                                <div class="pro_order_sta">
-                                    <div class="today_tit">
-                                        주문 수 
-                                    </div>
-                                    <div>
-                                       <fmt:formatNumber type="number" maxFractionDigits="3" value="${todayOrderCnt}" />건
-                                    </div>
-                                </div>
-                            </div>   
-                            <!-- today_box -->
-                        </div>
-                        <!-- today_total -->
-                        <div>
-                <div id="dual_x_div" style="width: 80px; height: 180px;"></div>
-                        </div>
-
-                    </div>
-                </div>   
-
-                <div class="quick_m">    
-                    <div class="today_do">
-                        <div class="quick_tit">
-                            <p><b>오늘의 할 일</b></p>
-                        </div>
-
-                        <div class="today_do_li">
-                            <div class="today_box">
-                                <div class="pro_regi_sta">
-                                    <div class="today_tit">
-                                        배송 미처리 
-                                    </div>
-                                    <div>
-                                        00건
-                                    </div>
-                                </div>
-                            </div>   
-
-                            <div class="today_box">
-                                <div class="pro_regi_sta">
-                                    <div class="today_tit">
-                                        교환/환불 신청 
-                                    </div>
-                                    <div>
-                                        00건
-                                    </div>
-                                </div>
-                            </div>   
-
-                            <div class="today_box">
-                                <div class="pro_regi_sta">
-                                    <div class="today_tit">
-                                       1:1 문의 
-                                    </div>
-                                    <div>
-                                        00건
-                                    </div>
-                                </div>
-                            </div>   
-
-                            <div class="today_box">
-                                <div class="pro_regi_sta">
-                                    <div class="today_tit">
-                                        상품 문의 
-                                    </div>
-                                    <div>
-                                        00건
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>  
-                        <!-- today_do_li -->
-                        
-                    </div>
-                    <!-- today_do -->
-                </div>   
-                <!-- quick_m -->
-
+              
             </div>
-            <!-- quick_wrap -->
-
-        </div>
-        <!-- admi_manager -->
+      		     <div id="dual_x_div" style="width: 80px; height: 180px;"></div>
+</div>
+  
 
         <div class="admi_board">
             <div class="quick_b">
@@ -396,8 +223,9 @@
          <form id='faqForm' action="/community/BoardFAQ/list" method='get'></form>
         <form id='noticeForm' action="/community/notice/list" method='get'></form>
     </div>
-    <!-- admi_container -->
+    
 </body>
+	<script src="../resources/js/admin.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     
