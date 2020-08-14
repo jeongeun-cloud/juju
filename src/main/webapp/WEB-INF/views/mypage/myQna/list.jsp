@@ -59,11 +59,12 @@ tr:hover {
 	     margin-top:25px;
 	}
 	
-	.regi_main{
-	   float:  right;
-	   width: 950px;	   
-	   background-color: white;
-}
+.regi_main{
+   float:  right;
+   width: 950px;
+   margin-bottom: 15%;
+   background-color: white;
+} 
 
 .regi_content{
 	   width: 1300px;
@@ -157,17 +158,43 @@ margin-right: 8%;
 	margin-right: 8%;
 }
 
-.pageBtns a{
-    color: #637365;
-    float: right;
+.page_num a{
+     color: #637365;
+    float: left;
     padding: 8px 16px;
     text-decoration: none;
+    
+   
 }
 
-.pagination1 a:hover:not(.active) {
-    background-color: #F0F2F0;
-    border-radius: 50%;
+
+.page_num {
+        display: inline-block;
+        padding-left:50%;
+        float: left;
+        width: 950px
+        }
+        
+        
+    
+.paginations a:hover:not(.active) {
+          background-color:#F0F2F0;
+          border-radius: 50%;
+          }
+          
+.paging{
+    
+ background-color: white;
+ color: #f6dd90;
 }
+
+.default_btn{
+        background-color: #ffc30b;
+        border: solid #ffc30b;
+        border-radius:10px;
+        color:white;
+        }
+        
 
 /* 페이지 버튼 디자인 끝 */
 /* 모달디자인 시작  */
@@ -236,7 +263,6 @@ margin-right: 8%;
     height: 30px;
 }
 
-
  a:link { color: balck; text-decoration: none;}
  a:visited { color: black; text-decoration: none;}
  a:hover { color: #8FA691; text-decoration: none;}
@@ -274,7 +300,7 @@ margin-right: 8%;
       <div class="col-lg-12">
       
       <form id='searchForm' action="/mypage/myQna/list" method='get'>
-      <select name='type' id='selected'>
+      <select id='selected' name='type' id='selected'>
       <option value=""
       <c:out value="${pageMaker.cri.type ==null?'selected':''}"/>>--</option>
       <option value="T"
@@ -287,7 +313,7 @@ margin-right: 8%;
       
       </select>
       
-      <input  type='text' name='keyword' id="keyword" value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+      <input id='keyword'   type='text' name='keyword' id="keyword" value = '<c:out value="${pageMaker.cri.keyword}"/>'>
       <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
       <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
 
@@ -303,6 +329,7 @@ margin-right: 8%;
                <tr>
                   <th>번호</th>    
                   <th>제목</th>   
+                  <th>내용</th>   
                   <th>등록일</th>  
                </tr>
             </thead>
@@ -318,78 +345,56 @@ margin-right: 8%;
 
                   <td><a class ='move'  style='color:black' href='/mypage/myQna/get?postingNo=<c:out value="${myQna.postingNo}"/>'>
                   <c:out value="${myQna.title }" /></a></td>
+                  
+                  <td><c:out value="${myQna.content}" /></td>
                
                   <td><fmt:formatDate pattern="yyyy/MM/dd"
-                        value="${myQna.regDate }" /></td>
-                     
-
+                        value="${myQna.regDate }" /></td>                   
                </tr>
 
             </c:forEach>
             </tbody>
 
          </table>
-         
-         
-         
-         
-   
-         
-               
+              
       <!-- Paging -->
-         <div class='pageBtns'  >
-            <ul class="pagination1">
-            
-               <c:if test="${pageMaker.prev}">
-               <li class="paginate_button1 pervious">
-               <a href="${pageMaker.startPage -1}">Previous</a>
-               </li>
-               </c:if>
-               
-               <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-               <li class='paginate_button1 ${pageMaker.cri.pageNum == num? "active":""}'>
-               <a class="paging" href="/mypage/myQna/list/page/${num}">${num}</a></li>
-               </c:forEach>
-               
-               <c:if test="${pageMaker.next}">
-               <li class="paginate_button1 next">
-               <a href="${pageMaker.endPage +1}">Next</a>
-               </li>
-               </c:if>
-            
-            </ul>
-         </div><!-- endPaging -->
+       <div class='page_num'>
+                            <ul class="paginations">
+                                <c:if test="${pageMaker.prev}">
+                                    <li class="paginate_button previous">
+                                        <a href="${pageMaker.startPage -1}">&laquo;</a>
+                                    </li>
+                                </c:if>
+        
+                                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                                    <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                                          <a class="paging" href="/mypage/myQna/list/page/${num}">${num}</a></li>
+                                
+                                </c:forEach>
+        
+                                <c:if test="${pageMaker.next}">
+                                    <li class="paginate_button next">
+                                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
+                                    </li>
+                                </c:if>
+                            </ul> 
+                        </div>
+                        <!-- end pagination -->
          <input type="hidden" id="total" value="${total}">
          <!-- paging form
          <form id='actionForm' action="/mypage/myQna/list" method='get'>
             <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
              <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-         </form> paging form end-->
-
-         
+         </form> paging form end-->     
 
       </div>
       <!-- p2-->
-      
-      
-      
-      
-      
-      
+              
 </div>
-<!-- regi_main 끝 -->      
-      
-      
-      
-      
-      
-      
-      
+<!-- regi_main 끝 -->        
       
 </div>
 <!-- regi_content 끝 -->
-</div>      
-<!-- regi_wrap 끝 -->
       
       
 <script type="text/javascript">
@@ -440,8 +445,11 @@ margin-right: 8%;
             			str += "<td>"+ (total.val() - myQnA.rn + 1) +"</td>"
             			str += "<td><a href='/mypage/myQna/get?postingNo="+myQnA.postingNo+"'>"+myQnA.title+"</a></td>";
             	        var regDate = myQnA.regDate;
+            	        var content = myQnA.content;
             	        var date = new Date(regDate);
+            	        str += '<td>'+content+'</td>';
             	        str += '<td>'+formatDate(date)+'</td>';
+            	  
             	        tr.innerHTML = str;
             	        myQnATable.append($(tr));
             		}
@@ -473,6 +481,8 @@ margin-right: 8%;
                   });
                   
                });
+      	
+      	
                     
 /*             $(".paginate_button1 a").on("click", function(e){
                e.preventDefault();
@@ -515,8 +525,6 @@ margin-right: 8%;
             
             <!--검색 스크립트 end-->
       </script>
-
-
 
 
    <%@include file="../../includes/footer.jsp" %>   
