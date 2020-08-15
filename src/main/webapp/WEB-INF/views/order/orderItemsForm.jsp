@@ -664,7 +664,7 @@ function paymentComplete() {
       guestInsert();
       
    }else if(idNo.value.substring(0,1)=="u"){
-	  socialMemUpdate(); 
+     socialMemUpdate(); 
    }
    
    
@@ -723,7 +723,7 @@ function paymentComplete() {
             deletefromBasket(baskIdArr[i]);
          }
          
-      }, 500);
+      }, 2000);
       
       
    }).then(function(){
@@ -733,7 +733,7 @@ function paymentComplete() {
       // orderResult 페이지로 넘어가기 
       location.href = "/order/orderResult" + "?orderCode=" + orderCode;
       
-      }, 1000);
+      }, 3000);
    })
    
    
@@ -744,25 +744,25 @@ function paymentComplete() {
 
 
 function socialMemUpdate() {
-	
-	var socialData = {
-		memName : memName.val(),
-		contact : contact.val(),
-		emailAccount : email.val(),
-		idNo : idNo.value	
-	}
-	
-	
-	 return $.ajax({
-	      url: "/order/socialMemUpdate",
-	      type: "POST",
-	      data: JSON.stringify(socialData),
-	      contentType: "application/json",
-	      error : function(){console.log("socialMemUpdate 통신실패")},
-	       success : function(){console.log("socialMemUpdate 통신성공")}
-	   }); 
-	
-	
+   
+   var socialData = {
+      memName : memName.val(),
+      contact : contact.val(),
+      emailAccount : email.val(),
+      idNo : idNo.value   
+   }
+   
+   
+    return $.ajax({
+         url: "/order/socialMemUpdate",
+         type: "POST",
+         data: JSON.stringify(socialData),
+         contentType: "application/json",
+         error : function(){console.log("socialMemUpdate 통신실패")},
+          success : function(){console.log("socialMemUpdate 통신성공")}
+      }); 
+   
+   
 }
 
 
@@ -1090,14 +1090,14 @@ function init() {
       
       
       if (recentDelivery.is(":checked")) {
-    	  
-    	  if(recentReceiver.val()=="") {
-    		  alert("최근 주문 내역이 없습니다.");
-    		  recentDelivery.prop('checked',false);
-    		  return;
-    	  }
-    	  
-    	  
+         
+         if(recentReceiver.val()=="") {
+            alert("최근 주문 내역이 없습니다.");
+            recentDelivery.prop('checked',false);
+            return;
+         }
+         
+         
          receiver.val(recentReceiver.val());
          receivContact.val(recentReceivContact.val());
          roadAddress.val(raddrs[0]); // 도로명 주소
@@ -1139,14 +1139,14 @@ function init() {
      
         // 비회원 주문일때만 진행
       } else if (idNo.value=="") {
-    	  if(!(pwdCheck())){
+         if(!(pwdCheck())){
               return false;
            }else if(!(pwdChk.val()===pwd.val())){
               alert("비밀번호가 일치하지 않습니다.");
               pwdChk.focus();
               return false;
            }else {
-        	// 유효성 테스트 다 통과했으면 결제 서비스 시작
+           // 유효성 테스트 다 통과했으면 결제 서비스 시작
                paymentSystem();
            }
       } else {
@@ -1236,7 +1236,7 @@ function init() {
    // [주문 비밀번호] 입력값 유효성 check
    function pwdCheck() {
       
-	   let regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+      let regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
       
       if (pwd.val().trim() == "" || pwd.val() == null) {
          alert("비밀번호를 입력해주세요.");

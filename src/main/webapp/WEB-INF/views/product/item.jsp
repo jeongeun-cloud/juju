@@ -444,7 +444,7 @@ margin-left: 15%;
        color: red;
    }
    
-   #starAvg p, span {
+   #starAvg p, #resultStar span {
          font-size : 25px;
    }
    
