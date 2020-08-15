@@ -19,7 +19,7 @@
             position: absolute;
             width: 500px;
             left: 50%;
-            top: 65%;
+            top: 75%;
             transform: translate(-50%, -50%);
             float: left;
             background-color: #FFFFFF;
@@ -186,6 +186,11 @@
         	color: #8FA691;
         }
         
+        .emailBtns:hover {
+        	background-color: #8FA691;
+        	color: #FFFFFF;
+        }
+        
         #findPwd, #modifyPwd {
         	display: none;
         }
@@ -197,9 +202,31 @@
         	color: #FFFFFF;
         }
         
+        input[type=radio] {
+			margin-left: 100px;
+        }
+        
         #submitBtn {
         	padding: 18px 175px;
         }
+        
+        #resultUI{
+        	margin : 10px 0px 40px 40px;
+        	padding : 0px 19px;
+        }
+        
+        p {
+		margin-left: 40px;
+        }
+        
+       #pwdChkMessage {
+         font-size : 12px;
+         margin-left: 50px;
+         margin-bottom: 10px;
+        }
+      
+      
+      
 </style>
 </head>
 
@@ -230,9 +257,9 @@
 							</div>
 							<button type="submit" id="findIdBtn">확인</button>
                     </div>
+                    <form action="/member/findIdPwd" method="POST">
                     <div class="cont_text_inputs" id="findPwd">
-                    	<form action="/member/findIdPwd" method="POST">
-						가입된 이메일 주소로 인증번호를 받아 확인해주세요<br> 
+						&ensp; &ensp; &ensp; &ensp;*가입된 이메일 주소로 인증번호를 받아 확인해주세요<br> 
 						<input type="text" id="emailAccount" name="emailAccount" placeholder="이메일을 입력해주세요"> 
 						<input type="hidden" id="duplicateCheck">
 						<input type="hidden" id="duplicateCheckResult" value="false">
@@ -243,12 +270,13 @@
 						<input type="hidden" id="authResult" value="false">
                     </div>
                     <div class="cont_text_inputs" id="modifyPwd">
-                    	새로운 비밀번호로 수정해주세요<br> 
+                    	 <p>새로운 비밀번호를 입력해주세요.</p>
 						<input type="password" id="newPwd" name="pwd" placeholder="새로운 비밀번호"><br> 
-						<input type="password" id="newPwdChk" placeholder="비밀번호 확인"><br>
+						<input type="password" id="newPwdChk" placeholder="비밀번호 확인">
+						<div id="pwdChkMessage"></div>
 						<button type="submit" id="submitBtn">저장하기</button>
-						</form>
                     </div>
+					</form>
             </div>
 
         </div>
@@ -280,10 +308,27 @@
 		let submitBtn = $("#submitBtn");
 		let emailDuplicateCheckBtn = $("#emailDuplicateCheckBtn");
 		let duplicateCheckResult = $("#duplicateCheckResult");
+        let pwdChkMessage = $("#pwdChkMessage");
+        let newPwd = $("#newPwd");
+        let newPwdChk = $("#newPwdChk");
+        let formObj = $("form");
 		
 		let tab1 = $("#tab1");
 		let tab2 = $("#tab2");
 		findIdDiv.css("display", "block");
+		
+		
+		submitBtn.click(function(e){
+			e.preventDefault();
+			if (!(pwdCheck())) {
+				return false;
+			} else if (newPwdChk.val() != newPwd.val()) {
+				newPwdChk.focus();
+				return false;
+	        } else {
+	        	formObj.submit();
+	        }
+		})
 		
 		
 		tab1.click(function(e){
@@ -332,6 +377,37 @@
 			
 		});
 		
+		
+		newPwdChk.keyup(function () {
+            if (newPwdChk.val() == newPwd.val()) {
+               pwdChkMessage.html("비밀번호와 비밀번호 확인이 일치합니다.");
+               pwdChkMessage.css("color", "green");
+            } else {
+               pwdChkMessage.html("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+               pwdChkMessage.css("color", "red");
+            }
+         });
+
+		
+		function pwdCheck() {
+            let regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+            if (newPwd.val().trim() == "" || newPwd.val() == null) {
+               alert("비밀번호를 입력해주세요.");
+               newPwd.focus();
+               return false;
+            } else if (newPwd.val().length > 20) {
+               alert("20자까지만 입력할 수 있습니다.")
+               newPwd.focus();
+               return false;
+            } else if (!regExp.test(newPwd.val())) {
+               alert("패스워드는 6~12자 사이의 문자+숫자 조합으로 입력해주세요.");
+               newPwd.focus();
+               return false
+            } else {
+               return true;
+            }
+         };
+		
 		function showResult(emailResults){
 			
 			let resultUl = $("#resultUl");
@@ -344,6 +420,7 @@
 				resultUl.html(str);
 			
 		}
+		
 
 		//memberInfo는 아이디찾기에서 입력하는 이름, 연락처 정보임
 		function findId(memberInfo){
@@ -367,7 +444,6 @@
 				findIdDiv.css("display", "none");
 				findIdDiv.find("input").val("");
 				findPwd.css("display", "none");
-				findPwd.find("input").val("");
 				modifyPwd.css("display", "block");
 			} else {
 				alert("이메일 인증에 실패했습니다.");
@@ -394,7 +470,7 @@
 					emailAuth(email)
 					.then(function(response){
 						alert("인증번호가 발송되었습니다");
-						//console.log(response); 
+						console.log(response); 
 						tempCode.val(response);
 					})
 					.catch(function(error){

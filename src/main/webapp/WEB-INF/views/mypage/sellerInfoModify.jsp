@@ -46,10 +46,8 @@ th, td {
 }
 
 th {
-   background-color: #8FA691; 
-   color: white;
+    color: #404040;
     height: 40px;
-   text-align: left;
 }
 
 tr:hover {
@@ -219,6 +217,16 @@ a {
    color: black;
 }
 
+.tHead{
+	text-align: justify;
+}
+
+input[readonly=readonly]{
+	border: none;
+	outline: none;
+	background: none;
+}
+
 </style>
 </head>
 <body>
@@ -244,39 +252,39 @@ a {
 	<form action="/mypage/sellerInfoModify" id="sellerInfoModify"
 		method="post" enctype="multipart/form-data">
 
-				<table border="1" cellpadding="0" cellspacing="0">
+				<table cellpadding="0" cellspacing="0">
 					<colgroup>
 						<col width="150" />
 						<col width="400" />
 					</colgroup>
 
 					<tr>
-						<th>이메일 계정</th>
+						<th class="tHead">이메일 계정</th>
 						<td><input type="text" id="emailAccount" name="emailAccount"
 							value="${sellerInfo.emailAccount}" readonly="readonly" placeholder="readonly"></td>
 
 					</tr>
 					<tr>
-						<th>회원이름</th>
+						<th class="tHead">회원이름</th>
 						<td><input type="text" id="memName" name="memName"
 							value="${sellerInfo.memName}" placeholder="필수입력"></td>
 					</tr>
 					<tr>
-						<th>상점이름</th>
+						<th class="tHead">상점이름</th>
 						<td><input type="text" id="shopName" name="shopName" value="${sellerInfo.shopName}" placeholder="필수입력" ></td>
 					</tr>
 					<tr>
-						<th>연락처1</th>
+						<th class="tHead">연락처1</th>
 						<td><input type="text" id="contact1" name="contact1"
 							value="${sellerInfo.contact1}"  placeholder="필수입력"></td>
 					</tr>
 					<tr>
-						<th>연락처2</th>
+						<th class="tHead">연락처2</th>
 						<td><input type="text" id="contact2" name="contact2"
 							value="${sellerInfo.contact2}"></td>
 					</tr>
 					<tr>
-						<th>주소</th>
+						<th class="tHead">주소</th>
 						<td>우편번호: <input type="text" id="postCode" name="postCode" size="5" value="${sellerInfo.postCode}" readonly="readonly"> 
 					<a class="daumApi" id="memApi" href="">우편번호검색</a> <br>
 					도로명 주소: <input type="text" id="roadAddr" name="roadAddr" size="50" readonly="readonly"/><br>
@@ -285,7 +293,7 @@ a {
 					<input type="hidden" id="jibunAddr" name="jibunAddr" size="50" value="" /></td>
 					</tr>
 					<tr>
-						<th>상점주소</th>
+						<th class="tHead">상점주소</th>
 						<td>우편번호: <input type="text" id="shopPostCode" name="shopPostCode" size="5" value="${sellerInfo.shopPostCode}" readonly="readonly"> 
 						<a class="daumApi" id="shopApi" href="">우편번호검색</a> <br>
 						도로명 주소: <input type="text" id="shopRoadAddr" name="shopRoadAddr" size="50" readonly="readonly"/><br>
@@ -294,7 +302,7 @@ a {
 						<input type="hidden" id="jibunAddr" name="jibunAddr" size="50" value="" /></td>
 					</tr>
 					<tr>
-						<th>계좌번호</th>
+						<th class="tHead">계좌번호</th>
 						<td><select id="bank" name="bank">
 								<option value="은행선택">은행선택</option>
 								<option value="신한은행">신한은행</option>
@@ -308,12 +316,12 @@ a {
 					</tr>
 
 					<tr>
-						<th>썸네일 변경<input type="file" style="color:transparent"  id="thumbImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg">
+						<th class="tHead">썸네일 변경<input type="file" style="color:transparent"  id="thumbImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg">
 						<td><img src='/resources/seller/<c:out value="${sellerInfo.businessCode}"/>/<c:out value="${sellerInfo.thumbImg}"/>'></td>
 					</tr>
 
 					<tr>
-						<th>배경이미지 변경<input type="file" style="color:transparent" id="backImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" >
+						<th class="tHead">배경이미지 변경<input type="file" style="color:transparent" id="backImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" >
 						</th>
 						
 						<td>

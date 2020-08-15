@@ -8,31 +8,30 @@
 <link rel="stylesheet" href="style.css">
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <style>
-      *{
-      margin: 0px auto;
-      }
+		body {
+		 margin: 0px auto;
+		 background-color: #F0F2F0;
+		}
+
       
         .cont_principal {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            /* Rectangle 3: */
-            background-image: linear-gradient(-87deg, #F2F5F6 0%, #DDE5E8 100%);
+             background-color: #F0F2F0;
         }
 
         .cont_centrar {
             position: absolute;
             width: 500px;
             left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            top: 10%;
+            transform: translate(-50%, 0%);
             float: left;
             background-color: #FFFFFF;
-            border-radius: 8px;
             transition: all 0.5s;
             padding: 40px 0px;
             box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.21);
+			margin-bottom: 50px;
         }
+        
 
         .cent_active {
             box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.21);
@@ -43,6 +42,7 @@
             position: relative;
             float: left;
             width: 100%;
+            margin-bottom: 8px;
         }
 
         .ul_tabs>li {
@@ -90,7 +90,6 @@
             position: relative;
             float: left;
             width: 100%;
-            margin-top: 20px;
         }
         
         input[type=text] {
@@ -124,18 +123,23 @@
         button, input[type="submit"] {
            background-color: #FFFFFF;
            border: 1px solid #8FA691;
-           border-radius: 5px;
            margin: 0;
            outline: none;
            color: #8FA691;
            margin-left: 40px;
-           padding: 15px 175px;
+           padding: 14px 173.5px;
            cursor: pointer;
            margin-bottom: 5px;
+
+        }
+        
+        button:hover , input[type="submit"]:hover {
+        	background-color: #8FA691;
+        	color: #FFFFFF;
         }
         
         #emailSendBtn {
-           padding: 15px 162px;
+           padding: 14px 160px;
         }
 
         .input_form_sign {
@@ -174,12 +178,15 @@
         }
         
         #emailAuthMessage {
-           margin-left: 40px;
+           font-size : 12px;
+           margin-left: 50px;
            margin-bottom: 10px;
         }
         
         #pwdChkMessage {
-           margin-left: 40px;
+           font-size : 12px;
+           margin-left: 50px;
+           margin-bottom: 10px;
         }
         
         .infoDiv, #prev, #submitBtn {
@@ -187,10 +194,23 @@
         }
         
         .cont_btn button, input[type="submit"] {
-            margin-left: 40px;
-           padding: 18px 188px;
+           margin-left: 40px;
+           padding: 18px 186.5px;
            background-color: #8FA691;
            color: #FFFFFF;
+        }
+        
+        p {
+        color: red;
+        font-size: 12px;
+		text-align: right;
+		margin-right: 60px;
+        }
+        
+        h3 {
+         color: #404040;
+         text-align: center;
+         margin: 0px;
         }
 </style>
 
@@ -208,23 +228,25 @@
     <div class="cont_principal">
 
         <div class="cont_centrar">
+        	<h3>일반회원가입</h3>
             <div class="cont_login">
           <form action ="/member/customerJoinForm" id="customerJoinForm" method = "post">
                     <div class="cont_tabs_login">
                         <ul class='ul_tabs'>
-                            <li id="progress1" class="active"><a>step1</a>
+                            <li id="progress1" class="active"><a>이메일인증</a>
                                 <span class="linea_bajo_nom"></span>
                             </li>
-                            <li id="progress2"><a>step2</a><span class="linea_bajo_nom"></span>
+                            <li id="progress2"><a>가입정보</a><span class="linea_bajo_nom"></span>
                             </li>
                         </ul>
                     </div>
+                    <p>*필수 입력 사항입니다.</p>
                     <div class="cont_text_inputs emailDiv">
-                          <input type="text" id="emailAccount" name="emailAccount" placeholder="이메일입력"><button id="emailDuplicateCheckBtn">중복확인</button> <br>
+                          <input type="text" id="emailAccount" name="emailAccount" placeholder="*이메일주소"><button id="emailDuplicateCheckBtn">중복확인</button> <br>
                      <input type="hidden" id="duplicateCheck">
                      <input type="hidden" id="duplicateCheckResult" value="false">
                         <button id="emailSendBtn">인증번호받기</button>
-                        <input type="text" id="inputCode" placeholder="인증번호입력">
+                        <input type="text" id="inputCode" placeholder="*인증번호입력">
                         <div id="emailAuthMessage">
                      </div>
                         <button id="emailAuthBtn">인증하기</button>
@@ -233,11 +255,11 @@
                     </div>
                     <div class="cont_text_inputs infoDiv">
                        <input type="text" id="emailTmp" readonly="readonly">
-                       <input type="password" id="pwd" name="pwd" placeholder="비밀번호(6~12자 영문+숫자)"> <br>
-                       <input type="password" id="pwdChk" name="pwdChk" placeholder="비밀번호확인">
+                       <input type="password" id="pwd" name="pwd" placeholder="*비밀번호(6~12자 영문+숫자)"> <br>
+                       <input type="password" id="pwdChk" name="pwdChk" placeholder="*비밀번호확인">
                      <div id="pwdChkMessage">
                      </div>
-                          <input type="text" id="memName" name="memName" placeholder="회원이름"> <br>
+                          <input type="text" id="memName" name="memName" placeholder="*회원이름"> <br>
                   <input type="text" id="contact" name="contact" placeholder="전화번호(XXX-XXXX-XXXX)"> <br>
                         <button id="searchPostCode">주소검색</button><br>
                      <input type="text" id="postCode" name="postCode" size="5" value="" placeholder="우편번호" readonly="readonly"> 
@@ -247,9 +269,9 @@
                      <input type="hidden" id="jibunAddr" name="jibunAddr" size="50" value="" />
                     </div>
                     <div class="cont_btn">
-                        <button id="next">다음</button>
-                  <button id="prev">이전</button>
-                  <button id="submitBtn">가입</button>
+                    <button id="next">다음</button>
+                  	<button id="prev">이전</button>
+                  	<button id="submitBtn">가입</button>
                     </div>
                 </form>
             </div>
@@ -366,12 +388,12 @@
             
             //return true일때와 각 input항목 유효성검사, 정규식 처리 이후 가입하기 submit 되도록 처리하기             
             if(inputCode.val()==tempCode.val()){
-               emailAuthMessage.html("이메일 인증에 성공했습니다.");
+               emailAuthMessage.html("*이메일 인증에 성공했습니다.");
                emailAuthMessage.css("color", "green");
                authResult.val("true");
                inputCode.val("");
             } else {
-               emailAuthMessage.html("이메일 인증에 실패했습니다.");
+               emailAuthMessage.html("*이메일 인증에 실패했습니다.");
                emailAuthMessage.css("color", "red");
                inputCode.val("");
             }
@@ -394,7 +416,7 @@
             emailAuth(email)
             .then(function(response){
                alert("인증번호가 발송되었습니다");
-               //console.log(response);
+               console.log(response);
                tempCode.val(response);
             })
             //자바의 트라이캐치문때문에 빨간줄이 떴다안떴다하는듯? 상관X 
@@ -441,10 +463,10 @@
          
          pwdChk.keyup(function(){
             if(pwdChk.val()==pwd.val()){
-               pwdChkMessage.html("비밀번호와 비밀번호 확인이 일치합니다.");
+               pwdChkMessage.html("*비밀번호와 비밀번호 확인이 일치합니다.");
                pwdChkMessage.css("color", "green");
             } else {
-               pwdChkMessage.html("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+               pwdChkMessage.html("*비밀번호와 비밀번호 확인이 일치하지 않습니다.");
                pwdChkMessage.css("color", "red");
             }
          });

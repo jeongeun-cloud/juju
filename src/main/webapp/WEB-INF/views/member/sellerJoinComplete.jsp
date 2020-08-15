@@ -33,6 +33,7 @@
 	.tdHead {
 	  width: 150px;
 	  font-weight: bold;
+	  text-align: justify;
 	}
 	
 	tr {

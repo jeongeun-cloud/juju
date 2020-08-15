@@ -280,9 +280,9 @@ a {
    <form action="/mypage/modifyPwd" id="modifyPwd" method="post">
 
          <div class="modifyPwd">
-            <label>현재 비밀번호:</label><input type="password" name="pwd" id="pwd" placeholder="현재 비밀번호를 입력해주세요"><br> 
-			<label>새로운 비밀번호:</label><input type="password" id="newPwd" name="newPwd" placeholder="비밀번호는 6~12자의 영문+숫자입니다."><br>
-			<label>비밀번호 확인 :</label><input type="password" id="newPwdChk" placeholder="새로운 비밀번호를 한 번 더 입력해주세요."><br>
+            <label>현재 비밀번호 </label><input type="password" name="pwd" id="pwd" placeholder="현재 비밀번호를 입력해주세요"><br> 
+			<label>새로운 비밀번호 </label><input type="password" id="newPwd" name="newPwd" placeholder="비밀번호는 6~12자의 영문+숫자입니다."><br>
+			<label>비밀번호 확인  </label><input type="password" id="newPwdChk" placeholder="새로운 비밀번호를 한 번 더 입력해주세요."><br>
             <input type="hidden" id="idNo" name="idNo" value="${sessionMember.idNo}">
             <br>
             <button type="submit" id="submitBtn">비밀번호변경하기</button>

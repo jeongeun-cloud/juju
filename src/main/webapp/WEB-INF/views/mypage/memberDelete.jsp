@@ -250,7 +250,7 @@ a {
       
       label {
         padding-right: 5px;
-        width: 130px;
+        width: 90px;
         font-size: 16px;
         margin: 0;
         position: relative;
@@ -301,8 +301,8 @@ a {
 			</div> --%>
 
 			<div class="deleteMemberInfo">
-				<label>비밀번호:</label><input type="password" name="pwd" id="pwd" placeholder="현재 비밀번호를 입력해주세요"><br> 
-				<label>탈퇴사유:</label><input type="text" name="reason" id="reason" placeholder="탈퇴 사유를 300자 이내로 입력해주세요"><br>
+				<label>비밀번호 </label><input type="password" name="pwd" id="pwd" placeholder="현재 비밀번호를 입력해주세요"><br> 
+				<label>탈퇴사유 </label><input type="text" name="reason" id="reason" placeholder="탈퇴 사유를 300자 이내로 입력해주세요"><br>
 				<input type="hidden" id="idNo" name="idNo" value="${sessionMember.idNo}">
 				<br>
 				<button type="submit" id="submitBtn">탈퇴하기</button>
