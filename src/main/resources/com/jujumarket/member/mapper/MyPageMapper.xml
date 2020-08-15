@@ -75,7 +75,7 @@
 		select * 
 		from(
         
-        	select Rank()over(order by OI.orderDate desc) as rn, OI.orderCode, OI.orderDate, OI.itemNum, OI.totalPrice, O.orderStat, I.idNo, I.itemImg1, I.itemName, C.fullpath, S.shopName
+        	select Rank()over(order by OI.orderDate desc) as rn, OI.orderCode, OI.orderDate, OI.itemNum, OI.totalPrice, O.orderStat, I.idNo, I.itemImg1, I.itemName, I.itemCode, C.fullpath, S.shopName
 			from t_order O, t_order_info OI, t_item I, t_category C, m_shop S
 			where OI.orderCode = O.orderCode
 			and O.idNo = #{idNo}
