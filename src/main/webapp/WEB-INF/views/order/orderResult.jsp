@@ -15,7 +15,7 @@
 
 
    #containerOFAll {
-      width:1300px;
+      width:80%;
       height:100%;
       margin: 0 auto;
       color: #303030;
@@ -43,7 +43,7 @@
 
             position:absolute;
             bottom:0px;
-            right:0px;
+            right:0;
 
         }
 
@@ -88,7 +88,7 @@
       .button2,
       .button3,
       .button4 {
-       background-color: #ffc30b; 
+       background-color: #637365; 
         border: none;
         color: white;
         padding: 16px 32px;
@@ -107,8 +107,8 @@
       .button3:hover,
       .button4:hover {
         background-color: white; 
-        color: #ffc30b; 
-        border: 2px solid #ffc30b;
+        color: #637365; 
+        border: 2px solid #637365;
       }
       
       .button1:focus,
@@ -124,8 +124,8 @@
       /* 
       .btn-primary {
          color: white;
-         background-color: #ffc30b;
-         border-color: #ffc30b;
+         background-color: #637365;
+         border-color: #637365;
          
          
       }
@@ -138,12 +138,12 @@
       
       /* button:active{
          background-color: pink; 
-         color:#ffc30b;
+         color:#637365;
       }
       
       button:visited{
          background-color: white; 
-         color:#ffc30b;
+         color:#637365;
       }
        */
       
@@ -185,7 +185,7 @@
       
         #basketItemImg {
     
-    	width: 200px;
+    	width: 80px;
     
     }
     
@@ -283,12 +283,12 @@
 
             <c:forEach var="item" items="${itemList}">
                <tr cellpadding="40" align=center>
-                  <td><img id="basketItemImg" src="/resources/upload/<c:out value="${item.sellerId}"/>/<c:out value="${item.itemImg1}"/>"></td>
-                  <td><c:out value="${item.itemName}"></c:out></td>
-                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" /></td>
-                  <td><c:out value="${item.itemNum}"></c:out></td>
-                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.disAmount}" /></td>
-                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.totalPrice}" /></td>
+                  <td class="tableLine"><img id="basketItemImg" src="/resources/upload/<c:out value="${item.sellerId}"/>/<c:out value="${item.itemImg1}"/>"></td>
+                  <td class="tableLine"><c:out value="${item.itemName}"></c:out></td>
+                  <td class="tableLine"><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" /></td>
+                  <td class="tableLine"><c:out value="${item.itemNum}"></c:out></td>
+                  <td class="tableLine"><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.disAmount}" /></td>
+                  <td class="tableLine"><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.totalPrice}" /></td>
                </tr>
                
             </c:forEach>

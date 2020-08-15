@@ -23,9 +23,9 @@
 
 
         #containerOFAll {
-            width:1300px;
+            width:80%;
             height:100%;
-            margin:0% 22% 15% 22% ;
+            margin:0 auto;
 
             color: #303030;
             text-align:center;
@@ -105,7 +105,7 @@
 
             position:absolute;
             bottom:0px;
-            right:0px;
+            right:8%;
 
         }
 
@@ -185,7 +185,7 @@
         }
 
         #thumbnailImg {
-            width: 200px;
+            width: 80px;
             margin: 5px;
         }
 
@@ -200,22 +200,13 @@
             border:none;
             border-radius:10%;
             
-            float:left;
+            float:right;
         }
         
         #dltBtn:hover {
         background-color: white; 
         color: #8FA691; 
         border: 2px solid #8FA691;
-        }
-
-        
-        
-        
-        #thumbnailImg {
-        
-           width: 80px;
-        
         }
 
 
@@ -235,7 +226,7 @@
          margin-top: 50px;
          width: 200px;
          
-         float:left;
+         float:right;
       }
          
 

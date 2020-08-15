@@ -30,11 +30,15 @@
    <style>
 
 
-
+    #tableBody{
+    
+    
+    }
+    
 
 
     #containerOFAll {
-        width:1300px;
+        width:80%;
         height:100%;
         margin: 0 auto;
 
@@ -73,7 +77,7 @@
 
 
     #submitBtn {
-    background-color: #ffc30b; 
+    background-color: #637365; 
     border: none;
     color: white;
     padding: 16px 32px;
@@ -89,12 +93,12 @@
 
     #submitBtn:hover {
     background-color: white; 
-    color: #ffc30b; 
-    border: 2px solid #ffc30b;
+    color: #637365; 
+    border: 2px solid #637365;
     }
 
     #submitBtn {
-    background-color: #ffc30b;
+    background-color: #637365;
     color: white;
     
     }
@@ -129,7 +133,7 @@
 
         position:absolute;
         bottom:0px;
-        right:0px;
+        right:8%;
 
     }
 
@@ -162,9 +166,6 @@
         height: 120px;
     }
 
-    #thumbnailImg {
-        width: 200px;
-    }
 
 
 
@@ -251,7 +252,7 @@
    
     #basketItemImg {
     
-       width: 200px;
+       width: 80px;
     
     }
     
@@ -309,7 +310,7 @@
    <form action="orderResult" id="orderResult" method="post">      
       <!--    <form name="form_order"> -->
       <table class="list_view">
-         <tbody align=center>
+         <tbody id="tableBody" align=center>
             <tr>
             <tr align=center class="fixed">
 
@@ -384,14 +385,14 @@
       
       <table width=80% class="list_view">
          <tbody>
-            <td class="fixed join">배송비</td>
-            <td class="fixed join"><fmt:formatNumber type="number" maxFractionDigits="3" value="2500" /></td>
+            <td class="fixed join" style="width:40%;">배송비</td>
+            <td class="fixed join"  style="width:40%;"><fmt:formatNumber type="number" maxFractionDigits="3" value="2500" />원</td>
          </tbody>
       </table>
       <table width=80% class="list_view">
          <tbody>
-            <td class="fixed join">최종 결제금액</td>
-            <td class="fixed join"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay+2500}" /></td>
+            <td class="fixed join" style="width:40%;">최종 결제금액</td>
+            <td class="fixed join"  style="width:40%;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay+2500}" />원</td>
          </tbody>
       </table>
       <!-- 가져다 쓰기 위한 hidden input 태그들  -->
