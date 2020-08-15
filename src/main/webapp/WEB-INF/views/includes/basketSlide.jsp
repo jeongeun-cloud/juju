@@ -226,7 +226,7 @@
        
        #emptyBasketImgDiv {
        	width: 50%;
-       	margin-top: 30%;
+       	margin-top: 40%;
        	margin-left: 25%;
        }
        
@@ -472,7 +472,7 @@ var id = document.getElementById("hiddenId").value;
       console.log("결과 : " + jsonData)
       
       if(jsonData.length==1) {
-    	  $basketList.append("<div id='emptyBasketImgDiv'><img id='emptyBasketImg' src='/resources/images/emptyBasket.png'></div>");
+    	  $basketList.append("<div id='emptyBasketImgDiv'><img id='emptyBasketImg' src='/resources/images/emptyBasketNew.png'></div>");
       }
       
       
