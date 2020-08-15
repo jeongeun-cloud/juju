@@ -27,19 +27,16 @@
 	margin-left:5px;
 	font-weight:800;
 	}
-
     .quick_wrap{
         margin-top:20px;
         
     }
-
     .admi_board{
         display: inline-block;
         position: relative;
         width: 100%;
         /* border: solid blue; */
         height: 450px;
-
         
     }
     .quick_b{
@@ -233,17 +230,14 @@
     var noticeForm = $("#noticeForm");
     $(".move").on("click",function(e){
         
-
         e.preventDefault();
         noticeForm.append("<input type='hidden' name='postingNo' value = '" + $(this).attr("href") + "'>");
         noticeForm.attr("action", "/community/notice/get");
         noticeForm.submit();
-
      });
     var faqForm = $("#faqForm");
     $(".move2").on("click",function(e){
         
-
         e.preventDefault();
         faqForm.append("<input type='hidden' name='postingNo' value = '" + $(this).attr("href") + "'>");
         faqForm.attr("action", "/community/BoardFAQ/get");
@@ -253,14 +247,12 @@
     
     google.charts.load('current', {'packages':['bar']});
     google.charts.setOnLoadCallback(drawStuff);
-
     function drawStuff() {
       var data = new google.visualization.arrayToDataTable([
         ['DAY', '판매량'],
        	${tt}
     
       ]);
-
       var options = {
         width: 400,
         chart: {
@@ -270,7 +262,6 @@
         bars: 'horizontal', // Required for Material Bar Charts.
         
       };
-
     var chart = new google.charts.Bar(document.getElementById('dual_x_div'));
     chart.draw(data, options);
   }

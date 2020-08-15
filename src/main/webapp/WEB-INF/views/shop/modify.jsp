@@ -6,10 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
-<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <style>
+<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+<link rel="stylesheet"  href="../resources/css/admin.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
          td{
          border-bottom: 1px solid #ddd;
          padding: 8px;
@@ -17,12 +21,17 @@
               }
          li{
             list-style: none;
-            float: left;
         }
         a{
 	   	text-decoration: none;
 	  	 color: #303030;
+	  	 font-size: 17px;
 	   }
+	   
+	   .modi_form{
+        	margin-top:50px;
+            margin-left: 100px;
+        }
 	    .select_img1 ,
         .select_img2 ,
         .select_img3 ,
@@ -32,7 +41,6 @@
         height:100px;
         position:relative;
         overflow:hidden;
-
         }
          
         .select_img1 img,
@@ -50,75 +58,27 @@
            left:0;
            right:0;
         }
-        .get_menu a{
-            text-decoration: none;
-            color: #303030;
-            font-size: 17px;
-        }
-        .modi_content{
-            width: 1300px;
-            height: 100%;
-            margin:0 auto;
-            
-         }
-        .modi_wrap{
-                 
-            position: relative;
-            display: inline-block;
-            padding-top: 30px;
-           
-                
-             }
-        .side{
-         width: 300px;	     
-	     float: left;
-	     margin-right: 20px;
-	     margin-top:25px;
-           
-         }
-        .modi_side_tit{
-            padding-top: 12px;
-            padding-bottom:12px ;
-            text-align: center;
-            width: 100%;
-          
-            background-color: #ffc30b;
-            font-size: 20px;
-            font-weight: 900;
-            
-
-         }
-        .modi_main{
-            float:  right;
-            /* width: 980px;     */   
-            background-color: white;
-        } 
         
-        .modi_form{
-            margin: 50px 100px 0 100px;
-
-        }
-        .container label{
-            font-size: 20px;
-            font-weight: 900;
+        .regi_btn{
+            float: right;
+           
             
         }
-        .container{
-            margin-bottom:20px;
-        }
-        .modi_main .title {
+       .mainContent .title {
         margin-left: 100px;
-        }
-        .modi_main h3{
+        } 
+        .mainContent h3{
         font-weight:500;
         font-size:24px;
         margin-bottom:10px;
         }
-        .modi_main p{
+        .mainContent p{
             color: #b9b9b9;
             margin-top:0;
             
         }
+      
+    
         /* 버튼 */
         .modi_btn #uploadBtn,
         .modi_btn #rBtn,
@@ -133,6 +93,7 @@
             font-size: 16px;
             font-weight: bold;
             margin: 4px 2px;
+           
           
         }
         .modi_btn #uploadBtn:hover,
@@ -150,29 +111,43 @@
         
         .modi_btn{
             float: right;
-            margin: 10px 0 10px 0;
+            margin-right: 52%;
         }
         /* 버튼 끝 */
         
         .itemImg {
         	width:250px;
         }
+        
+        
     </style>
 </head>
 <%@include file="./idCheck.jsp" %>
 <body>
-<%@include file="../includes/header.jsp" %>
-    <div class="modi_content">
-        <div class="modi_wrap">
-            <div class="side">
-            <%@include file="../includes/shop_sidebar.jsp" %>    
-            </div>
-            <!-- side -->
-            <div class="modi_main">
-                <div class="title">
+ <div class="container">
+ <%@include file="./shopSideBar.jsp" %>
+
+ 			<div class="mainArea">
+            <!-- BEGIN NAV -->
+             	   <nav class="navTop row">
+	                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+	                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            <!-- END NAV -->
+   
+      
+        
+		 <div class="mainContent" style="margin-top:50px; margin-left:200px;">
+                 <div class="title">
                  <h3>상품 정보 수정</h3>
                  <p>필요한 정보를 알맞게 수정해 주세요. [상품ID: <c:out value="${item.itemCode }"/>]</p>
-                </div>
+                 </div>
                     <div class="modi_form">
                     	<table>
                         <form role="form" action="/shop/modify" method="POST" enctype="multipart/form-data">
@@ -182,8 +157,6 @@
                             <input type='hidden' name='keyword' value='<c:out value="${cri.keyword }"/>' >
                             <input type='hidden' name='type' value='<c:out value="${cri.type }"/>' >
                             <input type="hidden" name="idNo" id="idNo" value='<c:out value="${sessionMember.idNo}"/>' >
-                            
-
                             <input type="hidden" name="itemCode" value='<c:out value="${item.itemCode }"/>'>
                             <div class="container">
                             <tr>
@@ -197,7 +170,7 @@
                             <td><label for="category"><i class="fa fa-chevron-right"></i>카테고리 분류</label></td>
                             <td><input type="text" name="getCategory" style="width: 350px;" value='<c:out value="${getCategory }"/>' readonly="readonly"></td>
                             </tr>
-                        </div>
+                        	</div>
                         
                             <div class="container">
                             <tr>
@@ -343,15 +316,17 @@
                            </div>
                     </div>
                     <!-- modi_form -->
+              </div>
             </div>
-        </div>
-    </div>
+         </div>
+          
    
-   <script
-     src="https://code.jquery.com/jquery-3.5.1.js"
-     integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-     crossorigin="anonymous"></script>
-   <script type="text/javascript">
+<script src="../resources/js/admin.js"></script>
+<script
+src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+crossorigin="anonymous"></script>
+<script type="text/javascript">
       
       var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG|JPG)$");
        var maxSize = 5242880;
@@ -512,7 +487,6 @@
              if(!x || x.length == 0) return "";
              else return x.split(",").join("");
          }
-
          // 숫자만 입력
          $("input:text[numberOnly]").on("focus", function() {
              var x = $(this).val();

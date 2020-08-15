@@ -503,7 +503,6 @@
             
             searchForm.submit();
          });
-
    </script>
 </body>
 </html>

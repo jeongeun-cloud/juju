@@ -18,7 +18,6 @@
             padding: 8px;
             height: 30px;
                  }
-
         li{
             list-style: none;
         }
@@ -27,12 +26,10 @@
 	  	 color: #303030;
 	  	 font-size: 17px;
 	   }        	
-
         .regi_form{
         	margin-top:50px;
             margin-left: 100px;
         }
-
         #uploadBtn,
         #resetBtn{
             background-color: #8FA691 ; 
@@ -69,7 +66,6 @@
             margin-top:0;
             
         }
-
 	/* 사이드 메뉴 끝 */
 </style>
 
@@ -93,6 +89,11 @@
                     </div>
                 </nav>
             <!-- END NAV -->
+            
+            
+            
+            
+            
             <div class="mainContent" style="margin-top:50px; margin-left:200px;">
                 <div class="title">
                 <h3>상품 등록</h3>
@@ -294,7 +295,6 @@
      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
      crossorigin="anonymous"></script>
     <script type="text/javascript">
-
       var regex = new RegExp("(.*?)\.(jpg|jpeg|png|gif|PNG|JPG)$");
        var maxSize = 5242880;
        
@@ -331,7 +331,6 @@
             
             if(this.files && this.files[0]) {
                var reader = new FileReader;
-
                reader.onload = function(data) {
                    $(".select_img"+i+" img").attr("src", data.target.result).width(500);
                 }
@@ -459,7 +458,6 @@
             var midSelect = $("select.midCateg");
             
             midSelect.children().remove();
-
              $("option:selected", this).each(function(){
               
                 var selectVal = $(this).val();  
@@ -512,7 +510,6 @@
              if(!x || x.length == 0) return "";
              else return x.split(",").join("");
          }
-
          // 숫자만 입력
          $("input:text[numberOnly]").on("focus", function() {
              var x = $(this).val();
@@ -539,7 +536,6 @@
          });
       });
    
-
     </script>
 </body>
 </html>
