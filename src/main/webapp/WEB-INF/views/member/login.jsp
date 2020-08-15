@@ -20,53 +20,48 @@
    html{
 
    }
-   button{
-         width: 300px;
-         height:30px;
-   }
    
-input[type=text] {
-    width:400px;
-    height: 54px;
-    padding: 0 19px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background-color: #fff;
-    font-size: 14px;
-    line-height: 20px;
-    outline: none;
-}
+   	h3 {
+	  margin: 20px;
+	  font-weight: bold;
+	}
+   
+	input[type=text] {
+ 	   width:380px;
+	   height: 60px;
+       padding: 0 19px;
+       border: 1px solid #ccc;
+       background-color: #fff;
+       font-size: 16px;
+       line-height: 20px;
+       outline: none;
+       margin-bottom : 10px;
+	}
 
-input[type=password] {
-    width:400px;
-    height: 54px;
-    padding: 0 19px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    background-color: #fff;
-    font-size: 14px;
-    line-height: 20px;
-    outline: none;
-}
+	input[type=password] {
+ 	    width:380px;
+	    height: 60px;
+	    padding: 0 19px;
+	    border: 1px solid #ccc;
+	    background-color: #fff;
+	    font-size: 16px;
+	    line-height: 20px;
+	    outline: none;
+	}
 
-button, input[type="submit"] {
-	background-color: #8FA691;
-	border: 1px solid #8FA691;
-	border-radius: 5px;
-	margin: 0;
-	outline: none;
-	color: #FFFFFF;
-	padding: 15px 180px;
-	cursor: pointer;
-	margin-bottom: 5px;
-}
-        
-   
-   a {
-   text-decoration: none;
-   color: black;
-   
-   }
+	button, input[type="submit"] {
+		background-color: #8FA691;
+		border: 1px solid #8FA691;
+		margin: 0;
+		outline: none;
+		color: #FFFFFF;
+		padding: 18px 165px;
+		cursor: pointer;
+		margin-bottom: 5px;
+		font-size: 16px;
+        font-weight: bold;
+	}
+
    
    #fb-root {
    	text-align:center;
@@ -75,11 +70,15 @@ button, input[type="submit"] {
    .findIdPwd {
    	position: absolute;
    	right: 0%;
+   	text-decoration: none;
+	color: black;
+	margin-right: 10px;
    }
    
    .container {
        width:400px;
        position: relative;
+       margin: 0px auto;
    }
    
 
@@ -116,9 +115,9 @@ button, input[type="submit"] {
 		
 		<!-- 구글 로그인 -->
 		<!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
-		<!-- <img alt="" style="height:55px;" src="/resources/images/google-login-btn.png"> -->
-		<div class="g-signin2" data-onsuccess="onSignIn">
-		</div><br>
+		<img alt="" style="height:55px;" src="/resources/images/googleBtn.png" data-onsuccess="onSignIn">
+<!-- 		<div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+		<br>
 		
 
 		<input type="hidden" id="result" value="${result }">
@@ -150,7 +149,6 @@ button, input[type="submit"] {
        	
        	/* 설정정보를 초기화하고 연동을 준비 */
        	naverLogin.init();
-
        	
 
        	

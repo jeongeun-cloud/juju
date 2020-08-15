@@ -64,12 +64,13 @@ tr:hover {
 .regi_main{
    float:  right;
    width: 950px;
-   margin-bottom: 15%;
+   margin-bottom: 7%;
    background-color: white;
 } 
 
 .regi_content{
 	   width: 1300px;
+	   height: 700px;
 	   margin:0 auto;
       
 	}
@@ -266,6 +267,10 @@ margin-right: 8%;
 </style>
 </head>
 <body>
+
+
+
+
 <div class="regi_content">
    <div class="regi_wrap">
      <div class="1nb_list">
@@ -402,8 +407,6 @@ margin-right: 8%;
       
 </div>
 <!-- regi_content 끝 -->
-</div>      
-<!-- regi_wrap 끝 -->
       
          
 <!-- modal -->
@@ -424,7 +427,6 @@ margin-right: 8%;
    </div><!--  modal dialog -->
 </div><!-- modal 마지막 -->   
 
-      
       
       
       
@@ -515,8 +517,7 @@ margin-right: 8%;
             <!--검색 스크립트 end-->
       </script>
 
-   </div>
-   <!-- main-->
+
 
 
 

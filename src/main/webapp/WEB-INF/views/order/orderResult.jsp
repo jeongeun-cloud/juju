@@ -43,7 +43,7 @@
 
             position:absolute;
             bottom:0px;
-            right:0;
+            right:8%;
 
         }
 

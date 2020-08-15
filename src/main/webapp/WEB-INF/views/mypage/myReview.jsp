@@ -87,6 +87,12 @@ tr:hover {
 	.regi_main p{
 		color: #b9b9b9;
 	}
+.regi_main .regi_tit{
+   font-size: 30px;
+   margin-bottom:50px;
+   text-align: center;
+}
+	
 /* 사이드 끝 */
 /* 페이지 버튼 디자인 */
 .pageBtns {
