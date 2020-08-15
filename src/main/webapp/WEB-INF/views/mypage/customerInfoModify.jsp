@@ -47,7 +47,7 @@ th {
    background-color: #8FA691; 
    color: white;
     height: 40px;
-   text-align: left;
+   text-align: justify;
 }
 
 tr:hover {

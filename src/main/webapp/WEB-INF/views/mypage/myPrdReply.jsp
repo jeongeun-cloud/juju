@@ -88,6 +88,12 @@ tr:hover {
 		color: #b9b9b9;
 	}
 	
+.regi_main .regi_tit{
+   font-size: 30px;
+   margin-bottom:50px;
+   text-align: center;
+}
+	
 
 
 /* 글쓰기, 검색 버튼 끝 */
