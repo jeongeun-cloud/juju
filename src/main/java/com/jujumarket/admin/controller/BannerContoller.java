@@ -268,6 +268,7 @@ public class BannerContoller {
 	public ResponseEntity<String> deleSeason(String[] itemCode) {
 		
 		for(int i=0; i<itemCode.length; i++) {
+			System.out.println(itemCode[i]);
 			
 			service.deleSeason(itemCode[i]);
 		}
