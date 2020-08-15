@@ -42,46 +42,46 @@
   text-rendering: optimizeLegibility; }
   
   
-  img {
+  .itemDiv img {
   display: block;
   margin:0px auto;}
   
 
-ul {
+.itemDiv ul {
   padding: 0;
   margin: 0;
   list-style: none; }
-  ul li {
+.itemDiv  ul li {
     margin: 0 1.75rem 0 0; }
 
-a {
+.itemDiv a {
   color: #888;
   text-decoration: none;
   transition: all 0.2s ease; }
-  a:hover {
+.itemDiv  a:hover {
     color: #333; }
-  a.active {
+.itemDiv  a.active {
     color: #333; }
 
-h1,
-h2,
-h3,
-h4 {
+.itemDiv h1,
+.itemDiv h2,
+.itemDiv h3,
+.itemDiv h4 {
   color: #333;
   font-weight: normal;
   margin: 1.75rem 0 1rem 0; }
 
-h1 {
+.itemDiv h1 {
   font-size: 2.5rem; }
 
-h2 {
+.itemDiv h2 {
   font-size: 2.125rem;
   margin: 0; }
 
-h3 {
+.itemDiv h3 {
   font-size: 2rem; }
 
-h4 {
+.itemDiv h4 {
   font-size: 1.5rem;
   margin: 1rem 0 0.5rem 0; }
 
