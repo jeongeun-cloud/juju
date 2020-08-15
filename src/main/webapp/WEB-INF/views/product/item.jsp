@@ -44,15 +44,21 @@
   
   .itemDiv img {
   display: block;
-  margin:0px auto;}
+  /*
+  margin:0px auto;
+  */
+  }
   
 
 .itemDiv ul {
   padding: 0;
   margin: 0;
-  list-style: none; }
+  list-style: none; 
+  width: 430px;
+  
+  }
 .itemDiv  ul li {
-    margin: 0 1.75rem 0 0; }
+    margin: 0; }
 
 .itemDiv a {
   color: #888;
@@ -181,29 +187,52 @@
     width: 100%; }
 
   .product-image {
-    display: block; }
+    display: block; 
+    width: 430px;
+    
+    }
     .product-image img {
       height: 52vh; }
       .product-image img.active {
         display: block;
-        margin: 0 0 0.75rem 0; }
+        width: 430px;
+        height: 552px;
+        margin: 0 0 5px 0; }
 
   .image-list {
     display: flex;
     overflow: hidden; 
     }
-    .image-list li {
-      margin: 0 0.75rem 0 0;
-      flex-basis: 100%; }
       .image-list li:nth-child(3) {
         margin: 0; }
     .image-list img {
-      height: 10rem;
-      width: 100%;
+      height: 180px;
+      width: 140px;
       transition: opacity 0.3s ease;
-      cursor: pointer; }
+      cursor: pointer; 
+      margin-right:5px;
+      }
       .image-list img:hover {
         opacity: 0.7; }
+
+
+
+
+	.product-gallery {
+		float: left;
+	
+	}
+
+
+	.grid.product {
+		width: 100%;
+		height: 800px;
+	}
+
+	.column-xs-12.column-md-5 {
+		float: right;
+	}
+
 
 /* 아이템 상세페이지 css 끝 */ 
 
@@ -548,9 +577,6 @@ input[type=range] {
    <!-- 아이템 요약 body 시작 -->
     <div class="itemContainer">
           <div class="grid menu">
-            <div class="column-xs-8 column-md-6">
-              <p id="highlight">JUJU MARKET</p>
-            </div>
             <div class="column-xs-4 column-md-6">
               <ul>
                 <li class="nav-item">
@@ -588,7 +614,7 @@ input[type=range] {
                   <img class="active" src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg1}"/>">
                 </div>
                 <ul class="image-list">
-                  <li class="image-item"><img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg1}"/>"></li>
+                  <li class="image-item"><img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg1}"/>" ></li>
                   <li class="image-item"><img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg2}"/>"></li>
                   <li class="image-item"><img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg3}"/>"></li>
                 </ul>
@@ -663,7 +689,7 @@ input[type=range] {
         <jsp:include page="MoveBar.jsp" flush="false"/>
         
         <!-- <h1>상품 상세 정보 영역</h1> -->
-        <img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.imgDetail}"/>">
+        <img style="margin: 0px auto;" src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.imgDetail}"/>">
         
         </div>
      
@@ -774,13 +800,7 @@ input[type=range] {
      <jsp:include page="MoveBar.jsp" flush="false"/>
      
      <h1>상품 문의 영역</h1>
-     <img src="https://lh3.googleusercontent.com/proxy/65nlh6HvxRv9iVxxf4PHNLPFCf9tJIRvU982P2WGPkEDI5i_RWu5McYd-dZp3Lv5sDPVXtzukdCOYyiHZVefYUzkb9nnPsBL73WYidkw5KTXh-qTJCr6psOnqRzKVzEvW7SBUyUfXpmZBTX9BBbOruToIkwj">
      
-     </div>
-  
-     <!-- 상품 문의 body 끝 -->
-        
-        
      <!-- 상품 문의 댓글 영역 -->
          <div class = "reply-main"  id = "regiBtn">
                <h4 class="reply-title" id="replytitle">댓글쓰기</h4>
@@ -842,6 +862,12 @@ input[type=range] {
                  </div><!-- RemoveBtn end -->
         
         <!-- 상품 문의 댓글 영역  끝-->
+        
+     </div>
+  
+     <!-- 상품 문의 body 끝 -->
+        
+        
         
         <!-- 배송안내 body 시작 -->
      
