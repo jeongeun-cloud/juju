@@ -72,12 +72,7 @@ public class BoardFAQController {
 		}
 			
 		model.addAttribute("faq", list);//service.getList(cri);
-		
-		
-		
-		
-		
-		
+
 		model.addAttribute("pageMaker", new PageDTO(cri,total));
 	}
 

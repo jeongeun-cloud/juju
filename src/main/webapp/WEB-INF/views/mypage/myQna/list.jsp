@@ -378,7 +378,7 @@ margin-right: 8%;
                                     </li>
                                 </c:if>
                             </ul> 
-                        </div>
+         </div>
                         <!-- end pagination -->
          <input type="hidden" id="total" value="${total}">
          <!-- paging form
