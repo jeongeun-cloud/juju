@@ -63,7 +63,6 @@ public class HomeController {
 		model.addAttribute("RealNew", mainservice.RealNew());
 		
 
-		model.addAttribute("mainReview", reviewService.mainReview());
 		model.addAttribute("mainReview", reviewService.mainReview());			// 메인 리뷰
 		model.addAttribute("advertise", bannerService.getBanner("advertise"));	// 중간 광고
 		model.addAttribute("mainImg", bannerService.getBanner("main"));			// 메인 슬라이더
@@ -73,7 +72,6 @@ public class HomeController {
 		
 		return "/main/index";
 	}
-	
 
 	
 }

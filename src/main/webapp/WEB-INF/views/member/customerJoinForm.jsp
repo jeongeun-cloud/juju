@@ -1,110 +1,265 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <style>
-body {
-   font-family: Arial, Helvetica, sans-serif;
-}
+      *{
+      margin: 0px auto;
+      }
+      
+        .cont_principal {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            /* Rectangle 3: */
+            background-image: linear-gradient(-87deg, #F2F5F6 0%, #DDE5E8 100%);
+        }
 
-#customerJoinForm {
-  background-color: #ffffff;
-  margin: 100px auto;
-  padding: 40px;
-  width: 70%;
-  min-width: 300px;
-}
+        .cont_centrar {
+            position: absolute;
+            width: 500px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            float: left;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            transition: all 0.5s;
+            padding: 40px 0px;
+            box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.21);
+        }
 
-.title{
-   left: 50%;
-   top: 30%;
-   transform: translate(-50%, -50%);
-}
-.joinForm{
-   display: none;
-   position: absolute;
-   left: 50%;
-   top: 50%;
-   transform: translate(-50%, -50%);
-   width: 500px;
-   height: 400px;
-}
-.active {
-   display: block;
-}
-
-h2 {
-   top: 20%;
-  text-align: center;  
-}
+        .cent_active {
+            box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.21);
+        }
 
 
-input {
-  padding: 10px;
-  width: 100%;
-  font-size: 17px;
-  font-family: Raleway;
-  border: 1px solid #aaaaaa;
-}
+        .cont_tabs_login {
+            position: relative;
+            float: left;
+            width: 100%;
+        }
+
+        .ul_tabs>li {
+            position: relative;
+            float: left;
+            width: 44%;
+            list-style: none;
+            text-align: center;
+
+        }
+
+        .ul_tabs>li>a {
+            text-decoration: none;
+            font-size: 16px;
+            color: #999;
+            line-height: 14px;
+            padding: 20px;
+            display: block;
+            transition: all 0.5s;
+        }
+
+        .ul_tabs>.active>a {
+            color: #637365;
+            font-weight: bold;
+
+        }
+
+        .linea_bajo_nom {
+            position: relative;
+            width: 100%;
+            float: left;
+            background-color: #999;
+            height: 2px;
+        }
+
+        .active .linea_bajo_nom {
+            position: relative;
+            width: 100%;
+            float: left;
+            background-color: #637365;
+            height: 2px;
+        }
+
+        .cont_text_inputs {
+            position: relative;
+            float: left;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        input[type=text] {
+          width: 365px;
+          height: 54px;
+          margin-left: 40px;
+          margin-bottom: 10px;
+          padding: 0 19px;
+          border: none;
+          border-bottom: 1px solid #ccc;
+          background-color: #fff;
+          font-size: 14px;
+          line-height: 20px;
+          outline: none;
+      }
+      
+      input[type=password] {
+          width: 365px;
+          height: 54px;
+          margin-left: 40px;
+          margin-bottom: 10px;
+          padding: 0 19px;
+          border: none;
+          border-bottom: 1px solid #ccc;
+          background-color: #fff;
+          font-size: 14px;
+          line-height: 20px;
+          outline: none;
+      }
+        
+        button, input[type="submit"] {
+           background-color: #FFFFFF;
+           border: 1px solid #8FA691;
+           border-radius: 5px;
+           margin: 0;
+           outline: none;
+           color: #8FA691;
+           margin-left: 40px;
+           padding: 15px 175px;
+           cursor: pointer;
+           margin-bottom: 5px;
+        }
+        
+        #emailSendBtn {
+           padding: 15px 162px;
+        }
+
+        .input_form_sign {
+            position: relative;
+            float: left;
+            width: 90%;
+            border: none;
+            border-bottom: 1px solid #B0BEC5;
+            background-color: transparent;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.5s;
+            height: 0px;
+            margin: 0px;
+            padding: 0px;
+            opacity: 0;
+            display: none;
+        }
+
+        .active_inp {
+            margin: 5% 5%;
+            padding: 10px 0px;
+            opacity: 1;
+            height: 5px;
+        }
 
 
+        .input_form_sign:focus {
+            border-bottom: 1px solid #FF8383;
+        }
 
+
+        .cont_btn {
+            position: relative;
+            float: left;
+        }
+        
+        #emailAuthMessage {
+           margin-left: 40px;
+           margin-bottom: 10px;
+        }
+        
+        #pwdChkMessage {
+           margin-left: 40px;
+        }
+        
+        .infoDiv, #prev, #submitBtn {
+           display: none;
+        }
+        
+        .cont_btn button, input[type="submit"] {
+            margin-left: 40px;
+           padding: 18px 188px;
+           background-color: #8FA691;
+           color: #FFFFFF;
+        }
 </style>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script
    src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+   
+<!--     <link rel="stylesheet" href="style.css"> -->
+
+    
+    
 </head>
 <body>
-   <form action ="/member/customerJoinForm" id="customerJoinForm" method = "post">
 
-        <h2>회원가입</h2>
+    <div class="cont_principal">
 
-      <!-- step1 -->
-      <div class="joinForm active">
-      이메일 계정(필수):
-      <input type="text" id="emailAccount" name="emailAccount"> <button id="emailDuplicateCheckBtn">중복확인</button> <br>
-      <input type="hidden" id="duplicateCheck">
-      <input type="hidden" id="duplicateCheckResult" value="false">
-      <button id="emailSendBtn">인증번호받기</button> <input type="text" id="inputCode" placeholder="인증번호입력"> <button id="emailAuthBtn">인증하기</button>
-      <div id="emailAuthMessage"></div>
-      <input type="hidden" id="tempCode">
-      <input type="hidden" id="authResult" value="false">
-      <button class="next">다음</button>
-      </div>
-      <!-- step2 -->
-      <div class="joinForm">
-      비밀번호 : 
-      <input type="password" id="pwd" name="pwd" placeholder="6~12자 영문+숫자">
-      <br>
-      비밀번호확인 : 
-      <input type="password" id="pwdChk" name="pwdChk">
-      <div id="pwdChkMessage"></div>
-      <button class="prev">이전</button>
-      <button class="next">다음</button>
-      </div>
-      <!-- step3 -->
-      <div class="joinForm">
-      이름:
-      <input type="text" id="memName" name="memName"> <br>
+        <div class="cont_centrar">
+            <div class="cont_login">
+          <form action ="/member/customerJoinForm" id="customerJoinForm" method = "post">
+                    <div class="cont_tabs_login">
+                        <ul class='ul_tabs'>
+                            <li id="progress1" class="active"><a>step1</a>
+                                <span class="linea_bajo_nom"></span>
+                            </li>
+                            <li id="progress2"><a>step2</a><span class="linea_bajo_nom"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cont_text_inputs emailDiv">
+                          <input type="text" id="emailAccount" name="emailAccount" placeholder="이메일입력"><button id="emailDuplicateCheckBtn">중복확인</button> <br>
+                     <input type="hidden" id="duplicateCheck">
+                     <input type="hidden" id="duplicateCheckResult" value="false">
+                        <button id="emailSendBtn">인증번호받기</button>
+                        <input type="text" id="inputCode" placeholder="인증번호입력">
+                        <div id="emailAuthMessage">
+                     </div>
+                        <button id="emailAuthBtn">인증하기</button>
+                        <input type="hidden" id="tempCode">
+                        <input type="hidden" id="authResult" value="false">
+                    </div>
+                    <div class="cont_text_inputs infoDiv">
+                       <input type="text" id="emailTmp" readonly="readonly">
+                       <input type="password" id="pwd" name="pwd" placeholder="비밀번호(6~12자 영문+숫자)"> <br>
+                       <input type="password" id="pwdChk" name="pwdChk" placeholder="비밀번호확인">
+                     <div id="pwdChkMessage">
+                     </div>
+                          <input type="text" id="memName" name="memName" placeholder="회원이름"> <br>
+                  <input type="text" id="contact" name="contact" placeholder="전화번호(XXX-XXXX-XXXX)"> <br>
+                        <button id="searchPostCode">주소검색</button><br>
+                     <input type="text" id="postCode" name="postCode" size="5" value="" placeholder="우편번호" readonly="readonly"> 
+                     <input type="text" id="roadAddr" name="roadAddr" size="50" value="" placeholder="도로명주소" readonly="readonly"/><br>
+                     <input type="text" id="namujiAddr" name="namujiAddr" placeholder="나머지주소"> <br>
+                     <input type="hidden" id="memAddr" name="memAddr"><br>
+                     <input type="hidden" id="jibunAddr" name="jibunAddr" size="50" value="" />
+                    </div>
+                    <div class="cont_btn">
+                        <button id="next">다음</button>
+                  <button id="prev">이전</button>
+                  <button id="submitBtn">가입</button>
+                    </div>
+                </form>
+            </div>
 
-       연락처:
-      <input type="text" id="contact" name="contact" placeholder="XXX-XXXX-XXXX"> <br>
-      
-      우편번호: <input type="text" id="postCode" name="postCode" size="5" value="" readonly="readonly"> 
-               <a href="javascript:execDaumPostcode()">우편번호검색</a> <br>
-      도로명 주소: <input type="text" id="roadAddr" name="roadAddr" size="50" value="" readonly="readonly"/><br>
-      나머지 주소: <input type="text" id="namujiAddr" name="namujiAddr"> <br>
-      <input type="hidden" id="memAddr" name="memAddr"><br>
-      <input type="hidden" id="jibunAddr" name="jibunAddr" size="50" value="" />
-       <button class="prev">이전</button>
-       <button type = "submit" id="submitBtn"  > 가입하기 </button>
-       </div> 
-   
-   </form>
+        </div>
+
+
+    </div>   
+
+<!--    </form> -->
    <script>
       $(document).ready(function(){
       
@@ -125,15 +280,56 @@ input {
          duplicateCheckResult = $("#duplicateCheckResult");
          emailAuthMessage = $("#emailAuthMessage");
          pwdChkMessage = $("#pwdChkMessage");
+         contBtns = $(".cont_btn").children();
+         nextBtn = $("#next");
+         prevBtn = $("#prev");
+         submitBtn = $("#submitBtn");
+         emailDiv = $(".emailDiv");
+         infoDiv = $(".infoDiv");
+         progress2 = $("#progress2");
+         searchPostCode = $("#searchPostCode");
+         emailTmp = $("#emailTmp");
          
-         joinForm = $(".joinForm");
-         prev = $(".prev");
-         next = $(".next");
-         currentTab = 0;
-         const MAX = 3;
-         const MIN = 0;
+         nextBtn.click(function(e){
+            e.preventDefault();
+            
+               if (!(emailAccountCheck())) {
+                 return false;
+              } else if (duplicateCheckResult.val()=="false") {
+                 alert("가입 여부를 확인해주세요.");
+                 return false;
+              } else if (authResult.val()=="false") {
+                 alert("이메일주소를 인증해주세요.");
+                 return false;
+              } else { 
+               nextBtn.css("display", "none");
+               emailDiv.css("display", "none");
+               prevBtn.css("display", "block");
+               submitBtn.css("display", "block");
+               infoDiv.css("display", "block");
+               progress2.addClass("active");
+               emailTmp.val(emailAccount.val());
+               } 
+            
+         });
+         
+         prevBtn.click(function(e){
+            e.preventDefault();
+            nextBtn.css("display", "block");
+            emailDiv.css("display", "block");
+            prevBtn.css("display", "none");
+            submitBtn.css("display", "none");
+            infoDiv.css("display", "none");
+          progress2.removeClass();
+         });
+         
+         searchPostCode.click(function(e){
+           e.preventDefault();
+           execDaumPostcode();
+         });
 
-         
+
+/*          
          prev.on().click(function(e){
             e.preventDefault();
             if(currentTab>=MIN){
@@ -150,7 +346,7 @@ input {
             joinForm.removeClass("active");
             $(joinForm[currentTab]).addClass("active");
             }
-         });
+         });  */
          
          
          emailAuthBtn.click(function(e){
@@ -278,12 +474,8 @@ input {
          }
          
          
-         
-         
 
       
-      
-      submitBtn = $("#submitBtn");
       customerJoinForm = $("#customerJoinForm");
 
       submitBtn.click(function(e) {

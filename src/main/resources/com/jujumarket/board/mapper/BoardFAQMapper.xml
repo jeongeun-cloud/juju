@@ -173,12 +173,12 @@
   <![CDATA[
    
    select  postingNo, title , regDate
-	from t_board_faq
-	where boardType = '2' and
-	 ]]>
-	<![CDATA[
+   from t_board_faq
+   where boardType = '2' and
+    ]]>
+   <![CDATA[
     rownum < 6 
-	order by regDate desc
+   order by regDate desc
      ]]>
    </select>
   <!--자묻질 끌고 오기  -->
@@ -186,12 +186,12 @@
   <![CDATA[
    
    select  postingNo, title , regDate
-	from t_board_faq
-	where boardType = '1' and
-	 ]]>
-	<![CDATA[
+   from t_board_faq
+   where boardType = '1' and
+    ]]>
+   <![CDATA[
     rownum < 6 
-	order by regDate desc
+   order by regDate desc
      ]]>
    </select>
 

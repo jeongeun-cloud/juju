@@ -6,9 +6,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+<link rel="stylesheet"  href="../resources/css/admin.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
       
          td{
@@ -29,6 +33,11 @@
              font-size: 17px;
          }
          
+           .get_form{
+        	margin-top:50px;
+            margin-left: 100px;
+        }
+         
         .select_img1 ,
         .select_img2 ,
         .select_img3 ,
@@ -38,7 +47,6 @@
         height:100px;
         position:relative;
         overflow:hidden;
-
         }
          
         .select_img1 img,
@@ -56,60 +64,20 @@
            left:0;
            right:0;
         }
-         .get_content{
-             width: 1300px;
-             height: 100%;
-             margin:0 auto;
-            
-         }
-         .get_wrap{
-                  
-             position: relative;
-            display: inline-block;
-            padding-top: 30px;
-            
-         }
-         
-         .side{
-           
-            width: 300px;	     
-	        float: left;
-	        margin-right: 20px;
-	        margin-top:25px;
-             
-         }
-         .get_main{
-             float:  right;
-             width: 980px;
-             background-color: white;
-         } 
-
-         .get_form{
-             margin-left:100px;
-             
-         }
-         .container label{
-             font-weight: 900;
-             font-size: 17px;
-             width:315px;
-         }
-         .container{
-             margin-bottom: 10px;
-         }
+        
+       
          .getBtn #rBtn,
          .getBtn #lBtn{
              background-color: #8FA691; 
-             border: none;
-             color: white;
-             padding: 8px 20px;
-             text-align: center;
-             text-decoration: none;
-             display: inline-block;
-             font-size: 15px;
-             margin: px 2px;
-             transition-duration: 0.4s;
-             cursor: pointer;
-             font-weight: bold;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 4px 2px;
          }
          .getBtn #rBtn:hover,
          .getBtn #lBtn:hover
@@ -119,53 +87,66 @@
          border: 2px solid #8FA691;
          }
          .getBtn #rBtn:focus,
-         .getBtn #lBtn:focus
-          {
-         outline:none;  
+         .getBtn #lBtn:focus{
+           outline:none;
+        
          
          }
          .getBtn{
-             float: right;
-             margin: 20px 250px 20px 0;
+            float: right;
+            margin-right:758px;
               
          }
-         .get_main .title {
+         
+        .mainContent .title {
         margin-left: 100px;
         }
-        .get_main h3{
+         
+         .mainContent h3{
         font-weight:500;
         font-size:24px;
         margin-bottom:10px;
         }
-        .get_main p{
+        .mainContent p{
             color: #b9b9b9;
             margin-top:0;
             
         }
-
+   
      </style>
 
 </head>
-<%@include file="../includes/header.jsp" %>
 <%@include file="./idCheck.jsp" %>
 <body>
-  <div class="get_content">
-         <div class="get_wrap">
-             <div class="side">
-             <%@include file="../includes/shop_sidebar.jsp" %>  
-             </div>
-             <!-- side  -->
- 
-             <div class="get_main">
-                 <div class="title">
+ <div class="container">
+ <%@include file="./shopSideBar.jsp" %>
+        
+        
+        <div class="mainArea">
+            <!-- BEGIN NAV -->
+             	   <nav class="navTop row">
+	                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+	                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            <!-- END NAV -->
+        
+        
+         <div class="mainContent" style="margin-top:50px; margin-left:200px;">
+                     <div class="title">
                      <h3>상품정보</h3>
                      <p>상품ID : <c:out value="${item.itemCode}"/></p>
-                 </div>
+                 	</div>
                  <!--get_tit -->
-                 <div class="get_form">
-                     <form id="actionForm" method="POST">
-                         <input type="hidden" name="itemCode" value='<c:out value="${item.itemCode }"/>'>
-                         <table>
+	                 <div class="get_form">
+	                     <form id="actionForm" method="POST">
+	                         <input type="hidden" name="itemCode" value='<c:out value="${item.itemCode }"/>'>
+	                         <table>
                                 <div class="container">
                                     <tr>
                                     <td> <label for="itemName">상품 이름 </label> </td>            
@@ -315,7 +296,13 @@
                      </form>
                  </div>
              </div>
+           </div>
          </div>
+ <script src="../resources/js/admin.js"></script>
+ <script
+ src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+ crossorigin="anonymous"></script>
    <script type="text/javascript">
    
       $(document).ready(function(){
@@ -381,9 +368,7 @@
                 }
              }
           }
-
       });
    </script>
 </body>
 </html>
-     

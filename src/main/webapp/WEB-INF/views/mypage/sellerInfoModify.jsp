@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script
 	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
@@ -22,28 +23,20 @@
 body {
    font-family: Arial, Helvetica, sans-serif;
    color: #303030;
-
 }
 
 li {
    list-style: none;
-
 }
-
-.regi_menu a{
-   text-decoration: none;
-   color: #303030;
-   font-size: 17px;
-}
-
-
 
 
 table {
-   border-collapse: collapse;
-   width: 100%;
-}
-
+		border-collapse: collapse;
+		width: 90%;
+		margin-left: 20px;
+        margin-top: 30px;
+        border: none;
+	}
 
 /* 배치 */
 th, td {
@@ -53,8 +46,9 @@ th, td {
 }
 
 th {
-   background-color: black; 
+   background-color: #8FA691; 
    color: white;
+    height: 40px;
    text-align: left;
 }
 
@@ -62,98 +56,84 @@ tr:hover {
    background-color: #f5f5f5;
 }
 
-.check {
-   width: 5%;
-   height: 30px;
-   left: 30%;
+
+/* 사이드 메뉴 */
+.side{
+	     width: 300px;	     
+	     float: left;
+	      margin-right: 20px;
+	     margin-top:25px;
+	}
+	
+	.regi_main{
+	   float:  right;
+	   width: 950px;	   
+	   background-color: white;
 }
 
-.text {
-   width: 50%;
-   height: 25px;
+.regi_content{
+	   width: 1300px;
+	   margin:0 auto;
+      
+	}
+
+.regi_wrap{
+   position: relative;
+   display: inline-block;
+   padding-top: 30px;
 }
 
-.serch {
-   margin-left: 200px;
-   margin-bottom: 10px;
-}
-
-.sb {
-   height: 35px;
-}
-
-
-
-
+.regi_main .title {
+	margin-left: 20px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+	
 
 
-/* 글쓰기, 검색 버튼 시작 */
-#regBtn,
-#searchBtn {
-  background-color: #ffc30b; 
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
+/* 글쓰기, 검색 버튼 끝 */
+/* 페이지 버튼 디자인 시작 */
+
+
+
+  #submitBtn{
+    float: right;
+    color: white;
+     height: 43.75px;
+    background-color: #8FA691;
+    padding: 10px 20px;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 4px 8%;
   transition-duration: 0.4s;
   cursor: pointer;
-}
-
-
-#regBtn:hover,
-#searchBtn:hover {
-  background-color: white; 
-  color: #ffc30b; 
-  border: 2px solid #ffc30b;
-}
-#regBtn:focus,
-#searchBtn:focus { 
-    outline: none; 
-}
-
-
-#regBtn {
-
-margin-right: 0%;
-
-}
-/* 글쓰기, 검색 버튼 끝 */
-
-
-
-
-
-
-/* 페이지 버튼 디자인 시작 */
-
-.pageBtns {
-	text-align: center;
-}
-
-
-.pageBtns a{
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
+  border: none;
    
 }
 
-.pagination1 a:hover:not(.active) {
-    background-color: #f6dd90;
-    border-radius: 50%;
+#submitBtn:hover{
+  height: 43.75px;
+  background-color: #F0F2F0 ; 
+  color: #8FA691; 
+  padding: 0px 20px;
+  border: 2px solid #8FA691;
+  float:rigth;
+  
+
 }
 
 
+.pagination1 a:hover:not(.active) {
+    background-color: #F0F2F0;
+    border-radius: 50%;
+}
+
 /* 페이지 버튼 디자인 끝 */
-
-
-
-
 /* 모달디자인 시작  */
 .close:hover,
 .close:focus {
@@ -175,7 +155,6 @@ margin-right: 0%;
   background-color: white;
   color: white;
 }
-
 
 #closeBtn {
   background-color: #ffc30b; 
@@ -205,88 +184,28 @@ margin-right: 0%;
 /* 모달 디자인 끝 */
 
 
-
-
-/* 사이드 메뉴 */
-.side{
-          
-     width: 200px;
-     height: 500px;
-     background-color: white;
-     float: left;
-     margin-right: 90px;
-     border:solid #ffc30b ;
-            
-}
-
- .regi_side_tit{
-      padding-top: 12px;
-      padding-bottom:12px ;
-      text-align: center;
-      width: 100%;
-      background-color: #ffc30b;
-      font-size: 20px;
-      font-weight: 900;
-            
-}
-
-.regi_menu {
-	margin-top:20px;
-
-
-}
-
-
-/* 사이드 메뉴 끝 */
-
-
-
+/* 검색바 */
 .col-lg-12 {
-
 	text-align: center;
     margin: 10px 0 30px 0;
+    
+}
+
+#selected{
+    width: 100px;
+    height: 30px;
+}
+
+#keyword{
+    height: 30px;
 }
 
 
-
-
-        
-.regi_main{
-   float:  right;
-   width: 1000px;
-   height: 1000px;
-   background-color: white;
-} 
-
-.regi_main .regi_tit{
-   font-size: 30px;
-   margin-bottom:50px;
-   text-align: center;
-
-}
-
-
-
-.regi_content{
-   width: 1300px;
-   height: 1000px;
-   margin:0 auto;
-}
-        
-.regi_wrap{
-                 
-   position: relative;
-   display: inline-block;
-   padding-top: 30px;
-}
+ a:link { color: balck; text-decoration: none;}
+ a:visited { color: black; text-decoration: none;}
+ a:hover { color: #8FA691; text-decoration: none;}
         
 
-
-
-h2 {
-   position: absolute;
-   left: 20px;
-}
 
 div.a {
    position: relative;
@@ -295,72 +214,24 @@ div.a {
 }
 
 
-div.sellerInfo {
-   position: absolute;
-   left: 250px;
-   top: 70px;
-   width: 700px;
-   height: 1000px;
-   border: 1px solid black;
-}
-
 a {
    text-decoration: none;
    color: black;
 }
+
 </style>
 </head>
 <body>
 
 <div class="regi_content">
  <div class="regi_wrap">
-
-
-
+     <div class="1nb_list">
+     
 <!-- side 시작 -->
-   <div class="side">
-      <div class="1nb_list">
-         <div class="regi_side_tit">마이페이지</div>
-           <div class="regi_side_menu">
-               <ul class="regi_menu">
-                    <p><b>쇼핑 이용 정보</b></p>
-                    <li><a href='/mypage/myPerchaseList'><i class="fa fa-check" ></i>주문내역</a></li>
-                    <li><a href='/order/basketList'><i class="fa fa-check" ></i>장바구니</a></li>
-                    <br>
-                    <c:if test="${!empty sessionMember}">
-                    <p><b>게시판 이용 내역</b></p>
-                    <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
-                    <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
-                    <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
-                    
-                    
-                    
-                   		 <c:choose>
-                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
-                              <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
-                           </c:when>
-                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
-                              <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
-                           </c:when>
-                           <c:when test="${sessionMember.memCode eq 'JUNIOR'}">
-                              <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
-                           </c:when>
-                        </c:choose>
-                        <c:choose>
-  						<c:when test="${(sessionMember.memCode eq 'CUSTOMER'
-                           				|| sessionMember.memCode eq 'JUNIOR'                           			
-                           				|| sessionMember.memCode eq 'SELLER')                           			
-                           				}">
-                    <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
-                    <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
-                    <br>
-                    <p><b>단골 상점 </b></p>
-                    <li> <a href='/mypage/myDangol'><i class="fa fa-check" ></i>상점 바로가기</a></li>
-                        </c:when>
-                        </c:choose>
-                    </c:if>
-                </ul>
-           </div>
+	<div class="side">
+<%@include file="../includes/mypage_sidebar.jsp" %>
+   </div>
+<!-- side 끝-->        
      </div>
      <!-- 1nb_list -->
   </div>
@@ -368,8 +239,8 @@ a {
 
 
 
-
-			<div class="sellerInfo">
+	<div class="regi_main">
+	<div class="sellerInfo">
 	<form action="/mypage/sellerInfoModify" id="sellerInfoModify"
 		method="post" enctype="multipart/form-data">
 

@@ -81,6 +81,7 @@ public class AdminController {
 		model.addAttribute("sNum", vo.getSNum());
 		
 	}
+	
 	//회원현황
 	@GetMapping("/memberStat")
 	public void minfo(@RequestParam(value="searchDay", defaultValue="202008") String day , Model model) {
