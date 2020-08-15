@@ -101,7 +101,7 @@
         .dropdown_sub:hover .subMemu-content {
         display: block;
         }
-        .div{
+        .di{
             padding-top: 12px;
         }
 </style>
@@ -157,7 +157,7 @@
                <ul>
                   <c:if test="${empty sessionMember}">
                      <li><a href="/member/login">로그인</a></li>
-                     <span class="div">|</span>
+                     <span class="di">|</span>
                      <li><a href="/member/chooseMemberType">회원가입</a></li>
                      
                   </c:if>
@@ -179,7 +179,7 @@
 		             	</c:otherwise>
 					 </c:choose>
                   </c:if>
-				  <span class="div">|</span>
+				  <span class="di">|</span>
 
                   <li class="dropdown_sub"><a href="/mypage/myPerchaseList" class="subMemu">마이페이지</a>
 <%--                      <div class="subMemu-content">
@@ -195,7 +195,7 @@
                         </c:choose>
                         </div> --%>
                      </li>
-                     <span class="div">|</span>
+                     <span class="di">|</span>
                      <li class="dropdown_sub"><a href="#" class="subMemu">고객센터</a>
                         <div class="subMemu-content">
                            <a href="/community/notice/list">공지사항</a> 
@@ -203,6 +203,9 @@
 <!--                            <a href="/mypage/myQna/list">1:1 문의 게시판</a> -->
                         </div>
                      </li>
+
+                     <span class="di">|</span>
+
                      <c:choose>
 <%--                         <c:when test="${fn:substring(sessionMember, 0, 1) eq 's'}"> --%>
                            <c:when test="${sessionMember.memCode eq 'SELLER'}">

@@ -185,9 +185,8 @@
           title: '상위 top10 상품',
           pieHole: 0.4,
           backgroundColor: '#f7f7f7',
-          series:{
-        	  0:
-          }
+          colors: [ '#f47b6c','#83b1c9','#c9ba9b', '#a2b59f','#ffd0a6','#d5cb8e','#83b1c9','#cacfe3', '#ffcec7', '#bdc2bb']
+
         };
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
         chart.draw(data, options);
@@ -211,8 +210,8 @@
           bars: 'vertical',
           vAxis: {format: 'decimal'},
           height: 400,
-          colors: ['fba01d'],
-          backgroundColor: '#f7f7f7'
+          backgroundColor: '#f7f7f7',
+          colors:['#e5c1c5']
         };
         var chart = new google.charts.Bar(document.getElementById('chart_div1'));
         chart.draw(data2, google.charts.Bar.convertOptions(options));
@@ -235,7 +234,7 @@
            bars: 'vertical',
            vAxis: {format: 'decimal'},
            height: 400,
-           colors: ['#7dd0b6'],
+           colors: ['#c3e2dd'],
            backgroundColor: '#f7f7f7'
          };
          var chart = new google.charts.Bar(document.getElementById('chart_div2'));
@@ -259,7 +258,7 @@
            bars: 'vertical',
            vAxis: {format: 'decimal'},
            height: 400,
-           colors: ['#ff6961'],
+           colors: ['#ffd6aa'],
            backgroundColor: '#f7f7f7'
          };
          var chart = new google.charts.Bar(document.getElementById('chart_div3'));

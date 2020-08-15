@@ -102,7 +102,7 @@
     .whole_menu{
         position:sticky;
         top:0;
-        z-index: 1;
+        z-index: 99;
         width: 100%;
         min-width: 1080px;
         height: 60px;
@@ -131,7 +131,7 @@
        
     }
 	.menu_b{
-	width:800px;
+  	width:870px; 
 	margin: 0 auto;
 	}
     .navbar-default .navbar-nav > .open > a,
@@ -156,7 +156,7 @@
       
 
         <div id="defaultmenu">
-	         <div class=menu_b>
+	         <div class=menu_b >
 	            <ul class="nav navbar-nav"> 
 	        
 	                <!-- 전체 카테고리  -->
