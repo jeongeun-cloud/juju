@@ -49,10 +49,16 @@ public class MyPageController {
 	
 	
 	@PostMapping("/myPurchaseListGuest")
-	public void myPurchaseListGuest(String orderCode, Model model) {
+	public String myPurchaseListGuest(String orderCode, String nonMemPwd, Model model) {
+		
+		if(nonMemPwd==null || nonMemPwd.equals("")) {
+			return "member/login";
+		}
+		
 		List<MyPerchaseVO> myPerchase = myPageService.getGuestPurchaseListByOrderCode(orderCode);
 		model.addAttribute("myPerchaseList", myPerchase);
 		
+		return "/mypage/myPurchaseListGuest";
 		
 	}
 	
