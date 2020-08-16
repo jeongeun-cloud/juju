@@ -43,11 +43,7 @@ li {
 	
 .regi_content{
 	   width: 1300px;
-	   
-	/*	   
-	   height: 2500px;
-	*/   
-	   
+	   height: 1800px;
 	   margin:0 auto;
       
 	}
@@ -195,8 +191,8 @@ tr:hover {
 .regi_main{
    float:  right;
    width: 950px;
-   margin-bottom: 15%;
-  height:100%;
+   margin-bottom: 5%;
+  height:1500px;
    background-color: white;
 } 
 
@@ -206,12 +202,6 @@ tr:hover {
    text-align: center;
 }
 
-.regi_content{
-	   width: 1300px;
-	   height:100%;
-	   margin:0 auto;
-      
-	}
         
 .regi_wrap{
    position: relative;
@@ -284,7 +274,7 @@ table img {
                  <label>주문번호:&nbsp;</label><c:out value="${myPerchase.orderCode}" /></td> 
                </tr>
                <tr>                         
-               	 <td class="imgTd" rowspan="3"><img src="/resources/upload/<c:out value="${myPerchase.idNo}"/>/<c:out value="${myPerchase.itemImg1}"/>"></td>
+               	 <td class="imgTd" rowspan="3" onclick='goToItemPage("<c:out value="${myPerchase.itemCode}"/>")'><img src="/resources/upload/<c:out value="${myPerchase.idNo}"/>/<c:out value="${myPerchase.itemImg1}"/>" ></td>
                  <td><label>카테고리:&nbsp;</label><c:out value="${myPerchase.fullPath}" /></td>  
                  <td rowspan="3"><label>수량</label><br><br><br><c:out value="${myPerchase.itemNum}" /></td>
                  <td rowspan="3"><label>가격</label><br><br><br><fmt:formatNumber value="${myPerchase.totalPrice }" pattern="#,###"/>원</td>
@@ -404,8 +394,15 @@ $(document).ready(function(){
     function addCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+    
 	
 });
+
+
+    function goToItemPage(itemCode) {
+    	location.href = "/product/item?itemCode=" + itemCode;
+    }
+    
 </script>
 
    

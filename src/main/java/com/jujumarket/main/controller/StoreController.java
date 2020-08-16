@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.jujumarket.admin.domain.ListItemVO;
 import com.jujumarket.admin.service.BannerService;
+import com.jujumarket.main.domain.PageDTO;
 import com.jujumarket.member.domain.DangolVO;
 import com.jujumarket.member.domain.MemberVO;
 import com.jujumarket.member.domain.SellerVO;
 import com.jujumarket.member.service.MemberService;
 import com.jujumarket.shop.domain.ItemCriteria;
 import com.jujumarket.shop.service.RegisterItemService;
+import com.jujumarket.shop.service.RegisterItemServiceImpl;
 import com.jujumarket.shop.service.ShopManageService;
 
 import lombok.AllArgsConstructor;
@@ -37,7 +39,7 @@ public class StoreController {
 	private ShopManageService smservice;
 	
 	@GetMapping("/store")
-	public void list(HttpSession session, ItemCriteria cri, String idNo, Model model) {
+	public void list(HttpSession session, ItemCriteria itemcri, String idNo, Model model) {
 		log.info("product store 작동중");
 		
 		DangolVO vo = new DangolVO();
@@ -53,8 +55,17 @@ public class StoreController {
 		
 		model.addAttribute("seller", memberService.getSellerInfoByIdNo(idNo));
 		
-		cri.setIdNo(idNo);	// 해당 샵 아이템만 가져오기
-		model.addAttribute("list", itemService.getList(cri));
+		itemcri.setIdNo(idNo);	// 해당 샵 아이템만 가져오기
+		
+		int total = itemService.getTotal(itemcri);
+		
+		System.out.println(total);
+		
+		
+	
+		
+		model.addAttribute("list", itemService.getList(itemcri));
+		model.addAttribute("pageMaker", new PageDTO(itemcri,total));
 		
 		//단골 신청 했는지 확인
 		int count=memberService.checkDangol(vo);
@@ -68,9 +79,15 @@ public class StoreController {
 		
 		model.addAttribute("checkDangol", vo.getCheck());
 		
-		Integer total=memberService.totalDangol(shopName);
-		if(total==null) {total=0;}
-		model.addAttribute("totalDangol",total );
+		Integer membertotal=memberService.totalDangol(shopName);
+		if(membertotal==null) {membertotal=0;}
+		
+		model.addAttribute("totalDangol",membertotal );
+		
+		
+		
+		
+		
 			
 	}
 	//단골 추가

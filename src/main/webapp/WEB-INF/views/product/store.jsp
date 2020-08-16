@@ -28,12 +28,26 @@
 	#backImg {
         width: 1000px;
         height: 200px;
+        
+      
+       
     }
     #backImg img {
     	width: 1000px;
         height: 200px;
-        overflow : hidden;
+        overflow : hidden;  
+        
     }
+	#backImgdefualt {
+	    background-color:#8FA691;
+        width: 1000px;
+         height: 200px;
+         top:30px;
+         position: absolute;
+        
+        z-index : -100;
+    }
+  
     #thumbnail {
         width:200px;
         height:200px;
@@ -66,15 +80,32 @@
     
     }
     
+    .itemContent {
+        height: 90px;
+  
+   }
+    
     .item img {
         width: 270px;
         height: 300px;
         overflow: hidden;
     }
 
-    .itemContent {
-        height: 70px;
-    }
+      .itemContent #itemName{
+      
+      color :  #404040; 
+      font-size : 20px;
+      
+      }
+      
+      .itemContent #price{
+      
+      color : #404040;
+      font-size : 25px;
+      }
+      
+          
+ 
     #shop {
         height: 30px;
 
@@ -106,6 +137,54 @@
 	    background-color: #f6dd90;
 	    border-radius: 50%;
 	}
+	
+	
+	
+	
+	
+.pageBtns {
+	text-align: center;
+	margin-right: 8%;
+}
+
+.page_num a{
+     color: #637365;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    
+   
+}
+
+
+/* .page_num {
+        display: inline-block;
+        padding-left:50%;
+        float: left;
+        width: 950px
+        
+        }
+        
+        
+     */
+.paginations a:hover:not(.active) {
+          background-color:#F0F2F0;
+          border-radius: 50%;
+          }
+          
+.paging{
+    
+ background-color: white;
+ color: #f6dd90;
+}
+
+.paginations a:hover:not(.active) {
+          background-color:#F0F2F0;
+          border-radius: 50%;
+          }
+	
+	
+	
  	/*버튼 */
  	.Dangol{
  	  background-color: #8FA691; 
@@ -133,6 +212,32 @@
  	#dangol_content{
  	border-bottom: 30px;
  	}
+ 	
+ 	 .add_to_cart img{
+           
+        margin-top: 5px;
+
+    	position:relative; 
+    	   width: 50px;	
+    	height: 50px;
+    	
+            
+        }
+        
+         .add_to_cart{
+        border:none;
+        background-color:white;
+        display:inline;
+        position:relative; 
+        left:215px;
+        bottom:50px;
+     
+    	
+        }
+        
+        .add_to_cart:focus{
+        outline:none;
+        }
  
  	
 </style>
@@ -145,12 +250,17 @@
 <div class="store_content">
 	<div class="store_wrap">
         <div class="store_pro">
-        	<div id="backImg">
-		    	<img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.backImg}"/>' onError="this.style.background-color:blue">
+             
+             
+        	<div id="backImg">           
+		    	<img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.backImg}"/>'  onError="this.style.display='none'">
 		        <div id="thumbnail">
 		        	<img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.thumbImg}"/>' onError="">
 		        </div>
+		       
 		    </div>
+		     <div id="backImgdefualt">
+               </div>
 		    <div id="shop">
 		    	<p id='shopName'><c:out value="${seller.shopName}"/></p>
 		    	
@@ -167,22 +277,42 @@
 		    </div>
 		
 		    <div id="itemContainer">
+		      
 		    	<c:forEach items="${list }" var="list">
 			    	<div class="item">
 			    		<a style=color:black href="/product/item?itemCode=<c:out value='${list.itemCode}'/>" >
 			            	<img src="/resources/upload/<c:out value="${list.idNo}"/>/<c:out value="${list.itemImg1}"/>" />
+			            	
 				            <div class="itemContent">
-						    	<p><c:out value="${list.itemName}"/></p>
-						    	<p><c:out value="${list.price}"/></p>
+						    	<p id='itemName'><c:out value="${list.itemName}"/></p>
+						    	<p id='price'><c:out value="${list.price}"/></p>
+						    	
+							             <c:if test="${list.saleStat=='품절'||list.saleStat=='판매중지'}">
+							                    	   <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/addcart.png"></button>
+							             </c:if>
+							             <c:if test="${list.saleStat!='품절'&& list.saleStat!='판매중지'}">
+							            			 <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/addcart.png"></button> 
+							             </c:if>
+							            	 	
+							            	 	
+							     
+						    	         
+						    	 <input type='hidden' id='listidNo' value='${list.idNo}'>
+						    	 
+						    	 
 				            </div>
 			            </a>
+
 			        </div>
+			         
 		        </c:forEach>
+ 					
+		       
 		    </div>
 		    
 		    <!-- 페이징 -->
 		    <div class='page_num'>
-	            <ul class="pagination">
+	            <ul class="paginations">
 	                <c:if test="${pageMaker.prev}">
 	                    <li class="paginate_button previous">
 	                        <a href="${pageMaker.startPage -1}">&laquo;</a>
@@ -192,6 +322,8 @@
 	                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 	                    <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
 	                        <a href="${num}">${num}</a>
+	                        
+	                        
 	                    </li>
 	                </c:forEach>
 	
@@ -205,10 +337,10 @@
 	        <!-- end pagination -->
                         
             <form id='actionForm' action="/product/store" method='get'>
-                <input type='hidden' name='pageNum' id="pageNum" value='${pageMaker.cri.pageNum}'>
-                <input type='hidden' name='amount' id="amount" value='${pageMaker.cri.amount}'>
-                <input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword }"/>' >
-                <input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type }"/>' >
+                <input type='hidden' name='idNo' id="idNo" value=''>   
+                <input type='hidden' name='pageNum' id="pageNum" value='${pageMaker.itemcri.pageNum}'>
+                <input type='hidden' name='amount' id="amount" value='${pageMaker.itemcri.amount}'>
+
             </form>
 		    
         </div>
@@ -221,11 +353,22 @@
 
 <script>
 	$(document).ready(function(){
+		  
+	
+		
+		
 		var actionForm = $("#actionForm");
 		$(".paginate_button a").on("click", function(e) {
 		   e.preventDefault();
+			
+	    	var	idNo = $("#listidNo").val();
+			console.log(idNo);
+			
+			 $("#idNo").val(idNo);
 		   
 		   actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+		   actionForm.find("input[name='idNo']").val(idNo);
+		
 		   actionForm.submit();
 		});
 	
@@ -274,16 +417,7 @@
 				
 				
 		}
-		
-		window.onload = function () {
-			
-			if(backImg.children[0].src==null){
-				alert("아몰라스트레스");
-			}
-			
-			
-			}
-	
+
 
 </script>
 

@@ -13,10 +13,12 @@
 
    <style>
    
+
    		body {
 		 margin: 0px auto;
 		 background-color: #F0F2F0;
 		}
+
       .cont_principal {
          background-color: #F0F2F0;
       }
@@ -180,23 +182,23 @@
       }
       
       select {
-      	margin-left: 40px;
+         margin-left: 40px;
       }
       
       p {
-		margin-left: 40px;
+      margin-left: 40px;
       }
       
       
       input[type=file] {
-      	margin-left:40px;
+         margin-left:40px;
       }
               
         #alert {
         color: red;
         font-size: 12px;
-		text-align: right;
-		margin-right: 50px;
+      text-align: right;
+      margin-right: 50px;
         }
         
         h3 {
@@ -206,7 +208,7 @@
         }
         
         #bankAccount {
-        	width: 280px;
+           width: 280px;
         }
       
    </style>
@@ -361,9 +363,9 @@
             const MIN = 0;
             
             nextBtn.click(function(e){
-            	e.preventDefault();
-            	switch(currentTab){
-            	case MIN: 
+               e.preventDefault();
+               switch(currentTab){
+               case MIN: 
 /*                      if (!(emailAccountCheck())) {
                         return false;
                      } else if (duplicateCheckResult.val() == "false") {
@@ -374,10 +376,10 @@
                         return false;
                      } else {
                      }  */
-            			prevBtn.css("display", "block");
-                		break;
-            	case 1:
-/*             		 if (!(pwdCheck())) {
+                     prevBtn.css("display", "block");
+                      break;
+               case 1:
+/*                    if (!(pwdCheck())) {
                         return false;
                      } else if (!(pwdChk.val() === pwd.val())) {
                         alert("비밀번호확인은 비밀번호와 같아야 합니다.");
@@ -385,9 +387,9 @@
                         return false;
                      } else {
                      } */
-                		break;
-            	case 2:
-/*              		 if (!(memNameCheck())) {
+                      break;
+               case 2:
+/*                     if (!(memNameCheck())) {
                         return false;
                      } else if (!(contact1Check())) {
                         return false;
@@ -395,40 +397,40 @@
                         return false;
                      } else {
                      }  */
-            			nextBtn.css("display", "none");
-            			submitBtn.css("display", "block");
-            			break;
-            	case MAX: 
-            		return false;
-            	}
-            	$(inputDiv[currentTab]).css("display", "none"); 
-            	currentTab++;
-            	$(inputDiv[currentTab]).css("display", "block");
-           	 	$(progress[currentTab]).addClass("active");
-           	 	console.log(currentTab);
+                     nextBtn.css("display", "none");
+                     submitBtn.css("display", "block");
+                     break;
+               case MAX: 
+                  return false;
+               }
+               $(inputDiv[currentTab]).css("display", "none"); 
+               currentTab++;
+               $(inputDiv[currentTab]).css("display", "block");
+                  $(progress[currentTab]).addClass("active");
+                  console.log(currentTab);
             });
             
             prevBtn.click(function(e){
-            	e.preventDefault();
-            	if(currentTab == MIN) {
-            		return false;
-            	} else {
-            		if(currentTab==MAX){
-                		submitBtn.css("display", "none");
-                		nextBtn.css("display", "none");
-                	} else if (currentTab == 1) {
-                		prevBtn.css("display", "none");
-                	}
-            		$(inputDiv[currentTab]).css("display", "none"); 
-            		$(progress[currentTab]).removeClass("active");
-            		currentTab--;
-            		$(inputDiv[currentTab]).css("display", "block");
-            		
-            	}
+               e.preventDefault();
+               if(currentTab == MIN) {
+                  return false;
+               } else {
+                  if(currentTab==MAX){
+                      submitBtn.css("display", "none");
+                      nextBtn.css("display", "none");
+                   } else if (currentTab == 1) {
+                      prevBtn.css("display", "none");
+                   }
+                  $(inputDiv[currentTab]).css("display", "none"); 
+                  $(progress[currentTab]).removeClass("active");
+                  currentTab--;
+                  $(inputDiv[currentTab]).css("display", "block");
+                  
+               }
             });
             
             
-           	
+              
             
             emailAuthBtn.click(function (e) {
                e.preventDefault();

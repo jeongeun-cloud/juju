@@ -463,6 +463,7 @@ margin-right: 8%;
             actionForm.submit();
          });
          
+         
          $(".move").on("click",function(e){
               
 
