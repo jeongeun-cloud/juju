@@ -19,6 +19,7 @@
    .store_wrap{
       position: relative;
       padding-top: 30px;
+      margin-bottom:300px;
    }
    
    .store_pro{
@@ -73,35 +74,71 @@
         float: left;
         margin: 60px 30px 0px 30px;
     }
+    .sold {
+        width: 270px;
+        height: 370px;
+   
+        float: left;
+        margin: 60px 30px 0px 30px;
+    }
     
-    .itemContent:hover{
+    
+    
+    .itemContent,
+    .solditemContent:hover{
     
       color:#637365;
     
     }
-    
     .itemContent {
         height: 90px;
+        
   
    }
     
-    .item img {
+    .solditemContent {
+        height: 90px;
+         position: relative;
+         top:-80px;
+        
+  
+   }
+   .item img {
         width: 270px;
         height: 300px;
         overflow: hidden;
+        position: relative;
+      
+     
+    }
+    
+    .sold img {
+        width: 270px;
+        height: 300px;
+        overflow: hidden;
+        position: relative;
+        top:-80px;
+     
     }
 
-      .itemContent #itemName{
+      .itemContent #itemName,.solditemContent #itemName{
       
       color :  #404040; 
       font-size : 20px;
       
       }
       
-      .itemContent #price{
+      .itemContent #price,.solditemContent #price{
       
       color : #404040;
       font-size : 25px;
+      
+      }
+      
+      pro_img_wrap{
+      width: 270px;
+        height: 300px;
+        overflow: hidden;
       }
       
           
@@ -126,51 +163,23 @@
        display: inline-block;
        padding-left:70%;
     }
-    
-    .page_num a{
-       color: black;
-       float: left;
-       padding: 8px 16px;
-       text-decoration: none;
-    }
-    .pagination a:hover:not(.active) {
-       background-color: #f6dd90;
-       border-radius: 50%;
-   }
-   
-   
-   
-   
-   
+
 .pageBtns {
    text-align: center;
    margin-right: 8%;
 }
 
 .page_num a{
-     color: #637365;
+    position:relative;
+    color: #637365;
     float: left;
-    padding: 8px 16px;
+    top:150px;
     text-decoration: none;
+    padding:15px 25px;
     
    
 }
 
-
-/* .page_num {
-        display: inline-block;
-        padding-left:50%;
-        float: left;
-        width: 950px
-        
-        }
-        
-        
-     */
-.paginations a:hover:not(.active) {
-          background-color:#F0F2F0;
-          border-radius: 50%;
-          }
           
 .paging{
     
@@ -181,6 +190,8 @@
 .paginations a:hover:not(.active) {
           background-color:#F0F2F0;
           border-radius: 50%;
+
+          
           }
    
    
@@ -220,6 +231,7 @@
        position:relative; 
           width: 50px;   
        height: 50px;
+       top:0;
        
             
         }
@@ -238,7 +250,43 @@
         .add_to_cart:focus{
         outline:none;
         }
+        
+         .sold .soldout{
+          position: relative; 
+          text-align:center; 
+           font-size: 3.5em;
+           font-weight: bold; 
+           color: white;
+           top: 200px;
+           
+        
+
+       }
+       
+
+ .soldcolor{
+        display:block;
+        position: relative;
+        background-color:black;
+        top:80px;
+        height:300px;
+        bottom:0;
+        left:0;
+        right:0;
+        }
+        
+         .ddcolor{
+        display:block;
+        position: relative;
+        background-color:black;
+        top:80px;
+        height:300px;
+        bottom:0;
+        left:0;
+        right:0;
+        }
  
+  		
     
 </style>
 </head>
@@ -256,13 +304,11 @@
              <img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.backImg}"/>'  onError="this.style.display='none'">
               <div id="thumbnail">
                  <img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.thumbImg}"/>' onError="">
-              </div>
-             
-          </div>
-           <div id="backImgdefualt">
-               </div>
+              </div> 
+           </div>
+          <div id="backImgdefualt"></div>
           <div id="shop">
-             <p id='shopName'><c:out value="${seller.shopName}"/></p>
+ 	 	  <p id='shopName'><c:out value="${seller.shopName}"/></p>
              
              <!--단골 되기 버튼  -->
              <div id='dangol_content'>
@@ -279,35 +325,83 @@
           <div id="itemContainer">
             
              <c:forEach items="${list }" var="list">
+             <c:if test="${list.saleStat=='판매중'}">
+              
                 <div class="item">
+                <div class='ddcolor'>
                    <a style=color:black href="/product/item?itemCode=<c:out value='${list.itemCode}'/>" >
                         <img src="/resources/upload/<c:out value="${list.idNo}"/>/<c:out value="${list.itemImg1}"/>" />
-                        
+                     </a>   
                         <div class="itemContent">
                          <p id='itemName'><c:out value="${list.itemName}"/></p>
-                         <p id='price'><c:out value="${list.price}"/></p>
-                         
-                                  <c:if test="${list.saleStat=='품절'||list.saleStat=='판매중지'}">
-                                               <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/addcart.png"></button>
-                                  </c:if>
-                                  <c:if test="${list.saleStat!='품절'&& list.saleStat!='판매중지'}">
-                                           <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/addcart.png"></button> 
-                                  </c:if>
-                                        
-                                        
-                          
-                                  
-                          <input type='hidden' id='listidNo' value='${list.idNo}'>
-                          
-                          
-                        </div>
-                     </a>
-
-                 </div>
+                         <p id='price'><fmt:formatNumber type="number"  maxFractionDigits="3" value="${list.price}" /><span class="won">원</span></p>								
+                      
+                        <c:if test="${list.saleStat=='품절'||list.saleStat=='판매중지'}">
+                               <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/addcart.png"></button>
+                        </c:if>
+                        <c:if test="${list.saleStat!='품절'&& list.saleStat!='판매중지'}">
+                               <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/addcart.png"></button> 
+                         </c:if>
+						<input type='hidden' id='listidNo' value='${list.idNo}'>      
+                      </div>
+                  </div>
+                  </div>
+              </c:if>
                   
-              </c:forEach>
-                
+                  <!-- -판매중end -->
+                  <c:if test="${list.saleStat=='품절'}">
+                 
+                               <div class="sold">
+                                <div class='soldcolor'> 
+                                   <p class="soldout" >품절</p>
+                 				  <a style=color:black href="/product/item?itemCode=<c:out value='${list.itemCode}'/>"  style="opacity:0.2;">
+                      			  <img class="active" src="/resources/upload/<c:out value="${list.idNo}"/>/<c:out value="${list.itemImg1}"/>" style="opacity:0.2;" />
+								</a>
+                               
+                                 <div class="solditemContent">               
+                                 <p id='itemName'><c:out value="${list.itemName}"/></p>
+								<p id='price'><fmt:formatNumber type="number"  maxFractionDigits="3" value="${list.price}" /><span class="won">원</span></p>								
+								
+								 <c:if test="${list.saleStat=='품절'||list.saleStat=='판매중지'}">
+								  	 <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/addcart.png"></button>
+								</c:if>
+							    <c:if test="${list.saleStat!='품절'&& list.saleStat!='판매중지'}">
+								     <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/addcart.png"></button> 
+								</c:if>
+								<input type='hidden' id='listidNo' value='${list.idNo}'>    
+                  			 </div> 
+                  			 </div>
+                  			 </div>
+                   </c:if>  
              
+                
+                
+                 <!-- -판매중end -->
+                  <c:if test="${list.saleStat=='판매중지'}">
+                               <div class="sold">
+                                <div class='soldcolor'> 
+                                <p class="soldout" >판매중지</p>
+                 				  <a style=color:black href="/product/item?itemCode=<c:out value='${list.itemCode}'/>"  >
+                      			  <img class="active" src="/resources/upload/<c:out value="${list.idNo}"/>/<c:out value="${list.itemImg1}"/>"style="opacity:0.2;" />
+								</a>
+						
+                                 <div class="solditemContent">               
+                                 <p id='itemName'><c:out value="${list.itemName}"/></p>
+								<p id='price'><fmt:formatNumber type="number"  maxFractionDigits="3" value="${list.price}" /><span class="won">원</span></p>								
+								 <c:if test="${list.saleStat=='품절'||list.saleStat=='판매중지'}">
+								  	 <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/addcart.png"></button>
+								</c:if>
+							    <c:if test="${list.saleStat!='품절'&& list.saleStat!='판매중지'}">
+								     <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/addcart.png"></button> 
+								</c:if>
+								<input type='hidden' id='listidNo' value='${list.idNo}'>    
+                  			 </div> 
+                  			 </div> 
+                  			  </div>
+                   </c:if>  
+                </c:forEach>     
+                  
+                   
           </div>
           
           <!-- 페이징 -->
