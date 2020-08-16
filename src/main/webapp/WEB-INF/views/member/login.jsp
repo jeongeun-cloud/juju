@@ -87,6 +87,69 @@
        margin: 0px auto;
    }
    
+
+	        .cont_tabs_login {
+            position: relative;
+            float: left;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .ul_tabs>li {
+            position: relative;
+            float: left;
+            width: 50%;
+            list-style: none;
+            text-align: center;
+
+        }
+        
+        .ul_tabs {
+        	padding-left: 15px;
+        }
+
+        .ul_tabs>li>a {
+            text-decoration: none;
+            font-size: 15px;
+            color: #999;
+            line-height: 14px;
+            padding: 20px;
+            display: block;
+            transition: all 0.5s;
+            cursor: pointer;
+        }
+
+        .ul_tabs>.active>a {
+            color: #637365;
+            font-weight: bold;
+
+        }
+
+        .linea_bajo_nom {
+            position: relative;
+            width: 100%;
+            float: left;
+            background-color: #999;
+            height: 2px;
+        }
+
+        .active .linea_bajo_nom {
+            position: relative;
+            width: 100%;
+            float: left;
+            background-color: #637365;
+            height: 2px;
+        }
+        
+        #nonMemDiv {
+        	display: none;
+        }
+        
+        input[id=orderSearchBtn] {
+        	margin-top: 10px;
+        	padding: 18px 157px;
+        }
+
    	#naverIdLogin img {
    		border-radius : 50%;
    		float : left;
@@ -107,6 +170,7 @@
 		float:left;
 		margin : 0 20px 0 105px;
 	}
+
    
 }
 </style>
@@ -121,7 +185,16 @@
 	<div class = "container" align="center">
 	<br><br><br>
 		<h3>로그인</h3>
-		<br>
+		<div class="cont_tabs_login">
+             <ul class='ul_tabs'>
+                 <li id="progress1" class="active"><a>회원 로그인</a>
+                     <span class="linea_bajo_nom"></span>
+                 </li>
+                 <li id="progress2"><a>비회원 주문조회</a><span class="linea_bajo_nom"></span>
+                 </li>
+             </ul>
+        </div>
+		<div id="loginDiv" class="divTab">
 		<form action="/member/login"  method="post">
 			<input type="text" name="emailAccount" id="emailAccount" size="20" placeholder="아이디를 입력해주세요."><br>
 			<input type="password" name="pwd" id="pwd" size="20"  placeholder="비밀번호를 입력해주세요."><br><br>
@@ -148,10 +221,37 @@
 		</div>
 
 		<input type="hidden" id="result" value="${result }">
-	</div>
+		</div>
+		<div id="nonMemDiv" class="divTab">
+		<form action="/"  method="post">
+			<input type="text" name="orderCode" id="orderCode" size="20" placeholder="주문번호를 입력해주세요."><br>
+			<input type="password" name="nonMemPwd" id="nonMemPwd" size="20"  placeholder="주문 비밀번호를 입력해주세요."><br>
+			<input type="submit" id="orderSearchBtn" value="조회하기">
+		</form>
+		</div>
 
    <script>
     $(document).ready(function() {
+    	
+    	var progress1 = $("#progress1");
+    	var progress2 = $("#progress2");
+    	var aTags = $(".ul_tabs a");
+    	var divTab = $(".divTab");
+    	
+    	aTags.on().click(function(e){
+    		e.preventDefault();
+			aTags.parent().removeClass();
+    		switch(this.innerText){
+    		case "회원 로그인": $(this).parent().addClass("active");
+    						$(divTab[0]).css("display", "block");
+    						$(divTab[1]).css("display", "none");
+    						break;
+    		case "비회원 주문조회": $(this).parent().addClass("active");
+    						$(divTab[0]).css("display", "none");
+    						$(divTab[1]).css("display", "block");
+    						break;
+    		}
+    	});
        
         var result = $("#result").val();
         alertResult(result);
