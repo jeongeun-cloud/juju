@@ -8,22 +8,13 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
-<!--     <link href="/resources/seasonal.css" rel="stylesheet"> -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+    <link href="/resources/css/seasonal.css" rel="stylesheet">
 
     <style>
-    	/* 배너 */
     	#activeImg {
     		margin-bottom : 100px;
     	}
-		.txt1 {
-			margin : 0 0 20px;
-			font-size : 30px;
-			line-height : 1.2;
-			font-weight : 700;
-			color : white;
-			position : absolute;
-		}
-		/* 배너 끝 */
 		
 		.seasonal_pro{
             width: 100%;
@@ -62,6 +53,7 @@
 		/* 두번 째 그리드 */
 		#wrapper {
 	        width: 100%;
+	        height:700px;
 	        margin-left: 15px;
 	    }
 	    .grid {
@@ -73,15 +65,18 @@
 	        margin-bottom : 10px;
 	        overflow:hidden;
 	        width : 96%;
+	        position : relative;
 	    }
 	    .mini {
 	    	margin-bottom : 10px;
 	        overflow:hidden;
 	        width : 47%;
 	        float : left;
+	        position : relative;
 	    }
 	    .big img, .mini img {
 	        width : 100%;
+	        vertical-align:middle;
 	        transform: scale(1);
 			-webkit-transform: scale(1);
 			-moz-transform: scale(1);
@@ -89,12 +84,40 @@
 			-o-transform: scale(1);
 			transition: all 0.3s ease-in-out;
 	    }
-	    .big img:hover, .mini img:hover {
+	    /* .big img:hover, .mini img:hover {
 		  transform: scale(1.05);
 		  -webkit-transform: scale(1.05);
 		  -moz-transform: scale(1.05);
 		  -ms-transform: scale(1.05);
 		  -o-transform: scale(1.05);
+		} */
+		.text_box {
+			width:100%;
+			height:100%;
+			padding-top :50%;
+			position : absolute;
+			text-align : center;
+			top : 50%;
+			left : 50%;
+			transform : translate( -50%, -50% );
+		}
+		.text_box p {
+			color : white;
+			font-size : 36px;
+			font-weight : 600;
+		}
+		.text_box span {
+			color : white;
+			font-size : 20px;
+		}
+		.text_box:hover {
+			background-color : rgba( 0, 0, 0, 0.5 );
+		}
+
+		.shortcut_btn {
+			background : url('/resources/images/btn_shortcut.png')center bottom no-repeat;
+			height:30px;
+			margin-top : 5px;
 		}
 		/* 두번 째 그리드 끝 */
 		
@@ -103,7 +126,7 @@
 	        float:right;
 	        margin-right: 30px;
 	        margin-top : 5px;
-	        background-color: #ffc30b; 
+	        background-color: #8FA691; 
 	        border: none;
 	        color: white;
 	        padding: 8px 20px;
@@ -118,8 +141,8 @@
 	
 	    #regBtn:hover{
 		    background-color: white; 
-		    color: #ffc30b; 
-		    border: 2px solid #ffc30b;
+		    color: #8FA691; 
+		    border: 2px solid #8FA691;
 		    outline: none; 
 	    }
     	/* 버튼 디자인 끝 */
@@ -127,36 +150,9 @@
     	/* 레시피 시작 */
     	@import url(https://fonts.googleapis.com/css?family=Work+Sans:400,900,800,500,700,600);
 
-		/* *, *::after, *::before {
-			box-sizing: border-box;
-		}
-		
-		html, body {
-			font-size: 6px;
-			background: #fbfbfb;
-			padding: 40px 20px;
-			font-family: 'Work Sans', sans-serif;
-			-webkit-font-smoothing: antialiased;
-			-moz-osx-font-smoothing: grayscale;
-		}
-		
-		@media (min-width: 860px) {
-			html, body {
-				font-size: 8px;
-				padding: 30px 50px;
-			}
-		}
-		
-		@media (min-width: 1200px) {
-			html, body {
-				font-size: 10px;
-			}
-		} */
-		
 		.slider-wrapper {
 			position: relative;
 			width:100%;
-			/* max-width: 90rem; */
 			min-width: 480px;
 			background: #fff;
 			margin: 0 auto;
@@ -244,7 +240,7 @@
 		
 		.slider-wrapper .slide-navigation__txt li span.active {
 			transform: scale(1.1, 1.1);
-			color: #E34D67;
+			color: #637365;
 		}
 		
 		.slider-wrapper .slide-navigation__squares {
@@ -276,7 +272,7 @@
 		}
 		
 		.slider-wrapper .slide-navigation__squares .square.red {
-			background: #E34D67;
+			background: #637365;
 		}
 		
 		.slider-wrapper .slides-container {
@@ -314,19 +310,8 @@
 			overflow: hidden;
 		}
 		
-		/* .slider-wrapper .slide .slide-content h1 {
-			text-transform: uppercase;
-			color: white;
-			font-weight: 900;
-			font-size: 10rem;
-			text-align: center;
-			margin: 0;
-			opacity: 0.6;
-			position: relative;
-		} */
-		
 		.slider-wrapper .slide .slide-content h2 {
-			color: #E34D67;
+			color: #637365;
 			font-size: 4.8rem;
 			max-width: 80%;
 			margin: 0;
@@ -355,51 +340,96 @@
 			margin: 0;
 			max-width: 55%;
 			color: #666666;
-			font-size: 1.2rem;
+			font-size: 17px;
 			line-height: 1.4;
 			float: left;
 		}
-		
-		/* .slider-wrapper .slide .slide-txt button {
-			display: block;
-			float: right;
-			width: 18rem;
-			text-align: center;
-			background: transparent;
-			background-color: transparent;
-			border: 0.28rem solid #E34D67;
-			text-transform: uppercase;
-			padding: 0.8rem 0.5rem;
-			font-size: 1.5rem;
-			color: #E34D67;
-			font-weight: 600;
-			letter-spacing: 0.2rem;
-			outline: none;
-			overflow: hidden;
-		} */
-    	/* 레시피 끝 */
-    	
-    	/* 다담기 상품 시작 */
-		.itemText {
-			margin-left : 20px;
-			font-size : 15px;
-			font-weight : bold;
-		}
-		#season_item img {
-			width : 300px;
-			height : 180px;
-		}
-		#season_item {
-			float : left;
-			margin : 0 10px;
-		}
-		
+
+		li{
+            list-style: none;
+        }
+   		.new_pro_li{
+   			height:300px;
+   			margin-top : 100px;
+   		}
+    
+        .pro_module{
+            width: 186px;
+        }
+
+        .pro_img_wrap{
+            width: 100%;
+            height: 206px;
+            position: relative;
+            overflow: hidden;
+            background-color:black;
+        }
+
+        .pro_img_wrap img{
+            display:block;
+            width:100%;
+            height:100%;
+            position: absolute;
+            top:0;
+            bottom:0;
+            left:0;
+            right:0;
+        }
+        
+        .pro_module .txt_wrap{
+            position: relative;
+            margin-top: 16px;
+            width: 100%;
+            height: 140px;
+        }
+        .txt_wrap {
+            margin-left: 1px;
+            height:25px;
+        }
+        .tit_info .info_itemName{
+            display: block;
+            color: black;
+            font-weight: bold;
+            font-size: 16px;
+            word-break: break-all;
+        }
+        .price_info{
+            font-size: 0;
+            
+        }
+        .price_info .sale{
+            display: inline-block;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .price_info .sale .price{
+            display: inline-block;
+            vertical-align: top;
+            font-size: 15px;
+            font-weight: 800;
+            color: black;
+        }
+        .price_info .normPrice{
+            display: inline-block;
+            padding-left: 6px;
+            color: black;
+            font-size: 13px;
+            text-decoration: line-through;
+            vertical-align: middle;
+        }
+        .pro_module{
+            position: static;
+            margin-top: 5px;
+        }
+        .pro_list .pro_list_ul .pro_list_li{
+            float: left;
+            margin-right : 60px;
+        } 
 		.add_to_cart {
 			border: none;
 			background-color: transparent;
 		
 		}
-		
 		
 		/* 다담기 상품 끝 */
     </style>
@@ -410,55 +440,115 @@
 <%@include file="./includes/basketSlide.jsp" %>
 	<!-- 맨 위 배너 -->
 	<div id="activeImg">
-  		<div class="txt1">
-  			<p>최고의 품질, 가격, 신선도</p>
-  			<p>최고의 품질, 가격, 신선도</p>
-  			<p>최고의 품질, 가격, 신선도</p>
-  			<p>최고의 품질, 가격, 신선도</p>
-  			<p>최고의 품질, 가격, 신선도</p>
-  		</div>
-  		<img style="width:100%;" class="banner" src="/resources/images/seasonal_bg2.jpg">
+  		<img style="width:100%;" class="banner" src="/resources/images/seasonal_bg2.png">
     </div>
     
 	<div class="seasonal_pro">
-		<c:forEach items="${column }" var="column">
-		<div id="column">
-			<div class="columnImg" data-aos="fade-right" data-aos-duration="1500">
-				<img alt="" src='/resources/banner/column/<c:out value="${column.img1}"/>' >
-			</div>
-			<div class="columnText" data-aos="fade-down" data-aos-duration="1500">
-				<pre id="column1" readonly disabled><c:out value="${column.column1}"/></pre>
-			</div>
-			<div class="columnText" data-aos="fade-up" data-aos-duration="1500">
-				<pre id="column2" readonly disabled><c:out value="${column.column2}"/></pre>
-			</div>
-			<div class="columnImg" data-aos="fade-left" data-aos-duration="1500">
-				<img alt="" src='/resources/banner/column/<c:out value="${column.img2}"/>' >
-			</div>
+		<div class="container" style="margin-bottom:150px;">
+		    <div class="info">
+		      <h1>Food Magazine</h1>
+		    </div>
+		    <c:forEach items="${column }" var="column">
+		    	<!-- Normal Demo-->
+			    <div class="column">
+			      <div class="demo-title">Normal</div>
+			      <!-- Post-->
+			      <div class="post-module">
+			        <!-- Thumbnail-->
+			        <div class="thumbnail" style="padding:0;">
+			          <img src='/resources/banner/column/<c:out value="${column.img1}"/>' />
+			        </div>
+			        <!-- Post Content-->
+			        <div class="post-content">
+			          <h1 class="title">[홍경희 교수의 '건강한 영양학'] 당뇨병 환자도 고기를 먹는 것이 좋을까요?</h1>
+			          <p class="description"><c:out value="${column.column1}"/></p>
+			          <div class="post-meta"><span class="comments"><a href="#">자세한 내용 보러가기</a></span></div>
+			        </div>
+			      </div>
+			    </div>
+			    
+			    <div class="column">
+			      <div class="demo-title">Normal</div>
+			      <!-- Post-->
+			      <div class="post-module">
+			        <!-- Thumbnail-->
+			        <div class="thumbnail" style="padding:0;">
+			          <img src='/resources/banner/column/<c:out value="${column.img2}"/>' />
+			        </div>
+			        <!-- Post Content-->
+			        <div class="post-content">
+			          <h1 class="title">태안 마도선에 실린 개성인이 즐긴 젓갈 - 새우젓에서 그이장(게장), 전복젓갈, 홍합젓갈까지</h1>
+			          <p class="description"><c:out value="${column.column2}"/></p>
+			          <div class="post-meta"><span class="comments"><a href="#">자세한 내용 보러가기</a></span></div>
+			        </div>
+			      </div>
+			    </div>
+		    </c:forEach>
 		</div>
-		</c:forEach> 
 		
 		<div id="wrapper">
 	        <div class="grid">
 	            <div class="big">
 	                <img id="gallery0" alt="" src="">
+	                <a href="/product/list?classCode=Veggie">
+		                <div class="text_box">
+		                	<p>채소 & 야채</p>
+		                	<span>산지에서 바로 올라온 신선함</span>
+		                	<div class="shortcut_btn"></div>
+		                </div>
+	                </a>
 	            </div>
 	            <div class="mini">
 	                <img id="gallery1" alt="" src="">
+	                <a href="/product/list?classCode=Sea">
+		                <div class="text_box">
+		                	<p>자연산 해산물</p>
+		                	<span>생생한 해산물 소식!</span>
+		                	<div class="shortcut_btn"></div>
+		                </div>
+		            </a>
 	            </div>
 	            <div class="mini" style="margin-left:18px;">
 	                <img id="gallery2" alt="" src="">
+	                <a href="/product/list?classCode=Meat">
+		                <div class="text_box">
+		                	<p>선홍빛 육류</p>
+		                	<span>육즙이 가득, 단백질이 풍부!</span>
+		                	<div class="shortcut_btn"></div>
+		                </div>
+		            </a>
 	            </div>
 	        </div>
 	        <div class="grid">
 	            <div class="mini">
 	                <img id="gallery3" alt="" src="">
+	                <a href="/product/list?classCode=Grain">
+		                <div class="text_box">
+		                	<p>양곡, 잡곡, 쌀</p>
+		                	<span>든든한 우리 양곡</span>
+		                	<div class="shortcut_btn"></div>
+		                </div>
+		            </a>
 	            </div>
 	            <div class="mini" style="margin-left:18px;">
 	                <img id="gallery4" alt="" src="">
+	                <a href="/product/list?classCode=FruitF02">
+		                <div class="text_box">
+		                	<p>수입산 과일</p>
+		                	<span>상콤 키위, 자몽, 바나나, 라임</span>
+		                	<div class="shortcut_btn"></div>
+		                </div>
+		            </a>
 	            </div>
 	            <div class="big">
 	                <img id="gallery5" alt="" src="">
+	                <a href="/product/list?classCode=FruitF01">
+		                <div class="text_box">
+		                	<p>국내산 과일</p>
+		                	<span>지금이 한창, 제철과일을 만나보세요</span>
+		                	<div class="shortcut_btn"></div>
+		                </div>
+		            </a>
 	            </div>
 	        </div>
     	</div>
@@ -483,34 +573,46 @@
 		    <div class="slides-container">
 		      <div class="slide-wrapper">
 		        <div class="slide" data-order="1">
-		          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/photo-1428908728789-d2de25dbd4e2.jpeg" alt="" />
+		          <img src="/resources/images/reci1.png" alt="" />
 		          <div class="slide-content">
 		            <!-- <h1>Discover</h1> -->
-		            <h2>재료 손질</h2>
+		            <h2>재료 준비</h2>
 		            <div class="slide-txt">
-		              <p>The Nordic Countries varied landscapes offer wonderful scenery for any journey, no matter by land or sea.  How you choose to travel will depend on where you go.</p>
+		              <p><b>재료 : 닭 1kg, 감자 2개, 양파 큰거, 당근, 대파, 버섯</b></p><br><br>
+		              <p><b>양념 : 간장, 고춧가루, 설탕, 다진마늘</b></p><br><br><br>
+		              <p>1. 손질 된 닭이 푹 잠길만큼 우유에 30분 담가 둔 후 여러번 헹궈낸다.</p><br><br>
+		              <p>2. 닭이 잠길만큼의 물을 부어 설탕 3큰술을 함께 넣고 끓여준다.</p><br><br>
+		              <p>3. 닭이 끓는 동안 야채를 손질한다.</p><br><br>
+		              <p>4. 감자는 큼지막하게 썰고, 양파, 당근, 버섯은 먹기좋게, 대파는 어슷썰어 준비해주세요.</p><br>
 		              <!-- <button>Show regions</button> -->
 		            </div>
 		          </div>
 		         </div>
 		        <div class="slide" data-order="2">
-		          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/todo-banner.jpg" alt="" />
+		          <img src="/resources/images/reci2.PNG" alt="" />
 		          <div class="slide-content">
 		            <!-- <h1>To do</h1> -->
-		            <h2>Close encounters with nature</h2>
+		            <h2>조리</h2>
 		            <div class="slide-txt">
-		              <p>There's never a bad time to visit the Nordic countries! When you should visit will depend on which types of activities or natural phenomena interest you most.</p>
-		              <!-- <button>Activities</button> -->
+		              <p>5. 오래 익혀야 하는 감자를 제일 먼저 넣어주고, 다진마늘 2큰술도 넣어주세요.</p><br><br><br>
+		              <p>6. 양파와 당근도 넣어줍니다.</p><br><br>
+		              <p>7. 국물이 끓어오르면 진간장 1국자 반을 과감하게 넣어주세요.</p><br><br>
+		              <p>8. 칼칼하게 매운맛을 내기 위해 고춧가루도 1국자 넣어줍니다.</p><br><br><br><br>
+		              <p>* TIP : 중간중간 거품을 걷어주세요 *</p><br>
+		              <!-- <button>Show regions</button> -->
 		            </div>
 		          </div>
 		         </div>
 		        <div class="slide" data-order="3">
-		          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/42764/plan-banner_copy.jpg" alt="" />
+		          <img src="/resources/images/reci3.jpg" alt="" />
 		          <div class="slide-content">
 		            <!-- <h1>Plan</h1> -->
-		            <h2>Top attractions in the nordics</h2>
+		            <h2>마무리</h2>
 		            <div class="slide-txt">
-		              <p>June, July and August is the best time to travel, this is when you can expect the warmest weather, longest daylight hours and best availability of outdoor activities.</p>
+		              <p>9. 고춧가루가 풀어질때쯤 버섯을 넣어주세요.</p><br><br>
+		              <p>10. 약한불에 5분쯤 끓여주면 재료에 맛이 배어 듭니다.</p><br><br>
+		              <p>11. 마지막으로 파를 넣고 한소큼 끓여내면 맛있는 닭도리탕이 완성됩니다!</p><br><br>
+		              <p>12. 예쁜 그릇에 옮겨준 후 시식~</p><br>
 		              <!-- <button>Reservations</button> -->
 		            </div>
 		          </div>
@@ -519,9 +621,9 @@
 		    </div>
 		    <div class="slide-navigation__txt">
 		      <ul>
-		        <li><span data-order="1">Discover</span></li>
-		        <li><span data-order="2">To do</span></li>
-		        <li><span data-order="3">Plan</span></li>
+		        <li><span data-order="1">재료 준비</span></li>
+		        <li><span data-order="2">조리</span></li>
+		        <li><span data-order="3">마무리</span></li>
 		      </ul>
 		    </div>
 		  </div>
@@ -529,31 +631,54 @@
 		<!-- <img alt="" src='/resources/images/season_reci.PNG' > -->
 	</div>
 	
-	<!-- 다담기 상품 -->
-	<div class="seasonal_pro" style="margin-top:30px;">
-		<c:forEach items="${seasonItem }" var="seasonItem">
-			<div id="season_item">
-		 		<img alt="" src='/resources/upload/<c:out value="${seasonItem.idNo}"/>/<c:out value="${seasonItem.itemImg1}"/>' >
-		  		<div class="itemText">
-		  			<p><c:out value="${seasonItem.itemName}"/></p>
-		  			<p><fmt:formatNumber type="number" maxFractionDigits="3" value="${seasonItem.price}" />원</p>
-					<button class="add_to_cart" value="${seasonItem.itemCode}" onclick="addToBasketEvent(this.value)"></button>
-		  		</div>
-			</div>
-			
-	 	</c:forEach>
-		<button id="regBtn" onclick="allToBasket()">다담기</button>
-	</div>
+	<!-- 다담기 상품 -->   
+	<div class="new_pro_li">
+        
+        <div class="pro_list">
+            <ul class="pro_list_ul">
+            <c:forEach items="${seasonItem }" var="seasonItem">
+                <li class="pro_list_li">
+                    <div class="pro_module">
+                        <div class="pro_img_wrap">
+                            <a href='/product/item?itemCode=<c:out value="${seasonItem.itemCode}"/>' class="conts">
+                                <img alt="" src='/resources/upload/<c:out value="${seasonItem.idNo}"/>/<c:out value="${seasonItem.itemImg1}"/>' >
+                            </a>
+        
+                        </div>    
+                        <div class="txt_wrap">
+                            <a href='/product/item?itemCode=<c:out value="${seasonItem.itemCode}"/>' class="conts">
+                                <div class=tit_info>
+                                    <span class="info_itemName"><c:out value="${seasonItem.itemName}"/></span>
+                                </div>
+                                <!-- END tit_info -->
+                                <div class="price_info">
+                                    <p class="sale">
+                                        <span class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${seasonItem.price}" />
+                                            <span class="won">원</span>
+                                        </span>
+                                    </p>
+                                    <p class="normPrice">
+                                        <fmt:formatNumber type="number" maxFractionDigits="3" value="${seasonItem.normPrice}" />
+                                        <span class="won">원</span>
+                                    </p>
+                                </div>
+                            </a>
+							<button class="add_to_cart" value="${seasonItem.itemCode}" onclick="addToBasketEvent(this.value)"></button>
+                        </div>
+                        <!-- END txt_wrap -->
+                    </div>
+                    <!-- END pro_moduel  -->
+                </li>
+
+            </c:forEach>
+            </ul>    
+        </div>
+        <button id="regBtn" onclick="allToBasket()">다담기</button>
+        <!--END pro_list  -->
+    </div>		
+
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
-	
-	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-	<script>
-		AOS.init({
-			easing: 'ease-out-back',
-			duration: 1000
-		});
-	</script>
 	
 	<script>
 		hljs.initHighlightingOnLoad();
@@ -566,6 +691,14 @@
 	</script>
 	
 	<script>
+		$(window).load(function() {
+	        $('.post-module').hover(function() {
+	            $(this).find('.description').stop().animate({
+	                height: "toggle",
+	                opacity: "toggle"
+	            }, 300);
+	        });
+	    });
 	
 		$(document).ready(function() {
 			// 줄바꿈 처리
