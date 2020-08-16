@@ -379,8 +379,7 @@
       <form id="listsortForm" action="/product/list" method="GET">
              <div class="list_Sort">
            <div class="rad_wrap">
-               <input type="radio" id="sort01" name="sort" value="new" onclick="changeSort(this.value)" 
-              >
+               <input type="radio" id="sort01" name="sort" value="new" onclick="changeSort(this.value)" >
                <label for="sort01">
                    <span class="txt">신메뉴순</span>
                </label>   
