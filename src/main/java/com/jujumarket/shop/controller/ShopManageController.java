@@ -86,7 +86,20 @@ public class ShopManageController {
 		int total = itemService.getTotal(cri);
 		model.addAttribute("itemTotal", new ItemPageDTO(cri, total));
 			
-		  
+		//전체 상품 통계관리 
+		String result="";
+		List<WholeStaVO> rr= smservice.getWholeSta(idNo);
+		
+		for(WholeStaVO key: rr) {
+			if(result!="") {
+				result += ",";
+				
+			}
+			result +="['"+key.getItemName()+"', "+key.getOrderCnt()+"]";
+			
+			
+		}
+		model.addAttribute("WholeSta", result); 
 		return "shop/index";
 	}
 	
