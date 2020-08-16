@@ -54,6 +54,11 @@ public class MyPageServiceImpl implements MyPageService{
 		return myPageMapper.getMyDangol(memidNo);
 	}
 
+	@Override
+	public List<MyPerchaseVO> getGuestPurchaseListByOrderCode(String orderCode) {
+		return myPageMapper.getGuestPurchaseListByOrderCode(orderCode);
+	}
+
 
 
 }

@@ -27,7 +27,11 @@
 
         .bob_tit{
             height: 40px;
-            background-color: #9dc6d8;
+          	width:130px;
+          	padding:5px;
+          	border-bottom: 1px solid #8fa691;
+          	color: #8fa691;
+          	text-align:center;
         }
 
         a{
@@ -170,7 +174,7 @@
         <div class="bob_wrap">
             <div class="bob_pro">
                 <div class="bob_tit">
-               <h1><b>+판매량 베스트+</b></h1> 
+               <h4><b>구매량 베스트</b></h4> 
                 </div>
                 <div class="bob_pro_li">
                     <c:forEach items="${BestBob}" var="bob">
@@ -282,8 +286,8 @@
 
             <!--후기 베스트 시작  -->
             <div class="bob_pro">
-                 <div class="bob_tit" style="background-color:pink">
-               <h1><b>+후기 베스트+</b></h1> 
+                 <div class="bob_tit">
+               <h4><b>리뷰 베스트</b></h4> 
                 </div>
                 <div class="bob_pro_li">
                     <c:forEach items="${ReviewBob}" var="bob">

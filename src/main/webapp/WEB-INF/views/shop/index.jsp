@@ -18,7 +18,7 @@
     <style>
 	.aa{
 	
-	font-size:20px;
+	font-size:15px;
 	margin-left:5px;
 	}
 	.aaa{
@@ -27,9 +27,45 @@
 	margin-left:5px;
 	font-weight:800;
 	}
+	.mainContent{
+	
+	}
+	/* 빠르게 보기  */
+	.quick{
+	display:inline-block;
+	height:150px;
+	width:650px;
+	}
+    .quick_box{
+  	    background-color:white;    	
+    	width:250px;
+    	height:120px;
+    	display:inline-block;
+    	padding:10px;
+    	margin:10px 20px 0 30px;
+    	border-radius:10px;
+    	box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2);
+    }
     .quick_wrap{
-        margin-top:20px;
+       width:250px;  
+       position:relative;            
         
+    }
+    .quick_l{
+    	height:25px;
+    	display:inline-block;    	
+    	position:absolute;
+    	right:20px;
+    	margin-top:20px;
+    	color:black;
+    }
+    .quick_a{
+    	height:50px;
+    	width:80px;
+    	display:inline-block;    	
+    	margin-top:50px;
+    	margin-left:100px;
+    	color:black;
     }
     .admi_board{
         display: inline-block;
@@ -40,16 +76,17 @@
         
     }
     .quick_b{
-        float: left;
-        margin: 10px 20px 20px 20px;
+        width:600px;
+        margin: 100px 20px 20px 20px;
+        float:left;
     }
     .admi_notice{
-        border:2px solid #ddd ; 
+       
         width: 600px;
         height:400px;
     }
     .admi_faq{
-        border:2px solid #ddd ; 
+       
         width: 600px;
         height:400px;
     }
@@ -60,8 +97,22 @@
     }
     .board_btn{
          width:100%;
-        margin-left:530px;
+        margin-left:510px;
         margin-bottom: 10px;
+    }
+    .gg{
+     width:1300px;
+   	 height: 330px;
+   	 display:inline;
+   	 position:relative
+   	
+    }
+    .s_graph{
+    width: 600px;
+    float:left;
+    }
+    #dual_x_div{
+    margin: 30px 0 0 50px;
     }
     /*테이블  */
     	table {
@@ -71,14 +122,14 @@
 		
 	}
     th, td {
-        padding: 5px;
+        padding: 10px;
         text-align: center;
         border-bottom: 1px solid #ddd;
     }
     
     th {
-        background-color: #ffc30b;
-        color: black;
+        background-color: #637365;
+        color: white;
         text-align: left;
         height: 30px;
         text-align:center;
@@ -91,10 +142,107 @@
     .index_table{
         margin-top: 20px;
     }
-    
-    </style>
-    
-  
+    .more{
+    background-color:#637365;
+    border: 1px solid #637365;
+    color: white;
+    }
+    /* 막대그래프 */
+    .bar{
+    margin: 40px 0 0 30px;
+    }
+    .bar-graph-container {
+	  border-left: 2px solid gray;
+	  border-bottom: 2px solid gray; 
+	  width: 80%;
+	  overflow: hidden;
+	
+	}
+	
+	.bar-graph-container p {
+	  padding: 20px;
+	  color: #fff;
+	  font-weight:900;
+	}
+	
+	@-webkit-keyframes slide-left {
+	   0% {
+	     -webkit-transform: translateX(-200%);
+	  }
+	  70% {
+	    -webkit-transform: translateX(2%);
+	  }
+	  100% {
+	    -webkit-transform: translateX(0);
+	  }
+	}
+	
+	@keyframes slide-left {
+	  0% {
+	    -webkit-transform: translateX(-200%);
+	  }
+	  
+	  70% {
+	    -webkit-transform: translateX(2%);
+	  }
+	  
+	  100% {
+	    -webkit-transform: translateX(0);
+	  }
+	}
+	
+	.bar-container {
+	 	background-color: #f0f2f0;   
+		margin-bottom:10px;
+	}
+	
+	.html {
+	  width: 85%;
+	  background-color: #637365;
+	  animation: slide-left 0.9s ease-in-out 1s both;
+	  -webkit-animation: slide-left 0.9s ease-in-out 1s both;
+	  animation-delay: 0.1s;
+	  -webkit-animation-delay: 0.1s;
+	}
+	
+	.css {
+	  width: 80%;
+	  background-color: #637365;
+	  animation: slide-left 1s ease-in-out 1s both;
+	 -webkit-animation: slide-left 1s ease-in-out 1s both;
+	   animation-delay: 0.2s;
+	  -webkit-animation-delay: 0.2s;
+	}
+	
+	.js {
+	  width: 60%;
+	  background-color: #637365;
+	  animation: slide-left 1s ease-in-out 1s both;
+	  -webkit-animation: slide-left 1s ease-in-out 1s both;
+	   animation-delay: 0.3s;
+	  -webkit-animation-delay: 0.3s;
+	}
+	
+	.php {
+	  width: 40%;
+	  background-color: #637365;
+	  animation: slide-left 1s ease-in-out 1s both;
+	  -webkit-animation: slide-left 1s ease-in-out 1s both;
+	   animation-delay: 0.2s;
+	  -webkit-animation-delay: 0.2s;
+	}
+	
+	.drupal {
+	  width: 62%;
+	  background-color: #637365;
+	  animation: slide-left 1s ease-in-out 1s both;
+	  -webkit-animation: slide-left 1s ease-in-out 1s both;
+	   animation-delay: 0.1s;
+	  -webkit-animation-delay: 0.1s;
+	} 
+	    </style>
+	    
+	  
 
 
 </head>
@@ -119,29 +267,93 @@
                 <!-- END NAV -->
         
         <div class="mainContent">
-           
+           <div class="quick">
+				<div class="quick_box">
+		            <div class="quick_wrap">
+					     <i class="fa fa-check-circle fa-5x" aria-hidden="true"></i>
+					     <div class="quick_l"><label class="aa" >상품 등록 수</label></div>
+					     <div class="quick_a"><label class="aaa"> <c:out value="${itemTotal.total }" /> 건</label></div>
+		       		</div>
+		       	</div>
+		       	<div class="quick_box">	
+		            <div class="quick_wrap">
+		                 <i class="fa fa-cart-plus fa-5x" aria-hidden="true"></i>
+		                 <div class="quick_l"><label class="aa" >주문 수</label></div>
+		                 <div class="quick_a"> <label class="aaa"><fmt:formatNumber type="number" maxFractionDigits="3" value="${todayOrderCnt}" /> 건</label></div>
+		            </div>
+		       </div> 
+		    </div>    
+	
+				         	<!--막대 그래프  -->	    
+				 <div class="bar">
+			   
+			    <h2>|실시간 판매 순위</h2><br><br>
+			    <div class="bar-graph-container">
+			      <div class="bar-container">
+			       <div class="html">
+			         <p>문어</p>
+			        </div>
+			      </div>
+			      
+			     <div class="bar-container">
+			       <div class="css">
+			         <p>오징어</p>
+			        </div>
+			      </div>
+			      
+			      <div class="bar-container">
+			        <div class="drupal">
+			          <p>소라</p>
+			         </div>
+			       </div>
+			      
+			
+			      <div class="bar-container">
+			       <div class="js">
+			         <p>고등어</p>
+			        </div>
+			      </div>
+			       
+			      <div class="bar-container">
+			       <div class="php">
+			         <p>조개</p>
+			        </div>
+			      </div>
+			      
+			    </div>  
+			          
+			    </div>
+			   
+			  
+			  </div>
+			  <!--막대 그래프  -->
+		    
+		    	<div class="gg">
+		    		<div class="s_graph">
+		    		
+				    	<h2 style="margin:100px 0 0 50px;">|어제 오늘 판매량 비교</h2>
+			      		     <div id="dual_x_div" style="width: 300px; height: 200px;"></div>
+			      		     
+			      	</div>
+			      	<div class="s_graph">	     
+			      		<h2 style="margin:100px 0 0 50px;">|총 판매율</h2>
+			      		      <div id="donutchart" style="width: 700px; height: 450px;"></div>
+			      	</div>	      
+	      		</div>        		
+	      		    
+		
+  	
 
-            <div class="quick_wrap">
-			     <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i><label class="aa" >상품 등록 수:</label><label class="aaa"> <c:out value="${itemTotal.total }" /></label>
-       
-                                    
-                 <i class="fa fa-cart-plus fa-3x" aria-hidden="true"></i><label class="aa" >주문 수:</label> <label class="aaa"><fmt:formatNumber type="number" maxFractionDigits="3" value="${todayOrderCnt}" />건</label>
-
-              
-            </div>
-      		     <div id="dual_x_div" style="width: 80px; height: 180px;"></div>
-</div>
-  
-
+ 
         <div class="admi_board">
             <div class="quick_b">
                 <div class="admi_notice">
                     <div class="board_tit">
-                        <p><b>-주주마켓 공지사항</b></p>
+                        <p style="margin-left:15px;">|주주마켓 공지사항</p>
                     </div>
                     <div class="board_notice_content">
                          <div class="board_btn">
-                            <input type="button" value="더 보기" onClick="location.href='/community/notice/list'">
+                            <input type="button" class="more" value="더 보기" onClick="location.href='/community/notice/list'">
                         </div>
                       	  <div class="index_table">
 		                      <table tit aria-setsize="500px">
@@ -177,11 +389,11 @@
            <div class="quick_b">
                 <div class="admi_faq">
                     <div class="board_tit">
-                        <p><b>-주주마켓 FAQ</b></p>
+                        <p style="margin-left:15px;">|주주마켓 FAQ</p>
                     </div>
                     <div class="board_faq_content">
                         <div class="board_btn">
-                            <input type="button" value="더 보기" onClick="location.href='/community/BoardFAQ/list'">
+                            <input type="button" class="more" value="더 보기" onClick="location.href='/community/BoardFAQ/list'">
                         </div>
                         <div class="index_table">
 		                         <table tit aria-setsize="500px">
@@ -216,7 +428,10 @@
                 </div>
             </div>
             
-        </div>
+        </div> 
+        
+      </div>  
+	  
          <form id='faqForm' action="/community/BoardFAQ/list" method='get'></form>
         <form id='noticeForm' action="/community/notice/list" method='get'></form>
     </div>
@@ -254,18 +469,40 @@
     
       ]);
       var options = {
-        width: 400,
+        width: 500,
         chart: {
-          title: '오늘/어제 판매량',
+          title: '.',
+          
          
         },
         bars: 'horizontal', // Required for Material Bar Charts.
-        
+        backgroundColor: '#f7f7f7',
+        colors:['#8fa691']
       };
     var chart = new google.charts.Bar(document.getElementById('dual_x_div'));
     chart.draw(data, options);
   }
-    
+	  
+    /* 원 차트 */
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['상품이름', '주문 수 '],
+        ${WholeSta}
+      
+      ]);
+      var options = {
+        title: '상위 top10 상품',
+        pieHole: 0.4,
+        backgroundColor: '#f7f7f7',
+        colors: [ '#f47b6c','#83b1c9','#c9ba9b', '#a2b59f','#ffd0a6','#d5cb8e','#83b1c9','#cacfe3', '#ffcec7', '#bdc2bb']
+
+      };
+      var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+      chart.draw(data, options);
+    }
+   /*끝  원 차트 */
     
     </script>
     

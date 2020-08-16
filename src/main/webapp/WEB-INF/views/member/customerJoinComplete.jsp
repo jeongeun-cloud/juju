@@ -62,12 +62,21 @@
 	#completeMemberInfo{
 		position: absolute;
         left: 50%;
-        top: 75%;
+
+        top: 74%;
         transform: translate(-50%, -50%);
+	}
+	#completeMemberInfoAll{
+		height: 400px;
+		margin-bottom: 30px;
+	
 	}
 </style>
 </head>
 <body>
+
+<div id="completeMemberInfoAll">
+
 	<div id="completeMemberInfo" align="center">
 		<h3>회원가입이 완료되었습니다</h3>
 		<div class="memberInfo">
@@ -90,7 +99,7 @@
 		<button type="button" onclick="location.href='/member/login'">로그인</button>
 		<button type="button" id="mainBtn" onclick="location.href='/'">메인</button>
 	</div>
-	
+</div>	
 	
 	<script>
 		$(document).ready(function(){
@@ -109,5 +118,11 @@
 			
 		});
 	</script>
+	
+	
+	<div id="footer">
+	<%@include file="../includes/footer.jsp" %>   
+	</div>
+	
 </body>
 </html>
