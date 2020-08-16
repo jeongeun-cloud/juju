@@ -55,7 +55,7 @@
   padding: 0;
   margin: 0;
   list-style: none; 
-  width: 430px;
+  width: 100%;
   
   }
 .itemDiv  ul li {
@@ -130,7 +130,7 @@
 .add-to-alarm{
   position: relative;
   display: inline-block;
-  background: #3e3e3f;
+  background: #637365;
   color: #fff;
   border: none;
   border-radius: 0;
@@ -153,7 +153,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: #565657;
+    background: #8FA691;
     transform: scaleX(0);
     transform-origin: 0 50%;
     transition: transform 0.3s ease-out; }
@@ -252,7 +252,8 @@ margin-left: 15%;
 #prdReview{
 
 width:70%;
-margin-left: 15%;
+margin: 0 auto;
+padding-bottom: 50px;
 
 }
 
@@ -312,16 +313,17 @@ margin-left: 15%;
 
 /*댓글 dropdown*/
 .dropbtn {
-  background-color: #;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 10px;
   font-size: 8px;
   border: none;
   cursor: pointer;
+  font-weight: 600;
 }
 /* 버튼색상  */
 .dropbtn:hover, .dropbtn:focus {
-  background-color: #ddd;
+  background-color: white;
 }
 
 .dropdown {
@@ -471,7 +473,7 @@ margin-left: 15%;
        font-size : 25px;
    }
    #star_grade a.on{
-       color: red;
+       color: #D98E04;
    }
    
    #starAvg p, #resultStar span {
@@ -509,11 +511,10 @@ margin-left: 15%;
      max-height: 0;
      overflow: hidden;
      transition: max-height 0.2s ease-out;
-     background-color: #f1f1f1;
    }
    
    .rBtn {
-     background-color: #008CBA;
+     background-color: #637365; 
      border: none;
      color: white;
      padding: 3px 12px;
@@ -525,6 +526,54 @@ margin-left: 15%;
      cursor: pointer;
      float:right;
    }
+   
+   #addReplyBtn,
+   #writeReviewBtn {
+    height: 43.75px;
+	  background-color: #8FA691; 
+	  border: none;
+	  color: white;
+	  padding: 10px 20px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 4px 2px;
+	  transition-duration: 0.4s;
+	  cursor: pointer;
+	   float:  right;
+   }
+   
+   #addReplyBtn:hover,
+   #writeReviewBtn:hover {
+   height: 43.75px;
+	  background-color: #F0F2F0 ; 
+	  color: #8FA691; 
+	  padding: 0px 20px;
+	  border: 2px solid #8FA691;
+   
+   }
+   
+   #addReplyBtn:focus,
+   #writeReviewBtn:focus{ 
+    outline: none; 
+}
+   
+   
+   .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #637365 !important;
+    border-color: #637365 !important;
+    
+    
+}
+   
+    #prdReviewContent {
+    	padding-top: 50px;
+    }
+    
 /* 리뷰 리스트 끝 */
 
 /* 평균 별점 스타일 */
@@ -690,11 +739,13 @@ input[type=range] {
         <jsp:include page="MoveBar.jsp" flush="false"/>
         
         <!-- <h1>상품 상세 정보 영역</h1> -->
-        <img style="margin: 0px auto;" src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.imgDetail}"/>">
+        <img style="margin: 0px auto; margin-top: 20px; margin-bottom: 20px;" src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.imgDetail}"/>">
         
         </div>
      
         <!-- 상품 상세 정보 body 끝 -->
+     
+     
      
      
      
@@ -705,12 +756,16 @@ input[type=range] {
      <div id="prdReview">
      
      <jsp:include page="MoveBar.jsp" flush="false"/>
+     
+     	<div id="prdReviewContent">
+     
+     
         <h1>상품평 영역</h1>
         <!-- 리뷰 갯수 표시 -->
         <h4 id="reviewAmount"></h4> 
         
       
-        
+
         <!-- 평균 별점 구현 중 -->
         <div id="starAvg">
            <div id="resultStar" class="star-rating-container" data-star-rating-average=""></div>
@@ -719,7 +774,7 @@ input[type=range] {
         </div>
       
       <!-- 리뷰 남기기 버튼 -->
-        <button onclick="orderCheck()" style="width:auto; float:right;">리뷰 남기기</button>
+        <button id="writeReviewBtn" onclick="orderCheck()" style="width:auto; float:right;">리뷰 남기기</button>
         <br>
         
         <!-- 리뷰 리스트 영역 -->
@@ -744,6 +799,11 @@ input[type=range] {
               </div> 
               -->
         </div>
+        
+        
+               
+     	</div> 
+        
         
       <!-- 리뷰 등록 모달 영역 -->
       <div id="review" class="modal">
@@ -804,15 +864,15 @@ input[type=range] {
      
      <!-- 상품 문의 댓글 영역 -->
          <div class = "reply-main"  id = "regiBtn">
-               <h4 class="reply-title" id="replytitle">댓글쓰기</h4>
+               <h4 class="reply-title" id="replytitle"></h4>
                <div id = "" class=''>
                      <div class="form-grop regiBtn">
-                           <label>replyContent</label>
-                           <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
+                           <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='문의글은 1~600자에 맞게 입력해주세요'></textarea></div>
+                            <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>문의글 남기기</button>
+                            
                             <div class="form-grop">
                              <input class ="form-control"  type="hidden"id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
-                            <div class="form-grop"><label>아이디</label>
-                             <input class ="form-control"  type="text" id =""  name='' value="${sessionMember.emailAccount}" readonly="readonly"></div>
+                             <input class ="form-control"  type="hidden" id =""  name='' value="${sessionMember.emailAccount}" readonly="readonly"></div>
                              <div class="form-grop">
                                 
                              <input class ="form-control"  type="hidden" type="hidden" id ="replyDepth"  name='replyDepth' value='0' readonly="readonly"></div> 
@@ -824,21 +884,19 @@ input[type=range] {
                             <div  style='display:none' class="form-grop">
                         
                             <input class ="form-control" type="hidden" id ="itemCode"  name='itemCode' value='itemCode' readonly="readonly"></div>
-                                 <div class="panel-heading"><i class="fa fa-comments fa-fw"></i>Reply
-                            <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 입력하기</button></div>
+                                 <div class="panel-heading">
               
                                <!--       <div class="form-grop">
                                 <label>replyDate</label>
                                 <input class ="form-control" name='regDate' value=''></div> -->                                      
                                               
-               </div> <!-- /,panel-heading -->
    <!--             </div>regiBtn
    
              </div>  reply-main end -->
    
          
                <div id ="list">   
-               <div class="panel-body">  <!-- 댓글 목록 리스트 -->          
+               <div class="panel-body" style="padding:0; margin-top: 30px;">  <!-- 댓글 목록 리스트 -->          
                <ul class="chat">
                <!--  start reply -->
                <li class="left clearfix" data-itemCode='itemCode'>
@@ -855,7 +913,7 @@ input[type=range] {
                 
                    </div><!-- 댓글 div 마지막 -->
                
-                        <div class="panel-footer">
+                        <div class="panel-footer" style="background-color: white; border-top: none;">
                
                
                          </div>
@@ -863,6 +921,7 @@ input[type=range] {
                  </div><!-- RemoveBtn end -->
         
         <!-- 상품 문의 댓글 영역  끝-->
+               </div> <!-- /,panel-heading -->
         
      </div>
   
@@ -980,7 +1039,7 @@ $(document).ready(function(){
                      
                      str += "<div class='emaile'><strong class='primary-font'>"+list[i].emailAccount+"</strong>";
                      str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
-                     str += "<div><pre class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
+                     str += "<div><pre style='background-color: white; border: none;' class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
                      str += "<div id='reDiv"+i+"'><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
                      str += '<button id="replybtn" class ="replybtn" >답글달기</button> <br></div></div></div>'; 
                    
@@ -1002,8 +1061,8 @@ $(document).ready(function(){
             str += '<div class="dropdown">';
             str += '<button class="dropbtn">:</button>';
             str += '<div id="myDropdown" class="dropdown-content">';
-            str += '<button id="modify" class ="modify">수정</button> <br>';
-            str += '<button id="delete" class ="deletebtn">삭제</button>';
+            str += '<button id="modify" class ="modify" style="background-color: white; border: solid 1px lightgray;">수정</button> <br>';
+            str += '<button id="delete" class ="deletebtn" style="background-color: white;  border: solid 1px lightgray;">삭제</button>';
             str += '</div></div></li></ul>'
       
          }
@@ -1088,7 +1147,7 @@ $(document).ready(function(){
                 
                     var replyContent = $(".replyContent").val();
                     console.log(replyContent);
-                alert("댓글이 등록되었습니다. : " + result);
+                alert("댓글이 등록되었습니다.");
                  $("#replyContentBtn").val("");
                    showList(pageNum);
                  }); 
@@ -1372,17 +1431,17 @@ $(document).ready(function(){
              var str = "<ul class='pagination pull-rigth'>";
              
              if(prev){
-                str+= "<li class='page-item'><a class='page-link' href='"+(startNum - 1)+"'>Previous</a><li>";
+                str+= "<li class='page-item'><a style='background-color: #637365; border-color: white; color: white; border-top-right-radius: 4px; border-bottom-right-radius: 4px;' class='page-link' href='"+(startNum - 1)+"'>Previous</a><li>";
              }
                      
                  for(var i = startNum; i <= endNum; i++){
                     
                      var active = pageNum == i?"active":"";
                      
-                     str+= "<li class='page-item"+active+"'><a class='page-link' href='"+i+"'>"+i+"</a><li>";        
+                     str+= "<li class='page-item"+active+"'><a style='background-color: #637365; border-color: white; color: white; border-top-right-radius: 4px; border-bottom-right-radius: 4px;'  class='page-link' href='"+i+"'>"+i+"</a><li>";        
                  }
                  if(next){
-                    str+="<li class='page-item'><a class='page-link' href='"+(endNum+1)+"'>Next</a><li>";  
+                    str+="<li class='page-item'><a style='background-color: #637365; border-color: white; color: white; border-top-right-radius: 4px; border-bottom-right-radius: 4px;'  class='page-link' href='"+(endNum+1)+"'>Next</a><li>";  
                  }
                   str += "</ul></div>";
                   console.log(str);
@@ -1683,7 +1742,7 @@ $(document).ready(function(){
                  str += "<div style='float: left; width: 20%; font-weight:bold;'>"+ userId +"</div>"; 
                  
                  str += "<div style='float: left; width: 80%; font-weight:bold; text-align:right;'>"+ displayTime(list[i].regDate) +"</div>"; 
-                 str += "<div style='float: left; width: 100%; font-size:14px; font-weight:bold; color:red;'>"+ stars[i] +"</div>"; 
+                 str += "<div style='float: left; width: 100%; font-size:14px; font-weight:bold; color:#D98E04;'>"+ stars[i] +"</div>"; 
                  str += "<div style='float: left; width: 20%;'><img class='resultImg' style='height:75px;' "+ path +" /></div>"; 
 
                  str += "<div style='width:80%; float:left'>"; 
@@ -1691,7 +1750,7 @@ $(document).ready(function(){
                 str += "<div class='content'>";
                 str += "<input type='hidden' id='writer"+i+"' value="+ list[i].idNo +">"; 
                 str += "<p style=''>"+ list[i].reviewContent +"</p>";
-                str += "<button id='removeBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn' style='background-color: #f44336;'>삭제</button>";
+                str += "<button id='removeBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn'>삭제</button>";
                 str += "<button id='modifyBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn'>수정</button>";
                 str += "</div>";
                 str += "</div>";

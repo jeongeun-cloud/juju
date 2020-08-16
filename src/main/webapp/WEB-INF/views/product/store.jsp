@@ -10,22 +10,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	.store_content{
-	    width: 1300px;
-	    height: 100%;
-	    margin:0 auto;
-	}
-	
-	.store_wrap{
-	   position: relative;
-	   padding-top: 30px;
-	}
-	
-	.store_pro{
-	    width: 1000px;
-	    margin: 0 auto;
-	}
-	#backImg {
+   .store_content{
+       width: 1300px;
+       height: 100%;
+       margin:0 auto;
+   }
+   
+   .store_wrap{
+      position: relative;
+      padding-top: 30px;
+   }
+   
+   .store_pro{
+       width: 1000px;
+       margin: 0 auto;
+   }
+   #backImg {
         width: 1000px;
         height: 200px;
         
@@ -33,13 +33,13 @@
        
     }
     #backImg img {
-    	width: 1000px;
+       width: 1000px;
         height: 200px;
         overflow : hidden;  
         
     }
-	#backImgdefualt {
-	    background-color:#8FA691;
+   #backImgdefualt {
+       background-color:#8FA691;
         width: 1000px;
          height: 200px;
          top:30px;
@@ -57,7 +57,7 @@
         top : 80px;
     }
     #thumbnail img {
-    	width:200px;
+       width:200px;
         height:200px;
         border-radius:100px;
         overflow : hidden;
@@ -123,28 +123,28 @@
         float: left;
     }
     .page_num {
-	    display: inline-block;
-	    padding-left:70%;
+       display: inline-block;
+       padding-left:70%;
     }
     
     .page_num a{
-	    color: black;
-	    float: left;
-	    padding: 8px 16px;
-	    text-decoration: none;
+       color: black;
+       float: left;
+       padding: 8px 16px;
+       text-decoration: none;
     }
     .pagination a:hover:not(.active) {
-	    background-color: #f6dd90;
-	    border-radius: 50%;
-	}
-	
-	
-	
-	
-	
+       background-color: #f6dd90;
+       border-radius: 50%;
+   }
+   
+   
+   
+   
+   
 .pageBtns {
-	text-align: center;
-	margin-right: 8%;
+   text-align: center;
+   margin-right: 8%;
 }
 
 .page_num a{
@@ -182,45 +182,45 @@
           background-color:#F0F2F0;
           border-radius: 50%;
           }
-	
-	
-	
- 	/*버튼 */
- 	.Dangol{
- 	  background-color: #8FA691; 
-	  border: none;
-	  color: white;
-	  padding: 10px;
-	  text-align: center;
-	  font-weight: 700;
-	  text-decoration: none;
-	  display: inline-block;
-	  font-size: 14px;
-	  margin: 4px 2px;
-	  cursor: pointer;
-	  border-radius: 20px;
-	  
- 	}
- 	.Dangol:focus{
- 	outline:none;
- 	}
- 	
- 	#shopName{
- 	font-size:38px;
- 	}
- 	
- 	#dangol_content{
- 	border-bottom: 30px;
- 	}
- 	
- 	 .add_to_cart img{
+   
+   
+   
+    /*버튼 */
+    .Dangol{
+      background-color: #8FA691; 
+     border: none;
+     color: white;
+     padding: 10px;
+     text-align: center;
+     font-weight: 700;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 14px;
+     margin: 4px 2px;
+     cursor: pointer;
+     border-radius: 20px;
+     
+    }
+    .Dangol:focus{
+    outline:none;
+    }
+    
+    #shopName{
+    font-size:38px;
+    }
+    
+    #dangol_content{
+    border-bottom: 30px;
+    }
+    
+     .add_to_cart img{
            
         margin-top: 5px;
 
-    	position:relative; 
-    	   width: 50px;	
-    	height: 50px;
-    	
+       position:relative; 
+          width: 50px;   
+       height: 50px;
+       
             
         }
         
@@ -232,14 +232,14 @@
         left:215px;
         bottom:50px;
      
-    	
+       
         }
         
         .add_to_cart:focus{
         outline:none;
         }
  
- 	
+    
 </style>
 </head>
 <body>
@@ -248,93 +248,93 @@
 <%@include file="../includes/basketSlide.jsp" %>
 
 <div class="store_content">
-	<div class="store_wrap">
+   <div class="store_wrap">
         <div class="store_pro">
              
              
-        	<div id="backImg">           
-		    	<img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.backImg}"/>'  onError="this.style.display='none'">
-		        <div id="thumbnail">
-		        	<img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.thumbImg}"/>' onError="">
-		        </div>
-		       
-		    </div>
-		     <div id="backImgdefualt">
+           <div id="backImg">           
+             <img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.backImg}"/>'  onError="this.style.display='none'">
+              <div id="thumbnail">
+                 <img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.thumbImg}"/>' onError="">
+              </div>
+             
+          </div>
+           <div id="backImgdefualt">
                </div>
-		    <div id="shop">
-		    	<p id='shopName'><c:out value="${seller.shopName}"/></p>
-		    	
-		    	<!--단골 되기 버튼  -->
-		    	<div id='dangol_content'>
-			    	<c:if test="${memidNo ne '' }">
-			    	<input type="button" value="<c:out value="${checkDangol}"/>" id="Dangol" class="Dangol" onclick="dangol();"></input>
-			    	</c:if>
-			    	<c:if test="${memidNo eq '' }">
-			    	로그인 하시면 단골 등록 하실 수 있습니다.
-			    	</c:if>
-			  		<p>단골 수 : <c:out value="${totalDangol }"/></p>
-		    	</div>
-		    </div>
-		
-		    <div id="itemContainer">
-		      
-		    	<c:forEach items="${list }" var="list">
-			    	<div class="item">
-			    		<a style=color:black href="/product/item?itemCode=<c:out value='${list.itemCode}'/>" >
-			            	<img src="/resources/upload/<c:out value="${list.idNo}"/>/<c:out value="${list.itemImg1}"/>" />
-			            	
-				            <div class="itemContent">
-						    	<p id='itemName'><c:out value="${list.itemName}"/></p>
-						    	<p id='price'><c:out value="${list.price}"/></p>
-						    	
-							             <c:if test="${list.saleStat=='품절'||list.saleStat=='판매중지'}">
-							                    	   <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/addcart.png"></button>
-							             </c:if>
-							             <c:if test="${list.saleStat!='품절'&& list.saleStat!='판매중지'}">
-							            			 <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/addcart.png"></button> 
-							             </c:if>
-							            	 	
-							            	 	
-							     
-						    	         
-						    	 <input type='hidden' id='listidNo' value='${list.idNo}'>
-						    	 
-						    	 
-				            </div>
-			            </a>
+          <div id="shop">
+             <p id='shopName'><c:out value="${seller.shopName}"/></p>
+             
+             <!--단골 되기 버튼  -->
+             <div id='dangol_content'>
+                <c:if test="${memidNo ne '' }">
+                <input type="button" value="<c:out value="${checkDangol}"/>" id="Dangol" class="Dangol" onclick="dangol();"></input>
+                </c:if>
+                <c:if test="${memidNo eq '' }">
+                로그인 하시면 단골 등록 하실 수 있습니다.
+                </c:if>
+                 <p>단골 수 : <c:out value="${totalDangol }"/></p>
+             </div>
+          </div>
+      
+          <div id="itemContainer">
+            
+             <c:forEach items="${list }" var="list">
+                <div class="item">
+                   <a style=color:black href="/product/item?itemCode=<c:out value='${list.itemCode}'/>" >
+                        <img src="/resources/upload/<c:out value="${list.idNo}"/>/<c:out value="${list.itemImg1}"/>" />
+                        
+                        <div class="itemContent">
+                         <p id='itemName'><c:out value="${list.itemName}"/></p>
+                         <p id='price'><c:out value="${list.price}"/></p>
+                         
+                                  <c:if test="${list.saleStat=='품절'||list.saleStat=='판매중지'}">
+                                               <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/addcart.png"></button>
+                                  </c:if>
+                                  <c:if test="${list.saleStat!='품절'&& list.saleStat!='판매중지'}">
+                                           <button type="button" class="add_to_cart" value="${list.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/addcart.png"></button> 
+                                  </c:if>
+                                        
+                                        
+                          
+                                  
+                          <input type='hidden' id='listidNo' value='${list.idNo}'>
+                          
+                          
+                        </div>
+                     </a>
 
-			        </div>
-			         
-		        </c:forEach>
- 					
-		       
-		    </div>
-		    
-		    <!-- 페이징 -->
-		    <div class='page_num'>
-	            <ul class="paginations">
-	                <c:if test="${pageMaker.prev}">
-	                    <li class="paginate_button previous">
-	                        <a href="${pageMaker.startPage -1}">&laquo;</a>
-	                    </li>
-	                </c:if>
-	
-	                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-	                    <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
-	                        <a href="${num}">${num}</a>
-	                        
-	                        
-	                    </li>
-	                </c:forEach>
-	
-	                <c:if test="${pageMaker.next}">
-	                    <li class="paginate_button next">
-	                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
-	                    </li>
-	                </c:if>
-	            </ul> 
-	        </div>
-	        <!-- end pagination -->
+                 </div>
+                  
+              </c:forEach>
+                
+             
+          </div>
+          
+          <!-- 페이징 -->
+          <div class='page_num'>
+               <ul class="paginations">
+                   <c:if test="${pageMaker.prev}">
+                       <li class="paginate_button previous">
+                           <a href="${pageMaker.startPage -1}">&laquo;</a>
+                       </li>
+                   </c:if>
+   
+                   <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                       <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                           <a href="${num}">${num}</a>
+                           
+                           
+                       </li>
+                   </c:forEach>
+   
+                   <c:if test="${pageMaker.next}">
+                       <li class="paginate_button next">
+                           <a href="${pageMaker.endPage +1 }">&raquo;</a>
+                       </li>
+                   </c:if>
+               </ul> 
+           </div>
+           <!-- end pagination -->
                         
             <form id='actionForm' action="/product/store" method='get'>
                 <input type='hidden' name='idNo' id="idNo" value=''>   
@@ -342,81 +342,81 @@
                 <input type='hidden' name='amount' id="amount" value='${pageMaker.itemcri.amount}'>
 
             </form>
-		    
+          
         </div>
-	</div>
-	<!--shopId  -->
-	<input type="hidden" id="hiddenShopId"  value="${seller.shopName}"/>
-	
- 	 
+   </div>
+   <!--shopId  -->
+   <input type="hidden" id="hiddenShopId"  value="${seller.shopName}"/>
+   
+     
 </div>
 
 <script>
-	$(document).ready(function(){
-		  
-	
-		
-		
-		var actionForm = $("#actionForm");
-		$(".paginate_button a").on("click", function(e) {
-		   e.preventDefault();
-			
-	    	var	idNo = $("#listidNo").val();
-			console.log(idNo);
-			
-			 $("#idNo").val(idNo);
-		   
-		   actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-		   actionForm.find("input[name='idNo']").val(idNo);
-		
-		   actionForm.submit();
-		});
-	
+   $(document).ready(function(){
+        
+   
+      
+      
+      var actionForm = $("#actionForm");
+      $(".paginate_button a").on("click", function(e) {
+         e.preventDefault();
+         
+          var   idNo = $("#listidNo").val();
+         console.log(idNo);
+         
+          $("#idNo").val(idNo);
+         
+         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+         actionForm.find("input[name='idNo']").val(idNo);
+      
+         actionForm.submit();
+      });
+   
 
-	});
+   });
 
-	
-		//단골 신청 ,취소
-		function dangol(){
-			var shopName = document.getElementById("hiddenShopId").value;		
-			
-			var dangolBtn= document.getElementById("Dangol");
-			
-			if(dangolBtn.value=='단골되기'){
-				dangolBtn.value='단골취소'
-				return $.ajax({
-					url:'/product/store/addDangol',
-					type:"GET",
-					data:{"shopName":shopName},
-					dataType:"text",
-					success:function(result){
-						console.log("알람통신 성공");
-						alert("단골신청이 완료되었습니다.")
-					},
-					error:function(){console.log("알람통신 실패")}
-				});
-			}
-			else {
-				dangolBtn.value='단골되기';
-				
-				
-				console.log("가게"+shopName);
-				return $.ajax({
-					url:'/product/store/cancelDangol',
-					type:"GET",
-					data:{"shopName":shopName},
-					dataType:"text",
-					success:function(result){
-						console.log("알람통신 성공");
-						alert("단골 취소가 완료되었습니다.")
-					},
-					error:function(){console.log("알람통신 실패")}
-				});
-				
-			}
-				
-				
-		}
+   
+      //단골 신청 ,취소
+      function dangol(){
+         var shopName = document.getElementById("hiddenShopId").value;      
+         
+         var dangolBtn= document.getElementById("Dangol");
+         
+         if(dangolBtn.value=='단골되기'){
+            dangolBtn.value='단골취소'
+            return $.ajax({
+               url:'/product/store/addDangol',
+               type:"GET",
+               data:{"shopName":shopName},
+               dataType:"text",
+               success:function(result){
+                  console.log("알람통신 성공");
+                  alert("단골신청이 완료되었습니다.")
+               },
+               error:function(){console.log("알람통신 실패")}
+            });
+         }
+         else {
+            dangolBtn.value='단골되기';
+            
+            
+            console.log("가게"+shopName);
+            return $.ajax({
+               url:'/product/store/cancelDangol',
+               type:"GET",
+               data:{"shopName":shopName},
+               dataType:"text",
+               success:function(result){
+                  console.log("알람통신 성공");
+                  alert("단골 취소가 완료되었습니다.")
+               },
+               error:function(){console.log("알람통신 실패")}
+            });
+            
+         }
+            
+            
+      }
 
 
 </script>
