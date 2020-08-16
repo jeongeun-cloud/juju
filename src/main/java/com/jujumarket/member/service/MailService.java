@@ -1,10 +1,12 @@
 package com.jujumarket.member.service;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 
 import com.jujumarket.member.mail.MailHandler;
 import com.jujumarket.member.mail.TempKey;
@@ -22,17 +24,21 @@ public class MailService {
 	
 	public String sendMail(String userEmail) {
 		String authKey = setKey();	
+		String str = "<div style=\"position:relative; background-image: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Ft35le%2FbtqGFbBdyct%2FUesPHmRNBcz5SRD1jAqO80%2Fimg.png'); width: 600px; height: 300px; \">";
+		str += "<div style=\"font-size:25px ; margin-left: 43%; padding-top: 190px;\">";
+		str += authKey;
+		str += "</div></div>";
 		
 		try {
 			mailHandler.init();
-			mailHandler.setSubject("[주주마켓 회원가입] 이메일인증하기");
-			mailHandler.setText("인증번호는 ["+authKey+"] 입니다.");
+			mailHandler.setSubject("[주주마켓]이메일인증하기");
+			mailHandler.setText(str);
 //			mailHandler.setFrom("jujumarket6@gmail.com", "juju");
 			mailHandler.setFrom(FROM, "juju");
 			mailHandler.setTo(userEmail);
 			mailHandler.send();
 
-		} catch (MessagingException | UnsupportedEncodingException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
