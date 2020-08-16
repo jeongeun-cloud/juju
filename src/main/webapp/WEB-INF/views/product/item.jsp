@@ -121,7 +121,7 @@
   padding: 0 0.5rem;
   color: #d5d5d5; }
 
-.item-describe {
+.item-describe-line {
   border-top: 0.0625rem solid #e3dddd;
   margin: 2rem 0;
   padding: 1rem 0 0 0; }
@@ -161,7 +161,7 @@
 .itemContainer {
   margin: auto;
   padding: 0 1rem;
-  max-width: 75rem;
+  max-width: 80rem;
   width: 100%; }
 
 .grid > [class*="column-"] {
@@ -232,6 +232,21 @@
 
 	.column-xs-12.column-md-5 {
 		float: right;
+		width: 300px;
+		height: 500px;
+	
+	}
+	
+	.column-xs-4.column-md-6 {
+		margin-top: 50px;
+	}
+	
+	
+	.category.active,
+	.category::before,
+	.category a {
+		font-size: 15px;
+		color: #888888;
 	}
 
 
@@ -277,6 +292,14 @@ width:70%;
 margin-left: 15%;
 
 } 
+
+
+#moveContentTitle {
+	font-size: 20px;
+	margin-top: 15px;
+
+}
+
    
 
 /* 지울 부분 끝 */
@@ -298,14 +321,21 @@ margin-left: 15%;
 /*   margin-top:0.2%; */
 /*   position:absolute; */
 /*   height:3px; */
-  border:1px solid #aaa;
+  border:1px solid #637365;
+  background-color: #637365;
+  color: white;
+  height: 25px;
+ 
 }
 #numdown{
 /*   position:absolute; */
 /*   height:10px; */
 /*   margin-top:0.2%; */
 /*   width:50px; */
-  border:1px solid #aaa;
+   border:1px solid #637365;
+  background-color: #637365;
+  color: white;
+  height: 25px;
 }
 
 /* 수량 증감 화살표 부분 끝 */
@@ -597,7 +627,7 @@ input[type=range] {
 }
 
 .star-rating-container .avg {
-   background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6I0U0MUUyNjt9PC9zdHlsZT48cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyLjgsMTEuOSAxNC43LDE3LjUgMTAsMTMuOCA1LjMsMTcuNSA3LjIsMTEuOSAyLjUsOC4xIDguMSw4LjEgMTAsMi41IDExLjksOC4xIDE3LjUsOC4xICIvPjwvc3ZnPg==");
+   background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6I0Q5OEUwNDt9PC9zdHlsZT48cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyLjgsMTEuOSAxNC43LDE3LjUgMTAsMTMuOCA1LjMsMTcuNSA3LjIsMTEuOSAyLjUsOC4xIDguMSw4LjEgMTAsMi41IDExLjksOC4xIDE3LjUsOC4xICIvPjwvc3ZnPg==");
    background-size: 40px 40px;
    height: 100%;
    position: absolute;
@@ -629,7 +659,7 @@ input[type=range] {
           <div class="grid menu">
             <div class="column-xs-4 column-md-6">
               <ul>
-                <li class="nav-item">
+                <li class="nav-item" style="font-size:20px; ">
                    <a class='move'>
                       <c:out value="${shopName}"/>
                    </a>
@@ -643,18 +673,21 @@ input[type=range] {
         </div>
   
         <div class="itemContainer">
+        
+        <!-- 
           <div class="grid second-nav">
             <div class="column-xs-12">
               <nav>
                 <ol class="category-list">
-                  <li class="category"><a href="#">{대분류}</a></li>
-                  <li class="category"><a href="#">{중분류}</a></li>
+                  <li class="category"><a href="#" style="color:#888888;">대분류</a></li>
+                  <li class="category"><a href="#" style="color:#888888;">중분류</a></li>
                   
-                  <li class="category active">{소분류}</li>
+                  <li class="category active">소분류</li>
                 </ol>
               </nav>
             </div>
           </div>
+         -->
 
           
           <div class="grid product">
@@ -679,43 +712,78 @@ input[type=range] {
 
 
             <div class="column-xs-12 column-md-5">
-              <h1><c:out value="${product.itemName}" default="itemName"/></h1>
-              <h2><fmt:formatNumber type="number" maxFractionDigits="3" value="${product.normPrice}" />원 -> <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" />원</h2>
-              <h5> 적립 포인트 : 120 포인트 </h5>
+              <p style="color:#404040; font-size:25px; font-weight:bold; margin-bottom: 0px; "><c:out value="${product.itemName}" default="itemName"/></p>
+                <p style="font-size:15px; font-weight:bold; margin-bottom:20px;"><c:out value="${product.itemContent}" default="itemContent"/></p>
+                
+                <p style="margin-bottom: 0px; color:#404040;">주주할인가</p>
+              <p style="color:#404040; font-size:25px; font-weight:bold; margin-bottom:0px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" /><span style="font-size:20px;">원</span><span id="dcPercent"></span></p>
+                <p style="text-decoration:line-through; color:#C6C6C6; font-size: 17px; font-weight:bold;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${product.normPrice}" />원  </p>
+              
+              
+              
+              <div class="item-describe-line"></div>
+              
+              <div style="font-size:15px;">
+              
+              <div>
+              	배송구분	<span style="float:right; font-weight:bold;">택배배송</span>
+              </div>
+              
+               <div class="item-describe-line"></div>
+              
+              <div>
+              	원산지	<span style="float:right; font-weight:bold;">국산</span>
+              </div>
+              
+               <div class="item-describe-line"></div>
+              
+              <div>
+              	포장타입	<span style="float:right; font-weight:bold;">종이포장</span>
+              </div>
+              
+              </div>
+               <div class="item-describe-line"></div>
               
               <!-- 수량 증감 부분 시작 -->
+              
               <div>
+              
+              <span>구매수량</span>
+              
+              
+              <div style="float:right">
                  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             
-            <input value="1" min="1" size="2" id="input-view" name="number" readonly="readonly" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
             <div class="up-down">
-              <button id="numup"><i class="fas fa-plus"></i></button>
               <button id="numdown"><i class="fas fa-minus"></i></button>
+            <input value="1" min="1" size="2" id="input-view" name="number" readonly="readonly" style="height:25px; border:solid 1px #637365; text-align: center;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
+              <button id="numup"><i class="fas fa-plus"></i></button>
             </div>
               </div>
               
+              </div>
               <!-- 수량 증감 부분 끝 -->
               
+               <div class="item-describe-line"></div>
               
-              <h5> 배송비 : 0원 </h5>
-              <h5> 총 결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" />원 </h5>
-              <div class="item-describe">
-                <p><c:out value="${product.itemContent}" default="itemContent"/></p>
-              </div>
+              <p style="color:#404040; font-size:15px; margin-bottom:20px; float:right;"> 총 상품금액 : <span id="totalPrice" style="color:#404040; font-size:25px; font-weight:bold;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" /></span>원 </p>
+              
               <!-- 품절, 판매중지 인 상품 장바구니로 못넘어가게 하기 -->
               <c:if test="${product.saleStat=='품절'||product.saleStat=='판매중지'}">
-                 <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="alert('죄송합니다. 구매 불가한 상품입니다.')" >장바구니 담기</button>
+                 <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="alert('죄송합니다. 구매 불가한 상품입니다.')" style="font-size: 15px; float:right;" >장바구니 담기</button>
               </c:if>
               <c:if test="${product.saleStat!='품절' && product.saleStat!='판매중지'}">
-                 <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" >장바구니 담기</button>
+                 <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" style="font-size: 15px; float:right;" >장바구니 담기</button>
               </c:if>
+              
              
             </div>
-
-            <input type="hidden" value="${product.itemCode}" id="itemCode"/>
             
 
+            <input type="hidden" value="${product.itemCode}" id="itemCode"/>
+            <input type="hidden" value="${product.price}"  id="itemPrice"/>
+            
 
 <!-- </form> -->
 <!-- 테스트용 form 태그 -->
@@ -760,7 +828,7 @@ input[type=range] {
      	<div id="prdReviewContent">
      
      
-        <h1>상품평 영역</h1>
+        	<p id="moveContentTitle">상품평</p>
         <!-- 리뷰 갯수 표시 -->
         <h4 id="reviewAmount"></h4> 
         
@@ -860,14 +928,14 @@ input[type=range] {
      
      <jsp:include page="MoveBar.jsp" flush="false"/>
      
-     <h1>상품 문의 영역</h1>
+     <p id="moveContentTitle">상품 문의</p>
      
      <!-- 상품 문의 댓글 영역 -->
          <div class = "reply-main"  id = "regiBtn">
                <h4 class="reply-title" id="replytitle"></h4>
                <div id = "" class=''>
                      <div class="form-grop regiBtn">
-                           <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='문의글은 1~600자에 맞게 입력해주세요'></textarea></div>
+                           <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='문의글은 1~600자에 맞게 입력해주세요' style='resize:none;'></textarea></div>
                             <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>문의글 남기기</button>
                             
                             <div class="form-grop">
@@ -935,9 +1003,9 @@ input[type=range] {
         
         <jsp:include page="MoveBar.jsp" flush="false"/>
         
-        <h1>배송 안내</h1>
+        <p id="moveContentTitle">배송 안내</p>
         
-           <div>
+           <div style="font-size: 15px;  line-height: 25px;">
 
               기본 배송료 : 2500원 (도서산간 지역 배송비 추가) <br>
               무료 배송 : 100,000원 이상 구매 시 (도서산간 지역 200,000원 이상 구매 시) <br>
@@ -966,17 +1034,17 @@ input[type=range] {
         
         <jsp:include page="MoveBar.jsp" flush="false"/>
         
-        <h1>교환 및 반품</h1>
+       <p id="moveContentTitle">교환 및 반품</p>
         
-        <body>
-          교환 및 반품은 배송 완료 후 7일 이내까지 가능 <br>
-         - 제품 품질 이상, 오 배송의 경우 교환 및 반품 비용은 회사에서 부담합니다. <br>
-         - 고객님의 단순 변심의 경우 교환 및 반품 비용은 본인 부담입니다. <br>
-          ※ 상품을 확인하기 위해 택배 박스의 포장은 제거할 수 있으나, 내부 상품을 보호하는 <br>
-         비닐을 제거할 경우 반품할 수 없습니다. 내부 상품을 보호하는 비닐은 투명 비닐을 <br>
-         사용했기 때문에 비닐을 제거하지 않아도 충분히 상품을 확인할 수 있습니다. <br>
+        <div  style="font-size: 15px; line-height: 25px;">
+		          교환 및 반품은 배송 완료 후 7일 이내까지 가능 <br>
+		         - 제품 품질 이상, 오 배송의 경우 교환 및 반품 비용은 회사에서 부담합니다. <br>
+		         - 고객님의 단순 변심의 경우 교환 및 반품 비용은 본인 부담입니다. <br>
+		          ※ 상품을 확인하기 위해 택배 박스의 포장은 제거할 수 있으나, 내부 상품을 보호하는 <br>
+		         비닐을 제거할 경우 반품할 수 없습니다. 내부 상품을 보호하는 비닐은 투명 비닐을 <br>
+		         사용했기 때문에 비닐을 제거하지 않아도 충분히 상품을 확인할 수 있습니다. <br>
       
-      </body>
+      </div>
       
       <h1> </h1>
         
@@ -1472,12 +1540,21 @@ $(document).ready(function(){
 const activeImage = document.querySelector(".product-image .active");
 const productImages = document.querySelectorAll(".image-list img");
 
+var totalPrice = document.getElementById("totalPrice");
+var itemPrice = document.getElementById("itemPrice");
+
 function changeImage(e) {
   activeImage.src = e.target.src;
 }
 
 productImages.forEach(image => image.addEventListener("click", changeImage));
 /* 상품 상세페이지 이미지 누르면 확대되는 기능 끝 */
+
+
+//3자리 단위마다 콤마 생성
+    function addCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
 
 /* 수량 증감 부분 시작 */
@@ -1487,6 +1564,8 @@ $(document).ready(function(){
     $('#numup').click(function(){
       x++;
       $('#input-view').val(x);
+      totalPrice.innerHTML=addCommas(1*itemPrice.value*x);
+      
     })
   $('#numdown').click(function(){
       x--;
@@ -1496,6 +1575,8 @@ $(document).ready(function(){
         }else{
           $('#input-view').val(x);
         }  
+      totalPrice.innerHTML=addCommas(1*itemPrice.value*x);
+      
     });
 
 

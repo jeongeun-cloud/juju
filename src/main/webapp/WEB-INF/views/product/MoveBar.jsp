@@ -27,6 +27,7 @@
 
     /* Style the buttons inside the tab */
     .moveTab button {
+    width: 20%;
     background-color: inherit;
     float: left;
     border: none;
