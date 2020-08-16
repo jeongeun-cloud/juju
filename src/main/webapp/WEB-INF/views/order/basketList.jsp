@@ -16,7 +16,7 @@
     
     #tableBody{
     
-     border-bottom: 4px solid #F0F2F0 ;
+     border-bottom: 2px solid #F0F2F0 ;
     
     }
     
@@ -254,9 +254,9 @@
                 <ul>
 
                     <li style="float:left;"  id = "currentProcess">01 장바구니</li> 
-                    <li style="color: lightgrey; float:left;">  >  </li>
+                    <li style="color: lightgrey; float:left;">&nbsp;>&nbsp;</li>
                     <li style="color: lightgrey; float:left;">02 주문서 작성/결제</li> 
-                    <li style="color: lightgrey; float:left;">  >  </li>
+                    <li style="color: lightgrey; float:left;">&nbsp;>&nbsp;</li>
                     <li style="color: lightgrey; float:left;">03 주문완료</li>
     
                 </ul>

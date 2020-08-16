@@ -170,6 +170,10 @@
 		float:left;
 		margin : 0 20px 0 105px;
 	}
+	
+	#footer{
+	bottom:0;
+}
 
    
 }
@@ -222,12 +226,15 @@
 
 		<input type="hidden" id="result" value="${result }">
 		</div>
-		<div id="nonMemDiv" class="divTab">
-		<form action="/"  method="post">
+		<div id="nonMemDiv" class="divTab" style="margin-bottom:120px;">
+		<form action="/mypage/myPurchaseListGuest"  method="post">
 			<input type="text" name="orderCode" id="orderCode" size="20" placeholder="주문번호를 입력해주세요."><br>
 			<input type="password" name="nonMemPwd" id="nonMemPwd" size="20"  placeholder="주문 비밀번호를 입력해주세요."><br>
 			<input type="submit" id="orderSearchBtn" value="조회하기">
 		</form>
+		</div>
+		
+		
 		</div>
 
    <script>
@@ -357,5 +364,12 @@
 
 	</script>
 	<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+	
+	
+	<div id="footer">
+	<%@include file="../includes/footer.jsp" %>   
+	</div>
+	
+	
 </body>
 </html>

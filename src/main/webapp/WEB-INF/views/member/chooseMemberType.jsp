@@ -39,12 +39,19 @@
 		
 	#chooseMemberType{
 		position: absolute;
+		height: 400px;
         left: 50%;
-        top: 68%;
+        top: 85%;
         transform: translate(-50%, -50%);
+	}
+	
+	#chooseMemberTypeAll{
+		height: 400px;
+		margin-bottom: 30px;
 	}
 </style>
 <body>
+<div id="chooseMemberTypeAll">
 	<div id="chooseMemberType" align="center">
 		<h3>회원가입</h3>
 		<h6>회원 타입을 선택해주세요</h6>
@@ -54,5 +61,11 @@
 		<button onClick="location.href='/member/customerJoinForm'">일반회원</button><br>
 		<button onClick="location.href='/member/sellerJoinForm'">상인회원</button>
 	</div>
+</div>
+	
+	<%@include file="../includes/footer.jsp" %>   
+	
+	
+	
 </body>
 </html>
