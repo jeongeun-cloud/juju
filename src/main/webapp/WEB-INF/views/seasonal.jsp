@@ -720,14 +720,11 @@
 	        	str += seasonal[i].imgPath + "/" + seasonal[i].uuid + "_" + seasonal[i].imgName;
 	        	$("#gallery"+i).attr("src", str);
 	        }
-
 			// 레시피 시작
 	        var initialSlide = $('.slides-container [data-order="1"]');
 	        var initalSelected = $('.slide-navigation__txt [data-order="1"]');
 	        var mq_medium = window.matchMedia( '(min-width: 860px)' );
 	        var mq_big = window.matchMedia( '(min-width: 1200px)' );
-
-
 	        function activate_slide(order){
 	            
 	          var unactiveSlide = $('.slide.active');
@@ -738,7 +735,6 @@
 	              slide_out(unactiveSlide);
 	          }
 	        }
-
 	        function slide_in(slide) {
 	          
 	          var _this = slide;
@@ -748,7 +744,6 @@
 	          TweenMax.to(_this, 1, {autoAlpha:1}, '-=1');
 	          
 	        }
-
 	        function slide_out(slide){
 	          
 	          var _this = slide;
@@ -763,7 +758,6 @@
 	          
 	          animation_out(slide);
 	        }
-
 	        function animation_in(slide){
 	          
 	          var title = slide.find('h1');
@@ -778,7 +772,6 @@
 	          TweenMax.fromTo(button, 0.5,{autoAlpha:0 }, {autoAlpha:1});
 	          TweenMax.to(image, 0, {autoAlpha:1,scale:1});
 	        }
-
 	        function animation_out(slide){
 	          
 	          var title = slide.find('h1');
@@ -794,7 +787,6 @@
 	          TweenMax.to(image, 1, {scale:1.1});
 	          
 	        }
-
 	        $('.slide-navigation__txt span').on('click', function(){
 	          
 	          var _this = $(this);
@@ -807,7 +799,6 @@
 	          activate_slide(order); 
 	          stagger_squares(order, current);
 	        });
-
 	        function stagger_squares(order, current) {
 	          var mq = 0.7;
 	          var moveY;
@@ -825,7 +816,6 @@
 	          TweenMax.staggerTo(squares, 0.1, {y: moveY}, staggerTime);
 	          
 	        }
-
 	        $(document).ready(function() {
 	          
 	          initialSlide.addClass('active');
@@ -833,7 +823,6 @@
 	          TweenMax.to(initialSlide, 0.5, {autoAlpha:1});
 	          
 	        });	// 레시피 끝
-
 		});
 	
 		// 다담기 기능

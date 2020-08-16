@@ -18,6 +18,7 @@ public class MyPerchaseVO {
 	//t_item
 	private String itemImg1;
 	private String itemName;
+	private String itemCode;
 	
 	//m_shop
 	private String idNo; 

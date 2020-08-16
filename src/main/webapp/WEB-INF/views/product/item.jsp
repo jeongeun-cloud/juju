@@ -18,6 +18,7 @@
 
 
 
+
 /* 전체에 적용되는 css 시작 */
  * {
       -webkit-box-sizing: border-box;
@@ -42,46 +43,52 @@
   text-rendering: optimizeLegibility; }
   
   
-  img {
+  .itemDiv img {
   display: block;
-  margin:0px auto;}
+  /*
+  margin:0px auto;
+  */
+  }
   
 
-ul {
+.itemDiv ul {
   padding: 0;
   margin: 0;
-  list-style: none; }
-  ul li {
-    margin: 0 1.75rem 0 0; }
+  list-style: none; 
+  width: 430px;
+  
+  }
+.itemDiv  ul li {
+    margin: 0; }
 
-a {
+.itemDiv a {
   color: #888;
   text-decoration: none;
   transition: all 0.2s ease; }
-  a:hover {
+.itemDiv  a:hover {
     color: #333; }
-  a.active {
+.itemDiv  a.active {
     color: #333; }
 
-h1,
-h2,
-h3,
-h4 {
+.itemDiv h1,
+.itemDiv h2,
+.itemDiv h3,
+.itemDiv h4 {
   color: #333;
   font-weight: normal;
   margin: 1.75rem 0 1rem 0; }
 
-h1 {
+.itemDiv h1 {
   font-size: 2.5rem; }
 
-h2 {
+.itemDiv h2 {
   font-size: 2.125rem;
   margin: 0; }
 
-h3 {
+.itemDiv h3 {
   font-size: 2rem; }
 
-h4 {
+.itemDiv h4 {
   font-size: 1.5rem;
   margin: 1rem 0 0.5rem 0; }
 
@@ -181,29 +188,52 @@ h4 {
     width: 100%; }
 
   .product-image {
-    display: block; }
+    display: block; 
+    width: 430px;
+    
+    }
     .product-image img {
       height: 52vh; }
       .product-image img.active {
         display: block;
-        margin: 0 0 0.75rem 0; }
+        width: 430px;
+        height: 552px;
+        margin: 0 0 5px 0; }
 
   .image-list {
     display: flex;
     overflow: hidden; 
     }
-    .image-list li {
-      margin: 0 0.75rem 0 0;
-      flex-basis: 100%; }
       .image-list li:nth-child(3) {
         margin: 0; }
     .image-list img {
-      height: 10rem;
-      width: 100%;
+      height: 180px;
+      width: 140px;
       transition: opacity 0.3s ease;
-      cursor: pointer; }
+      cursor: pointer; 
+      margin-right:5px;
+      }
       .image-list img:hover {
         opacity: 0.7; }
+
+
+
+
+	.product-gallery {
+		float: left;
+	
+	}
+
+
+	.grid.product {
+		width: 100%;
+		height: 800px;
+	}
+
+	.column-xs-12.column-md-5 {
+		float: right;
+	}
+
 
 /* 아이템 상세페이지 css 끝 */ 
 
@@ -548,9 +578,6 @@ input[type=range] {
    <!-- 아이템 요약 body 시작 -->
     <div class="itemContainer">
           <div class="grid menu">
-            <div class="column-xs-8 column-md-6">
-              <p id="highlight">JUJU MARKET</p>
-            </div>
             <div class="column-xs-4 column-md-6">
               <ul>
                 <li class="nav-item">
@@ -588,7 +615,7 @@ input[type=range] {
                   <img class="active" src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg1}"/>">
                 </div>
                 <ul class="image-list">
-                  <li class="image-item"><img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg1}"/>"></li>
+                  <li class="image-item"><img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg1}"/>" ></li>
                   <li class="image-item"><img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg2}"/>"></li>
                   <li class="image-item"><img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.itemImg3}"/>"></li>
                 </ul>
@@ -663,7 +690,7 @@ input[type=range] {
         <jsp:include page="MoveBar.jsp" flush="false"/>
         
         <!-- <h1>상품 상세 정보 영역</h1> -->
-        <img src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.imgDetail}"/>">
+        <img style="margin: 0px auto;" src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.imgDetail}"/>">
         
         </div>
      
@@ -774,13 +801,7 @@ input[type=range] {
      <jsp:include page="MoveBar.jsp" flush="false"/>
      
      <h1>상품 문의 영역</h1>
-     <img src="https://lh3.googleusercontent.com/proxy/65nlh6HvxRv9iVxxf4PHNLPFCf9tJIRvU982P2WGPkEDI5i_RWu5McYd-dZp3Lv5sDPVXtzukdCOYyiHZVefYUzkb9nnPsBL73WYidkw5KTXh-qTJCr6psOnqRzKVzEvW7SBUyUfXpmZBTX9BBbOruToIkwj">
      
-     </div>
-  
-     <!-- 상품 문의 body 끝 -->
-        
-        
      <!-- 상품 문의 댓글 영역 -->
          <div class = "reply-main"  id = "regiBtn">
                <h4 class="reply-title" id="replytitle">댓글쓰기</h4>
@@ -842,6 +863,12 @@ input[type=range] {
                  </div><!-- RemoveBtn end -->
         
         <!-- 상품 문의 댓글 영역  끝-->
+        
+     </div>
+  
+     <!-- 상품 문의 body 끝 -->
+        
+        
         
         <!-- 배송안내 body 시작 -->
      

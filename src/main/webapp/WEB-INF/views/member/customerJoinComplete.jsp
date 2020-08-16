@@ -25,7 +25,7 @@
 	  margin-bottom: 30px;
 	}
 	
-	h2 {
+	h3 {
 	  margin: 20px;
 	  font-weight: bold;
 	}
@@ -33,6 +33,7 @@
 	.tdHead {
 	  width: 150px;
 	  font-weight: bold;
+	  text-align: justify;
 	}
 	
 	tr {
@@ -46,7 +47,6 @@
 	button{
   		background-color: #8FA691;
        	border: 1px solid #8FA691;
-       	border-radius: 5px;
        	margin: 0;
        	outline: none;
        	color: #FFFFFF;
@@ -62,14 +62,14 @@
 	#completeMemberInfo{
 		position: absolute;
         left: 50%;
-        top: 60%;
+        top: 68%;
         transform: translate(-50%, -50%);
 	}
 </style>
 </head>
 <body>
 	<div id="completeMemberInfo" align="center">
-		<h2>회원가입이 완료되었습니다</h2>
+		<h3>회원가입이 완료되었습니다</h3>
 		<div class="memberInfo">
 			<table>
 				<tr>
