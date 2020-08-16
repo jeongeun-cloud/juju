@@ -62,7 +62,7 @@
 	#completeMemberInfo{
 		position: absolute;
         left: 50%;
-        top: 68%;
+        top: 75%;
         transform: translate(-50%, -50%);
 	}
 </style>
