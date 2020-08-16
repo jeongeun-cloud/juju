@@ -44,7 +44,7 @@
 
     /* Create an active/current tablink class */
     .moveTab button.active {
-    background-color: #ccc;
+    background-color: #white;
     }
 
 
@@ -55,7 +55,7 @@
     
 <div class="moveTab">
     <button><a href="#prdInfo">상품 상세 정보</a></button>
-    <button><a href="#prdReview">상품평</a></button>
+    <button><a href="#prdReview">고객 후기</a></button>
     <button><a href="#prdQnA">상품 문의</a></button>
     <button><a href="#delieveryInfo">배송안내</a></button>
     <button><a href="#refundInfo">교환 및 반품</a></button>
