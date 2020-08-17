@@ -83,7 +83,7 @@
 
        
 
-        ul {
+        #containerOFAll ul {
             list-style:none;
             font-weight: bold;
             color: lightgray;
