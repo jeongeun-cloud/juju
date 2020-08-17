@@ -40,6 +40,7 @@ th, td {
 }
 
 th {
+    
    background-color: #8FA691; 
    color: white;
     height: 40px;
@@ -287,11 +288,12 @@ margin-right: 8%;
        
 <!-- regi_main 시작 -->      
 <div class="regi_main">
-      
-
-      <div class="p2">
-   <!-- regi_tit 시작 -->
-
+		<div class="mainContent">
+	      	<div class="title">
+	            <h3>1:1 문의</h3>
+	            <p>문의 목록</p>
+	   		</div>
+   </div>
    <!-- regi_tit 끝 -->
           
 
@@ -329,7 +331,6 @@ margin-right: 8%;
                <tr>
                   <th>번호</th>    
                   <th>제목</th>   
-                  <th>내용</th>   
                   <th>등록일</th>  
                </tr>
             </thead>
@@ -346,7 +347,7 @@ margin-right: 8%;
                   <td><a class ='move'  style='color:black' href='/mypage/myQna/get?postingNo=<c:out value="${myQna.postingNo}"/>'>
                   <c:out value="${myQna.title }" /></a></td>
                   
-                  <td><c:out value="${myQna.content}" /></td>
+           
                
                   <td><fmt:formatDate pattern="yyyy/MM/dd"
                         value="${myQna.regDate }" /></td>                   

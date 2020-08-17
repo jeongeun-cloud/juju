@@ -171,6 +171,21 @@ tr:hover {
     outline: none; 
 
 }
+
+.regi_main .title {
+	margin:40px 0px 40px 20px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+
+    .mainContent{
+     height: 700px;
+    }
+
 /* 모달 디자인 끝 */
 
         
@@ -195,16 +210,13 @@ tr:hover {
 
 <!-- regi_main 시작 -->      
 <div class="regi_main">
-   
-   <!-- regi_tit 시작 -->
- 
-   <!-- regi_tit 끝 -->
 
-
-	<div class="row">
-	<p><b>[자주묻는질문 수정]</b></p>
-
-	</div>
+ <div class="mainContent">
+ 		         <div class="title">
+                   <h3>공지사항</h3>
+              	     <p>공지사항 수정.</p>
+       
+                </div>
 	<!--  col-lg-12 end -->
 
 
@@ -223,7 +235,7 @@ tr:hover {
                    
                    
 					<div class="from-group">
-						<label>Title</label><input id ='title' class="form-control" name='title'
+						<label>제목</label><input id ='title' class="form-control" name='title'
 							value='<c:out value="${BoardFAQ.title}"/>'>
 					</div>
 

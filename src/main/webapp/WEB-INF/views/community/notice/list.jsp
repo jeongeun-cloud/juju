@@ -264,6 +264,20 @@ margin-right: 8%;
  a:visited { color: black; text-decoration: none;}
  a:hover { color: #8FA691; text-decoration: none;}
            
+           .regi_main .title {
+	margin:40px 0px 40px 20px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+
+    .mainContent{
+     height: 700px;
+    }
+           
 </style>
 </head>
 <body>
@@ -286,8 +300,12 @@ margin-right: 8%;
        
 <!-- regi_main 시작 -->      
 <div class="regi_main">
-      <div class="p2">
-       <p><b>공지사항</b></p>
+      <div class="mainContent">
+      		<div class="title">
+            <h3>공지사항</h3>
+            <p>공지글을 확인하세요.</p>
+             
+ 
    </div>
    <!-- regi_tit 끝 -->
 
@@ -326,7 +344,7 @@ margin-right: 8%;
                <tr>
                   <th>번호</th>
                   <th>글 제목</th>
-                  <th>글 내용</th>
+      
 
                   <th>등록일</th>
                </tr>
@@ -340,9 +358,7 @@ margin-right: 8%;
 
                         <td><a style='color:black' class ='move' href='<c:out value="${notice.postingNo}"/>'>
                   <c:out value="${notice.title }" /></a></td>
-         
 
-                  <td><c:out value="${notice.content }" /></td>
   
                   <td><fmt:formatDate pattern="yyyy/MM/dd"
                         value="${notice.regDate }" /></td>

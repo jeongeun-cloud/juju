@@ -49,9 +49,7 @@ li {
    padding-top: 30px;
 }
 
-.regi_main .title {
-	margin-left: 20px;
-	}
+
 	.regi_main h3{
 	font-weight:500;
 	}
@@ -74,11 +72,6 @@ li {
 
 }
 
-.regi_content{
-	   width: 1300px;
-	   margin:0 auto;
-      
-	}
         
 .regi_wrap{
                  
@@ -185,6 +178,26 @@ tr:hover {
 
 /* 등록, 리셋 버튼 끝 */
 
+.regi_main .title {
+	margin:40px 0px 40px 0px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+
+.regi_main{
+
+    height:1000px;
+}
+
+#replytitle{
+       margin-left: 20px;
+
+}
+
 </style>
 
 
@@ -209,10 +222,11 @@ tr:hover {
 
 <!-- regi_main 시작 -->      
 <div class="regi_main">
-   
-   <!-- regi_tit 시작 -->
-    <div class="regi_tit">
-       <p><b>1:1문의글</b></p>
+		<div class="mainContent">
+	      	<div class="title">
+	            <h3>1:1 문의</h3>
+	            <p>문의내용</p>
+	   		</div>
    </div>
    <!-- regi_tit 끝 -->
 

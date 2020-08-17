@@ -248,6 +248,13 @@ input[readonly=readonly]{
 
 
 	<div class="regi_main">
+	
+	<div class="mainContent">
+      	<div class="title">
+            <h3>나의 정보</h3>
+            <p>개인정보 수정</p>
+   		</div>
+   </div>
 	<div class="sellerInfo">
 	<form action="/mypage/sellerInfoModify" id="sellerInfoModify"
 		method="post" enctype="multipart/form-data">
