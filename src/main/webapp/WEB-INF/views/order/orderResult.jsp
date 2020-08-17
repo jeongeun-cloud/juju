@@ -24,7 +24,7 @@
 
 
    
-        ul {
+       #containerOFAll  ul {
             list-style:none;
             font-weight: bold;
             color: lightgray;
@@ -148,8 +148,7 @@
        */
       
       .btns {
-       width: 60%;
-       margin: auto;
+       text-align: center;
       
       }
       
@@ -303,8 +302,21 @@
          </tbody>
       </table>
    </form>
-	배송비 2500
-	총금액    ${order.totalPay+2500}
+   
+    <div style="width:100%; height: 100px; text-align:right; font-size:16px; color: #404040; padding-right:15px; ">
+      	<div style="width:300px; float:right;">
+      			<div style="height:50px; line-height:50px;">
+      				<p style="float:left; margin:0; font-size:14px; ">배송비</p>
+      				<p style="float:right; margin:0; font-size:14px; "><fmt:formatNumber type="number" maxFractionDigits="3" value="2500" />원</p>
+      			</div>
+      			<div style="height:50px;  line-height:50px;">
+      				<p style="float:left; margin:0; font-weight:bold;">최종 결제금액</p>
+      				<p style="float:right; margin:0; font-weight:bold;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${(order.totalPay+2500)*1}" />원</p>
+      			</div>
+      	</div>
+      </div>
+   
+   
    
    </div>
    
@@ -434,13 +446,13 @@
  
 
 
+<!-- 회원 주문일때만 로그아웃 만들기 -->
+<c:if test="${!empty sessionMember}">
      <div class="btns">
             <button type="submit" class="button1" onclick="location.href='/mypage/myPerchaseList'">주문내역/배송조회 확인</button>
             <button type="submit" class="button2" onclick="location.href='/bob'">쇼핑 계속하기</button>
             <button type="submit" class="button3" onclick="location.href='/'">메인으로 가기</button>
             
-            <!-- 회원 주문일때만 로그아웃 만들기 -->
-            <c:if test="${!empty sessionMember}">
             
 	            <c:choose>
 		            <c:when test="${sessionMember.memCode eq 'KAKAO'}">
@@ -457,9 +469,20 @@
 			        </c:otherwise>
 	            </c:choose>
             
-            </c:if>
     </div>
-   
+</c:if>
+
+<!-- 비회원 주문일때 로그아웃 없애기 -->
+<c:if test="${empty sessionMember}">
+     <div class="btns">
+            <button type="submit" class="button1" onclick="location.href='/mypage/myPerchaseList'">주문내역/배송조회 확인</button>
+            <button type="submit" class="button2" onclick="location.href='/bob'">쇼핑 계속하기</button>
+            <button type="submit" class="button3" onclick="location.href='/'">메인으로 가기</button>
+    </div>
+</c:if>
+
+
+
    </div>
    
    
