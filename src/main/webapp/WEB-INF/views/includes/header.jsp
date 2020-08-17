@@ -77,7 +77,7 @@
         .dropdown_sub .subMemu-content {
         display: none;
         position: absolute;
-        background-color: #e2e2e2;
+        background-color: #f0f2f0;
 
         min-width: 130px;
         width: 140px;
@@ -94,7 +94,7 @@
         }
 
         .subMemu-content a:hover {
-         background-color: #f0f2f0;
+         background-color: #f1f3f5;
          
             }
 
