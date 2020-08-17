@@ -146,7 +146,6 @@
  
 
     #basketTableContainer{
-        width:1100px;
         margin:auto;
         padding: 30px;
     }
@@ -154,7 +153,8 @@
 
     .list_view {
         
-        width:1100px;
+        width:100%;
+        margin: 0 auto;
     }
 
     #tableTitle {
@@ -287,9 +287,9 @@
             <div id="ordProcess">
                 <ul>
                     <li style="color: lightgrey; float:left;">01 장바구니</li> 
-                    <li style="color: lightgrey; float:left;">  >  </li>
+                    <li style="color: lightgrey; float:left;">&nbsp;>&nbsp;</li>
                     <li style="float:left;" id = "currentProcess">02 주문서 작성/결제</li> 
-                    <li style="color: lightgrey; float:left;">  >  </li>
+                    <li style="color: lightgrey; float:left;">&nbsp;>&nbsp;</li>
                     <li style="color: lightgrey; float:left;">03 주문완료</li>
                 </ul>
             </div>
@@ -312,7 +312,7 @@
       <table class="list_view">
          <tbody id="tableBody" align=center>
             <tr>
-            <tr align=center class="fixed">
+            <tr align=center class="fixed" style="background-color:#8FA691; color: white; height: 30px;">
 
                <!-- itemImg1 from t_item -->
                <td class="fixed">아이템img</td>
@@ -348,7 +348,7 @@
                <tr cellpadding=40 align=center>
                   <c:set var="totalDiscount"
                      value="${totalDiscount + ((basketL.normPrice - basketL.price) * basketL.itemNum)}" />
-               <tr cellpadding=40 align=center>
+               <tr cellpadding=40 align=center style="border-bottom: 2px solid #F0F2F0 ;">
                
                   <td><img id="basketItemImg" src="/resources/upload/<c:out value="${basketL.sellerId}"/>/<c:out value="${basketL.itemImg1}"/>"></td>
                   <td><c:out value="${basketL.itemName}"></c:out></td>
@@ -372,29 +372,37 @@
 
       <input type="hidden" value="${memberInfo.idNo}" name="idNo" id="idNo">
 
-
-      <div class="clear"></div>
-      <br> <br>
-      
-      <!-- 라인 -->
-        <hr style="border:solid 1px lightgray; margin-left:-12.5%; width:125%;">
-
-      <div class="clear"></div>
-      <br>
-      
-      
-      <table width=80% class="list_view">
+<!--
+      <table width=40%>
          <tbody>
-            <td class="fixed join" style="width:40%;">배송비</td>
-            <td class="fixed join"  style="width:40%;"><fmt:formatNumber type="number" maxFractionDigits="3" value="2500" />원</td>
+            <td class="fixed join" style="text-align: left; width:200px;">배송비</td>
+            <td class="fixed join"  style="text-align: left; width:200px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="2500" />원</td>
          </tbody>
       </table>
-      <table width=80% class="list_view">
+      <table width=50% >
          <tbody>
-            <td class="fixed join" style="width:40%;">최종 결제금액</td>
-            <td class="fixed join"  style="width:40%;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay+2500}" />원</td>
+            <td class="fixed join" style="text-align: left; width:200px;">최종 결제금액</td>
+            <td class="fixed join"  style="text-align:left; width:200px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay+2500}" />원</td>
          </tbody>
       </table>
+-->
+      
+      <div style="width:100%; height: 100px; text-align:right; font-size:16px; color: #404040; padding-right:15px; ">
+      	<div style="width:300px; float:right;">
+      			<div style="height:50px; line-height:50px;">
+      				<p style="float:left; margin:0; font-size:14px; ">배송비</p>
+      				<p style="float:right; margin:0; font-size:14px; "><fmt:formatNumber type="number" maxFractionDigits="3" value="2500" />원</p>
+      			</div>
+      			<div style="height:50px;  line-height:50px;">
+      				<p style="float:left; margin:0; font-weight:bold;">최종 결제금액</p>
+      				<p style="float:right; margin:0; font-weight:bold;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay+2500}" />원</p>
+      			</div>
+      	</div>
+      </div>
+      
+      
+      
+      
       <!-- 가져다 쓰기 위한 hidden input 태그들  -->
       <input type="hidden" name="totalPay" id="totalPay" value="${totalPay}"> 
       <input type="hidden" name="totalSum" id="totalSum" value="${totalSum}"> 

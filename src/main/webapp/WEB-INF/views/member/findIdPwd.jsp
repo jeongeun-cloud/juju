@@ -122,7 +122,6 @@
         button, input[type="submit"] {
         	background-color: #8FA691;
         	border: 1px solid #8FA691;
-        	border-radius: 5px;
         	margin: 0;
         	outline: none;
         	color: #FFFFFF;

@@ -47,7 +47,6 @@
 	button{
   		background-color: #8FA691;
        	border: 1px solid #8FA691;
-       	border-radius: 5px;
        	margin: 0;
        	outline: none;
        	color: #FFFFFF;
@@ -63,7 +62,7 @@
 	#completeMemberInfo{
 		position: absolute;
         left: 50%;
-        top: 60%;
+        top: 75%;
         transform: translate(-50%, -50%);
 	}
 </style>

@@ -23,6 +23,8 @@ public interface MyPageService {
 	
 	public List<DangolVO> getMyDangol(String memidNo);
 
+	public List<MyPerchaseVO> getGuestPurchaseListByOrderCode(String orderCode);
+
 
 }
 

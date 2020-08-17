@@ -56,7 +56,7 @@
   padding: 0;
   margin: 0;
   list-style: none; 
-  width: 430px;
+  width: 100%;
   
   }
 .itemDiv  ul li {
@@ -122,7 +122,7 @@
   padding: 0 0.5rem;
   color: #d5d5d5; }
 
-.item-describe {
+.item-describe-line {
   border-top: 0.0625rem solid #e3dddd;
   margin: 2rem 0;
   padding: 1rem 0 0 0; }
@@ -131,7 +131,7 @@
 .add-to-alarm{
   position: relative;
   display: inline-block;
-  background: #3e3e3f;
+  background: #637365;
   color: #fff;
   border: none;
   border-radius: 0;
@@ -154,7 +154,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: #565657;
+    background: #8FA691;
     transform: scaleX(0);
     transform-origin: 0 50%;
     transition: transform 0.3s ease-out; }
@@ -162,7 +162,7 @@
 .itemContainer {
   margin: auto;
   padding: 0 1rem;
-  max-width: 75rem;
+  max-width: 80rem;
   width: 100%; }
 
 .grid > [class*="column-"] {
@@ -233,6 +233,21 @@
 
 	.column-xs-12.column-md-5 {
 		float: right;
+		width: 300px;
+		height: 500px;
+	
+	}
+	
+	.column-xs-4.column-md-6 {
+		margin-top: 50px;
+	}
+	
+	
+	.category.active,
+	.category::before,
+	.category a {
+		font-size: 15px;
+		color: #888888;
 	}
 
 
@@ -253,7 +268,8 @@ margin-left: 15%;
 #prdReview{
 
 width:70%;
-margin-left: 15%;
+margin: 0 auto;
+padding-bottom: 50px;
 
 }
 
@@ -277,6 +293,14 @@ width:70%;
 margin-left: 15%;
 
 } 
+
+
+#moveContentTitle {
+	font-size: 20px;
+	margin-top: 15px;
+
+}
+
    
 
 /* 지울 부분 끝 */
@@ -298,14 +322,21 @@ margin-left: 15%;
 /*   margin-top:0.2%; */
 /*   position:absolute; */
 /*   height:3px; */
-  border:1px solid #aaa;
+  border:1px solid #637365;
+  background-color: #637365;
+  color: white;
+  height: 25px;
+ 
 }
 #numdown{
 /*   position:absolute; */
 /*   height:10px; */
 /*   margin-top:0.2%; */
 /*   width:50px; */
-  border:1px solid #aaa;
+   border:1px solid #637365;
+  background-color: #637365;
+  color: white;
+  height: 25px;
 }
 
 /* 수량 증감 화살표 부분 끝 */
@@ -313,16 +344,17 @@ margin-left: 15%;
 
 /*댓글 dropdown*/
 .dropbtn {
-  background-color: #;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 10px;
   font-size: 8px;
   border: none;
   cursor: pointer;
+  font-weight: 600;
 }
 /* 버튼색상  */
 .dropbtn:hover, .dropbtn:focus {
-  background-color: #ddd;
+  background-color: white;
 }
 
 .dropdown {
@@ -472,7 +504,7 @@ margin-left: 15%;
        font-size : 25px;
    }
    #star_grade a.on{
-       color: red;
+       color: #D98E04;
    }
    
    #starAvg p, #resultStar span {
@@ -510,11 +542,10 @@ margin-left: 15%;
      max-height: 0;
      overflow: hidden;
      transition: max-height 0.2s ease-out;
-     background-color: #f1f1f1;
    }
    
    .rBtn {
-     background-color: #008CBA;
+     background-color: #637365; 
      border: none;
      color: white;
      padding: 3px 12px;
@@ -526,6 +557,54 @@ margin-left: 15%;
      cursor: pointer;
      float:right;
    }
+   
+   #addReplyBtn,
+   #writeReviewBtn {
+    height: 43.75px;
+	  background-color: #8FA691; 
+	  border: none;
+	  color: white;
+	  padding: 10px 20px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+	  margin: 4px 2px;
+	  transition-duration: 0.4s;
+	  cursor: pointer;
+	   float:  right;
+   }
+   
+   #addReplyBtn:hover,
+   #writeReviewBtn:hover {
+   height: 43.75px;
+	  background-color: #F0F2F0 ; 
+	  color: #8FA691; 
+	  padding: 0px 20px;
+	  border: 2px solid #8FA691;
+   
+   }
+   
+   #addReplyBtn:focus,
+   #writeReviewBtn:focus{ 
+    outline: none; 
+}
+   
+   
+   .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #637365 !important;
+    border-color: #637365 !important;
+    
+    
+}
+   
+    #prdReviewContent {
+    	padding-top: 50px;
+    }
+    
 /* 리뷰 리스트 끝 */
 
 /* 평균 별점 스타일 */
@@ -666,7 +745,7 @@ input[type=range] {
           <div class="grid menu">
             <div class="column-xs-4 column-md-6">
               <ul>
-                <li class="nav-item">
+                <li class="nav-item" style="font-size:20px; ">
                    <a class='move'>
                       <c:out value="${shopName}"/>
                    </a>
@@ -680,18 +759,21 @@ input[type=range] {
         </div>
   
         <div class="itemContainer">
+        
+        <!-- 
           <div class="grid second-nav">
             <div class="column-xs-12">
               <nav>
                 <ol class="category-list">
-                  <li class="category"><a href="#">{대분류}</a></li>
-                  <li class="category"><a href="#">{중분류}</a></li>
+                  <li class="category"><a href="#" style="color:#888888;">대분류</a></li>
+                  <li class="category"><a href="#" style="color:#888888;">중분류</a></li>
                   
-                  <li class="category active">{소분류}</li>
+                  <li class="category active">소분류</li>
                 </ol>
               </nav>
             </div>
           </div>
+         -->
 
           
           <div class="grid product">
@@ -716,43 +798,78 @@ input[type=range] {
 
 
             <div class="column-xs-12 column-md-5">
-              <h1><c:out value="${product.itemName}" default="itemName"/></h1>
-              <h2><fmt:formatNumber type="number" maxFractionDigits="3" value="${product.normPrice}" />원 -> <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" />원</h2>
-              <h5> 적립 포인트 : 120 포인트 </h5>
+              <p style="color:#404040; font-size:25px; font-weight:bold; margin-bottom: 0px; "><c:out value="${product.itemName}" default="itemName"/></p>
+                <p style="font-size:15px; font-weight:bold; margin-bottom:20px;"><c:out value="${product.itemContent}" default="itemContent"/></p>
+                
+                <p style="margin-bottom: 0px; color:#404040;">주주할인가</p>
+              <p style="color:#404040; font-size:25px; font-weight:bold; margin-bottom:0px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" /><span style="font-size:20px;">원</span><span id="dcPercent"></span></p>
+                <p style="text-decoration:line-through; color:#C6C6C6; font-size: 17px; font-weight:bold;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${product.normPrice}" />원  </p>
+              
+              
+              
+              <div class="item-describe-line"></div>
+              
+              <div style="font-size:15px;">
+              
+              <div>
+              	배송구분	<span style="float:right; font-weight:bold;">택배배송</span>
+              </div>
+              
+               <div class="item-describe-line"></div>
+              
+              <div>
+              	원산지	<span style="float:right; font-weight:bold;">국산</span>
+              </div>
+              
+               <div class="item-describe-line"></div>
+              
+              <div>
+              	포장타입	<span style="float:right; font-weight:bold;">종이포장</span>
+              </div>
+              
+              </div>
+               <div class="item-describe-line"></div>
               
               <!-- 수량 증감 부분 시작 -->
+              
               <div>
+              
+              <span>구매수량</span>
+              
+              
+              <div style="float:right">
                  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             
-            <input value="1" min="1" size="2" id="input-view" name="number" readonly="readonly" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
             <div class="up-down">
-              <button id="numup"><i class="fas fa-plus"></i></button>
               <button id="numdown"><i class="fas fa-minus"></i></button>
+            <input value="1" min="1" size="2" id="input-view" name="number" readonly="readonly" style="height:25px; border:solid 1px #637365; text-align: center;" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')"/>
+              <button id="numup"><i class="fas fa-plus"></i></button>
             </div>
               </div>
               
+              </div>
               <!-- 수량 증감 부분 끝 -->
               
+               <div class="item-describe-line"></div>
               
-              <h5> 배송비 : 0원 </h5>
-              <h5> 총 결제금액 : <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" />원 </h5>
-              <div class="item-describe">
-                <p><c:out value="${product.itemContent}" default="itemContent"/></p>
-              </div>
+              <p style="color:#404040; font-size:15px; margin-bottom:20px; float:right;"> 총 상품금액 : <span id="totalPrice" style="color:#404040; font-size:25px; font-weight:bold;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${product.price}" /></span>원 </p>
+              
               <!-- 품절, 판매중지 인 상품 장바구니로 못넘어가게 하기 -->
               <c:if test="${product.saleStat=='품절'||product.saleStat=='판매중지'}">
-                 <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="alert('죄송합니다. 구매 불가한 상품입니다.')" >장바구니 담기</button>
+                 <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="alert('죄송합니다. 구매 불가한 상품입니다.')" style="font-size: 15px; float:right;" >장바구니 담기</button>
               </c:if>
               <c:if test="${product.saleStat!='품절' && product.saleStat!='판매중지'}">
-                 <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" >장바구니 담기</button>
+                 <button type="submit" class="add-to-basket" value="${product.itemCode}"  onclick="addToBasketEvent(this.value)" style="font-size: 15px; float:right;" >장바구니 담기</button>
               </c:if>
+              
              
             </div>
-
-            <input type="hidden" value="${product.itemCode}" id="itemCode"/>
             
 
+            <input type="hidden" value="${product.itemCode}" id="itemCode"/>
+            <input type="hidden" value="${product.price}"  id="itemPrice"/>
+            
 
 <!-- </form> -->
 <!-- 테스트용 form 태그 -->
@@ -776,11 +893,13 @@ input[type=range] {
         <jsp:include page="MoveBar.jsp" flush="false"/>
         
         <!-- <h1>상품 상세 정보 영역</h1> -->
-        <img style="margin: 0px auto;" src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.imgDetail}"/>">
+        <img style="margin: 0px auto; margin-top: 20px; margin-bottom: 20px;" src="/resources/upload/<c:out value="${product.idNo}"/>/<c:out value="${product.imgDetail}"/>">
         
         </div>
      
         <!-- 상품 상세 정보 body 끝 -->
+     
+     
      
      
      
@@ -791,12 +910,16 @@ input[type=range] {
      <div id="prdReview">
      
      <jsp:include page="MoveBar.jsp" flush="false"/>
-        <h1>상품평 영역</h1>
+     
+     	<div id="prdReviewContent">
+     
+     
+        	<p id="moveContentTitle">상품평</p>
         <!-- 리뷰 갯수 표시 -->
         <h4 id="reviewAmount"></h4> 
         
       
-        
+
         <!-- 평균 별점 구현 중 -->
         <div id="starAvg">
            <div id="resultStar" class="star-rating-container" data-star-rating-average=""></div>
@@ -805,7 +928,7 @@ input[type=range] {
         </div>
       
       <!-- 리뷰 남기기 버튼 -->
-        <button onclick="orderCheck()" style="width:auto; float:right;">리뷰 남기기</button>
+        <button id="writeReviewBtn" onclick="orderCheck()" style="width:auto; float:right;">리뷰 남기기</button>
         <br>
         
         <!-- 리뷰 리스트 영역 -->
@@ -830,6 +953,11 @@ input[type=range] {
               </div> 
               -->
         </div>
+        
+        
+               
+     	</div> 
+        
         
       <!-- 리뷰 등록 모달 영역 -->
       <div id="review" class="modal">
@@ -886,19 +1014,19 @@ input[type=range] {
      
      <jsp:include page="MoveBar.jsp" flush="false"/>
      
-     <h1>상품 문의 영역</h1>
+     <p id="moveContentTitle">상품 문의</p>
      
      <!-- 상품 문의 댓글 영역 -->
          <div class = "reply-main"  id = "regiBtn">
-               <h4 class="reply-title" id="replytitle">댓글쓰기</h4>
+               <h4 class="reply-title" id="replytitle"></h4>
                <div id = "" class=''>
                      <div class="form-grop regiBtn">
-                           <label>replyContent</label>
-                           <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='댓글은 1~600자에 맞게 입력해주세요'></textarea></div>
+                           <textarea class ="form-control replyContent" id="replyContentBtn"  rows='5'  name='replyContent' placeholder ='문의글은 1~600자에 맞게 입력해주세요' style='resize:none;'></textarea></div>
+                            <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>문의글 남기기</button>
+                            
                             <div class="form-grop">
                              <input class ="form-control"  type="hidden"id ="idNoBtn"  name='idNo' value="${sessionMember.idNo}" readonly="readonly"></div>
-                            <div class="form-grop"><label>아이디</label>
-                             <input class ="form-control"  type="text" id =""  name='' value="${sessionMember.emailAccount}" readonly="readonly"></div>
+                             <input class ="form-control"  type="hidden" id =""  name='' value="${sessionMember.emailAccount}" readonly="readonly"></div>
                              <div class="form-grop">
                                 
                              <input class ="form-control"  type="hidden" type="hidden" id ="replyDepth"  name='replyDepth' value='0' readonly="readonly"></div> 
@@ -910,21 +1038,19 @@ input[type=range] {
                             <div  style='display:none' class="form-grop">
                         
                             <input class ="form-control" type="hidden" id ="itemCode"  name='itemCode' value='itemCode' readonly="readonly"></div>
-                                 <div class="panel-heading"><i class="fa fa-comments fa-fw"></i>Reply
-                            <button id ='addReplyBtn' class='btn btn-primary btn-xs pull-right'>댓글 입력하기</button></div>
+                                 <div class="panel-heading">
               
                                <!--       <div class="form-grop">
                                 <label>replyDate</label>
                                 <input class ="form-control" name='regDate' value=''></div> -->                                      
                                               
-               </div> <!-- /,panel-heading -->
    <!--             </div>regiBtn
    
              </div>  reply-main end -->
    
          
                <div id ="list">   
-               <div class="panel-body">  <!-- 댓글 목록 리스트 -->          
+               <div class="panel-body" style="padding:0; margin-top: 30px;">  <!-- 댓글 목록 리스트 -->          
                <ul class="chat">
                <!--  start reply -->
                <li class="left clearfix" data-itemCode='itemCode'>
@@ -941,7 +1067,7 @@ input[type=range] {
                 
                    </div><!-- 댓글 div 마지막 -->
                
-                        <div class="panel-footer">
+                        <div class="panel-footer" style="background-color: white; border-top: none;">
                
                
                          </div>
@@ -949,6 +1075,7 @@ input[type=range] {
                  </div><!-- RemoveBtn end -->
         
         <!-- 상품 문의 댓글 영역  끝-->
+               </div> <!-- /,panel-heading -->
         
      </div>
   
@@ -962,9 +1089,9 @@ input[type=range] {
         
         <jsp:include page="MoveBar.jsp" flush="false"/>
         
-        <h1>배송 안내</h1>
+        <p id="moveContentTitle">배송 안내</p>
         
-           <div>
+           <div style="font-size: 15px;  line-height: 25px;">
 
               기본 배송료 : 2500원 (도서산간 지역 배송비 추가) <br>
               무료 배송 : 100,000원 이상 구매 시 (도서산간 지역 200,000원 이상 구매 시) <br>
@@ -993,15 +1120,16 @@ input[type=range] {
         
         <jsp:include page="MoveBar.jsp" flush="false"/>
         
-        <h1>교환 및 반품</h1>
+       <p id="moveContentTitle">교환 및 반품</p>
         
-        <div>
-          교환 및 반품은 배송 완료 후 7일 이내까지 가능 <br>
-         - 제품 품질 이상, 오 배송의 경우 교환 및 반품 비용은 회사에서 부담합니다. <br>
-         - 고객님의 단순 변심의 경우 교환 및 반품 비용은 본인 부담입니다. <br>
-          ※ 상품을 확인하기 위해 택배 박스의 포장은 제거할 수 있으나, 내부 상품을 보호하는 <br>
-         비닐을 제거할 경우 반품할 수 없습니다. 내부 상품을 보호하는 비닐은 투명 비닐을 <br>
-         사용했기 때문에 비닐을 제거하지 않아도 충분히 상품을 확인할 수 있습니다. <br>
+
+        <div  style="font-size: 15px; line-height: 25px;">
+		          교환 및 반품은 배송 완료 후 7일 이내까지 가능 <br>
+		         - 제품 품질 이상, 오 배송의 경우 교환 및 반품 비용은 회사에서 부담합니다. <br>
+		         - 고객님의 단순 변심의 경우 교환 및 반품 비용은 본인 부담입니다. <br>
+		          ※ 상품을 확인하기 위해 택배 박스의 포장은 제거할 수 있으나, 내부 상품을 보호하는 <br>
+		         비닐을 제거할 경우 반품할 수 없습니다. 내부 상품을 보호하는 비닐은 투명 비닐을 <br>
+		         사용했기 때문에 비닐을 제거하지 않아도 충분히 상품을 확인할 수 있습니다. <br>
       
       </div>
       
@@ -1091,7 +1219,7 @@ $(document).ready(function(){
                      
                      str += "<div class='emaile'><strong class='primary-font'>"+list[i].emailAccount+"</strong>";
                      str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
-                     str += "<div><pre class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
+                     str += "<div><pre style='background-color: white; border: none;' class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
                      str += "<div id='reDiv"+i+"'><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
                      str += '<button id="replybtn" class ="replybtn" >답글달기</button> <br></div></div></div>'; 
                    
@@ -1113,8 +1241,8 @@ $(document).ready(function(){
             str += '<div class="dropdown">';
             str += '<button class="dropbtn">:</button>';
             str += '<div id="myDropdown" class="dropdown-content">';
-            str += '<button id="modify" class ="modify">수정</button> <br>';
-            str += '<button id="delete" class ="deletebtn">삭제</button>';
+            str += '<button id="modify" class ="modify" style="background-color: white; border: solid 1px lightgray;">수정</button> <br>';
+            str += '<button id="delete" class ="deletebtn" style="background-color: white;  border: solid 1px lightgray;">삭제</button>';
             str += '</div></div></li></ul>'
       
          }
@@ -1199,7 +1327,7 @@ $(document).ready(function(){
                 
                     var replyContent = $(".replyContent").val();
                     console.log(replyContent);
-                alert("댓글이 등록되었습니다. : " + result);
+                alert("댓글이 등록되었습니다.");
                  $("#replyContentBtn").val("");
                    showList(pageNum);
                  }); 
@@ -1483,17 +1611,17 @@ $(document).ready(function(){
              var str = "<ul class='pagination pull-rigth'>";
              
              if(prev){
-                str+= "<li class='page-item'><a class='page-link' href='"+(startNum - 1)+"'>Previous</a><li>";
+                str+= "<li class='page-item'><a style='background-color: #637365; border-color: white; color: white; border-top-right-radius: 4px; border-bottom-right-radius: 4px;' class='page-link' href='"+(startNum - 1)+"'>Previous</a><li>";
              }
                      
                  for(var i = startNum; i <= endNum; i++){
                     
                      var active = pageNum == i?"active":"";
                      
-                     str+= "<li class='page-item"+active+"'><a class='page-link' href='"+i+"'>"+i+"</a><li>";        
+                     str+= "<li class='page-item"+active+"'><a style='background-color: #637365; border-color: white; color: white; border-top-right-radius: 4px; border-bottom-right-radius: 4px;'  class='page-link' href='"+i+"'>"+i+"</a><li>";        
                  }
                  if(next){
-                    str+="<li class='page-item'><a class='page-link' href='"+(endNum+1)+"'>Next</a><li>";  
+                    str+="<li class='page-item'><a style='background-color: #637365; border-color: white; color: white; border-top-right-radius: 4px; border-bottom-right-radius: 4px;'  class='page-link' href='"+(endNum+1)+"'>Next</a><li>";  
                  }
                   str += "</ul></div>";
                   console.log(str);
@@ -1524,12 +1652,21 @@ $(document).ready(function(){
 const activeImage = document.querySelector(".product-image .active");
 const productImages = document.querySelectorAll(".image-list img");
 
+var totalPrice = document.getElementById("totalPrice");
+var itemPrice = document.getElementById("itemPrice");
+
 function changeImage(e) {
   activeImage.src = e.target.src;
 }
 
 productImages.forEach(image => image.addEventListener("click", changeImage));
 /* 상품 상세페이지 이미지 누르면 확대되는 기능 끝 */
+
+
+//3자리 단위마다 콤마 생성
+    function addCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
 
 /* 수량 증감 부분 시작 */
@@ -1539,6 +1676,8 @@ $(document).ready(function(){
     $('#numup').click(function(){
       x++;
       $('#input-view').val(x);
+      totalPrice.innerHTML=addCommas(1*itemPrice.value*x);
+      
     })
   $('#numdown').click(function(){
       x--;
@@ -1548,6 +1687,8 @@ $(document).ready(function(){
         }else{
           $('#input-view').val(x);
         }  
+      totalPrice.innerHTML=addCommas(1*itemPrice.value*x);
+      
     });
 
 
@@ -1794,7 +1935,7 @@ $(document).ready(function(){
                  str += "<div style='float: left; width: 20%; font-weight:bold;'>"+ userId +"</div>"; 
                  
                  str += "<div style='float: left; width: 80%; font-weight:bold; text-align:right;'>"+ displayTime(list[i].regDate) +"</div>"; 
-                 str += "<div style='float: left; width: 100%; font-size:14px; font-weight:bold; color:red;'>"+ stars[i] +"</div>"; 
+                 str += "<div style='float: left; width: 100%; font-size:14px; font-weight:bold; color:#D98E04;'>"+ stars[i] +"</div>"; 
                  str += "<div style='float: left; width: 20%;'><img class='resultImg' style='height:75px;' "+ path +" /></div>"; 
 
                  str += "<div style='width:80%; float:left'>"; 
@@ -1802,7 +1943,7 @@ $(document).ready(function(){
                 str += "<div class='content'>";
                 str += "<input type='hidden' id='writer"+i+"' value="+ list[i].idNo +">"; 
                 str += "<p style=''>"+ list[i].reviewContent +"</p>";
-                str += "<button id='removeBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn' style='background-color: #f44336;'>삭제</button>";
+                str += "<button id='removeBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn'>삭제</button>";
                 str += "<button id='modifyBtn' data-oper='"+ list[i].reviewNo +"' class='rBtn'>수정</button>";
                 str += "</div>";
                 str += "</div>";

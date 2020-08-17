@@ -4,7 +4,6 @@
 <html>
 
 <head>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
    <title>Insert title here</title>
@@ -50,7 +49,7 @@
       .ul_tabs>li {
          position: relative;
          float: left;
-         width: 22.5%;
+         width: 30%;
          list-style: none;
          text-align: center;
 
@@ -95,7 +94,7 @@
       }
 
       input[type=text] {
-         width: 415px;
+         width: 373px;
          height: 54px;
          margin-left: 40px;
          margin-bottom: 10px;
@@ -109,7 +108,7 @@
       }
 
       input[type=password] {
-         width: 415px;
+         width: 373px;
          height: 54px;
          margin-left: 40px;
          margin-bottom: 10px;
@@ -175,9 +174,10 @@
          float: left;
       }
 
-      #emailAuthMessage, #memApi, #shopApi {
+      #emailAuthMessage {
          margin-left: 40px;
          margin-bottom: 10px;
+         font-size : 12px;
       }
       
       #pwdChkMessage {
@@ -200,22 +200,18 @@
       .cont_btn button,
       input[type="submit"] {
          margin-left: 40px;
-         padding: 18px 192px;
+         padding: 18px 191.5px;
          background-color: #8FA691;
          color: #FFFFFF;
       }
       
       select {
          margin-left: 40px;
+         border: 1px solid #404040;
       }
       
       p {
       margin-left: 40px;
-      }
-      
-      
-      input[type=file] {
-         margin-left:40px;
       }
               
         #alert {
@@ -232,9 +228,33 @@
         }
         
         #bankAccount {
-           width: 280px;
+           width: 235px;
         }
-      
+        
+        input[name=postCode], input[name=shopPostCode] {
+           width: 285px;
+        }
+        
+        label {
+           margin: 30px 40px;
+        }
+        
+        input[type=file] {
+           margin-bottom: 20px;
+        }
+        
+        .postCodeApi {
+           margin-left: 0px;
+           border-bottom: 1px solid #ccc;
+           padding-bottom: 19px;
+           text-decoration: none;
+           font-size: 14px;
+        }
+        
+        label[for=businessRegFile] {
+           margin-right: 20px;
+        }
+        
    </style>
    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -252,14 +272,12 @@
             <form action="/member/sellerJoinForm" id="sellerJoinForm" method="post" enctype="multipart/form-data">
                <div class="cont_tabs_login">
                   <ul class='ul_tabs'>
-                     <li id="progress1" class="active"><a>step1</a>
+                     <li id="progress1" class="active"><a>이메일</a>
                         <span class="linea_bajo_nom"></span>
                      </li>
-                     <li id="progress2"><a>step2</a><span class="linea_bajo_nom"></span>
+                     <li id="progress2"><a>회원정보</a><span class="linea_bajo_nom"></span>
                      </li>
-                     <li id="progress3"><a>step3</a><span class="linea_bajo_nom"></span>
-                     </li>
-                     <li id="progress4"><a>step4</a><span class="linea_bajo_nom"></span>
+                     <li id="progress3"><a>상점정보</a><span class="linea_bajo_nom"></span>
                      </li>
                   </ul>
                </div>
@@ -276,36 +294,31 @@
                   <input type="hidden" id="tempCode">
                   <input type="hidden" id="authResult" value="false">
                </div>
-               <div class="cont_text_inputs pwdDiv">
-                  <input type="password" id="pwd" name="pwd" placeholder="*비밀번호"> <br>
-                  <input type="password" id="pwdChk" name="pwdChk" placeholder="*비밀번호확인">
-                  <div id="pwdChkMessage"></div>
-               </div>
                <div class="cont_text_inputs infoDiv">
-                  <input type="text" id="shopName" name="shopName" placeholder="*상점명"> <br>
+                    <input type="text" id="emailTmp" readonly="readonly">
+                  <input type="password" id="pwd" name="pwd" placeholder="*비밀번호"> <br>
+                  <input type="password" id="pwdChk" name="pwdChk" placeholder="*비밀번호확인"><br>
+                  <div id="pwdChkMessage"></div>
                   <input type="text" id="memName" name="memName" placeholder="*회원이름"> <br>
-                  <input type="text" id="contact1" name="contact1" placeholder="*연락처(XXX-XXXX-XXXX)">
+                  <input type="text" id="contact2" name="contact2" placeholder="회원연락처(XXX-XXXX-XXXX)">
                   <br>
-                  <input type="text" id="contact2" name="contact2" placeholder="연락처2(XXX-XXXX-XXXX)">
-                  <br>
-                  <input type="text" id="postCode" name="postCode" size="5" placeholder="우편번호" readonly="readonly"> <a id="memApi" href="">우편번호검색</a> 
+                  <input type="text" id="postCode" name="postCode" size="5" class="postCode" placeholder="우편번호" readonly="readonly"> <a id="memApi" class="postCodeApi" href="">우편번호검색</a> 
                   <br>
                   <input type="text" id="roadAddr" name="roadAddr" size="50" placeholder="도로명주소" readonly="readonly" /><br>
-                  <input type="text" id="namujiAddr" name="namujiAddr" placeholder="나머지주소">
-                  <input type="hidden" id="memAddr" name="memAddr"><br>
+                  <input type="text" id="namujiAddr" name="namujiAddr" placeholder="나머지주소"><br>
+                  <input type="hidden" id="memAddr" name="memAddr">
                </div>
+
+
                <div class="cont_text_inputs shopDiv">
+                  <input type="text" id="shopName" name="shopName" placeholder="*상점명"> <br>
+                  <input type="text" id="contact1" name="contact1" placeholder="*상점연락처(XXX-XXXX-XXXX)">
                   <input type="text" id="businessCode" name="businessCode" placeholder="*사업자등록번호"> <button
                      id="bcUniqueCheckBtn">중복확인</button> <br>
+                  <br>
                   <input type="hidden" id="bcUniqueCheck">
                   <input type="hidden" id="bcUniqueCheckResult" value="false">
-                  <p>*사업자등록증(이미지)</p>
-                  <input type="file" id="businessRegFile" name="uploadFile"
-                     accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
-                  <p>*사업장 소재지</p>
-                  <a id="shopApi" href="">우편번호검색</a>
-                  <br>
-                  <input type="text" id="shopPostCode" name="shopPostCode" placeholder="우편번호">
+                  <input type="text" id="shopPostCode" name="shopPostCode" class="postCode" placeholder="우편번호"> <a id="shopApi" class="postCodeApi" href="">우편번호검색</a>
                   <br>
                   <input type="text" id="shopRoadAddr" name="shopRoadAddr" readonly="readonly" placeholder="도로명주소"/><br>
                   <input type="text" id="shopNamujiAddr" name="shopNamujiAddr"  placeholder="나머지주소"/> <br>
@@ -319,17 +332,15 @@
                         <option value="카카오뱅크">카카오뱅크</option>
                   </select>
                   <input type="text" name="bankAccount" id="bankAccount" placeholder="*사업자 계좌번호"><br>
-                  <p>*상점이미지</p>
-                  <input type="file" id="thumbImg" name="uploadFile"
+                  <label for="businessRegFile">*사업자 등록증</label><input type="file" id="businessRegFile" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
+                  <label for="thumbImg">*상점이미지</label><input type="file" id="thumbImg" name="uploadFile"
                      accept="image/gif, image/jpeg, image/png, image/jpg">
                   <br>
-                  <p>배경이미지</p>
-                  <input type="file" id="backImg" name="uploadFile"
-                     accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
+                     <label for="backImg">&nbsp;배경이미지</label><input type="file" id="backImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
                </div>
                <div class="cont_btn">
-                  <button id="next">다음</button>
                   <button id="prev">이전</button>
+                  <button id="next">다음</button>
                   <button id="submitBtn">가입</button>
                </div>
             </form>
@@ -369,6 +380,7 @@
             businessRegFile = $("#businessRegFile");
             thumbImg = $("#thumbImg");
             backImg = $("#backImg");
+            emailTmp = $("#emailTmp");
 
             emailAuthBtn = $("#emailAuthBtn");
             inputCode = $("#inputCode");
@@ -388,14 +400,14 @@
             progress = $(".ul_tabs li");
 
             currentTab = 0;
-            const MAX = 3;
+            const MAX = 2;
             const MIN = 0;
             
             nextBtn.click(function(e){
                e.preventDefault();
                switch(currentTab){
                case MIN: 
-/*                      if (!(emailAccountCheck())) {
+/*                   if (!(emailAccountCheck())) {
                         return false;
                      } else if (duplicateCheckResult.val() == "false") {
                         alert("중복체크가 안됐습니다.");
@@ -404,8 +416,9 @@
                         alert("인증이 필요합니다.");
                         return false;
                      } else {
-                     }  */
+                     } */
                      prevBtn.css("display", "block");
+                     emailTmp.val(emailAccount.val());
                       break;
                case 1:
 /*                    if (!(pwdCheck())) {
@@ -414,18 +427,12 @@
                         alert("비밀번호확인은 비밀번호와 같아야 합니다.");
                         pwdChk.focus();
                         return false;
-                     } else {
-                     } */
-                      break;
-               case 2:
-/*                     if (!(memNameCheck())) {
-                        return false;
-                     } else if (!(contact1Check())) {
+                     } else if (!(memNameCheck())) {
                         return false;
                      } else if (!(memAddrCheck())) {
                         return false;
                      } else {
-                     }  */
+                     }    */
                      nextBtn.css("display", "none");
                      submitBtn.css("display", "block");
                      break;
@@ -446,7 +453,7 @@
                } else {
                   if(currentTab==MAX){
                       submitBtn.css("display", "none");
-                      nextBtn.css("display", "none");
+                      nextBtn.css("display", "block");
                    } else if (currentTab == 1) {
                       prevBtn.css("display", "none");
                    }
