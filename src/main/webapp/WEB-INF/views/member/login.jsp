@@ -132,7 +132,7 @@
 		
 		<div id="socialLogin">
 			<!-- 카카오로 로그인 -->
-			<a href="https://kauth.kakao.com/oauth/authorize?client_id=01b574850137dfee5c295348e0be136f&redirect_uri=http://localhost/member/kakaoLogin&response_type=code">
+			<a href="https://kauth.kakao.com/oauth/authorize?client_id=01b574850137dfee5c295348e0be136f&redirect_uri=http://52.79.223.40:8080/member/kakaoLogin&response_type=code">
 				<img alt="" src="/resources/images/kakao-login-btn.png" id="kakaoBtn">
 			</a>
 			
@@ -168,7 +168,7 @@
         var naverLogin = new naver.LoginWithNaverId(
        		{
        			clientId: "7Uw4MdMci9xWvrvnp_e8",
-       			callbackUrl: "http://localhost/member/naverCallback",
+       			callbackUrl: "http://52.79.223.40:8080/member/naverCallback",
        			isPopup: false, /* 팝업을 통한 연동처리 여부 */
        			loginButton: {color: "green", type: 1, height: 50} /* 로그인 버튼의 타입을 지정 */
        		}

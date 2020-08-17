@@ -10,6 +10,7 @@
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-1.12.1.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>item</title>
 
@@ -539,7 +540,7 @@ input[type=range] {
 }
 
 .star-rating-container {
-   background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6I0U2RTZFNTt9PC9zdHlsZT48cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyLjgsMTEuOSAxNC43LDE3LjUgMTAsMTMuOCA1LjMsMTcuNSA3LjIsMTEuOSAyLjUsOC4xIDguMSw4LjEgMTAsMi41IDExLjksOC4xIDE3LjUsOC4xICIvPjwvc3ZnPg==");
+   background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6I0Q5OEUwNDt9PC9zdHlsZT48cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyLjgsMTEuOSAxNC43LDE3LjUgMTAsMTMuOCA1LjMsMTcuNSA3LjIsMTEuOSAyLjUsOC4xIDguMSw4LjEgMTAsMi41IDExLjksOC4xIDE3LjUsOC4xICIvPjwvc3ZnPg==");
    width: 198px;
    background-size: 40px 40px;
    height: 40px;
@@ -548,7 +549,7 @@ input[type=range] {
 }
 
 .star-rating-container .avg {
-   background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6I0U0MUUyNjt9PC9zdHlsZT48cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyLjgsMTEuOSAxNC43LDE3LjUgMTAsMTMuOCA1LjMsMTcuNSA3LjIsMTEuOSAyLjUsOC4xIDguMSw4LjEgMTAsMi41IDExLjksOC4xIDE3LjUsOC4xICIvPjwvc3ZnPg==");
+   background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6I0Q5OEUwNDt9PC9zdHlsZT48cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyLjgsMTEuOSAxNC43LDE3LjUgMTAsMTMuOCA1LjMsMTcuNSA3LjIsMTEuOSAyLjUsOC4xIDguMSw4LjEgMTAsMi41IDExLjksOC4xIDE3LjUsOC4xICIvPjwvc3ZnPg==");
    background-size: 40px 40px;
    height: 100%;
    position: absolute;
@@ -558,6 +559,92 @@ input[type=range] {
 }
 
 /* 평균 별점 끝 */
+
+/* 추천 모달 */
+	.new_pro_li{
+	    height:240px;
+	}
+	
+	.pro_module{
+	    width: 136px;
+	}
+	
+	.pro_img_wrap{
+	    width: 100%;
+	    height: 156px;
+	    position: relative;
+	    overflow: hidden;
+	    background-color:black;
+	}
+	
+	.pro_img_wrap img{
+	    display:block;
+	    width:100%;
+	    height:100%;
+	    position: absolute;
+	    top:0;
+	    bottom:0;
+	    left:0;
+	    right:0;
+	}
+	
+	.pro_module .txt_wrap{
+	    position: relative;
+	    margin-top: 16px;
+	    width: 100%;
+	    height: 80px;
+	}
+	.txt_wrap {
+	    margin-left: 1px;
+	    height:25px;
+	}
+	.tit_info .info_itemName{
+	    display: block;
+	    color: black;
+	    font-weight: bold;
+	    font-size: 14px;
+	    word-break: break-all;
+	}
+	.price_info{
+	    font-size: 0;
+	    
+	}
+	.price_info .sale{
+	    display: inline-block;
+	    margin-right: 5px;
+	    vertical-align: middle;
+	}
+	.price_info .sale .price{
+	    display: inline-block;
+	    vertical-align: top;
+	    font-size: 13px;
+	    font-weight: 800;
+	    color: black;
+	}
+	.price_info .normPrice{
+	    display: inline-block;
+	    padding-left: 6px;
+	    color: black;
+	    font-size: 12px;
+	    text-decoration: line-through;
+	    vertical-align: middle;
+	}
+	.pro_module{
+	    position: static;
+	    margin-top: 5px;
+	}
+	.pro_list .pro_list_ul .pro_list_li{
+	    float: left;
+	    margin-right : 60px;
+	} 
+	
+	#xBtn {
+	    font-size:30px;
+	    top : -10px; 
+	    color:white;
+	    cursor: pointer;
+	}
+/* 추천 모달 끝 */
 </style>
     
 </head>
@@ -573,7 +660,6 @@ input[type=range] {
 
 <!-- 아이템 상세페이지 body 시작 -->
 <div class = "itemDiv">
-
 
    <!-- 아이템 요약 body 시작 -->
     <div class="itemContainer">
@@ -909,7 +995,7 @@ input[type=range] {
         
         <h1>교환 및 반품</h1>
         
-        <body>
+        <div>
           교환 및 반품은 배송 완료 후 7일 이내까지 가능 <br>
          - 제품 품질 이상, 오 배송의 경우 교환 및 반품 비용은 회사에서 부담합니다. <br>
          - 고객님의 단순 변심의 경우 교환 및 반품 비용은 본인 부담입니다. <br>
@@ -917,12 +1003,37 @@ input[type=range] {
          비닐을 제거할 경우 반품할 수 없습니다. 내부 상품을 보호하는 비닐은 투명 비닐을 <br>
          사용했기 때문에 비닐을 제거하지 않아도 충분히 상품을 확인할 수 있습니다. <br>
       
-      </body>
+      </div>
       
       <h1> </h1>
         
         </div>
-       <!-- 교환 및 반품 body 끝 -->       
+       <!-- 교환 및 반품 body 끝 -->  
+       
+       <!-- 추천 -->
+       <div id="id01" class="w3-modal" style="padding: 0; background-color:transparent; z-index:10;">
+            <div class="w3-modal-content w3-animate-right w3-card-4" style="bottom:0; position:absolute; right: 0; width:660px;">
+            <header class="w3-container" style="background-color :#8FA691;"> 
+                <span onclick="document.getElementById('id01').style.display='none'" 
+                class="w3-display-topright" id="xBtn">&times;</span>
+                <h4 style="color:white;">고객님, 이런 상품은 어떤가요?</h4>
+            </header>
+            <div class="w3-container">
+                <div class="new_pro_li">
+                    <div class="pro_list">
+                    	<ul class="pro_list_ul" style="width:600px;">
+                    	
+                    	</ul>
+                    </div>
+                    <!--END pro_list  -->
+                </div>
+            </div>
+            <!-- <footer class="w3-container" style="background-color :#637365; padding-bottom: 40px;">
+                
+            </footer> -->
+            </div>
+        </div>
+       <!-- 추천 끝 -->     
 
 </div>
 
@@ -2008,6 +2119,49 @@ $(document).ready(function(){
       });
 
 /* 상점으로 이동하기 끝 */
+	window.onload = setTimeout(function() {
+		
+		// && $("#sessionId").val() == 'c...?'
+		if($("#itemCode").val() == 's0003p0017') {
+			var values = [];
+			var str = "";
+			
+			$.ajax({
+	            type : 'get',
+	            url : '/recommend/test',
+	            success : function(result){
+	               console.log(result);
+	               values = result;
+                   
+                   $.each(values, function( index, value ) {
+
+                	   str += "<li class='pro_list_li'>";
+                	   str += "<div class='pro_module'>";
+                	   str += "<div class='pro_img_wrap'>";
+                	   str += "<a href='#' class='conts'>";
+                	   str += "<img class='active' src='/resources/upload/"+ value.idNo +"/"+ value.itemImg1 +"'>";
+                	   str += "</a></div>";
+                	   str += "<div class='txt_wrap'>";
+                	   str += "<a href='#' class='conts'>";
+                	   str += "<div class='tit_info'>";
+                	   str += "<span class='info_itemName'>"+ value.itemName +"</span>";
+                	   str += "</div><div class='price_info'>";
+                	   str += "<p class='sale'><span class='price'>" + value.price + "<span class='won'>원</span></span></p>";
+                	   str += "<p class='normPrice'> "+ value.normPrice +" <span class='won'>원</span></p></div></a></div>";
+                	   str += "</div></li>";
+                	   
+                   });
+                   
+                   $(".pro_list_ul").html(str);
+	               
+	            },error : function(er){
+	               alert("통신 오류입니다. 잠시 후 다시 시도해주세요.");
+	               error(er);
+	            }
+	        });
+	    	document.getElementById('id01').style.display='block';
+		}
+    }, 3000);
 </script>
 
    <%@include file="../includes/footer.jsp" %>

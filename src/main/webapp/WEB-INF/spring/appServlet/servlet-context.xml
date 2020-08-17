@@ -27,7 +27,6 @@
 	<context:component-scan base-package="com.jujumarket.board.controller" />
 	<context:component-scan base-package="com.jujumarket.order.controller" />
 	<context:component-scan base-package="com.jujumarket.admin.controller" />
-	
    
    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>
 
