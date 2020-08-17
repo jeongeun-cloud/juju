@@ -18,4 +18,6 @@ public interface BasketService {
 	
 	public String makeGuestId();
 
+	public Integer getBasketTotal(String id);
+
 }

@@ -22,6 +22,9 @@ public interface BasketMapper {
 	  public int update(BasketVO basket);
 
 	  public String makeGuestId();
+
+	  public Integer getBasketTotal(String id);
+	
 	 
 	
 

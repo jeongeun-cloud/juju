@@ -10,18 +10,17 @@
 	<style>
         #recentBoxContainer {
             width: 100px;
-            height: 300px;
-            margin-left: 90%;
             top:40%;
             background-color: white;
-            position: fixed;
+            position: sticky;
             border:1px solid lightgrey;
         	text-align: center;
+        	z-index: 10;
         }
         
         #recentBox {
             width: 100px;
-            height: 300px;
+            height: 350px;
         	position: relative;
         	text-align: center;
         }
@@ -41,17 +40,14 @@
         	outline: none;
         }
         
-        #prev{
-        	position: absolute;
-        	top: 30px;
+        #prev #next{
+          margin: 10px 0px;
+          text-align: center;
+          color: #8FA691;
+          font-weight: bold;
         }
-        
-        #next{
-            position: absolute;
-        	bottom: 0%;
-        }
-        
         #recentImgBoxContainer{
+        	margin: 10px 0px;
         	position: absolute;
         	top: 50px;
         }
@@ -67,19 +63,28 @@
         	display: none;
         }
         
+        #recentlyBoxRoad {
+        	height: 2500px;
+        	float: right;
+        	position: absolute;
+        	margin-left: 90%;
+        	margin-top: 200px;
+        }
+        
         
     </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </head>
 <body>
+
+
+<div id="recentlyBoxRoad">
      <!-- 최근 본 상품 박스 -->
 	 <div id="recentBoxContainer">
 	 	<div id="recentBox">
 	 	<div id="recentMoveBox">
 	 	<h4>최근본상품</h4>
 	 	<a class="recentMove" id="prev">∧</a>
-	 	<a class="recentMove" id="next">∨</a>
-		</div>
 		<div id="recentImgBoxContainer">
 	 	<c:set var="num" value="0">
 	 	</c:set>
@@ -91,9 +96,15 @@
 	 		</a>
 	 	</div>
 		</c:forEach>
+	 	<a class="recentMove" id="next">∨</a>
+		</div>
 		</div>
 		</div>
     </div>
+
+</div>
+    
+    
     
 <script>
     $(document).ready(function(){

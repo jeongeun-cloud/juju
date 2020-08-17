@@ -14,6 +14,117 @@
     <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
     <link rel="stylesheet"  href="../resources/css/admin.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
+    <style>
+    .quick{
+	display:inline-block;
+	height:150px;
+	width:100%;
+	}
+    .quick_box{
+  	    background-color:white;    	
+    	width:250px;
+    	height:120px;
+    	display:inline-block;
+    	padding:10px;
+    	margin:10px 20px 0 30px;
+    	border-radius:10px;
+    	box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2);
+    }
+    .quick_wrap{
+       width:250px;  
+       position:relative;            
+        
+    }
+    .quick_l{
+    	height:25px;
+    	display:inline-block;    	
+    	position:absolute;
+    	right:20px;
+    	margin-top:20px;
+    	color:black;
+    }
+    .quick_a{
+    	height:50px;
+    	width:80px;
+    	display:inline-block;    	
+    	margin-top:50px;
+    	margin-left:100px;
+    	color:black;
+    }
+    .aa{
+	
+	font-size:15px;
+	margin-left:5px;
+	}
+	.aaa{
+	
+	font-size:30px;
+	margin-left:5px;
+	font-weight:800;
+	}
+	.admi_board{
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        /* border: solid blue; */
+        height: 450px;
+        
+    }
+    .quick_b{
+        width:600px;
+        margin: 100px 20px 20px 20px;
+        float:left;
+    }
+    .admi_notice{
+       
+        width: 600px;
+        height:400px;
+    }
+    .admi_faq{
+       
+        width: 600px;
+        height:400px;
+    }
+    .board_tit {    
+        width: 100%;
+        font-size: 20px;
+        
+    }
+    .board_btn{
+         width:100%;
+        margin-left:510px;
+        margin-bottom: 10px;
+    }
+   .more{
+    background-color:#637365;
+    border: 1px solid #637365;
+    color: white;
+    }
+    table {
+	border-collapse: collapse;
+	width: 95%;
+	margin-left:18px;
+		
+	}
+     th, td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #637365;
+        color: white;
+        text-align: left;
+        height: 30px;
+        text-align:center;
+    }
+    
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+    
+    </style>
 </head>
 <body>
 <%@include file="./idCheck.jsp" %>
@@ -35,194 +146,137 @@
                 <!-- END NAV -->
                 
                 <!-- CONTAINER  -->
-                <div class="mainContent">  
-			        <!-- DETAIL FORM -->
-		            <div class="formHeader row">
-		                <h2 class="text-1 fl">index</h2>
-		            </div>
+    <div >  
+			         
+        <div class="mainContent">
 		            
-		            <!-- 성은 통계 시작 -->
-		            <div class="formBody row form" style="text-align:center;">
-			            <div class="quick_m">    
-		                    <div class="today_sta">
-		                        <div class="quick_tit">
-		                            <p><b>Today 현황[오늘 날짜]</b></p>
-		                        </div>
-		
-		                        <div class="today_total">
-		                            <div class="today_box">
-		                                <div class="pro_regi_sta">
-		                                    <div class="today_tit">
-		                                        총 회원 수
-		                                    </div>
-		                                    <div>
-		                                       <fmt:formatNumber type="number" maxFractionDigits="3" value="${iT}" />건
-		                                    </div>
-		                                </div>
-		                            </div>   
-		                            <!-- today_box -->
-		                            
-		                            <div class="today_box">
-		                                <div class="pro_pay_sta">
-		                                    <div class="today_tit">
-		                                         가입 수[오늘]   
-		                                    </div>
-		                                    <div>
-		                                         <fmt:formatNumber type="number" maxFractionDigits="3" value="${iTodayT}" />건
-		                                    </div>
-		                                </div>
-		                            </div>   
-		                            <!-- today_box -->
-		
-		                            <div class="today_box">
-		                                <div class="pro_order_sta">
-		                                    <div class="today_tit">
-		                                         총 탈퇴 수  
-		                                    </div>
-		                                    <div>
-		                                        <fmt:formatNumber type="number" maxFractionDigits="3" value="${iWithdrawT}" />건
-		                                    </div>
-		                                </div>
-		                            </div>   
-		                            <!-- today_box -->
-		
-		                            <div class="today_box">
-		                                <div class="pro_order_sta">
-		                                    <div class="today_tit">
-		                                         탈퇴  수[오늘] 
-		                                    </div>
-		                                    <div>
-		                                         <fmt:formatNumber type="number" maxFractionDigits="3" value="${iTodayWithdrawT}" />건
-		                                    </div>
-		                                </div>
-		                            </div>   
-		                            <!-- today_box -->
-		                        </div>
-		                       
-		
-		                    </div>
-		                </div>   
-		                
-		                <div class="quick_m">    
-		                    <div class="today_do">
-		                        <div class="quick_tit">
-		                            <p><b>미처리 현황</b></p>
-		                        </div>
-		
-		                        <div class="today_do_li">
-		                            <div class="today_box">
-		                                <div class="pro_regi_sta">
-		                                    <div class="today_tit">
-		                                        불량 신고 
-		                                    </div>
-		                                    <div>
-		                                        00건
-		                                    </div>
-		                                </div>
-		                            </div>   
-		
-		                            <div class="today_box">
-		                                <div class="pro_regi_sta">
-		                                    <div class="today_tit">
-		                                        가입/승인 신청 
-		                                    </div>
-		                                    <div>
-		                                        00건
-		                                    </div>
-		                                </div>
-		                            </div>   
-		
-		                            <div class="today_box">
-		                                <div class="pro_regi_sta">
-		                                    <div class="today_tit">
-		                                       고객 문의[오늘] 
-		                                    </div>
-		                                    <div>
-		                                        <fmt:formatNumber type="number" maxFractionDigits="3" value="${cNum}" />건
-		                                    </div>
-		                                </div>
-		                            </div>   
-		
-		                            <div class="today_box">
-		                                <div class="pro_regi_sta">
-		                                    <div class="today_tit">
-		                                        상인 문의 [오늘]
-		                                    </div>
-		                                    <div>
-		                                        <fmt:formatNumber type="number" maxFractionDigits="3" value="${sNum}" />건
-		                                    </div>
-		                                </div>
-		                            </div> 
-		                        </div>  
-		                        <!-- today_do_li -->
+		    <div class="quick">
+			
+
+		       	<div class="quick_box">	
+		            <div class="quick_wrap">
+		                 <i class="fa fa-user-plus fa-4x" aria-hidden="true"></i>
+		                 <div class="quick_l"><label class="aa" >가입 회원 수</label></div>
+		                 <div class="quick_a"> <label class="aaa"> <fmt:formatNumber type="number" maxFractionDigits="3" value="${iTodayT}" /> 명</label></div>
+		            </div>
+		       </div> 
+
+		       	<div class="quick_box">	
+		            <div class="quick_wrap">
+		                 <i class="fa fa-user-times fa-4x" aria-hidden="true"></i>
+		                 <div class="quick_l"><label class="aa" >탈퇴 회원 수</label></div>
+		                 <div class="quick_a"> <label class="aaa">  <fmt:formatNumber type="number" maxFractionDigits="3" value="${iTodayWithdrawT}" /> 명</label></div>
+		            </div>
+		       </div> 
+		       
+		       <div class="quick_box">	
+			       <div class="quick_wrap">
+						     <i class="fa fa-file-text fa-4x" aria-hidden="true"></i>
+						     <div class="quick_l"><label class="aa" >고객 문의</label></div>
+						     <div class="quick_a"><label class="aaa"><fmt:formatNumber type="number" maxFractionDigits="3" value="${cNum}" />건</label></div>
+			       		</div>
+		       	</div>
+		       	
+		       	<div class="quick_box">	
+			       	 <div class="quick_wrap">
+						     <i class="fa fa-file-text-o fa-4x" aria-hidden="true"></i>
+						     <div class="quick_l"><label class="aa" >상인 문의</label></div>
+						     <div class="quick_a"><label class="aaa"><fmt:formatNumber type="number" maxFractionDigits="3" value="${sNum}" />건</label></div>
+			       		</div>
+		       	</div>
+		    </div>   
+		    <!--quick  --> 
+		    
+	</div>
+		        <!--■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■    -->    
+		    <%@include file="./graph.jsp" %>        
+		            
+      <div class="admi_board">
+            <div class="quick_b">
+                <div class="admi_notice">
+                    <div class="board_tit">
+                        <p style="margin-left:15px;">|주주마켓 공지사항</p>
+                    </div>
+                    <div class="board_notice_content">
+                         <div class="board_btn">
+                            <input type="button" class="more" value="더 보기" onClick="location.href='/community/notice/list'">
+                        </div>
+                      	  <div class="index_table">
+		                      <table tit aria-setsize="500px">
+					            <thead>
+					               <tr>
+					                  <th>번호</th>
+					                  <th>글 제목</th>
+					                  <th>등록일</th>
+					               </tr>
+					            </thead>
+					                 
+					             
+					            <c:forEach items="${noticelist}" var="notice">
+					               <tr>
+					                  <td><c:out value="${notice.postingNo }" /></td>
+					
+					                  <td><a class ='move' href='<c:out value="${notice.postingNo}"/>'>
+					                  <c:out value="${notice.title }" /></a></td>
+					         
+					                  <td><fmt:formatDate pattern="yyyy/MM/dd" value="${notice.regDate }" /></td>
+					
+					               </tr>
+					
+					            </c:forEach>
+					
+					         </table>
+			         	</div>
+                    </div>
+
+                </div>
+            </div>    
+
+           <div class="quick_b">
+                <div class="admi_faq">
+                    <div class="board_tit">
+                        <p style="margin-left:15px;">|주주마켓 FAQ</p>
+                    </div>
+                    <div class="board_faq_content">
+                        <div class="board_btn">
+                            <input type="button" class="more" value="더 보기" onClick="location.href='/community/BoardFAQ/list'">
+                        </div>
+                        <div class="index_table">
+		                         <table tit aria-setsize="500px">
 		                        
-		                    </div>
-		                    <!-- today_do -->
-		                </div>   
-		                <!-- quick_m -->
-		            </div>
-		            <!-- 성은 통계 끝 -->
-		            
-		            
-		            <!-- 게시판 두개 시작 -->
-		            <div class="formBody row form" style="text-align:center;">
-		            	<!-- notice -->
-		                <div class="column s-6">
-		                <div class="formHeader row">
-			                <h2 class="text-1 fl">공지사항</h2>
-			            	<input type="button" class="btnSave bg-1 text-fff text-bold fr" value="더 보기" onClick="location.href='/community/notice/list'"><br><br>
-			            </div>
-			               <div class="table form">
-			                <div class="row bg-1">
-			                    <div class="cell cell-200 text-center text-fff">번호</div>
-			                    <div class="cell cell-200 text-center text-fff">글 제목</div>
-			                    <div class="cell cell-200 text-fff text-right">등록일</div>
-			                </div>
-			                
-			            	<!--   BEGIN LOOP -->
-			                <ul>
-			                	<c:forEach items="${noticelist }" var="notice">
-					               <li class="row cellRow">
-					                  <div class="cell cell-200 text-center"><c:out value="${notice.postingNo }" /></div>
-					                  <div class="cell cell-200 text-center"><c:out value="${notice.title }" /></div>
-					                  <div class="cell cell-200 text-right"><fmt:formatDate pattern="yyyy/MM/dd" value="${notice.regDate }" /></div>
-					               </li>
-					            </c:forEach>
-					            
-			                </ul>
-			            	<!--   END LOOP -->
-			            	</div>
-		                </div>
-		                <!-- FAQ -->
-		                <div class="column s-6">
-		                <div class="formHeader row">
-			                <h2 class="text-1 fl">FAQ</h2>
-				            <input type="button" class="btnSave bg-1 text-fff text-bold fr" value="더 보기" onClick="location.href='/community/BoardFAQ/list'"><br><br>
-			            </div>
-			               <div class="table form">
-			                <div class="row bg-1">
-			                    <div class="cell cell-200 text-center text-fff">번호</div>
-			                    <div class="cell cell-200 text-center text-fff">글 제목</div>
-			                    <div class="cell cell-200 text-fff text-right">등록일</div>
-			                </div>
-			                
-			            	<!--   BEGIN LOOP -->
-			                <ul>
-			                	<c:forEach items="${faqlist }" var="faq">
-					               <li class="row cellRow">
-					                  <div class="cell cell-200 text-center"><c:out value="${faq.postingNo }" /></div>
-					                  <div class="cell cell-200 text-center"><c:out value="${faq.title }" /></div>
-					                  <div class="cell cell-200 text-right"><fmt:formatDate pattern="yyyy/MM/dd" value="${faq.regDate }" /></div>
-					               </li>
-					            </c:forEach>
-					            
-			                </ul>
-			            	<!--   END LOOP -->
-			            	</div>
-		                </div>
-		            </div>
+		                        <thead>                     
+		                       
+		                            <tr>
+		                                <th>번호</th>
+		                                <th>글 제목</th>		                             
+		                                <th>등록일</th>
+		
+		                            </tr>
+		                        </thead>
+		
+		                            <c:forEach items="${faqlist}" var="faq">
+		                                <tr>
+		                                
+		                                    <td><c:out value="${faq.postingNo }" /></td>
+		                                    
+		                                    <td><a class ='move2' href='<c:out value="${faq.postingNo}"/>'>
+		                                    <c:out value="${faq.title }" /></a></td>		                                
+		                                    <td><fmt:formatDate pattern="yyyy/MM/dd" value="${faq.regDate }" /></td>
+		
+		                                </tr>
+		                            </c:forEach>
+		                        </table>
+                        
+                        </div>
+                     
+                    </div>
+
+                </div>
+            </div>
+            
+        </div> 
 		        
-            	</div>
+   
             <!-- END CONTAINER  -->
         	</div>
     	</div>

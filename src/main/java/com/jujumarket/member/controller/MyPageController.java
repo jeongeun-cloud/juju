@@ -46,6 +46,25 @@ public class MyPageController {
 	private ServletContext servletContext;
 	private MyPageService myPageService;
 
+	
+	
+	@PostMapping("/myPurchaseListGuest")
+	public String myPurchaseListGuest(String orderCode, String nonMemPwd, Model model) {
+		
+		if(nonMemPwd==null || nonMemPwd.equals("")) {
+			return "member/login";
+		}
+		
+		List<MyPerchaseVO> myPerchase = myPageService.getGuestPurchaseListByOrderCode(orderCode);
+		model.addAttribute("myPerchaseList", myPerchase);
+		
+		return "/mypage/myPurchaseListGuest";
+		
+	}
+	
+	
+	
+	
 	// [마이페이지]나의 주문내역 (최초 페이지 로드 시 get방식 사용) 
 	@GetMapping("/myPerchaseList")
 	public String myPerchase(HttpSession session, Model model) {

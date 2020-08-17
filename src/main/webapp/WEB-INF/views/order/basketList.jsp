@@ -16,15 +16,16 @@
     
     #tableBody{
     
-     border-bottom: 4px solid #F0F2F0 ;
+     border-bottom: 2px solid #F0F2F0 ;
     
     }
+    
 
 
         #containerOFAll {
-            width:1300px;
+            width:80%;
             height:100%;
-            margin: 0 auto;
+            margin:0 auto;
 
             color: #303030;
             text-align:center;
@@ -104,7 +105,7 @@
 
             position:absolute;
             bottom:0px;
-            right:0px;
+            right:8%;
 
         }
 
@@ -184,7 +185,7 @@
         }
 
         #thumbnailImg {
-            width: 200px;
+            width: 80px;
             margin: 5px;
         }
 
@@ -199,22 +200,13 @@
             border:none;
             border-radius:10%;
             
-            float:left;
+            float:right;
         }
         
         #dltBtn:hover {
         background-color: white; 
         color: #8FA691; 
         border: 2px solid #8FA691;
-        }
-
-        
-        
-        
-        #thumbnailImg {
-        
-           width: 80px;
-        
         }
 
 
@@ -234,7 +226,7 @@
          margin-top: 50px;
          width: 200px;
          
-         float:left;
+         float:right;
       }
          
 
@@ -262,9 +254,9 @@
                 <ul>
 
                     <li style="float:left;"  id = "currentProcess">01 장바구니</li> 
-                    <li style="color: lightgrey; float:left;">  >  </li>
+                    <li style="color: lightgrey; float:left;">&nbsp;>&nbsp;</li>
                     <li style="color: lightgrey; float:left;">02 주문서 작성/결제</li> 
-                    <li style="color: lightgrey; float:left;">  >  </li>
+                    <li style="color: lightgrey; float:left;">&nbsp;>&nbsp;</li>
                     <li style="color: lightgrey; float:left;">03 주문완료</li>
     
                 </ul>

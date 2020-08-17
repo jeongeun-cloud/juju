@@ -115,6 +115,37 @@ public class BasketController {
       model.addAttribute("product", itemservice.get(itemCode));
       model.addAttribute("shopName", itemservice.getShop(itemCode));
    }
+   
+   
+   
+   
+   @GetMapping("/getBasketTotal") 
+   @ResponseBody
+   public ResponseEntity getBasketTotal(String id, Model model, HttpSession session, HttpServletRequest request,
+	         HttpServletResponse response) {
+	   
+	      // null 처리 시작 
+	      if (id.equals("") || id == null) {
+
+	         id="gnull";
+
+	      }
+	      // null 처리 끝
+	      
+	      Integer basketTotal = basketservice.getBasketTotal(id);
+	      //System.out.println(id);
+	      //System.out.println("basketTotal="+basketTotal);
+	      //model.addAttribute("basketTotal", Integer.toString(basketTotal));
+	      
+	      if(basketTotal==null) {
+	    	  basketTotal = 0;
+	      }
+	      
+	      return ResponseEntity.status(HttpStatus.OK).body(Integer.toString(basketTotal));
+   }
+   
+   
+   
 
    @GetMapping("/basket")
    @ResponseBody
@@ -163,7 +194,7 @@ public class BasketController {
       tmpbasket.setIdNo(id);
       basket.add(tmpbasket);
       // 비회원 관련
-
+      
       model.addAttribute("basket", JSONArray.fromObject(basket));
 
       // 이거 안됨
@@ -172,6 +203,9 @@ public class BasketController {
       return ResponseEntity.status(HttpStatus.OK).body(JSONArray.fromObject(basket));
    }
 
+
+   
+   
    @PostMapping("/basket")
    @ResponseBody
    public ResponseEntity<?> register(@RequestBody BasketVO basket, HttpServletRequest request,
@@ -235,6 +269,9 @@ public class BasketController {
    @GetMapping("/footer")
    public void footer() {
    }
+   
+   
+
    
    
 //   @PostMapping("/remove")

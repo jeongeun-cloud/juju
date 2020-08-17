@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
-
 <%@include file="../includes/basketSlide.jsp" %>
 
 <!DOCTYPE html>
@@ -11,11 +9,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
-
+ 
     <style>
-
-
         a{
             text-decoration: none;
         }
@@ -27,6 +22,7 @@
         }
    		.new_pro_li{
    			margin-left: 100px;
+   			height:1200px;
    		}
     
         .pro_module{
@@ -85,14 +81,6 @@
             word-break: break-all;
             padding: 8px 0 0;
         }
-        .tit_info .info_idNo{
-            display: block;
-            color: black;
-            font-size: 15px;
-            word-break: break-all;
-            margin: 5px 0 0;
-            
-        }
         .price_info{
             padding-top: 8px;
             font-size: 0;
@@ -132,16 +120,15 @@
             min-height: 550px;
         } 
         
-            .soldout{
-           text-align:center;
-           width:100%;
-           bottom: 50px; 
-           font-size: 3.5em;
-           font-weight: bold; 
-           position: absolute; 
-           color: white;
-        
-       }
+         .soldout{
+        text-align:center;
+        width:100%;
+        bottom: 50px; 
+        font-size: 3.5em;
+        font-weight: bold; 
+        position: absolute; 
+        color: white;
+               }
         
         .add_to_cart{
         border:none;

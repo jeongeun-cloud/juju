@@ -27,7 +27,11 @@
 
         .bob_tit{
             height: 40px;
-            background-color: #9dc6d8;
+          	width:130px;
+          	padding:5px;
+          	border-bottom: 1px solid #8fa691;
+          	color: #8fa691;
+          	text-align:center;
         }
 
         a{
@@ -47,16 +51,25 @@
 
         }
         .pro_module{
-            width: 270px;
-            height: 500px;
-            border: solid;
+            width: 336px;
+            height: 540px;          
         }
         .pro_img_wrap{
             width: 100%;
-            height: 300px;
+            height: 396px;
             background-color: black;
             position: relative;
             overflow: hidden;
+        }
+         .pro_img_wrap img{
+        display:block;
+        width:100%;
+        height:100%;
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
         }
         .pro_module .txt_wrap{
             position: relative;
@@ -70,8 +83,8 @@
              height:25px;
         }
         .pro_flag_wrap .flag{
-            border: 1px solid darkgray;
-            background-color: darkgray;
+            border: 1px solid #8fa691;
+            background-color: #8fa691;
             display: inline-block;
             min-width: 55px;
             height: 25px;
@@ -80,7 +93,7 @@
             line-height: 22px;
             text-align: center;
             font-weight: 800;
-            color: black;
+            color: white;
         }
         .tit_info .info_itemName{
             display: block;
@@ -89,13 +102,6 @@
             font-size: 20px;
             word-break: break-all;
             padding: 8px 0 0;
-        }
-        .tit_info .info_idNo{
-            display: block;
-            color: black;
-            font-size: 15px;
-            word-break: break-all;
-            margin: 5px 0 0;
         }
         .price_info{
             padding-top: 8px;
@@ -144,7 +150,17 @@
            color: white;
         
        }
-        
+       .add_to_cart{
+        border:none;
+        background-color:white;
+        right:0;
+        top: 40px;
+        display:inline;
+        position:absolute;
+        }
+        .add_to_cart:focus{
+        outline:none;
+        }
         
     </style>
     
@@ -158,7 +174,7 @@
         <div class="bob_wrap">
             <div class="bob_pro">
                 <div class="bob_tit">
-               <h1><b>+판매량 베스트+</b></h1> 
+               <h4><b>구매량 베스트</b></h4> 
                 </div>
                 <div class="bob_pro_li">
                     <c:forEach items="${BestBob}" var="bob">
@@ -211,6 +227,18 @@
                                               </c:if>
 							                <!-- END img_wrap -->
 							                <div class="txt_wrap">
+							                
+							                 <!--cart버튼  -->
+							                    <div class="cart_btn">
+							                    <c:if test="${bob.saleStat=='품절'||bob.saleStat=='판매중지'}">
+							                    	   <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/addcart.png"></button>
+							                    </c:if>
+							                    <c:if test="${bob.saleStat!='품절'&& bob.saleStat!='판매중지'}">
+							            			 <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/addcart.png"></button> 
+							            	 	</c:if>
+							                    </div>
+							                    <!--cart버튼 끝  -->
+							                    
 							                	 <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
 							                        <div class="pro_flag_wrap">
                                           
@@ -221,8 +249,7 @@
 		                                           </div>
 							                        <!-- END pro_flag_wrap -->
 							                        <div class=tit_info>
-							                            <span class="info_itemName"> <c:out value="${bob.itemName}" /> </span>
-							                            <span class="info_idNo"><c:out value="${bob.idNo}" /></span>
+							                            <span class="info_itemName"> <c:out value="${bob.itemName}" /> </span>							                            
 							                        </div>
 							                        <!-- END tit_info -->
 							                        <div class="price_info">
@@ -237,14 +264,7 @@
 							                                </p>
 							                        </div>
 							                  		 </a>
-							                    <div class="cart_btn">
-							                    <c:if test="${bob.saleStat=='품절'||bob.saleStat=='판매중지'}">
-							                       <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')">add to cart</button>
-							                    </c:if>
-							                    <c:if test="${bob.saleStat!='품절'&& bob.saleStat!='판매중지'}">
-							            	 <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button> 
-							            	 </c:if>
-							                    </div>
+
 							                </div>
 							                <!-- END txt_wrap -->
 							                
@@ -266,8 +286,8 @@
 
             <!--후기 베스트 시작  -->
             <div class="bob_pro">
-                 <div class="bob_tit" style="background-color:pink">
-               <h1><b>+후기 베스트+</b></h1> 
+                 <div class="bob_tit">
+               <h4><b>리뷰 베스트</b></h4> 
                 </div>
                 <div class="bob_pro_li">
                     <c:forEach items="${ReviewBob}" var="bob">
@@ -320,6 +340,18 @@
                                               </c:if>
 							                <!-- END img_wrap -->
 							                <div class="txt_wrap">
+							                
+							                 <!--cart버튼  -->
+							                    <div class="cart_btn">
+							                    <c:if test="${bob.saleStat=='품절'||bob.saleStat=='판매중지'}">
+							                    	   <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/addcart.png"></button>
+							                    </c:if>
+							                    <c:if test="${bob.saleStat!='품절'&& bob.saleStat!='판매중지'}">
+							            			 <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/addcart.png"></button> 
+							            	 	</c:if>
+							                    </div>
+							                    <!--cart버튼 끝  -->
+							                    
 							                	 <a href="/product/item?itemCode=<c:out value='${bob.itemCode}'/>" class="conts">
 							                        <div class="pro_flag_wrap">
                                           
@@ -330,8 +362,7 @@
 		                                           </div>
 							                        <!-- END pro_flag_wrap -->
 							                        <div class=tit_info>
-							                            <span class="info_itemName"> <c:out value="${bob.itemName}" /> </span>
-							                            <span class="info_idNo"><c:out value="${bob.idNo}" /></span>
+							                            <span class="info_itemName"> <c:out value="${bob.itemName}" /> </span>							                            
 							                        </div>
 							                        <!-- END tit_info -->
 							                        <div class="price_info">
@@ -346,14 +377,7 @@
 							                                </p>
 							                        </div>
 							                  		 </a>
-							                    <div class="cart_btn">
-							                    <c:if test="${bob.saleStat=='품절'||bob.saleStat=='판매중지'}">
-							                       <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')">add to cart</button>
-							                    </c:if>
-							                    <c:if test="${bob.saleStat!='품절'&& bob.saleStat!='판매중지'}">
-							            	 <button type="button" class="add_to_cart" value="${bob.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button> 
-							            	 </c:if>
-							                    </div>
+
 							                </div>
 							                <!-- END txt_wrap -->
 							                

@@ -26,6 +26,9 @@
 	 text-align:center;
 	
 	}
+	.panel-heading{
+	margin-top:50px;
+	}
    .product_container{
    width:1300px;
    height:100%;
@@ -45,18 +48,15 @@
   
    }
    .list_Sort{
-        position: absolute;
-        right: 20px;
-        top:40px;
+      position: absolute;
+      right: 20px;
+      top:40px;
        
     } 
-    .rad_wrap{
-        display: inline-block;     
-    }
-      
+
     .midCateg {
     text-align: center;
-    text-size: 
+    margin-bottom:80px;
     
     }
     .midCateg >  ul > li {
@@ -69,10 +69,9 @@
     }
     .midcateg_li> a{
     color: darkgray;
-    font-size:20px;
-    }
+        }
     .midcateg_li> a:hover{
-    color:red;
+    color:#637365;
     text-decoration:none;
     }
       
@@ -87,8 +86,8 @@
         }
         .pro_module{
             width: 270px;
-            height: 500px;
-            border: solid;
+            height: 430px;
+            
         }
         .pro_img_wrap{
             width: 100%;
@@ -96,6 +95,16 @@
             background-color: black;
             position: relative;
             overflow: hidden;
+        }
+        .pro_img_wrap img{
+        display:block;
+        width:100%;
+        height:100%;
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
         }
         .pro_module .txt_wrap{
             position: relative;
@@ -109,8 +118,8 @@
             height:25px;
         }
         .pro_flag_wrap .flag{
-            border: 1px solid darkgray;
-            background-color: darkgray;
+            border: 1px solid #8fa691;
+            background-color: #8fa691;
             display: inline-block;
             min-width: 55px;
             height: 25px;
@@ -119,7 +128,7 @@
             line-height: 22px;
             text-align: center;
             font-weight: 800;
-            color: black;
+            color: white;
         }
         .tit_info .info_itemName{
             display: block;
@@ -161,7 +170,7 @@
             color: black;
             font-size: 13px;
             line-height: 21px;
-            
+            text-decoration: line-through;
             vertical-align: middle;
         }
         .pro_module .cart_btn{
@@ -173,20 +182,92 @@
             margin: 80px 0 0 25px;
             min-height: 600px;
         }  
-        #so_Content{
-        margin: 90px -42px 92px 63px;      
-        width:270px;
-        height:500px;
-        border: solid;
-        float:left;
-        }   
-        .so_img{
-        width:100%;
-        height:300px;
-        position:relative;
-        overflow:hidden;
-        background-color:black;
+        .add_to_cart{
+        border:none;
+        background-color:white;
+        right:0;
+        top: 40px;
+        display:inline;
+        position:absolute;
+        }
+        .add_to_cart:focus{
+        outline:none;
+        }
+ 
+ 	    /* sort radio button */
+ 	    .rad_wrap{
+        display: inline-block; 
+        border-right: 1px solid #d6d9d6;   
+        height:15px; 
+   		 }
+      
+ 	    input[type="radio"] {
+	    position: relativ;
+	    display: none;
+	   
+	    }
+	    input[type="radio"] + label {
+	    min-width: 45px;
+	    height: 25px;
+	    margin:0 15px 0 15px;	   	    
+	    position: relative;
+	    text-align: center;
+	    }
+	
+	    /*hover, checked, focus*/
+	
+	    input[type="radio"]#sort01:hover + label,
+	    input[type="radio"]#sort02:hover + label,
+	    input[type="radio"]#sort03:hover + label,
+	    input[type="radio"]#sort04:hover + label{
+	    cursor: pointer;
+	    }
+	    input[type="radio"]#sort01:checked + label::before,
+	    input[type="radio"]#sort02:checked + label::before,
+	    input[type="radio"]#sort03:checked + label::before,
+	    input[type="radio"]#sort04:checked + label::before{
+	    cursor: pointer;  
+	    color: black;
+	    content:url("/resources/images/check.png");
+	    display: inline-block; 
+	
+	    }
+	    .rad_wrap input + label{
+	        font-weight: 500;
+	        font-size:17px;
+	        color:gray;
+	    }
+	    .rad_wrap input:checked + label{
+	        font-weight: 900;
+	        color:black;
+	    }
+	   
+      /*sort 한 부분  */
+     #so_Content{
+     margin: 90px -42px 92px 63px;      
+     width:270px;
+     height:430px;
+    
+     float:left;
+     position:relative;
+     }   
+     .so_img{
+     width:100%;
+     height:300px;
+     position:relative;
+     overflow:hidden;
+     background-color:black;
     } 
+     .so_img img{
+     display:block;
+     width:100%;
+     height:100%;
+     position: absolute;
+     top:0;
+     bottom:0;
+     left:0;
+     right:0;
+     }
     .so_flag{
     margin-top:16px;
     margin-left:1px;
@@ -195,9 +276,9 @@
     font-size:12px;
     line-height:22px;
     font-weight:900;
-    background-color:darkgray;
+    background-color:#8fa691;
     text-align:center;
-    
+    color:white;
     
     }
     #so_itemName{
@@ -207,12 +288,7 @@
     word-break: break-all;
     margin-top: 8px;
     }
-     #so_idNo{
-     display:block;
-     font-size:15px;
-     word-break:break-all;
-     margin-top:5px;
-     } 
+ 
      #so_price{
      display:inline-block;
      font-size:21px;
@@ -226,16 +302,37 @@
      padding-left:6px;
      font-size:13px;
      line-height:21px;
-     
+     text-decoration: line-through;
      vertical-align:middle;
      margin-top:8px;
      }
      #so_cart{
      position: static;
-     margin-top:5px;
+     margin-top:-20px;
+     display:inline-block;
+     position:absolute;
+     right:0;
      }
      .mainCateg{
-     margin-left:70px;}
+     margin-left:70px;
+     height:30px;
+     border-bottom: 2px solid #f0f2f0;
+     border-top:none;
+     border-right:none;
+     border-left:none;
+     }
+     .mainCateg:focus{
+     outline:none;
+     }
+     .select {
+	  width: 100%;
+	  position: absolute;
+	  top: 0;
+	  padding: 10px 0;
+	  opacity: 0;
+	  background: none transparent;
+	  border:none;
+	}
      /*품절 된 상황  */
 
        .soldout{
@@ -261,6 +358,14 @@
            left:0;
         
        }
+       .so_add_cart{
+       background-color:white;
+       border:none;
+
+       }
+       .so_add_cart:focus{
+       outline:none;
+       }
 
      
       
@@ -285,7 +390,7 @@
          <div class="panel-heading">
          
 
-            <h3><c:out value="${path}"/></h3>
+            <h3>" <c:out value="${path}"/> "</h3>
          
             <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>"> 
 
@@ -296,13 +401,11 @@
       <!--대분류 , 중분류 나눠지는 곳 -->
        <div class="top_title_Choice">
           <form id="categForm" role="form" action="/product/list" method="GET"  >
-          
+          	<div class="select-box">
                    <select class="mainCateg" id="test" >
-                     <option value="">대분류 선택</option>
+                     <option value="">Choose</option>
                   </select>
-                  <!--  <select class="midCateg" >
-                     <option value="">중분류 선택</option>
-                  </select> -->
+			</div>
                 
                   <input type="hidden"  id="classCode" name="classCode">          
        </form>
@@ -379,8 +482,7 @@
       <form id="listsortForm" action="/product/list" method="GET">
              <div class="list_Sort">
            <div class="rad_wrap">
-               <input type="radio" id="sort01" name="sort" value="new" onclick="changeSort(this.value)" 
-              >
+               <input type="radio" id="sort01" name="sort" value="new" onclick="changeSort(this.value)" >
                <label for="sort01">
                    <span class="txt">신메뉴순</span>
                </label>   
@@ -397,7 +499,7 @@
                    <span class="txt">높은가격순</span>
                </label>
            </div>
-           <div class="rad_wrap">
+           <div class="rad_wrap" style="border-right:none;">
                <input type="radio" id="sort04" name="sort" value="lowPrice" onclick="changeSort(this.value)"   >
                <label for="sort04">
                    <span class="txt">낮은가격순</span>
@@ -408,7 +510,7 @@
       <!--end list sort 기준 리스트  -->
       
       <!--상품 목록 div  -->
-             <div>
+      <div>
             
             <div class="whole_list">
           
@@ -474,7 +576,7 @@
                                              <!-- END pro_flag_wrap -->
                                              <div class=tit_info>
                                                  <span class="info_itemName"> <c:out value="${board.itemName}" /> </span>
-                                                 <span class="info_idNo"><c:out value="${board.idNo}" /></span>
+                                                 
                                              </div>
                                              <!-- END tit_info -->
                                              <div class="price_info">
@@ -491,10 +593,10 @@
                                               </a>
                                          <div class="cart_btn">
                                                <c:if test="${board.saleStat=='품절'||board.saleStat=='판매중지'}">
-							                       <button type="button" class="add_to_cart" value="${board.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')">add to cart</button>
+							                       <button type="button" class="add_to_cart" value="${board.itemCode}" onclick="alert('죄송합니다. 구매 불가한 상품입니다.')"><img src="/resources/images/addcart.png"></button>
 							                    </c:if>
 							                    <c:if test="${board.saleStat!='품절'&& board.saleStat!='판매중지'}">
-							            	 <button type="button" class="add_to_cart" value="${board.itemCode}" onclick="addToBasketEvent(this.value)">add to cart</button> 
+							            	 <button type="button" class="add_to_cart" value="${board.itemCode}" onclick="addToBasketEvent(this.value)"><img src="/resources/images/addcart.png"></button> 
 							            	 </c:if>
                                          </div>
                                      </div>
@@ -704,11 +806,10 @@ $(document).on("change", "select.mainCateg", function(){
    $whole_list.append("<div id='so_Content'>"+"<a href='item?itemCode="+response[i].itemCode+"'/>"+
 		   "<div id='so_img"+i+"' class='so_img'> <img src=\"/resources/upload/"+response[i].idNo+"/"+response[i].itemImg1+"\"/></a></div>"+
             "<div id='so_flag"+i+"' class='so_flag'>"+response[i].itemChr+"</div>"+
-            "<div id='so_itemName'>"+response[i].itemName+"</div>"+
-            "<div id='so_idNo'>"+response[i].idNo+"</div>"+
+            "<div id='so_itemName'>"+response[i].itemName+"</div>"+            
             "<div id='so_price'>"+response[i].price+"원</div>"+
             "<div id='so_norPrice'>"+response[i].normPrice+"원</div>"+
-            "<div id='so_cart'>"+"<button class='so_add_cart' value=\""+response[i].itemCode+"\" onclick='addToBasketEvent(this.value)'>add to cart</button>"+"</div></div>"); 
+            "<div id='so_cart'>"+"<button class='so_add_cart' value=\""+response[i].itemCode+"\" onclick='addToBasketEvent(this.value)'><img src=\"/resources/images/addcart.png\"></button>"+"</div></div>"); 
       
  
 		//품절일때 
@@ -733,6 +834,7 @@ $(document).on("change", "select.mainCateg", function(){
 	     	 
 	     	  
 	       }
+		
 		//아이템이 기본설정일때 
 		if(response[i].itemChr=='default'){
 			$("#so_flag"+i).css("background-color","white");

@@ -63,8 +63,21 @@
 		count(replyNo) from t_prdQNA where idNo = #{idNo}
 	</select>
 
-
-
+<!-- 비회원 주문내역 시작-->
+	<select id="getGuestPurchaseListByOrderCode"
+		resultType="com.jujumarket.member.domain.MyPerchaseVO">
+ 	<![CDATA[
+	select Rank()over(order by OI.orderDate desc) as rn, OI.orderCode, OI.orderDate, OI.itemNum, OI.totalPrice, O.orderStat, I.idNo, I.itemImg1, I.itemName, I.itemCode, C.fullpath, S.shopName
+			from t_order O, t_order_info OI, t_item I, t_category C, m_shop S
+			where OI.orderCode = O.orderCode
+			and OI.orderCode = '200816200237'
+			and OI.itemCode = I.itemCode
+			and I.classCode = C.classCode
+			and I.idNo = S.idNo
+        	order by orderDate desc
+      ]]>
+	</select>
+<!-- 비회원 주문내역 끝-->
 
 
 
@@ -75,7 +88,7 @@
 		select * 
 		from(
         
-        	select Rank()over(order by OI.orderDate desc) as rn, OI.orderCode, OI.orderDate, OI.itemNum, OI.totalPrice, O.orderStat, I.idNo, I.itemImg1, I.itemName, C.fullpath, S.shopName
+        	select Rank()over(order by OI.orderDate desc) as rn, OI.orderCode, OI.orderDate, OI.itemNum, OI.totalPrice, O.orderStat, I.idNo, I.itemImg1, I.itemName, I.itemCode, C.fullpath, S.shopName
 			from t_order O, t_order_info OI, t_item I, t_category C, m_shop S
 			where OI.orderCode = O.orderCode
 			and O.idNo = #{idNo}

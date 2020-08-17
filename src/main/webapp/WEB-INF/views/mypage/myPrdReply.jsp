@@ -59,11 +59,12 @@ tr:hover {
 	     margin-top:25px;
 	}
 	
-	.regi_main{
-	   float:  right;
-	   width: 950px;	   
-	   background-color: white;
-}
+.regi_main{
+   float:  right;
+   width: 950px;
+   margin-bottom: 15%;
+   background-color: white;
+} 
 
 .regi_content{
 	   width: 1300px;
@@ -87,66 +88,12 @@ tr:hover {
 		color: #b9b9b9;
 	}
 	
-
-/* 글쓰기, 검색 버튼 시작 */
-#regBtn {
-  height: 43.75px;
-  background-color: #8FA691; 
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-
-  }
-  
-#searchBtn {
-  background-color: #8FA691; 
-  border: none;
-  color: white;
-  padding: 0px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  height: 30px;
+.regi_main .regi_tit{
+   font-size: 30px;
+   margin-bottom:50px;
+   text-align: center;
 }
-
-#searchBtn:hover {
-  background-color: #F0F2F0 ; 
-  color: #8FA691; 
-  padding: 0px 20px;
-  border: 2px solid #8FA691;
-}
-
-#regBtn:hover {
-  height: 43.75px;
-  background-color: #F0F2F0 ; 
-  color: #8FA691; 
-  padding: 0px 20px;
-  border: 2px solid #8FA691;
- 
-}
-
-#regBtn:focus,
-#searchBtn:focus { 
-    outline: none; 
-}
-
-
-#regBtn {
-
-margin-right: 8%;
-
-}
+	
 
 
 /* 글쓰기, 검색 버튼 끝 */
@@ -157,11 +104,34 @@ margin-right: 8%;
 	margin-right: 8%;
 }
 
-.pageBtns a{
-    color: #637365;
-    float: right;
+.page_num a{
+     color: #637365;
+    float: left;
     padding: 8px 16px;
     text-decoration: none;
+    
+   
+}
+
+
+.page_num {
+        display: inline-block;
+        padding-left:50%;
+        float: left;
+        width: 950px
+        }
+        
+        
+    
+.paginations a:hover:not(.active) {
+          background-color:#F0F2F0;
+          border-radius: 50%;
+          }
+          
+.paging{
+    
+ background-color: white;
+ color: #f6dd90;
 }
 
 .pagination1 a:hover:not(.active) {
@@ -301,31 +271,31 @@ margin-right: 8%;
             </tbody>
 
          </table>
+  
          
-               
-      <!-- Paging -->
-         <div class='pageBtns'>
-            <ul class="pagination1">
-            
-               <c:if test="${pageMaker.prev}">
-               <li class="paginate_button1 pervious">
-               <a href="${pageMaker.startPage -1}">Previous</a>
-               </li>
-               </c:if>
-               
-               <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-               <li class='paginate_button1 ${pageMaker.cri.pageNum == num? "active":""}'>
-               <a class="paging" href="/mypage/myPrdReply/page/${num}">${num}</a></li>
-               </c:forEach>
-               
-               <c:if test="${pageMaker.next}">
-               <li class="paginate_button1 next">
-               <a href="${pageMaker.endPage +1}">Next</a>
-               </li>
-               </c:if>
-            
-            </ul>
-         </div><!-- endPaging -->
+            <!-- Paging -->   
+           <div class='page_num'>
+                            <ul class="paginations">
+                                <c:if test="${pageMaker.prev}">
+                                    <li class="paginate_button1 pervious">
+                                        <a href="${pageMaker.startPage -1}">&laquo;</a>
+                                    </li>
+                                </c:if>
+        
+                                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                                    <li class='paginate_button1 ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                                     <a class="paging" href="/mypage/myPrdReply/page/${num}">${num}</a></li>
+                                
+                                </c:forEach>
+        
+                                <c:if test="${pageMaker.next}">
+                                     <li class="paginate_button1 next">
+                                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
+                                    </li>
+                                </c:if>
+                            </ul> 
+                        </div>
+         
       </div>
       <!-- p2-->
 </div>
@@ -333,7 +303,7 @@ margin-right: 8%;
 
 </div>
 
-</div>
+
 <script type="text/javascript">
 
 $(document).ready(function(){

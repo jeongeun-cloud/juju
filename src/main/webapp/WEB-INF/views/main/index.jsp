@@ -16,7 +16,7 @@
 
    .mySlides{
     width:100%;
-    height:600px;
+    
    }
 
    .w3-left, .w3-right, .w3-badge {cursor:pointer}
@@ -44,16 +44,49 @@
     	width:100%;
     }
     /* 중간 광고 끝 */
+    
+    /* 주주 봇 */
+    #bot{
+        border-radius: 50%;
+        width: 50px;
+        float : right;
+        margin-right:10px;
+    }
+    #botDiv {
+        right:0%;
+        position: fixed;
+        bottom : 1%;
+        cursor : pointer;
+    }
+
+    .blinking{
+        -webkit-animation:blink 0.5s ease-in-out infinite alternate;
+        -moz-animation:blink 0.5s ease-in-out infinite alternate;
+        animation:blink 0.5s ease-in-out infinite alternate;
+    }
+    @-webkit-keyframes blink{
+        0% {opacity:0;}
+        100% {opacity:1;}
+    }
+    @-moz-keyframes blink{
+        0% {opacity:0;}
+        100% {opacity:1;}
+    }
+    @keyframes blink{
+        0% {opacity:0;}
+        100% {opacity:1;}
+    }
+    /* 주주 봇 끝 */
 
 </style>
 <br>
         <!-- 첫번째 배너 광고 -->
         <div class="ma_top_banner_wrap" >
             <div class="w3-content w3-display-container" style="max-width:100%; ">
-                <img class="mySlides" src="/resources/images/i1.jpg" >
-                <img class="mySlides" src="/resources/images/i2.jpg" >
-                <img class="mySlides" src="/resources/images/i3.jpg" >
-                <img class="mySlides" src="/resources/images/i4.jpg" >
+                <img class="mySlides" src="/resources/images/m1new.png" >
+                <img class="mySlides" src="/resources/images/m2new.png" >
+                <img class="mySlides" src="/resources/images/m3new.png" >
+                <img class="mySlides" src="/resources/images/m4new.png" >
               
                 <!-- 밑에 동그라미 -->
                 <div class="w3-center w3-container w3-section w3-large w3-text-white w3-display-bottommiddle" style="width:100%">
@@ -96,7 +129,7 @@
 		              <span class="blog-slider__code"><fmt:formatDate pattern="yyyy/MM/dd" value="${review.regDate }" /></span>
 		              <div class="blog-slider__title"><c:out value="${review.reviewTitle}"/></div>
 		              <div class="blog-slider__text"><c:out value="${review.reviewContent}"/></div>
-		              <a href="#" class="blog-slider__button">READ MORE</a>
+		              <a href='/product/item?itemCode=<c:out value="${review.itemCode}"/>' class="blog-slider__button">해당 상품 보러가기</a>
 		            </div>
 		          </div>
 	          	</c:forEach>
@@ -109,9 +142,31 @@
 	<div class="adImg" style="max-width:100%; margin : 200px 0 20px 0;">
       	<img id="ad_img_2" src="/resources/banner/advertise/ad2.jpg" >
     </div>
+    
+    <!-- 주주봇 -->
+    <div id="botDiv" >
+        <iframe id="jujubot" style="display: none;" align="right" width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/35781ec9-2a4e-4180-b560-3405fca64cc6"></iframe><br>
+        <img id="bot" class="blinking" src="/resources/images/bot.png">
+    </div>
  
     <!-- Swiper JS -->
    	<script type="text/javascript">
+	 // 주주 봇
+	    $("#bot").on("click", function(){
+	        $(this).removeClass("blinking");
+	
+	        var elem = document.getElementById("jujubot"),
+	        Style = window.getComputedStyle(elem),
+	        display = Style.getPropertyValue("display");
+	
+	        if(display == 'none') {
+	            $("#jujubot").fadeIn("slow");
+	        }else {
+	            $("#jujubot").fadeOut("slow");
+	        }
+	
+	    });
+ 
 	   	var swiper = new Swiper('.blog-slider', {
 	        spaceBetween: 30,
 	        effect: 'fade',
@@ -196,7 +251,7 @@
 	        $("#ad_img_2").attr("src", url2);
         } */
         /* 중간 광고 끝 */
-        
+
    </script>
    
    <%@include file="../includes/footer.jsp" %>

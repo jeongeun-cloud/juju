@@ -95,17 +95,19 @@
         display: table-cell;
         position: absolute;
         height: 60px;
-        padding: 0 28px;
+        padding: 0 70px 0 70px;
+        
   
     }
 
     .whole_menu{
         position:sticky;
         top:0;
-        z-index: 1;
+        z-index: 99;
         width: 100%;
         min-width: 1080px;
         height: 60px;
+        border-top: 0;
         border-bottom: 1px solid #CFCFCF;
         text-align: center;
         margin-bottom:0;
@@ -113,7 +115,7 @@
       
     }
     .navbar-default .navbar-nav>li>a{
-        color:black;
+        color:#2A2A2A;
         font-weight:600;
         font-size: 20px;
         padding-top:18px;
@@ -131,18 +133,36 @@
        
     }
 	.menu_b{
-	width:800px;
+  	width:870px; 
 	margin: 0 auto;
 	}
     .navbar-default .navbar-nav > .open > a,
     .navbar-default .navbar-nav > .open > a:hover ,
     .navbar-default .navbar-nav > .open > a:focus{
-        background-color: #f8f8f8;
+        background-color: white;
         color:#8fa691 ;
     }
    a:hover{
        text-decoration: none;
    }
+
+	#menuToggleImg {
+	
+		margin : 0 12px 6px;
+		width: 20px;
+	
+	}
+	
+	.nav navbar-nav {
+	
+		
+	}
+	
+	.dropdown-toggle {
+	
+	color: red;
+	}
+
 
     
     </style>
@@ -152,15 +172,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!--   <script src="js/bootstrap.min.js"></script> -->
    
-    <nav class="navbar navbar-default whole_menu" role="navigation" >
+    <nav class="navbar navbar-default whole_menu" role="navigation" style="background-color: white;">
       
 
         <div id="defaultmenu">
-	         <div class=menu_b>
-	            <ul class="nav navbar-nav"> 
+	         <div class=menu_b >
+	            <ul class="nav navbar-nav" style="width: 1300px; margin-left: -190px;"> 
 	        
 	                <!-- 전체 카테고리  -->
-	                <li class="dropdown whole_menu_category"  style="padding-left: 10px;"><a href="#" data-toggle="dropdown" class="dropdown-toggle">▲전체카테고리<b class="caret"></b></a>
+	                <li class="dropdown whole_menu_category"  style="padding-left: 70px; padding-right: 70px;"><a href="#" data-toggle="dropdown" class="dropdown-toggle"><img id="menuToggleImg" src="/resources/images/menuToggle.png"/>전체 카테고리</a>
 	                    <ul class="dropdown-menu fullwidth">
 	                        <!-- 대분류 /중분류-->
 	                        <li class="whole_menu-content withdesc">
@@ -176,6 +196,7 @@
 	                                        <li><a href="#">수산가공품</a></li>
 	                                    </ul>
 	                                </div>
+	                                
 	    
 	                                <div class="col-sm-3">
 	                                    <h3 class="title"><a href="/product/list?classCode=Meat"><span class="i"><img src="/resources/images/mm_i.png">축산/정육</span></a></h3>
@@ -237,13 +258,17 @@
 	                    </ul>
 	                </li>
 	                <!-- end dropdown whole_menu 전체 카테고리-->
+
+					<li style="font-size: 20px; line-height: 60px; color: #CFCFCF;">|</li>
 	    
 	                <!-- 나머지 각 meunu bar -->
 	              
 	                <li class="dropdown_each_menu" ><a href="/seasonal" data-toggle="dropdown" class="dropdown-toggle">딱 요게 제철</a>
 	                </li>
+					<li style="font-size: 20px; line-height: 60px; color: #CFCFCF;">|</li>
 	                <li class="dropdown_each_menu"><a href="/bob" data-toggle="dropdown" class="dropdown-toggle">베스트 오브 베스트</a>
 	                </li>
+					<li style="font-size: 20px; line-height: 60px; color: #CFCFCF;">|</li>
 	                <li class="dropdown_each_menu"><a href="/event" data-toggle="dropdown" class="dropdown-toggle">이벤트 </a>    
 	                </li>
 	                

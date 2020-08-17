@@ -43,11 +43,7 @@ li {
 	
 .regi_content{
 	   width: 1300px;
-	   
-	/*	   
-	   height: 2500px;
-	*/   
-	   
+	   height: 1800px;
 	   margin:0 auto;
       
 	}
@@ -94,72 +90,41 @@ th {
 tr:hover {
    background-color: #f5f5f5;
 }
-	
 
-
-/* 글쓰기, 검색 버튼 시작 */
-#regBtn {
-  background-color: #8FA691; 
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-
-  }
-  
-#searchBtn {
-  background-color: #8FA691; 
-  border: none;
-  color: white;
-  padding: 0px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-  height: 30px;
-}
-
-
-#regBtn:hover,
-#searchBtn:hover {
-  background-color: #F0F2F0 ; 
-  color: #8FA691; 
-  padding: 0px 20px;
-  border: 2px solid #8FA691;
-}
-#regBtn:focus,
-#searchBtn:focus { 
-    outline: none; 
-}
-
-
-#regBtn {
-
-margin-right: 8%;
-
-}
-/* 글쓰기, 검색 버튼 끝 */
 /* 페이지 버튼 디자인 시작 */
-
 .pageBtns {
 	text-align: center;
 	margin-right: 8%;
 }
 
-.pageBtns a{
-    color: #637365;
-    float: right;
+.page_num a{
+     color: #637365;
+    float: left;
     padding: 8px 16px;
     text-decoration: none;
+    
+   
+}
+
+
+.page_num {
+        display: inline-block;
+        padding-left:50%;
+        float: left;
+        width: 950px
+        }
+        
+        
+    
+.paginations a:hover:not(.active) {
+          background-color:#F0F2F0;
+          border-radius: 50%;
+          }
+          
+.paging{
+    
+ background-color: white;
+ color: #f6dd90;
 }
 
 .pagination1 a:hover:not(.active) {
@@ -226,7 +191,8 @@ margin-right: 8%;
 .regi_main{
    float:  right;
    width: 950px;
-  height:100%;
+   margin-bottom: 5%;
+  height:1500px;
    background-color: white;
 } 
 
@@ -236,12 +202,6 @@ margin-right: 8%;
    text-align: center;
 }
 
-.regi_content{
-	   width: 1300px;
-	   height:100%;
-	   margin:0 auto;
-      
-	}
         
 .regi_wrap{
    position: relative;
@@ -314,7 +274,7 @@ table img {
                  <label>주문번호:&nbsp;</label><c:out value="${myPerchase.orderCode}" /></td> 
                </tr>
                <tr>                         
-               	 <td class="imgTd" rowspan="3"><img src="/resources/upload/<c:out value="${myPerchase.idNo}"/>/<c:out value="${myPerchase.itemImg1}"/>"></td>
+               	 <td class="imgTd" rowspan="3" onclick='goToItemPage("<c:out value="${myPerchase.itemCode}"/>")'><img src="/resources/upload/<c:out value="${myPerchase.idNo}"/>/<c:out value="${myPerchase.itemImg1}"/>" ></td>
                  <td><label>카테고리:&nbsp;</label><c:out value="${myPerchase.fullPath}" /></td>  
                  <td rowspan="3"><label>수량</label><br><br><br><c:out value="${myPerchase.itemNum}" /></td>
                  <td rowspan="3"><label>가격</label><br><br><br><fmt:formatNumber value="${myPerchase.totalPrice }" pattern="#,###"/>원</td>
@@ -333,31 +293,31 @@ table img {
             </tbody>
 
          </table>
+    
+               <!-- 페이징 시작-->   
+          <div class='page_num'>
+                            <ul class="pagination1">
+                                <c:if test="${pageMaker.prev}">
+                                    <li class="paginate_button1 pervious">
+                                        <a href="${pageMaker.startPage -1}">&laquo;</a>
+                                    </li>
+                                </c:if>
+        
+                                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                                    <li class='paginate_button1 ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+            						   <a class="paging" href="/mypage/myPerchase/page/${num}">${num}</a></li>
+                                
+                                </c:forEach>
+        
+                                <c:if test="${pageMaker.next}">
+                                     <li class="paginate_button1 next">
+                                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
+                                    </li>
+                                </c:if>
+                            </ul> 
+                        </div>
+              <!-- 페이징 끝-->  
          
-               
-      <!-- Paging -->
-         <div class='pageBtns'>
-            <ul class="pagination1">
-            
-               <c:if test="${pageMaker.prev}">
-               <li class="paginate_button1 pervious">
-               <a href="${pageMaker.startPage -1}">Previous</a>
-               </li>
-               </c:if>
-               
-               <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-               <li class='paginate_button1 ${pageMaker.cri.pageNum == num? "active":""}'>
-               <a class="paging" href="/mypage/myPerchase/page/${num}">${num}</a></li>
-               </c:forEach>
-               
-               <c:if test="${pageMaker.next}">
-               <li class="paginate_button1 next">
-               <a href="${pageMaker.endPage +1}">Next</a>
-               </li>
-               </c:if>
-            
-            </ul>
-         </div><!-- endPaging -->
       </div>
       <!-- p2-->
 </div>
@@ -434,8 +394,15 @@ $(document).ready(function(){
     function addCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+    
 	
 });
+
+
+    function goToItemPage(itemCode) {
+    	location.href = "/product/item?itemCode=" + itemCode;
+    }
+    
 </script>
 
    

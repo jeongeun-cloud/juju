@@ -44,10 +44,10 @@ th, td {
 }
 
 th {
-   background-color: #8FA691; 
-   color: white;
+   background-color: #F4f4f4; 
+   color: #404040;
     height: 40px;
-   text-align: left;
+   text-align: justify;
 }
 
 tr:hover {

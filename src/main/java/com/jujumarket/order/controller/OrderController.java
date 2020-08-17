@@ -77,7 +77,7 @@ public class OrderController {
       // idNo로 최근주문정보 가져오기->deliveryService에서 해당 주문정보 호출
       String orderCode = orderService.getRecentOrderCode(idNo);
       
-      System.out.println("orderCode 비었어? " + orderCode);
+      //System.out.println("orderCode 비었어? " + orderCode);
       
       if (orderCode != null) {
          model.addAttribute("recentDelivery", deliveryService.get(orderCode));
@@ -104,9 +104,9 @@ public class OrderController {
       model.addAttribute("controllerIdNo", idNo);
 
       // [baskId105, baskId107]
-      System.out.println("orderController 에서 Arrays.toString(checkRow) : " + Arrays.toString(checkRow));
+      //System.out.println("orderController 에서 Arrays.toString(checkRow) : " + Arrays.toString(checkRow));
       // [baskId105, baskId107]
-      System.out.println("orderController 에서 list.toString(): " + list.toString());
+      //System.out.println("orderController 에서 list.toString(): " + list.toString());
 
       log.info("orderList");
       // model에 orderList를 담아 주문서(orderItemsForm.jsp)에 출력
@@ -161,7 +161,7 @@ public class OrderController {
       log.info("/orderResult");
       OrderVO order = orderService.get(orderCode);
       
-      System.out.println("OrderController 에서 orderResult 메서드의 order.toString()" + order.toString());
+      //System.out.println("OrderController 에서 orderResult 메서드의 order.toString()" + order.toString());
       
       List<OrderResponseVO> itemList = orderService.showOrderList(orderCode);
       String idNo = order.getIdNo();
@@ -189,8 +189,8 @@ public class OrderController {
    // orderResult 정보를 t_delivery DB에 insert. orderCode를 기준으로 insert
    @PostMapping("/orderResult")
    public void orderResult(OrderRequestVO order) {
-      System.out.println("orderResult postmapping 진행");
-      System.out.println("order 에 뭐가 담겨오는거냐"+order.toString());
+      //System.out.println("orderResult postmapping 진행");
+      //System.out.println("order 에 뭐가 담겨오는거냐"+order.toString());
       
       //log.info("orderResult postmapping 진행");
       //log.info(order);
@@ -258,7 +258,7 @@ public class OrderController {
    @ResponseBody
    public void orderInsert(@RequestBody OrderRequestVO order) {
       
-      System.out.println("OrderController의 orderInsert 메서드의 order.toString() : "+order.toString());
+      //System.out.println("OrderController의 orderInsert 메서드의 order.toString() : "+order.toString());
       
       orderService.register(order);
       
@@ -269,11 +269,11 @@ public class OrderController {
    public void orderInfoInsert(@RequestBody OrderInfoVO notfullVO) {
       
       // notfullVO 에는 baskId 와 orderCode 만 들어있음 
-      System.out.println("OrderController 에서 baskId : " + notfullVO.getBaskId() + ", orderCode : " + notfullVO.getOrderCode());
+      //System.out.println("OrderController 에서 baskId : " + notfullVO.getBaskId() + ", orderCode : " + notfullVO.getOrderCode());
       
       OrderInfoVO fullvo = orderService.getMakeInfoAndHistory(notfullVO.getBaskId());
       
-      System.out.println("fullvo : " + fullvo.toString());
+      //System.out.println("fullvo : " + fullvo.toString());
       
       fullvo.setOrderCode(notfullVO.getOrderCode());
       fullvo.setDisAmount((fullvo.getNormPrice()-fullvo.getPrice())*fullvo.getItemNum());

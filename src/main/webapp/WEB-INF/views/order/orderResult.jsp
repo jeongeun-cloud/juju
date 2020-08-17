@@ -15,7 +15,7 @@
 
 
    #containerOFAll {
-      width:1300px;
+      width:80%;
       height:100%;
       margin: 0 auto;
       color: #303030;
@@ -43,7 +43,7 @@
 
             position:absolute;
             bottom:0px;
-            right:0px;
+            right:8%;
 
         }
 
@@ -88,7 +88,7 @@
       .button2,
       .button3,
       .button4 {
-       background-color: #ffc30b; 
+       background-color: #637365; 
         border: none;
         color: white;
         padding: 16px 32px;
@@ -107,8 +107,8 @@
       .button3:hover,
       .button4:hover {
         background-color: white; 
-        color: #ffc30b; 
-        border: 2px solid #ffc30b;
+        color: #637365; 
+        border: 2px solid #637365;
       }
       
       .button1:focus,
@@ -124,8 +124,8 @@
       /* 
       .btn-primary {
          color: white;
-         background-color: #ffc30b;
-         border-color: #ffc30b;
+         background-color: #637365;
+         border-color: #637365;
          
          
       }
@@ -138,12 +138,12 @@
       
       /* button:active{
          background-color: pink; 
-         color:#ffc30b;
+         color:#637365;
       }
       
       button:visited{
          background-color: white; 
-         color:#ffc30b;
+         color:#637365;
       }
        */
       
@@ -185,7 +185,9 @@
       
         #basketItemImg {
     
-    	width: 200px;
+    	width: 80px;
+    	margin-top: 10px;
+    	margin-bottom: 10px;
     
     }
     
@@ -197,6 +199,11 @@
     
     }
      
+     
+    #contentDiv2 th,
+    #contentDiv2 td {
+    	border: none;
+    }
        
 
 
@@ -220,9 +227,9 @@
             <div id="ordProcess">
                 <ul>
                     <li style="color: lightgrey; float:left;">01 장바구니</li> 
-                    <li style="color: lightgrey; float:left;">  >  </li>
+                    <li style="color: lightgrey; float:left;">&nbsp;>&nbsp;</li>
                     <li style="color: lightgrey; float:left;">02 주문서 작성/결제</li> 
-                    <li style="color: lightgrey; float:left;">  >  </li>
+                    <li style="color: lightgrey; float:left;">&nbsp;>&nbsp;</li>
                     <li style="float:left;"  id = "currentProcess">03 주문완료</li>
                 </ul>
             </div>
@@ -251,7 +258,7 @@
    
    
    
-   <div class="contentDiv">
+   <div class="contentDiv" id="contentDiv2">
    <div class="subTitle">
    <h4><strong>| 주문번호: </strong> ${order.orderCode}</h4>
    </div>
@@ -261,7 +268,7 @@
       <table class="list_view">
          <tbody align=center>
             <tr>
-            <tr align=center class="fixed">
+            <tr align=center class="fixed" style="background-color:#8FA691; color: white; height: 40px;">
 
                <!-- itemImg1 from t_item -->
                <td class="fixed">아이템Img</td>
@@ -282,13 +289,13 @@
             <!-- totalPrice를 구하기 위해 c:set 사용하여 forEach로 반복문 돌려주었음  -->
 
             <c:forEach var="item" items="${itemList}">
-               <tr cellpadding="40" align=center>
-                  <td><img id="basketItemImg" src="/resources/upload/<c:out value="${item.sellerId}"/>/<c:out value="${item.itemImg1}"/>"></td>
-                  <td><c:out value="${item.itemName}"></c:out></td>
-                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" /></td>
-                  <td><c:out value="${item.itemNum}"></c:out></td>
-                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.disAmount}" /></td>
-                  <td><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.totalPrice}" /></td>
+               <tr cellpadding="40" align=center  style="border-bottom: 2px solid #F0F2F0 ;">
+                  <td class="tableLine"><img id="basketItemImg" src="/resources/upload/<c:out value="${item.sellerId}"/>/<c:out value="${item.itemImg1}"/>"></td>
+                  <td class="tableLine"><c:out value="${item.itemName}"></c:out></td>
+                  <td class="tableLine"><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.normPrice}" /></td>
+                  <td class="tableLine"><c:out value="${item.itemNum}"></c:out></td>
+                  <td class="tableLine"><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.disAmount}" /></td>
+                  <td class="tableLine"><fmt:formatNumber type="number" maxFractionDigits="3" value="${item.totalPrice}" /></td>
                </tr>
                
             </c:forEach>

@@ -59,11 +59,12 @@ tr:hover {
 	     margin-top:25px;
 	}
 	
-	.regi_main{
-	   float:  right;
-	   width: 980px;	   
-	   background-color: white;
-}
+.regi_main{
+   float:  right;
+   width: 950px;
+   margin-bottom: 15%;
+   background-color: white;
+} 
 
 .regi_content{
 	   width: 1300px;
@@ -86,62 +87,54 @@ tr:hover {
 	.regi_main p{
 		color: #b9b9b9;
 	}
-/* 사이드 끝 */
-
-/* 글쓰기, 검색 버튼 시작 */
-#regBtn,
-#searchBtn {
-  background-color: #8FA691; 
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
+.regi_main .regi_tit{
+   font-size: 30px;
+   margin-bottom:50px;
+   text-align: center;
 }
-
-
-#regBtn:hover,
-#searchBtn:hover {
-  background-color: #F0F2F0 ; 
-  color: #8FA691; 
-  border: 2px solid #8FA691;
-}
-#regBtn:focus,
-#searchBtn:focus { 
-    outline: none; 
-}
-
-
-#regBtn {
-
-margin-right: 0%;
-
-}
-/* 글쓰기, 검색 버튼 끝 */
-/* 페이지 버튼 디자인 시작 */
-
-/* .pageBtns {
-	text-align: center;
 	
-} */
+/* 사이드 끝 */
+/* 페이지 버튼 디자인 */
+.pageBtns {
+	text-align: center;
+	margin-right: 8%;
+}
 
-.pageBtns a{
-    color: #637365;
-    float : right;
+.page_num a{
+     color: #637365;
+    float: left;
     padding: 8px 16px;
     text-decoration: none;
+    
    
+}
+
+
+.page_num {
+        display: inline-block;
+        padding-left:50%;
+        float: left;
+        width: 950px
+        }
+        
+        
+    
+.paginations a:hover:not(.active) {
+          background-color:#F0F2F0;
+          border-radius: 50%;
+          }
+          
+.paging{
+    
+ background-color: white;
+ color: #f6dd90;
 }
 
 .pagination1 a:hover:not(.active) {
     background-color: #F0F2F0;
     border-radius: 50%;
 }
+
 
 /* 페이지 버튼 디자인 끝 */
 /* 모달디자인 시작  */
@@ -282,30 +275,29 @@ table img {
          </table>
 
          
-               
-      <!-- Paging -->
-         <div class='pageBtns'>
-            <ul class="pagination1">
-            
-               <c:if test="${pageMaker.prev}">
-               <li class="paginate_button1 pervious">
-               <a href="${pageMaker.startPage -1}">Previous</a>
-               </li>
-               </c:if>
-               
-               <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-               <li class='paginate_button1 ${pageMaker.cri.pageNum == num? "active":""}'>
-               <a class="paging" href="/mypage/myReview/page/${num}">${num}</a></li>
-               </c:forEach>
-               
-               <c:if test="${pageMaker.next}">
-               <li class="paginate_button1 next">
-               <a href="${pageMaker.endPage +1}">Next</a>
-               </li>
-               </c:if>
-            
-            </ul>
-         </div><!-- endPaging -->     
+              <!-- 페이징 시작-->   
+          <div class='page_num'>
+                            <ul class="pagination1">
+                                <c:if test="${pageMaker.prev}">
+                                    <li class="paginate_button1 pervious">
+                                        <a href="${pageMaker.startPage -1}">&laquo;</a>
+                                    </li>
+                                </c:if>
+        
+                                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                                    <li class='paginate_button1 ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                                      <a class="paging" href="/mypage/myReview/page/${num}">${num}</a></li>
+                                
+                                </c:forEach>
+        
+                                <c:if test="${pageMaker.next}">
+                                     <li class="paginate_button1 next">
+                                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
+                                    </li>
+                                </c:if>
+                            </ul> 
+                        </div>
+              <!-- 페이징 끝-->  
       </div>
       <!-- p2-->
       

@@ -30,11 +30,15 @@
    <style>
 
 
-
+    #tableBody{
+    
+    
+    }
+    
 
 
     #containerOFAll {
-        width:1300px;
+        width:80%;
         height:100%;
         margin: 0 auto;
 
@@ -73,7 +77,7 @@
 
 
     #submitBtn {
-    background-color: #ffc30b; 
+    background-color: #637365; 
     border: none;
     color: white;
     padding: 16px 32px;
@@ -89,12 +93,12 @@
 
     #submitBtn:hover {
     background-color: white; 
-    color: #ffc30b; 
-    border: 2px solid #ffc30b;
+    color: #637365; 
+    border: 2px solid #637365;
     }
 
     #submitBtn {
-    background-color: #ffc30b;
+    background-color: #637365;
     color: white;
     
     }
@@ -129,7 +133,7 @@
 
         position:absolute;
         bottom:0px;
-        right:0px;
+        right:8%;
 
     }
 
@@ -142,7 +146,6 @@
  
 
     #basketTableContainer{
-        width:1100px;
         margin:auto;
         padding: 30px;
     }
@@ -150,7 +153,8 @@
 
     .list_view {
         
-        width:1100px;
+        width:100%;
+        margin: 0 auto;
     }
 
     #tableTitle {
@@ -162,9 +166,6 @@
         height: 120px;
     }
 
-    #thumbnailImg {
-        width: 200px;
-    }
 
 
 
@@ -251,7 +252,7 @@
    
     #basketItemImg {
     
-       width: 200px;
+       width: 80px;
     
     }
     
@@ -286,9 +287,9 @@
             <div id="ordProcess">
                 <ul>
                     <li style="color: lightgrey; float:left;">01 장바구니</li> 
-                    <li style="color: lightgrey; float:left;">  >  </li>
+                    <li style="color: lightgrey; float:left;">&nbsp;>&nbsp;</li>
                     <li style="float:left;" id = "currentProcess">02 주문서 작성/결제</li> 
-                    <li style="color: lightgrey; float:left;">  >  </li>
+                    <li style="color: lightgrey; float:left;">&nbsp;>&nbsp;</li>
                     <li style="color: lightgrey; float:left;">03 주문완료</li>
                 </ul>
             </div>
@@ -309,9 +310,9 @@
    <form action="orderResult" id="orderResult" method="post">      
       <!--    <form name="form_order"> -->
       <table class="list_view">
-         <tbody align=center>
+         <tbody id="tableBody" align=center>
             <tr>
-            <tr align=center class="fixed">
+            <tr align=center class="fixed" style="background-color:#8FA691; color: white; height: 30px;">
 
                <!-- itemImg1 from t_item -->
                <td class="fixed">아이템img</td>
@@ -347,7 +348,7 @@
                <tr cellpadding=40 align=center>
                   <c:set var="totalDiscount"
                      value="${totalDiscount + ((basketL.normPrice - basketL.price) * basketL.itemNum)}" />
-               <tr cellpadding=40 align=center>
+               <tr cellpadding=40 align=center style="border-bottom: 2px solid #F0F2F0 ;">
                
                   <td><img id="basketItemImg" src="/resources/upload/<c:out value="${basketL.sellerId}"/>/<c:out value="${basketL.itemImg1}"/>"></td>
                   <td><c:out value="${basketL.itemName}"></c:out></td>
@@ -371,29 +372,37 @@
 
       <input type="hidden" value="${memberInfo.idNo}" name="idNo" id="idNo">
 
-
-      <div class="clear"></div>
-      <br> <br>
-      
-      <!-- 라인 -->
-        <hr style="border:solid 1px lightgray; margin-left:-12.5%; width:125%;">
-
-      <div class="clear"></div>
-      <br>
-      
-      
-      <table width=80% class="list_view">
+<!--
+      <table width=40%>
          <tbody>
-            <td class="fixed join">배송비</td>
-            <td class="fixed join"><fmt:formatNumber type="number" maxFractionDigits="3" value="2500" /></td>
+            <td class="fixed join" style="text-align: left; width:200px;">배송비</td>
+            <td class="fixed join"  style="text-align: left; width:200px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="2500" />원</td>
          </tbody>
       </table>
-      <table width=80% class="list_view">
+      <table width=50% >
          <tbody>
-            <td class="fixed join">최종 결제금액</td>
-            <td class="fixed join"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay+2500}" /></td>
+            <td class="fixed join" style="text-align: left; width:200px;">최종 결제금액</td>
+            <td class="fixed join"  style="text-align:left; width:200px;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay+2500}" />원</td>
          </tbody>
       </table>
+-->
+      
+      <div style="width:100%; height: 100px; text-align:right; font-size:16px; color: #404040; padding-right:15px; ">
+      	<div style="width:300px; float:right;">
+      			<div style="height:50px; line-height:50px;">
+      				<p style="float:left; margin:0; font-size:14px; ">배송비</p>
+      				<p style="float:right; margin:0; font-size:14px; "><fmt:formatNumber type="number" maxFractionDigits="3" value="2500" />원</p>
+      			</div>
+      			<div style="height:50px;  line-height:50px;">
+      				<p style="float:left; margin:0; font-weight:bold;">최종 결제금액</p>
+      				<p style="float:right; margin:0; font-weight:bold;"><fmt:formatNumber type="number" maxFractionDigits="3" value="${totalPay+2500}" />원</p>
+      			</div>
+      	</div>
+      </div>
+      
+      
+      
+      
       <!-- 가져다 쓰기 위한 hidden input 태그들  -->
       <input type="hidden" name="totalPay" id="totalPay" value="${totalPay}"> 
       <input type="hidden" name="totalSum" id="totalSum" value="${totalSum}"> 
@@ -664,7 +673,7 @@ function paymentComplete() {
       guestInsert();
       
    }else if(idNo.value.substring(0,1)=="u"){
-	  socialMemUpdate(); 
+     socialMemUpdate(); 
    }
    
    
@@ -723,7 +732,7 @@ function paymentComplete() {
             deletefromBasket(baskIdArr[i]);
          }
          
-      }, 500);
+      }, 2000);
       
       
    }).then(function(){
@@ -733,7 +742,7 @@ function paymentComplete() {
       // orderResult 페이지로 넘어가기 
       location.href = "/order/orderResult" + "?orderCode=" + orderCode;
       
-      }, 1000);
+      }, 3000);
    })
    
    
@@ -744,25 +753,25 @@ function paymentComplete() {
 
 
 function socialMemUpdate() {
-	
-	var socialData = {
-		memName : memName.val(),
-		contact : contact.val(),
-		emailAccount : email.val(),
-		idNo : idNo.value	
-	}
-	
-	
-	 return $.ajax({
-	      url: "/order/socialMemUpdate",
-	      type: "POST",
-	      data: JSON.stringify(socialData),
-	      contentType: "application/json",
-	      error : function(){console.log("socialMemUpdate 통신실패")},
-	       success : function(){console.log("socialMemUpdate 통신성공")}
-	   }); 
-	
-	
+   
+   var socialData = {
+      memName : memName.val(),
+      contact : contact.val(),
+      emailAccount : email.val(),
+      idNo : idNo.value   
+   }
+   
+   
+    return $.ajax({
+         url: "/order/socialMemUpdate",
+         type: "POST",
+         data: JSON.stringify(socialData),
+         contentType: "application/json",
+         error : function(){console.log("socialMemUpdate 통신실패")},
+          success : function(){console.log("socialMemUpdate 통신성공")}
+      }); 
+   
+   
 }
 
 
@@ -1090,14 +1099,14 @@ function init() {
       
       
       if (recentDelivery.is(":checked")) {
-    	  
-    	  if(recentReceiver.val()=="") {
-    		  alert("최근 주문 내역이 없습니다.");
-    		  recentDelivery.prop('checked',false);
-    		  return;
-    	  }
-    	  
-    	  
+         
+         if(recentReceiver.val()=="") {
+            alert("최근 주문 내역이 없습니다.");
+            recentDelivery.prop('checked',false);
+            return;
+         }
+         
+         
          receiver.val(recentReceiver.val());
          receivContact.val(recentReceivContact.val());
          roadAddress.val(raddrs[0]); // 도로명 주소
@@ -1139,14 +1148,14 @@ function init() {
      
         // 비회원 주문일때만 진행
       } else if (idNo.value=="") {
-    	  if(!(pwdCheck())){
+         if(!(pwdCheck())){
               return false;
            }else if(!(pwdChk.val()===pwd.val())){
               alert("비밀번호가 일치하지 않습니다.");
               pwdChk.focus();
               return false;
            }else {
-        	// 유효성 테스트 다 통과했으면 결제 서비스 시작
+           // 유효성 테스트 다 통과했으면 결제 서비스 시작
                paymentSystem();
            }
       } else {
@@ -1236,7 +1245,7 @@ function init() {
    // [주문 비밀번호] 입력값 유효성 check
    function pwdCheck() {
       
-	   let regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
+      let regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
       
       if (pwd.val().trim() == "" || pwd.val() == null) {
          alert("비밀번호를 입력해주세요.");
