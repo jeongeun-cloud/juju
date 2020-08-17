@@ -70,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
 	// [아이디찾기]일반고객:contact, 상인고객:contact1  이원적으로 처리
 	@Override
 	public List<String> getEmailList(MemberVO member) {
-		if (member.getMemCode().equals("SELLER")) {
+		if (member.getMemCode().equals("SELLER") || member.getMemCode().equals("JUNIOR")) {
 			member.setContact1(member.getContact());
 			return sellerMapper.getEmailList(member);
 		} else {
