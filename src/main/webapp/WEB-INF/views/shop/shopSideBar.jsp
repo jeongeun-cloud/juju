@@ -18,6 +18,7 @@
                         <ul class="submenu">
                             <li><a href="/shop/sales"><span class="fa fa-tags"></span>영업 관리</a></li>
                             <li><a href="/shop/stats"><span class="fa fa-tags"></span>통계 관리</a></li>
+                            <li><a href="/shop/shipping"><span class="fa fa-tags"></span>송장처리</a></li>
                             <li><a href="/shop/searchorder"><span class="fa fa-tags"></span>전체 주문 조회</a></li>
                         </ul>
                     </li>

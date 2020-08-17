@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<title>Insert title here</title>
+<title>notice</title>
 <!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 정체모를 import -->
 <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>

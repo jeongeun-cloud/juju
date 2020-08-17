@@ -4,7 +4,6 @@
 <html>
 
 <head>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
    <title>Insert title here</title>
@@ -13,15 +12,15 @@
 
    <style>
    
-
-   		body {
-		 margin: 0px auto;
-		 background-color: #F0F2F0;
-		}
+         body {
+       margin: 0px auto;
+       background-color: #F0F2F0;
+      }
 
       .cont_principal {
          background-color: #F0F2F0;
       }
+
       .cont_centrar {
          position: absolute;
          width: 500px;
@@ -34,22 +33,28 @@
          padding: 40px 0px;
          box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.21);
       }
+
       .cent_active {
          box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.21);
       }
+
+
       .cont_tabs_login {
          position: relative;
          float: left;
          width: 100%;
          margin-bottom: 10px;
       }
+
       .ul_tabs>li {
          position: relative;
          float: left;
-         width: 22.5%;
+         width: 30%;
          list-style: none;
          text-align: center;
+
       }
+
       .ul_tabs>li>a {
          text-decoration: none;
          font-size: 16px;
@@ -59,10 +64,13 @@
          display: block;
          transition: all 0.5s;
       }
+
       .ul_tabs>.active>a {
          color: #637365;
          font-weight: bold;
+
       }
+
       .linea_bajo_nom {
          position: relative;
          width: 100%;
@@ -70,6 +78,7 @@
          background-color: #999;
          height: 2px;
       }
+
       .active .linea_bajo_nom {
          position: relative;
          width: 100%;
@@ -77,13 +86,15 @@
          background-color: #637365;
          height: 2px;
       }
+
       .cont_text_inputs {
          position: relative;
          float: left;
          width: 100%;
       }
+
       input[type=text] {
-         width: 415px;
+         width: 373px;
          height: 54px;
          margin-left: 40px;
          margin-bottom: 10px;
@@ -95,8 +106,9 @@
          line-height: 20px;
          outline: none;
       }
+
       input[type=password] {
-         width: 415px;
+         width: 373px;
          height: 54px;
          margin-left: 40px;
          margin-bottom: 10px;
@@ -108,6 +120,7 @@
          line-height: 20px;
          outline: none;
       }
+
       button,
       input[type="submit"] {
          background-color: #FFFFFF;
@@ -125,6 +138,7 @@
         background-color: #8FA691;
         color: #FFFFFF;
       }
+
       .input_form_sign {
          position: relative;
          float: left;
@@ -141,22 +155,29 @@
          opacity: 0;
          display: none;
       }
+
       .active_inp {
          margin: 5% 5%;
          padding: 10px 0px;
          opacity: 1;
          height: 5px;
       }
+
+
       .input_form_sign:focus {
          border-bottom: 1px solid #FF8383;
       }
+
+
       .cont_btn {
          position: relative;
          float: left;
       }
-      #emailAuthMessage, #memApi, #shopApi {
+
+      #emailAuthMessage {
          margin-left: 40px;
          margin-bottom: 10px;
+         font-size : 12px;
       }
       
       #pwdChkMessage {
@@ -166,6 +187,8 @@
         }
       
       
+
+
       .infoDiv,
       .pwdDiv,
       .shopDiv,
@@ -173,25 +196,22 @@
       #submitBtn {
          display: none;
       }
+
       .cont_btn button,
       input[type="submit"] {
          margin-left: 40px;
-         padding: 18px 192px;
+         padding: 18px 191.5px;
          background-color: #8FA691;
          color: #FFFFFF;
       }
       
       select {
          margin-left: 40px;
+         border: 1px solid #404040;
       }
       
       p {
       margin-left: 40px;
-      }
-      
-      
-      input[type=file] {
-         margin-left:40px;
       }
               
         #alert {
@@ -208,9 +228,33 @@
         }
         
         #bankAccount {
-           width: 280px;
+           width: 235px;
         }
-      
+        
+        input[name=postCode], input[name=shopPostCode] {
+           width: 285px;
+        }
+        
+        label {
+           margin: 30px 40px;
+        }
+        
+        input[type=file] {
+           margin-bottom: 20px;
+        }
+        
+        .postCodeApi {
+           margin-left: 0px;
+           border-bottom: 1px solid #ccc;
+           padding-bottom: 19px;
+           text-decoration: none;
+           font-size: 14px;
+        }
+        
+        label[for=businessRegFile] {
+           margin-right: 20px;
+        }
+        
    </style>
    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -228,14 +272,12 @@
             <form action="/member/sellerJoinForm" id="sellerJoinForm" method="post" enctype="multipart/form-data">
                <div class="cont_tabs_login">
                   <ul class='ul_tabs'>
-                     <li id="progress1" class="active"><a>step1</a>
+                     <li id="progress1" class="active"><a>이메일</a>
                         <span class="linea_bajo_nom"></span>
                      </li>
-                     <li id="progress2"><a>step2</a><span class="linea_bajo_nom"></span>
+                     <li id="progress2"><a>회원정보</a><span class="linea_bajo_nom"></span>
                      </li>
-                     <li id="progress3"><a>step3</a><span class="linea_bajo_nom"></span>
-                     </li>
-                     <li id="progress4"><a>step4</a><span class="linea_bajo_nom"></span>
+                     <li id="progress3"><a>상점정보</a><span class="linea_bajo_nom"></span>
                      </li>
                   </ul>
                </div>
@@ -252,36 +294,31 @@
                   <input type="hidden" id="tempCode">
                   <input type="hidden" id="authResult" value="false">
                </div>
-               <div class="cont_text_inputs pwdDiv">
-                  <input type="password" id="pwd" name="pwd" placeholder="*비밀번호"> <br>
-                  <input type="password" id="pwdChk" name="pwdChk" placeholder="*비밀번호확인">
-                  <div id="pwdChkMessage"></div>
-               </div>
                <div class="cont_text_inputs infoDiv">
-                  <input type="text" id="shopName" name="shopName" placeholder="*상점명"> <br>
+                    <input type="text" id="emailTmp" readonly="readonly">
+                  <input type="password" id="pwd" name="pwd" placeholder="*비밀번호"> <br>
+                  <input type="password" id="pwdChk" name="pwdChk" placeholder="*비밀번호확인"><br>
+                  <div id="pwdChkMessage"></div>
                   <input type="text" id="memName" name="memName" placeholder="*회원이름"> <br>
-                  <input type="text" id="contact1" name="contact1" placeholder="*연락처(XXX-XXXX-XXXX)">
+                  <input type="text" id="contact2" name="contact2" placeholder="회원연락처(XXX-XXXX-XXXX)">
                   <br>
-                  <input type="text" id="contact2" name="contact2" placeholder="연락처2(XXX-XXXX-XXXX)">
-                  <br>
-                  <input type="text" id="postCode" name="postCode" size="5" placeholder="우편번호" readonly="readonly"> <a id="memApi" href="">우편번호검색</a> 
+                  <input type="text" id="postCode" name="postCode" size="5" class="postCode" placeholder="우편번호" readonly="readonly"> <a id="memApi" class="postCodeApi" href="">우편번호검색</a> 
                   <br>
                   <input type="text" id="roadAddr" name="roadAddr" size="50" placeholder="도로명주소" readonly="readonly" /><br>
-                  <input type="text" id="namujiAddr" name="namujiAddr" placeholder="나머지주소">
-                  <input type="hidden" id="memAddr" name="memAddr"><br>
+                  <input type="text" id="namujiAddr" name="namujiAddr" placeholder="나머지주소"><br>
+                  <input type="hidden" id="memAddr" name="memAddr">
                </div>
+
+
                <div class="cont_text_inputs shopDiv">
+                  <input type="text" id="shopName" name="shopName" placeholder="*상점명"> <br>
+                  <input type="text" id="contact1" name="contact1" placeholder="*상점연락처(XXX-XXXX-XXXX)">
                   <input type="text" id="businessCode" name="businessCode" placeholder="*사업자등록번호"> <button
                      id="bcUniqueCheckBtn">중복확인</button> <br>
+                  <br>
                   <input type="hidden" id="bcUniqueCheck">
                   <input type="hidden" id="bcUniqueCheckResult" value="false">
-                  <p>*사업자등록증(이미지)</p>
-                  <input type="file" id="businessRegFile" name="uploadFile"
-                     accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
-                  <p>*사업장 소재지</p>
-                  <a id="shopApi" href="">우편번호검색</a>
-                  <br>
-                  <input type="text" id="shopPostCode" name="shopPostCode" placeholder="우편번호">
+                  <input type="text" id="shopPostCode" name="shopPostCode" class="postCode" placeholder="우편번호"> <a id="shopApi" class="postCodeApi" href="">우편번호검색</a>
                   <br>
                   <input type="text" id="shopRoadAddr" name="shopRoadAddr" readonly="readonly" placeholder="도로명주소"/><br>
                   <input type="text" id="shopNamujiAddr" name="shopNamujiAddr"  placeholder="나머지주소"/> <br>
@@ -295,17 +332,15 @@
                         <option value="카카오뱅크">카카오뱅크</option>
                   </select>
                   <input type="text" name="bankAccount" id="bankAccount" placeholder="*사업자 계좌번호"><br>
-                  <p>*상점이미지</p>
-                  <input type="file" id="thumbImg" name="uploadFile"
+                  <label for="businessRegFile">*사업자 등록증</label><input type="file" id="businessRegFile" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
+                  <label for="thumbImg">*상점이미지</label><input type="file" id="thumbImg" name="uploadFile"
                      accept="image/gif, image/jpeg, image/png, image/jpg">
                   <br>
-                  <p>배경이미지</p>
-                  <input type="file" id="backImg" name="uploadFile"
-                     accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
+                     <label for="backImg">&nbsp;배경이미지</label><input type="file" id="backImg" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg"> <br>
                </div>
                <div class="cont_btn">
-                  <button id="next">다음</button>
                   <button id="prev">이전</button>
+                  <button id="next">다음</button>
                   <button id="submitBtn">가입</button>
                </div>
             </form>
@@ -321,6 +356,8 @@
                let targetId = $(e.target).prop("id");
                execDaumPostcode(targetId);
             })
+
+
             emailSendBtn = $("#emailSendBtn");
             emailAccount = $("#emailAccount");
             tempCode = $("#tempCode");
@@ -343,9 +380,12 @@
             businessRegFile = $("#businessRegFile");
             thumbImg = $("#thumbImg");
             backImg = $("#backImg");
+            emailTmp = $("#emailTmp");
+
             emailAuthBtn = $("#emailAuthBtn");
             inputCode = $("#inputCode");
             authResult = $("#authResult");
+
             emailAuthMessage = $("#emailAuthMessage");
             pwdChkMessage = $("#pwdChkMessage");
             bcUniqueCheckBtn = $("#bcUniqueCheckBtn");
@@ -358,15 +398,16 @@
             submitBtn = $("#submitBtn");
             inputDiv = $(".cont_text_inputs");
             progress = $(".ul_tabs li");
+
             currentTab = 0;
-            const MAX = 3;
+            const MAX = 2;
             const MIN = 0;
             
             nextBtn.click(function(e){
                e.preventDefault();
                switch(currentTab){
                case MIN: 
-/*                      if (!(emailAccountCheck())) {
+/*                   if (!(emailAccountCheck())) {
                         return false;
                      } else if (duplicateCheckResult.val() == "false") {
                         alert("중복체크가 안됐습니다.");
@@ -375,8 +416,9 @@
                         alert("인증이 필요합니다.");
                         return false;
                      } else {
-                     }  */
+                     } */
                      prevBtn.css("display", "block");
+                     emailTmp.val(emailAccount.val());
                       break;
                case 1:
 /*                    if (!(pwdCheck())) {
@@ -385,18 +427,12 @@
                         alert("비밀번호확인은 비밀번호와 같아야 합니다.");
                         pwdChk.focus();
                         return false;
-                     } else {
-                     } */
-                      break;
-               case 2:
-/*                     if (!(memNameCheck())) {
-                        return false;
-                     } else if (!(contact1Check())) {
+                     } else if (!(memNameCheck())) {
                         return false;
                      } else if (!(memAddrCheck())) {
                         return false;
                      } else {
-                     }  */
+                     }    */
                      nextBtn.css("display", "none");
                      submitBtn.css("display", "block");
                      break;
@@ -417,7 +453,7 @@
                } else {
                   if(currentTab==MAX){
                       submitBtn.css("display", "none");
-                      nextBtn.css("display", "none");
+                      nextBtn.css("display", "block");
                    } else if (currentTab == 1) {
                       prevBtn.css("display", "none");
                    }
@@ -432,18 +468,23 @@
             
               
             
+
             emailAuthBtn.click(function (e) {
                e.preventDefault();
+
                if (!(emailAccountCheck())) {
                   return false;
                } else if (duplicateCheckResult.val() == "false") {
                   alert("가입여부를 확인해주세요.");
                   return false;
                }
+
                if (inputCode.val().trim() == "" || inputCode.val() == null || inputCode.val().trim()
                   .length == 0) {
                   return false;
                }
+
+
                //return true일때와 각 input항목 유효성검사, 정규식 처리 이후 가입하기 submit 되도록 처리하기             
                if (inputCode.val() == tempCode.val()) {
                   emailAuthMessage.html("이메일 인증에 성공했습니다.");
@@ -456,21 +497,26 @@
                   inputCode.val("");
                }
             });
+
             //이메일보내기 버튼을 누르면 실행되는 함수 
             emailSendBtn.click(function (e) {
+
                e.preventDefault();
+
                if (!(emailAccountCheck())) {
                   return false;
                } else if (duplicateCheckResult.val() == "false") {
                   alert("가입여부를 확인해주세요.");
                   return false;
                }
+
                let email = emailAccount.val();
+
                emailAuth(email)
                   .then(function (response) {
                      alert("인증번호가 발송되었습니다");
                      //인증번호 개발자도구에서 확인하고싶으면 
-                     console.log(response);
+                     //console.log(response);
                      tempCode.val(response);
                   })
                   //자바의 트라이캐치문때문에 빨간줄이 떴다안떴다하는듯? 상관X 
@@ -478,6 +524,7 @@
                      console.log(error);
                   });
             });
+
             //가입폼 중간에 이메일 주소값이 바뀌면 중복체크,인증결과를 전부 false로 변경
             emailAccount.change(function (e) {
                duplicateCheckResult.val("false");
@@ -485,27 +532,38 @@
                bcUniqueCheckResult.val("false");
                emailAuthMessage.html("");
             });
+
+
             //이메일 중복체크
             emailDuplicateCheckBtn.click(function (e) {
                e.preventDefault();
                if (!(emailAccountCheck())) {
                   return false;
                }
+
                duplicateCheck(emailAccount.val())
                   .then(function (response) {
+
                      if (response == true) {
                         alert("사용가능한 이메일계정입니다.");
                         duplicateCheckResult.val("true")
+
                      } else {
                         alert("이미 가입된 이메일입니다. 다른 이메일주소를 입력해주세요.");
                         duplicateCheckResult.val("false")
+
                      }
                      emailDuplicateCheckBtn.val(response);
                   })
+
                   .catch(function (error) {
                      console.log(error);
+
                   });
+
             });
+
+
             pwdChk.keyup(function () {
                if (pwdChk.val() == pwd.val()) {
                   pwdChkMessage.html("비밀번호와 비밀번호 확인이 일치합니다.");
@@ -515,27 +573,38 @@
                   pwdChkMessage.css("color", "red");
                }
             });
+
+
             //사업자등록번호 중복체크
             bcUniqueCheckBtn.click(function (e) {
                e.preventDefault();
                if (!(businessCodeCheck())) {
                   return false;
                }
+
                bcUniqueCheck(businessCode.val())
                   .then(function (response) {
+
                      if (response == true) {
                         alert("등록 가능합니다.");
                         bcUniqueCheckResult.val("true")
+
                      } else {
                         alert("이미 등록된 사업자등록번호입니다.");
                         bcUniqueCheckResult.val("false")
+
                      }
                      bcUniqueCheckBtn.val(response);
                   })
+
                   .catch(function (error) {
                      console.log(error);
+
                   });
+
             });
+
+
             //REST방식의 컨트롤러 MemberController에 페이지 이동 없이 비동기 방식으로  
             //인증키를 이메일로 보내고 가져와서 저장한다. 
             function emailAuth(email) {
@@ -546,7 +615,10 @@
                   contentType: "application/text; charset=UTF-8"
                });
             }
+
+
             sellerJoinForm = $("#sellerJoinForm");
+
             submitBtn.click(function (e) {
                e.preventDefault();
                if (!(emailAccountCheck())) {
@@ -601,8 +673,10 @@
                   sellerJoinForm.submit();
                }
             });
+
             function emailAccountCheck() {
                let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
                if (emailAccount.val().trim() == "" || emailAccount.val() == null) {
                   alert("이메일주소를 입력해주세요.");
                   emailAccount.focus();
@@ -618,7 +692,11 @@
                } else {
                   return true;
                }
+
             };
+
+
+
             function pwdCheck() {
                let regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/;
                if (pwd.val().trim() == "" || pwd.val() == null) {
@@ -637,8 +715,12 @@
                   return true;
                }
             };
+
+
             function businessCodeCheck() {
+
                let regExp = /[^1-15]/g;
+
                if (businessCode.val().trim() == "" || businessCode.val() == null) {
                   alert("사업자등록번호를 입력해주세요.");
                   businessCode.focus();
@@ -655,8 +737,11 @@
                   return true;
                }
             };
+
             function bankAccountCheck() {
+
                let regExp = /[^1-15]/g;
+
                if (bankAccount.val().trim() == "" || bankAccount.val() == null) {
                   alert("계좌번호를 입력해주세요.");
                   bankAccount.focus();
@@ -673,6 +758,8 @@
                   return true;
                }
             };
+
+
             function shopNameCheck() {
                let regExp = /^[가-힣a-zA-Z\s]+$/;
                if (shopName.val().trim() == "" || shopName.val() == null) {
@@ -690,7 +777,10 @@
                } else {
                   return true;
                }
+
             };
+
+
             function memNameCheck() {
                let regExp = /^[가-힣]{1,5}|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
                if (memName.val().trim() == "" || memName.val() == null) {
@@ -708,7 +798,9 @@
                } else {
                   return true;
                }
+
             };
+
             function contact1Check() {
                let regExp = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
                if (contact1.val().trim() == "" || contact1.val() == null) {
@@ -726,7 +818,10 @@
                } else {
                   return true;
                }
+
             };
+
+
             function memAddrCheck() {
                if (roadAddr.val() == "" || roadAddr.val() == null) {
                   if (!(namujiAddr.val().trim() == "" || namujiAddr.val() == null)) {
@@ -748,7 +843,9 @@
                } else {
                   return true;
                }
+
             };
+
             function shopAddrCheck() {
                if (shopRoadAddr.val() == "" || shopRoadAddr.val() == null) {
                   alert("도로명 주소를 입력해주세요.");
@@ -765,24 +862,33 @@
                } else {
                   return true;
                }
+
             };
+
             function duplicateCheck(emailAccount) {
                return $.ajax({
                   type: 'POST',
                   url: '/member/duplicateCheck',
                   data: emailAccount,
                   contentType: "application/text; charset=UTF-8"
+
+
                })
             }
+
             function bcUniqueCheck(businessCode) {
                return $.ajax({
                   type: 'POST',
                   url: '/member/bcUniqueCheck',
                   data: businessCode,
                   contentType: "application/text; charset=UTF-8"
+
+
                })
             }
+
          });
+
          function execDaumPostcode(targetId) {
             let postCode = "";
             let roadAddr = "";
@@ -794,7 +900,9 @@
                roadAddr = "shopRoadAddr";
             }
             new daum.Postcode(
+
                {
+
                   oncomplete: function (data) {
                      let fullRoadAddr = data.roadAddress;
                      let extraRoadAddr = '';

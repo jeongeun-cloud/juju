@@ -30,7 +30,6 @@
 	
 	.event_tit{
 	    height: 50px;
-	    background-color: #9dc6d8;
 	}
 	
 	.banner {

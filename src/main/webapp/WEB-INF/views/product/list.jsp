@@ -13,6 +13,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -390,7 +391,7 @@
          <div class="panel-heading">
          
 
-            <h3>" <c:out value="${path}"/> "</h3>
+            <h3><i class="fa fa-quote-left " aria-hidden="true"></i>  <c:out value="${path}"/>  <i class="fa fa-quote-right " aria-hidden="true"></i></h3>
          
             <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>"> 
 
@@ -820,7 +821,7 @@ $(document).on("change", "select.mainCateg", function(){
 	     	 // $("#so_img"+i).css("opacity", "0.2"); 
 	         
 	     	  
-	     	  $("#so_img"+i).append("<div id='soldout'><img src=\"/resources/images/s.png\"></div>"); 
+	     	  $("#so_img"+i).append("<div id='soldout'><img src=\"/resources/images/ss.png\"></div>"); 
 	     	 
 	     	  
 	       }
@@ -830,7 +831,7 @@ $(document).on("change", "select.mainCateg", function(){
 	     	 // $("#so_img"+i).css("background-color", "black");
 	     	 // $("#so_img"+i).css("opacity", "0.2");
 	         
-	     	  $("#so_img"+i).append("<div id='soldout'><img src=\"/resources/images/t.png\"></div>"); 
+	     	  $("#so_img"+i).append("<div id='soldout'><img src=\"/resources/images/tt.png\"></div>"); 
 	     	 
 	     	  
 	       }

@@ -416,7 +416,7 @@
             emailAuth(email)
             .then(function(response){
                alert("인증번호가 발송되었습니다");
-               console.log(response);
+               //console.log(response);
                tempCode.val(response);
             })
             //자바의 트라이캐치문때문에 빨간줄이 떴다안떴다하는듯? 상관X 

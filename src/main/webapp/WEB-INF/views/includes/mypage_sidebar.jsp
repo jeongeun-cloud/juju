@@ -175,25 +175,12 @@
                     <h2>
                         마이페이지
                     </h2>
+                     <c:if test="${!empty sessionMember}">
                     <li>
                         <h3>
-                            <span class="arrow"></span>쇼핑 이용 정보
+                            <span class="arrow"></span>나의정보
                         </h3>
                         <ul class="cont">
-                            <li><a href='/mypage/myPerchaseList'>주문 내역</a></li>
-                            <li><a href='/order/basketList'>장바구니</a></li>
-                        </ul>
-                    </li>
-                    <c:if test="${!empty sessionMember}">
-                    <li>
-                        <h3>
-                            <span class="arrow"></span>게시판 이용 내역
-                        </h3>
-                        <ul class="cont">
-                            <li><a href='/mypage/myQna/list'>1:1문의</a></li>
-                            <li><a href='/mypage/myReview'>나의 상품평</a></li>
-                            <li><a href='/mypage/myPrdReply'>나의 상품 문의</a></li>
-    
                             <c:choose>
                                 <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
                                 <li><a href="/mypage/customerInfoModify">개인 정보 수정</a></li>
@@ -215,6 +202,29 @@
                                 <li><a href='/mypage/memberDelete'>회원 탈퇴</a></li>
                          </c:when>
                      	</c:choose>
+                        </ul>
+                    </li>
+                    </c:if>
+                    <li>
+                        <h3>
+                            <span class="arrow"></span>쇼핑 이용 정보
+                        </h3>
+                        <ul class="cont">
+                            <li><a href='/mypage/myPerchaseList'>주문 내역</a></li>
+                            <li><a href='/order/basketList'>장바구니</a></li>
+                        </ul>
+                    </li>
+                    <c:if test="${!empty sessionMember}">
+                    <li>
+                        <h3>
+                            <span class="arrow"></span>게시판 이용 내역
+                        </h3>
+                        <ul class="cont">
+                            <li><a href='/mypage/myQna/list'>1:1문의</a></li>
+                            <li><a href='/mypage/myReview'>나의 상품평</a></li>
+                            <li><a href='/mypage/myPrdReply'>나의 상품 문의</a></li>
+    
+                            
                         </ul>
                     </li>
                          
