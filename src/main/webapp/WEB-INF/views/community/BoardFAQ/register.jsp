@@ -215,11 +215,11 @@ tr:hover {
            </div>
 
            <div class="jaju_regi_form">
-               <p style="font-size: 20px;" ><b>+게시글 등록</b></p>
+             
 
                <form id = 'registerForm' role="form" action="/community/BoardFAQ/register" method="post">
                    <div class="form-group">
-                       <label>Title</label><input id= 'title' class="form-control" name='title' placeholder ='제목은 1~30자에 맞게 입력해주세요'>
+                       <label>제목</label><input id= 'title' class="form-control" name='title' placeholder ='제목은 1~30자에 맞게 입력해주세요'>
                    </div>
                    <div class="form-group">
                        <label>내용</label>

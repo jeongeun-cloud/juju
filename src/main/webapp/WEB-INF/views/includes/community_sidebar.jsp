@@ -177,55 +177,14 @@
                     </h2>
                     <li>
                         <h3>
-                            <span class="arrow"></span>고객센터
+                            <span class="arrow"></span>게시판
                         </h3>
                         <ul class="cont">
                             <li><a href='/community/notice/list'>공지사항</a></li>
                             <li><a href='/community/BoardFAQ/list'>자주묻는질문</a></li>
                         </ul>
                     </li>
-                    <c:if test="${!empty sessionMember}">
-                    <li>
-                        <h3>
-                            <span class="arrow"></span>게시판 이용 내역
-                        </h3>
-                        <ul class="cont">
-                            <li><a href='/mypage/myQna/list'>1:1문의</a></li>
-                            <li><a href='/mypage/myReview'>나의 상품평</a></li>
-                            <li><a href='/mypage/myPrdReply'>나의 상품 문의</a></li>
-    
-                            <c:choose>
-                                <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
-                                <li><a href="/mypage/customerInfoModify">개인 정보 수정</a></li>
-                                </c:when>
-                                <c:when test="${sessionMember.memCode eq 'SELLER'}">
-                                <li><a href="/mypage/customerInfoModify">개인 정보 수정</a></li>
-                                </c:when>
-                                <c:when test="${sessionMember.memCode eq 'JUNIOR'}">
-                                <li><a href="/mypage/customerInfoModify">개인 정보 수정</a></li>
-                                </c:when>
-                            </c:choose>
-                            <c:choose>
-                            
-                              <c:when test="${(sessionMember.memCode eq 'CUSTOMER'
-                                               || sessionMember.memCode eq 'JUNIOR'                           			
-                                               || sessionMember.memCode eq 'SELLER')                           			
-                                               }">
-                                <li><a href='/mypage/modifyPwd'>비밀번호 변경</a></li>
-                                <li><a href='/mypage/memberDelete'>회원 탈퇴</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h3>
-                            <span class="arrow"></span> 단골 상점
-                        </h3>
-                        <ul class="cont">
-                            <li> <a href='/mypage/myDangol'>상점 바로가기</a></li>
-                        </ul>
-                    </li>
-                          </c:when>
-                     </c:choose>
-                    </c:if>
+                 
                 </ul>
             </div>
         </div>

@@ -287,7 +287,9 @@ margin-right: 8%;
        
 <!-- regi_main 시작 -->      
 <div class="regi_main">
-      <div class="p2">
+       <div class="p2">
+       <p><b>자주묻는질문</b></p>
+   </div>
  		          <!-- 검색창 form-->
          		  <div class='row'>
      				 <div class="col-lg-12">
