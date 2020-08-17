@@ -215,14 +215,7 @@
                                 <li><a href='/mypage/memberDelete'>회원 탈퇴</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <h3>
-                            <span class="arrow"></span> 단골 상점
-                        </h3>
-                        <ul class="cont">
-                            <li> <a href='/mypage/myDangol'>상점 바로가기</a></li>
-                        </ul>
-                    </li>
+                    
                           </c:when>
                      </c:choose>
                     </c:if>
