@@ -24,4 +24,9 @@ public class BobController {
 		model.addAttribute("ReviewBob", bobservice.reviewbest());
 		
 	}
+	
+	@GetMapping("/main/makers")
+	public void makers() {
+		
+	}
 }

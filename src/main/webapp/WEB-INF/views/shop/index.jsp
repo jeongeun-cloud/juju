@@ -64,13 +64,17 @@
     	width:80px;
     	display:inline-block;    	
     	margin-top:50px;
-    	margin-left:100px;
+    	margin-left:60px;
     	color:black;
     }
+    .admin_b {
+    width:100%;
+    height:450px;
+    }
     .admi_board{
-        display: inline-block;
+       
         position: relative;
-        width: 100%;
+         width: 1300px;
         /* border: solid blue; */
         height: 450px;
         
@@ -344,7 +348,7 @@
 		
   	
 
- 
+ <div class="admin_b">
         <div class="admi_board">
             <div class="quick_b">
                 <div class="admi_notice">
@@ -427,8 +431,9 @@
 
                 </div>
             </div>
+       </div>
             
-        </div> 
+   </div> 
         
       </div>  
 	  

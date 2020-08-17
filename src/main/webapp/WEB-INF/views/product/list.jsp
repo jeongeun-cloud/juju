@@ -22,10 +22,14 @@
 		color:black;
 		text-decoration : none;
 	 }
-	.panel-heading h3{
+	.panel-heading p{
 	 color:gray;
 	 text-align:center;
-	
+	 	
+	}
+	.panel-heading span{
+	font-size:20px;
+	padding:40px;
 	}
 	.panel-heading{
 	margin-top:50px;
@@ -391,7 +395,7 @@
          <div class="panel-heading">
          
 
-            <h3><i class="fa fa-quote-left " aria-hidden="true"></i>  <c:out value="${path}"/>  <i class="fa fa-quote-right " aria-hidden="true"></i></h3>
+            <p><i class="fa fa-quote-left " aria-hidden="true"></i><span><c:out value="${path}"/></span><i class="fa fa-quote-right " aria-hidden="true"></i></p>
          
             <input type="hidden" id="cs" class="cs" value="<c:out value="${cs}"/>"> 
 
