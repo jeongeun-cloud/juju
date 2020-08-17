@@ -33,7 +33,7 @@
           	color: #8fa691;
           	text-align:center;
         }
-
+    
         a{
             text-decoration: none;
         }

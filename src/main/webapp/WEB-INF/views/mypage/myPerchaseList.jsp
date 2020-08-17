@@ -15,7 +15,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <style>
-.regi_menu a{[]
+.regi_menu a{
    text-decoration: none;
    color: #303030;
    font-size: 17px;
@@ -192,7 +192,7 @@ tr:hover {
    float:  right;
    width: 950px;
    margin-bottom: 5%;
-  height:1500px;
+  height:600px;
    background-color: white;
 } 
 
@@ -244,16 +244,12 @@ table img {
 
 
 <!-- regi_main 시작 -->      
-<div class="regi_main">
-      
-      
-
-
-
-      <div class="p2">
-   <!-- regi_tit 시작 -->
-    <div class="regi_tit">
-       <p><b>나의 주문내역 </b></p>
+	<div class="regi_main">
+		<div class="mainContent">
+	      	<div class="title">
+	            <h3>쇼핑 이용 정보</h3>
+	            <p>주문내역</p>
+	   		</div>
    </div>
    <!-- regi_tit 끝 -->
 

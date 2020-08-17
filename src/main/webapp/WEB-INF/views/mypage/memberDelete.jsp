@@ -80,9 +80,6 @@ tr:hover {
    padding-top: 30px;
 }
 
-.regi_main .title {
-	margin-left: 20px;
-	}
 	.regi_main h3{
 	font-weight:500;
 	}
@@ -217,7 +214,7 @@ a {
 }
 
 .deleteMemberInfo{
-	margin-top: 50px;
+	margin-top: 30px;
 }
 
       input[type=password] {
@@ -276,6 +273,12 @@ a {
 <!-- side 끝-->
 
 	<div class="regi_main">
+		<div class="mainContent">
+	      	<div class="title">
+	            <h3>나의 정보</h3>
+	            <p>비밀번호 수정</p>
+	   		</div>
+   </div>
 	<form action="/mypage/memberDelete" id="memberDelete" method="post">
 
 

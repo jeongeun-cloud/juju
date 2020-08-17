@@ -263,6 +263,24 @@ margin-right: 8%;
     height: 30px;
 }
 
+/* 모달 디자인 끝 */
+
+.regi_main .title {
+	margin:40px 0px 40px 20px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+
+    .mainContent{
+     height: 700px;
+    }
+
+
+
 
  a:link { color: balck; text-decoration: none;}
  a:visited { color: black; text-decoration: none;}
@@ -287,8 +305,11 @@ margin-right: 8%;
        
 <!-- regi_main 시작 -->      
 <div class="regi_main">
-       <div class="p2">
-       <p><b>자주묻는질문</b></p>
+        <div class="mainContent">
+      		<div class="title">
+            <h3>자주묻는질문</h3>
+            <p>FAQ</p>
+             
    </div>
  		          <!-- 검색창 form-->
          		  <div class='row'>
@@ -330,7 +351,6 @@ margin-right: 8%;
                             <tr>
                                 <th>번호</th>
                                 <th>글 제목</th>
-                                <th>글 내용</th>
                                 <th>등록일</th>
 
                             </tr>
@@ -346,8 +366,6 @@ margin-right: 8%;
                    
 									<td><a style='color:black' class ='move' href='<c:out value="${faq.postingNo}"/>'>
                                     <c:out value="${faq.title }" /></a></td>
-                                
-                                    <td><c:out value="${faq.content }" /></td>
                 
                                     <td><fmt:formatDate pattern="yyyy/MM/dd"
                                             value="${faq.regDate }" /></td>

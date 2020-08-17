@@ -38,7 +38,7 @@ li {
 	
 .regi_content{
    width: 1300px;
-   height: 1000px;
+   height: 600px;
    margin:0 auto;
 }
 
@@ -63,7 +63,7 @@ li {
 .regi_main{
    float:  right;
    width: 950px;
-   height: 1000px;
+   height: 600px;
    background-color: white;
 } 
 
@@ -74,12 +74,6 @@ li {
 
 }
 
-
-.regi_content{
-	   width: 1300px;
-	   margin:0 auto;
-      
-	}
         
 .regi_wrap{
                  

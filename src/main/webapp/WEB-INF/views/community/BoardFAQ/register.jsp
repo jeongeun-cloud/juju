@@ -186,6 +186,21 @@ tr:hover {
 
 }
 /* 모달 디자인 끝 */
+
+.regi_main .title {
+	margin:40px 0px 40px 20px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+
+    .mainContent{
+     height: 700px;
+    }
+
   
    
 </style>
@@ -206,13 +221,12 @@ tr:hover {
        
 <!-- regi_main 시작 -->      
 <div class="regi_main">
-      <div class="p2">
-      
-      <div class='row'>
-   		   <div>
-               <p><b>[자주 묻는 질문]</b></p>
-              
-           </div>
+        <div class="mainContent">
+      		<div class="title">
+            <h3>자주묻는질문</h3>
+            <p>FAQ</p>
+             
+  	 </div>
 
            <div class="jaju_regi_form">
              

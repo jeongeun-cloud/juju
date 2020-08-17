@@ -91,7 +91,7 @@
     
     }
     .itemContent {
-        height: 90px;
+        height: 80px;
         
   
    }
@@ -123,16 +123,23 @@
 
       .itemContent #itemName,.solditemContent #itemName{
       
-      color :  #404040; 
-      font-size : 20px;
+          font-weight: bold;
+    	  font-size: 20px;
+    	  color : black;
       
       }
+    
+       .itemContent #itemName{
+       
+       margin-top:10px;
+       
+       }
       
       .itemContent #price,.solditemContent #price{
-      
-      color : #404040;
-      font-size : 25px;
-      
+        color : black;
+	    font-weight: bold;
+	    font-size: 20px;
+	      
       }
       
       pro_img_wrap{
@@ -217,7 +224,10 @@
     }
     
     #shopName{
+    width: 500px;
+    text-align: left;
     font-size:38px;
+    
     }
     
     #dangol_content{
@@ -225,11 +235,8 @@
     }
     
      .add_to_cart img{
-           
-        margin-top: 5px;
-
        position:relative; 
-          width: 50px;   
+       width: 50px;   
        height: 50px;
        top:0;
        

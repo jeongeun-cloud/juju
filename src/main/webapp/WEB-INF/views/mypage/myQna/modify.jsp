@@ -1,96 +1,152 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	
+   pageEncoding="UTF-8"%>
 <%@include file="../../includes/header.jsp" %>
 <%@include file="../../includes/menuBar.jsp" %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
+<head> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 
 <style>
-
-
-
+    body {
+   font-family: Arial, Helvetica, sans-serif;
+   color: #303030;
+}
 
 li {
    list-style: none;
-
-}
-
-.regi_menu a{
-   text-decoration: none;
-   color: #303030;
-   font-size: 17px;
 }
 
 
+table {
+		border-collapse: collapse;
+		width: 90%;
+		margin-left: 20px;
+        margin-top: 30px;
+	}
 
+/* 배치 */
+th, td {
+   padding: 8px;
+   text-align: left;
+   border-bottom: 1px solid #ddd;
+}
+
+th {
+   background-color: #8FA691; 
+   color: white;
+    height: 40px;
+   text-align: left;
+}
+
+tr:hover {
+   background-color: #f5f5f5;
+}
 
 
 /* 사이드 메뉴 */
 .side{
-          
-     width: 200px;
-     height: 500px;
-     background-color: white;
-     float: left;
-     margin-right: 90px;
-     border:solid #ffc30b;
-            
+	     width: 300px;	     
+	     float: left;
+	      margin-right: 20px;
+	     margin-top:25px;
+	}
+	
+.regi_main{
+	   float:  right;
+	   width: 950px;	   
+	   background-color: white;
 }
 
- .regi_side_tit{
-      padding-top: 12px;
-      padding-bottom:12px ;
-      text-align: center;
-      width: 100%;
-      background-color: #ffc30b;
-      font-size: 20px;
-      font-weight: 900;
-            
+.regi_content{
+	   width: 1300px;
+	   margin:0 auto;
+      
+	}
+
+.regi_wrap{
+   position: relative;
+   display: inline-block;
+   padding-top: 30px;
 }
 
-.regi_menu {
-	margin-top:20px;
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+	
 
+/* 글쓰기, 검색 버튼 시작 */
+.btn {
+  height: 43.75px;
+  background-color: #8FA691; 
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+   float:right;
+
+  }
+
+.btn:hover {
+  height: 43.75px;
+  background-color: #F0F2F0 ; 
+  color: #8FA691; 
+  padding: 0px 20px;
+  border: 2px solid #8FA691;
+ 
 }
 
-/* 사이드 메뉴 */
-.side{
-     width: 200px;
-     height: 500px;
-     background-color: white;
-     float: left;
-     margin-right: 90px;
-     border:solid #637365;
+.btn:focus{ 
+    outline: none; 
 }
 
- .regi_side_tit{
-      padding-top: 12px;
-      padding-bottom:12px ;
-      text-align: center;
-      width: 100%;
-      background-color: #8FA691;
-      font-size: 20px;
-      font-weight: 900;
+
+
+/* 글쓰기, 검색 버튼 끝 */
+/* 페이지 버튼 디자인 시작 */
+
+
+
+/* 페이지 버튼 디자인 끝 */
+/* 모달디자인 시작  */
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.regi_menu {
-	margin-top:20px;
+.modal-header {
+  padding: 2px 16px;
+  background-color: white;
+  color: white;
 }
 
-/* 사이드 메뉴 끝 */
+.modal-body {padding: 2px 16px;}
 
+.modal-footer {
+  padding: 2px 16px;
+  background-color: white;
+  color: white;
+}
 
-/* 등록, 리셋 버튼 시작 */
-#completeBtn,
-#deleteBtn,
-#listBtn {
+#closeBtn {
   background-color: #ffc30b; 
   border: none;
   color: white;
@@ -104,114 +160,67 @@ li {
   cursor: pointer;
 }
 
-
-#completeBtn:hover,
-#deleteBtn:hover,
-#listBtn:hover {
+#closeBtn:hover {
   background-color: white; 
   color: #ffc30b; 
   border: 2px solid #ffc30b;
+
 }
 
-#completeBtn:focus,
-#deleteBtn:focus,
-#listBtn:focus { 
+#closeBtn:focus {
     outline: none; 
+
 }
 
-.btns {
-margin-top : 20px;
-}
+.regi_main .title {
+	margin:40px 0px 40px 0px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
 
+    .mainContent{
+     height: 800px;
+    }
 
-/* 등록, 리셋 버튼 끝 */
+/* 모달 디자인 끝 */
 
-
-
-
-
-
-
-
-
-
-
+        
 </style>
-
-
 </head>
 <body>
-
-
-
-
 <div class="regi_content">
- <div class="regi_wrap">
-
-<!-- side 시작 -->
-   <div class="side">
-      <div class="1nb_list">
-         <div class="regi_side_tit">마이페이지</div>
-           <div class="regi_side_menu">
-               <ul class="regi_menu">
-                    <p><b>쇼핑 이용 정보</b></p>
-                    <li><a href='/mypage/myPerchaseList'><i class="fa fa-check" ></i>주문내역</a></li>
-                    <li><a href='/order/basketList'><i class="fa fa-check" ></i>장바구니</a></li>
-                    <br>
-                    <c:if test="${!empty sessionMember}">
-                    <p><b>게시판 이용 내역</b></p>
-                    <li> <a href='/mypage/myQna/list'><i class="fa fa-check" ></i>1:1문의</a></li>
-                    <li><a href='/mypage/myReview'><i class="fa fa-check" ></i>나의 상품평</a></li>
-                    <li><a href='/mypage/myPrdReply'><i class="fa fa-check" ></i>나의 상품 문의</a></li>
-                    
-                    
-                    
-                   		 <c:choose>
-                           <c:when test="${sessionMember.memCode eq 'CUSTOMER'}">
-                              <li><a href="/mypage/customerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
-                           </c:when>
-                           <c:when test="${sessionMember.memCode eq 'SELLER'}">
-                              <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
-                           </c:when>
-                           <c:when test="${sessionMember.memCode eq 'JUNIOR'}">
-                              <li><a href="/mypage/sellerInfoModify"><i class="fa fa-check" ></i>개인 정보 수정</a></li>
-                           </c:when>
-                        </c:choose>
-                        <c:choose>
-  						<c:when test="${(sessionMember.memCode eq 'CUSTOMER'
-                           				|| sessionMember.memCode eq 'JUNIOR'                           			
-                           				|| sessionMember.memCode eq 'SELLER')                           			
-                           				}">
-                    <li><a href='/mypage/modifyPwd'><i class="fa fa-check" ></i>비밀번호 변경</a></li>
-                    <li><a href='/mypage/memberDelete'><i class="fa fa-check" ></i>회원 탈퇴</a></li>
-                    <br>
-                    <p><b>단골 상점 </b></p>
-                    <li> <a href='/mypage/myDangol'><i class="fa fa-check" ></i>상점 바로가기</a></li>
-                        </c:when>
-                        </c:choose>
-                    </c:if>
-                </ul>
-           </div>
-     </div>
+   <div class="regi_wrap">
+     <div class="1nb_list">
+       <!-- side 시작 -->
+	    <div class="side">
+			<%@include file="../../includes/community_sidebar.jsp" %>
+       </div>	
+<!-- side 끝-->        
+    </div>
      <!-- 1nb_list -->
   </div>
 <!-- side 끝-->
 
-
 <!-- regi_main 시작 -->      
 <div class="regi_main">
-   
-   <!-- regi_tit 시작 -->
-    <div class="regi_tit">
-       <p><b>1:1문의 수정하기</b></p>
-   </div>
+
+ <div class="mainContent">
+ 		         <div class="title">
+                   <h3>1:1 문의</h3>
+              	     <p>문의사항 수정</p>
+       
+                </div>
+           
    <!-- regi_tit 끝 -->
 
 
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<div class="panel-heading">수정하기</div>
 				<div class="panel-body">
 				
                 	<!-- 페이지정보 얻는폼. pagenum amount , 검색 타입. 검색어 -->
@@ -223,7 +232,7 @@ margin-top : 20px;
                    
                    
 					<div class="from-group">
-						<label>Title</label><input id ='title' class="form-control" name='title'
+						<label>제목</label><input id ='title' class="form-control" name='title'
 							value='<c:out value="${BoardQNA.title}"/>'>
 					</div>
 
@@ -234,10 +243,10 @@ margin-top : 20px;
 					</div>
 
 					
-					<div class="from-group">
-						<label>작성자</label><input class="form-control" name='idNo'
-							value='<c:out value="${BoardQNA.idNo}"/>'readonly="readonly">
-					</div>
+				<%-- 	<div class="from-group">
+						 <label>작성자</label><input class="form-control"
+						 value='<c:out value="${sessionMember.emailAccount}"/>'readonly="readonly">
+					</div> --%>
 					
 <%-- 					<div class="from-group">
 						<label>답글여부</label><input class="form-control" name='replyBool'
@@ -245,18 +254,20 @@ margin-top : 20px;
 					</div> --%>
 					
 					<div class="from-group">
-						<label>글번호</label><input class="form-control" name='postingNo'
+						<input type='hidden' class="form-control" name='postingNo'
 							value='<c:out value="${BoardQNA.postingNo}"/>'readonly="readonly">
 					</div>
 					
 					
-                  <div class="form-group1">
-                   <input type="hidden" class="form-control" value='${sessionMember.idNo}'>
-                  </div>
+                  <div class="from-group">
+					<input type='hidden' class="form-control" name='idNo'
+							value='<c:out value="${BoardQNA.idNo}"/>'readonly="readonly">
+					</div>
+					
 					
 					
 					<div class="btns">
-					<button type="button" data-oper='modify' class="btn-default" id="completeBtn">수정완료</button>
+					<button type="button" data-oper='modify' class="btn btn-default" id="completeBtn">수정완료</button>
 					<button type="button" data-oper='remove' class="btn btn-danger" id="deleteBtn">삭제</button>
 					<button type="button" data-oper='list' class="btn btn-info" id="listBtn">리스트</button>
 					

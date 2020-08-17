@@ -64,6 +64,7 @@ tr:hover {
 .regi_content{
 	   width: 1300px;
 	   margin:0 auto;
+	  
       
 	}
 
@@ -192,6 +193,20 @@ margin-right: 8%;
 }
 /* 모달 디자인 끝 */
 
+.regi_main .title {
+	margin:40px 0px 40px 20px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+
+    .mainContent{
+     height: 700px;
+    }
+
 
 </style>
 
@@ -216,9 +231,13 @@ margin-right: 8%;
 <div class="regi_main">
    
    <!-- regi_tit 시작 -->
-    <div class="regi_tit">
-       <p><b>공지글</b></p>
-   </div>
+    <div class="mainContent">
+ 		         <div class="title">
+                   <h3>공지사항</h3>
+              	     <p>공지사항입니다.<p/>
+
+                   
+                </div>
    <!-- regi_tit 끝 -->
 
 
@@ -243,9 +262,11 @@ margin-right: 8%;
 				</div>
 				
 				<div class="from-group">
-						
-						<input class="form-control" type='hidden' value='<c:out value="${BoardFAQ.content}"/>'>
+						<input type='hidden' class="form-control" rows="10" name='postingNo'
+                                    value='<c:out value="${BoardFAQ.postingNo}"/>'>
 				</div>
+				 
+				
 			    
 			           <input type="hidden"  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
 	                    <input type="hidden" name ='amount' value='<c:out value="${cri.amount}"/>'>  
@@ -265,7 +286,7 @@ margin-right: 8%;
                     
                     
                     <form  id='operForm' action="/commuinty/notice/modify" method="get">
-	                    <input type="hidden" id='postingNo' name='postingNo' value='<c:out value="${BoardFAQ.postingNo}"/>'>
+	                    <input type="" id='postingNo' class='postingNo'name='postingNo' value='<c:out value="${BoardFAQ.postingNo}"/>'>
 	                    <input type="hidden"  name ='pageNum' value='<c:out value="${cri.pageNum}"/>'>
 	                    <input type="hidden" name ='amount' value='<c:out value="${cri.amount}"/>'>  
 	                    <input type ="hidden" name= 'type' value='<c:out value="${cri.type}"/>'>
