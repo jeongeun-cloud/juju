@@ -38,16 +38,12 @@
 		}
 		
 	#chooseMemberType{
-		position: absolute;
-		height: 400px;
-        left: 50%;
-        top: 85%;
-        transform: translate(-50%, -50%);
+		height: 350px;
 	}
 	
 	#chooseMemberTypeAll{
-		height: 400px;
-		margin-bottom: 30px;
+		height: 350px;
+		margin-top: 110px;
 	}
 </style>
 <body>

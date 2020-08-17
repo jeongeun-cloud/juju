@@ -32,8 +32,9 @@ li {
 
 table {
 		border-collapse: collapse;
-		width: 90%;
+		width: 70%;
 		margin-left: 20px;
+		margin-right: 40px;
         margin-top: 30px;
         border: none;
 	}
@@ -43,6 +44,7 @@ th, td {
    padding: 8px;
    text-align: left;
    border-bottom: 1px solid #ddd;
+   max-height : 7em;
 }
 
 th {

@@ -91,7 +91,7 @@
     		height: 54px;
     		margin-left: 40px;
     		margin-top: 10px;
-    		margin-bottom: 10px;
+    		/* margin-bottom: 10px; */
     		padding: 0 19px;
     		border: none;
     		border-bottom: 1px solid #ccc;
@@ -209,9 +209,12 @@
         	padding: 18px 175px;
         }
         
-        #resultUI{
-        	margin : 10px 0px 40px 40px;
-        	padding : 0px 19px;
+        #resultUl{
+        	margin-top : 20px;
+        	margin-bottom : 20px;
+        	margin-left : 30px;
+        	padding : 0px 30px;
+        	
         }
         
         p {
@@ -250,7 +253,7 @@
 
 
 							<div id="findIdResult">
-							<ul id="resultUl"></ul>
+							 <ul id="resultUl"> </ul>
 
 
 							</div>
@@ -469,7 +472,7 @@
 					emailAuth(email)
 					.then(function(response){
 						alert("인증번호가 발송되었습니다");
-						//console.log(response); 
+						console.log(response); 
 						tempCode.val(response);
 					})
 					.catch(function(error){

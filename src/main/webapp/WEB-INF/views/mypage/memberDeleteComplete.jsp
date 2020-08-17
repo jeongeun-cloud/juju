@@ -12,11 +12,12 @@
 <style>
 
 	#deleteDiv {
-		margin: 100px 0px;
+		margin:  180px 0px;
+		height : 350px;
 	}
 
    	h3 {
-	  margin: 20px;
+	  margin: 30px;
 	  font-weight: bold;
 	}
 	
@@ -35,8 +36,9 @@
 </head>
 <body>
 	<div id="deleteDiv" align="center">
-		<h3>탈퇴가 완료되었습니다</h3>
+		<h3>주주마켓 탈퇴가 완료되었습니다</h3>
 		
+		<br>
 		<button type="button" onclick="location.href='/member/chooseMemberType'">회원가입</button>
 		<button type="button" onclick="location.href='/'">메인으로 </button>
 	</div>
