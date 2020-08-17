@@ -173,7 +173,7 @@ tr:hover {
 /* 모달 디자인 끝 */
 
         
-    </style>
+</style>
 </head>
 <body>
 <div class="regi_content">
@@ -196,11 +196,11 @@ tr:hover {
       <div class='row'>
 
                 <div>             
-                    <p><b>[자주 묻는 질문]</b></p>                 
+                    <p><b>[공지사항 수정]</b></p>                 
                 </div>
 
                 <div class="jaju_regi_form">
-                    <p style="font-size: 20px;" ><b>+수정하기</b></p>
+                  
 
                     <form id ='modifyForm' role="form" action="/community/BoardFAQ/modify" method="post">
                         <!-- 조회페이지에서 수정/삭제 페이지로 이동 -->
@@ -210,7 +210,7 @@ tr:hover {
                         <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
     
                         <div class="from-group">
-                            <label>Title</label><input id='title' class="form-control" name='title'
+                            <label>제목</label><input id='title' class="form-control" name='title'
                                 value='<c:out value="${BoardFAQ.title}"/>'>
                         </div>
     

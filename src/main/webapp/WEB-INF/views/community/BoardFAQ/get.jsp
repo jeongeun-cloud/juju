@@ -213,11 +213,14 @@ margin-right: 8%;
        
 <!-- regi_main 시작 -->      
 <div class="regi_main">
+<div class="regi_tit">
+       <p><b>자주묻는질문</b></p>
+   </div>
       <div class="p2">
       
       <div class='row'>
      			
-                <h1 class="page-header"><c:out value="자주묻는질문"/></h1>
+               
          
             
               
