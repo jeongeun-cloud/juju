@@ -131,6 +131,41 @@
           border-radius: 50%;
           }
           /* 페이징 끝 */
+          
+          .pageBtns {
+	text-align: center;
+	margin-right: 8%;
+}
+
+.page_num a{
+     color: #637365;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    
+   
+}
+
+
+.page_num {
+        display: inline-block;
+        padding-left:50%;
+        float: left;
+        width: 1200px
+        }
+        
+        
+    
+.paginations a:hover:not(.active) {
+          background-color:#F0F2F0;
+          border-radius: 50%;
+          }
+          
+.paging{
+    
+ background-color: white;
+ color: #f6dd90;
+}
     </style>
     </head>
 <body>
@@ -159,9 +194,9 @@
                 </div>
                 
              <div class="q_btn">
- 		     <input class="quick_btn" type="button" value="전체주문보기" onClick="location.href='/shop/searchorder'">
-   			 <input class="quick_btn" type="button" value="송창처리" onClick="location.href='/shop/shipping'">
-   			 <input class="quick_btn" type="button" value="환불요청보기" onClick="location.href='/shop/refund'">
+	 		     <input class="quick_btn" type="button" value="전체주문보기" onClick="location.href='/shop/searchorder'">
+	   			 <input class="quick_btn" type="button" value="배송준비중보기" onClick="location.href='/shop/shipping'">
+	   			 <input class="quick_btn" type="button" value="환불요청보기" onClick="location.href='/shop/refund'">
   			 </div>   
 		      <form id='searchForm' action="/shop/searchorder" method = 'get'>  
 		          <div class="ss">
@@ -260,26 +295,27 @@
 		                  
 		                  
 		                  
-		           <div class='page_num'>
-		               		<ul class="searchpaging">
-		            <c:if test="${pageMaker.prev}">
-					              		<li class="paginate_button pervious">
-					           				<a href="${pageMaker.startPage -1}">Pervious</a>
-					           			</li>
-					              </c:if>		               
-					               <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-					               		<li class='paginate_button ${pageMaker.cri.pageNum == num? "active":""}'>
-					               			<a href="${num}">${num}</a>
-					               		</li>
-					               </c:forEach>
-					               <c:if test="${pageMaker.next}">
-					               		<li class="paginate_button next">
-					               <a href="${pageMaker.endPage +1}">Next</a>
-					               		</li>
-					               </c:if>
-		            
-		            		</ul>
-		         </div><!-- endPaging -->
+		            <div class='page_num'>
+                            <ul class="paginations">
+                                <c:if test="${pageMaker.prev}">
+                                    <li class="paginate_button1 pervious">
+                                        <a href="${pageMaker.startPage -1}">&laquo;</a>
+                                    </li>
+                                </c:if>
+        
+                                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                                    <li class='paginate_button1 ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                                          <a href="${num}">${num}</a></li>
+                                
+                                </c:forEach>
+        
+                                <c:if test="${pageMaker.next}">
+                                     <li class="paginate_button1 next">
+                                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
+                                    </li>
+                                </c:if>
+                            </ul> 
+                        </div><!-- endPaging -->
 		         
 		       <!-- paging form-->
 		       
@@ -315,7 +351,7 @@ $(document).ready(function(){
 	});
 
       //페이징처리
-      $(".paginate_button a").on("click", function(e) {
+      $(".paginate_button1 a").on("click", function(e) {
      
     	 e.preventDefault();
    	  var actionForm = $("#actionForm");

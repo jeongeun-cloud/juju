@@ -216,19 +216,27 @@ public class ManagementController {
 		
 		   date1 = date1 == null?"2020-07-01": date1;
 		   date2 = date2 == null?time1: date2;
+		   date1 = date1 == ""?"2020-07-01": date1;
+		   date2 = date2 == ""?time1: date2;
+		   
+		   
 		   cri.setDate1(date1);
 		   cri.setDate2(date2);
 		   cri.setOrderStat(orderStat);
+		   
+		   
 		   
 		   System.out.println(cri.toString());
 		   System.out.println("맥크리"+cri);
 		   
 		   
-		   int total = service.getTotal(cri);
+		   int total = service.getRefundTotal(cri);
+		   
+		   
 
 		   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 		   
-		   
+		   System.out.println("토토토토타타타타탈"+total);
 		   
 		   if(!orderStat.equals("")) {
 				 

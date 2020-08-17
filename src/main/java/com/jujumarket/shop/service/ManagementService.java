@@ -21,6 +21,8 @@ public interface ManagementService {
 	public int getTotal(ItemCriteria cri);
 	
 	public int getNotTotal(ItemCriteria cri);
+	
+	public int getRefundTotal(ItemCriteria cri);
 
 	public List<Integer>ListCount();
 	

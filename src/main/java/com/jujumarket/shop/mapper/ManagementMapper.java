@@ -22,6 +22,8 @@ public interface ManagementMapper {
 		
 		public int getTotalCount (ItemCriteria cri); //배송처리 total	
 		
+		public int RefundTotal (ItemCriteria cri); //배송처리 total	
+		
 		public List<ManagementVO> getcheck(String orderStat);//착크박스 처리였나 ?...
 		
 		public List<ManagementVO> getcheckAll(ItemCriteria cri); //전체보기 orderStat
@@ -42,6 +44,6 @@ public interface ManagementMapper {
         
         public void refundupdate(ManagementVO vo); //송장수정
         
-        
+    
 		
 }
