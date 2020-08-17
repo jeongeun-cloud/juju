@@ -104,4 +104,11 @@ public class ManagementServiceImpl implements ManagementService {
 		return mapper.getListCount();
 	}
 
+
+	@Override
+	public int getRefundTotal(ItemCriteria cri) {
+		// TODO Auto-generated method stub
+		return  mapper.RefundTotal(cri);
+	}
+
 }

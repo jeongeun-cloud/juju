@@ -5,32 +5,227 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="http://code.jquery.com/jquery-1.12.1.js"></script>
-<script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
-<title>Insert title here</title>
-</head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
+<link rel="stylesheet"  href="../resources/css/admin.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
 
 
 <style>
-  table {
-    border-collapse: collapse;
-  }
-  
-  table, td, th {
-    border: 1px solid black;
-  }
-  </style>
-<body>
-                  
-      <input class="quick_btn" type="button" value="전체주문보기" onClick="location.href='/shop/searchorder'">
-   			 <input class="quick_btn" type="button" value="송창처리" onClick="location.href='/shop/shipping'">
-   			 <input class="quick_btn" type="button" value="환불요청보기" onClick="location.href='/shop/refund'">
+         li{
+            list-style: none;
+            
+        }
+        body{
+            color: #303030;
+        }
+        a{
+            text-decoration: none;
+            color: #303030;
+            font-size: 17px;
+        }
 
+ 
+
+    /* 테이블 */
+       table {
+		border-collapse: collapse;
+		width: 100%;
+        margin-top: 30px;
+        margin-bottom:30px;
+		}
+	    th, td {
+	        padding: 10px;
+	        text-align: center;
+	        border-bottom: 2px solid #ddd;
+	    }
+	    
+	    th {
+	        background-color: #8FA691;
+	        color: white;
+	        text-align: left;
+	        height: 30px;
+	        text-align:center;
+	    }
+		.mainContent h3{
+		font-weight:500;
+		font-size:24px;
+		margin-bottom:20px;
+		}
+		.mainContent p{
+			color: #b9b9b9;
+		}
+		/*버튼  */
+		.q_btn{
+		float:right;
+		margin-bottom: 30px;
+		}
+
+		.quick_btn{
+            background-color: #8FA691; 
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            margin: px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            font-weight: 900;
+        }
+        .quick_btn:hover {
+        background-color: white; 
+        color: #8FA691; 
+        border: 2px solid #8FA691;
+        }
+		.quick_btn
+         {
+        background-color: #8FA691;
+        color: white;
+        
+        
+        }
+
+        .quick_btn:focus { 
+            outline: none; 
+        }
+        .ss{
+        margin-top:20px;
+        margin-bottom:20px;
+        }
+        .ss_label {
+        width: 65px;
+        }
+        .s_btn{
+        background-color: #8FA691;
+        border: solid #8FA691;
+        border-radius:10px;
+        color:white;
+        text-align:center;
+        margin-left:10px;
+        font-size:10px;
+        }
+        /*버튼 끝  */
+        
+        /* 페이징 */
+        .page_num {
+        display: inline-block;
+        padding-left:70%;
+        }
+        
+        .page_num a{
+         color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+   
+        }
+        .searchpaging a:hover:not(.active) {
+          background-color: #8FA691;
+          border-radius: 50%;
+        }
+          /* 페이징 끝 */
+          
+          .stat_btn{
+          float:right;
+		  margin-bottom: 30px;
+		  background-color: #8FA691; 
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            margin: 10px 10px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            font-weight: 900;
+            
+          
+          }
+          
+                   .pageBtns {
+	text-align: center;
+	margin-right: 8%;
+}
+
+.page_num a{
+     color: #637365;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    
+   
+}
+
+
+.page_num {
+        display: inline-block;
+        padding-left:50%;
+        float: left;
+        width: 1200px
+        }
+        
+        
+    
+.paginations a:hover:not(.active) {
+          background-color:#F0F2F0;
+          border-radius: 50%;
+          }
+          
+.paging{
+    
+ background-color: white;
+ color: #f6dd90;
+}
+    </style>
+<body>
+
+<div class="container">
+  <%@include file="./shopSideBar.jsp" %>		
+ 		
+ 		<div class="mainArea">
+ 		            <!-- BEGIN NAV -->
+                <nav class="navTop row">
+                    <div class="menuIcon fl"><span class="fa fa-bars"></span></div>
+                    <div class="account fr">
+                        <div class="name has-submenu"><c:out value="${sessionMember.idNo}"/><span class="fa fa-angle-down"></span></div>
+                        <ul class="accountLinks submenu">
+                            <li><a href="/">View website</a></li>
+                            <li><a href="/member/logout">Log out<span class="fa fa-sign-out fr"></span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- END NAV -->
+                
+                
+                <div class="mainContent">
+ 		         <div class="title">
+                   <h3>배송준비중</h3>
+                   <p>배송을 해주세요.</p>
+                </div>
+                
+                
+      <div class="q_btn">                           
+      		<input class="quick_btn" type="button" value="전체주문보기" onClick="location.href='/shop/searchorder'">
+   			 <input class="quick_btn" type="button" value="배송준비중보기" onClick="location.href='/shop/shipping'">
+   			 <input class="quick_btn" type="button" value="환불요청보기" onClick="location.href='/shop/refund'">
+      </div>  
 		           <form id='searchForm' action="/shop/shipping" method = 'get'>  
 				         
-				                    주문일<input id ='date1' name='date1' type='date'>~<input id ='date2'  name='date2' type='date'>
-				          <div> 검색어
+				         <div class="ss">
+						    <label class="ss_label">주문일</label>
+				            <input id ='date1' name='date1' type='date'>~<input id ='date2'  name='date2' type='date'>
+						 </div>	
+						
+				         	    <label class="ss_label">검색어</label> 
 				                <select name='type'>
 				                
 									  <option value=""
@@ -47,8 +242,8 @@
 		 						<input  type='text' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
 							    <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
 							    <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
-							    <button class='btn btn-default' id="searchBtn"> 검색 </button> 
-		             			<button> 초기화 </button>  
+							    <button class='s_btn' id="searchBtn"> 검색 </button> 
+		             			<button class="s_btn" type ='reset'> 초기화 </button>  
 		                  </div>
 		          </form>
 		          
@@ -57,7 +252,7 @@
 
         <div>
 
-		           <input type="button" id="shippingBtn" value='배송처리'>
+		           <input type="button" class='stat_btn' id="shippingBtn" value='배송처리'>
 		            
 		              <table tit aria-setsize="500px" id ="hazy">
 		                  <thead>
@@ -152,9 +347,11 @@
           </form>
         <!-- paging form end--> 
            
-      
-    
+	   	</div>
+	</div>  
 
+    
+<script src="../resources/js/admin.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
