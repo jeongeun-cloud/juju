@@ -120,16 +120,15 @@
             min-height: 550px;
         } 
         
-            .soldout{
-           text-align:center;
-           width:100%;
-           bottom: 50px; 
-           font-size: 3.5em;
-           font-weight: bold; 
-           position: absolute; 
-           color: white;
-        
-       }
+         .soldout{
+        text-align:center;
+        width:100%;
+        bottom: 50px; 
+        font-size: 3.5em;
+        font-weight: bold; 
+        position: absolute; 
+        color: white;
+               }
         
         .add_to_cart{
         border:none;

@@ -25,4 +25,6 @@ public interface MyPageMapper {
 
 	//나의 단골가게 보기
 	public List<DangolVO> getMyDangol(String memidNo);
+
+	public List<MyPerchaseVO> getGuestPurchaseListByOrderCode(String orderCode);
 }
