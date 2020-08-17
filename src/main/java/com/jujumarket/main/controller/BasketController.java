@@ -1,5 +1,7 @@
 package com.jujumarket.main.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.mahout.cf.taste.common.TasteException;
+import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -81,42 +85,41 @@ public class BasketController {
   
 //    0807최근본 상품 구현 kw 
 //   item 으로 끝나는 곳에 장바구니 db 랑 item db 연결 
-   @GetMapping("/item")
-   public void get(@RequestParam("itemCode") String itemCode, Model model, HttpSession session) {
-      log.info("/item");
-      // ItemMainVO를 LinkedList에 넣기 
-      ItemMainVO item = itemservice.get(itemCode);
-      // 중복 체크용 변수 num 
-      int num = -1;
-      // 사이즈 체크용 변수
-      int capacity = 10;
-      // 중복체크 
-      for (int i = 0; i < recentlySeen.size(); i++) {
-         if (itemCode.equals(recentlySeen.get(i).getItemCode())) {
-            num = i;
-         }
-      }
-      // 중복이 있으면 중복 삭제
-      if (num != -1) {
-         recentlySeen.remove(num);
-      }
-      // 용량에 맞춰서 오래된 상품 삭제
-      if (recentlySeen.size() >= capacity) {
-         recentlySeen.remove(0);
-      }
-      // 최근본 상품 추가 
-      recentlySeen.add(item);
-      session.setAttribute("recentlySeen", recentlySeen);
+	@GetMapping("/item")
+	public void get(@RequestParam("itemCode") String itemCode, Model model, HttpSession session) {
+		log.info("/item");
+		// ItemMainVO를 LinkedList에 넣기 
+		ItemMainVO item = itemservice.get(itemCode);
+		// 중복 체크용 변수 num 
+		int num = -1;
+		// 사이즈 체크용 변수
+		int capacity = 10;
+		// 중복체크 
+		for (int i = 0; i < recentlySeen.size(); i++) {
+			if (itemCode.equals(recentlySeen.get(i).getItemCode())) {
+	            num = i;
+			}
+		}
+		// 중복이 있으면 중복 삭제
+		if (num != -1) {
+			recentlySeen.remove(num);
+		}
+		// 용량에 맞춰서 오래된 상품 삭제
+		if (recentlySeen.size() >= capacity) {
+			recentlySeen.remove(0);
+		}
+		// 최근본 상품 추가 
+		recentlySeen.add(item);
+		session.setAttribute("recentlySeen", recentlySeen);
 
-      // 최근본상품 잘 쌓이는지 확인 
-      // System.out.println(recentlySeen);
+		// 최근본상품 잘 쌓이는지 확인 
+		// System.out.println(recentlySeen);
 
-      // 채련님 부분
-      model.addAttribute("product", itemservice.get(itemCode));
-      model.addAttribute("shopName", itemservice.getShop(itemCode));
+		// 채련님 부분
+		model.addAttribute("product", itemservice.get(itemCode));
+		model.addAttribute("shopName", itemservice.getShop(itemCode));
+
    }
-   
-   
    
    
    @GetMapping("/getBasketTotal") 
