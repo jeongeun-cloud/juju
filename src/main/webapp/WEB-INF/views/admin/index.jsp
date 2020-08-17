@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
 </head>
 <body>
-<%-- <%@include file="./idCheck.jsp" %> --%>
+<%@include file="./idCheck.jsp" %>
     <div class="container">
         <%@include file="./adminSideBar.jsp" %>
             <div class="mainArea">
