@@ -12,20 +12,21 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<context:annotation-config></context:annotation-config>
-
+	
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
+			value="jdbc:log4jdbc:oracle:thin:@jujumarket.ci9nhkthw056.ap-northeast-2.rds.amazonaws.com:1521:ORCL"></property>
 		<property name="username" value="admin"></property>
-		<property name="password" value="1234"></property>
+		<property name="password" value="juju1234"></property>
 	</bean>
 
 
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
 		destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
+		<property name="maximumPoolSize" value="3"></property>
 	</bean>
 
 	<bean id="sqlSessionFactory"
