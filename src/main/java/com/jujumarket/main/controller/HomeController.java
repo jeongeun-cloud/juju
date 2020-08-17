@@ -72,6 +72,7 @@ public class HomeController {
 		
 		return "/main/index";
 	}
-
+	
+	
 	
 }

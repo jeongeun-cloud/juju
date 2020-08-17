@@ -469,7 +469,7 @@
 					emailAuth(email)
 					.then(function(response){
 						alert("인증번호가 발송되었습니다");
-						//console.log(response); 
+						console.log(response); 
 						tempCode.val(response);
 					})
 					.catch(function(error){

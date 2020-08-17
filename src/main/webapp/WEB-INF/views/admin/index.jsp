@@ -48,7 +48,7 @@
     	width:80px;
     	display:inline-block;    	
     	margin-top:50px;
-    	margin-left:100px;
+    	margin-left:60px;
     	color:black;
     }
     .aa{
@@ -63,12 +63,17 @@
 	font-weight:800;
 	}
 	.admi_board{
-        display: inline-block;
+        
         position: relative;
-        width: 100%;
+        width: 1300px;
         /* border: solid blue; */
         height: 450px;
+        margin: 0 auto;
         
+    }
+    .admin_b {
+    width:100%;
+    height:450px;
     }
     .quick_b{
         width:600px;
@@ -190,7 +195,7 @@
 	</div>
 		        <!--■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■    -->    
 		    <%@include file="./graph.jsp" %>        
-		            
+<div class="admin_b">
       <div class="admi_board">
             <div class="quick_b">
                 <div class="admi_notice">
@@ -275,7 +280,7 @@
             </div>
             
         </div> 
-		        
+</div>		        
    
             <!-- END CONTAINER  -->
         	</div>

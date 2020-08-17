@@ -46,7 +46,7 @@
         .bob_pro{
 
         	height: 2100px;
-            width: 1000px;
+            width: 1300px;
             margin: 30px auto;
 
         }
@@ -137,7 +137,7 @@
         }
         .pro_list .pro_list_ul .pro_list_li{
             float: left;
-            margin: 80px 0 0 25px;
+            margin: 80px 0 0 55px;
             min-height: 600px;
         } 
            .soldout{
