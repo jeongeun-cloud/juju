@@ -188,8 +188,21 @@ tr:hover {
 
 }
 /* 모달 디자인 끝 */
-  
-   
+
+.regi_main .title {
+	margin:40px 0px 40px 20px;
+	}
+	.regi_main h3{
+	font-weight:500;
+	}
+	.regi_main p{
+		color: #b9b9b9;
+	}
+
+    .mainContent{
+     height: 700px;
+    }
+
 
 </style>
 
@@ -214,11 +227,14 @@ tr:hover {
 <!-- regi_main 시작 -->      
 <div class="regi_main">
    
-   <!-- regi_tit 시작 -->
-    <div class="regi_tit">
-       <p><b>[공지사항]</b></p>
-   </div>
-   <!-- regi_tit 끝 -->
+   <!-- title 시작 -->
+     <div class="mainContent">
+ 		         <div class="title">
+                   <h3>공지사항</h3>
+              	     <p>공지사항 수정.</p>
+       
+                </div>
+   <!-- title 끝 -->
 
 
 	<div class="row">

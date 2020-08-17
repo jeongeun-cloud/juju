@@ -78,9 +78,7 @@ tr:hover {
    padding-top: 30px;
 }
 
-.regi_main .title {
-	margin-left: 20px;
-	}
+
 	.regi_main h3{
 	font-weight:500;
 	}
@@ -206,6 +204,20 @@ tr:hover {
     height: 30px;
 }
 
+  b{
+    
+    font-size: 22px;
+    
+    }
+    
+    .title{
+            height: 40px;
+          	width:150px;
+          	padding:5px;
+          	border-bottom: 1px solid #8fa691;
+          	color: #8fa691;
+          	text-align:center;
+        }
 
  a:link { color: balck; text-decoration: none;}
  a:visited { color: black; text-decoration: none;}
@@ -231,17 +243,14 @@ tr:hover {
 
 
 <!-- regi_main 시작 -->      
+<!-- regi_main 시작 -->      
 <div class="regi_main">
-      
-      
-
-
-
-      <div class="p2">
+   
    <!-- regi_tit 시작 -->
-    <div class="regi_tit">
-       <p><b>나의 상품문의</b></p>
-   </div>
+    <div class="mainContent">
+ 		         <div class="title">
+                   <b>나의 상품문의</b>               
+                </div>
    <!-- regi_tit 끝 -->
 
          
