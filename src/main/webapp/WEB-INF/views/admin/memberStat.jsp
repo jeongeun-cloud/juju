@@ -184,6 +184,7 @@
         var options = {
           hAxis: {
             title: 'day'
+            
           },
           vAxis: {
             title: 'member'
