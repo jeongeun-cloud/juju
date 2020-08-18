@@ -65,6 +65,7 @@ tr:hover {
    width: 950px;
    margin-bottom: 15%;
    background-color: white;
+    margin-top:30px;
 } 
 
 .regi_content{
@@ -291,7 +292,7 @@ margin-right: 8%;
 		<div class="mainContent">
 	      	<div class="title">
 	            <h3>1:1 문의</h3>
-	            <p>문의 목록</p>
+	            <p>궁굼한 점을 물어보세요.</p>
 	   		</div>
    </div>
    <!-- regi_tit 끝 -->

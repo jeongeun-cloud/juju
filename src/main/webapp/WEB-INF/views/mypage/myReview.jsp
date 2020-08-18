@@ -51,6 +51,7 @@ tr:hover {
 }
 
 
+
 /* 사이드 메뉴 */
 .side{
 	     width: 300px;	     
@@ -64,6 +65,7 @@ tr:hover {
    width: 950px;
    margin-bottom: 15%;
    background-color: white;
+    margin-top:30px;
 } 
 
 .regi_content{
@@ -187,31 +189,18 @@ tr:hover {
 
 /* 사이드 메뉴 끝 */
 
-.col-lg-12 {
-	text-align: center;
-    margin: 10px 0 30px 0;
-}
-        
+	.col-lg-12 {
+		text-align: center;
+	    margin: 10px 0 30px 0;
+	}
+	        
+	
+	
+	table img {
+		height: 100px;
+	}
 
 
-table img {
-	height: 100px;
-}
-
-   .title{
-            height: 40px;
-          	width:130px;
-          	padding:5px;
-          	border-bottom: 1px solid #8fa691;
-          	color: #8fa691;
-          	text-align:center;
-        }
-        
-    b{
-    
-    font-size: 22px;
-    
-    }
 
  a:link { color: balck; text-decoration: none;}
  a:visited { color: black; text-decoration: none;}
@@ -240,7 +229,8 @@ table img {
    <!-- regi_tit 시작 -->
     <div class="mainContent">
  		         <div class="title">
-                   <b>나의 상품평</b>              
+                   <h3>나의 상품평</h3>     
+                   <p>나의 상품 리뷰를 확인해 보세요.</p>         
                 </div>
    <!-- regi_tit 끝 -->
           

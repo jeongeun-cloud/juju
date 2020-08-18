@@ -65,14 +65,16 @@ tr:hover {
 	     margin-top:25px;
 	}
 	
-	.regi_main{
+.regi_main{
 	   float:  right;
 	   width: 950px;	   
 	   background-color: white;
+	   margin-top:30px;
 }
 
 .regi_content{
 	   width: 1300px;
+	   height:1800px;
 	   margin:0 auto;
       
 	}
@@ -253,8 +255,8 @@ input[readonly=readonly]{
 	
 	<div class="mainContent">
       	<div class="title">
-            <h3>나의 정보</h3>
-            <p>개인정보 수정</p>
+            <h3>개인 정보 수정</h3>
+            <p>개인정보를 알맞게 수정해 주세요</p>
    		</div>
    </div>
 	<div class="sellerInfo">

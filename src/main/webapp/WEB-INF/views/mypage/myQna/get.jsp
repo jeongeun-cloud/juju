@@ -63,6 +63,7 @@ li {
    width: 950px;
    height: 1000px;
    background-color: white;
+    margin-top:30px;
 } 
 
 .regi_main .regi_tit{
@@ -225,7 +226,7 @@ tr:hover {
 		<div class="mainContent">
 	      	<div class="title">
 	            <h3>1:1 문의</h3>
-	            <p>문의내용</p>
+	            
 	   		</div>
    </div>
    <!-- regi_tit 끝 -->

@@ -64,6 +64,7 @@ tr:hover {
    width: 950px;
    margin-bottom: 15%;
    background-color: white;
+    margin-top:30px;
 } 
 
 .regi_content{
@@ -86,13 +87,6 @@ tr:hover {
 		color: #b9b9b9;
 	}
 	
-.regi_main .regi_tit{
-   font-size: 30px;
-   margin-bottom:50px;
-   text-align: center;
-}
-	
-
 
 /* 글쓰기, 검색 버튼 끝 */
 /* 페이지 버튼 디자인 시작 */
@@ -204,20 +198,7 @@ tr:hover {
     height: 30px;
 }
 
-  b{
-    
-    font-size: 22px;
-    
-    }
-    
-    .title{
-            height: 40px;
-          	width:150px;
-          	padding:5px;
-          	border-bottom: 1px solid #8fa691;
-          	color: #8fa691;
-          	text-align:center;
-        }
+
 
  a:link { color: balck; text-decoration: none;}
  a:visited { color: black; text-decoration: none;}
@@ -249,7 +230,8 @@ tr:hover {
    <!-- regi_tit 시작 -->
     <div class="mainContent">
  		         <div class="title">
-                   <b>나의 상품문의</b>               
+                   <h3>나의 상품문의</h3>    
+                   <p>상품에 궁굼한 점을 문의해 주세요.</p>           
                 </div>
    <!-- regi_tit 끝 -->
 
