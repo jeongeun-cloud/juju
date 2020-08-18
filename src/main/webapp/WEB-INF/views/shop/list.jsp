@@ -10,8 +10,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-   <!--  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> -->
-<!--     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
+<!--     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet"  href="../resources/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 	<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.css">
@@ -19,8 +20,27 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
     <title>product register list</title>
     <style>
+    	.w3-modal {
+	        text-align: center;
+	    }
+	    .w3-container {
+	        background-color: #637365;
+	        color: #fff !important;
+	    }
+	    .contentBody {
+	        background-color: #fff;
+	    }
+	    .w3-modal-content {
+	    	width:600px;
+	    }
+	    #alert {
+	    	color : black;
+	    	font-size : 17px;
+	    	font-weight : 600;
+	    }
+	    
 	    .mainContent{
-	    margin-top:50px;
+	    	margin-top:50px;
 	    }
         li{
             list-style: none;
@@ -131,11 +151,11 @@
         .select_state{
             margin-left:130px;
             margin-bottom:30px;
-            
+            float:left;
         }
         .page_num1 {
-        display: inline-block;
-        padding-left:70%;
+	        /* display: inline-block; */
+	        padding-left:70%;
         }
         
         .page_num1 a{
@@ -350,8 +370,8 @@
                     <input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type }"/>' >
                 </form> 
 		
-                  <!-- 모달 추가 -->
-<!--                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <!-- 구 모달  -->
+                <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -365,9 +385,23 @@
                         </div>
                     </div>
                 </div>  -->
+                
+                
+                <div id="myModal" class="w3-modal">
+				    <div class="w3-modal-content w3-animate-zoom w3-card-4">
+				    	<header class="w3-container" style="height:37px;"> 
+				        	<span onclick="document.getElementById('myModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+				      	</header>
+				      	<div class="w3-container contentBody" style="height:70px;">
+				        	<div class="modal-body" style="margin-top : 20px;"><p id="alert">처리가 완료되었습니다.</p></div>    
+				      	</div>
+				      	<footer class="w3-container">
+				          <input type='button' class="w3-button" id='reBtn'value='Close'>
+				      </footer>
+					</div>
+                </div>  
                 <!-- 모달 끝 -->
 
-                </div>  
                     <div class="select_state">
                         <button type="button" id="regBtn" value="remove" onclick="statAction(this.value);">삭제</button>
                         <button type="button" id="regBtn" value="dis" onclick="statAction(this.value)">진열</button>
@@ -406,13 +440,17 @@
             
             if(result.length > 0) {
                if(result != 'success') {
-                  $(".modal-body").html("상품 " + result + " 번이 등록되었습니다.");
+                  $("#alert").html("상품 " + result + " 번이 등록되었습니다.");
                }
             }
             
-            $("#myModal").modal("show");
+            document.getElementById('myModal').style.display='block';
          } 
          
+         // 모달 닫기
+         $("#reBtn").on("click",function(e) {
+         	document.getElementById('myModal').style.display='none';
+         });
          
          // 전체 선택
          $("#chkAll").click(function(){

@@ -351,25 +351,6 @@
          });
 
 
-/*          
-         prev.on().click(function(e){
-            e.preventDefault();
-            if(currentTab>=MIN){
-            currentTab -= 1;
-            joinForm.removeClass("active");
-            $(joinForm[currentTab]).addClass("active");
-            }
-         });
-         
-         next.on().click(function(e){
-            e.preventDefault();
-            if(currentTab<MAX){
-            currentTab += 1;
-            joinForm.removeClass("active");
-            $(joinForm[currentTab]).addClass("active");
-            }
-         });  */
-         
          
          emailAuthBtn.click(function(e){
             e.preventDefault();

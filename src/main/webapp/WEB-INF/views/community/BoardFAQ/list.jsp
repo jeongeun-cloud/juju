@@ -8,12 +8,13 @@
 
 <html lang ="en">
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title> 
 <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
 <meta name="viewport " content ="width =device-width, initial-scale =1.0 "> 
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title> FAQ </title>
  
 <style>
@@ -375,8 +376,9 @@ margin-right: 8%;
                         </table>
                 </div>
                 <!-- jaju_table -->
-                            <!-- modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+                
+                <!-- 구 modal -->
+                <!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header" style="border-bottom:none;">
@@ -390,9 +392,23 @@ margin-right: 8%;
                             <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>                      
                             </div>
                     
-                        </div><!--  modal-content -->
-                    </div><!--  modal dialog -->
-                </div><!-- modal 마지막 -->
+                        </div> modal-content
+                    </div> modal dialog
+                </div> -->
+                <!-- 구 modal 마지막 -->
+                <!-- 뉴 모달 -->
+			   	<div id="myModal" class="w3-modal" style="z-index:99; color:white;">
+				    <div class="w3-modal-content w3-animate-top w3-card-4" style="width:550px;">
+				      <header class="w3-container" style="background-color:#8FA691; height:39px;"> 
+				        <span onclick="document.getElementById('myModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+				      </header>
+				      <div class="w3-container modal-body" style="height:70px; font-size:20px; font-weight:600; text-align:center; top:20px; color:black;">처리가 완료되었습니다.</div>
+				      <footer class="w3-container" style="background-color:#8FA691;">
+				        <button onclick="document.getElementById('myModal').style.display='none'" class="w3-button" style="float:right;">Close</button>
+				      </footer>
+				    </div>
+				  </div>
+				</div>
 
                 <!-- Paging -->
                 <div class='page_num'>
@@ -459,7 +475,7 @@ margin-right: 8%;
                
             }
                
-            $("#myModal").modal("show");
+               $("#myModal").css("display", "block");
             
             
             }

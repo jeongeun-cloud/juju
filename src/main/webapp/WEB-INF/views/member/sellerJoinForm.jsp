@@ -406,8 +406,9 @@
             nextBtn.click(function(e){
                e.preventDefault();
                switch(currentTab){
+               /* 첫번째탭에서 다음 버튼을 눌렀을 때 */
                case MIN: 
-/*                   if (!(emailAccountCheck())) {
+                   if (!(emailAccountCheck())) {
                         return false;
                      } else if (duplicateCheckResult.val() == "false") {
                         alert("중복체크가 안됐습니다.");
@@ -416,12 +417,14 @@
                         alert("인증이 필요합니다.");
                         return false;
                      } else {
-                     } */
+                   	 /* 이전버튼 추가  */
                      prevBtn.css("display", "block");
+                   	 /* 첫번째 탭에서 받은 이메일 주소를 2단계 화면에 보여주기 */
                      emailTmp.val(emailAccount.val());
                       break;
+                     } 
                case 1:
-/*                    if (!(pwdCheck())) {
+                    if (!(pwdCheck())) {
                         return false;
                      } else if (!(pwdChk.val() === pwd.val())) {
                         alert("비밀번호확인은 비밀번호와 같아야 합니다.");
@@ -432,19 +435,25 @@
                      } else if (!(memAddrCheck())) {
                         return false;
                      } else {
-                     }    */
+                    /* 3단계로 넘어가면 다음버튼을 없애고 submit 버튼 추가  */
                      nextBtn.css("display", "none");
                      submitBtn.css("display", "block");
                      break;
+                     }    
                case MAX: 
                   return false;
                }
+               
+               /* next버튼을 누르면 현재 탭을 없애고 +1단계의 탭을 보여줌 */
                $(inputDiv[currentTab]).css("display", "none"); 
                currentTab++;
+               
+               /* progress bar에 색 넣기 */
                $(inputDiv[currentTab]).css("display", "block");
                   $(progress[currentTab]).addClass("active");
                   console.log(currentTab);
             });
+            
             
             prevBtn.click(function(e){
                e.preventDefault();

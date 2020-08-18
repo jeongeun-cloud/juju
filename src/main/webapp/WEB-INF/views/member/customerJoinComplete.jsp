@@ -68,7 +68,7 @@
 	}
 	#completeMemberInfoAll{
 		height: 400px;
-		margin-bottom: 30px;
+		margin-bottom: 200px;
 	
 	}
 </style>
