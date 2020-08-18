@@ -111,7 +111,8 @@
         
         .modi_btn{
             float: right;
-            margin-right: 52%;
+            margin-right: 340px;
+            margin-botton:30px;
         }
         /* 버튼 끝 */
         
@@ -182,7 +183,7 @@
                             <div class="container">
                             <tr>
                             <td>
-                               <small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br>
+                               <small style="opacity:0.75;">가격은 1,000원 ~ 1,000,000원 까지만 허용합니다.</small><br><br>
                                 <label for="price"><i class="fa fa-chevron-right"></i>판매가격</label> 
                             </td>
                             <td>    
@@ -229,7 +230,7 @@
                             <tr>
                               
                               <td>
-                               <small style="opacity:0.75;">특성을 선택하지 않으면 기본으로 설정 됩니다.</small><br>
+                               <small style="opacity:0.75;">특성을 선택하지 않으면 기본으로 설정 됩니다.</small><br><br>
                                <label><i class="fa fa-chevron-right"></i>상품 특성</label><br> 
                                </td>
                                 <input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>
@@ -246,7 +247,7 @@
                             <div class="container">
                             <tr>
                             <td>
-                            	<label><small style="opacity:0.75;">메인, 서브 이미지 규격 : 270*300</small></label><br>
+                            	<label><small style="opacity:0.75;">메인, 서브 이미지 규격 : 270*300</small></label><br><br>
                                 <label><i class="fa fa-chevron-right"></i>메인 이미지</label><br>                            
                                 <input type='file' id="itemImg1" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg1" value="<c:out value="${item.itemImg1}"/>">
@@ -259,7 +260,7 @@
                             <div class="container">
                             <tr>
                                 <td>
-                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label><br>
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label><br><br>
                                 <input type='file' id="itemImg2" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg2" value="<c:out value="${item.itemImg2}"/>">
                               	</td>
@@ -272,7 +273,7 @@
                             <div class="container">
                             <tr>
                                 <td>
-                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label><br>
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label><br><br>
                                 <input type='file' id="itemImg3" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg3" value="<c:out value="${item.itemImg3}"/>">
                                </td>
@@ -285,7 +286,7 @@
                             <div class="container">
                             <tr>
                                 <td>
-                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label><br>
+                                <label><i class="fa fa-chevron-right"></i>서브 이미지</label><br><br>
                                 <input type='file' id="itemImg4" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="itemImg4" value="<c:out value="${item.itemImg4}"/>">
                                 </td>
@@ -297,7 +298,7 @@
                             <div class="container">
                             <tr>
                             	<td>
-                                <label><i class="fa fa-chevron-right"></i>상품 상세 설명 이미지</label><br>
+                                <label><i class="fa fa-chevron-right"></i>상품 상세 설명 이미지</label><br><br>
                                 <input type='file' id="itemImg5" name="uploadFile" accept="image/gif, image/jpeg, image/png, image/jpg" />
                                 <input type='hidden' name="imgDetail" value="<c:out value="${item.imgDetail}"/>">
                                 </td>

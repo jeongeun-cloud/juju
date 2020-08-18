@@ -194,14 +194,7 @@
 	 color: #f6dd90;
 	}
 	
-	.paginations a:hover:not(.active) {
-	          background-color:#F0F2F0;
-	          border-radius: 50%;
-	
-	          
-	          }
-   
-   
+
    
     /*버튼 */
     .Dangol{
