@@ -2302,7 +2302,7 @@ $(document).ready(function(){
 	        });
 	    	document.getElementById('id01').style.display='block';
 		}
-    }, 3000);
+    }, 5000);
 </script>
 
    <%@include file="../includes/footer.jsp" %>
