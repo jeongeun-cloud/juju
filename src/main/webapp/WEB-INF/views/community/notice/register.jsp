@@ -64,7 +64,7 @@ tr:hover {
 
 .regi_content{
 	   width: 1300px;
-	   
+	   height:800px;
 	   margin:0 auto;
       
 	}
