@@ -51,6 +51,7 @@ li {
 
 .regi_main .title {
 	margin-left: 20px;
+	margin-bottom:30px;
 	}
 	.regi_main h3{
 	font-weight:500;
@@ -65,16 +66,10 @@ li {
    width: 950px;
    height: 600px;
    background-color: white;
+    margin-top:30px;
 } 
 
-.regi_main .regi_tit{
-   font-size: 30px;
-   margin-bottom:50px;
-   text-align: center;
-
-}
-
-        
+     
 .regi_wrap{
                  
    position: relative;
@@ -162,8 +157,9 @@ margin: auto;
 <div class="regi_main">
    
    <!-- regi_tit 시작 -->
-    <div class="regi_tit">
-       <p><b>1:1문의 등록하기</b></p>
+    <div class="title">
+       <h3>1:1문의 등록하기</h3>
+       <p>궁굼한 점을 물어보세요</p>
    </div>
    <!-- regi_tit 끝 -->
 

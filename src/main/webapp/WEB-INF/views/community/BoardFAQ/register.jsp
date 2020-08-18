@@ -10,7 +10,7 @@
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>Insert title here</title>
 <style>
-     body {
+ body {
    font-family: Arial, Helvetica, sans-serif;
    color: #303030;
 }
@@ -58,10 +58,11 @@ tr:hover {
 	   float:  right;
 	   width: 950px;	   
 	   background-color: white;
-}
+	}
 
 .regi_content{
 	   width: 1300px;
+	   height:1000px;
 	   margin:0 auto;
       
 	}

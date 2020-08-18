@@ -64,12 +64,12 @@ tr:hover {
 .regi_main{
    float:  right;
    width: 950px;
-   margin-bottom: 15%;
    background-color: white;
 } 
 
 .regi_content{
 	   width: 1300px;
+	   height:800px;
 	   margin:0 auto;
       
 	}

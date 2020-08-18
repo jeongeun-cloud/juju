@@ -194,6 +194,7 @@ tr:hover {
   height:1500px;
    background-color: white;
    margin: 0 auto;
+    margin-top:30px;
 } 
 
 .regi_main .regi_tit{

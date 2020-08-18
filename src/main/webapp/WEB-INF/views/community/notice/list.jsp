@@ -70,7 +70,7 @@ tr:hover {
 
 .regi_content{
 	   width: 1300px;
-	   height: 700px;
+	   height: 1000px;
 	   margin:0 auto;
       
 	}
@@ -309,8 +309,8 @@ margin-right: 8%;
    </div>
    <!-- regi_tit 끝 -->
 
-               <!-- 검색창 form-->
-           <div class='row'>
+      <!-- 검색창 form-->
+      <div class='row'>
       <div class="col-lg-12">
       
       <form id='searchForm' action="/community/notice/list" method='get'>
@@ -411,13 +411,13 @@ margin-right: 8%;
       
    
       
-</div>
-<!-- regi_main 끝 -->      
+	</div>
+	<!-- regi_main 끝 -->      
       
       
       
-      
-      
+ </div>     
+  <!--regi_wrap끝  -->
       
       
       

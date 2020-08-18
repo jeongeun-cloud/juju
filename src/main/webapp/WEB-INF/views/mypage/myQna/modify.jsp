@@ -63,6 +63,7 @@ tr:hover {
 	   float:  right;
 	   width: 950px;	   
 	   background-color: white;
+	    margin-top:30px;
 }
 
 .regi_content{
@@ -211,7 +212,7 @@ tr:hover {
  <div class="mainContent">
  		         <div class="title">
                    <h3>1:1 문의</h3>
-              	     <p>문의사항 수정</p>
+              	     <p>문의사항 수정 해주세요.</p>
        
                 </div>
            

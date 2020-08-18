@@ -62,14 +62,16 @@ tr:hover {
 	     margin-top:25px;
 	}
 	
-	.regi_main{
+.regi_main{
 	   float:  right;
 	   width: 950px;	   
 	   background-color: white;
+	   margin-top:30px;
 }
 
 .regi_content{
 	   width: 1300px;
+	   height:800px;
 	   margin:0 auto;
       
 	}
@@ -275,8 +277,8 @@ a {
 	<div class="regi_main">
 		<div class="mainContent">
 	      	<div class="title">
-	            <h3>나의 정보</h3>
-	            <p>비밀번호 수정</p>
+	            <h3>회원 탈퇴</h3>
+	            <p>탈퇴 이유를 작성해 주세요</p>
 	   		</div>
    </div>
 	<form action="/mypage/memberDelete" id="memberDelete" method="post">
