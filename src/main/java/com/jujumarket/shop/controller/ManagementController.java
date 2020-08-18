@@ -57,7 +57,7 @@ public class ManagementController {
 		   cri.setDate1(date1);
 		   cri.setDate2(date2);
 		   cri.setOrderStat(orderStat);
-		   cri.setAmount(30);
+		   cri.setAmount(20);
 		   
 		   MemberVO vo = (MemberVO) session.getAttribute("sessionMember");
 		   String memidNo = vo == null ? "" : vo.getIdNo().trim();
@@ -65,7 +65,10 @@ public class ManagementController {
 		   
 		   int total = service.getTotal(cri);
 		   
-		   System.out.println(cri.getIdNo());
+		   // System.out.println(cri.getIdNo());
+		   System.out.println(total);
+		   
+		   System.out.println(new ItemPageDTO(cri, total));
 
 		   model.addAttribute("pageMaker", new ItemPageDTO(cri, total));
 		   model.addAttribute("list", service.searcheckAll(cri));

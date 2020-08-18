@@ -171,6 +171,7 @@
 <body>
 
 <div class="container">
+<%@include file="./idCheck.jsp" %>
  <%@include file="./shopSideBar.jsp" %>		
  		
  		<div class="mainArea">
@@ -353,17 +354,15 @@ $(document).ready(function(){
       //페이징처리
       $(".paginate_button1 a").on("click", function(e) {
      
-    	 e.preventDefault();
-   	  var actionForm = $("#actionForm");
+    	e.preventDefault();
+   	  	var actionForm = $("#actionForm");
    	  
-   	var orderStat = $("#orderStat").val();
-   	
-
+   		var orderStat = $("#orderStat").val();
          
-         
-        var ac =  actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-         console.log(ac);
-         actionForm.submit();
+		var ac =  actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+        console.log(ac);
+        actionForm.submit();
+        
       });
       
       //검색부분
