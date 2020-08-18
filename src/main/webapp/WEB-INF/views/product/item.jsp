@@ -1209,15 +1209,20 @@ $(document).ready(function(){
             
            var replyDepth = list[i].replyDepth;
            var replyCount = list[i].replyCount;
-     
-           
+ 
+           // 아이디 별 찍기~
+           var tmp = '';
+           for(z=0; z<list[i].emailAccount.substr(3).length; z++) {
+              tmp += '*';
+           }
+           var userId = list[i].emailAccount.substr(0,3).concat(tmp);
             
 
                  if(replyDepth==0){
                 	 str += "<ul><li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
                 	 str += "<div class='header'><input type='hidden' class='primary-font' value='"+list[i].idNo+"'>";
                      
-                     str += "<div class='emaile'><strong class='primary-font'>"+list[i].emailAccount+"</strong>";
+                     str += "<div class='emaile'><strong class='primary-font'>"+userId+"</strong>";
                      str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
                      str += "<div><pre style='background-color: white; border: none;' class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
                      str += "<div id='reDiv"+i+"'><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
@@ -1307,10 +1312,10 @@ $(document).ready(function(){
                     return false;
                       
                }
-               console.log("#idNoBtn");
+              /*  console.log("#idNoBtn");
              console.log("#replyContentBtn");
              console.log("#replyDepth");
-             console.log("여기야야양ㄻㅇㄴㄹㅇㄴㄻㄴㄹㅇㄴ");
+             console.log("여기야야양ㄻㅇㄴㄹㅇㄴㄻㄴㄹㅇㄴ"); */
              
       
                prdreplyService.add(
@@ -1326,7 +1331,7 @@ $(document).ready(function(){
                             
                 
                     var replyContent = $(".replyContent").val();
-                    console.log(replyContent);
+                    /* console.log(replyContent); */
                 alert("댓글이 등록되었습니다.");
                  $("#replyContentBtn").val("");
                    showList(pageNum);
