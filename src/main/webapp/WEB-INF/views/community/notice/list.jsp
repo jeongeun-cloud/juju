@@ -6,15 +6,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> 
  <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">  메뉴바 겹침--> 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
 <title>notice</title>
-<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 정체모를 import -->
-<script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 정체모를 import -->
+<!-- <script src="/resources/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style>
  body {
@@ -376,26 +378,26 @@ margin-right: 8%;
          
                <!-- Paging -->   
            <div class='page_num'>
-                            <ul class="paginations">
-                                <c:if test="${pageMaker.prev}">
-                                    <li class="paginate_button1 pervious">
-                                        <a href="${pageMaker.startPage -1}">&laquo;</a>
-                                    </li>
-                                </c:if>
-        
-                                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                                    <li class='paginate_button1 ${pageMaker.cri.pageNum == num ? " active" : "" } '>
-                                          <a href="${num}">${num}</a></li>
-                                
-                                </c:forEach>
-        
-                                <c:if test="${pageMaker.next}">
-                                     <li class="paginate_button1 next">
-                                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
-                                    </li>
-                                </c:if>
-                            </ul> 
-                        </div>
+                 <ul class="paginations">
+                     <c:if test="${pageMaker.prev}">
+                         <li class="paginate_button1 pervious">
+                             <a href="${pageMaker.startPage -1}">&laquo;</a>
+                         </li>
+                     </c:if>
+
+                     <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                         <li class='paginate_button1 ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                               <a href="${num}">${num}</a></li>
+                     
+                     </c:forEach>
+
+                     <c:if test="${pageMaker.next}">
+                          <li class="paginate_button1 next">
+                             <a href="${pageMaker.endPage +1 }">&raquo;</a>
+                         </li>
+                     </c:if>
+                 </ul> 
+             </div>
          
          
          
@@ -403,8 +405,8 @@ margin-right: 8%;
          <form id='actionForm' action="/community/notice/list" method='get'>
             <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
             <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
-             <input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
-                <input type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+            <input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
+            <input type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
          </form>
 
       
@@ -425,26 +427,38 @@ margin-right: 8%;
 <!-- regi_content 끝 -->
       
          
-<!-- modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
-   <div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header" style="border-bottom:none;">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-    </div>
-    <div class="modal-body">처리가 완료되었습니다.</div>
-    <div class="modal-footer"  style="border-top:none;">
-    <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-  
-    </div>
+		<!-- 구 modal -->
+		<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+		   <div class="modal-dialog">
+		    <div class="modal-content">
+		    <div class="modal-header" style="border-bottom:none;">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+		    </div>
+		    <div class="modal-body">처리가 완료되었습니다.</div>
+		    <div class="modal-footer"  style="border-top:none;">
+		    <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  
+		    </div>
+		
+		  </div> modal-content
+		   </div> modal dialog
+		</div>
+		구 modal 마지막    -->
 
-  </div><!--  modal-content -->
-   </div><!--  modal dialog -->
-</div><!-- modal 마지막 -->   
-
-      
-      
+	   <!-- 뉴 모달 -->
+	   <div id="myModal" class="w3-modal" style="z-index:99; color:white;">
+		    <div class="w3-modal-content w3-animate-top w3-card-4" style="width:550px;">
+		      <header class="w3-container" style="background-color:#8FA691; height:39px;"> 
+		        <span onclick="document.getElementById('myModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+		      </header>
+		      <div class="w3-container modal-body" style="height:70px; font-size:20px; font-weight:600; text-align:center; top:20px; color:black;">처리가 완료되었습니다.</div>
+		      <footer class="w3-container" style="background-color:#8FA691;">
+		        <button onclick="document.getElementById('myModal').style.display='none'" class="w3-button" style="float:right;">Close</button>
+		      </footer>
+		    </div>
+		  </div>
+		</div>
       
       
 
@@ -466,19 +480,13 @@ margin-right: 8%;
                      }
 
                      if (parseInt(result) > 0) {
-
-                        
-                        $(".modal-body").html(
-                              "게시글" + parseInt(result)
-                                    + "번이 등록되었습니다.");
-
+                        $(".modal-body").html("게시글" + parseInt(result)+ "번이 등록되었습니다.");
                      }
-                     $("#myModal").modal("show");
+                     $("#myModal").css("display", "block");
 
                   }
 
                   $("#regBtn").on("click", function() {
-
                      self.location = "/community/notice/register"
                   });
                   

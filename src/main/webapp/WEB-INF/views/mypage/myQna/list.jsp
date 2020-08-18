@@ -273,60 +273,58 @@ margin-right: 8%;
 <body>
 
 <div class="regi_content">
- <div class="regi_wrap">
-     <div class="1nb_list">
-     
-<!-- side 시작 -->
-	<div class="side">
-<%@include file="../../includes/mypage_sidebar.jsp" %>
-   </div>
-<!-- side 끝-->        
-     </div>
-     <!-- 1nb_list -->
-  </div>
-<!-- side 끝-->
+	<div class="regi_wrap">
+    	<div class="1nb_list">
+			<!-- side 시작 -->
+			<div class="side">
+				<%@include file="../../includes/mypage_sidebar.jsp" %>
+	   		</div>
+			<!-- side 끝-->        
+     	</div>
+     	<!-- 1nb_list -->
+  	</div>
+	<!-- regi_wrap 끝-->
        
-<!-- regi_main 시작 -->      
-<div class="regi_main">
+	<!-- regi_main 시작 -->      
+	<div class="regi_main">
 		<div class="mainContent">
 	      	<div class="title">
 	            <h3>1:1 문의</h3>
 	            <p>문의 목록</p>
 	   		</div>
-   </div>
-   <!-- regi_tit 끝 -->
+	   </div>
+	   <!-- mainContent 끝 -->
           
 
-               <!-- 검색창 form-->
-           <div class='row'>
-      <div class="col-lg-12">
+      	<!-- 검색창 form-->
+		<div class='row'>
+	      <div class="col-lg-12">
+	      
+	      	<form id='searchForm' action="/mypage/myQna/list" method='get'>
+		      <select id='selected' name='type' id='selected'>
+			      <option value=""
+			      <c:out value="${pageMaker.cri.type ==null?'selected':''}"/>>--</option>
+			      <option value="T"
+			      <c:out value="${pageMaker.cri.type eq 'T'?'selected':''}"/>>제목</option>
+			      <option value="C"
+			      <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>
+			      <option value="TC"
+			      <c:out value="${pageMaker.cri.type eq 'TC'?'selected':''}"/>>제목 or 내용</option>
+		      </select>
+	      
+		      <input id='keyword'   type='text' name='keyword' id="keyword" value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+		      <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
+		      <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
+		
+		      <button id="searchBtn" class ='btn btn-default'>검색</button>
       
-      <form id='searchForm' action="/mypage/myQna/list" method='get'>
-      <select id='selected' name='type' id='selected'>
-      <option value=""
-      <c:out value="${pageMaker.cri.type ==null?'selected':''}"/>>--</option>
-      <option value="T"
-      <c:out value="${pageMaker.cri.type eq 'T'?'selected':''}"/>>제목</option>
-      <option value="C"
-      <c:out value="${pageMaker.cri.type eq 'C'?'selected':''}"/>>내용</option>
-      <option value="TC"
-      <c:out value="${pageMaker.cri.type eq 'TC'?'selected':''}"/>>제목 or 내용</option>
- 
-      
-      </select>
-      
-      <input id='keyword'   type='text' name='keyword' id="keyword" value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-      <input type="hidden"  name ='pageNum' value='${pageMaker.cri.pageNum}'>
-      <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
-
-       <button id="searchBtn" class ='btn btn-default'>검색</button>
-      
-      </form>
-      </div>
-      </div><!-- 검색창마지막 -->
+			</form>
+      	  </div>
+		</div>
+		<!-- 검색창마지막 -->
          
-             <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>  
-         <table tit aria-setsize="500px">
+        <button id='regBtn' type="button" class="btn btn-xs pull-right">글쓰기</button>  
+        <table tit aria-setsize="500px">
             <thead>
                <tr>
                   <th>번호</th>    
@@ -356,31 +354,32 @@ margin-right: 8%;
             </c:forEach>
             </tbody>
 
-         </table>
+		</table>
               
-      <!-- Paging -->
-       <div class='page_num'>
-                            <ul class="paginations">
-                                <c:if test="${pageMaker.prev}">
-                                    <li class="paginate_button previous">
-                                        <a href="${pageMaker.startPage -1}">&laquo;</a>
-                                    </li>
-                                </c:if>
+      	<!-- Paging -->
+       	<div class='page_num'>
+        	<ul class="paginations">
+	            <c:if test="${pageMaker.prev}">
+	                <li class="paginate_button previous">
+	                    <a href="${pageMaker.startPage -1}">&laquo;</a>
+	                </li>
+	            </c:if>
         
-                                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                                    <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
-                                          <a class="paging" href="/mypage/myQna/list/page/${num}">${num}</a></li>
-                                
-                                </c:forEach>
+                <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+                    <li class='paginate_button ${pageMaker.cri.pageNum == num ? " active" : "" } '>
+                          <a class="paging" href="/mypage/myQna/list/page/${num}">${num}</a></li>
+                
+                </c:forEach>
         
-                                <c:if test="${pageMaker.next}">
-                                    <li class="paginate_button next">
-                                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
-                                    </li>
-                                </c:if>
-                            </ul> 
+                <c:if test="${pageMaker.next}">
+                    <li class="paginate_button next">
+                        <a href="${pageMaker.endPage +1 }">&raquo;</a>
+                    </li>
+                </c:if>
+         	</ul> 
          </div>
-                        <!-- end pagination -->
+         <!-- end pagination -->
+         
          <input type="hidden" id="total" value="${total}">
          <!-- paging form
          <form id='actionForm' action="/mypage/myQna/list" method='get'>
@@ -388,15 +387,25 @@ margin-right: 8%;
              <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
          </form> paging form end-->     
 
-      </div>
-      <!-- p2-->
+	</div>
+    <!-- regi_main 시작 --> 
               
 </div>
-<!-- regi_main 끝 -->        
+<!-- regi_content 끝 -->        
       
-</div>
-<!-- regi_content 끝 -->
-      
+	<!-- 뉴 모달 -->
+   	<div id="myModal" class="w3-modal" style="z-index:99; color:white;">
+	    <div class="w3-modal-content w3-animate-top w3-card-4" style="width:550px;">
+	      <header class="w3-container" style="background-color:#8FA691; height:39px;"> 
+	        <span onclick="document.getElementById('myModal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+	      </header>
+	      <div class="w3-container modal-body" style="height:70px; font-size:20px; font-weight:600; text-align:center; top:20px; color:black;">처리가 완료되었습니다.</div>
+	      <footer class="w3-container" style="background-color:#8FA691;">
+	        <button onclick="document.getElementById('myModal').style.display='none'" class="w3-button" style="float:right;">Close</button>
+	      </footer>
+	    </div>
+	</div>
+
       
 <script type="text/javascript">
         var actionForm = $("#actionForm");
@@ -474,7 +483,7 @@ margin-right: 8%;
                      if (parseInt(result) > 0) {
                         $(".modal-body").html( "게시글" + parseInt(result) + "번이 등록되었습니다.");
                      }
-                     $("#myModal").modal("show");
+                     $("#myModal").css("display", "block");
                   }
 
                   $("#regBtn").on("click", function() {

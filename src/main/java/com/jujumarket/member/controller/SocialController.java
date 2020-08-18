@@ -59,7 +59,7 @@ public class SocialController {
 	    final List<NameValuePair> postParams = new ArrayList<NameValuePair>();
 	    postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
 	    postParams.add(new BasicNameValuePair("client_id", "01b574850137dfee5c295348e0be136f"));    // REST API KEY
-	    postParams.add(new BasicNameValuePair("redirect_uri", "http://52.79.223.40:8080/member/kakaoLogin"));    // 리다이렉트 URI
+	    postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost/member/kakaoLogin"));    // 리다이렉트 URI
 	    postParams.add(new BasicNameValuePair("code", autorize_code));    // 로그인 과정중 얻은 code 값
 
 	    final HttpClient client = HttpClientBuilder.create().build();
@@ -99,7 +99,7 @@ public class SocialController {
 		final String RequestUrl = "https://kapi.kakao.com/v2/user/me";
 
 		String CLIENT_ID = "01b574850137dfee5c295348e0be136f"; // REST API KEY
-		String REDIRECT_URI = "http://52.79.223.40:8080/member/kakaoLogin"; // 리다이렉트 URI
+		String REDIRECT_URI = "http://localhost/member/kakaoLogin"; // 리다이렉트 URI
 		String code = autorize_code; // 로그인 과정중 얻은 토큰 값
 
 		final HttpClient client = HttpClientBuilder.create().build();

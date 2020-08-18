@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -90,15 +91,21 @@ public class RegisterItemContoller {
    public void imgSave(RegisterItemVO register, MultipartFile[] uploadFile, boolean isModify) {
 
          Boolean flag = true;
+         
+//         String uploadFolder = request.getSession().getServletContext().getRealPath("/resources/upload");
          String uploadFolder = servletContext.getRealPath("/resources/upload");
+         
          // 폴더 생성
-         File uploadPath = new File(uploadFolder, register.getIdNo());
-         log.info("upload path : " + uploadPath);
+         log.info("upload path : " + uploadFolder);
+         
+         String uploadFolderPath = File.separator + register.getIdNo();
+         File uploadPath = new File(uploadFolder, uploadFolderPath);
+         System.out.println(uploadPath + " 업로드 경로");
          
          if(uploadPath.exists() == false) {
             uploadPath.mkdir();      // 각 상점마다 자신의 폴더를 가짐
          }
-
+         
          int i = 0;
          for(MultipartFile multi : uploadFile) {
             

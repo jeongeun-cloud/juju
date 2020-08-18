@@ -7,7 +7,7 @@
                     <div class="avatarName">Welcome,<br>Seller</div>
                 </div>
                 <ul class="sideMenu">
-                    <li><a href="#">MENU</a></li>
+                    <li><a href="/shop/">MENU</a></li>
                     <li><a href="javascript:void(0)" class="has-submenu"><span class="fa fa-list"></span>상품 관리</a>
                         <ul class="submenu">
                             <li><a href="/shop/register"><span class="fa fa-tags"></span>상품 등록</a></li>
