@@ -60,11 +60,10 @@
     	color:black;
     }
     .quick_a{
-    	height:50px;
-    	width:80px;
+    	height:50px;    	
     	display:inline-block;    	
     	margin-top:50px;
-    	margin-left:60px;
+    	margin-left:50px;
     	color:black;
     }
     .admin_b {

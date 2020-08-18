@@ -251,6 +251,7 @@
 	}
 
 
+
 /* 아이템 상세페이지 css 끝 */ 
 
 
@@ -747,7 +748,7 @@ input[type=range] {
               <ul>
                 <li class="nav-item" style="font-size:20px; ">
                    <a class='move'>
-                      <c:out value="${shopName}"/>
+                      <span style="cursor:pointer"><c:out value="${shopName}"/></span>
                    </a>
                 </li>
               </ul>

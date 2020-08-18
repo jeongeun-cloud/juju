@@ -184,6 +184,7 @@
         var options = {
           hAxis: {
             title: 'day'
+            gridlines:{count: 1}
           },
           vAxis: {
             title: 'member'
