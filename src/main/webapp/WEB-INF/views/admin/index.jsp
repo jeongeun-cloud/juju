@@ -16,9 +16,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.1.0/nouislider.js"></script>
     <style>
     .quick{
-	display:inline-block;
+	
 	height:150px;
-	width:100%;
+	width:1300px;
+	margin: 0 auto;
 	}
     .quick_box{
   	    background-color:white;    	
@@ -44,11 +45,10 @@
     	color:black;
     }
     .quick_a{
-    	height:50px;
-    	width:80px;
+    	height:50px;    	
     	display:inline-block;    	
     	margin-top:50px;
-    	margin-left:60px;
+    	margin-left:50px;
     	color:black;
     }
     .aa{

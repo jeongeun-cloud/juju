@@ -8,7 +8,8 @@
 <head>
 <script src="http://code.jquery.com/jquery-1.12.1.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<title>Shop</title>
 <style>
    .store_content{
        width: 1300px;
@@ -152,11 +153,9 @@
  
     #shop {
         height: 30px;
-
         border-width: thin;
-        width: 270px;
-        margin-top: 100px;
-        margin-left: 358px;
+       	width:1000px;
+        margin-top: 100px;      
         text-align : center;
        
      
@@ -166,42 +165,36 @@
         list-style: none;
         float: left;
     }
+    /* 페이지 처리 */
     .page_num {
        display: inline-block;
        padding-left:70%;
     }
 
-.pageBtns {
-   text-align: center;
-   margin-right: 8%;
-}
+	.pageBtns {
+	   text-align: center;
+	   margin-right: 8%;
+	}
+	
+	.page_num a{
+	    position:relative;
+	    color: #637365;
+	    float: left;
+	    top:150px;
+	    text-decoration: none;
+	    padding:15px 25px;
+	    
+	   
+	}
+	
+	          
+	.paging{
+	    
+	 background-color: white;
+	 color: #f6dd90;
+	}
+	
 
-.page_num a{
-    position:relative;
-    color: #637365;
-    float: left;
-    top:150px;
-    text-decoration: none;
-    padding:15px 25px;
-    
-   
-}
-
-          
-.paging{
-    
- background-color: white;
- color: #f6dd90;
-}
-
-.paginations a:hover:not(.active) {
-          background-color:#F0F2F0;
-          border-radius: 50%;
-
-          
-          }
-   
-   
    
     /*버튼 */
     .Dangol{
@@ -224,12 +217,14 @@
     }
     
     #shopName{
-    width: 500px;
-    text-align: left;
-    font-size:38px;
+    width: 100%;
     
     }
-    
+    #shops{
+    font-size:30px;
+    padding:30px;
+    font-weight:700;
+    }
     #dangol_content{
     border-bottom: 30px;
     }
@@ -248,8 +243,8 @@
         background-color:white;
         display:inline;
         position:relative; 
-        left:215px;
-        bottom:50px;
+        left:213px;
+        bottom:53px;
      
        
         }
@@ -313,9 +308,10 @@
                  <img src='/resources/seller/<c:out value="${seller.businessCode}"/>/<c:out value="${seller.thumbImg}"/>' onError="">
               </div> 
            </div>
-          <div id="backImgdefualt"></div>
+           
+        	  <div id="backImgdefualt"></div>
           <div id="shop">
- 	 	  <p id='shopName'><c:out value="${seller.shopName}"/></p>
+ 	 	  <p id='shopName'><i class="fa fa-quote-left " aria-hidden="true"></i><span id="shops"><c:out value="${seller.shopName}"/></span><i class="fa fa-quote-right " aria-hidden="true"></i></p>
              
              <!--단골 되기 버튼  -->
              <div id='dangol_content'>
@@ -323,10 +319,9 @@
                 <input type="button" value="<c:out value="${checkDangol}"/>" id="Dangol" class="Dangol" onclick="dangol();"></input>
                 </c:if>
                 <c:if test="${memidNo eq '' }">
-                로그인 하시면 단골 등록 하실 수 있습니다.
+            		  <h5 style="color: #b9b9b9;">  로그인 하시면 단골 등록 하실 수 있습니다. </h5>
                 </c:if>
-                 <p>단골 수 : <c:out value="${totalDangol }"/></p>
-             </div>
+               </div>
           </div>
       
           <div id="itemContainer">

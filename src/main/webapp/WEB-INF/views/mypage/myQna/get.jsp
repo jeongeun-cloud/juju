@@ -189,15 +189,21 @@ tr:hover {
 		color: #b9b9b9;
 	}
 
-.regi_main{
+	.regi_main{
+	
+	    height:1000px;
+	}
+	
+	#replytitle{
+	       margin-left: 20px;
+	
+	}
 
-    height:1000px;
-}
-
-#replytitle{
-       margin-left: 20px;
-
-}
+	.content {
+    	resize : none;
+    	background-color : white !important;
+    	cursor : unset !important;
+    }
 
 </style>
 
@@ -241,14 +247,14 @@ tr:hover {
                    <form id = "actionForm" role="form" method="post">
 
                <div class="from-group">
-                  <label>제목</label><input class="form-control" name='title'
+                  <label>제목</label><input class="form-control content" name='title'
                      value='<c:out value="${BoardQNA.title}"/>'
                   readonly="readonly">
                </div>
 
             <div class="from-group">
                   <label>내용</label>
-                  <textarea  style='resize:none' class="form-control" rows="10" name='content'
+                  <textarea class="form-control content" rows="10" name='content'
                   readonly="readonly"><c:out value="${BoardQNA.content}"/></textarea>
             </div>
      
