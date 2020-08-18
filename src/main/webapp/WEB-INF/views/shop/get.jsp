@@ -94,7 +94,8 @@
          }
          .getBtn{
             float: right;
-            margin-right:758px;
+            margin-right:400px;
+            margin-bottom:30px;
               
          }
          
@@ -204,7 +205,7 @@
                                 <div class="container">
                                     <tr>
                                     <td>
-                                    <small style="opacity:0.75;">특성이 선택되어 있지 않으면 기본입니다.</small><br>
+                                    <small style="opacity:0.75;">특성이 선택되어 있지 않으면 기본입니다.</small><br><br>
                                     <label>상품 특성</label><br>
                                     </td>
                                     <input type="hidden" id="chkValue" value='<c:out value="${item.itemChr}"/>'>

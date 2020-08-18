@@ -586,12 +586,12 @@
                                              <!-- END tit_info -->
                                              <div class="price_info">
                                                      <p class="sale">
-                                                         <span class="price"><c:out value="${board.price}" />
+                                                         <span class="price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${board.price}" />
                                                              <span class="won">원</span>
                                                          </span>
                                                      </p>
                                                      <p class="normPrice">
-                                                       <c:out value="${board.normPrice}" />
+                                                       <fmt:formatNumber type="number" maxFractionDigits="3" value="${board.normPrice}" />
                                                        <span class="won">원</span>
                                                      </p>
                                              </div>
