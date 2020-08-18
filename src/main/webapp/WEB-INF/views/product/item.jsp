@@ -2300,13 +2300,13 @@ $(document).ready(function(){
                    });
                    
                    $(".pro_list_ul").html(str);
+			    	document.getElementById('id01').style.display='block';
 	               
 	            },error : function(er){
-	               alert("통신 오류입니다. 잠시 후 다시 시도해주세요.");
+	               //alert("통신 오류입니다. 잠시 후 다시 시도해주세요.");
 	               error(er);
 	            }
 	        });
-	    	document.getElementById('id01').style.display='block';
 		}
     }, 3000);
 </script>
