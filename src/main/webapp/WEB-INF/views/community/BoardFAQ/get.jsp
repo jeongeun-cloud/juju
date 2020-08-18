@@ -208,7 +208,11 @@ margin-right: 8%;
      height: 700px;
     }
 
-  
+  	.content {
+    	resize : none;
+    	background-color : white !important;
+    	cursor : unset !important;
+    }
 
         
 </style>
@@ -245,14 +249,14 @@ margin-right: 8%;
                             <form id = "actionForm" method="post">
 
                                     <div class="from-group">
-                                        <label>제목</label><input class="form-control" name='title'
+                                        <label>제목</label><input class="form-control content" name='title'
                                             value='<c:out value="${BoardFAQ.title}"/>'
                                         readonly="readonly">
                                     </div>
 
                                     <div class="from-group">
                                         <label>내용</label>
-                                        <textarea class="form-control" rows="10" name='content'
+                                        <textarea class="form-control content" rows="10" name='content'
                                         readonly="readonly"><c:out value="${BoardFAQ.content}"/></textarea>
                                     </div>
                                     <div class="from-group">
