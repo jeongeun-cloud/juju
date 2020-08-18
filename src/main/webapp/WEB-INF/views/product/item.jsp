@@ -2308,7 +2308,7 @@ $(document).ready(function(){
 	            }
 	        });
 		}
-    }, 3000);
+    }, 5000);
 </script>
 
    <%@include file="../includes/footer.jsp" %>
