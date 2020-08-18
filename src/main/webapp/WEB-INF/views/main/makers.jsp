@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>JUJUMARKET</title>
     <style>
 @import url(https://fonts.googleapis.com/css?family=Crafty+Girls);
 
@@ -23,7 +23,7 @@ h1 {
 .cont{
    
     position: relative;
-    width: 1500px;
+    width: 100%;
 
 }
 .a{
