@@ -38,6 +38,7 @@ li {
 	
 .regi_content{
 	   width: 1300px;
+	   height:1000px;
 	   margin:0 auto;
       
 	}
@@ -63,7 +64,7 @@ li {
    width: 950px;
    height: 1000px;
    background-color: white;
-    margin-top:30px;
+   margin-top:30px;
 } 
 
 .regi_main .regi_tit{

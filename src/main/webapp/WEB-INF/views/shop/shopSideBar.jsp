@@ -22,9 +22,10 @@
                             <li><a href="/shop/searchorder"><span class="fa fa-tags"></span>전체 주문 조회</a></li>
                         </ul>
                     </li>
-					<li><a href="javascript:void(0)" class="has-submenu"><span class="fa fa-list"></span>단골 관리</a>
+					<li><a href="javascript:void(0)" class="has-submenu"><span class="fa fa-list"></span>상점 관리</a>
                         <ul class="submenu">
                             <li><a href="/shop/dangol"><span class="fa fa-tags"></span>단골 리스트</a></li>
+                            <li><a href="/product/store?idNo=<c:out value='${sessionMember.idNo }'/>"><span class="fa fa-tags"></span>나의 상점 바로가기</a></li>
                         </ul>
                     </li>
 

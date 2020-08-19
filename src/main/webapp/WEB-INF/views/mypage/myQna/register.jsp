@@ -38,7 +38,7 @@ li {
 	
 .regi_content{
    width: 1300px;
-   height: 600px;
+   height: 800px;
    margin:0 auto;
 }
 
