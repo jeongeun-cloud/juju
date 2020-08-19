@@ -114,7 +114,7 @@
         
         <!-- 첫번 째 중간광고 -->
         <div class="adImg" style="max-width:100%; margin : 20px 0 200px 0;">
-        	<img id="ad_img_1" src="/resources/banner/advertise/ad1.jpg" >
+        	<img id="ad_img_1" src="" >
         </div>
         
         <!-- 리뷰 -->
@@ -144,7 +144,7 @@
 
     <!-- 두번 째 중간광고 -->
 	<div class="adImg" style="max-width:100%; margin : 200px 0 20px 0;">
-      	<img id="ad_img_2" src="/resources/banner/advertise/ad2.jpg" >
+      	<img id="ad_img_2" src="" >
     </div>
     
     <!-- 주주봇 -->
@@ -234,7 +234,7 @@
         }
 
         /* 중간 광고 */
-        /* var advertise = new Array();
+        var advertise = new Array();
         
         <c:forEach items = "${advertise}" var="ad">
         	var json = new Object();
@@ -253,7 +253,7 @@
 	        var url2 = str + advertise[1].imgPath + "/" + advertise[1].uuid + "_" + advertise[1].imgName;
 	        $("#ad_img_1").attr("src", url1);
 	        $("#ad_img_2").attr("src", url2);
-        } */
+        }
         /* 중간 광고 끝 */
 
    </script>
