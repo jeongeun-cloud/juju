@@ -161,7 +161,7 @@
 		       	<div class="quick_box">	
 		            <div class="quick_wrap">
 		                 <i class="fa fa-user-plus fa-4x" aria-hidden="true"></i>
-		                 <div class="quick_l"><label class="aa" >가입 회원 수</label></div>
+		                 <div class="quick_l"><label class="aa" >Today 가입 회원 수</label></div>
 		                 <div class="quick_a"> <label class="aaa"> <fmt:formatNumber type="number" maxFractionDigits="3" value="${iTodayT}" /> 명</label></div>
 		            </div>
 		       </div> 
@@ -169,7 +169,7 @@
 		       	<div class="quick_box">	
 		            <div class="quick_wrap">
 		                 <i class="fa fa-user-times fa-4x" aria-hidden="true"></i>
-		                 <div class="quick_l"><label class="aa" >탈퇴 회원 수</label></div>
+		                 <div class="quick_l"><label class="aa" >Today 탈퇴 회원 수</label></div>
 		                 <div class="quick_a"> <label class="aaa">  <fmt:formatNumber type="number" maxFractionDigits="3" value="${iTodayWithdrawT}" /> 명</label></div>
 		            </div>
 		       </div> 
@@ -177,7 +177,7 @@
 		       <div class="quick_box">	
 			       <div class="quick_wrap">
 						     <i class="fa fa-file-text fa-4x" aria-hidden="true"></i>
-						     <div class="quick_l"><label class="aa" >고객 문의</label></div>
+						     <div class="quick_l"><label class="aa" >Today 고객 문의</label></div>
 						     <div class="quick_a"><label class="aaa"><fmt:formatNumber type="number" maxFractionDigits="3" value="${cNum}" />건</label></div>
 			       		</div>
 		       	</div>
@@ -185,7 +185,7 @@
 		       	<div class="quick_box">	
 			       	 <div class="quick_wrap">
 						     <i class="fa fa-file-text-o fa-4x" aria-hidden="true"></i>
-						     <div class="quick_l"><label class="aa" >상인 문의</label></div>
+						     <div class="quick_l"><label class="aa" >Today 상인 문의</label></div>
 						     <div class="quick_a"><label class="aaa"><fmt:formatNumber type="number" maxFractionDigits="3" value="${sNum}" />건</label></div>
 			       		</div>
 		       	</div>

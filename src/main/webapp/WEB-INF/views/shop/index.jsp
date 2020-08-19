@@ -153,6 +153,7 @@
     /* 막대그래프 */
     .bar{
     margin: 40px 0 0 30px;
+    width:600px;
     }
     .bar-graph-container {
 	  border-left: 2px solid gray;
@@ -163,7 +164,7 @@
 	}
 	
 	.bar-graph-container p {
-	  padding: 20px;
+	  padding: 10px;
 	  color: #fff;
 	  font-weight:900;
 	}
@@ -286,8 +287,16 @@
 		            </div>
 		       </div> 
 		    </div>    
-	
-				         	<!--막대 그래프  -->	    
+						<h2 style="margin:100px 0 0 50px;">|총 판매율</h2>
+			      		      <div id="donutchart" style="width: 1500px; height: 600px;"></div>
+				    
+		    
+		    	<div class="gg">
+		    		<div class="s_graph">
+		    		
+
+			      		     
+			      <!--막대 그래프  -->	    
 				 <div class="bar">
 			   
 			    <h2>|실시간 판매 순위</h2><br><br>
@@ -329,18 +338,12 @@
 			   
 			  
 			  </div>
-			  <!--막대 그래프  -->
-		    
-		    	<div class="gg">
-		    		<div class="s_graph">
-		    		
-				    	<h2 style="margin:100px 0 0 50px;">|어제 오늘 판매량 비교</h2>
-			      		     <div id="dual_x_div" style="width: 300px; height: 200px;"></div>
+			  <!--막대 그래프  -->     
 			      		     
 			      	</div>
 			      	<div class="s_graph">	     
-			      		<h2 style="margin:100px 0 0 50px;">|총 판매율</h2>
-			      		      <div id="donutchart" style="width: 700px; height: 450px;"></div>
+			      			<h2 style="margin:40px 0 100px 50px;">|어제 오늘 판매량 비교</h2>
+			      		 <div id="dual_x_div" style="width: 300px; height: 200px;"></div>
 			      	</div>	      
 	      		</div>        		
 	      		    
@@ -481,7 +484,7 @@
         },
         bars: 'horizontal', // Required for Material Bar Charts.
         backgroundColor: '#f7f7f7',
-        colors:['#8fa691']
+        colors:['#ac99c1']
       };
     var chart = new google.charts.Bar(document.getElementById('dual_x_div'));
     chart.draw(data, options);
