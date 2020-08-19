@@ -88,25 +88,25 @@ img.flip {
         <div class="aa">
             <div class="a">
              
-            <img src="/resources/images/LeeKW.png">
+            <img src="/resources/images/leekw.png">
             </div>
         
        
             <div class="a">
-                <img src="/resources/images/LeeDW.png">   
+                <img src="/resources/images/leedw.png">   
             </div>   
      
             <div class="a">
-                <img src="/resources/images/WonCR.png">
+                <img src="/resources/images/Woncr2.png">
             </div>
        
             <div class="a">
-                <img src="/resources/images/ChoSE.png">
+                <img src="/resources/images/chose.png">
             
             </div>
        
             <div class="a">
-                <img src="/resources/images/JuJE.png"> 
+                <img src="/resources/images/juje.png"> 
             
             </div>
 
