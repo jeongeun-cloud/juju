@@ -34,7 +34,7 @@
     /* 테이블 */
        table {
 		border-collapse: collapse;
-		width: 100%;
+		width: 110%;
         margin-top: 30px;
         margin-bottom:30px;
 		}
@@ -206,11 +206,11 @@
                 <!-- END NAV -->
                 
                 
-                <div class="mainContent">
+     <div class="mainContent">
  		         <div class="title">
                    <h3>배송준비중</h3>
                    <p>배송을 해주세요.</p>
-                </div>
+                 </div>
                 
                 
       <div class="q_btn">                           
@@ -218,6 +218,7 @@
    			 <input class="quick_btn" type="button" value="배송준비중보기" onClick="location.href='/shop/shipping'">
    			 <input class="quick_btn" type="button" value="환불요청보기" onClick="location.href='/shop/refund'">
       </div>  
+      
 		           <form id='searchForm' action="/shop/shipping" method = 'get'>  
 				         
 				         <div class="ss">
@@ -244,15 +245,15 @@
 							    <input type="hidden"  name ='amount' value='${pageMaker.cri.amount}'>
 							    <button class='s_btn' id="searchBtn"> 검색 </button> 
 		             			<button class="s_btn" type ='reset'> 초기화 </button>  
-		                  </div>
+		                  
 		          </form>
 		          
            		 <br> 
 
+				
+       
 
-        <div>
-
-		           <input type="button" class='stat_btn' id="shippingBtn" value='배송처리'>
+		       <input type="button" class='stat_btn' id="shippingBtn" value='배송처리'> 
 		            
 		              <table tit aria-setsize="500px" id ="hazy">
 		                  <thead>
@@ -296,7 +297,7 @@
 		               </c:forEach>
 		             </table>
        
-         		</div>  
+         		
  
                <div class='pull-right'>
 		               		<ul class="shippingpaging">
@@ -317,8 +318,10 @@
 					               </c:if>
 		            
 		            		</ul>
-		         </div><!-- endPaging -->
-             
+		         </div>
+		         <!-- endPaging -->
+             </div> 
+         	<!--mainContent  --> 
              
              <!--송장처리 form -->
 	          <form id ='shippingForm'  action="/shop/shipping" method="post">
@@ -336,16 +339,16 @@
               
 		   
          
-         <form id='actionForm' action="/shop/shipping" method='get'>
-            <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
-            <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
-       		<input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
-            <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
-            <input  type='hidden' name='date1' value = '<c:out value="${pageMaker.cri.date1}"/>'>
-		    <input  type='hidden' name='date2' value = '<c:out value="${pageMaker.cri.date2}"/>'>
-
-          </form>
-        <!-- paging form end--> 
+	         <form id='actionForm' action="/shop/shipping" method='get'>
+	            <input type='hidden' name='pageNum' value = '${pageMaker.cri.pageNum}'>
+	            <input type='hidden' name='amount' value = '${pageMaker.cri.amount}'>
+	       		<input type='hidden' name='type' value = '<c:out value="${pageMaker.cri.type}"/>'>
+	            <input  type='hidden' name='keyword' value = '<c:out value="${pageMaker.cri.keyword}"/>'>
+	            <input  type='hidden' name='date1' value = '<c:out value="${pageMaker.cri.date1}"/>'>
+			    <input  type='hidden' name='date2' value = '<c:out value="${pageMaker.cri.date2}"/>'>
+	
+	          </form>
+	        <!-- paging form end--> 
            
 	   	</div>
 	</div>  
