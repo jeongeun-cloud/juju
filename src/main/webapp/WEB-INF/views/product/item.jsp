@@ -620,7 +620,7 @@ input[type=range] {
 }
 
 .star-rating-container {
-   background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6I0Q5OEUwNDt9PC9zdHlsZT48cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyLjgsMTEuOSAxNC43LDE3LjUgMTAsMTMuOCA1LjMsMTcuNSA3LjIsMTEuOSAyLjUsOC4xIDguMSw4LjEgMTAsMi41IDExLjksOC4xIDE3LjUsOC4xICIvPjwvc3ZnPg==");
+   background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIwIDIwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6I0U2RTZFNTt9PC9zdHlsZT48cG9seWdvbiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyLjgsMTEuOSAxNC43LDE3LjUgMTAsMTMuOCA1LjMsMTcuNSA3LjIsMTEuOSAyLjUsOC4xIDguMSw4LjEgMTAsMi41IDExLjksOC4xIDE3LjUsOC4xICIvPjwvc3ZnPg==");
    width: 198px;
    background-size: 40px 40px;
    height: 40px;
@@ -1234,9 +1234,9 @@ $(document).ready(function(){
       
                     str += "<ul><li class='left clearfix' data-replyNo ='"+list[i].replyNo+"' data-text='"+list[i].replyContent+"'>";
                     str += "<div class='header'><input type='hidden' class='primary-font' value='"+list[i].idNo+"'>";
-                    str += "<div class='emaile'><strong class='primary-font'>"+list[i].emailAccount+"</strong>";
+                    str += "<div class='emaile'><strong class='primary-font'>"+userId+"</strong>";
                     str += "<div><small class ='pull-right text-muted'>"+prdreplyService.displayTime(list[i].regDate)+"</div></small>" ;    
-                    str += "<div>"+'&nbsp&nbsp; >>>답글:'+"<pre class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
+                    str += "<div>"+'&nbsp&nbsp; >>> 답글:'+"<pre class='text' id='text' rows='5'>"+list[i].replyContent+"</pre>";
                     str += "<div id='reDiv"+i+"'><input type ='hidden' value='"+list[i].replyDepth+"'></input>";
                     str += '<button id="replybtn" class ="replybtn" style="display:none" >답글달기</button> <br></div></div></div>';
                      

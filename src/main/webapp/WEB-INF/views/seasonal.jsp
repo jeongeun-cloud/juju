@@ -316,7 +316,7 @@
 			max-width: 80%;
 			margin: 0;
 			/* margin-top: -6rem; */
-			left : 50%;
+			left : 60%;
 			font-weight: 900;
 			line-height: 1;
 			position: relative;
@@ -325,7 +325,7 @@
 		.slider-wrapper .slide .slide-txt {
 			position: relative;
 			display: block;
-			left : 50%;
+			left : 60%;
 			width: 90%;
 			margin-top: 6rem;
 		}
@@ -573,7 +573,7 @@
 		    <div class="slides-container">
 		      <div class="slide-wrapper">
 		        <div class="slide" data-order="1">
-		          <img src="/resources/images/reci1.png" alt="" />
+		          <img src="/resources/images/reci1.jpg" alt="" />
 		          <div class="slide-content">
 		            <!-- <h1>Discover</h1> -->
 		            <h2>재료 준비</h2>
@@ -589,12 +589,12 @@
 		          </div>
 		         </div>
 		        <div class="slide" data-order="2">
-		          <img src="/resources/images/reci2.PNG" alt="" />
+		          <img src="/resources/images/reci2.jpg" alt="" />
 		          <div class="slide-content">
 		            <!-- <h1>To do</h1> -->
 		            <h2>조리</h2>
 		            <div class="slide-txt">
-		              <p>5. 오래 익혀야 하는 감자를 제일 먼저 넣어주고, 다진마늘 2큰술도 넣어주세요.</p><br><br><br>
+		              <p>5. 오래 익혀야 하는 감자를 제일 먼저 넣어주고, 다진마늘 2큰술도 넣어주세요.</p><br><br>
 		              <p>6. 양파와 당근도 넣어줍니다.</p><br><br>
 		              <p>7. 국물이 끓어오르면 진간장 1국자 반을 과감하게 넣어주세요.</p><br><br>
 		              <p>8. 칼칼하게 매운맛을 내기 위해 고춧가루도 1국자 넣어줍니다.</p><br><br><br><br>
@@ -604,7 +604,7 @@
 		          </div>
 		         </div>
 		        <div class="slide" data-order="3">
-		          <img src="/resources/images/reci3.jpg" alt="" />
+		          <img src="/resources/images/reci5.jpg" alt="" />
 		          <div class="slide-content">
 		            <!-- <h1>Plan</h1> -->
 		            <h2>마무리</h2>
