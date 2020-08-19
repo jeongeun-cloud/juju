@@ -278,9 +278,9 @@
 		                     <td><c:out value="${list.itemNum }" /></td>  
 		                     <td><c:out value="${list.price }" /></td>  
 		              
-						<td><c:out value="${list.totalPrice}"/></td>
-		                      <td><c:out value="${list.receiver }" /></td>  
-		                        <td><c:out value="${list.receivContact }" /></td>  
+							<td><c:out value="${list.totalPrice}"/></td>
+		                    <td><c:out value="${list.receiver }" /></td>  
+		                   <td><c:out value="${list.receivContact }" /></td>  
 		                   <td><c:out value="${list.receivAddr }" /></td>
 
 		                   
