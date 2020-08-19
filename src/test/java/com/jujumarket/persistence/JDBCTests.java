@@ -27,7 +27,7 @@ public class JDBCTests {
       try(Connection con =
       DriverManager.getConnection(
             "jdbc:log4jdbc:oracle:thin:@jujumarket.ci9nhkthw056.ap-northeast-2.rds.amazonaws.com:1521:ORCL",
-            "admin", 
+            "admin",
             "juju1234")){
          log.info(con);
       }catch (Exception e) {
