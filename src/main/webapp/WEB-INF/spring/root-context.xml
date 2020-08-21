@@ -13,31 +13,6 @@
 
    <context:annotation-config></context:annotation-config>
    
-   <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-      <property name="driverClassName"
-         value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-      <property name="jdbcUrl"
-         value="jdbc:log4jdbc:oracle:thin:@jujumarket.ci9nhkthw056.ap-northeast-2.rds.amazonaws.com:1521:ORCL"></property>
-      <property name="username" value="admin"></property>
-      <property name="password" value="juju1234"></property>
-   </bean>
-
-
-   <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
-      destroy-method="close">
-      <constructor-arg ref="hikariConfig" />
-      <property name="maximumPoolSize" value="3"></property>
-   </bean>
-
-   <bean id="sqlSessionFactory"
-      class="org.mybatis.spring.SqlSessionFactoryBean">
-      <property name="dataSource" ref="dataSource"></property>
-   </bean>
-
-   <bean id="transactionManager"
-      class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-      <property name="dataSource" ref="dataSource"></property>
-   </bean>
 
    <tx:annotation-driven />
 
