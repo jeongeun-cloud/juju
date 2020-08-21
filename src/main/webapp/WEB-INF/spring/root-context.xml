@@ -17,9 +17,9 @@
       <property name="driverClassName"
          value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
       <property name="jdbcUrl"
-         value="jdbc:log4jdbc:oracle:thin:@jujumarket.ci9nhkthw056.ap-northeast-2.rds.amazonaws.com:1521:ORCL"></property>
-      <property name="username" value="admin"></property>
-      <property name="password" value="juju1234"></property>
+         value=""></property>
+      <property name="username" value=""></property>
+      <property name="password" value=""></property>
    </bean>
 
 
@@ -79,8 +79,8 @@
       <property value="465" name="port" />
       <!-- 회원가입 이메일 발송부분 -->
       <!-- 발송 이메일주소, password 설정  -->
-      <property value="jujumarket6@gmail.com" name="username" />
-      <property value="juju4321!" name="password" />
+      <property value="" name="username" />
+      <property value="" name="password" />
       <property value="utf-8" name="defaultEncoding" />
 
       <property name="javaMailProperties">
